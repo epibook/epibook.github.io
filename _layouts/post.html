@@ -1,20 +1,10 @@
 ---
-id: home
 layout: default
-title: Home
-description:
-    The website for EPI.
 ---
 
-<h2>Latest Post <i class="icon-double-angle-right"></i></h2>
+<h4>{{ page.date | date: "%d %B %Y" }}</h4>
 
-<h4>
-    <a href="{{ site.posts.first.url }}">
-        {{ site.posts.first.date | date: "%d %B %Y" }}
-    </a>
-</h4>
-
-{{ site.posts.first.content }}
+{{ content }}
 
 <div class="end">
     <span>
@@ -24,3 +14,4 @@ description:
         <a href="https://github.com/elementsofprogramminginterviews">GitHub</a>.
     </span>
 </div>
+

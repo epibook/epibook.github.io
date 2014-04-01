@@ -1,0 +1,19 @@
+div.content h5.links {
+    margin-bottom: 0;
+    clear: both;
+}
+
+div.content div.project {
+    border-bottom: 1px solid #dededc;
+    margin-bottom: 18px;
+}
+
+div.content div.project:before, div.content div.project:after {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+
+div.content div.project:after {
+    clear: both;
+}

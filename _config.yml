@@ -1,0 +1,17 @@
+safe: true
+highlighter: rouge
+permalink: pretty
+markdown: rdiscount
+
+title: Elements of Programming Interviews
+name: Elements of Programming Interviews companion website
+url: http://elementsofprogramminginterviews.com
+feed: /atom.xml
+
+author: EPI
+contact: elementsofprogramminginterviews@gmail.com
+
+css:
+    - /css/base.css
+    - /lib/font-awesome/css/font-awesome.min.css
+    - http://fonts.googleapis.com/css?family=Droid+Sans:400,700

@@ -1,0 +1,17 @@
+---
+layout: default
+title: Posts
+description:
+    A list of the articles written by the EPI authors Davis on the topic of interviewing
+    for software development positions.
+---
+
+<h2 id="posts">Posts <i class="icon-double-angle-right"></i></h2>
+<div class="posts">
+{% for post in site.posts %}
+   <span>{{ post.date | date: "%d %B %Y" }}</span> &mdash; <a href="{{ post.url }}">{{ post.title }}</a>
+    <p>
+       {{ post.description }}
+    </p>
+{% endfor %}
+</ul>
