@@ -24,3 +24,10 @@ Our deep love of programming
 ## Quality
 
 Best practices around things
+
+<!-- {{ site.data.members.foo }}
+
+Testing include: {% include test.ext %}
+
+![My helpful screenshot]({{ site.data.members.url }}/img/map.png)
+-->
