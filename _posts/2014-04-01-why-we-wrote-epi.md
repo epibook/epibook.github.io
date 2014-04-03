@@ -17,10 +17,10 @@ Here are some reasons why we wrote EPI:
 
 ## Our friends
 
-### Our passion
+### Our real passion
 
-Our love of programming
+Our deep love of programming
 
 ## Quality
 
-Best practices
+Best practices around things
