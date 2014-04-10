@@ -56,7 +56,7 @@ that gives us unparalleled insight into the job market.
 In addition to Google, some of the other places we have worked at include 
 Facebook, Microsoft, IBM, Qualcomm, and Synopsys, as well as a number of start-ups. 
 We have studied and taught at leading universities in the US (Berkeley, Texas) and 
-internationally (IIT Kanpur, National Tsun Hua University).
+internationally (IIT Kanpur, National Tsing Hua University).
 <p>
 
 <h2>Commitment to Excellence</h2>
