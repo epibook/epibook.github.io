@@ -1,0 +1,123 @@
+---
+layout: post
+title:  Why EPI?
+description:
+    Compelling reasons for EPI
+css:
+    - /lib/lightbox/css/lightbox.css
+js:
+    - //ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
+    - /lib/lightbox/js/lightbox.js
+---
+
+{{ page.title }}
+================
+
+<font color=red>
+Download the free EPI PDF sample, 
+which provides examples of EPI's organization, content,
+style, topics, and quality. Compare it with any competing
+book (many of which have a level of preview available at Amazon), and
+we're confident you'll choose EPI to take you to the next level.
+</font>
+
+We describe the key features that make EPI the book you should use
+to get a job at your dream company.
+
+<h2>Problem-driven approach</h2>
+EPI includes over 300 solved problems 
+representative of those asked at leading software companies. 
+<p>
+With the exception of approximately 20 design problems, the
+problems are designed to be codable in a 60 minute interview.
+<p>
+For many problems, at the end of its solution, 
+we describe a large number of variants. 
+<p>
+We include a hints section, which consists of 1-2 sentence 
+suggestions, similar to what your interviewer will give you when you are stuck.
+<p>
+
+<h2>Study guide</h2>
+
+We specify subsets of problems to solve and to review on based on the amount of time you
+can commit, ranging from a weekend hackathon (intense!), to an hour a day for a semester.
+<p>
+
+<h2>Insider's perspective</h2>
+
+All three of us successfully made it through the Google interview process, and went on to 
+work at Google, where, among other things, we interviewed candidates for our teams.
+<p>
+We have complementary backgrounds  (large company, startup, academia) 
+and have held multiple roles (individual contributor, tech lead, CTO, consultant, professor), 
+that gives us unparalleled insight into the job market.
+<p>
+In addition to Google, some of the other places we have worked at include 
+Facebook, Microsoft, IBM, Qualcomm, and Synopsys, as well as a number of start-ups. 
+We have studied and taught at leading universities in the US (Berkeley, Texas) and 
+internationally (IIT Kanpur, National Tsun Hua University).
+<p>
+
+<h2>Commitment to Excellence</h2>
+We have used best-in-class practices in the development of EPI: LaTeX for document
+preparation, GitHub for revision control, agile development, continuous integration, unit testing.
+<p>
+As a concrete example, we have close to 200 figures in our book. These
+were prepared using the TikZ extensions to LaTeX, which allow us to programmatically
+specify figures, leading to much clearer illustrations.
+<p>
+
+<h2>Downloadable code</h2>
+EPI solutions are mostly written in C++. (The programs illustrating concurrency
+are in Java.)
+<p>
+
+We have developed Java equivalents to the C++ programs. Both
+C++ and Java versions for all problems, including test cases,
+available through GitHub
+
+<h2>Preparation</h2>
+
+In a seperate chapter, we present a set of 14 data structure, algorithm, and design patterns - 
+useful general problem solving techniques that you can apply when you are stumped. We
+have suggestions on when and where to apply them, as well as examples illustrating their use.
+<p>
+
+We describe how to prepare for an interview, how to conduct yourself
+during the interview, and what to do afterwards. This review covers the
+technical (selecting variable names, memory management)
+as well as nontechnical (what to wear, what not to say).
+We present insights into
+the different company cultures, and how it impacts how you need to present yourself.
+<p>
+
+We give a brief account of interviewing from the interviewer's  perspective. 
+In addition to being useful to anyone interviewing, this is useful for any
+engineer conducting an interview.
+<p>
+
+
+<h2>Release 1.4</h2>
+
+We added roughly 60 new problems and 40 new variants
+Many of these are basic programming exercises ("reverse the sublist consisting of nodes L to U in a singly linked list"), but require careful coding to deal with corner-cases.
+<p>
+We retired the same number of problems.
+Most of the retired problems were more appropriate for quant interviews, i.e., very math oriented. We found that almost all of our readers are focused on software developer positions, and many were frustrated by the math problems.
+<p>
+Some other changes: 
+We reworded text in many places to it read easier.
+We added more details to a number of solutions. (For example, we start many solutions with brute-force solutions that we then refine into an optimum solution.)
+We give better algorithms for several of the original problems.
+Finally, we fixed many small typos and bugs. 
+
+
+{%comment%}
+
+{{ site.data.members.foo }}
+
+Testing include: {% include test.ext %}
+
+![My helpful screenshot]({{ site.data.members.url }}/img/map.png)
+{%endcomment%}
