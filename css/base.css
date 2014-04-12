@@ -57,7 +57,7 @@ div.container p {
 
 div.container a {
     color: #08C;
-    border-bottom: 1px dashed #dededc;
+    border-bottom: 2px solid #08C;
     text-decoration: none;
 }
 
@@ -357,6 +357,7 @@ div.end {
         padding: 10px 0;
         position: inherit;
     }
+
 
     div.side .paragraphs {
         display: none;

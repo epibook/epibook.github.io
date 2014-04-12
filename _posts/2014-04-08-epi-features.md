@@ -13,17 +13,6 @@ js:
 {{ page.title }}
 ================
 
-<font color=red>
-Download the free EPI PDF sample, 
-which provides examples of EPI's organization, content,
-style, topics, and quality. Compare it with any competing
-book (many of which have a level of preview available at Amazon), and
-we're confident you'll choose EPI to take you to the next level.
-</font>
-
-We describe the key features that make EPI the book you should use
-to get a job at your dream company.
-
 <h2>Problem-driven approach</h2>
 EPI includes over 300 solved problems 
 representative of those asked at leading software companies. 
@@ -38,11 +27,6 @@ We include a hints section, which consists of 1-2 sentence
 suggestions, similar to what your interviewer will give you when you are stuck.
 <p>
 
-<h2>Study guide</h2>
-
-We specify subsets of problems to solve and to review on based on the amount of time you
-can commit, ranging from a weekend hackathon (intense!), to an hour a day for a semester.
-<p>
 
 <h2>Insider's perspective</h2>
 
@@ -59,7 +43,13 @@ We have studied and taught at leading universities in the US (Berkeley, Texas) a
 internationally (IIT Kanpur, National Tsing Hua University).
 <p>
 
-<h2>Commitment to Excellence</h2>
+<h2>Study guide</h2>
+
+We specify subsets of problems to solve and to review on based on the amount of time you
+can commit, ranging from a weekend hackathon (intense!), to an hour a day for a semester.
+<p>
+
+<h2>Commitment to excellence</h2>
 We have used best-in-class practices in the development of EPI: LaTeX for document
 preparation, GitHub for revision control, agile development, continuous integration, unit testing.
 <p>
@@ -75,9 +65,9 @@ are in Java.)
 
 We have developed Java equivalents to the C++ programs. Both
 C++ and Java versions for all problems, including test cases,
-available through GitHub
+available from Google Code and GitHub.
 
-<h2>Preparation</h2>
+<h2>Nontechnical aspects of interviewing</h2>
 
 In a seperate chapter, we present a set of 14 data structure, algorithm, and design patterns - 
 useful general problem solving techniques that you can apply when you are stumped. We
@@ -96,21 +86,6 @@ We give a brief account of interviewing from the interviewer's  perspective.
 In addition to being useful to anyone interviewing, this is useful for any
 engineer conducting an interview.
 <p>
-
-
-<h2>Release 1.4</h2>
-
-We added roughly 60 new problems and 40 new variants
-Many of these are basic programming exercises ("reverse the sublist consisting of nodes L to U in a singly linked list"), but require careful coding to deal with corner-cases.
-<p>
-We retired the same number of problems.
-Most of the retired problems were more appropriate for quant interviews, i.e., very math oriented. We found that almost all of our readers are focused on software developer positions, and many were frustrated by the math problems.
-<p>
-Some other changes: 
-We reworded text in many places to it read easier.
-We added more details to a number of solutions. (For example, we start many solutions with brute-force solutions that we then refine into an optimum solution.)
-We give better algorithms for several of the original problems.
-Finally, we fixed many small typos and bugs. 
 
 
 {%comment%}
