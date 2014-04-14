@@ -57,7 +57,7 @@ div.container p {
 
 div.container a {
     color: #08C;
-    border-bottom: 1px dashed #dededc;
+    border-bottom: 2px solid #08C;
     text-decoration: none;
 }
 
@@ -86,7 +86,7 @@ div.side ul {
 
 div.side ul li {
     padding: 6px;
-    border-top: 1px solid #dededc;
+    border-top: 0px solid #dededc;
 }
 
 div.side ul li:first-child {
