@@ -2,7 +2,7 @@
 layout: post
 title:  Why EPI?
 description:
-    Compelling reasons for EPI
+    Key EPI features
 css:
     - /lib/lightbox/css/lightbox.css
 js:
@@ -26,6 +26,10 @@ we describe a large number of variants.
 We include a hints section, which consists of 1-2 sentence 
 suggestions, similar to what your interviewer will give you when you are stuck.
 <p>
+
+<ul>
+<li> minimal
+</ul>
 
 
 <h2>Insider's perspective</h2>
@@ -52,6 +56,7 @@ can commit, ranging from a weekend hackathon (intense!), to an hour a day for a 
 <h2>Commitment to excellence</h2>
 We have used best-in-class practices in the development of EPI: LaTeX for document
 preparation, GitHub for revision control, agile development, continuous integration, unit testing.
+<p>
 <p>
 As a concrete example, we have close to 200 figures in our book. These
 were prepared using the TikZ extensions to LaTeX, which allow us to programmatically
