@@ -32,7 +32,7 @@ suggestions, similar to what your interviewer will give you when you are stuck.
 </ul>
 
 
-<h2>Insider's perspective</h2>
+<h2>The inside story</h2>
 
 All three of us successfully made it through the Google interview process, and went on to 
 work at Google, where, among other things, we interviewed candidates for our teams.
@@ -63,14 +63,14 @@ were prepared using the TikZ extensions to LaTeX, which allow us to programmatic
 specify figures, leading to much clearer illustrations.
 <p>
 
-<h2>Downloadable code</h2>
+<h2>Tested programs</h2>
 EPI solutions are mostly written in C++. (The programs illustrating concurrency
 are in Java.)
 <p>
 
 We have developed Java equivalents to the C++ programs. Both
 C++ and Java versions for all problems, including test cases,
-available from Google Code and GitHub.
+available from Google Code and GitHub. See code link in the sidebar for details.
 
 <h2>Nontechnical aspects of interviewing</h2>
 
