@@ -27,10 +27,6 @@ We include a hints section, which consists of 1-2 sentence
 suggestions, similar to what your interviewer will give you when you are stuck.
 <p>
 
-<ul>
-<li> minimal
-</ul>
-
 
 <h2>The inside story</h2>
 
