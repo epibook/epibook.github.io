@@ -1,2 +1,4 @@
 foo: bar
 url: http://epibook.github.io/
+Cbaseurl: https://code.google.com/p/elements-of-programming-interviews/source/browse/trunk/
+javabaseurl: https://github.com/epibook/epibook.github.io/tree/master/solutions/java/src/main/java/com/epi/
