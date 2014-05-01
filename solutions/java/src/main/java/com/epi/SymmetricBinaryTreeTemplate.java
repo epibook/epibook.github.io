@@ -12,8 +12,8 @@ public class SymmetricBinaryTreeTemplate {
       return true;
     } else if (l != null && r != null) {
       return equals(l.getData(), r.getData())
-          && isSymmetricHelper(l.getLeft(), l.getRight())
-          && isSymmetricHelper(l.getRight(), l.getLeft());
+          && isSymmetricHelper(l.getLeft(), r.getRight())
+          && isSymmetricHelper(l.getRight(), r.getLeft());
     } else { // (l != null && r == null) || (l == null && r != null)
       return false;
     }
