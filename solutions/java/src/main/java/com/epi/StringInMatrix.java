@@ -90,7 +90,7 @@ public class StringInMatrix {
   }
 
   public static boolean match(int[][] A, List<Integer> S) {
-    HashSet<Tuple<Integer, Integer, Integer>> cache = new HashSet<Tuple<Integer, Integer, Integer>>();
+    HashSet<Tuple<Integer, Integer, Integer>> cache = new HashSet<>();
     for (int i = 0; i < A.length; ++i) {
       for (int j = 0; j < A[i].length; ++j) {
         if (matchHelper(A, S, cache, i, j, 0)) {

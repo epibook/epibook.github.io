@@ -45,12 +45,12 @@ public class BalancedBinaryTreeTemplate {
     root.setRight(new BinaryTree<Integer>());
     root.getRight().setLeft(new BinaryTree<Integer>());
     root.getRight().setRight(new BinaryTree<Integer>());
-    assert isBalancedBinaryTree(root);
+    assert(isBalancedBinaryTree(root));
     System.out.println(isBalancedBinaryTree(root));
     root = new BinaryTree<Integer>();
     root.setLeft(new BinaryTree<Integer>());
     root.getLeft().setLeft(new BinaryTree<Integer>());
-    assert isBalancedBinaryTree(root);
+    assert(!isBalancedBinaryTree(root));
     System.out.println(isBalancedBinaryTree(root));
   }
 }

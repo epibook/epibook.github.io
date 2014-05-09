@@ -21,7 +21,7 @@ public class ShortestUniquePrefix {
   public static class Trie {
     private static class TrieNode {
       private boolean isString = false;
-      private HashMap<Character, TrieNode> leaves = new HashMap<Character, TrieNode>();
+      private HashMap<Character, TrieNode> leaves = new HashMap<>();
 
       public boolean getIsString() {
         return isString;

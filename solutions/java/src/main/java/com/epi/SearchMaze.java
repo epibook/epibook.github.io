@@ -10,7 +10,6 @@ import java.util.Random;
  * @author translated from c++ by Blazheev Alexander
  */
 public class SearchMaze {
-  // @include
   public static class Coordinate {
     public int x, y;
 
@@ -46,6 +45,7 @@ public class SearchMaze {
     }
   }
 
+  // @include
   public static LinkedList<Coordinate> searchMaze(int[][] maze, Coordinate s,
       Coordinate e) {
     LinkedList<Coordinate> path = new LinkedList<Coordinate>();
@@ -86,7 +86,6 @@ public class SearchMaze {
     return cur.x >= 0 && cur.x < maze.length && cur.y >= 0
         && cur.y < maze[cur.x].length && maze[cur.x][cur.y] == 0;
   }
-
   // @exclude
 
   public static void main(String[] args) {

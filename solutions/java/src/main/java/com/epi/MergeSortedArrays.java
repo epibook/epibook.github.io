@@ -13,7 +13,7 @@ import com.epi.utils.Pair;
 public class MergeSortedArrays {
   // @include
   public static ArrayList<Integer> mergeArrays(List<List<Integer>> S) {
-    PriorityQueue<Pair<Integer, Integer>> minHeap = new PriorityQueue<Pair<Integer, Integer>>(
+    PriorityQueue<Pair<Integer, Integer>> minHeap = new PriorityQueue<>(
         11, new Comparator<Pair<Integer, Integer>>() {
           @Override
           public int compare(Pair<Integer, Integer> o1,

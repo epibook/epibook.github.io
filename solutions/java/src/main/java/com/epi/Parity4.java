@@ -8,9 +8,8 @@ public class Parity4 {
   // The LSB of FOUR_BIT_PARITY_LOOKUP_TABLE is the parity of 0,
   // next bit is parity of 1, followed by the parity of 2, etc.
 
-  private static final int K_FOUR_BIT_PARITY_LOOKUP_TABLE = 0x6996; // =
-
-  // 0b0110100110010110.
+  // 0b0110100110010110 = 0x6996.
+  private static final int K_FOUR_BIT_PARITY_LOOKUP_TABLE = 0x6996; 
 
   private static short fourBitParityLookup(int x) {
     return (short) (K_FOUR_BIT_PARITY_LOOKUP_TABLE >> x);

@@ -7,8 +7,9 @@ import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
  */
 public class SearchBSTFirstLargerK {
   // @include
-  public static <T extends Comparable<T>> BinaryTree<T> findFirstLargerKWithKExist(
-      BinaryTree<T> r, T k) {
+  public static <T extends Comparable<T>> BinaryTree<T>
+      findFirstLargerKWithKExist(BinaryTree<T> r, T k) {
+
     boolean foundK = false;
     BinaryTree<T> curr = r;
     BinaryTree<T> first = null;

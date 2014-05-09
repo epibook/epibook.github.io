@@ -5,7 +5,6 @@ package com.epi;
 
 import java.util.Random;
 
-//@include
 class CopyingPostingsList {
 
   // @include

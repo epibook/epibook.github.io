@@ -80,6 +80,7 @@ public class LineMostPoints {
     return maxCount;
   }
 
+  // @include
   private static Line findLineWithMostPoints(ArrayList<Point> P) {
     // Add all possible lines into hash table.
     HashMap<Line, HashSet<Point>> table = new HashMap<Line, HashSet<Point>>();
@@ -103,6 +104,7 @@ public class LineMostPoints {
       }
     }
 
+    //@exclude
     HashSet<Point> lineMaxPoints = Collections.max(table.values(),
         new Comparator<HashSet<Point>>() {
           @Override
@@ -120,9 +122,9 @@ public class LineMostPoints {
     int res = check(P);
     // cout << res << " " << lineMaxPoints.getSecond().size() << endl;
     assert (res == lineMaxPoints.size());
-    // @include
     // Return the line with most points have passed.
 
+    //@include
     return Collections.max(table.entrySet(),
         new Comparator<Map.Entry<Line, HashSet<Point>>>() {
           @Override
@@ -139,6 +141,7 @@ public class LineMostPoints {
           }
         }).getKey();
   }
+  //@exclude
 
   public static void main(String[] args) {
     Random rnd = new Random();

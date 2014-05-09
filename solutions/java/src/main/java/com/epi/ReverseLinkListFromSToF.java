@@ -14,8 +14,10 @@ public class ReverseLinkListFromSToF {
       return L;
     }
 
-    NodeT<Integer> preSPtr = findKthPtr(L, s - 1), sPtr = findKthPtr(L, s), fPtr = findKthPtr(
-        L, f), nextFPtr = findKthPtr(L, f + 1);
+    NodeT<Integer> preSPtr = findKthPtr(L, s - 1), 
+                   sPtr = findKthPtr(L, s), 
+                   fPtr = findKthPtr( L, f), 
+                   nextFPtr = findKthPtr(L, f + 1);
     // Breaks the links to form a list starting from sPtr to fPtr.
     if (preSPtr != null) {
       preSPtr.next = null;

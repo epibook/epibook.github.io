@@ -4,8 +4,8 @@ package com.epi;
 import java.util.ArrayList;
 import java.util.Collections;
 
-// @include
 public class IntersectSortedArrays2 {
+// @include
   public static ArrayList<Integer> intersect(ArrayList<Integer> A,
       ArrayList<Integer> B) {
     ArrayList<Integer> intersect = new ArrayList<Integer>();
@@ -17,5 +17,5 @@ public class IntersectSortedArrays2 {
     }
     return intersect;
   }
-}
 // @exclude
+}

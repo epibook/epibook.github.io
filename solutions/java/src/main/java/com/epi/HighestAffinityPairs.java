@@ -20,7 +20,7 @@ public class HighestAffinityPairs {
   // @include
   public static Pair<String, String> highestAffinityPair(InputStream ifs) {
     // Creates a mapping from pages to distinct users.
-    HashMap<String, Set<String>> pageUsersMap = new HashMap<String, Set<String>>();
+    HashMap<String, Set<String>> pageUsersMap = new HashMap<>();
     try {
       ObjectInputStream ois = new ObjectInputStream(ifs);
       while (true) {

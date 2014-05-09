@@ -60,7 +60,8 @@ public class LRUCache {
 
   public int lookupVal = 0;
   private int capacity;
-  private HashMap<Integer, Pair<LinkedList<Integer>.Node, Integer>> cache = new HashMap<Integer, Pair<LinkedList<Integer>.Node, Integer>>();
+  private HashMap<Integer, Pair<LinkedList<Integer>.Node, Integer>> 
+              cache = new HashMap<>();
   private LinkedList<Integer> data = new LinkedList<Integer>();
 
   // @exclude

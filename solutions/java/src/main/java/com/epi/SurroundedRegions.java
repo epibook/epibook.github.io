@@ -26,11 +26,8 @@ public class SurroundedRegions {
   private static void markRegionIfSurrounded(int i, int j,
       List<List<Character>> board, boolean[][] visited) {
     int dir[][] = new int[][] { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
-    List<Pair<Integer, Integer>> q = new ArrayList<Pair<Integer, Integer>>(); // uses
-                                                                              // it
-                                                                              // as
-                                                                              // an
-                                                                              // queue.
+    // Uses q as a queue.
+    List<Pair<Integer, Integer>> q = new ArrayList<Pair<Integer, Integer>>(); 
     q.add(new Pair<Integer, Integer>(i, j));
     visited[i][j] = true;
     boolean isSurrounded = true;

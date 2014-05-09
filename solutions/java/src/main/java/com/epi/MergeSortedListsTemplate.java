@@ -7,8 +7,8 @@ import java.util.Random;
 
 import com.epi.utils.Ref;
 
-//@include
 public class MergeSortedListsTemplate {
+//@include
   public static <T> void appendNode(Ref<Node<T>> head, Ref<Node<T>> tail,
       Ref<Node<T>> n) {
     if (head.value != null) {
@@ -49,6 +49,7 @@ public class MergeSortedListsTemplate {
 
     return sortedHead.value;
   }
+  // @exclude
 
   public static void main(String[] args) {
     Random rnd = new Random();
@@ -91,4 +92,3 @@ public class MergeSortedListsTemplate {
     }
   }
 }
-// @exclude

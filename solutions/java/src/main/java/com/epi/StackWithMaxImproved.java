@@ -11,7 +11,7 @@ public class StackWithMaxImproved {
   // @include
   public static class Stack<T extends Comparable<T>> {
     private LinkedList<T> s = new LinkedList<T>();
-    private LinkedList<Pair<T, Integer>> aux = new LinkedList<Pair<T, Integer>>();
+    private LinkedList<Pair<T, Integer>> aux = new LinkedList<>();
 
     public boolean empty() {
       return s.isEmpty();

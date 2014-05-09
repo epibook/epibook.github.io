@@ -13,7 +13,7 @@ public class AddingCredits {
   public static class ClientsCreditsInfo {
     private int offset = 0;
     private HashMap<String, Integer> credits = new HashMap<String, Integer>();
-    private TreeMap<Integer, Set<String>> inverseCredits = new TreeMap<Integer, Set<String>>();
+    private TreeMap<Integer, Set<String>> inverseCredits = new TreeMap<>();
 
     public boolean insert(String s, int c) {
       if (!credits.containsKey(s)) {

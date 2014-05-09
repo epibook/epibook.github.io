@@ -10,7 +10,7 @@ import com.epi.utils.Pair;
 public class TreeDiameter {
   // @include
   public static class TreeNode {
-    ArrayList<Pair<TreeNode, Double>> edges = new ArrayList<Pair<TreeNode, Double>>();
+    ArrayList<Pair<TreeNode, Double>> edges = new ArrayList<>();
   }
 
   public static double computeDiameter(TreeNode T) {

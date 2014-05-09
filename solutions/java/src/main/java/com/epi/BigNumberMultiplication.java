@@ -70,7 +70,9 @@ class BigInt {
     sign = s.charAt(0) == '-' ? -1 : 1;
     digits = new char[s.length() - (s.charAt(0) == '-' ? 1 : 0)];
 
-    for (int i = s.length() - 1, j = 0; i >= (s.charAt(0) == '-' ? 1 : 0); --i, ++j) {
+    for (int i = s.length() - 1, j = 0;
+         i >= (s.charAt(0) == '-' ? 1 : 0); 
+         --i, ++j) {
       if (Character.isDigit(s.charAt(i))) {
         digits[j] = (char) (s.charAt(i) - '0');
       }

@@ -7,10 +7,12 @@ package com.epi;
 class NodeT<T> {
   public T data;
   public NodeT<T> next;
+// @exclude
 
   public NodeT(T dt, NodeT<T> n) {
     data = dt;
     next = n;
   }
+// @include
 }
 // @exclude

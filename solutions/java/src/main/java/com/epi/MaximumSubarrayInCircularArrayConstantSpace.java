@@ -33,10 +33,9 @@ public class MaximumSubarrayInCircularArrayConstantSpace {
     for (int a : A) {
       accumulate += a;
     }
-    return Math.max(findOptimumSubarrayUsingComp(A, new MaxComparator()), // non-circular
-                                                                          // case.
-        accumulate - findOptimumSubarrayUsingComp(A, new MinComparator())); // circular
-                                                                            // case.
+    // Return the max of noncircular and circular cases.
+    return Math.max(findOptimumSubarrayUsingComp(A, new MaxComparator()), 
+        accumulate - findOptimumSubarrayUsingComp(A, new MinComparator())); 
   }
 
   private static int findOptimumSubarrayUsingComp(List<Integer> A,

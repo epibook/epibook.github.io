@@ -19,8 +19,9 @@ public class RebuildBSTPreorderBetter {
         Collections.min(preorder), Collections.max(preorder));
   }
 
-  private static <T extends Comparable<T>> BinaryTree<T> rebuildBSFromPreorderHelper(
-      List<T> preorder, Ref<Integer> idx, T min, T max) {
+  private static <T extends Comparable<T>> BinaryTree<T> 
+      rebuildBSFromPreorderHelper(
+          List<T> preorder, Ref<Integer> idx, T min, T max) {
     if (idx.value == preorder.size()) {
       return null;
     }

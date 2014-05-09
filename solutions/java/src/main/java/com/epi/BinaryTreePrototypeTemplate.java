@@ -8,6 +8,7 @@ public class BinaryTreePrototypeTemplate {
   public static class BinaryTree<T> {
     private T data;
     private BinaryTree<T> left, right;
+    // @exclude
 
     public BinaryTree() {
     }
@@ -70,5 +71,7 @@ public class BinaryTreePrototypeTemplate {
       return true;
     }
   }
-  // @exclude
+  // @include
 }
+// @exclude
+

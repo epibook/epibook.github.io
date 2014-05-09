@@ -17,7 +17,8 @@ public class Parity3 {
   public static short parity3(long x) {
     return (short) (precomputedParity[(int) ((x >> 48) & 0xFFFF)]
         ^ precomputedParity[(int) ((x >> 32) & 0xFFFF)]
-        ^ precomputedParity[(int) ((x >> 16) & 0xFFFF)] ^ precomputedParity[(int) (x & 0xFFFF)]);
+        ^ precomputedParity[(int) ((x >> 16) & 0xFFFF)] 
+        ^ precomputedParity[(int) (x & 0xFFFF)]);
   }
   // @exclude
 }

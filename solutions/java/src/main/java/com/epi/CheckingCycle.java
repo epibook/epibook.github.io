@@ -3,8 +3,8 @@
 
 package com.epi;
 
-// @include
 class CheckingCycle {
+// @include
   public static <T> Node<T> hasCycle(Node<T> head) {
     Node<T> fast = head;
     Node<T> slow = head;
@@ -38,6 +38,7 @@ class CheckingCycle {
     }
     return null; // no cycle.
   }
+// @exclude
 
   public static void main(String[] args) {
     Node<Integer> l3 = new Node<Integer>(3, null);
@@ -63,4 +64,3 @@ class CheckingCycle {
     }
   }
 }
-// @exclude

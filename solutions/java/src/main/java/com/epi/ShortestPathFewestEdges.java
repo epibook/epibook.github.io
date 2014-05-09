@@ -15,7 +15,7 @@ public class ShortestPathFewestEdges {
     // distance stores (dis, #edges) pair.
     public Pair<Integer, Integer> distance = new Pair<Integer, Integer>(
         Integer.MAX_VALUE, 0);
-    public ArrayList<Pair<GraphVertex, Integer>> edges = new ArrayList<Pair<GraphVertex, Integer>>();
+    public ArrayList<Pair<GraphVertex, Integer>> edges = new ArrayList<>();
     public int id; // the id of this vertex.
     public GraphVertex pred = null; // the predecessor in the shortest path.
 
@@ -48,8 +48,8 @@ public class ShortestPathFewestEdges {
         int vDistance = u.distance.getFirst() + v.getSecond();
         int vNumEdges = u.distance.getSecond() + 1;
         if (v.getFirst().distance.getFirst() > vDistance
-            || (v.getFirst().distance.getFirst() == vDistance && v.getFirst().distance
-                .getSecond() > vNumEdges)) {
+                || (v.getFirst().distance.getFirst() == vDistance 
+                        && v.getFirst().distance.getSecond() > vNumEdges)) {
           nodeSet.remove(v.getFirst());
           v.getFirst().pred = u;
           v.getFirst().distance = new Pair<Integer, Integer>(vDistance,

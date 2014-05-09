@@ -16,12 +16,12 @@ import com.epi.utils.Pair;
  */
 public class ViewSunset {
   // @include
-  public static <T extends Comparable<T>> LinkedList<Pair<Integer, T>> examineBuildingsWithSunset(
-      InputStream sin) {
+  public static <T extends Comparable<T>> LinkedList<Pair<Integer, T>> 
+      examineBuildingsWithSunset( InputStream sin) {
     int idx = 0; // building's index.
     T height;
     // Stores (building_idx, building_height) pair with sunset views.
-    LinkedList<Pair<Integer, T>> buildingsWithSunset = new LinkedList<Pair<Integer, T>>();
+    LinkedList<Pair<Integer, T>> buildingsWithSunset = new LinkedList<>();
     try {
       ObjectInputStream osin = new ObjectInputStream(sin);
       while (true) {

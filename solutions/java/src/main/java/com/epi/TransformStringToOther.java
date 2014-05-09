@@ -23,7 +23,7 @@ public class TransformStringToOther {
   // @include
   // Use BFS to find the least steps of transformation.
   public static int transformString(Set<String> D, String s, String t) {
-    LinkedList<Pair<String, Integer>> q = new LinkedList<Pair<String, Integer>>();
+    LinkedList<Pair<String, Integer>> q = new LinkedList<>();
     D.remove(s); // mark s as visited by erasing it in D.
     q.push(new Pair<String, Integer>(s, 0));
 

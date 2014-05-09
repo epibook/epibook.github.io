@@ -17,7 +17,7 @@ class SmallestSubarrayCoveringSetStream {
                                                          // occurrence (index)
                                                          // of each string in
                                                          // Q.
-    HashMap<String, LinkedList<Integer>.Node> dict = new HashMap<String, LinkedList<Integer>.Node>();
+    HashMap<String, LinkedList<Integer>.Node> dict = new HashMap<>();
     for (String s : Q) {
       dict.put(s, null);
     }

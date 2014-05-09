@@ -35,7 +35,7 @@ public class AverageTop3Scores {
 
   // @include
   public static String findStudentWithTop3AverageScores(InputStream ifs) {
-    Map<String, TreeSet<UniqueInteger>> studentScores = new HashMap<String, TreeSet<UniqueInteger>>();
+    Map<String, TreeSet<UniqueInteger>> studentScores = new HashMap<>();
     try {
       long sequence = 0;
       ObjectInputStream ois = new ObjectInputStream(ifs);

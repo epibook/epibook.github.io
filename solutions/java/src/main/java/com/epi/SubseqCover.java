@@ -40,8 +40,9 @@ class SubseqCover {
       K.put(Q.get(i), i);
     }
 
-    Pair<Integer, Integer> res = new Pair<Integer, Integer>(-1, A.size()); // default
-                                                                           // value.
+    // Default value of -1.
+    Pair<Integer, Integer> res = new Pair<Integer, Integer>(-1, A.size()); 
+
     for (int i = 0; i < A.size(); ++i) {
       Integer it = K.get(A.get(i));
       if (it != null) {

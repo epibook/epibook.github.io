@@ -15,8 +15,8 @@ public class BiggestProductNMinus1 {
   // @include
   static int findBiggestProductNMinus1(List<Integer> A) {
     // Build forward product L, and backward product R.
-    List<Integer> L = new ArrayList<Integer>(A.size()), R = new ArrayList<Integer>(
-        A.size());
+    List<Integer> L = new ArrayList<Integer>(A.size()); 
+    List<Integer> R = new ArrayList<Integer>(A.size());
     fill(L, A.size(), 0);
     fill(R, A.size(), 0);
     partialSum(A.iterator(), L.listIterator(), BinaryOperators.MULTIPLIES);

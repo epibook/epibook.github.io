@@ -29,8 +29,8 @@ public class ReconstructAlmostBst {
     }
 
     reconstructBSTHelper(root.getLeft(), p1, p2, prev);
-    if (prev.value != null && prev.value.getData() > root.getData()) { // finds
-                                                                       // inversion.
+    // finds inversion.
+    if (prev.value != null && prev.value.getData() > root.getData()) {
       p2.value = root; // assigns p2 as the current node.
       if (p1.value == null) {
         p1.value = prev.value; // assigns p1 as th first node.

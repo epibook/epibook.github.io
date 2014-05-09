@@ -16,7 +16,6 @@ import java.util.Random;
  * @author translated from c++ by Blazheev Alexander
  */
 public class ClosestStars {
-  // @include
   public static class Star implements Comparable<Star>, Serializable {
     private int id;
     private double x, y, z;
@@ -73,6 +72,7 @@ public class ClosestStars {
     }
   }
 
+  // @include
   public static ArrayList<Star> findClosestKStars(InputStream sin, int k) {
     // Use maxHeap to find the closest k stars.
     PriorityQueue<Star> maxHeap = new PriorityQueue<Star>();

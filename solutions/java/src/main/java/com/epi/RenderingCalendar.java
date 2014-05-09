@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-// @include
 class TInterval {
   int start, finish;
 }
@@ -38,6 +37,7 @@ class TEndpoint implements Comparable<TEndpoint> {
 }
 
 class RenderingCalendar {
+// @include
   public static int findMaxConcurrentEvents(ArrayList<TInterval> A) {
     // Build the TEndpoint array.
     ArrayList<TEndpoint> E = new ArrayList<TEndpoint>();
@@ -59,8 +59,7 @@ class RenderingCalendar {
     }
     return maxCount;
   }
-
-  // @exclude
+// @exclude
 
   public static void main(String[] args) {
     Random gen = new Random();

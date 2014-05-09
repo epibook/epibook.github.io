@@ -17,7 +17,8 @@ public class ExteriorBinaryTreeTemplate {
     }
   }
 
-  private static <T> void rightBoundaryBTree(BinaryTree<T> n, boolean isBoundary) {
+  private static <T> void rightBoundaryBTree(
+      BinaryTree<T> n, boolean isBoundary) {
     if (n != null) {
       rightBoundaryBTree(n.getLeft(), isBoundary && n.getRight() == null);
       rightBoundaryBTree(n.getRight(), isBoundary);

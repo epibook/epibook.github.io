@@ -28,7 +28,7 @@ public class CloneGraph {
       return null;
     }
 
-    Map<GraphVertex, GraphVertex> vertexMap = new HashMap<GraphVertex, GraphVertex>();
+    Map<GraphVertex, GraphVertex> vertexMap = new HashMap<>();
     LinkedList<GraphVertex> q = new LinkedList<GraphVertex>();
     q.addLast(g);
     vertexMap.put(g, new GraphVertex(g.label));

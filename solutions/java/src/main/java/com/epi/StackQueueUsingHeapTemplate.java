@@ -19,7 +19,7 @@ public class StackQueueUsingHeapTemplate {
 
   public static class Stack<T> {
     private int order = 0;
-    private PriorityQueue<Pair<Integer, T>> H = new PriorityQueue<Pair<Integer, T>>(
+    private PriorityQueue<Pair<Integer, T>> H = new PriorityQueue<>(
         11, new Compare<T>());
 
     public void push(T x) {
@@ -37,7 +37,7 @@ public class StackQueueUsingHeapTemplate {
 
   public static class Queue<T> {
     private int order = 0;
-    private PriorityQueue<Pair<Integer, T>> H = new PriorityQueue<Pair<Integer, T>>(
+    private PriorityQueue<Pair<Integer, T>> H = new PriorityQueue<>(
         11, new Compare<T>());
 
     public void enqueue(T x) {

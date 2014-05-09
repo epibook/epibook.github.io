@@ -3,8 +3,8 @@
 
 package com.epi;
 
-// @include
 class CheckingCycleAlternative {
+// @include
   public static <T> Node<T> hasCycle(Node<T> head) {
     Node<T> fast = head;
     Node<T> slow = head;

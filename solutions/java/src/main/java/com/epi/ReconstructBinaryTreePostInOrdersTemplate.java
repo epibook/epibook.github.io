@@ -15,7 +15,8 @@ import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 public class ReconstructBinaryTreePostInOrdersTemplate {
   // @include
   private static <T> BinaryTree<T> reconstructPostInOrdersHelper(
-      ArrayList<T> post, int postS, int postE, ArrayList<T> in, int inS, int inE) {
+      ArrayList<T> post, int postS, int postE, ArrayList<T> in, 
+          int inS, int inE) {
     if (postE > postS && inE > inS) {
       int it = in.subList(inS, inE).indexOf(post.get(postE - 1));
       it = it < 0 ? inE : (it + inS);

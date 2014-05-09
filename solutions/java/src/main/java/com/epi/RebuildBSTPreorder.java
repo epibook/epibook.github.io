@@ -17,8 +17,8 @@ public class RebuildBSTPreorder {
   }
 
   // Build a BST based on preorder[s : e - 1], return its root.
-  private static <T extends Comparable<T>> BinaryTree<T> rebuildBSTFromPreorderHelper(
-      List<T> preorder, int s, int e) {
+  private static <T extends Comparable<T>> BinaryTree<T> 
+      rebuildBSTFromPreorderHelper(List<T> preorder, int s, int e) {
     if (s < e) {
       int x = s + 1;
       while (x < e && preorder.get(x).compareTo(preorder.get(s)) < 0) {

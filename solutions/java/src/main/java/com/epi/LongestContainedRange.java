@@ -75,7 +75,8 @@ public class LongestContainedRange {
   }
 
   // @include
-  public static Pair<Integer, Integer> findLongestContainedRange(List<Integer> A) {
+  public static Pair<Integer, Integer> 
+      findLongestContainedRange(List<Integer> A) {
     // S records the existence of each entry in A.
     Set<Integer> S = new HashSet<Integer>();
     for (int a : A) {

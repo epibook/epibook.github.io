@@ -50,9 +50,11 @@ class UnionIntervals {
 
     for (int i = 1; i < I.size(); ++i) {
       if (I.get(i).left.val < curr.right.val
-          || (I.get(i).left.val == curr.right.val && (I.get(i).left.isClose || curr.right.isClose))) {
+          || (I.get(i).left.val == curr.right.val 
+                 && (I.get(i).left.isClose || curr.right.isClose))) {
         if (I.get(i).right.val > curr.right.val
-            || (I.get(i).right.val == curr.right.val && I.get(i).right.isClose)) {
+            || (I.get(i).right.val == curr.right.val 
+                   && I.get(i).right.isClose)) {
           curr.right = I.get(i).right;
         }
       } else {

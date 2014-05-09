@@ -14,7 +14,7 @@ class Anagrams {
   // @include
   public static void findAnagrams(ArrayList<String> dictionary) {
     // Get the sorted string and then insert into hash table.
-    HashMap<String, ArrayList<String>> hash = new HashMap<String, ArrayList<String>>();
+    HashMap<String, ArrayList<String>> hash = new HashMap<>();
     for (String s : dictionary) {
       char[] sortedCa = s.toCharArray();
       // Use sorted string as the hash code.

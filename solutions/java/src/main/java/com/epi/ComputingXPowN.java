@@ -16,7 +16,7 @@ public class ComputingXPowN {
       return Arrays.asList(1);
     }
 
-    LinkedList<ArrayList<Integer>> expLists = new LinkedList<ArrayList<Integer>>();
+    LinkedList<ArrayList<Integer>> expLists = new LinkedList<>();
     expLists.addLast(new ArrayList<Integer>() {
       {
         add(1);

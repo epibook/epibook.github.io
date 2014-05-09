@@ -23,11 +23,10 @@ public class Triangle {
         currRow.set(j,
             currRow.get(j) + Math.min(prevRow.get(j - 1), prevRow.get(j)));
       }
+      // for the last element
       currRow.set(currRow.size() - 1,
-          currRow.get(currRow.size() - 1) + prevRow.get(prevRow.size() - 1)); // for
-                                                                              // the
-                                                                              // last
-                                                                              // element.
+          currRow.get(currRow.size() - 1) + prevRow.get(prevRow.size() - 1));
+
       prevRow = currRow; // swaps the contents of prevRow and currRow.
     }
     return Collections.min(prevRow);
