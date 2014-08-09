@@ -1,6 +1,7 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -9,34 +10,29 @@ import java.util.Random;
 public class ComputingBinomialCoefficients {
   // @include
   public static int computeBinomialCoefficients(int n, int k) {
-    int[][] table = new int[n + 1][k + 1];
-    // Basic case: C(i, 0) = 1.
-    for (int i = 0; i <= n; ++i) {
-      table[i][0] = 1;
+    int[] table = new int[k + 1];
+    for (int j = 0; j < k + 1; ++j) {
+      table[j] = 0;
     }
-    // Basic case: C(i, i) = 1.
-    for (int i = 1; i <= k; ++i) {
-      table[i][i] = 1;
-    }
-
+    table[0] = 1;  // C(0, 0).
     // C(i, j) = C(i - 1, j) + C(i - 1, j - 1).
-    for (int i = 2; i <= n; ++i) {
-      for (int j = 1; j < i && j <= k; ++j) {
-        table[i][j] = table[i - 1][j] + table[i - 1][j - 1];
+    for (int i = 1; i <= n; ++i) {
+      for (int j = Math.min(i, k); j >= 1; --j) {
+        table[j] = table[j] + table[j - 1];
       }
+      table[0] = 1; // One way to select zero element.
     }
-    return table[n][k];
+    return table[k];
   }
-
   // @exclude
 
   private static int checkAns(int n, int k) {
-    ArrayList<Integer> number = new ArrayList<Integer>();
+    List<Integer> number = new ArrayList<>();
     for (int i = 0; i < k; ++i) {
       number.add(n - i);
     }
 
-    ArrayList<Integer> temp = new ArrayList<Integer>();
+    List<Integer> temp = new ArrayList<>();
     for (int i = 2; i <= k; ++i) {
       boolean find = false;
       for (int j = 0; j < number.size(); j++) {

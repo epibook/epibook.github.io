@@ -12,26 +12,26 @@ public class PascalTriangle1 {
       return Collections.emptyList();
     }
 
-    List<Integer> prevRow = new ArrayList<Integer>();
+    List<Integer> prevRow = new ArrayList<>();
     prevRow.add(1);
-    List<List<Integer>> result = new ArrayList<List<Integer>>();
+    List<List<Integer>> result = new ArrayList<>();
     result.add(prevRow);
     for (int i = 1; i < n; ++i) {
-      List<Integer> currRow = new ArrayList<Integer>();
-      currRow.add(1); // for the first element.
+      List<Integer> currRow = new ArrayList<>();
+      currRow.add(1); // For the first element.
       for (int j = 1; j < i; ++j) {
+        // Set this entry to the sum of the two above adjacent entries.
         currRow.add(prevRow.get(j - 1) + prevRow.get(j));
       }
-      currRow.add(1); // for the last element.
-      List<Integer> temp = prevRow; // swaps the contents of prevRow and
-                                    // currRow.
+      currRow.add(1); // For the last element.
+      // Swaps the contents of prevRow and currRow.
+      List<Integer> temp = prevRow;
       prevRow = currRow;
       currRow = temp;
       result.add(prevRow);
     }
     return result;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -43,10 +43,10 @@ public class PascalTriangle1 {
       n = r.nextInt(11);
     }
     System.out.println("n = " + n);
-    List<List<Integer>> res = generatePascalTriangle(n);
-    for (int i = 0; i < res.size(); ++i) {
-      for (int j = 0; j < res.get(i).size(); ++j) {
-        System.out.print(res.get(i).get(j) + " ");
+    List<List<Integer>> result = generatePascalTriangle(n);
+    for (List<Integer> re : result) {
+      for (Integer aRe : re) {
+        System.out.print(aRe + " ");
       }
       System.out.println();
     }

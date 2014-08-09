@@ -5,8 +5,8 @@ package com.epi;
  */
 // @include
 public class BinarySearchTree<T> {
-    private T data;
-    private BinarySearchTree<T> left, right;
+  private T data;
+  private BinarySearchTree<T> left, right;
 // @exclude
 
   public BinarySearchTree(T data) {

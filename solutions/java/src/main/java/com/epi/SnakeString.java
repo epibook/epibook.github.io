@@ -6,19 +6,19 @@ public class SnakeString {
   // @include
   public static String snakeString(String s) {
     String ret = "";
-    // Processes the first row.
+    // Outputs the first row, i.e., s[1], s[5], s[9], ...
     int idx = 1;
     while (idx < s.length()) {
       ret += s.charAt(idx);
       idx += 4;
     }
-    // Processes the second row.
+    // Outputs the second row, i.e., s[0], s[2], s[4], ...
     idx = 0;
     while (idx < s.length()) {
       ret += s.charAt(idx);
       idx += 2;
     }
-    // Processes the third row.
+    // Outputs the third row, i.e., s[3], s[7], s[11], ...
     idx = 3;
     while (idx < s.length()) {
       ret += s.charAt(idx);
@@ -27,7 +27,6 @@ public class SnakeString {
 
     return ret;
   }
-
   // @exclude
 
   private static String randString(int len) {

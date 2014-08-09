@@ -1,10 +1,10 @@
 package com.epi;
 
+import com.epi.utils.Pair;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import com.epi.utils.Pair;
 
 public class SurroundedRegions {
   // @include
@@ -23,12 +23,13 @@ public class SurroundedRegions {
     }
   }
 
-  private static void markRegionIfSurrounded(int i, int j,
-      List<List<Character>> board, boolean[][] visited) {
-    int dir[][] = new int[][] { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
+  private static void
+  markRegionIfSurrounded(int i, int j,
+                         List<List<Character>> board, boolean[][] visited) {
+    int dir[][] = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
     // Uses q as a queue.
-    List<Pair<Integer, Integer>> q = new ArrayList<Pair<Integer, Integer>>(); 
-    q.add(new Pair<Integer, Integer>(i, j));
+    List<Pair<Integer, Integer>> q = new ArrayList<>();
+    q.add(new Pair<>(i, j));
     visited[i][j] = true;
     boolean isSurrounded = true;
     int idx = 0;
@@ -42,7 +43,7 @@ public class SurroundedRegions {
         isSurrounded = false;
       } else {
         for (int[] d : dir) {
-          Pair<Integer, Integer> next = new Pair<Integer, Integer>(
+          Pair<Integer, Integer> next = new Pair<>(
               curr.getFirst() + d[0], curr.getSecond() + d[1]);
           if (board.get(next.getFirst()).get(next.getSecond()) == 'W'
               && !visited[next.getFirst()][next.getSecond()]) {
@@ -60,7 +61,6 @@ public class SurroundedRegions {
       }
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -73,21 +73,21 @@ public class SurroundedRegions {
       n = r.nextInt(1000) + 1;
       m = r.nextInt(1000) + 1;
     }
-    List<List<Character>> board = new ArrayList<List<Character>>();
+    List<List<Character>> board = new ArrayList<>();
     for (int i = 0; i < n; i++) {
-      List<Character> row = new ArrayList<Character>();
+      List<Character> row = new ArrayList<>();
       for (int j = 0; j < m; j++) {
         row.add(r.nextBoolean() ? 'B' : 'W');
       }
       board.add(row);
     }
-    for (int i = 0; i < board.size(); ++i) {
-      System.out.println(board.get(i));
+    for (List<Character> aBoard1 : board) {
+      System.out.println(aBoard1);
     }
     fillSurroundedRegions(board);
     System.out.println();
-    for (int i = 0; i < board.size(); ++i) {
-      System.out.println(board.get(i));
+    for (List<Character> aBoard : board) {
+      System.out.println(aBoard);
     }
   }
 }

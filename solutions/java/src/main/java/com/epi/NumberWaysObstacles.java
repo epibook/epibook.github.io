@@ -1,6 +1,7 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -11,23 +12,22 @@ public class NumberWaysObstacles {
   // Given the dimensions of A, n and m, and B, return the number of ways
   // from A[0][0] to A[n - 1][m - 1] considering obstacles.
   public static int numberOfWaysWithObstacles(int n, int m,
-      ArrayList<ArrayList<Boolean>> B) {
+                                              List<List<Boolean>> B) {
     int[][] A = new int[n][m];
-    if (B.get(0).get(0)) { // no way to start from (0, 0) if B[0][0] == true.
+    if (B.get(0).get(0)) { // No way to start from (0, 0) if B[0][0] == true.
       return 0;
-    } else {
-      A[0][0] = 1;
     }
+
+    A[0][0] = 1;
     for (int i = 0; i < n; ++i) {
       for (int j = 0; j < m; ++j) {
-        if (B.get(i).get(j) == false) {
+        if (!B.get(i).get(j)) {
           A[i][j] += (i < 1 ? 0 : A[i - 1][j]) + (j < 1 ? 0 : A[i][j - 1]);
         }
       }
     }
     return A[n - 1][m - 1];
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -40,9 +40,9 @@ public class NumberWaysObstacles {
       n = r.nextInt(10) + 1;
       m = r.nextInt(10) + 1;
     }
-    ArrayList<ArrayList<Boolean>> B = new ArrayList<ArrayList<Boolean>>(n);
+    List<List<Boolean>> B = new ArrayList<>();
     for (int i = 0; i < n; i++) {
-      ArrayList<Boolean> last = new ArrayList<Boolean>(m);
+      List<Boolean> last = new ArrayList<>(m);
       B.add(last);
       for (int j = 0; j < m; j++) {
         last.add(r.nextInt(10) < 2);

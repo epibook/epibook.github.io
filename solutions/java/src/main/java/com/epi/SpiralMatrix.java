@@ -5,12 +5,12 @@ import java.util.Random;
 
 public class SpiralMatrix {
   // @include
-  static void printMatrixInSpiralOrder(int[][] A) {
+  public static void printMatrixInSpiralOrder(int[][] A) {
     int[][] shift = new int[4][2];
-    shift[0] = new int[] { 0, 1 };
-    shift[1] = new int[] { 1, 0 };
-    shift[2] = new int[] { 0, -1 };
-    shift[3] = new int[] { -1, 0 };
+    shift[0] = new int[]{0, 1};
+    shift[1] = new int[]{1, 0};
+    shift[2] = new int[]{0, -1};
+    shift[3] = new int[]{-1, 0};
     int dir = 0, x = 0, y = 0;
 
     for (int i = 0; i < A.length * A.length; ++i) {
@@ -27,7 +27,6 @@ public class SpiralMatrix {
       y = ny;
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {

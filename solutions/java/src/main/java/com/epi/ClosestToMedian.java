@@ -1,43 +1,25 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
  */
 public class ClosestToMedian {
-  private static <T> void nthElement(List<T> A, int n, Comparator<T> c) {
+  private static void nthElement(List<Integer> A, int n, Comparator<Integer> c) {
     Collections.sort(A, c);
   }
 
-  private static <T extends Comparable<T>> void nthElement(List<T> A, int n) {
-    nthElement(A, n, new Comparator<T>() {
+  private static void nthElement(List<Integer> A, int n) {
+    nthElement(A, n, new Comparator<Integer>() {
       @Override
-      public int compare(T o1, T o2) {
+      public int compare(Integer o1, Integer o2) {
         return o1.compareTo(o2);
       }
     });
   }
 
   // @include
-  // Promote to double to prevent precision error.
-  public static double findMedian(List<Integer> a) {
-    int half = a.size() >> 1;
-    nthElement(a, half);
-    if ((a.size() & 1) != 0) { // a has odd number elements.
-      return a.get(half);
-    } else { // a has even number elements.
-      int x = a.get(half);
-      nthElement(a, half - 1);
-      return 0.5 * (x + a.get(half - 1));
-    }
-  }
-
   public static List<Integer> findKClosestToMedian(List<Integer> a, int k) {
     // Find the element i where |a[i] - median| is k-th smallest.
     final double m = findMedian(a);
@@ -47,17 +29,29 @@ public class ClosestToMedian {
         return Double.valueOf(Math.abs(a - m)).compareTo(Math.abs(b - m));
       }
     });
-    return new ArrayList<Integer>(a.subList(0, k));
+    return new ArrayList<>(a.subList(0, k));
   }
 
+  // Promote the return value to double to prevent precision error.
+  public static double findMedian(List<Integer> a) {
+    int half = a.size() / 2;
+    nthElement(a, half);
+    if ((a.size() & 1) != 0) { // a has odd number elements.
+      return a.get(half);
+    } else { // a has even number elements.
+      int x = a.get(half);
+      nthElement(a, half - 1);
+      return 0.5 * (x + a.get(half - 1));
+    }
+  }
   // @exclude
 
   private static void checkAns(List<Integer> answer, List<Integer> res, int k) {
     Collections.sort(answer);
-    double median = ((answer.size() & 1) != 0) ? answer.get(answer.size() >> 1)
-        : 0.5 * (answer.get((answer.size() >> 1) - 1) + answer.get(answer
-            .size() >> 1));
-    ArrayList<Double> temp = new ArrayList<Double>();
+    double median = ((answer.size() & 1) != 0) ? answer.get(answer.size() / 2)
+        : 0.5 * (answer.get((answer.size() / 2) - 1) + answer.get(answer
+        .size() / 2));
+    List<Double> temp = new ArrayList<>();
     for (int a : answer) {
       temp.add(Math.abs(median - a));
     }
@@ -92,9 +86,9 @@ public class ClosestToMedian {
         n = r.nextInt(100000) + 1;
         k = r.nextInt(n) + 1;
       }
-      ArrayList<Integer> a = new ArrayList<Integer>();
+      List<Integer> a = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
-        a.add(r.nextInt(n << 1));
+        a.add(r.nextInt(n * 2));
       }
       // System.out.println(a);
       List<Integer> res = findKClosestToMedian(a, k);

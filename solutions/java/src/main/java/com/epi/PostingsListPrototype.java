@@ -2,7 +2,6 @@
 
 package com.epi;
 
-// @include
 class PNode<T> {
   public T data;
   public PNode<T> next, jump;
@@ -13,5 +12,3 @@ class PNode<T> {
     jump = j;
   }
 }
-// @exclude
-

@@ -5,6 +5,10 @@ package com.epi;
  */
 public class SearchPostingsListRecursive {
   // @include
+  public static void searchPostingsList(PostingListNode L) {
+    searchPostingsListHelper(L, 0);
+  }
+
   private static int searchPostingsListHelper(PostingListNode L, int order) {
     if (L != null && L.getOrder() == -1) {
       L.setOrder(order++);
@@ -13,11 +17,6 @@ public class SearchPostingsListRecursive {
     }
     return order;
   }
-
-  public static void searchPostingsList(PostingListNode L) {
-    searchPostingsListHelper(L, 0);
-  }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -35,12 +34,12 @@ public class SearchPostingsListRecursive {
 
     L.setJump(null); // no jump from 1
     L.getNext().setJump(L.getNext().getNext().getNext()); // 2's jump points to
-                                                          // 4
+    // 4
     L.getNext().getNext().setJump(L); // 3's jump points to 1
     L.getNext().getNext().getNext().setJump(null); // no jump from 4
     L.getNext().getNext().getNext().getNext()
         .setJump(L.getNext().getNext().getNext().getNext()); // 5's jump points
-                                                             // to 5
+    // to 5
     PostingListNode temp = L;
     searchPostingsList(L);
     // output the jump-first order, it should be 0, 1, 4, 2, 3

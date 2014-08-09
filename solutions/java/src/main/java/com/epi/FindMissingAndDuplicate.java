@@ -1,27 +1,25 @@
 package com.epi;
 
+import com.epi.utils.Pair;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import com.epi.utils.Pair;
 
 /**
  * @author translated from c++ by Blazheev Alexander
  */
 public class FindMissingAndDuplicate {
   // @include
-  // Return pair<int, int>(duplicate, missing).
+  // Returns Pair<int, int>(duplicate, missing).
   public static Pair<Integer, Integer> findDuplicateMissing(List<Integer> A) {
     int sum = 0, squareSum = 0;
     for (int i = 0; i < A.size(); ++i) {
       sum += i - A.get(i);
       squareSum += i * i - A.get(i) * A.get(i);
     }
-    return new Pair<Integer, Integer>((squareSum / sum - sum) >> 1, (squareSum
-        / sum + sum) >> 1);
+    return new Pair<>((squareSum / sum - sum) / 2, (squareSum / sum + sum) / 2);
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -33,7 +31,7 @@ public class FindMissingAndDuplicate {
       } else {
         n = r.nextInt(9999) + 2;
       }
-      ArrayList<Integer> A = new ArrayList<Integer>();
+      List<Integer> A = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
         A.add(i);
       }

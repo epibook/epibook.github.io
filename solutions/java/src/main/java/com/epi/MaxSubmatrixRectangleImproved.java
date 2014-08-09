@@ -1,11 +1,11 @@
 package com.epi;
 
-import static com.epi.LargestRectangleUnderSkyline.calculateLargestRectangle;
-import static com.epi.MaxSubmatrixRectangleBruteForce.maxRectangleSubmatrixBruteForce;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+
+import static com.epi.LargestRectangleUnderSkyline.calculateLargestRectangle;
+import static com.epi.MaxSubmatrixRectangleBruteForce.maxRectangleSubmatrixBruteForce;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -13,24 +13,18 @@ import java.util.Random;
 public class MaxSubmatrixRectangleImproved {
   // @include
   public static int maxRectangleSubmatrix(ArrayList<ArrayList<Boolean>> A) {
-    Integer[][] table = new Integer[A.size()][A.get(0).size()];
-
-    for (int i = A.size() - 1; i >= 0; --i) {
-      for (int j = A.get(i).size() - 1; j >= 0; --j) {
-        table[i][j] = A.get(i).get(j) ? i + 1 < A.size() ? table[i + 1][j] + 1
-            : 1 : 0;
-      }
-    }
-
-    // Find the max among all instances of the largest rectangle.
+    Integer[] table = new Integer[A.get(0).size()];
     int maxRectArea = 0;
-    for (Integer[] t : table) {
+    // Find the maximum among all instances of the largest rectangle.
+    for (int i = A.size() - 1; i >= 0; --i) {
+      for (int j = 0; j < A.get(i).size(); ++j) {
+        table[j] = A.get(i).get(j) ? i + 1 < A.size() ? table[j] + 1 : 1 : 0;
+      }
       maxRectArea = Math.max(maxRectArea,
-          calculateLargestRectangle(Arrays.asList(t)));
+                             calculateLargestRectangle(Arrays.asList(table)));
     }
     return maxRectArea;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -44,9 +38,9 @@ public class MaxSubmatrixRectangleImproved {
         n = r.nextInt(60) + 1;
         m = r.nextInt(60) + 1;
       }
-      ArrayList<ArrayList<Boolean>> A = new ArrayList<ArrayList<Boolean>>(n);
+      ArrayList<ArrayList<Boolean>> A = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
-        ArrayList<Boolean> last = new ArrayList<Boolean>(m);
+        ArrayList<Boolean> last = new ArrayList<>(m);
         A.add(last);
         for (int j = 0; j < m; ++j) {
           last.add(r.nextBoolean());

@@ -3,12 +3,7 @@
 
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 class SearchFrequentItems {
 
@@ -22,12 +17,12 @@ class SearchFrequentItems {
   }
 
   // @include
-  public static ArrayList<String> searchFrequentTtems(ArrayList<String> in,
-      int k) {
-    // Find the candidates which may occur >= n / k times.
-    String buf = new String();
-    HashMap<String, Integer> hash = new HashMap<String, Integer>();
-    int n = 0; // count the number of strings.
+  public static List<String> searchFrequentTtems(List<String> in,
+                                                 int k) {
+    // Finds the candidates which may occur >= n / k times.
+    String buf = "";
+    Map<String, Integer> hash = new HashMap<>();
+    int n = 0; // Counts the number of strings.
 
     Iterator<String> sin = in.iterator();
     while (sin.hasNext()) {
@@ -37,10 +32,8 @@ class SearchFrequentItems {
       // Detecting k + 1 items in hash, at least one of them must have exactly 1
       // in it. We will discard those k + 1 items by 1 for each.
       if (hash.size() == k + 1) {
-        ArrayList<String> delKeys = new ArrayList<String>();
-        Iterator<Map.Entry<String, Integer>> it = hash.entrySet().iterator();
-        while (it.hasNext()) {
-          Map.Entry<String, Integer> entry = it.next();
+        List<String> delKeys = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : hash.entrySet()) {
           if (entry.getValue() - 1 == 0) {
             delKeys.add(entry.getKey());
           }
@@ -55,12 +48,12 @@ class SearchFrequentItems {
       }
     }
 
-    // Reset hash for the following counting.
+    // Resets hash for the following counting.
     for (String it : hash.keySet()) {
       hash.put(it, 0);
     }
 
-    // Count the occurrence of each candidate word.
+    // Counts the occurrence of each candidate word.
     sin = in.iterator();
     while (sin.hasNext()) {
       buf = sin.next();
@@ -70,28 +63,27 @@ class SearchFrequentItems {
       }
     }
 
-    ArrayList<String> ret = new ArrayList<String>();
+    // Selects the word which occurs >= n / k times.
+    List<String> ret = new ArrayList<>();
     for (Map.Entry<String, Integer> it : hash.entrySet()) {
-      // Select the word which occurs >= n / k times.
-      if (new Double(it.getValue()) >= n * 1.0 / k) {
+      if (n * 1.0 / k <= (double) it.getValue()) {
         ret.add(it.getKey());
       }
     }
 
     return ret;
   }
-
   // @exclude
 
-  public static void checkAns(ArrayList<String> stream, int k,
-      ArrayList<String> items) {
+  public static void checkAns(List<String> stream, int k,
+                              List<String> items) {
     Collections.sort(stream);
     Collections.sort(items);
 
     int count = 1, idx = 0;
     for (int i = 1; i < stream.size(); ++i) {
       if (stream.get(i).compareTo(stream.get(i - 1)) != 0) {
-        if (new Double(count) >= 1.0 * stream.size() / k) {
+        if ((double) count >= 1.0 * stream.size() / k) {
           assert (idx < items.size());
           assert (stream.get(i - 1).compareTo(items.get(idx++)) == 0);
         }
@@ -100,7 +92,7 @@ class SearchFrequentItems {
         ++count;
       }
     }
-    if (new Double(count) >= 1.0 * stream.size() / k) {
+    if ((double) count >= 1.0 * stream.size() / k) {
       assert (stream.get(stream.size() - 1).compareTo(items.get(idx++)) == 0);
     }
     assert (idx == items.size());
@@ -110,7 +102,7 @@ class SearchFrequentItems {
     Random gen = new Random();
     for (int times = 0; times < 1000; ++times) {
       System.out.println(times);
-      ArrayList<String> stream = new ArrayList<String>();
+      List<String> stream = new ArrayList<>();
       int n, k;
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);
@@ -125,7 +117,7 @@ class SearchFrequentItems {
       for (int i = 0; i < n; ++i) {
         stream.add(randString(gen.nextInt(5) + 1));
       }
-      ArrayList<String> items = searchFrequentTtems(stream, k);
+      List<String> items = searchFrequentTtems(stream, k);
       checkAns(stream, k, items);
     }
   }

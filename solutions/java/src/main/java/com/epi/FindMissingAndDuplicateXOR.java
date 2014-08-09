@@ -1,17 +1,17 @@
 package com.epi;
 
+import com.epi.utils.Pair;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import com.epi.utils.Pair;
 
 /**
  * @author translated from c++ by Blazheev Alexander
  */
 public class FindMissingAndDuplicateXOR {
   // @include
-  // Return Pair<Integer, Integer>(duplicate, missing)
+  // Returns Pair<Integer, Integer>(duplicate, missing)
   public static Pair<Integer, Integer> findDuplicateMissing(List<Integer> A) {
     int missXORDup = 0;
     for (int i = 0; i < A.size(); ++i) {
@@ -34,14 +34,13 @@ public class FindMissingAndDuplicateXOR {
     }
 
     for (int ai : A) {
-      if (ai == missOrDup) { // find duplicate.
-        return new Pair<Integer, Integer>(missOrDup, missOrDup ^ missXORDup);
+      if (ai == missOrDup) { // Find duplicate.
+        return new Pair<>(missOrDup, missOrDup ^ missXORDup);
       }
     }
-    // missOrDup is missing element.
-    return new Pair<Integer, Integer>(missOrDup ^ missXORDup, missOrDup);
+    // missOrDup is the missing element.
+    return new Pair<>(missOrDup ^ missXORDup, missOrDup);
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -53,7 +52,7 @@ public class FindMissingAndDuplicateXOR {
       } else {
         n = r.nextInt(9999) + 2;
       }
-      ArrayList<Integer> A = new ArrayList<Integer>();
+      List<Integer> A = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
         A.add(i);
       }

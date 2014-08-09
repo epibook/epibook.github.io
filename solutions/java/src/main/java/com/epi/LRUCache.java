@@ -3,9 +3,10 @@
 
 package com.epi;
 
-import java.util.HashMap;
-
 import com.epi.utils.Pair;
+
+import java.util.HashMap;
+import java.util.Map;
 
 // @include
 public class LRUCache {
@@ -25,7 +26,7 @@ public class LRUCache {
     return true;
   }
 
-  void insert(int isbn, int price) {
+  public void insert(int isbn, int price) {
     Pair<LinkedList<Integer>.Node, Integer> it = cache.get(isbn);
     if (it != null) {
       moveToFront(isbn, it);
@@ -35,8 +36,9 @@ public class LRUCache {
         cache.remove(data.back());
       }
       cache.put(isbn,
-          new Pair<LinkedList<Integer>.Node, Integer>(data.pushFront(isbn),
-              price));
+          new Pair<>(data.pushFront(isbn),
+              price)
+      );
     }
   }
 
@@ -51,8 +53,9 @@ public class LRUCache {
     return true;
   }
 
-  // Move the most recent accessed item to the front.
-  void moveToFront(int isbn, Pair<LinkedList<Integer>.Node, Integer> it) {
+  // Moves the most recent accessed item to the front.
+  private void moveToFront(int isbn,
+                           Pair<LinkedList<Integer>.Node, Integer> it) {
     data.erase(it.getFirst());
     data.pushBack(isbn);
     it.setFirst(data.front());
@@ -60,10 +63,9 @@ public class LRUCache {
 
   public int lookupVal = 0;
   private int capacity;
-  private HashMap<Integer, Pair<LinkedList<Integer>.Node, Integer>> 
-              cache = new HashMap<>();
-  private LinkedList<Integer> data = new LinkedList<Integer>();
-
+  private Map<Integer, Pair<LinkedList<Integer>.Node, Integer>>
+      cache = new HashMap<>();
+  private LinkedList<Integer> data = new LinkedList<>();
   // @exclude
 
   public static void main(String[] args) {
@@ -80,5 +82,6 @@ public class LRUCache {
     c.erase(1);
     assert (!c.lookup(1));
   }
-
+  // @include
 }
+// @exclude

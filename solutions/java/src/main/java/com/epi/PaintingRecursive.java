@@ -4,7 +4,7 @@ package com.epi;
 import java.util.Random;
 
 public class PaintingRecursive {
-  static void printMatrix(boolean[][] A) {
+  private static void printMatrix(boolean[][] A) {
     for (boolean[] element : A) {
       for (int j = 0; j < A.length; ++j) {
         System.out.print(element[j] + " ");
@@ -14,13 +14,13 @@ public class PaintingRecursive {
   }
 
   // @include
-  static void flipColor(boolean[][] A, int x, int y) {
-    int[][] dir = new int[][] { new int[] { 0, 1 }, new int[] { 0, -1 },
-        { 1, 0 }, new int[] { -1, 0 } };
+  public static void flipColor(boolean[][] A, int x, int y) {
+    int[][] dir = new int[][]{new int[]{0, 1}, new int[]{0, -1},
+                              new int[]{1, 0}, new int[]{-1, 0}};
 
     boolean color = A[x][y];
 
-    A[x][y] = !A[x][y]; // flips.
+    A[x][y] = !A[x][y]; // Flips.
     for (int[] d : dir) {
       int nx = x + d[0], ny = y + d[1];
       if (nx >= 0 && nx < A.length && ny >= 0 && ny < A[nx].length
@@ -29,11 +29,9 @@ public class PaintingRecursive {
       }
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {
-
     int n;
     Random gen = new Random();
     if (args.length == 1) {

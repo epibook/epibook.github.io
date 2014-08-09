@@ -1,9 +1,9 @@
 package com.epi;
 
+import java.util.Random;
+
 import static java.lang.Math.floor;
 import static java.lang.Math.sqrt;
-
-import java.util.Random;
 
 public class Doors {
   // @include
@@ -12,7 +12,6 @@ public class Doors {
     int floorSqrtI = (int) floor(sqrtI);
     return floorSqrtI * floorSqrtI == i;
   }
-
   // @exclude
 
   static void checkAnswer(int n) {

@@ -11,20 +11,12 @@ import java.util.Random;
 public class JumpGame {
   // @include
   public static boolean canReach(final List<Integer> A) {
-    int step = 0, lastReach = 0, reach = 0;
-    for (int i = 0; i < A.size(); ++i) {
-      if (i > lastReach) {
-        if (lastReach == reach) {
-          return false;
-        }
-        lastReach = reach;
-        ++step;
-      }
-      reach = Math.max(reach, i + A.get(i));
+    int furthestReach = 0;
+    for (int i = 0; i <= furthestReach && furthestReach + 1 < A.size(); ++i) {
+      furthestReach = Math.max(furthestReach, i + A.get(i));
     }
-    return true;
+    return furthestReach + 1 >= A.size();
   }
-
   // @exclude
 
   private static void smallTest() {
@@ -49,7 +41,7 @@ public class JumpGame {
     } else {
       n = r.nextInt(1000) + 1;
     }
-    List<Integer> A = new ArrayList<Integer>();
+    List<Integer> A = new ArrayList<>();
     for (int i = 0; i < n; i++) {
       A.add(r.nextInt(10) + 1);
     }

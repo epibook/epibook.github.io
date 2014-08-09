@@ -23,7 +23,6 @@ public class GCD {
     }
     return elementaryGCD(x, y - x); // both x and y are odd, and x <= y.
   }
-
   // @exclude
 
   private static long anotherGCD(long a, long b) {

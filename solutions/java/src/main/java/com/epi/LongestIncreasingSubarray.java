@@ -1,23 +1,24 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
+import com.epi.utils.Pair;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import com.epi.utils.Pair;
-
 public class LongestIncreasingSubarray {
   // @include
-  static Pair<Integer, Integer> findLongestIncreasingSubarray(List<Integer> A) {
-    int maxLen = 1;
-    Pair<Integer, Integer> ans = new Pair<Integer, Integer>(0, 0);
+  public static Pair<Integer, Integer>
+      findLongestIncreasingSubarray(List<Integer> A) {
+    int maxLength = 1;
+    Pair<Integer, Integer> ans = new Pair<>(0, 0);
     int i = 0;
     while (i < A.size()) {
-      // Checks backwardly and skip if A[j] >= A[j + 1].
+      // Backward check and skip if A[j] >= A[j + 1].
       boolean isSkippable = false;
-      for (int j = i + maxLen - 1; j >= i; --j) {
+      for (int j = i + maxLength - 1; j >= i; --j) {
         if (j + 1 >= A.size() || A.get(j) >= A.get(j + 1)) {
           i = j + 1;
           isSkippable = true;
@@ -25,22 +26,21 @@ public class LongestIncreasingSubarray {
         }
       }
 
-      // Checks forwardly if it is not skippable.
-      if (isSkippable == false) {
-        i += maxLen - 1;
+      // Forward check if it is not skippable.
+      if (!isSkippable) {
+        i += maxLength - 1;
         while (i + 1 < A.size() && A.get(i) < A.get(i + 1)) {
           ++i;
-          ++maxLen;
+          ++maxLength;
         }
-        ans = new Pair<Integer, Integer>(i - maxLen + 1, i);
+        ans = new Pair<>(i - maxLength + 1, i);
       }
     }
     return ans;
   }
-
   // @exclude
 
-  static void simpleTest() {
+  private static void simpleTest() {
     Pair<Integer, Integer> ans = findLongestIncreasingSubarray(Arrays.asList(
         -1, -1));
     assert (ans.getFirst() == 0 && ans.getSecond() == 0);
@@ -54,7 +54,7 @@ public class LongestIncreasingSubarray {
     Random gen = new Random();
 
     for (int times = 0; times < 1000; ++times) {
-      List<Integer> A = new ArrayList<Integer>();
+      List<Integer> A = new ArrayList<>();
       if (args.length > 2) {
         for (int i = 1; i < args.length; ++i) {
           A.add(Integer.valueOf(args[i]));

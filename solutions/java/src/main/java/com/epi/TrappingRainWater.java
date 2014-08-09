@@ -1,12 +1,9 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-
 import com.epi.utils.Pair;
+
+import java.util.*;
+import java.util.LinkedList;
 
 public class TrappingRainWater {
   private static int getIndexOfMaxElement(List<Integer> A) {
@@ -27,10 +24,10 @@ public class TrappingRainWater {
       return 0;
     }
 
-    // Find the index with maximum height.
+    // Finds the index with maximum height.
     int maxH = getIndexOfMaxElement(A);
 
-    // Calculate the water within [1 : maxH - 1].
+    // Calculates the water within [1 : maxH - 1].
     int sum = 0, left = A.get(0);
     for (int i = 1; i < maxH; ++i) {
       if (A.get(i) >= left) {
@@ -40,7 +37,7 @@ public class TrappingRainWater {
       }
     }
 
-    // Calculate the water within [maxH + 1 : A.size() - 2].
+    // Calculates the water within [maxH + 1 : A.size() - 2].
     int right = A.get(A.size() - 1);
     for (int i = A.size() - 2; i > maxH; --i) {
       if (A.get(i) >= right) {
@@ -51,12 +48,11 @@ public class TrappingRainWater {
     }
     return sum;
   }
-
   // @exclude
 
   // Stack approach, O(n) time, O(n) space
   private static int checkAnswer(List<Integer> A) {
-    LinkedList<Pair<Integer, Integer>> s = new LinkedList<Pair<Integer, Integer>>();
+    LinkedList<Pair<Integer, Integer>> s = new LinkedList<>();
     int sum = 0;
     for (int i = 0; i < A.size(); ++i) {
       while (!s.isEmpty() && s.peek().getSecond() <= A.get(i)) {
@@ -67,7 +63,7 @@ public class TrappingRainWater {
         int top = Math.min(s.peek().getSecond(), A.get(i));
         sum += (top - bottom) * (i - s.peek().getFirst() - 1);
       }
-      s.push(new Pair<Integer, Integer>(i, A.get(i)));
+      s.push(new Pair<>(i, A.get(i)));
     }
     return sum;
   }
@@ -87,7 +83,7 @@ public class TrappingRainWater {
       } else {
         n = r.nextInt(1000) + 1;
       }
-      List<Integer> A = new ArrayList<Integer>();
+      List<Integer> A = new ArrayList<>();
       for (int i = 0; i < n; i++) {
         A.add(r.nextInt(11));
       }

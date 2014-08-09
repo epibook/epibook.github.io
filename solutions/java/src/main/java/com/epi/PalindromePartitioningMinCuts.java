@@ -23,7 +23,6 @@ public class PalindromePartitioningMinCuts {
     }
     return T[0];
   }
-
   // @exclude
 
   private static String randString(int len) {

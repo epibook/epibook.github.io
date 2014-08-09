@@ -1,8 +1,8 @@
 package com.epi;
 
-import java.util.Random;
-
 import com.epi.utils.Pair;
+
+import java.util.Random;
 
 //import static com.epi.utils.Utils.simplePrint;
 
@@ -10,16 +10,15 @@ public class GassingUp {
   // @include
   static int findStartCity(int[] G, int[] D) {
     int carry = 0;
-    Pair<Integer, Integer> min = new Pair<Integer, Integer>(0, 0);
+    Pair<Integer, Integer> min = new Pair<>(0, 0);
     for (int i = 1; i < G.length; ++i) {
       carry += G[i - 1] - D[i - 1];
       if (carry < min.getSecond()) {
-        min = new Pair<Integer, Integer>(i, carry);
+        min = new Pair<>(i, carry);
       }
     }
     return min.getFirst();
   }
-
   // @exclude
 
   static void checkAns(int[] G, int[] D, int c) {

@@ -1,11 +1,6 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class GeneratingABSqrt2Improved {
   // @include
@@ -50,33 +45,32 @@ public class GeneratingABSqrt2Improved {
   }
 
   public static List<Num> generateFirstK(int k) {
-    List<Num> res = new ArrayList<Num>(); // stores the first-k Num.
-    res.add(new Num(0, 0));
+    List<Num> result = new ArrayList<>(); // Stores the first-k Num.
+    result.add(new Num(0, 0));
     int i = 0, j = 0;
     for (int n = 0; n < k; ++n) {
-      Num x = new Num(res.get(i).a + 1, res.get(i).b);
-      Num y = new Num(res.get(j).a, res.get(j).b + 1);
+      Num x = new Num(result.get(i).a + 1, result.get(i).b);
+      Num y = new Num(result.get(j).a, result.get(j).b + 1);
       if (x.val < y.val) {
         ++i;
-        res.add(x);
+        result.add(x);
       } else if (x.val > y.val) {
         ++j;
-        res.add(y);
+        result.add(y);
       } else { // x == y.
         ++i;
         ++j;
-        res.add(x);
+        result.add(x);
       }
     }
-    return res;
+    return result;
   }
-
   // @exclude
 
   public static List<Num> golden(int k) {
-    TreeSet<Num> minHeap = new TreeSet<Num>();
-    List<Num> smallest = new ArrayList<Num>();
-    Set<Num> hash = new HashSet<Num>();
+    SortedSet<Num> minHeap = new TreeSet<>();
+    List<Num> smallest = new ArrayList<>();
+    Set<Num> hash = new HashSet<>();
 
     // Initial for 0 + 0 * sqrt(2).
     minHeap.add(new Num(0, 0));

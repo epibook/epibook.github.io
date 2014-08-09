@@ -3,8 +3,10 @@ package com.epi;
 public class ValidPalindrome {
   // @include
   public static boolean isPalindrome(String s) {
+    // i moves forward, and j moves backward.
     int i = 0, j = s.length() - 1;
     while (i < j) {
+      // i and j both skip non-alphanumeric characters.
       while (!Character.isLetterOrDigit(s.charAt(i)) && i < j) {
         ++i;
       }
@@ -20,7 +22,6 @@ public class ValidPalindrome {
     }
     return true;
   }
-
   // @exclude
 
   public static void main(String[] args) {

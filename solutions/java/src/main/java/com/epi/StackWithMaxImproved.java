@@ -1,34 +1,34 @@
 package com.epi;
 
-import java.util.LinkedList;
-
 import com.epi.utils.Pair;
+
+import java.util.LinkedList;
 
 /**
  * @author translated from c++ by Blazheev Alexander
  */
 public class StackWithMaxImproved {
   // @include
-  public static class Stack<T extends Comparable<T>> {
-    private LinkedList<T> s = new LinkedList<T>();
-    private LinkedList<Pair<T, Integer>> aux = new LinkedList<>();
+  public static class Stack {
+    private LinkedList<Integer> s = new LinkedList<>();
+    private LinkedList<Pair<Integer, Integer>> aux = new LinkedList<>();
 
     public boolean empty() {
       return s.isEmpty();
     }
 
-    public T max() {
+    public Integer max() {
       if (!empty()) {
         return aux.peek().getFirst();
       }
       throw new RuntimeException("empty_stack");
     }
 
-    public T pop() {
+    public Integer pop() {
       if (empty()) {
         throw new RuntimeException("empty_stack");
       }
-      T ret = s.pop();
+      Integer ret = s.pop();
       if (ret.equals(aux.peek().getFirst())) {
         aux.peek().setSecond(aux.peek().getSecond() - 1);
         if (aux.peek().getSecond().equals(0)) {
@@ -38,24 +38,23 @@ public class StackWithMaxImproved {
       return ret;
     }
 
-    public void push(T x) {
+    public void push(Integer x) {
       s.push(x);
       if (!aux.isEmpty()) {
         if (x.compareTo(aux.peek().getFirst()) == 0) {
           aux.peek().setSecond(aux.peek().getSecond() + 1);
         } else if (x.compareTo(aux.peek().getFirst()) > 0) {
-          aux.push(new Pair<T, Integer>(x, 1));
+          aux.push(new Pair<>(x, 1));
         }
       } else {
-        aux.push(new Pair<T, Integer>(x, 1));
+        aux.push(new Pair<>(x, 1));
       }
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {
-    Stack<Integer> s = new Stack<Integer>();
+    Stack s = new Stack();
     s.push(1);
     s.push(2);
     assert (s.max() == 2);

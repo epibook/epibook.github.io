@@ -1,13 +1,13 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import static com.epi.utils.Utils.equal;
-import static com.epi.utils.Utils.swap;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import static com.epi.utils.Utils.equal;
+import static com.epi.utils.Utils.swap;
 
 public class NextPermutation {
   // @include
@@ -20,27 +20,28 @@ public class NextPermutation {
       return Collections.emptyList(); // p is the last permutation.
     }
 
+    // Find the smallest entry after index k that is bigger than p[k].
     int l = 0;
     for (int i = k + 1; i < p.size(); ++i) {
       if (p.get(i) > p.get(k)) {
         l = i;
       } else {
+        // Since p[k+1], p[k+2], ... is decreasing, p[l] must be the result.
         break;
       }
     }
     swap(p, k, l);
 
-    // Produce the lexicographically minimal permutation.
+    // Reversing this subarray sorts it in increasing order.
     Collections.reverse(p.subList(k + 1, p.size()));
     return p;
   }
-
   // @exclude
 
   // derived from http://codeforces.com/blog/entry/3980
   private static List<Integer> goldenNextPermutation(final List<Integer> c) {
     // 1. finds the largest k, that c[k] < c[k+1]
-    List<Integer> result = new ArrayList<Integer>(c);
+    List<Integer> result = new ArrayList<>(c);
     int first = getFirst(result);
     if (first == -1) { // no greater permutation
       return Collections.emptyList();
@@ -77,7 +78,7 @@ public class NextPermutation {
 
   public static void main(String[] args) {
     for (int times = 0; times < 1000; ++times) {
-      List<Integer> p = new ArrayList<Integer>();
+      List<Integer> p = new ArrayList<>();
       if (args.length > 1) {
         for (int i = 1; i < args.length; ++i) {
           p.add(Integer.valueOf(args[i]));

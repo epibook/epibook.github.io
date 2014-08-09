@@ -1,19 +1,13 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.TreeSet;
-
-import com.epi.utils.Ref;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
  */
 public class MinimumDistance3SortedArrays {
   private static int distance(List<? extends List<Integer>> arrs,
-      List<Integer> idx) {
+                              List<Integer> idx) {
     int maxVal = Integer.MIN_VALUE;
     int minVal = Integer.MAX_VALUE;
     for (int i = 0; i < idx.size(); ++i) {
@@ -46,12 +40,12 @@ public class MinimumDistance3SortedArrays {
   public static int findMinDistanceSortedArrays(
       List<? extends List<Integer>> arrs) {
     // Pointers for each of arrs.
-    ArrayList<Integer> idx = new ArrayList<Integer>(arrs.size());
-    for (int i = 0; i < arrs.size(); i++) {
+    List<Integer> idx = new ArrayList<>(arrs.size());
+    for (List<Integer> arr : arrs) {
       idx.add(0);
     }
     int minDis = Integer.MAX_VALUE;
-    TreeSet<ArrData> currentHeads = new TreeSet<ArrData>();
+    NavigableSet<ArrData> currentHeads = new TreeSet<>();
 
     // Each of arrs puts its minimum element into current_heads.
     for (int i = 0; i < arrs.size(); ++i) {
@@ -74,37 +68,38 @@ public class MinimumDistance3SortedArrays {
       currentHeads.add(new ArrData(tar, arrs.get(tar).get(idx.get(tar))));
     }
   }
-
   // @exclude
 
+  private static Integer ans;
+
   private static void recGenAnswer(List<? extends List<Integer>> arrs,
-      List<Integer> idx, int level, Ref<Integer> ans) {
+                                   List<Integer> idx, int level) {
     if (level == arrs.size()) {
-      ans.value = Math.min(distance(arrs, idx), ans.value);
+      ans = Math.min(distance(arrs, idx), ans);
       return;
     }
     for (int i = 0; i < arrs.get(level).size(); ++i) {
       idx.set(level, i);
-      recGenAnswer(arrs, idx, level + 1, ans);
+      recGenAnswer(arrs, idx, level + 1);
     }
   }
 
   private static int bruteForceGenAnswer(List<? extends List<Integer>> arrs) {
-    Ref<Integer> ans = new Ref<Integer>(Integer.MAX_VALUE);
-    List<Integer> idx = new ArrayList<Integer>(arrs.size());
-    for (int i = 0; i < arrs.size(); i++) {
+    List<Integer> idx = new ArrayList<>(arrs.size());
+    for (List<Integer> arr : arrs) {
       idx.add(0);
     }
-    recGenAnswer(arrs, idx, 0, ans);
-    System.out.println(ans.value);
-    return ans.value;
+    ans = Integer.MAX_VALUE;
+    recGenAnswer(arrs, idx, 0);
+    System.out.println(ans);
+    return ans;
   }
 
   public static void main(String[] args) {
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
-      ArrayList<ArrayList<Integer>> arrs = new ArrayList<ArrayList<Integer>>();
+      List<ArrayList<Integer>> arrs = new ArrayList<>();
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);
       } else {

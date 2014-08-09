@@ -1,27 +1,22 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class PlusOne {
   // @include
   public static List<Integer> plusOne(List<Integer> A) {
-    Collections.reverse(A);
-    A.set(0, A.get(0) + 1);
-    for (int i = 0; i < A.size() && A.get(i) == 10; ++i) {
+    int n = A.size() - 1;
+    A.set(n, A.get(n) + 1);
+    for (int i = n; i > 0 && A.get(i) == 10; --i) {
       A.set(i, 0);
-      if (i + 1 >= A.size()) {
-        A.add(0);
-      }
-      A.set(i + 1, A.get(i + 1) + 1);
+      A.set(i - 1, A.get(i - 1) + 1);
     }
-    Collections.reverse(A);
+    if (A.get(0) == 10) {
+      A.set(0, 0);
+      A.add(0, 1);
+    }
     return A;
   }
-
   // @exclude
 
   private static List<Integer> randVector(int len) {
@@ -29,7 +24,7 @@ public class PlusOne {
       return Arrays.asList(0);
     }
     Random r = new Random();
-    List<Integer> A = new ArrayList<Integer>();
+    List<Integer> A = new ArrayList<>();
     A.add(r.nextInt(9) + 1);
     --len;
     while (len != 0) {
@@ -40,21 +35,21 @@ public class PlusOne {
   }
 
   private static void smallTest() {
-    List<Integer> res = plusOne(new ArrayList<Integer>() {
+    List<Integer> result = plusOne(new ArrayList<Integer>() {
       {
         add(9);
         add(9);
       }
     });
-    assert (res.size() == 3 && res.get(0) == 1 && res.get(1) == 0 && res.get(2) == 0);
-    res = plusOne(new ArrayList<Integer>() {
+    assert (result.size() == 3 && result.get(0) == 1 && result.get(1) == 0 && result.get(2) == 0);
+    result = plusOne(new ArrayList<Integer>() {
       {
         add(3);
         add(1);
         add(4);
       }
     });
-    assert (res.size() == 3 && res.get(0) == 3 && res.get(1) == 1 && res.get(2) == 5);
+    assert (result.size() == 3 && result.get(0) == 3 && result.get(1) == 1 && result.get(2) == 5);
   }
 
   public static void main(String[] args) {
@@ -68,7 +63,7 @@ public class PlusOne {
     }
     List<Integer> A = randVector(n);
     System.out.println(A);
-    List<Integer> res = plusOne(A);
-    System.out.println(res);
+    List<Integer> result = plusOne(A);
+    System.out.println(result);
   }
 }

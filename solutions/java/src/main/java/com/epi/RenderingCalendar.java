@@ -3,6 +3,7 @@ package com.epi;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 class TInterval {
@@ -37,18 +38,18 @@ class TEndpoint implements Comparable<TEndpoint> {
 }
 
 class RenderingCalendar {
-// @include
-  public static int findMaxConcurrentEvents(ArrayList<TInterval> A) {
-    // Build the TEndpoint array.
-    ArrayList<TEndpoint> E = new ArrayList<TEndpoint>();
+  // @include
+  public static int findMaxConcurrentEvents(List<TInterval> A) {
+    // Builds the TEndpoint array.
+    List<TEndpoint> E = new ArrayList<>();
     for (TInterval i : A) {
       E.add(new TEndpoint(i.start, true));
       E.add(new TEndpoint(i.finish, false));
     }
-    // Sort the TEndpoint array according to the time.
+    // Sorts the TEndpoint array according to the time.
     Collections.sort(E);
 
-    // Find the maximum number of events overlapped.
+    // Finds the maximum number of events overlapped.
     int maxCount = 0, count = 0;
     for (TEndpoint e : E) {
       if (e.isStart) {
@@ -59,7 +60,7 @@ class RenderingCalendar {
     }
     return maxCount;
   }
-// @exclude
+  // @exclude
 
   public static void main(String[] args) {
     Random gen = new Random();
@@ -69,7 +70,7 @@ class RenderingCalendar {
     } else {
       n = gen.nextInt(100000) + 1;
     }
-    ArrayList<TInterval> A = new ArrayList<TInterval>();
+    List<TInterval> A = new ArrayList<>();
     for (int i = 0; i < n; ++i) {
       TInterval temp = new TInterval();
       temp.start = gen.nextInt(99999);

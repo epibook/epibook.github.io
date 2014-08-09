@@ -1,33 +1,33 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import static com.epi.utils.Utils.fill;
-import static com.epi.utils.Utils.iota;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import static com.epi.utils.Utils.fill;
+import static com.epi.utils.Utils.iota;
+
 public class ZeroSumSubset {
   // @include
-  static List<Integer> find0SumSubset(List<Integer> A) {
-    List<Integer> prefixSum = new ArrayList<Integer>(A);
+  public static List<Integer> find0SumSubset(List<Integer> A) {
+    List<Integer> prefixSum = new ArrayList<>(A);
     for (int i = 0; i < prefixSum.size(); ++i) {
       prefixSum.set(i, prefixSum.get(i) + (i > 0 ? prefixSum.get(i - 1) : 0));
       prefixSum.set(i, prefixSum.get(i) % A.size());
     }
 
-    List<Integer> table = new ArrayList<Integer>(A.size());
+    List<Integer> table = new ArrayList<>(A.size());
     fill(table, A.size(), -1);
 
     for (int i = 0; i < A.size(); ++i) {
       if (prefixSum.get(i) == 0) {
-        List<Integer> ans = new ArrayList<Integer>(i + 1);
+        List<Integer> ans = new ArrayList<>(i + 1);
         iota(ans, i + 1, 0);
         return ans;
       } else if (table.get(prefixSum.get(i)) != -1) {
-        List<Integer> ans = new ArrayList<Integer>(i
+        List<Integer> ans = new ArrayList<>(i
             - table.get(prefixSum.get(i)));
         iota(ans, i - table.get(prefixSum.get(i)),
             table.get(prefixSum.get(i)) + 1);
@@ -39,7 +39,6 @@ public class ZeroSumSubset {
     return Collections.emptyList(); // it should not happen
     // @include
   }
-
   // @exclude
 
   static void checkAns(List<Integer> A, List<Integer> ans) {
@@ -54,7 +53,7 @@ public class ZeroSumSubset {
     Random gen = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
-      List<Integer> A = new ArrayList<Integer>();
+      List<Integer> A = new ArrayList<>();
       if (args.length == 1) {
         n = Integer.valueOf(args[0]);
         for (int i = 0; i < n; ++i) {

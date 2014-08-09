@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 class CanStringBePalindromeSorting {
   // @include
-  public static boolean canStringBeAPalindromeSorting(String s) {
+  public static boolean canStringBeAPalindrome(String s) {
     char[] a = s.toCharArray();
     Arrays.sort(a);
     int oddCount = 0;

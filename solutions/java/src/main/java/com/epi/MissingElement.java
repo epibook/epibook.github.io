@@ -1,16 +1,7 @@
 package com.epi;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.util.BitSet;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -26,7 +17,7 @@ public class MissingElement {
     }
 
     for (int i = 0; i < counter.length; ++i) {
-      // Find one bucket contains less than (1 << 16) elements.
+      // Finds one bucket contains less than (1 << 16) elements.
       if (counter[i] < (1 << 16)) {
         BitSet bitVec = new BitSet(1 << 16);
         ifs.reset();
@@ -34,7 +25,7 @@ public class MissingElement {
         while (s.hasNext()) {
           int x = s.nextInt();
           if (i == (x >> 16)) {
-            bitVec.set(((1 << 16) - 1) & x); // gets the lower 16 bits of x.
+            bitVec.set(((1 << 16) - 1) & x); // Gets the lower 16 bits of x.
           }
         }
         ifs.close();
@@ -50,7 +41,6 @@ public class MissingElement {
     throw new RuntimeException("no missing element");
     // @include
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -60,7 +50,7 @@ public class MissingElement {
       n = Integer.parseInt(args[0]);
     }
     File missingFile = new File("missing.txt");
-    HashSet<Integer> hash = new HashSet<Integer>();
+    Set<Integer> hash = new HashSet<>();
     FileOutputStream ofs = null;
     try {
       try {

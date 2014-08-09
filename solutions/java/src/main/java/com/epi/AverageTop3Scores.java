@@ -1,17 +1,7 @@
 package com.epi;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
-import java.util.TreeSet;
+import java.io.*;
+import java.util.*;
 
 public class AverageTop3Scores {
   private static class UniqueInteger implements Comparable<UniqueInteger> {
@@ -34,7 +24,7 @@ public class AverageTop3Scores {
   }
 
   // @include
-  public static String findStudentWithTop3AverageScores(InputStream ifs) {
+  public static String findStudentWithTopThreeAverageScores(InputStream ifs) {
     Map<String, TreeSet<UniqueInteger>> studentScores = new HashMap<>();
     try {
       long sequence = 0;
@@ -44,7 +34,7 @@ public class AverageTop3Scores {
         int score = ois.readInt();
         TreeSet<UniqueInteger> scores = studentScores.get(name);
         if (scores == null) {
-          scores = new TreeSet<UniqueInteger>();
+          scores = new TreeSet<>();
         }
         scores.add(new UniqueInteger(score, sequence++));
         studentScores.put(name, scores);
@@ -53,13 +43,13 @@ public class AverageTop3Scores {
     }
 
     String topStudent = "no such student";
-    int currentTop3ScoresSum = 0;
+    int currentTopThreeScoresSum = 0;
     for (Map.Entry<String, TreeSet<UniqueInteger>> scores : studentScores
         .entrySet()) {
       if (scores.getValue().size() >= 3) {
-        int currentScoresSum = getTop3ScoresSum(scores.getValue());
-        if (currentScoresSum > currentTop3ScoresSum) {
-          currentTop3ScoresSum = currentScoresSum;
+        int currentScoresSum = getTopThreeScoresSum(scores.getValue());
+        if (currentScoresSum > currentTopThreeScoresSum) {
+          currentTopThreeScoresSum = currentScoresSum;
           topStudent = scores.getKey();
         }
       }
@@ -67,8 +57,8 @@ public class AverageTop3Scores {
     return topStudent;
   }
 
-  // Returns the sum of top3 scores.
-  private static int getTop3ScoresSum(TreeSet<UniqueInteger> scores) {
+  // Returns the sum of top three scores.
+  private static int getTopThreeScoresSum(TreeSet<UniqueInteger> scores) {
     Iterator<UniqueInteger> it = scores.iterator();
     int result = 0;
     for (int i = 0; i < 3 && it.hasNext(); i++) {
@@ -76,7 +66,6 @@ public class AverageTop3Scores {
     }
     return result;
   }
-
   // @exclude
 
   private static String randString(int len) {
@@ -113,7 +102,7 @@ public class AverageTop3Scores {
     }
     try {
       InputStream ifs = new FileInputStream("scores.txt");
-      String name = findStudentWithTop3AverageScores(ifs);
+      String name = findStudentWithTopThreeAverageScores(ifs);
       System.out.println("top student is " + name);
       ifs.close();
     } catch (Exception e) {

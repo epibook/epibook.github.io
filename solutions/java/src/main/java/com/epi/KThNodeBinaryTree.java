@@ -24,7 +24,6 @@ public class KThNodeBinaryTree {
     }
     throw new RuntimeException("no k-th node in binary tree");
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -37,22 +36,22 @@ public class KThNodeBinaryTree {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>();
+    BinaryTreeNode<Integer> root = new BinaryTreeNode<>();
     root.size = 6;
     root.data = 3;
-    root.left = new BinaryTreeNode<Integer>();
+    root.left = new BinaryTreeNode<>();
     root.left.size = 2;
     root.left.data = 2;
-    root.left.left = new BinaryTreeNode<Integer>();
+    root.left.left = new BinaryTreeNode<>();
     root.left.left.size = 1;
     root.left.left.data = 1;
-    root.right = new BinaryTreeNode<Integer>();
+    root.right = new BinaryTreeNode<>();
     root.right.size = 3;
     root.right.data = 5;
-    root.right.left = new BinaryTreeNode<Integer>();
+    root.right.left = new BinaryTreeNode<>();
     root.right.left.size = 1;
     root.right.left.data = 4;
-    root.right.right = new BinaryTreeNode<Integer>();
+    root.right.right = new BinaryTreeNode<>();
     root.right.right.size = 1;
     root.right.right.data = 6;
     // should throw

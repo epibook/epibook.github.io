@@ -1,25 +1,18 @@
 package com.epi;
 
-import static com.epi.utils.Utils.close;
+import java.io.*;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
+import static com.epi.utils.Utils.close;
 
 public class Tail {
   // @include
-  public static String tail(String fileName, int tailCount) throws IOException {
-
+  public static String
+  tail(String fileName, int N) throws IOException {
     RandomAccessFile filePtr = new RandomAccessFile(fileName, "r");
 
     filePtr.seek(filePtr.length() - 1);
     long fileSize = filePtr.length(), newLineCount = 0;
-    StringBuilder output = new StringBuilder(); // stores the last
-    // tail_count lines.
+    StringBuilder lastNLines = new StringBuilder();
     // Reads file in reverse looking for '\n'.
     for (long i = fileSize - 1; i != -1; i--) {
       filePtr.seek(i);
@@ -27,22 +20,18 @@ public class Tail {
       char c = (char) readByte;
       if (c == '\n') {
         ++newLineCount;
-        if (newLineCount > tailCount) {
+        if (newLineCount > N) {
           break;
         }
       }
-      output.append(c);
+      lastNLines.append(c);
     }
 
-    // Close "filePtr" silently
     close(filePtr);
 
-    // Reverse the output string using the reverse() function.
-    // The arguments are iterators to the start and end of string object.
-    output.reverse();
-    return output.toString();
+    lastNLines.reverse();
+    return lastNLines.toString();
   }
-
   // @exclude
 
   public static void main(String[] args) throws IOException {
@@ -73,7 +62,7 @@ public class Tail {
   /*
    * Show a number of last lines from a file.
    * 
-   * This is a pretty naive implementation. It first counts the total number of
+   * This is a naive implementation. It first counts the total number of
    * new lines, then reads the file again, this time reading last X lines.
    */
   private static void show(String fileName, int lines) throws IOException {

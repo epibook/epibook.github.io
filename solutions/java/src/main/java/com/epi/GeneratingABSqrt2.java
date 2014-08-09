@@ -1,10 +1,6 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -64,45 +60,31 @@ public class GeneratingABSqrt2 {
     }
 
     @Override
-    public int hashCode() {
-      int result = a;
-      result = 31 * result + b;
-      return result;
-    }
-
-    @Override
     public String toString() {
       return a + " " + b + " " + val;
     }
   }
 
-  public static ArrayList<Num> generateFirstK(int k) {
-    PriorityQueue<Num> minHeap = new PriorityQueue<Num>();
-    ArrayList<Num> smallest = new ArrayList<Num>();
-    HashSet<Num> hash = new HashSet<Num>();
+  public static List<Num> generateFirstK(int k) {
+    List<Num> smallest = new ArrayList<>();
+    TreeSet<Num> set = new TreeSet<>();
 
     // Initial for 0 + 0 * sqrt(2).
-    minHeap.add(new Num(0, 0));
-    hash.add(new Num(0, 0));
+    set.add(new Num(0, 0));
 
     while (smallest.size() < k) {
-      Num s = minHeap.remove();
+      Num s = set.first();
       smallest.add(s);
-      hash.remove(s);
 
       // Add the next two numbers derived from s.
       Num c1 = new Num(s.a + 1, s.b);
+      set.add(c1);
       Num c2 = new Num(s.a, s.b + 1);
-      if (hash.add(c1)) {
-        minHeap.add(c1);
-      }
-      if (hash.add(c2)) {
-        minHeap.add(c2);
-      }
+      set.add(c2);
+      set.remove(s);
     }
     return smallest;
   }
-
   // @exclude
 
   public static void main(String[] args) {

@@ -1,16 +1,7 @@
 package com.epi;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Random;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -18,15 +9,15 @@ import java.util.Random;
 public class ApproximateSort {
   // @include
   public static void approximateSort(InputStream sin, int k) {
-    PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>();
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>();
     try {
       ObjectInputStream osin = new ObjectInputStream(sin);
-      // Firstly push k elements into minHeap.
+      // Firstly pushes k elements into minHeap.
       for (int i = 0; i < k; ++i) {
         minHeap.add((Integer) osin.readObject());
       }
 
-      // Extract the minimum one for every incoming element.
+      // Extracts the minimum one for every incoming element.
       while (true) {
         minHeap.add((Integer) osin.readObject());
         System.out.println(minHeap.remove());
@@ -37,12 +28,11 @@ public class ApproximateSort {
       System.out.println("ClassNotFoundException: " + e.getMessage());
     }
 
-    // Extract the remaining elements in minHeap.
+    // Extracts the remaining elements in minHeap.
     while (!minHeap.isEmpty()) {
       System.out.println(minHeap.remove());
     }
   }
-
   // @exclude
 
   // It should print 1, 2, 3, 4, 5, 6, 7, 8, 9.
@@ -76,7 +66,7 @@ public class ApproximateSort {
       k = r.nextInt(n) + 1;
     }
     System.out.println("n = " + n + " k = " + k);
-    ArrayList<Integer> A = new ArrayList<Integer>();
+    List<Integer> A = new ArrayList<>();
     for (int i = 0; i < n; ++i) {
       A.add(r.nextInt(999999) + 1);
     }

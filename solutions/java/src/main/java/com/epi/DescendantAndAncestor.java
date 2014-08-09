@@ -7,10 +7,10 @@ import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
  */
 public class DescendantAndAncestor {
   // @include
-  public static <T extends Comparable<T>> boolean isRSDescendantAncestorOfM(
-      BinaryTree<T> r, BinaryTree<T> s, BinaryTree<T> m) {
-    BinaryTree<T> curR = r;
-    BinaryTree<T> curS = s;
+  public static boolean isRSDescendantAncestorOfM(
+      BinaryTree<Integer> r, BinaryTree<Integer> s, BinaryTree<Integer> m) {
+    BinaryTree<Integer> curR = r;
+    BinaryTree<Integer> curS = s;
 
     // Interleaving searches from r and s.
     while (curR != null && curR != s && curS != null && curS != r) {
@@ -31,20 +31,19 @@ public class DescendantAndAncestor {
     return searchMBeforeT(curR, s, m) || searchMBeforeT(curS, r, m);
   }
 
-  private static <T extends Comparable<T>> boolean searchMBeforeT(
-      BinaryTree<T> p, BinaryTree<T> t, BinaryTree<T> m) {
+  private static boolean searchMBeforeT(
+      BinaryTree<Integer> p, BinaryTree<Integer> t, BinaryTree<Integer> m) {
     while (p != null && p != t && p != m) {
       p = p.getData().compareTo(t.getData()) > 0 ? p.getLeft() : p.getRight();
     }
     return p == m;
   }
-
   // @exclude
 
   private static void smallTest() {
-    BinaryTree<Integer> root = new BinaryTree<Integer>(5);
-    root.setLeft(new BinaryTree<Integer>(2));
-    root.getLeft().setRight(new BinaryTree<Integer>(4));
+    BinaryTree<Integer> root = new BinaryTree<>(5);
+    root.setLeft(new BinaryTree<>(2));
+    root.getLeft().setRight(new BinaryTree<>(4));
     assert (!isRSDescendantAncestorOfM(root, root.getLeft(), root.getLeft()
         .getRight()));
   }
@@ -54,12 +53,12 @@ public class DescendantAndAncestor {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> root = new BinaryTree<Integer>(3);
-    root.setLeft(new BinaryTree<Integer>(2));
-    root.getLeft().setLeft(new BinaryTree<Integer>(1));
-    root.setRight(new BinaryTree<Integer>(5));
-    root.getRight().setLeft(new BinaryTree<Integer>(4));
-    root.getRight().setRight(new BinaryTree<Integer>(6));
+    BinaryTree<Integer> root = new BinaryTree<>(3);
+    root.setLeft(new BinaryTree<>(2));
+    root.getLeft().setLeft(new BinaryTree<>(1));
+    root.setRight(new BinaryTree<>(5));
+    root.getRight().setLeft(new BinaryTree<>(4));
+    root.getRight().setRight(new BinaryTree<>(6));
     assert (isRSDescendantAncestorOfM(root, root.getRight().getRight(),
         root.getRight()));
     assert (isRSDescendantAncestorOfM(root.getRight().getRight(), root,

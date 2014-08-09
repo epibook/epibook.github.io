@@ -5,8 +5,8 @@ import java.util.LinkedList;
 public class LongestValidParentheses {
   // @include
   public static int longestValidParentheses(String s) {
-    int maxLen = 0, lastEnd = 0;
-    LinkedList<Integer> leftParentheses = new LinkedList<Integer>();
+    int maxLength = 0, lastEnd = 0;
+    LinkedList<Integer> leftParentheses = new LinkedList<>();
     for (int i = 0; i < s.length(); ++i) {
       if (s.charAt(i) == '(') {
         leftParentheses.push(i);
@@ -15,15 +15,14 @@ public class LongestValidParentheses {
           lastEnd = i + 1;
         } else {
           leftParentheses.pop();
-          int start = leftParentheses.isEmpty() ? lastEnd - 1 : leftParentheses
-              .peek();
-          maxLen = Math.max(maxLen, i - start);
+          int start =
+              leftParentheses.isEmpty() ? lastEnd - 1 : leftParentheses.peek();
+          maxLength = Math.max(maxLength, i - start);
         }
       }
     }
-    return maxLen;
+    return maxLength;
   }
-
   // @exclude
 
   private static void smallTest() {

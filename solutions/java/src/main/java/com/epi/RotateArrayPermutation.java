@@ -5,9 +5,9 @@ import static com.epi.utils.Utils.swap;
 
 public class RotateArrayPermutation {
   // @include
-  public static void rotateArray(int[] A, int i) {
+  public static void rotateArray(int i, int[] A) {
     i %= A.length;
-    // compute the number of cycles in this rotation.
+    // Compute the number of cycles in this rotation.
     int cycles = (int) GCD.elementaryGCD(A.length, i);
     int hops = A.length / cycles; // number of elements in a cycle.
 

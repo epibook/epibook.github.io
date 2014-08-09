@@ -9,16 +9,15 @@ import java.util.Random;
 public class Rearrange {
   // @include
   public static void rearrange(ArrayList<Integer> A) {
-    for (int i = 0; i < A.size() - 1; ++i) {
-      if (((i & 1) == 1 && A.get(i) < A.get(i + 1))
-          || ((i & 1) == 0 && A.get(i) > A.get(i + 1))) {
-        Integer temp = A.get(i);
-        A.set(i, A.get(i + 1));
-        A.set(i + 1, temp);
+    for (int i = 1; i < A.size(); ++i) {
+      if (((i & 1) == 0 && A.get(i - 1) < A.get(i))
+          || ((i & 1) == 1 && A.get(i - 1) > A.get(i))) {
+        Integer temp = A.get(i - 1);
+        A.set(i - 1, A.get(i));
+        A.set(i, temp);
       }
     }
   }
-
   // @exclude
 
   private static void checkAnswer(ArrayList<Integer> A) {
@@ -48,7 +47,7 @@ public class Rearrange {
       } else {
         n = r.nextInt(10000) + 1;
       }
-      ArrayList<Integer> A = new ArrayList<Integer>();
+      ArrayList<Integer> A = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
         A.add(r.nextInt(2 * n + 1) - n);
       }

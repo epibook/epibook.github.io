@@ -1,26 +1,15 @@
 package com.epi;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
 import com.epi.utils.Pair;
+
+import java.io.*;
+import java.util.*;
 
 public class HighestAffinityPairs {
   // @include
   public static Pair<String, String> highestAffinityPair(InputStream ifs) {
     // Creates a mapping from pages to distinct users.
-    HashMap<String, Set<String>> pageUsersMap = new HashMap<>();
+    Map<String, Set<String>> pageUsersMap = new HashMap<>();
     try {
       ObjectInputStream ois = new ObjectInputStream(ifs);
       while (true) {
@@ -28,7 +17,7 @@ public class HighestAffinityPairs {
         String user = ois.readUTF();
         Set<String> users = pageUsersMap.get(page);
         if (users == null) {
-          users = new HashSet<String>();
+          users = new HashSet<>();
         }
         users.add(user);
         pageUsersMap.put(page, users);
@@ -36,28 +25,25 @@ public class HighestAffinityPairs {
     } catch (IOException e) {
     }
 
-    Pair<String, String> res = null;
+    Pair<String, String> result = null;
     int maxCount = 0;
     // Compares all pairs of pages to users maps.
-    List<String> keys = new ArrayList<String>(pageUsersMap.keySet());
+    List<String> keys = new ArrayList<>(pageUsersMap.keySet());
     for (int i = 0; i < keys.size(); i++) {
       for (int j = i + 1; j < keys.size(); ++j) {
-        Set<String> intersectUsers = new HashSet<String>(pageUsersMap.get(keys
-            .get(i)));
-        // set_intersection compares the intersetion of two sets and store the
-        // result in intersectUsers.
+        Set<String> intersectUsers =
+            new HashSet<>(pageUsersMap.get(keys.get(i)));
         intersectUsers.retainAll(pageUsersMap.get(keys.get(j)));
 
-        // Updates res if we find larger intersection.
+        // Updates result if we find larger intersection.
         if (intersectUsers.size() > maxCount) {
           maxCount = intersectUsers.size();
-          res = new Pair<String, String>(keys.get(i), keys.get(j));
+          result = new Pair<>(keys.get(i), keys.get(j));
         }
       }
     }
-    return res;
+    return result;
   }
-
   // @exclude
 
   private static String randString(int len) {
@@ -91,8 +77,8 @@ public class HighestAffinityPairs {
     }
     try {
       InputStream ifs = new FileInputStream("logs.txt");
-      Pair<String, String> res = highestAffinityPair(ifs);
-      System.out.println(res);
+      Pair<String, String> result = highestAffinityPair(ifs);
+      System.out.println(result);
       ifs.close();
     } catch (Exception e) {
       System.out.println("Error reading logs.txt: " + e.getMessage());

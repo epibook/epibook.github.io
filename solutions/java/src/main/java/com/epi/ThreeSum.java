@@ -3,12 +3,24 @@ package com.epi;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 class ThreeSum {
 
   // @include
-  public static boolean has2Sum(ArrayList<Integer> A, int t) {
+  public static boolean hasThreeSum(List<Integer> A, int t) {
+    Collections.sort(A);
+    for (Integer a : A) {
+      // Finds if the sum of two numbers in A equals to t - a.
+      if (hasTwoSum(A, t - a)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static boolean hasTwoSum(List<Integer> A, int t) {
     int j = 0, k = A.size() - 1;
 
     while (j <= k) {
@@ -22,26 +34,14 @@ class ThreeSum {
     }
     return false;
   }
-
-  public static boolean has3Sum(ArrayList<Integer> A, int t) {
-    Collections.sort(A);
-    for (Integer a : A) {
-      // Find if the sum of two numbers in A equals to t - a.
-      if (has2Sum(A, t - a)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   // @exclude
 
-  // n^3 solution
-  public static boolean checkAns(ArrayList<Integer> A, int t) {
+  // n^3 solution.
+  public static boolean checkAns(List<Integer> A, int t) {
     for (int i = 0; i < A.size(); ++i) {
       for (int j = 0; j < A.size(); ++j) {
-        for (int k = 0; k < A.size(); ++k) {
-          if (A.get(i) + A.get(j) + A.get(k) == t) {
+        for (Integer aA : A) {
+          if (A.get(i) + A.get(j) + aA == t) {
             return true;
           }
         }
@@ -62,12 +62,12 @@ class ThreeSum {
         T = gen.nextInt(n - 1);
       }
 
-      ArrayList<Integer> A = new ArrayList<Integer>();
+      List<Integer> A = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
         A.add(gen.nextInt(200000) - 100000);
       }
-      System.out.println(has3Sum(A, T) ? "true" : "false");
-      assert (checkAns(A, T) == has3Sum(A, T));
+      System.out.println(hasThreeSum(A, T) ? "true" : "false");
+      assert (checkAns(A, T) == hasThreeSum(A, T));
     }
   }
 }

@@ -6,9 +6,9 @@ import java.util.Random;
 
 public class ReplaceAndRemove {
   // @include
-  static String replaceAndRemove(String s) {
+  public static String replaceAndRemove(String s) {
     char[] sChars = s.toCharArray();
-    // Removes "b" and count the number of "a".
+    // Forward iteration: remove "b"s and count the number of "a"s.
     int writeIdx = 0, aCount = 0;
     for (char c : sChars) {
       if (c != 'b') {
@@ -21,7 +21,7 @@ public class ReplaceAndRemove {
 
     // Allocates space according to the number of "a".
     sChars = Arrays.copyOf(sChars, writeIdx + aCount);
-    // Replace "a" with "dd".
+    // Backward iteration: replace "a"s with "dd"s starting from the end.
     int curIdx = writeIdx - 1;
     writeIdx = sChars.length - 1;
     while (curIdx >= 0) {
@@ -35,7 +35,6 @@ public class ReplaceAndRemove {
     }
     return new String(sChars);
   }
-
   // @exclude
 
   static String randString(int len) {

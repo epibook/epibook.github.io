@@ -26,8 +26,8 @@ class CanStringBePalindrome {
         s = randString(rnd.nextInt(10) + 1);
       }
       System.out.println(s);
-      assert (CanStringBePalindromeHash.canStringBeAPalindromeHash(s) == CanStringBePalindromeSorting
-          .canStringBeAPalindromeSorting(s));
+      assert (CanStringBePalindromeHash.canStringBeAPalindrome(s) == CanStringBePalindromeSorting
+          .canStringBeAPalindrome(s));
     }
   }
 }

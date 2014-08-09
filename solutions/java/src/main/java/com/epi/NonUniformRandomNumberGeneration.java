@@ -1,22 +1,20 @@
 package com.epi;
 
-import static com.epi.utils.Utils.iota;
-import static com.epi.utils.Utils.partialSum;
-import static com.epi.utils.Utils.simplePrint;
-import static com.epi.utils.Utils.upperBound;
+import com.epi.utils.BinaryOperators;
+import com.epi.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
 
-import com.epi.utils.BinaryOperators;
-import com.epi.utils.Utils;
+import static com.epi.utils.Utils.*;
 
 public class NonUniformRandomNumberGeneration {
   // @include
-  static double nonuniformRandomNumberGeneration(List<Double> T, List<Double> P) {
-    List<Double> prefixP = new ArrayList<Double>();
+  public static double nonuniformRandomNumberGeneration(List<Double> T,
+                                                        List<Double> P) {
+    List<Double> prefixP = new ArrayList<>();
     Utils.fill(prefixP, P.size() + 1, 0D);
     ListIterator<Double> iter = prefixP.listIterator();
     iter.next();
@@ -31,7 +29,6 @@ public class NonUniformRandomNumberGeneration {
     int it = upperBound(prefixP, gen.nextDouble());
     return T.get(it - 1);
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -42,9 +39,9 @@ public class NonUniformRandomNumberGeneration {
     } else {
       n = gen.nextInt(50) + 1;
     }
-    List<Double> T = new ArrayList<Double>(n);
+    List<Double> T = new ArrayList<>(n);
     iota(T, n, 0);
-    List<Double> P = new ArrayList<Double>();
+    List<Double> P = new ArrayList<>();
     double fullProb = 1.0;
     for (int i = 0; i < n - 1; ++i) {
       double pi = gen.nextDouble() * fullProb;

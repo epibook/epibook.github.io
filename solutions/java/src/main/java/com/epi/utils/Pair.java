@@ -33,6 +33,6 @@ public class Pair<A, B> {
   }
 
   public static <T extends Comparable<T>> Pair<T, T> minmax(T a, T b) {
-    return b.compareTo(a) < 0 ? new Pair<T, T>(b, a) : new Pair<T, T>(a, b);
+    return b.compareTo(a) < 0 ? new Pair<>(b, a) : new Pair<>(a, b);
   }
 }

@@ -1,15 +1,7 @@
 package com.epi;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Random;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -18,15 +10,16 @@ public class OnlineMedian {
   // @include
   public static void onlineMedian(InputStream sin) {
     // Min-heap stores the bigger part of the stream.
-    PriorityQueue<Integer> H = new PriorityQueue<Integer>();
+    PriorityQueue<Integer> H = new PriorityQueue<>();
     // Max-heap stores the smaller part of the stream.
-    PriorityQueue<Integer> L = new PriorityQueue<Integer>(11,
+    PriorityQueue<Integer> L = new PriorityQueue<>(11,
         new Comparator<Integer>() {
           @Override
           public int compare(Integer o1, Integer o2) {
             return o2.compareTo(o1);
           }
-        });
+        }
+    );
 
     Scanner s = new Scanner(sin);
     while (s.hasNextInt()) {
@@ -49,7 +42,6 @@ public class OnlineMedian {
       }
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -60,15 +52,15 @@ public class OnlineMedian {
     } else {
       num = r.nextInt(100000) + 1;
     }
-    ArrayList<Integer> stream = new ArrayList<Integer>();
+    List<Integer> stream = new ArrayList<>();
     for (int i = 0; i < num; ++i) {
       stream.add(r.nextInt(10000) + 1);
     }
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     OutputStreamWriter osw = new OutputStreamWriter(baos);
     try {
-      for (int i = 0; i < stream.size(); ++i) {
-        osw.write(stream.get(i) + " ");
+      for (Integer aStream : stream) {
+        osw.write(aStream + " ");
       }
       osw.close();
     } catch (IOException e) {

@@ -14,7 +14,6 @@ public class MergeTwoSortedArraysInPlace {
       A[tar--] = B[b--];
     }
   }
-
   // @exclude
 
   private static void checkAns(int[] A) {

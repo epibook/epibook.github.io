@@ -7,16 +7,17 @@ import java.util.Random;
 public class Combinations {
   // @include
   public static List<List<Integer>> combinations(int n, int k) {
-    List<List<Integer>> res = new ArrayList<List<Integer>>();
-    List<Integer> ans = new ArrayList<Integer>();
+    List<List<Integer>> res = new ArrayList<>();
+    List<Integer> ans = new ArrayList<>();
     combinationsHelper(n, k, 0, ans, res);
     return res;
   }
 
   private static void combinationsHelper(int n, int k, int start,
-      List<Integer> ans, List<List<Integer>> res) {
+                                         List<Integer> ans,
+                                         List<List<Integer>> res) {
     if (ans.size() == k) {
-      res.add(new ArrayList<Integer>(ans));
+      res.add(new ArrayList<>(ans));
       return;
     }
 
@@ -27,7 +28,6 @@ public class Combinations {
     combinationsHelper(n, k, start + 1, ans, res);
     ans.remove(ans.size() - 1);
   }
-
   // @exclude
 
   public static void main(String[] args) {

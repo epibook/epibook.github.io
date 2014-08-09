@@ -1,18 +1,15 @@
 package com.epi;
 
-import static com.epi.utils.Utils.copy;
-import static com.epi.utils.Utils.simplePrint;
-import static com.epi.utils.Utils.swap;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import static com.epi.utils.Utils.*;
+
 public class GaussianElimination {
   // @include
   static boolean[] gaussianElimination(List<List<Boolean>> A, boolean[] y) {
-
     List<List<Boolean>> B = copy(A);
     for (int i = 0; i < B.size(); ++i) {
       B.get(i).add(y[i]);
@@ -72,11 +69,10 @@ public class GaussianElimination {
       }
     }
   }
-
   // @exclude
 
   static boolean checkAnswerWithSolution(List<List<Boolean>> A, boolean[] b,
-      boolean[] x) {
+                                         boolean[] x) {
     for (int i = 0; i < A.size(); ++i) {
       boolean res = A.get(i).get(0) && x[0];
       for (int j = 1; j < A.get(i).size(); ++j) {
@@ -113,10 +109,10 @@ public class GaussianElimination {
   static List<List<Boolean>> randMatrix(int m, int n) {
     Random gen = new Random();
 
-    List<List<Boolean>> A = new ArrayList<List<Boolean>>(m);
+    List<List<Boolean>> A = new ArrayList<>(m);
     List<Boolean> row;
     for (int i = 1; i <= m; i++) {
-      row = new ArrayList<Boolean>(n);
+      row = new ArrayList<>(n);
 
       for (int j = 1; j <= n; j++) {
         row.add(gen.nextBoolean());
@@ -143,16 +139,16 @@ public class GaussianElimination {
     Random gen = new Random();
 
     // Predefined tests.
-    List<List<Boolean>> A = new ArrayList<List<Boolean>>(4);
+    List<List<Boolean>> A = new ArrayList<>(4);
     // java.util.Arrays.ArrayList<T> used in java.util.Arrays.asList(T...)
     // doesn't support adding a new element, so we'll wrap it with
     // java.util.ArrayList<E>
-    A.add(new ArrayList<Boolean>(Arrays.asList(false, false, false, true)));
-    A.add(new ArrayList<Boolean>(Arrays.asList(false, false, false, true)));
-    A.add(new ArrayList<Boolean>(Arrays.asList(false, true, true, true)));
-    A.add(new ArrayList<Boolean>(Arrays.asList(true, false, false, false)));
+    A.add(new ArrayList<>(Arrays.asList(false, false, false, true)));
+    A.add(new ArrayList<>(Arrays.asList(false, false, false, true)));
+    A.add(new ArrayList<>(Arrays.asList(false, true, true, true)));
+    A.add(new ArrayList<>(Arrays.asList(true, false, false, false)));
 
-    boolean[] b = { true, true, false, true };
+    boolean[] b = {true, true, false, true};
 
     boolean[] x = gaussianElimination(A, b);
 

@@ -1,13 +1,13 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import static com.epi.utils.Utils.copy;
-
 import java.util.Random;
 
+import static com.epi.utils.Utils.copy;
+
 public class MatrixRotationConstant {
-  static void rotateMatrix(int[][] A) {
-    for (int i = 0; i < (A.length >> 1); ++i) {
+  private static void rotateMatrix(int[][] A) {
+    for (int i = 0; i < (A.length / 2); ++i) {
       for (int j = i; j < A.length - i - 1; ++j) {
         int temp = A[i][j];
         A[i][j] = A[A.length - 1 - j][i];
@@ -18,7 +18,7 @@ public class MatrixRotationConstant {
     }
   }
 
-  static void checkAnswer(int[][] A, int[][] B) {
+  private static void checkAnswer(int[][] A, int[][] B) {
     RotatedMatrix rA = new RotatedMatrix(A);
     for (int i = 0; i < A.length; ++i) {
       for (int j = 0; j < A.length; ++j) {
@@ -75,10 +75,5 @@ class RotatedMatrix {
   void writeEntry(int i, int j, int v) {
     a[a.length - 1 - j][i] = v;
   }
-
-  int size() {
-    return a.length;
-  }
-
 }
 // @exclude

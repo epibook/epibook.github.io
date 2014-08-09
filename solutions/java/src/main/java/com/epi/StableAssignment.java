@@ -1,22 +1,22 @@
 package com.epi;
 
-import static com.epi.utils.Utils.find;
-import static com.epi.utils.Utils.shuffle;
+import com.epi.utils.Pair;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
-import com.epi.utils.Pair;
+import static com.epi.utils.Utils.find;
+import static com.epi.utils.Utils.shuffle;
 
 public class StableAssignment {
   // @include
-  static Pair<Integer, Integer>[] findStableAssignment(
+  public static Pair<Integer, Integer>[] findStableAssignment(
       int[][] professorPreference, int[][] studentPreference) {
 
     // stores currently free students.
-    Queue<Integer> freeStudent = new LinkedList<Integer>();
+    Queue<Integer> freeStudent = new LinkedList<>();
     for (int i = 0; i < studentPreference.length; ++i) {
       freeStudent.add(i);
     }
@@ -49,19 +49,20 @@ public class StableAssignment {
 
     Pair<Integer, Integer>[] matchResult = new Pair[professorChoice.length];
     for (int j = 0; j < professorChoice.length; ++j) {
-      matchResult[j] = new Pair<Integer, Integer>(professorChoice[j], j);
+      matchResult[j] = new Pair<>(professorChoice[j], j);
     }
     return matchResult;
   }
-
   // @exclude
 
-  static void checkAns(int[][] professor_preference,
-      int[][] student_preference, Pair<Integer, Integer>[] matchResult) {
+  static void
+  checkAns(int[][] professor_preference,
+           int[][] student_preference, Pair<Integer, Integer>[] matchResult) {
 
     assert matchResult.length == professor_preference.length;
 
-    boolean[] professor = new boolean[professor_preference.length], student = new boolean[student_preference.length];
+    boolean[] professor = new boolean[professor_preference.length];
+    boolean[] student = new boolean[student_preference.length];
 
     for (Pair<Integer, Integer> p : matchResult) {
       student[p.getFirst()] = true;
@@ -96,7 +97,8 @@ public class StableAssignment {
       } else {
         n = gen.nextInt(300) + 1;
       }
-      int[][] professorPreference = new int[n][n], studentPreference = new int[n][n];
+      int[][] professorPreference
+          = new int[n][n], studentPreference = new int[n][n];
       for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
           professorPreference[i][j] = j;

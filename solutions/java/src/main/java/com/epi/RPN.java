@@ -8,35 +8,34 @@ import java.util.LinkedList;
 public class RPN {
   // @include
   public static int eval(String s) {
-    LinkedList<Integer> evalStack = new LinkedList<Integer>();
+    LinkedList<Integer> evalStack = new LinkedList<>();
     String[] symbols = s.split(",");
     for (String symbol : symbols) {
       if (symbol.length() == 1 && "+-*/".contains(symbol)) {
         int y = evalStack.pop();
         int x = evalStack.pop();
         switch (symbol.charAt(0)) {
-        case '+':
-          evalStack.push(x + y);
-          break;
-        case '-':
-          evalStack.push(x - y);
-          break;
-        case '*':
-          evalStack.push(x * y);
-          break;
-        case '/':
-          evalStack.push(x / y);
-          break;
-        default:
-          throw new IllegalArgumentException("Malformed RPN at :" + symbol);
+          case '+':
+            evalStack.push(x + y);
+            break;
+          case '-':
+            evalStack.push(x - y);
+            break;
+          case '*':
+            evalStack.push(x * y);
+            break;
+          case '/':
+            evalStack.push(x / y);
+            break;
+          default:
+            throw new IllegalArgumentException("Malformed RPN at :" + symbol);
         }
-      } else { // number.
+      } else { // symbol is a number.
         evalStack.push(Integer.parseInt(symbol));
       }
     }
     return evalStack.pop();
   }
-
   // @exclude
 
   public static void main(String[] args) {

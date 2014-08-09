@@ -1,11 +1,11 @@
 package com.epi;
 
+import com.epi.utils.Pair;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
-import com.epi.utils.Pair;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -14,7 +14,7 @@ public class MaxSumSubarray {
   // @include
   public static Pair<Integer, Integer> findMaximumSubarray(List<Integer> A) {
     // A[range.first : range.second - 1] will be the maximum subarray.
-    Pair<Integer, Integer> range = new Pair<Integer, Integer>(0, 0);
+    Pair<Integer, Integer> range = new Pair<>(0, 0);
     int minIdx = -1, minSum = 0, sum = 0, maxSum = 0;
     for (int i = 0; i < A.size(); ++i) {
       sum += A.get(i);
@@ -24,17 +24,16 @@ public class MaxSumSubarray {
       }
       if (sum - minSum > maxSum) {
         maxSum = sum - minSum;
-        range = new Pair<Integer, Integer>(minIdx + 1, i + 1);
+        range = new Pair<>(minIdx + 1, i + 1);
       }
     }
     return range;
   }
-
   // @exclude
 
   private static List<Integer> randVector(int len) {
     Random r = new Random();
-    ArrayList<Integer> ret = new ArrayList<Integer>();
+    List<Integer> ret = new ArrayList<>();
     while (len-- != 0) {
       ret.add(r.nextInt(2001) - 1000);
     }
@@ -88,7 +87,7 @@ public class MaxSumSubarray {
         int n = Integer.parseInt(args[0]);
         A = randVector(n);
       } else {
-        A = new ArrayList<Integer>();
+        A = new ArrayList<>();
         for (String arg : args) {
           A.add(Integer.parseInt(arg));
         }

@@ -11,13 +11,13 @@ public class TwoForAll {
   // @include
   public static class GraphVertex {
     public int d, l; // discovery and leaving time.
-    public ArrayList<GraphVertex> edges;
+    public List<GraphVertex> edges;
 
     // @exclude
     public GraphVertex() {
       d = 0;
       l = Integer.MAX_VALUE;
-      edges = new ArrayList<GraphVertex>();
+      edges = new ArrayList<>();
     }
 
     @Override
@@ -25,6 +25,13 @@ public class TwoForAll {
       return edges.toString();
     }
     // @include
+  }
+
+  public static boolean isGraphTwoForAll(List<GraphVertex> G) {
+    if (!G.isEmpty()) {
+      return DFS(G.get(0), null, 0);
+    }
+    return true;
   }
 
   private static boolean DFS(GraphVertex cur, GraphVertex pre, int time) {
@@ -44,20 +51,14 @@ public class TwoForAll {
     }
     return (pre == null || cur.l < cur.d);
   }
-
-  public static boolean isGraph2ForAll(List<GraphVertex> G) {
-    if (!G.isEmpty()) {
-      return DFS(G.get(0), null, 0);
-    }
-    return true;
-  }
-
   // @exclude
 
-  private static void dfsExclusion(GraphVertex cur, GraphVertex a, GraphVertex b) {
+  private static void
+  dfsExclusion(GraphVertex cur, GraphVertex a, GraphVertex b) {
     cur.d = 1;
     for (GraphVertex next : cur.edges) {
-      if (next.d == 0 && ((cur != a && cur != b) || (next != a && next != b))) {
+      if (next.d == 0
+          && ((cur != a && cur != b) || (next != a && next != b))) {
         dfsExclusion(next, a, b);
       }
     }
@@ -91,7 +92,7 @@ public class TwoForAll {
   public static void main(String[] args) {
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
-      ArrayList<GraphVertex> G = new ArrayList<GraphVertex>();
+      List<GraphVertex> G = new ArrayList<>();
       int n;
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);
@@ -117,14 +118,14 @@ public class TwoForAll {
         do {
           a = r.nextInt(n);
           b = r.nextInt(n);
-        } while (a == b || isEdgeExist[a][b] == true);
+        } while (a == b || isEdgeExist[a][b]);
         isEdgeExist[a][b] = isEdgeExist[b][a] = true;
         G.get(a).edges.add(G.get(b));
         G.get(b).edges.add(G.get(a));
       }
       // System.out.println(G);
 
-      boolean res = isGraph2ForAll(G);
+      boolean res = isGraphTwoForAll(G);
       System.out.println(res);
       assert (checkAnswer(G) == res);
     }

@@ -16,14 +16,13 @@ public class SpreadsheetEncoding {
   }
 
   // @include
-  public static int ssDecodeColID(String col) {
+  public static int ssDecodeColID(final String col) {
     int ret = 0;
     for (char c : col.toCharArray()) {
       ret = ret * 26 + c - 'A' + 1;
     }
     return ret;
   }
-
   // @exclude
 
   private static void simpleTest() {

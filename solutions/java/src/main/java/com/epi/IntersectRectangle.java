@@ -16,7 +16,6 @@ public class IntersectRectangle {
       this.width = width;
       this.height = height;
     }
-
     // @exclude
     public void print(String s) {
       System.out.println(s + x + " " + y + " " + width + " " + height);
@@ -24,22 +23,20 @@ public class IntersectRectangle {
     // @include
   }
 
-  public static boolean isIntersect(Rectangle R, Rectangle S) {
-    return R.x <= S.x + S.width && R.x + R.width >= S.x
-        && R.y <= S.y + S.height && R.y + R.height >= S.y;
-  }
-
   public static Rectangle intersectRectangle(Rectangle R, Rectangle S) {
     if (isIntersect(R, S)) {
-      return new Rectangle(Math.max(R.x, S.x), Math.max(R.y, S.y), Math.min(R.x
-          + R.width, S.x + S.width)
-          - Math.max(R.x, S.x), Math.min(R.y + R.height, S.y + S.height)
-          - Math.max(R.y, S.y));
+      return new Rectangle(Math.max(R.x, S.x), Math.max(R.y, S.y),
+          Math.min(R.x + R.width, S.x + S.width) - Math.max(R.x, S.x),
+          Math.min(R.y + R.height, S.y + S.height) - Math.max(R.y, S.y));
     } else {
       return new Rectangle(0, 0, -1, -1); // no intersection.
     }
   }
 
+  public static boolean isIntersect(Rectangle R, Rectangle S) {
+    return R.x <= S.x + S.width && R.x + R.width >= S.x
+        && R.y <= S.y + S.height && R.y + R.height >= S.y;
+  }
   // @exclude
 
   public static void main(String[] args) {

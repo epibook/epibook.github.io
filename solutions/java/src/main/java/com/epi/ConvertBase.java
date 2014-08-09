@@ -23,16 +23,15 @@ public class ConvertBase {
       x /= b2;
     }
 
-    if (ans.length() == 0) {
+    if (ans.length() == 0) { // special case: s is 0.
       ans.append('0');
     }
-    if (neg) {
+    if (neg) { // s is a negative number.
       ans.append('-');
     }
     ans.reverse();
     return ans.toString();
   }
-
   // @exclude
 
   public static String randIntString(int len) {

@@ -1,15 +1,21 @@
 package com.epi;
 
+import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
 /**
  * @author translated from c++ by Blazheev Alexander
  */
 public class RebuildBSTPostorder {
   // @include
+  // Given a postorder traversal of a BST, return its root.
+  public static <T extends Comparable<T>> BinaryTree<T> rebuildBSTFromPostorder(
+      List<T> postorder) {
+    return rebuildBSTPostorderHelper(postorder, 0, postorder.size());
+  }
+
   // Build a BST based on postorder[s : e - 1], return its root.
   private static <T extends Comparable<T>> BinaryTree<T> rebuildBSTPostorderHelper(
       List<T> postorder, int s, int e) {
@@ -18,19 +24,11 @@ public class RebuildBSTPostorder {
       while (x < e && postorder.get(x).compareTo(postorder.get(e - 1)) < 0) {
         ++x;
       }
-      return new BinaryTree<T>(postorder.get(e - 1), rebuildBSTPostorderHelper(
+      return new BinaryTree<>(postorder.get(e - 1), rebuildBSTPostorderHelper(
           postorder, s, x), rebuildBSTPostorderHelper(postorder, x, e - 1));
     }
     return null;
   }
-
-  // Given a postorder traversal of a BST, return its root.
-
-  public static <T extends Comparable<T>> BinaryTree<T> rebuildBSTFromPostorder(
-      List<T> postorder) {
-    return rebuildBSTPostorderHelper(postorder, 0, postorder.size());
-  }
-
   // @exclude
 
   private static <T extends Comparable<T>> void checkAns(BinaryTree<T> n, T pre) {
@@ -51,7 +49,7 @@ public class RebuildBSTPostorder {
     // 6
     // should output 1, 2, 3, 4, 5, 6
     // postorder [6, 5, 4, 3, 2, 1]
-    ArrayList<Integer> postorder = new ArrayList<Integer>();
+    List<Integer> postorder = new ArrayList<>();
     postorder.add(6);
     postorder.add(5);
     postorder.add(4);

@@ -2,6 +2,7 @@ package com.epi;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -9,18 +10,8 @@ import java.util.Random;
  */
 public class TowerHanoi {
   // @include
-  private static void transfer(int n, ArrayList<LinkedList<Integer>> pegs,
-      int from, int to, int use) {
-    if (n > 0) {
-      transfer(n - 1, pegs, from, use, to);
-      pegs.get(to).push(pegs.get(from).pop());
-      System.out.println("Move from peg " + from + " to peg " + to);
-      transfer(n - 1, pegs, use, to, from);
-    }
-  }
-
   public static void moveTowerHanoi(int n) {
-    ArrayList<LinkedList<Integer>> pegs = new ArrayList<LinkedList<Integer>>();
+    List<LinkedList<Integer>> pegs = new ArrayList<>();
     for (int i = 0; i < 3; i++) {
       pegs.add(new LinkedList<Integer>());
     }
@@ -33,6 +24,15 @@ public class TowerHanoi {
     transfer(n, pegs, 0, 1, 2);
   }
 
+  private static void transfer(int n, List<LinkedList<Integer>> pegs,
+                               int from, int to, int use) {
+    if (n > 0) {
+      transfer(n - 1, pegs, from, use, to);
+      pegs.get(to).push(pegs.get(from).pop());
+      System.out.println("Move from peg " + from + " to peg " + to);
+      transfer(n - 1, pegs, use, to, from);
+    }
+  }
   // @exclude
 
   public static void main(String[] args) {

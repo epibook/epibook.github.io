@@ -1,41 +1,39 @@
 package com.epi;
 
+import com.epi.utils.Pair;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Random;
-
-import com.epi.utils.Pair;
 
 /**
  * @author translated from c++ by Blazheev Alexander
  */
 public class FindingMinMax {
   // @include
-  // Return (min, max) pair of elements in A.
-  public static Pair<Integer, Integer> findMinMax(List<Integer> A) {
+  // Returns (min, max) pair of elements in A.
+  public static Pair<Integer, Integer> findMinMax(ArrayList<Integer> A) {
     if (A.size() <= 1) {
-      return new Pair<Integer, Integer>(A.get(0), A.get(0));
+      return new Pair<>(A.get(0), A.get(0));
     }
 
-    // Initialize the min and max pair.
+    // Initializes the min and max pair.
     Pair<Integer, Integer> minMaxPair = Pair.minmax(A.get(0), A.get(1));
     for (int i = 2; i + 1 < A.size(); i += 2) {
       Pair<Integer, Integer> localPair = Pair.minmax(A.get(i), A.get(i + 1));
-      minMaxPair = new Pair<Integer, Integer>(Math.min(minMaxPair.getFirst(),
-          localPair.getFirst()), Math.max(minMaxPair.getSecond(),
-          localPair.getSecond()));
+      minMaxPair = new Pair<>(
+          Math.min(minMaxPair.getFirst(), localPair.getFirst()), 
+          Math.max(minMaxPair.getSecond(), localPair.getSecond()));
     }
-    // Special case: if there is odd number of elements in the array, we still
+    // Special case: If there is odd number of elements in the array, we still
     // need to compare the last element with the existing answer.
     if ((A.size() & 1) != 0) {
-      minMaxPair = new Pair<Integer, Integer>(Math.min(minMaxPair.getFirst(),
-          A.get(A.size() - 1)), Math.max(minMaxPair.getSecond(),
-          A.get(A.size() - 1)));
+      minMaxPair = new Pair<>(
+          Math.min(minMaxPair.getFirst(), A.get(A.size() - 1)),
+          Math.max(minMaxPair.getSecond(), A.get(A.size() - 1)));
     }
     return minMaxPair;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -47,7 +45,7 @@ public class FindingMinMax {
       } else {
         n = r.nextInt(10000) + 1;
       }
-      ArrayList<Integer> A = new ArrayList<Integer>();
+      ArrayList<Integer> A = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
         A.add(r.nextInt(1000000));
       }

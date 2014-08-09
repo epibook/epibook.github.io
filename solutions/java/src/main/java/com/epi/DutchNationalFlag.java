@@ -1,16 +1,16 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import static com.epi.utils.Utils.swap;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.epi.utils.Utils.swap;
+
 public class DutchNationalFlag {
 
   // @include
-  static void dutchFlagPartition(List<Integer> A, int pivotIndex) {
+  public static void dutchFlagPartition(List<Integer> A, int pivotIndex) {
     int pivot = A.get(pivotIndex);
 
     /**
@@ -20,7 +20,6 @@ public class DutchNationalFlag {
      * + 1, A.size() - 1).
      */
     int smaller = 0, equal = 0, larger = A.size() - 1;
-
     // When there is any unclassified element.
     while (equal <= larger) {
       // A.get(equal) is the incoming unclassified element.
@@ -33,12 +32,11 @@ public class DutchNationalFlag {
       }
     }
   }
-
   // @exclude
 
-  static List<Integer> randVector(int len) {
+  private static List<Integer> randVector(int len) {
     Random gen = new Random();
-    List<Integer> ret = new ArrayList<Integer>();
+    List<Integer> ret = new ArrayList<>();
 
     while ((len--) > 0) {
       ret.add(gen.nextInt(3));

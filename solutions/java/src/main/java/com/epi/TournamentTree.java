@@ -1,6 +1,7 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -8,11 +9,11 @@ import java.util.ArrayList;
 // @include
 public class TournamentTree {
   private static class TreeNode {
-    public double cap; // leaf: remaining capacity in the box.
-    // non-leaf: max remaining capacity in the subtree.
-    public ArrayList<Integer> items = new ArrayList<Integer>(); // stores the
-                                                                // items in the
-                                                                // leaf node.
+    // Leaf: remaining capacity in the box.
+    // Non-leaf: max remaining capacity in the subtree.
+    public double cap;
+    // Stores the items in the leaf node.
+    public List<Integer> items = new ArrayList<>();
 
     public TreeNode(double cap) {
       this.cap = cap;
@@ -21,11 +22,11 @@ public class TournamentTree {
 
   // Stores the complete binary tree. For tree_[i],
   // left subtree is tree_[2i + 1], and right subtree is tree_[2i + 2].
-  private ArrayList<TreeNode> tree;
+  private List<TreeNode> tree;
 
   // Recursively inserts item in tournament tree.
   private void insertHelper(int idx, int item, double cap) {
-    int left = (idx << 1) + 1, right = (idx << 1) + 2;
+    int left = (idx * 2) + 1, right = (idx * 2) + 2;
     if (left < tree.size()) { // tree_[idx] is an internal node.
       insertHelper(tree.get(left).cap >= cap ? left : right, item, cap);
       tree.get(idx).cap = Math.max(tree.get(left).cap, tree.get(right).cap);
@@ -38,8 +39,8 @@ public class TournamentTree {
   // n items, and each box has unit_cap.
   public TournamentTree(int n, double unitCap) {
     // Complete binary tree with n leafs has 2n - 1 nodes.
-    int count = (n << 1) - 1;
-    tree = new ArrayList<TreeNode>(count);
+    int count = (n * 2) - 1;
+    tree = new ArrayList<>(count);
     for (int i = 0; i < count; i++) {
       tree.add(new TreeNode(unitCap));
     }
@@ -61,7 +62,7 @@ public class TournamentTree {
   }
 
   public static void main(String[] args) {
-    // following is the example in the book.
+    // Following is the example in the book.
     TournamentTree t = new TournamentTree(6, 1.0);
     t.insert(0, 0.60);
     t.insert(1, 0.60);

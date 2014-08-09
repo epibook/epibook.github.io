@@ -9,12 +9,12 @@ import java.util.LinkedList;
 public class NormalizedPathnames {
   // @include
   public static String normalizedPathNames(String path) {
-    LinkedList<String> s = new LinkedList<String>(); // Use LinkedList as a
-                                                     // stack.
+    LinkedList<String> s = new LinkedList<>(); // Use LinkedList as a stack.
     // Special case: starts with "/", which is an absolute path.
     if (path.startsWith("/")) {
       s.push("/");
     }
+
     for (String token : path.split("/")) {
       if (token.equals("..")) {
         if (s.isEmpty() || s.peek().equals("..")) {
@@ -25,7 +25,7 @@ public class NormalizedPathnames {
           }
           s.pop();
         }
-      } else if (!token.equals(".") && !token.isEmpty()) { // name.
+      } else if (!token.equals(".") && !token.isEmpty()) { // Name.
         for (char c : token.toCharArray()) {
           if (c != '.' && !Character.isDigit(c) && !Character.isLetter(c)) {
             throw new RuntimeException("Invalid directory name");
@@ -34,6 +34,7 @@ public class NormalizedPathnames {
         s.push(token);
       }
     }
+
     StringBuilder normalizedPath = new StringBuilder();
     if (!s.isEmpty()) {
       Iterator<String> it = s.descendingIterator();
@@ -49,7 +50,6 @@ public class NormalizedPathnames {
     }
     return normalizedPath.toString();
   }
-
   // @exclude
 
   public static void main(String[] args) {

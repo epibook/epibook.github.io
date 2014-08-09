@@ -1,9 +1,6 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -61,7 +58,7 @@ public class ImageCompression {
     public Point lowerLeft, upperRight;
 
     // Store the SW, NW, NE, and SE rectangles if color is mixed.
-    public List<TreeNode> children = new ArrayList<TreeNode>();
+    public List<TreeNode> children = new ArrayList<>();
 
     public TreeNode(int nodeNum, Point lowerLeft, Point upperRight) {
       this.nodeNum = nodeNum;
@@ -70,8 +67,26 @@ public class ImageCompression {
     }
   }
 
+  public static TreeNode calculateOptimal2DTree(int[][] image) {
+    int[][] imageSum = new int[image.length][image[0].length];
+    for (int i = 0; i < image.length; ++i) {
+      int summ = 0;
+      for (int j = 0; j < image[i].length; ++j) {
+        summ += image[i][j];
+        imageSum[i][j] = summ;
+      }
+      for (int j = 0; i > 0 && j < image[i].length; ++j) {
+        imageSum[i][j] += imageSum[i - 1][j];
+      }
+    }
+
+    Map<Point, Map<Point, TreeNode>> table = new HashMap<>();
+    return calculateOptimal2DTreeHelper(image, imageSum, new Point(0, 0),
+        new Point(image.length - 1, image[0].length - 1), table);
+  }
+
   public static boolean isMonochromatic(int[][] imageSum, Point lowerLeft,
-      Point upperRight) {
+                                        Point upperRight) {
     int pixelSum = imageSum[upperRight.i][upperRight.j];
     if (lowerLeft.i >= 1) {
       pixelSum -= imageSum[lowerLeft.i - 1][upperRight.j];
@@ -88,8 +103,8 @@ public class ImageCompression {
   }
 
   public static TreeNode calculateOptimal2DTreeHelper(int[][] image,
-      int[][] imageSum, Point lowerLeft, Point upperRight,
-      HashMap<Point, HashMap<Point, TreeNode>> table) {
+                                                      int[][] imageSum, Point lowerLeft, Point upperRight,
+                                                      Map<Point, Map<Point, TreeNode>> table) {
     // Illegal rectangle region, returns empty node.
     if (lowerLeft.isGreater(upperRight)) {
       return new TreeNode(0, lowerLeft, upperRight);
@@ -107,7 +122,7 @@ public class ImageCompression {
           for (int t = lowerLeft.j; t <= upperRight.j + 1; ++t) {
             if ((s != lowerLeft.i && s != upperRight.i + 1)
                 || (t != lowerLeft.j && t != upperRight.j + 1)) {
-              ArrayList<TreeNode> children = new ArrayList<TreeNode>();
+              List<TreeNode> children = new ArrayList<>();
               // SW rectangle.
               children.add(calculateOptimal2DTreeHelper(image, imageSum,
                   lowerLeft, new Point(s - 1, t - 1), table));
@@ -124,7 +139,7 @@ public class ImageCompression {
                   table));
 
               int nodeNum = 1; // itself.
-              ArrayList<TreeNode> toRemove = new ArrayList<TreeNode>();
+              List<TreeNode> toRemove = new ArrayList<>();
               for (TreeNode child : children) {
                 nodeNum += child.nodeNum;
                 // Remove the child contains no node.
@@ -145,25 +160,6 @@ public class ImageCompression {
     }
     return table.get(lowerLeft).get(upperRight);
   }
-
-  public static TreeNode calculateOptimal2DTree(int[][] image) {
-    int[][] imageSum = new int[image.length][image[0].length];
-    for (int i = 0; i < image.length; ++i) {
-      int summ = 0;
-      for (int j = 0; j < image[i].length; ++j) {
-        summ += image[i][j];
-        imageSum[i][j] = summ;
-      }
-      for (int j = 0; i > 0 && j < image[i].length; ++j) {
-        imageSum[i][j] += imageSum[i - 1][j];
-      }
-    }
-
-    HashMap<Point, HashMap<Point, TreeNode>> table = new HashMap<Point, HashMap<Point, TreeNode>>();
-    return calculateOptimal2DTreeHelper(image, imageSum, new Point(0, 0),
-        new Point(image.length - 1, image[0].length - 1), table);
-  }
-
   // @exclude
 
   private static void recursivePrintTree(TreeNode r) {

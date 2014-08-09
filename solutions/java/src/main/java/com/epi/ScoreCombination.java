@@ -12,7 +12,7 @@ public class ScoreCombination {
   // @include
   public static long countCombinations(int k, List<Integer> scoreWays) {
     long[] combinations = new long[k + 1];
-    combinations[0] = 1; // one way to reach 0.
+    combinations[0] = 1; // One way to reach 0.
     for (int score : scoreWays) {
       for (int j = score; j <= k; ++j) {
         combinations[j] += combinations[j - score];
@@ -20,7 +20,6 @@ public class ScoreCombination {
     }
     return combinations[k];
   }
-
   // @exclude
 
   private static void simpleTest() {
@@ -33,7 +32,7 @@ public class ScoreCombination {
     simpleTest();
     Random r = new Random();
     int k;
-    ArrayList<Integer> scoreWays = new ArrayList<Integer>();
+    List<Integer> scoreWays = new ArrayList<>();
     if (args.length == 0) {
       k = r.nextInt(1000);
       int size = r.nextInt(50) + 1;

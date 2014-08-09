@@ -22,14 +22,13 @@ public class MatrixSearch {
     }
     return false;
   }
-
   // @exclude
 
   // O(n^2) solution for verifying answer.
   private static boolean bruteForceSearch(List<List<Integer>> A, int x) {
-    for (int i = 0; i < A.size(); ++i) {
-      for (int j = 0; j < A.get(i).size(); ++j) {
-        if (A.get(i).get(j).equals(x)) {
+    for (List<Integer> aA : A) {
+      for (Integer anAA : aA) {
+        if (anAA.equals(x)) {
           return true;
         }
       }
@@ -48,9 +47,9 @@ public class MatrixSearch {
         n = r.nextInt(100) + 1;
         m = r.nextInt(100) + 1;
       }
-      List<List<Integer>> A = new ArrayList<List<Integer>>(n);
+      List<List<Integer>> A = new ArrayList<>(n);
       for (int i = 0; i < n; i++) {
-        ArrayList<Integer> list = new ArrayList<Integer>(m);
+        List<Integer> list = new ArrayList<>(m);
         for (int j = 0; j < m; j++) {
           list.add(0);
         }

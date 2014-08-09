@@ -4,15 +4,16 @@ import java.util.Random;
 
 public class ReverseInteger {
   // @include
-  public static long reverse(int K) {
-    long res = 0;
-    while (K != 0) {
-      res = res * 10 + K % 10;
-      K /= 10;
+  public static long reverse(int x) {
+    boolean isNegative = (x < 0);
+    long result = 0;
+    long xRemaining = Math.abs(x);
+    while (xRemaining != 0) {
+      result = result * 10 + xRemaining % 10;
+      xRemaining /= 10;
     }
-    return res;
+    return isNegative ? -result : result;
   }
-
   // @exclude
 
   private static long checkAns(int x) {

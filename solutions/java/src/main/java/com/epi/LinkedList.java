@@ -1,6 +1,7 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LinkedList<T> {
 
@@ -56,8 +57,8 @@ public class LinkedList<T> {
     --N;
   }
 
-  public ArrayList<T> serialize() {
-    ArrayList<T> res = new ArrayList<T>();
+  public List<T> serialize() {
+    List<T> res = new ArrayList<>();
     Node current = pre.next;
     while (current != post) {
       res.add(current.item);
@@ -70,7 +71,7 @@ public class LinkedList<T> {
     StringBuilder s = new StringBuilder();
     Node current = pre.next;
     while (current != post) {
-      s.append(current.item + " ");
+      s.append(current.item).append(" ");
       current = current.next;
     }
     return s.toString();
@@ -93,7 +94,7 @@ public class LinkedList<T> {
   }
 
   public static void main(String[] args) {
-    LinkedList<Integer> ll = new LinkedList<Integer>();
+    LinkedList<Integer> ll = new LinkedList<>();
     LinkedList<Integer>.Node n1 = ll.pushBack(1);
     LinkedList<Integer>.Node n2 = ll.pushBack(2);
     LinkedList<Integer>.Node n0 = ll.pushFront(0);

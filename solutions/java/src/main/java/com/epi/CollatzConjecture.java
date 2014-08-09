@@ -2,6 +2,7 @@ package com.epi;
 
 import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -10,36 +11,35 @@ public class CollatzConjecture {
   // @include
   public static boolean testCollatzConjecture(int n) {
     // Stores the odd number that converges to 1.
-    HashSet<Long> table = new HashSet<Long>();
+    Set<Long> table = new HashSet<>();
 
-    // Start from 2 since we don't need to test 1.
+    // Starts from 2 since we don't need to test 1.
     for (int i = 2; i <= n; ++i) {
-      HashSet<Long> sequence = new HashSet<Long>();
+      Set<Long> sequence = new HashSet<>();
       long testI = i;
       while (testI >= i) {
-        // Emplace failed, it mean we met some number encountered before.
+        // We met some number encountered before.
         if (!sequence.add(testI)) {
           return false;
         }
 
-        if ((testI & 1) != 0) { // odd number
+        if ((testI & 1) != 0) { // Odd number
           if (!table.add(testI)) {
-            break; // this number have already be proven to converge to 1.
+            break; // This number have already be proven to converge to 1.
           }
           long nextTestI = 3 * testI + 1; // 3n + 1.
           if (nextTestI <= testI) {
             throw new RuntimeException("test process overflow");
           }
           testI = nextTestI;
-        } else { // even number.
+        } else { // Even number.
           testI >>= 1; // n / 2.
         }
       }
-      table.remove((long) i); // removes i from table.
+      table.remove((long) i);
     }
     return true;
   }
-
   // @exclude
 
   // Slow check without any pruning.

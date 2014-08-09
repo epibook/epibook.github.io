@@ -8,16 +8,16 @@ import java.util.Random;
 class CopyingPostingsList {
 
   // @include
-  public static <T> PNode<T> copyPostingsList(PNode<T> l) {
+  public static PNode<Integer> copyPostingsList(PNode<Integer> l) {
     // Return empty list if l is nullptr.
     if (l == null) {
       return null;
     }
 
     // 1st stage: Copy the nodes from l.
-    PNode<T> p = l;
+    PNode<Integer> p = l;
     while (p != null) {
-      PNode<T> temp = new PNode<T>(p.data, p.next, null);
+      PNode<Integer> temp = new PNode<>(p.data, p.next, null);
       p.next = temp;
       p = temp.next;
     }
@@ -33,16 +33,16 @@ class CopyingPostingsList {
 
     // 3rd stage: Restore the next field.
     p = l;
-    PNode<T> copied = p.next;
+    PNode<Integer> copied = p.next;
     while (p.next != null) {
-      PNode<T> temp = p.next;
+      PNode<Integer> temp = p.next;
       p.next = temp.next;
       p = temp;
     }
     return copied;
   }
-
   // @exclude
+
   public static <T> void checkPostingsListEqual(PNode<T> a, PNode<T> b) {
     while (a != null && b != null) {
       System.out.print(a.data + " ");
@@ -73,7 +73,7 @@ class CopyingPostingsList {
       PNode<Integer> L = null;
       PNode<Integer> curr = L;
       for (int i = 0; i < n; ++i) {
-        PNode<Integer> temp = new PNode<Integer>(i, null, null);
+        PNode<Integer> temp = new PNode<>(i, null, null);
         if (L != null) {
           curr.next = temp;
           curr = temp;

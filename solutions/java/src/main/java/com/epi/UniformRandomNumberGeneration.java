@@ -9,18 +9,17 @@ public class UniformRandomNumberGeneration {
   }
 
   // @include
-  static int uniformRandomAB(int a, int b) {
+  public static int uniformRandom(int a, int b) {
     int l = b - a + 1, res;
     do {
       res = 0;
       for (int i = 0; (1 << i) < l; ++i) {
         // zero_one_random() is the system-provided random number generator.
-        res = (res << 1) | zeroOneRandom();
+        res = (res * 2) | zeroOneRandom();
       }
     } while (res >= l);
     return res + a;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -34,7 +33,7 @@ public class UniformRandomNumberGeneration {
         a = gen.nextInt(100);
         b = gen.nextInt(100) + a + 1;
       }
-      int x = uniformRandomAB(a, b);
+      int x = uniformRandom(a, b);
       System.out.println(String.format("a = %d, b = %d", a, b));
       System.out.println(String.format("random result = %d", x));
       assert x >= a && x <= b;

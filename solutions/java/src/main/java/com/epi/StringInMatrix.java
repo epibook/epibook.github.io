@@ -1,10 +1,6 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -67,30 +63,8 @@ public class StringInMatrix {
   }
 
   // @include
-  private static boolean matchHelper(int[][] A, List<Integer> S,
-      Set<Tuple<Integer, Integer, Integer>> cache, int i, int j, int len) {
-    if (S.size() == len) {
-      return true;
-    }
-
-    if (i < 0 || i >= A.length || j < 0 || j >= A[i].length
-        || cache.contains(new Tuple<Integer, Integer, Integer>(i, j, len))) {
-      return false;
-    }
-
-    if (A[i][j] == S.get(len)
-        && (matchHelper(A, S, cache, i - 1, j, len + 1)
-            || matchHelper(A, S, cache, i + 1, j, len + 1)
-            || matchHelper(A, S, cache, i, j - 1, len + 1) || matchHelper(A, S,
-              cache, i, j + 1, len + 1))) {
-      return true;
-    }
-    cache.add(new Tuple<Integer, Integer, Integer>(i, j, len));
-    return false;
-  }
-
   public static boolean match(int[][] A, List<Integer> S) {
-    HashSet<Tuple<Integer, Integer, Integer>> cache = new HashSet<>();
+    Set<Tuple<Integer, Integer, Integer>> cache = new HashSet<>();
     for (int i = 0; i < A.length; ++i) {
       for (int j = 0; j < A[i].length; ++j) {
         if (matchHelper(A, S, cache, i, j, 0)) {
@@ -101,6 +75,29 @@ public class StringInMatrix {
     return false;
   }
 
+  private static boolean
+  matchHelper(int[][] A, List<Integer> S,
+              Set<Tuple<Integer, Integer, Integer>> cache,
+              int i, int j, int len) {
+    if (S.size() == len) {
+      return true;
+    }
+
+    if (i < 0 || i >= A.length || j < 0 || j >= A[i].length
+        || cache.contains(new Tuple<>(i, j, len))) {
+      return false;
+    }
+
+    if (A[i][j] == S.get(len)
+        && (matchHelper(A, S, cache, i - 1, j, len + 1)
+        || matchHelper(A, S, cache, i + 1, j, len + 1)
+        || matchHelper(A, S, cache, i, j - 1, len + 1) || matchHelper(A, S,
+        cache, i, j + 1, len + 1))) {
+      return true;
+    }
+    cache.add(new Tuple<>(i, j, len));
+    return false;
+  }
   // @exclude
 
   public static void main(String[] args) {
@@ -114,14 +111,14 @@ public class StringInMatrix {
     int[][] A = new int[n][n];
     randMatrix(A);
     for (int[] element : A) {
-      for (int j = 0; j < element.length; ++j) {
-        System.out.print(element[j] + " ");
+      for (int anElement : element) {
+        System.out.print(anElement + " ");
       }
       System.out.println();
     }
     System.out.println("\nS = ");
-    int size = r.nextInt(n * n >> 1) + 1;
-    ArrayList<Integer> S = new ArrayList<Integer>();
+    int size = r.nextInt(n * n / 2) + 1;
+    List<Integer> S = new ArrayList<>();
     for (int i = 0; i < size; ++i) {
       S.add(r.nextInt(n));
     }

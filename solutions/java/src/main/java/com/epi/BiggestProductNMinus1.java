@@ -1,22 +1,20 @@
 package com.epi;
 
-import static com.epi.utils.Utils.fill;
-import static com.epi.utils.Utils.partialSum;
-import static com.epi.utils.Utils.revListIterator;
-import static java.lang.Math.max;
+import com.epi.utils.BinaryOperators;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.epi.utils.BinaryOperators;
+import static com.epi.utils.Utils.*;
+import static java.lang.Math.max;
 
 public class BiggestProductNMinus1 {
   // @include
-  static int findBiggestProductNMinus1(List<Integer> A) {
+  public static int findBiggestProductNMinusOneProduct(List<Integer> A) {
     // Build forward product L, and backward product R.
-    List<Integer> L = new ArrayList<Integer>(A.size()); 
-    List<Integer> R = new ArrayList<Integer>(A.size());
+    List<Integer> L = new ArrayList<>(A.size());
+    List<Integer> R = new ArrayList<>(A.size());
     fill(L, A.size(), 0);
     fill(R, A.size(), 0);
     partialSum(A.iterator(), L.listIterator(), BinaryOperators.MULTIPLIES);
@@ -24,19 +22,18 @@ public class BiggestProductNMinus1 {
         BinaryOperators.MULTIPLIES);
 
     // Find the biggest product of (n - 1) numbers.
-    int macProduct = Integer.MIN_VALUE;
+    int maxProduct = Integer.MIN_VALUE;
     for (int i = 0; i < A.size(); ++i) {
       int forward = i > 0 ? L.get(i - 1) : 1;
       int backward = i + 1 < A.size() ? R.get(i + 1) : 1;
-      macProduct = max(macProduct, forward * backward);
+      maxProduct = max(maxProduct, forward * backward);
     }
-    return macProduct;
+    return maxProduct;
   }
-
   // @exclude
 
   // n^2 checking.
-  static int checkAns(List<Integer> A) {
+  private static int checkAns(List<Integer> A) {
     int maxProduct = Integer.MIN_VALUE;
     for (int i = 0; i < A.size(); ++i) {
       int product = 1;
@@ -63,13 +60,13 @@ public class BiggestProductNMinus1 {
       } else {
         n = gen.nextInt(10) + 2;
       }
-      A = new ArrayList<Integer>(n);
+      A = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
         A.add(gen.nextInt(19) - 9);
         System.out.print(A.get(i) + " ");
       }
       System.out.println();
-      int res = findBiggestProductNMinus1(A);
+      int res = findBiggestProductNMinusOneProduct(A);
       assert res == checkAns(A);
       System.out.println(res);
     }

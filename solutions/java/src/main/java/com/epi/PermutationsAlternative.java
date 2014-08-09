@@ -1,33 +1,28 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class PermutationsAlternative {
   // @include
   public static List<List<Integer>> permutations(List<Integer> A) {
-    List<List<Integer>> res = new ArrayList<List<Integer>>();
-    permutationsHelper(A, 0, res);
-    return res;
+    List<List<Integer>> result = new ArrayList<>();
+    permutationsHelper(0, A, result);
+    return result;
   }
 
-  private static void permutationsHelper(List<Integer> A, int i,
-      List<List<Integer>> res) {
+  private static void permutationsHelper(int i, List<Integer> A,
+                                         List<List<Integer>> result) {
     if (i == A.size()) {
-      res.add(new ArrayList<Integer>(A));
+      result.add(new ArrayList<>(A));
       return;
     }
 
     for (int j = i; j < A.size(); ++j) {
       Collections.swap(A, i, j);
-      permutationsHelper(A, i + 1, res);
+      permutationsHelper(i + 1, A, result);
       Collections.swap(A, i, j);
     }
   }
-
   // @exclude
 
   private static void smallTest() {
@@ -38,12 +33,12 @@ public class PermutationsAlternative {
         add(2);
       }
     };
-    List<List<Integer>> res = permutations(A);
-    assert (res.size() == 6);
-    List<List<Integer>> goldenRes = Arrays.asList(Arrays.asList(0, 1, 2),
+    List<List<Integer>> result = permutations(A);
+    assert (result.size() == 6);
+    List<List<Integer>> goldenResult = Arrays.asList(Arrays.asList(0, 1, 2),
         Arrays.asList(0, 2, 1), Arrays.asList(1, 0, 2), Arrays.asList(1, 2, 0),
         Arrays.asList(2, 1, 0), Arrays.asList(2, 0, 1));
-    assert (res.equals(goldenRes));
+    assert (result.equals(goldenResult));
   }
 
   public static void main(String[] args) {
@@ -55,14 +50,14 @@ public class PermutationsAlternative {
     } else {
       n = r.nextInt(10) + 1;
     }
-    List<Integer> A = new ArrayList<Integer>(n);
+    List<Integer> A = new ArrayList<>(n);
     int val = 0;
     for (int i = 0; i < n; i++) {
       A.add(val++);
     }
-    List<List<Integer>> res = permutations(A);
+    List<List<Integer>> result = permutations(A);
     System.out.println("n = " + n);
-    for (List<Integer> vec : res) {
+    for (List<Integer> vec : result) {
       System.out.println(vec);
     }
   }

@@ -7,16 +7,17 @@ import java.util.Random;
 public class PalindromePartitioning {
   // @include
   public static List<List<String>> palindromePartitioning(String s) {
-    List<List<String>> res = new ArrayList<List<String>>();
-    List<String> partition = new ArrayList<String>();
-    palindromePartitioningHelper(s, 0, partition, res);
-    return res;
+    List<List<String>> result = new ArrayList<>();
+    List<String> partition = new ArrayList<>();
+    palindromePartitioningHelper(s, 0, partition, result);
+    return result;
   }
 
   private static void palindromePartitioningHelper(String s, int begin,
-      List<String> partition, List<List<String>> res) {
+                                                   List<String> partition,
+                                                   List<List<String>> result) {
     if (begin == s.length()) {
-      res.add(new ArrayList<String>(partition));
+      result.add(new ArrayList<>(partition));
       return;
     }
 
@@ -24,7 +25,7 @@ public class PalindromePartitioning {
       String prefix = s.substring(begin, i);
       if (isPalindrome(prefix)) {
         partition.add(prefix);
-        palindromePartitioningHelper(s, i, partition, res);
+        palindromePartitioningHelper(s, i, partition, result);
         partition.remove(partition.size() - 1);
       }
     }
@@ -38,7 +39,6 @@ public class PalindromePartitioning {
     }
     return true;
   }
-
   // @exclude
 
   private static void checkAns(List<List<String>> vecs, String input) {
@@ -68,10 +68,10 @@ public class PalindromePartitioning {
       Random r = new Random();
       for (int times = 0; times < 1000; ++times) {
         String s = randString(r.nextInt(11));
-        List<List<String>> res = palindromePartitioning(s);
-        checkAns(res, s);
+        List<List<String>> result = palindromePartitioning(s);
+        checkAns(result, s);
         System.out.println("string s = " + s);
-        for (List<String> vec : res) {
+        for (List<String> vec : result) {
           System.out.println(vec);
         }
       }

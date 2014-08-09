@@ -1,10 +1,10 @@
 package com.epi;
 
+import com.epi.utils.Ref;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import com.epi.utils.Ref;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -26,11 +26,11 @@ public class DrawingSkylines {
   }
 
   private static List<Skyline> drawingSkylinesHelper(List<Skyline> skylines,
-      int start, int end) {
+                                                     int start, int end) {
     if (end - start <= 1) { // 0 or 1 skyline, just copy it.
-      return new ArrayList<Skyline>(skylines.subList(start, end));
+      return new ArrayList<>(skylines.subList(start, end));
     }
-    int mid = start + ((end - start) >> 1);
+    int mid = start + ((end - start) / 2);
     List<Skyline> L = drawingSkylinesHelper(skylines, start, mid);
     List<Skyline> R = drawingSkylinesHelper(skylines, mid, end);
     return mergeSkylines(L, R);
@@ -38,7 +38,7 @@ public class DrawingSkylines {
 
   private static List<Skyline> mergeSkylines(List<Skyline> L, List<Skyline> R) {
     int i = 0, j = 0;
-    ArrayList<Skyline> merged = new ArrayList<Skyline>();
+    List<Skyline> merged = new ArrayList<>();
 
     while (i < L.size() && j < R.size()) {
       if (L.get(i).right < R.get(j).left) {
@@ -46,14 +46,14 @@ public class DrawingSkylines {
       } else if (R.get(j).right < L.get(i).left) {
         merged.add(R.get(j++));
       } else if (L.get(i).left <= R.get(j).left) {
-        Ref<Integer> iWrapper = new Ref<Integer>(i);
-        Ref<Integer> jWrapper = new Ref<Integer>(j);
+        Ref<Integer> iWrapper = new Ref<>(i);
+        Ref<Integer> jWrapper = new Ref<>(j);
         mergeIntersectSkylines(merged, L.get(i), iWrapper, R.get(j), jWrapper);
         i = iWrapper.value;
         j = jWrapper.value;
       } else { // L.get(i).left > R.get(j).left.
-        Ref<Integer> iWrapper = new Ref<Integer>(i);
-        Ref<Integer> jWrapper = new Ref<Integer>(j);
+        Ref<Integer> iWrapper = new Ref<>(i);
+        Ref<Integer> jWrapper = new Ref<>(j);
         mergeIntersectSkylines(merged, R.get(j), jWrapper, L.get(i), iWrapper);
         i = iWrapper.value;
         j = jWrapper.value;
@@ -65,7 +65,8 @@ public class DrawingSkylines {
   }
 
   private static void mergeIntersectSkylines(List<Skyline> merged, Skyline a,
-      Ref<Integer> aIdx, Skyline b, Ref<Integer> bIdx) {
+                                             Ref<Integer> aIdx, Skyline b,
+                                             Ref<Integer> bIdx) {
     if (a.right <= b.right) {
       if (a.height > b.height) {
         if (b.right != a.right) {
@@ -97,12 +98,10 @@ public class DrawingSkylines {
       }
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {
     Random r = new Random();
-    // Random test 2000 times.
     for (int times = 0; times < 2000; ++times) {
       int n;
       if (args.length == 1) {
@@ -110,7 +109,7 @@ public class DrawingSkylines {
       } else {
         n = r.nextInt(5000) + 1;
       }
-      ArrayList<Skyline> A = new ArrayList<Skyline>();
+      List<Skyline> A = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
         int left = r.nextInt(1000);
         int right = r.nextInt(201) + left;
@@ -119,7 +118,7 @@ public class DrawingSkylines {
       }
       List<Skyline> ans = drawingSkylines(A);
       System.out.println("n = " + n);
-      // just check there is no overlap.
+      // Just check there is no overlap.
       for (int i = 0; i < ans.size(); ++i) {
         assert (ans.get(i).left <= ans.get(i).right);
         if (i > 0) {

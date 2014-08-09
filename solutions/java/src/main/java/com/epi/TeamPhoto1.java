@@ -3,6 +3,7 @@ package com.epi;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 // @include
 class Player implements Comparable<Player> {
@@ -19,7 +20,7 @@ class Player implements Comparable<Player> {
 }
 
 class Team implements Comparable<Team> {
-  public Team(ArrayList<Integer> height) {
+  public Team(List<Integer> height) {
     for (Integer h : height) {
       members.add(new Player(h));
     }
@@ -27,8 +28,8 @@ class Team implements Comparable<Team> {
 
   @Override
   public int compareTo(Team that) {
-    ArrayList<Player> thisSorted = sortHeightMembers();
-    ArrayList<Player> thatSorted = that.sortHeightMembers();
+    List<Player> thisSorted = sortHeightMembers();
+    List<Player> thatSorted = that.sortHeightMembers();
     for (int i = 0; i < thisSorted.size() && i < thatSorted.size(); ++i) {
       if (thisSorted.get(i).compareTo(thatSorted.get(i)) >= 0) {
         return 1;
@@ -37,20 +38,19 @@ class Team implements Comparable<Team> {
     return -1;
   }
 
-  private ArrayList<Player> sortHeightMembers() {
-    ArrayList<Player> sortedMembers = members;
+  private List<Player> sortHeightMembers() {
+    List<Player> sortedMembers = members;
     Collections.sort(sortedMembers);
     return sortedMembers;
   }
 
-  private ArrayList<Player> members = new ArrayList<Player>();
+  private List<Player> members = new ArrayList<>();
 }
-
 // @exclude
 
 class TeamPhoto1 {
   public static void main(String[] args) {
-    ArrayList<Integer> height = new ArrayList<Integer>(3);
+    List<Integer> height = new ArrayList<>(3);
     height.add(0, 1);
     height.add(1, 5);
     height.add(2, 4);

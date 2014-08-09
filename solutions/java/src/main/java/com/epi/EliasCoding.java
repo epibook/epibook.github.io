@@ -1,6 +1,7 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -8,7 +9,20 @@ import java.util.Random;
  */
 public class EliasCoding {
   // @include
-  public static String transIntToBinary(int decimal) {
+  public static String encode(List<Integer> A) {
+    StringBuilder ret = new StringBuilder();
+    for (Integer a : A) {
+      String binary = transIntToBinary(a);
+      // Prepend 0s.
+      for (int i = 0; i < binary.length(); ++i) {
+        ret.append('0');
+      }
+      ret.append(binary);
+    }
+    return ret.toString();
+  }
+
+  private static String transIntToBinary(int decimal) {
     StringBuilder ret = new StringBuilder();
     while (decimal != 0) {
       ret.append((char) ('0' + (decimal & 1)));
@@ -18,28 +32,8 @@ public class EliasCoding {
     return ret.toString();
   }
 
-  public static String encode(ArrayList<Integer> A) {
-    StringBuilder ret = new StringBuilder();
-    for (Integer a : A) {
-      String binary = transIntToBinary(a);
-      for (int i = 0; i < binary.length(); ++i) {
-        ret.append('0');
-      }
-      ret.append(binary);
-    }
-    return ret.toString();
-  }
-
-  public static int transBinaryToInt(String binary) {
-    int ret = 0;
-    for (char c : binary.toCharArray()) {
-      ret = (ret << 1) + c - '0';
-    }
-    return ret;
-  }
-
-  public static ArrayList<Integer> decode(String s) {
-    ArrayList<Integer> ret = new ArrayList<Integer>();
+  public static List<Integer> decode(String s) {
+    List<Integer> ret = new ArrayList<>();
     int idx = 0;
     while (idx < s.length()) {
       // Count the number of consecutive 0s.
@@ -55,10 +49,17 @@ public class EliasCoding {
     return ret;
   }
 
+  private static int transBinaryToInt(String binary) {
+    int ret = 0;
+    for (char c : binary.toCharArray()) {
+      ret = (ret * 2) + c - '0';
+    }
+    return ret;
+  }
   // @exclude
 
   public static void main(String[] args) {
-    ArrayList<Integer> A = new ArrayList<Integer>();
+    List<Integer> A = new ArrayList<>();
     Random r = new Random();
     if (args.length == 0) {
       int count = r.nextInt(10000) + 1;
@@ -74,7 +75,7 @@ public class EliasCoding {
     String ret = encode(A);
     System.out.println(ret);
 
-    ArrayList<Integer> res = decode(ret);
+    List<Integer> res = decode(ret);
     assert (A.size() == res.size());
     for (int i = 0; i < A.size(); ++i) {
       assert (res.get(i).equals(A.get(i)));

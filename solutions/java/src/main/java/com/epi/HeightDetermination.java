@@ -14,7 +14,7 @@ public class HeightDetermination {
   }
 
   static int getHeightHelper(int[][] F, int c, int d) {
-    if (d == 0) {
+    if (c == 0 || d == 0) {
       return 0;
     } else if (c == 1) {
       return d;
@@ -26,7 +26,6 @@ public class HeightDetermination {
       return F[c][d];
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -43,6 +42,8 @@ public class HeightDetermination {
     assert (getHeight(3, 0) == 0);
     assert (getHeight(3, 1) == 1);
     assert (getHeight(3, 3) == 7);
+    assert (getHeight(0, 10) == 0);
+    assert (getHeight(0, 0) == 0);
   }
 
 }

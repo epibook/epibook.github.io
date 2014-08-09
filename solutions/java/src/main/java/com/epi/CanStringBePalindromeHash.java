@@ -8,8 +8,8 @@ import java.util.Map;
 
 class CanStringBePalindromeHash {
   // @include
-  public static boolean canStringBeAPalindromeHash(String s) {
-    HashMap<Character, Integer> hash = new HashMap<Character, Integer>();
+  public static boolean canStringBeAPalindrome(String s) {
+    Map<Character, Integer> hash = new HashMap<>();
     // Insert each char into hash.
     for (char c : s.toCharArray()) {
       if (!hash.containsKey(c)) {

@@ -8,12 +8,14 @@ import java.util.Random;
 public class SwapBits {
   // @include
   public static long swapBits(long x, int i, int j) {
+    // Extract the i-th and j-th bits, and see if they differ.
     if (((x >> i) & 1) != ((x >> j) & 1)) {
+      // Swap i-th and j-th bits by flipping them. 
+      // Select and flip bits by using a bit mask and XOR.
       x ^= (1L << i) | (1L << j);
     }
     return x;
   }
-
   // @exclude
 
   private static void simpleTest() {

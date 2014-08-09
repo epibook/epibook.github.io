@@ -8,7 +8,7 @@ import java.util.LinkedList;
 public class SearchPostingsListIterative {
   // @include
   public static void searchPostingsList(PostingListNode L) {
-    LinkedList<PostingListNode> s = new LinkedList<PostingListNode>();
+    LinkedList<PostingListNode> s = new LinkedList<>();
     int order = 0;
     s.push(L);
     while (!s.isEmpty()) {
@@ -20,7 +20,6 @@ public class SearchPostingsListIterative {
       }
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -38,12 +37,12 @@ public class SearchPostingsListIterative {
 
     L.setJump(null); // no jump from 1
     L.getNext().setJump(L.getNext().getNext().getNext()); // 2's jump points to
-                                                          // 4
+    // 4
     L.getNext().getNext().setJump(L); // 3's jump points to 1
     L.getNext().getNext().getNext().setJump(null); // no jump from 4
     L.getNext().getNext().getNext().getNext()
         .setJump(L.getNext().getNext().getNext().getNext()); // 5's jump points
-                                                             // to 5
+    // to 5
     PostingListNode temp = L;
     searchPostingsList(L);
     // output the jump-first order, it should be 0, 1, 4, 2, 3

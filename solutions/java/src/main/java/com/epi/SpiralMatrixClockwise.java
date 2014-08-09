@@ -1,14 +1,21 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import static java.lang.Math.ceil;
-
 import java.util.Random;
+
+import static java.lang.Math.ceil;
 
 public class SpiralMatrixClockwise {
   // @include
-  static void printMatrixClockwise(int[][] A, int offset) {
-    if (offset == A.length - offset - 1) { // for matrix with odd size.
+  public static void printMatrixInSpiralOrder(int[][] A) {
+    for (int offset = 0; offset < ceil(0.5 * A.length); ++offset) {
+      printMatrixClockwise(A, offset);
+    }
+  }
+
+  private static void printMatrixClockwise(int[][] A, int offset) {
+    if (offset == A.length - offset - 1) {
+      // A has odd diemnsion, and we are at the center of the matrix A.
       System.out.print(A[offset][offset]);
     }
 
@@ -25,13 +32,6 @@ public class SpiralMatrixClockwise {
       System.out.print(A[i][offset] + " ");
     }
   }
-
-  static void printMatrixInSpiralOrder(int[][] A) {
-    for (int offset = 0; offset < ceil(0.5 * A.length); ++offset) {
-      printMatrixClockwise(A, offset);
-    }
-  }
-
   // @exclude
 
   public static void main(String[] args) {

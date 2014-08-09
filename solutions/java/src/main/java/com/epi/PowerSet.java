@@ -1,6 +1,7 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -10,7 +11,7 @@ public class PowerSet {
   // @include
   private static final double LOG_2 = Math.log(2);
 
-  public static void generatePowerSet(ArrayList<Integer> S) {
+  public static void generatePowerSet(List<Integer> S) {
     for (int i = 0; i < (1 << S.size()); ++i) {
       int x = i;
       while (x != 0) {
@@ -23,11 +24,10 @@ public class PowerSet {
       System.out.println();
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {
-    ArrayList<Integer> S = new ArrayList<Integer>();
+    List<Integer> S = new ArrayList<>();
     if (args.length >= 1) {
       for (String arg : args) {
         S.add(Integer.parseInt(arg));

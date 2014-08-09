@@ -1,21 +1,19 @@
 package com.epi;
 
-import static com.epi.utils.Utils.swap;
-
 import java.util.Random;
+
+import static com.epi.utils.Utils.swap;
 
 public class OfflineSampling {
   // @include
-  static int[] offlineSampling(int[] A, int k) {
-    Random gen = new Random(); // random num generator.
-
+  public static int[] offlineSampling(int[] A, int k) {
+    Random gen = new Random(); // Random num generator.
     for (int i = A.length - 1; i > A.length - 1 - k; i--) {
       // Generate random int in [i, A.size() - 1].
       swap(A, i, gen.nextInt(A.length - i) + i);
     }
     return A;
   }
-
   // @exclude
 
   public static void main(String[] args) {

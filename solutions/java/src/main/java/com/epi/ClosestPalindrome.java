@@ -1,23 +1,19 @@
 package com.epi;
 
+import java.util.Random;
+
 import static com.epi.utils.Utils.fill;
 import static java.lang.Math.abs;
 
-import java.util.Random;
-
 public class ClosestPalindrome {
   // @include
-  long diff(long a, long b) {
-    return a > b ? a - b : b - a;
-  }
-
   static long findClosestPalindrome(long x) {
     // Make str a palindrome by mirroring the left half to the right half.
     String mirrored = mirrorLeftHalf(String.valueOf(x));
     StringBuilder str = new StringBuilder(mirrored);
 
     long mirrorLeft = Long.valueOf(mirrored);
-    int idx = (str.length() - 1) >> 1;
+    int idx = (str.length() - 1) / 2;
     if (mirrorLeft >= x) {
       // Subtract one from the left half.
       while (idx >= 0) {
@@ -29,9 +25,9 @@ public class ClosestPalindrome {
           break;
         }
       }
-      if (str.charAt(0) == '0') { // special case, make the whole string as
-                                  // "99...9".
-        str.deleteCharAt(0); // removes the leading 0.
+      // Special case, make the entire string "99...9".
+      if (str.charAt(0) == '0') {
+        str.deleteCharAt(0); // Removes the leading 0.
         fill(str, '9');
       }
     } else { // mirrorLeft < x.
@@ -52,7 +48,6 @@ public class ClosestPalindrome {
     return abs(x - mirrorLeft) < abs(x - Long.valueOf(mirrored)) ? mirrorLeft
         : Long.valueOf(mirrored);
   }
-
   // @exclude
 
   static String mirrorLeftHalf(String s) {

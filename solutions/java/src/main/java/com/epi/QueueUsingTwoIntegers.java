@@ -7,8 +7,8 @@ public class QueueUsingTwoIntegers {
   // @include
   public static class Queue {
     private int val = 0;
-    private int size = 0, maxSize = (int) Math.floor(Math
-        .log10(Integer.MAX_VALUE));
+    private int size = 0;
+    private int maxSize = (int) Math.floor(Math.log10(Integer.MAX_VALUE));
 
     public void enqueue(int x) {
       if (size >= maxSize) {
@@ -19,20 +19,19 @@ public class QueueUsingTwoIntegers {
     }
 
     public int dequeue() {
-      if (size != 0) {
-        int ret = 0, d = (int) Math.floor(Math.log10(val));
-        if (d + 1 == size) {
-          int powVal = (int) Math.pow(10, d);
-          ret = val / powVal;
-          val -= powVal * ret;
-        }
-        --size;
-        return ret;
+      if (size == 0) {
+        throw new RuntimeException("empty queue");
       }
-      throw new RuntimeException("empty queue");
+      int ret = 0, d = (int) Math.floor(Math.log10(val));
+      if (d + 1 == size) {
+        int powVal = (int) Math.pow(10, d);
+        ret = val / powVal;
+        val -= powVal * ret;
+      }
+      --size;
+      return ret;
     }
   }
-
   // @exclude
 
   private static void assertDequeue(Queue q, int t) {

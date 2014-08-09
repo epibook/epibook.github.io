@@ -18,28 +18,29 @@ public class PickingUpCoins {
     return pickUpCoinsHelper(C, 0, C.size() - 1, T);
   }
 
-  private static int pickUpCoinsHelper(List<Integer> C, int a, int b, int[][] T) {
+  private static int pickUpCoinsHelper(List<Integer> C, int a, int b,
+                                       int[][] T) {
     if (a > b) {
-      return 0; // base condition.
+      return 0; // Base condition.
     }
 
     if (T[a][b] == -1) {
       T[a][b] = Math.max(
           C.get(a)
               + Math.min(pickUpCoinsHelper(C, a + 2, b, T),
-                  pickUpCoinsHelper(C, a + 1, b - 1, T)),
+              pickUpCoinsHelper(C, a + 1, b - 1, T)),
           C.get(b)
               + Math.min(pickUpCoinsHelper(C, a + 1, b - 1, T),
-                  pickUpCoinsHelper(C, a, b - 2, T)));
+              pickUpCoinsHelper(C, a, b - 2, T))
+      );
     }
     return T[a][b];
   }
-
   // @exclude
 
   public static void main(String[] args) {
     Random r = new Random();
-    ArrayList<Integer> C = new ArrayList<Integer>();
+    List<Integer> C = new ArrayList<>();
     if (args.length >= 1) {
       for (int i = 1; i < args.length; ++i) {
         C.add(Integer.parseInt(args[i]));

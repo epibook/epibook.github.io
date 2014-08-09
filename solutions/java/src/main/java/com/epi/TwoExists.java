@@ -15,12 +15,12 @@ public class TwoExists {
     }
 
     public Color color;
-    public ArrayList<GraphVertex> edges;
+    public List<GraphVertex> edges;
 
     // @exclude
     public GraphVertex() {
       color = Color.WHITE;
-      edges = new ArrayList<GraphVertex>();
+      edges = new ArrayList<>();
     }
 
     @Override
@@ -30,7 +30,7 @@ public class TwoExists {
     // @include
   }
 
-  public static boolean isGraph2Exist(List<GraphVertex> G) {
+  public static boolean isGraphTwoExist(List<GraphVertex> G) {
     if (!G.isEmpty()) {
       return DFS(G.get(0), null);
     }
@@ -55,10 +55,10 @@ public class TwoExists {
     cur.color = GraphVertex.Color.BLACK; // marks current vertex as black.
     return false;
   }
-
   // @exclude
 
-  private static void dfsExclusion(GraphVertex cur, GraphVertex a, GraphVertex b) {
+  private static void
+  dfsExclusion(GraphVertex cur, GraphVertex a, GraphVertex b) {
     cur.color = GraphVertex.Color.BLACK;
     for (GraphVertex next : cur.edges) {
       if (next.color == GraphVertex.Color.WHITE
@@ -102,7 +102,7 @@ public class TwoExists {
       } else {
         n = r.nextInt(1999) + 2;
       }
-      ArrayList<GraphVertex> G = new ArrayList<GraphVertex>(n);
+      List<GraphVertex> G = new ArrayList<>(n);
       for (int i = 0; i < n; i++) {
         G.add(new GraphVertex());
       }
@@ -121,13 +121,13 @@ public class TwoExists {
         do {
           a = r.nextInt(n);
           b = r.nextInt(n);
-        } while (a == b || isEdgeExist[a][b] == true);
+        } while (a == b || isEdgeExist[a][b]);
         isEdgeExist[a][b] = isEdgeExist[b][a] = true;
         G.get(a).edges.add(G.get(b));
         G.get(b).edges.add(G.get(a));
       }
       // System.out.println(G);
-      boolean res = isGraph2Exist(G);
+      boolean res = isGraphTwoExist(G);
       System.out.println(res);
       assert (checkAnswer(G) == res);
     }

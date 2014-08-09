@@ -40,11 +40,11 @@ public class BonusImproved {
   // @exclude
 
   private static void smallTest() {
-    int[] A = new int[] { 1, 2, 2 };
-    int[] goldenA = new int[] { 1, 2, 1 };
+    int[] A = new int[]{1, 2, 2};
+    int[] goldenA = new int[]{1, 2, 1};
     assert (Arrays.equals(calculateBonus(A), goldenA));
-    A = new int[] { 1, 2, 3, 2, 1 };
-    goldenA = new int[] { 1, 2, 3, 2, 1 };
+    A = new int[]{1, 2, 3, 2, 1};
+    goldenA = new int[]{1, 2, 3, 2, 1};
     assert (Arrays.equals(calculateBonus(A), goldenA));
   }
 

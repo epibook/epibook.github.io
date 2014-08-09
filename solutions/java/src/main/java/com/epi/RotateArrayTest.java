@@ -33,11 +33,11 @@ public class RotateArrayTest {
       int i = gen.nextInt(len);
 
       int[] B = Arrays.copyOf(A, A.length);
-      RotateArrayPermutation.rotateArray(B, i);
+      RotateArrayPermutation.rotateArray(i, B);
       checkAnswer(A, i, B);
 
       int[] C = Arrays.copyOf(A, A.length);
-      RotateArray.rotateArray(C, i);
+      RotateArray.rotateArray(i, C);
       checkAnswer(A, i, C);
     }
   }

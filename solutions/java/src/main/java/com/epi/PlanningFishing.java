@@ -16,7 +16,6 @@ public class PlanningFishing {
     }
     return A[A.length - 1][A[0].length - 1];
   }
-
   // @exclude
 
   public static void main(String[] args) {

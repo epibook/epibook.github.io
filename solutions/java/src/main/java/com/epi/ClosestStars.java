@@ -1,16 +1,7 @@
 package com.epi;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.PriorityQueue;
-import java.util.Random;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -73,9 +64,9 @@ public class ClosestStars {
   }
 
   // @include
-  public static ArrayList<Star> findClosestKStars(InputStream sin, int k) {
+  public static List<Star> findClosestKStars(InputStream sin, int k) {
     // Use maxHeap to find the closest k stars.
-    PriorityQueue<Star> maxHeap = new PriorityQueue<Star>();
+    PriorityQueue<Star> maxHeap = new PriorityQueue<>();
     try {
       ObjectInputStream osin = new ObjectInputStream(sin);
 
@@ -86,6 +77,8 @@ public class ClosestStars {
         if (maxHeap.size() == k) {
           // Compare the top of heap with the incoming star.
           Star farStar = maxHeap.peek();
+          // compareTo() method compares the Euclidean distances
+          // of s and farStar to the origin (Earth). 
           if (s.compareTo(farStar) < 0) {
             maxHeap.remove();
             maxHeap.add(s);
@@ -95,23 +88,22 @@ public class ClosestStars {
         }
       }
     } catch (IOException e) {
-      // Do nothing, was read last element in stream
+      // Do nothing, was read last element in stream.
     } catch (ClassNotFoundException e) {
       System.out.println("ClassNotFoundException: " + e.getMessage());
     }
 
     // Store the closest k stars.
-    ArrayList<Star> closestStars = new ArrayList<Star>();
+    List<Star> closestStars = new ArrayList<>();
     while (!maxHeap.isEmpty()) {
       closestStars.add(maxHeap.remove());
     }
     return closestStars;
   }
-
   // @exclude
 
-  private static int partition(ArrayList<Star> stars, int left, int right,
-      int pivotIndex) {
+  private static int partition(List<Star> stars, int left, int right,
+                               int pivotIndex) {
     double pivotValue = stars.get(pivotIndex).distance();
     Collections.swap(stars, pivotIndex, right);
     int lessIndex = left;
@@ -124,7 +116,7 @@ public class ClosestStars {
     return lessIndex;
   }
 
-  private static ArrayList<Star> selectK(ArrayList<Star> stars, int k) {
+  private static List<Star> selectK(List<Star> stars, int k) {
     if (stars.size() <= k) {
       return stars;
     }
@@ -143,11 +135,11 @@ public class ClosestStars {
       }
     }
 
-    ArrayList<Star> closestStars = new ArrayList<Star>();
+    List<Star> closestStars = new ArrayList<>();
     double dist = stars.get(pivotIndex).distance();
-    for (int i = 0; i < stars.size(); ++i) {
-      if (dist >= stars.get(i).distance()) {
-        closestStars.add(stars.get(i));
+    for (Star star : stars) {
+      if (dist >= star.distance()) {
+        closestStars.add(star);
       }
     }
     return closestStars;
@@ -167,7 +159,7 @@ public class ClosestStars {
         num = r.nextInt(10000) + 1;
         k = r.nextInt(num) + 1;
       }
-      ArrayList<Star> stars = new ArrayList<Star>();
+      List<Star> stars = new ArrayList<>();
       // randomly generate num of stars
       for (int i = 0; i < num; ++i) {
         stars.add(new Star(i, r.nextInt(100001), r.nextInt(100001), r
@@ -186,8 +178,8 @@ public class ClosestStars {
       } catch (IOException e) {
         System.out.println("IOException: " + e.getMessage());
       }
-      ArrayList<Star> closestStars = findClosestKStars(sin, k);
-      ArrayList<Star> selectedStars = selectK(stars, k);
+      List<Star> closestStars = findClosestKStars(sin, k);
+      List<Star> selectedStars = selectK(stars, k);
       Collections.sort(selectedStars);
       Collections.sort(stars);
       System.out.println(k);

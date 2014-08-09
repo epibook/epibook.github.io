@@ -22,7 +22,6 @@ class EliminateDuplicate {
     // shrink array size
     a.subList(++result, a.size()).clear();
   }
-
   // @exclude
 
   public static void checkAnswer(ArrayList<Integer> a) {
@@ -35,7 +34,7 @@ class EliminateDuplicate {
     Random gen = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
-      ArrayList<Integer> a = new ArrayList<Integer>();
+      ArrayList<Integer> a = new ArrayList<>();
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);
       } else {

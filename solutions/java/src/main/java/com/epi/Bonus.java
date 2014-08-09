@@ -1,11 +1,11 @@
 package com.epi;
 
+import com.epi.utils.Pair;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
 import java.util.TreeSet;
-
-import com.epi.utils.Pair;
 
 public class Bonus {
   private static void checkAns(int[] ratings, int[] C) {
@@ -23,20 +23,21 @@ public class Bonus {
 
   // @include
   public static int[] calculateBonus(int[] ratings) {
-    TreeSet<Pair<Integer, Integer>> h = new TreeSet<Pair<Integer, Integer>>(
+    TreeSet<Pair<Integer, Integer>> h = new TreeSet<>(
         new Comparator<Pair<Integer, Integer>>() {
           @Override
           public int compare(Pair<Integer, Integer> o1,
-              Pair<Integer, Integer> o2) {
+                             Pair<Integer, Integer> o2) {
             int result = o1.getFirst().compareTo(o2.getFirst());
             if (result == 0) {
               result = o1.getSecond().compareTo(o2.getSecond());
             }
             return result;
           }
-        });
+        }
+    );
     for (int i = 0; i < ratings.length; ++i) {
-      h.add(new Pair<Integer, Integer>(ratings[i], i));
+      h.add(new Pair<>(ratings[i], i));
     }
 
     // T stores the amount of bonus each one is assigned.
@@ -62,15 +63,14 @@ public class Bonus {
     }
     return T;
   }
-
   // @exclude
 
   private static void smallTest() {
-    int[] a = new int[] { 1, 2, 2 };
-    int[] goldenA = new int[] { 1, 2, 1 };
+    int[] a = new int[]{1, 2, 2};
+    int[] goldenA = new int[]{1, 2, 1};
     assert (Arrays.equals(calculateBonus(a), goldenA));
-    a = new int[] { 1, 2, 3, 2, 1 };
-    goldenA = new int[] { 1, 2, 3, 2, 1 };
+    a = new int[]{1, 2, 3, 2, 1};
+    goldenA = new int[]{1, 2, 3, 2, 1};
     assert (Arrays.equals(calculateBonus(a), goldenA));
   }
 

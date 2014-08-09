@@ -2,7 +2,21 @@ package com.epi;
 
 public class RegularExpression {
   // @include
-  static boolean isMatchHere(String r, String s) {
+  public static boolean isMatch(String r, String s) {
+    // Case (2.) : starts with '^'.
+    if (r.charAt(0) == '^') {
+      return isMatchHere(r.substring(1), s);
+    }
+
+    for (int i = 0; i <= s.length(); ++i) {
+      if (isMatchHere(r, s.substring(i))) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static boolean isMatchHere(String r, String s) {
     // Case (1.)
     if (r.isEmpty()) {
       return true;
@@ -28,21 +42,6 @@ public class RegularExpression {
     return !s.isEmpty() && (r.charAt(0) == '.' || r.charAt(0) == s.charAt(0))
         && isMatchHere(r.substring(1), s.substring(1));
   }
-
-  static boolean isMatch(String r, String s) {
-    // Case (2.) : starts with '^'.
-    if (r.charAt(0) == '^') {
-      return isMatchHere(r.substring(1), s);
-    }
-
-    for (int i = 0; i <= s.length(); ++i) {
-      if (isMatchHere(r, s.substring(i))) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   // @exclude
 
   public static void main(String[] args) {

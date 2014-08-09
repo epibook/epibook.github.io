@@ -5,7 +5,7 @@ import static com.epi.utils.Utils.reverse;
 
 public class RotateArray {
   // @include
-  static void rotateArray(int[] A, int i) {
+  public static void rotateArray(int i, int[] A) {
     i %= A.length;
     reverse(A, 0, A.length);
     reverse(A, 0, i);

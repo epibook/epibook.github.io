@@ -1,8 +1,8 @@
 package com.epi;
 
-import static com.epi.SudokuCheck.isValidSudoku;
-
 import java.util.Arrays;
+
+import static com.epi.SudokuCheck.isValidSudoku;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -28,7 +28,7 @@ public class SudokuSolve {
 
   private static boolean solveSudokuHelper(int[][] A, int i, int j) {
     if (i == A.length) {
-      i = 0; // starts a new row.
+      i = 0; // Starts a new row.
       if (++j == A[i].length) {
         return true; // Entire matrix has been filled without conflict.
       }
@@ -43,7 +43,7 @@ public class SudokuSolve {
       // Note: practically, it's substantially quicker to check if entry val
       // conflicts with any of the constraints if we add it at (i,j) before
       // adding it, rather than adding it and then calling isValidSudoku.
-      // The reason is that we know we are starting with a valid configuration,
+      // The reason is that we are starting with a valid configuration,
       // and the only entry which can cause a problem is entryval at (i,j).
       if (validToAdd(A, i, j, val)) {
         A[i][j] = val;
@@ -53,7 +53,7 @@ public class SudokuSolve {
       }
     }
 
-    A[i][j] = 0; // undos assignment.
+    A[i][j] = 0; // Undo assignment.
     return false;
   }
 
@@ -84,20 +84,19 @@ public class SudokuSolve {
     }
     return true;
   }
-
   // @exclude
 
   public static void main(String[] args) {
     int[][] A = new int[9][];
-    A[0] = new int[] { 0, 2, 6, 0, 0, 0, 8, 1, 0 };
-    A[1] = new int[] { 3, 0, 0, 7, 0, 8, 0, 0, 6 };
-    A[2] = new int[] { 4, 0, 0, 0, 5, 0, 0, 0, 7 };
-    A[3] = new int[] { 0, 5, 0, 1, 0, 7, 0, 9, 0 };
-    A[4] = new int[] { 0, 0, 3, 9, 0, 5, 1, 0, 0 };
-    A[5] = new int[] { 0, 4, 0, 3, 0, 2, 0, 5, 0 };
-    A[6] = new int[] { 1, 0, 0, 0, 3, 0, 0, 0, 2 };
-    A[7] = new int[] { 5, 0, 0, 2, 0, 4, 0, 0, 9 };
-    A[8] = new int[] { 0, 3, 8, 0, 0, 0, 4, 6, 0 };
+    A[0] = new int[]{0, 2, 6, 0, 0, 0, 8, 1, 0};
+    A[1] = new int[]{3, 0, 0, 7, 0, 8, 0, 0, 6};
+    A[2] = new int[]{4, 0, 0, 0, 5, 0, 0, 0, 7};
+    A[3] = new int[]{0, 5, 0, 1, 0, 7, 0, 9, 0};
+    A[4] = new int[]{0, 0, 3, 9, 0, 5, 1, 0, 0};
+    A[5] = new int[]{0, 4, 0, 3, 0, 2, 0, 5, 0};
+    A[6] = new int[]{1, 0, 0, 0, 3, 0, 0, 0, 2};
+    A[7] = new int[]{5, 0, 0, 2, 0, 4, 0, 0, 9};
+    A[8] = new int[]{0, 3, 8, 0, 0, 0, 4, 6, 0};
     solveSudoku(A);
   }
 }

@@ -42,27 +42,26 @@ class Wrapper<T> {
     this.object = object;
   }
 }
-
 // @exclude
 
 public class LazyInit {
 
   public static void main(String[] args) {
-    Array<Integer> A = new Array<Integer>(Integer.class, 11);
-    Wrapper<Integer> x = new Wrapper<Integer>(0);
+    Array<Integer> A = new Array<>(Integer.class, 11);
+    Wrapper<Integer> x = new Wrapper<>(0);
 
-    assert (A.read(0, x) == false);
-    assert (A.read(1, x) == false);
+    assert (!A.read(0, x));
+    assert (!A.read(1, x));
 
     A.write(1, 5);
-    assert (A.read(1, x) == true && x.object == 5);
-    assert (A.read(2, x) == false);
+    assert (A.read(1, x) && x.object == 5);
+    assert (!A.read(2, x));
 
     A.write(2, 27);
-    assert (A.read(2, x) == true && x.object == 27);
-    assert (A.read(7, x) == false);
+    assert (A.read(2, x) && x.object == 27);
+    assert (!A.read(7, x));
 
     A.write(7, -19);
-    assert (A.read(7, x) == true && x.object == -19);
+    assert (A.read(7, x) && x.object == -19);
   }
 }

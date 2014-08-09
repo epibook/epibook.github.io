@@ -3,19 +3,14 @@
 
 package com.epi;
 
+import com.epi.utils.Pair;
+
+import java.awt.*;
+import java.util.*;
+import java.util.List;
+
 import static com.epi.utils.Utils.getCanonicalFractional;
 import static com.epi.utils.Utils.nullEqual;
-
-import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Random;
-
-import com.epi.utils.Pair;
 
 class Line {
   private Pair<Integer, Integer> slope;
@@ -25,12 +20,12 @@ class Line {
     if (a.x != b.x) {
       slope = getCanonicalFractional(b.y - a.y, b.x - a.x);
     } else {
-      slope = new Pair<Integer, Integer>(1, 0);
+      slope = new Pair<>(1, 0);
     }
     if (a.x != b.x) {
       intercept = getCanonicalFractional(b.x * a.y - a.x * b.y, b.x - a.x);
     } else {
-      intercept = new Pair<Integer, Integer>(a.x, 1);
+      intercept = new Pair<>(a.x, 1);
     }
   }
 
@@ -62,7 +57,7 @@ class Line {
 
 public class LineMostPoints {
 
-  private static int check(ArrayList<Point> P) {
+  private static int check(List<Point> P) {
     int maxCount = 0;
     for (int i = 0; i < P.size(); ++i) {
       for (int j = i + 1; j < P.size(); ++j) {
@@ -81,23 +76,23 @@ public class LineMostPoints {
   }
 
   // @include
-  private static Line findLineWithMostPoints(ArrayList<Point> P) {
-    // Add all possible lines into hash table.
-    HashMap<Line, HashSet<Point>> table = new HashMap<Line, HashSet<Point>>();
+  private static Line findLineWithMostPoints(List<Point> P) {
+    // Adds all possible lines into hash table.
+    Map<Line, Set<Point>> table = new HashMap<>();
     for (int i = 0; i < P.size(); ++i) {
       for (int j = i + 1; j < P.size(); ++j) {
         Line l = new Line(P.get(i), P.get(j));
 
-        HashSet<Point> s1 = table.get(l);
+        Set<Point> s1 = table.get(l);
         if (s1 == null) {
-          s1 = new HashSet<Point>();
+          s1 = new HashSet<>();
           table.put(l, s1);
         }
         s1.add(P.get(i));
 
-        HashSet<Point> s2 = table.get(l);
+        Set<Point> s2 = table.get(l);
         if (s2 == null) {
-          s2 = new HashSet<Point>();
+          s2 = new HashSet<>();
           table.put(l, s2);
         }
         s2.add(P.get(j));
@@ -105,10 +100,10 @@ public class LineMostPoints {
     }
 
     //@exclude
-    HashSet<Point> lineMaxPoints = Collections.max(table.values(),
-        new Comparator<HashSet<Point>>() {
+    Set<Point> lineMaxPoints = Collections.max(table.values(),
+        new Comparator<Set<Point>>() {
           @Override
-          public int compare(HashSet<Point> p1, HashSet<Point> p2) {
+          public int compare(Set<Point> p1, Set<Point> p2) {
             if (p1 != null && p2 != null) {
               return new Integer(p1.size()).compareTo(p2.size());
             } else if (p1 != null) {
@@ -117,19 +112,19 @@ public class LineMostPoints {
               return -1;
             }
           }
-        });
+        }
+    );
 
     int res = check(P);
-    // cout << res << " " << lineMaxPoints.getSecond().size() << endl;
     assert (res == lineMaxPoints.size());
     // Return the line with most points have passed.
 
     //@include
     return Collections.max(table.entrySet(),
-        new Comparator<Map.Entry<Line, HashSet<Point>>>() {
+        new Comparator<Map.Entry<Line, Set<Point>>>() {
           @Override
-          public int compare(Map.Entry<Line, HashSet<Point>> e1,
-              Map.Entry<Line, HashSet<Point>> e2) {
+          public int compare(Map.Entry<Line, Set<Point>> e1,
+                             Map.Entry<Line, Set<Point>> e2) {
             if (e1 != null && e2 != null) {
               return new Integer(e1.getValue().size()).compareTo(e2.getValue()
                   .size());
@@ -139,7 +134,8 @@ public class LineMostPoints {
               return -1;
             }
           }
-        }).getKey();
+        }
+    ).getKey();
   }
   //@exclude
 
@@ -154,8 +150,8 @@ public class LineMostPoints {
       } else {
         n = rnd.nextInt(1000 - 1) + 1;
       }
-      ArrayList<Point> points = new ArrayList<Point>();
-      HashSet<Point> t = new HashSet<Point>();
+      List<Point> points = new ArrayList<>();
+      Set<Point> t = new HashSet<>();
       do {
         Point p = new Point(rnd.nextInt(999), rnd.nextInt(999));
         if (!t.contains(p)) {

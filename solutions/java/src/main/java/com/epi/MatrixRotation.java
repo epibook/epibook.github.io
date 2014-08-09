@@ -1,20 +1,20 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
+import java.util.Random;
+
 import static com.epi.utils.Utils.copy;
 import static com.epi.utils.Utils.simplePrint;
 
-import java.util.Random;
-
 public class MatrixRotation {
-  static void printMatrix(int[][] A) {
+  private static void printMatrix(int[][] A) {
     for (int[] element : A) {
       simplePrint(element);
       System.out.println();
     }
   }
 
-  static void checkAnswer(int[][] A) {
+  private static void checkAnswer(int[][] A) {
     int k = 1;
     for (int j = A.length - 1; j >= 0; --j) {
       for (int[] element : A) {
@@ -24,16 +24,14 @@ public class MatrixRotation {
   }
 
   // @include
-  static void copyMatrix(int[][] a, int axs, int axe, int ays, int aye,
-      int[][] s, int sx, int sy) {
-    for (int i = 0; i < axe - axs; ++i) {
-      copy(s[sx + i], sy, sy + aye - ays, a[axs + i], ays);
-    }
+  public static void rotateMatrix(int[][] A) {
+    rotateMatrixHelper(A, 0, A.length, 0, A.length);
   }
 
-  static void rotateMatrixHelper(int[][] a, int xs, int xe, int ys, int ye) {
+  private static void rotateMatrixHelper(int[][] a, int xs, int xe, int ys,
+                                         int ye) {
     if (xe > xs + 1) {
-      int midX = xs + ((xe - xs) >> 1), midY = ys + ((ye - ys) >> 1);
+      int midX = xs + ((xe - xs) / 2), midY = ys + ((ye - ys) / 2);
       // Move submatrices.
       int[][] C = new int[midX - xs][midY - ys];
       copyMatrix(C, 0, C.length, 0, C.length, a, xs, ys);
@@ -50,10 +48,12 @@ public class MatrixRotation {
     }
   }
 
-  static void rotateMatrix(int[][] A) {
-    rotateMatrixHelper(A, 0, A.length, 0, A.length);
+  private static void copyMatrix(int[][] a, int axs, int axe, int ays, int aye,
+                                 int[][] s, int sx, int sy) {
+    for (int i = 0; i < axe - axs; ++i) {
+      copy(s[sx + i], sy, sy + aye - ays, a[axs + i], ays);
+    }
   }
-
   // @exclude
 
   public static void main(String[] args) {

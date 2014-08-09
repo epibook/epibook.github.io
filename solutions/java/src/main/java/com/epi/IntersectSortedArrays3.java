@@ -2,12 +2,12 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class IntersectSortedArrays3 {
-// @include
-  public static ArrayList<Integer> intersect(ArrayList<Integer> A,
-      ArrayList<Integer> B) {
-    ArrayList<Integer> intersect = new ArrayList<Integer>();
+  // @include
+  public static List<Integer> intersect(List<Integer> A, List<Integer> B) {
+    List<Integer> intersect = new ArrayList<>();
     int i = 0;
     int j = 0;
     while (i < A.size() && j < B.size()) {
@@ -24,5 +24,5 @@ public class IntersectSortedArrays3 {
     }
     return intersect;
   }
-// @exclude
+  // @exclude
 }

@@ -1,16 +1,16 @@
 package com.epi;
 
-import static com.epi.utils.Utils.simplePrint;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import static com.epi.utils.Utils.simplePrint;
+
 public class OnlineSampling {
   // @include
-  static int[] onlineSampling(int n, int k) {
-    Map<Integer, Integer> H = new HashMap<Integer, Integer>();
-    Random gen = new Random(); // random num generator.
+  public static int[] onlineSampling(int n, int k) {
+    Map<Integer, Integer> H = new HashMap<>();
+    Random gen = new Random(); // Random num generator.
     for (int i = 0; i < k; ++i) {
       // Generate random int in [0, n - 1 - i].
       int r = gen.nextInt(n - i);
@@ -36,7 +36,6 @@ public class OnlineSampling {
     }
     return res;
   }
-
   // @exclude
 
   public static void main(String[] args) {

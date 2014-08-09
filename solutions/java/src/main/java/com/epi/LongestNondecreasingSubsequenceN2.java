@@ -14,9 +14,9 @@ public class LongestNondecreasingSubsequenceN2 {
       return A;
     }
 
-    ArrayList<Integer> longest = new ArrayList<Integer>(A.size());
-    ArrayList<Integer> previousIndex = new ArrayList<Integer>(A.size());
-    for (int i = 0; i < A.size(); i++) {
+    List<Integer> longest = new ArrayList<>(A.size());
+    List<Integer> previousIndex = new ArrayList<>(A.size());
+    for (Integer aA : A) {
       longest.add(1);
       previousIndex.add(-1);
     }
@@ -29,15 +29,15 @@ public class LongestNondecreasingSubsequenceN2 {
           previousIndex.set(i, j);
         }
       }
-      // Record the index where longest subsequence ends.
+      // Records the index where longest subsequence ends.
       if (longest.get(i) > longest.get(maxLengthIdx)) {
         maxLengthIdx = i;
       }
     }
 
-    // Build the longest nondecreasing subsequence.
+    // Builds the longest nondecreasing subsequence.
     int maxLength = longest.get(maxLengthIdx);
-    ArrayList<Integer> ret = new ArrayList<Integer>(maxLength);
+    List<Integer> ret = new ArrayList<>(maxLength);
     while (maxLength-- > 0) {
       ret.add(0, A.get(maxLengthIdx));
       maxLengthIdx = previousIndex.get(maxLengthIdx);

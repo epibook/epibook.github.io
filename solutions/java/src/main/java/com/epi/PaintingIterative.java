@@ -1,13 +1,13 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import static com.epi.utils.Utils.simplePrint;
+import com.epi.utils.Pair;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
-import com.epi.utils.Pair;
+import static com.epi.utils.Utils.simplePrint;
 
 public class PaintingIterative {
   static void printMatrix(boolean[][] A) {
@@ -18,18 +18,18 @@ public class PaintingIterative {
   }
 
   // @include
-  static void flipColor(boolean[][] A, int x, int y) {
-    int[][] dir = new int[][] { new int[] { 0, 1 }, new int[] { 0, -1 },
-        { 1, 0 }, new int[] { -1, 0 } };
+  public static void flipColor(boolean[][] A, int x, int y) {
+    int[][] dir = new int[][]{new int[]{0, 1}, new int[]{0, -1},
+                              new int[]{1, 0}, new int[]{-1, 0}};
     boolean color = A[x][y];
 
-    Queue<Pair<Integer, Integer>> q = new LinkedList<Pair<Integer, Integer>>();
-    A[x][y] = !A[x][y]; // flips.
-    q.add(new Pair<Integer, Integer>(x, y));
+    Queue<Pair<Integer, Integer>> q = new LinkedList<>();
+    A[x][y] = !A[x][y]; // Flips.
+    q.add(new Pair<>(x, y));
     while (!q.isEmpty()) {
       Pair<Integer, Integer> curr = q.element();
       for (int[] d : dir) {
-        Pair<Integer, Integer> next = new Pair<Integer, Integer>(
+        Pair<Integer, Integer> next = new Pair<>(
             curr.getFirst() + d[0], curr.getSecond() + d[1]);
         if (next.getFirst() >= 0 && next.getFirst() < A.length
             && next.getSecond() >= 0
@@ -44,7 +44,6 @@ public class PaintingIterative {
       q.remove();
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {

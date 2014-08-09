@@ -1,31 +1,31 @@
 package com.epi;
 
+import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
 /**
  * @author translated from c++ by Blazheev Alexander
  */
 public class BuildBSTFromSortedArray {
   // @include
-  public static <T> BinaryTree<T> buildBSTFromSortedArray(List<T> a) {
+  public static BinaryTree<Integer> buildBSTFromSortedArray(List<Integer> a) {
     return buildBSTFromSortedArrayHelper(a, 0, a.size());
   }
 
   // Build BST based on subarray A[start : end - 1].
-  private static <T> BinaryTree<T> buildBSTFromSortedArrayHelper(List<T> a,
-      int start, int end) {
+  private static BinaryTree<Integer> buildBSTFromSortedArrayHelper(
+      List<Integer> a, int start, int end) {
     if (start < end) {
-      int mid = start + ((end - start) >> 1);
-      return new BinaryTree<T>(a.get(mid), buildBSTFromSortedArrayHelper(a,
-          start, mid), buildBSTFromSortedArrayHelper(a, mid + 1, end));
+      int mid = start + ((end - start) / 2);
+      return new BinaryTree<>(a.get(mid),
+          buildBSTFromSortedArrayHelper(a, start, mid),
+          buildBSTFromSortedArrayHelper(a, mid + 1, end));
     }
     return null;
   }
-
   // @exclude
 
   private static int traversalCheck(BinaryTree<Integer> root, Integer target) {
@@ -41,7 +41,7 @@ public class BuildBSTFromSortedArray {
   public static void main(String[] args) {
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
-      ArrayList<Integer> a = new ArrayList<Integer>();
+      List<Integer> a = new ArrayList<>();
       int n;
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);

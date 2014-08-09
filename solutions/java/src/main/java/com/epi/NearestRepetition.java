@@ -2,11 +2,7 @@
 
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 class NearestRepetition {
   private static String randString(int len) {
@@ -21,7 +17,7 @@ class NearestRepetition {
 
   // @include
   public static int findNearestRepetition(List<String> s) {
-    HashMap<String, Integer> stringToLocation = new HashMap<String, Integer>();
+    Map<String, Integer> stringToLocation = new HashMap<>();
     int closestDis = Integer.MAX_VALUE;
     for (int i = 0; i < s.size(); ++i) {
       if (stringToLocation.containsKey(s.get(i))) {
@@ -31,7 +27,6 @@ class NearestRepetition {
     }
     return closestDis;
   }
-
   // @exclude
 
   // O(n^2) checking
@@ -68,7 +63,7 @@ class NearestRepetition {
       } else {
         n = rnd.nextInt(10000) + 1;
       }
-      List<String> s = new ArrayList<String>();
+      List<String> s = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
         s.add(randString(rnd.nextInt(10) + 1));
       }

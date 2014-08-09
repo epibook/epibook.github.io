@@ -8,8 +8,8 @@ import java.util.LinkedList;
 public class QueueWithMaxUsingDeque {
   // @include
   public static class Queue<T extends Comparable<T>> {
-    private LinkedList<T> q = new LinkedList<T>();
-    private LinkedList<T> d = new LinkedList<T>();
+    private LinkedList<T> q = new LinkedList<>();
+    private LinkedList<T> d = new LinkedList<>();
 
     public void enqueue(T x) {
       q.addFirst(x);
@@ -44,7 +44,6 @@ public class QueueWithMaxUsingDeque {
     }
     // @include
   }
-
   // @exclude
 
   private static <T extends Comparable<T>> void assertDequeue(Queue<T> q, T t) {
@@ -53,7 +52,7 @@ public class QueueWithMaxUsingDeque {
   }
 
   public static void main(String[] args) {
-    Queue<Integer> Q = new Queue<Integer>();
+    Queue<Integer> Q = new Queue<>();
     Q.enqueue(1);
     Q.enqueue(2);
     assert (2 == Q.max());

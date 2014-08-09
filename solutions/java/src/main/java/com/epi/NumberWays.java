@@ -8,16 +8,24 @@ import java.util.Random;
 public class NumberWays {
   // @include
   public static int numberOfWays(int n, int m) {
-    int[][] A = new int[n][m];
-    A[0][0] = 1; // one way to start from (0, 0).
-    for (int i = 0; i < n; ++i) {
+    if (n < m) {
+      int temp = n;
+      n = m;
+      m = temp;
+    }
+    int[] A = new int[m];
+    for (int j = 0; j < m; ++j) {
+      A[j] = 1;
+    }
+    for (int i = 1; i < n; ++i) {
+      int prev_res = 0;
       for (int j = 0; j < m; ++j) {
-        A[i][j] += (i < 1 ? 0 : A[i - 1][j]) + (j < 1 ? 0 : A[i][j - 1]);
+        A[j] = A[j] + prev_res;
+        prev_res = A[j];
       }
     }
-    return A[n - 1][m - 1];
+    return A[m - 1];
   }
-
   // @exclude
 
   private static int checkAns(int n, int k) {

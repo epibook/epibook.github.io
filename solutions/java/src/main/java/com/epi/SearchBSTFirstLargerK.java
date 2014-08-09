@@ -7,12 +7,11 @@ import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
  */
 public class SearchBSTFirstLargerK {
   // @include
-  public static <T extends Comparable<T>> BinaryTree<T>
-      findFirstLargerKWithKExist(BinaryTree<T> r, T k) {
-
+  public static BinaryTree<Integer>
+  findFirstLargerKWithKExist(BinaryTree<Integer> r, Integer k) {
     boolean foundK = false;
-    BinaryTree<T> curr = r;
-    BinaryTree<T> first = null;
+    BinaryTree<Integer> curr = r;
+    BinaryTree<Integer> first = null;
 
     while (curr != null) {
       if (curr.getData().compareTo(k) == 0) {
@@ -27,19 +26,18 @@ public class SearchBSTFirstLargerK {
     }
     return foundK ? first : null;
   }
-
   // @exclude
 
   public static void main(String[] args) {
     // 3
     // 2 5
     // 1 4 7
-    BinaryTree<Integer> root = new BinaryTree<Integer>(3);
-    root.setLeft(new BinaryTree<Integer>(2));
-    root.getLeft().setLeft(new BinaryTree<Integer>(1));
-    root.setRight(new BinaryTree<Integer>(5));
-    root.getRight().setLeft(new BinaryTree<Integer>(4));
-    root.getRight().setRight(new BinaryTree<Integer>(7));
+    BinaryTree<Integer> root = new BinaryTree<>(3);
+    root.setLeft(new BinaryTree<>(2));
+    root.getLeft().setLeft(new BinaryTree<>(1));
+    root.setRight(new BinaryTree<>(5));
+    root.getRight().setLeft(new BinaryTree<>(4));
+    root.getRight().setRight(new BinaryTree<>(7));
     assert (findFirstLargerKWithKExist(root, 1) == root.getLeft());
     assert (findFirstLargerKWithKExist(root, 5) == root.getRight().getRight());
     assert (findFirstLargerKWithKExist(root, 6) == null);

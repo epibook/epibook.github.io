@@ -13,21 +13,6 @@ public class CompareKthLargestInHeap {
     public int equal;
   }
 
-  private static void compareKthLargestHeapHelper(List<Integer> maxHeap, int k,
-      int x, int idx, Data data) {
-    if (data.larger >= k || idx >= maxHeap.size() || maxHeap.get(idx) < x) {
-      return;
-    } else if (maxHeap.get(idx) == x) {
-      if (++data.equal >= k) {
-        return;
-      }
-    } else { // max_heap[idx] > x.
-      ++data.larger;
-    }
-    compareKthLargestHeapHelper(maxHeap, k, x, (idx << 1) + 1, data);
-    compareKthLargestHeapHelper(maxHeap, k, x, (idx << 1) + 2, data);
-  }
-
   // -1 means smaller, 0 means equal, and 1 means larger.
   public static int compareKthLargestHeap(List<Integer> maxHeap, int k, int x) {
     Data data = new Data();
@@ -37,6 +22,20 @@ public class CompareKthLargestInHeap {
     return data.larger >= k ? 1 : (data.larger + data.equal >= k ? 0 : -1);
   }
 
+  private static void compareKthLargestHeapHelper(List<Integer> maxHeap, int k,
+                                                  int x, int idx, Data data) {
+    if (data.larger >= k || idx >= maxHeap.size() || maxHeap.get(idx) < x) {
+      return;
+    } else if (maxHeap.get(idx) == x) {
+      if (++data.equal >= k) {
+        return;
+      }
+    } else { // max_heap[idx] > x.
+      ++data.larger;
+    }
+    compareKthLargestHeapHelper(maxHeap, k, x, (idx * 2) + 1, data);
+    compareKthLargestHeapHelper(maxHeap, k, x, (idx * 2) + 2, data);
+  }
   // @exclude
 
   public static void main(String[] args) {
@@ -44,7 +43,7 @@ public class CompareKthLargestInHeap {
     // 4 5
     // 4 4 4 3
     // 4
-    ArrayList<Integer> maxHeap = new ArrayList<Integer>();
+    List<Integer> maxHeap = new ArrayList<>();
     maxHeap.add(5);
     maxHeap.add(4);
     maxHeap.add(5);

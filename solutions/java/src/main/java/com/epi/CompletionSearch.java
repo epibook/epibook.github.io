@@ -21,15 +21,15 @@ public class CompletionSearch {
   // @include
   public static double completionSearch(List<Double> A, double budget) {
     Collections.sort(A);
-    // Calculate the prefix sum for A.
-    ArrayList<Double> prefixSum = new ArrayList<Double>();
+    // Calculates the prefix sum for A.
+    List<Double> prefixSum = new ArrayList<>();
     double val = 0;
     for (Double a : A) {
       val += a;
       prefixSum.add(val);
     }
     // costs[i] represents the total payroll if the cap is A[i].
-    ArrayList<Double> costs = new ArrayList<Double>();
+    List<Double> costs = new ArrayList<>();
     for (int i = 0; i < prefixSum.size(); ++i) {
       costs.add(prefixSum.get(i) + (A.size() - i - 1) * A.get(i));
     }
@@ -37,7 +37,7 @@ public class CompletionSearch {
     int lower = lowerBound(costs, budget);
 
     if (lower == -1) {
-      return -1.0; // no solution since budget is too large.
+      return -1.0; // No solution since budget is too large.
     }
 
     if (lower == 0) {
@@ -46,14 +46,13 @@ public class CompletionSearch {
     int idx = lower - 1;
     return A.get(idx) + (budget - costs.get(idx)) / (A.size() - idx - 1);
   }
-
   // @exclude
 
   public static void main(String[] args) {
     Random r = new Random();
     for (int times = 0; times < 10000; ++times) {
       int n;
-      ArrayList<Double> A = new ArrayList<Double>();
+      List<Double> A = new ArrayList<>();
       double tar;
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);

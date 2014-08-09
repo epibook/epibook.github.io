@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class BiggestProductNMinus1Math {
   // @include
-  static int findBiggestNMinus1Product(int[] A) {
+  public static int findBiggestNMinusOneProduct(int[] A) {
     int zeroCount = 0, posCount = 0, negCount = 0;
     int zeroIdx = -1, sNegIdx = -1, bNegIdx = -1, sPosIdx = -1;
 
@@ -30,7 +30,7 @@ public class BiggestProductNMinus1Math {
 
     // Try to find a number whose elimination could maximize the product of
     // the remaining (n - 1) numbers.
-    int x; // stores the idx of eliminated one.
+    int x; // Stores the idx of eliminated one.
     if (zeroCount >= 2) {
       return 0;
     } else if (zeroCount == 1) {
@@ -40,9 +40,9 @@ public class BiggestProductNMinus1Math {
         x = zeroIdx;
       }
     } else {
-      if ((negCount & 1) > 0) { // odd number negative.
+      if ((negCount & 1) > 0) { // Odd number negative.
         x = bNegIdx;
-      } else { // even number negative.
+      } else { // Even number negative.
         if (posCount > 0) {
           x = sPosIdx;
         } else {
@@ -59,11 +59,10 @@ public class BiggestProductNMinus1Math {
     }
     return product;
   }
-
   // @exclude
 
   // n^2 checking
-  static int checkAns(int[] A) {
+  private static int checkAns(int[] A) {
     int maxProduct = Integer.MIN_VALUE;
     for (int i = 0; i < A.length; ++i) {
       int product = 1;
@@ -100,7 +99,7 @@ public class BiggestProductNMinus1Math {
 
       }
       System.out.println();
-      int res = findBiggestNMinus1Product(A);
+      int res = findBiggestNMinusOneProduct(A);
       System.out.println(res);
       assert res == checkAns(A);
     }

@@ -1,13 +1,8 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
-
 import com.epi.utils.Pair;
+
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -19,42 +14,43 @@ public class JobAssignment {
 
   // @include
   public static boolean[][] findFeasibleJobAssignment(List<Integer> T,
-      List<Integer> S) {
+                                                      List<Integer> S) {
     int tTotal = 0;
     for (Integer t : T) {
       tTotal += t;
     }
     int sTotal = 0;
     for (Integer s : S) {
+      // Tighter bound of server capacity.
       sTotal += Math.min(s, T.size());
-    } // tighter bound of server capacity.
+    }
 
     if (tTotal > sTotal || Collections.max(T) > S.size()) {
-      return new boolean[0][0]; // too many jobs or one task needs too many
-                                // servers.
+      // Too many jobs or one task needs too many servers.
+      return new boolean[0][0];
     }
 
-    ArrayList<Pair<Integer, Integer>> tIdxData = new ArrayList<Pair<Integer, Integer>>();
-    ArrayList<Pair<Integer, Integer>> sIdxData = new ArrayList<Pair<Integer, Integer>>();
+    List<Pair<Integer, Integer>> tIdxData = new ArrayList<>();
+    List<Pair<Integer, Integer>> sIdxData = new ArrayList<>();
     for (int i = 0; i < T.size(); ++i) {
-      tIdxData.add(new Pair<Integer, Integer>(i, T.get(i)));
+      tIdxData.add(new Pair<>(i, T.get(i)));
     }
     for (int j = 0; j < S.size(); ++j) {
-      sIdxData.add(new Pair<Integer, Integer>(j, S.get(j)));
+      sIdxData.add(new Pair<>(j, S.get(j)));
     }
 
     Collections.sort(sIdxData, new Comp());
     boolean[][] X = new boolean[T.size()][S.size()];
-    for (int j = 0; j < sIdxData.size(); ++j) {
-      if (sIdxData.get(j).getSecond() < tIdxData.size()) {
-        nthElement(tIdxData, sIdxData.get(j).getSecond(), new Comp());
+    for (Pair<Integer, Integer> aSIdxData : sIdxData) {
+      if (aSIdxData.getSecond() < tIdxData.size()) {
+        nthElement(tIdxData, aSIdxData.getSecond(), new Comp());
       }
 
       // Greedily assign jobs.
-      int size = Math.min(tIdxData.size(), sIdxData.get(j).getSecond());
+      int size = Math.min(tIdxData.size(), aSIdxData.getSecond());
       for (int i = 0; i < size; ++i) {
         if (tIdxData.get(i).getSecond() != 0) {
-          X[tIdxData.get(i).getFirst()][sIdxData.get(j).getFirst()] = true;
+          X[tIdxData.get(i).getFirst()][aSIdxData.getFirst()] = true;
           tIdxData.get(i).setSecond(tIdxData.get(i).getSecond() - 1);
           --tTotal;
         }
@@ -62,7 +58,7 @@ public class JobAssignment {
     }
     if (tTotal != 0) {
       return new boolean[0][0]; // still some jobs remain, no feasible
-                                // assignment.
+      // assignment.
     }
     return X;
   }
@@ -73,16 +69,15 @@ public class JobAssignment {
       return o1.getSecond().compareTo(o2.getSecond());
     }
   }
-
   // @exclude
 
   private static void checkAnswer(List<Integer> T, List<Integer> S,
-      boolean[][] res) {
+                                  boolean[][] result) {
     // Check row constraints.
     for (int i = 0; i < T.size(); ++i) {
       int sum = 0;
       for (int j = 0; j < S.size(); ++j) {
-        sum += res[i][j] ? 1 : 0;
+        sum += result[i][j] ? 1 : 0;
       }
       assert (sum == T.get(i));
     }
@@ -91,7 +86,7 @@ public class JobAssignment {
     for (int j = 0; j < S.size(); ++j) {
       int sum = 0;
       for (int i = 0; i < T.size(); ++i) {
-        sum += res[i][j] ? 1 : 0;
+        sum += result[i][j] ? 1 : 0;
       }
       assert (sum <= S.get(j));
     }
@@ -101,8 +96,8 @@ public class JobAssignment {
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n, m;
-      ArrayList<Integer> T = new ArrayList<Integer>();
-      ArrayList<Integer> S = new ArrayList<Integer>();
+      List<Integer> T = new ArrayList<>();
+      List<Integer> S = new ArrayList<>();
       if (args.length == 2) {
         n = Integer.parseInt(args[0]);
         m = Integer.parseInt(args[1]);
@@ -118,13 +113,13 @@ public class JobAssignment {
       }
       System.out.println("T = " + T);
       System.out.println("S = " + S);
-      boolean[][] res = findFeasibleJobAssignment(T, S);
-      if (res.length != 0) { // there is a feasible answer.
+      boolean[][] result = findFeasibleJobAssignment(T, S);
+      if (result.length != 0) { // there is a feasible answer.
         System.out.println("found feasible assignment!");
-        for (boolean[] re : res) {
+        for (boolean[] re : result) {
           System.out.println(Arrays.toString(re));
         }
-        checkAnswer(T, S, res);
+        checkAnswer(T, S, result);
       } else {
         // TODO(THL): find a way to verify there is no assignment.
         System.out.println("no feasible assignment");

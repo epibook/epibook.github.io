@@ -4,20 +4,16 @@ package com.epi;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import static com.epi.utils.Utils.close;
 
 // @include
 class IndirectSort {
   public static void indirectSort(String fileName) throws Exception {
-    // Store file records into A.
+    // Stores file records into A.
     Scanner ifs = null;
-    ArrayList<Integer> A = new ArrayList<Integer>();
+    List<Integer> A = new ArrayList<>();
     try {
       ifs = new Scanner(new File(fileName));
       while (ifs.hasNextInt()) {
@@ -27,10 +23,10 @@ class IndirectSort {
       close(ifs);
     }
 
-    // Indirectly sort file.
+    // Indirectly sorts file.
     Collections.sort(A);
 
-    // Output file.
+    // Outputs file.
     PrintWriter ofs = null;
     try {
       ofs = new PrintWriter(new FileWriter(fileName));
@@ -42,7 +38,8 @@ class IndirectSort {
     }
   }
 
-  public static <T extends Comparable<T>> boolean isSorted(Iterable<T> iterable) {
+  public static <T extends Comparable<T>> boolean isSorted(
+      Iterable<T> iterable) {
     Iterator<T> iter = iterable.iterator();
     if (!iter.hasNext()) {
       return true;
@@ -57,7 +54,6 @@ class IndirectSort {
     }
     return true;
   }
-
   // @exclude
 
   public static void main(String[] args) throws Exception {
@@ -70,7 +66,7 @@ class IndirectSort {
       } else {
         n = rnd.nextInt(10000) + 1;
       }
-      ArrayList<Integer> A = new ArrayList<Integer>();
+      List<Integer> A = new ArrayList<>();
       for (int i = 0; i < n; i++) {
         A.add(rnd.nextInt(999999 + 1));
       }

@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class MatrixRotationNaive {
 
-  static void printMatrix(int[][] A) {
+  private static void printMatrix(int[][] A) {
     for (int i = 0; i < A.length; ++i) {
       // simplePrint(A[i]);
       for (int j = 0; j < A.length; ++j) {
@@ -15,7 +15,7 @@ public class MatrixRotationNaive {
     }
   }
 
-  static void checkAnswer(int[][] A) {
+  private static void checkAnswer(int[][] A) {
     int k = 1;
     for (int j = A.length - 1; j >= 0; --j) {
       for (int[] element : A) {
@@ -25,8 +25,8 @@ public class MatrixRotationNaive {
   }
 
   // @include
-  static void rotateMatrix(int[][] A) {
-    for (int i = 0; i < (A.length >> 1); ++i) {
+  public static void rotateMatrix(int[][] A) {
+    for (int i = 0; i < (A.length / 2); ++i) {
       for (int j = i; j < A.length - i - 1; ++j) {
         int temp = A[i][j];
         A[i][j] = A[A.length - 1 - j][i];
@@ -36,7 +36,6 @@ public class MatrixRotationNaive {
       }
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {

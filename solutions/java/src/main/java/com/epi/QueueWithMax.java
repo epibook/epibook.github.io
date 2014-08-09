@@ -9,15 +9,15 @@ import java.util.LinkedList;
  */
 public class QueueWithMax {
   // @include
-  public static class Queue<T extends Comparable<T>> {
-    private LinkedList<T> a = new LinkedList<T>();
-    private LinkedList<T> b = new LinkedList<T>();
+  public static class Queue {
+    private LinkedList<Integer> a = new LinkedList<>();
+    private LinkedList<Integer> b = new LinkedList<>();
 
-    public void enqueue(T x) {
+    public void enqueue(Integer x) {
       a.push(x);
     }
 
-    public T dequeue() {
+    public Integer dequeue() {
       if (b.isEmpty()) {
         while (!a.isEmpty()) {
           b.push(a.pop());
@@ -29,7 +29,7 @@ public class QueueWithMax {
       throw new RuntimeException("empty queue");
     }
 
-    public T max() {
+    public Integer max() {
       if (!a.isEmpty()) {
         return b.isEmpty() ? Collections.max(a) : Collections.max(Arrays
             .asList(Collections.max(a), Collections.max(b)));
@@ -41,16 +41,15 @@ public class QueueWithMax {
       }
     }
   }
-
   // @exclude
 
-  private static <T extends Comparable<T>> void assertDequeue(Queue<T> q, T t) {
-    T dequeue = q.dequeue();
+  private static void assertDequeue(Queue q, Integer t) {
+    Integer dequeue = q.dequeue();
     assert (t.equals(dequeue));
   }
 
   public static void main(String[] args) {
-    Queue<Integer> Q = new Queue<Integer>();
+    Queue Q = new Queue();
     Q.enqueue(1);
     Q.enqueue(2);
     assert (2 == Q.max());

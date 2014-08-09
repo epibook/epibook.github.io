@@ -12,7 +12,7 @@ public class WiringCircuitBoard {
   // @include
   public static class GraphVertex {
     public int d = -1;
-    public ArrayList<GraphVertex> edges = new ArrayList<GraphVertex>();
+    public List<GraphVertex> edges = new ArrayList<>();
   }
 
   public static boolean isAnyPlacementFeasible(List<GraphVertex> G) {
@@ -28,7 +28,7 @@ public class WiringCircuitBoard {
   }
 
   private static boolean BFS(GraphVertex s) {
-    LinkedList<GraphVertex> q = new LinkedList<GraphVertex>();
+    LinkedList<GraphVertex> q = new LinkedList<>();
     q.addLast(s);
 
     while (!q.isEmpty()) {
@@ -44,7 +44,6 @@ public class WiringCircuitBoard {
     }
     return true;
   }
-
   // @exclude
 
   private static boolean DFS(GraphVertex s) {
@@ -61,7 +60,7 @@ public class WiringCircuitBoard {
     return true;
   }
 
-  private static boolean is2Colorable(List<GraphVertex> G) {
+  private static boolean isTwoColorable(List<GraphVertex> G) {
     for (GraphVertex v : G) {
       v.d = -1;
     }
@@ -86,11 +85,11 @@ public class WiringCircuitBoard {
       } else {
         n = r.nextInt(100) + 2;
       }
-      ArrayList<GraphVertex> G = new ArrayList<GraphVertex>(n);
+      List<GraphVertex> G = new ArrayList<>(n);
       for (int i = 0; i < n; i++) {
         G.add(new GraphVertex());
       }
-      int m = r.nextInt(n * (n - 1) >> 1) + 1;
+      int m = r.nextInt(n * (n - 1) / 2) + 1;
       System.out.println(times + " " + n + " " + m);
       boolean[][] isEdgeExist = new boolean[n][n];
       while (m-- > 0) {
@@ -98,7 +97,7 @@ public class WiringCircuitBoard {
         do {
           a = r.nextInt(n);
           b = r.nextInt(n);
-        } while (a == b || isEdgeExist[a][b] == true);
+        } while (a == b || isEdgeExist[a][b]);
         isEdgeExist[a][b] = isEdgeExist[b][a] = true;
         G.get(a).edges.add(G.get(b));
         G.get(b).edges.add(G.get(a));
@@ -111,7 +110,7 @@ public class WiringCircuitBoard {
 
       boolean res = isAnyPlacementFeasible(G);
       System.out.println(res);
-      assert (res == is2Colorable(G));
+      assert (res == isTwoColorable(G));
     }
   }
 }

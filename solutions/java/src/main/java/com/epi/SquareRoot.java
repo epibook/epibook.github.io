@@ -7,18 +7,8 @@ import java.util.Random;
  */
 public class SquareRoot {
   // @include
-  private static final Double EPSILON = 0.00001;
-
-  // 0 means equal, -1 means smaller, and 1 means larger.
-  private static int compare(double a, double b) {
-
-    // Use normalization for precision problem.
-    double diff = (a - b) / b;
-    return diff < -EPSILON ? -1 : (diff > EPSILON ? 1 : 0);
-  }
-
   public static double squareRoot(double x) {
-    // Decide the search range according to x.
+    // Decides the search range according to x.
     double l, r;
     if (compare(x, 1.0) < 0) { // x < 1.0.
       l = x;
@@ -28,7 +18,7 @@ public class SquareRoot {
       r = x;
     }
 
-    // Keep searching if l < r.
+    // Keeps searching if l < r.
     while (compare(l, r) == -1) {
       double m = l + 0.5 * (r - l);
       double squareM = m * m;
@@ -43,6 +33,14 @@ public class SquareRoot {
     return l;
   }
 
+
+  // 0 means equal, -1 means smaller, and 1 means larger.
+  private static int compare(double a, double b) {
+    final double EPSILON = 0.00001;
+    // Uses normalization for precision problem.
+    double diff = (a - b) / b;
+    return diff < -EPSILON ? -1 : (diff > EPSILON ? 1 : 0);
+  }
   // @exclude
 
   public static void main(String[] args) {

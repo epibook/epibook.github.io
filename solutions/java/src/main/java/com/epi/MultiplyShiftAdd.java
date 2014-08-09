@@ -7,20 +7,6 @@ import java.util.Random;
  */
 public class MultiplyShiftAdd {
   // @include
-  public static long addNoOperator(long a, long b) {
-    long sum = 0, carryin = 0, k = 1, tempA = a, tempB = b;
-    while (tempA != 0 || tempB != 0) {
-      long ak = a & k, bk = b & k;
-      long carryout = (ak & bk) | (ak & carryin) | (bk & carryin);
-      sum |= (ak ^ bk ^ carryin);
-      carryin = carryout << 1;
-      k <<= 1;
-      tempA >>= 1;
-      tempB >>= 1;
-    }
-    return sum + carryin;
-  }
-
   public static long multiplyNoOperator(long x, long y) {
     long sum = 0;
     while (x != 0) {
@@ -34,6 +20,19 @@ public class MultiplyShiftAdd {
     return sum;
   }
 
+  private static long addNoOperator(long a, long b) {
+    long sum = 0, carryin = 0, k = 1, tempA = a, tempB = b;
+    while (tempA != 0 || tempB != 0) {
+      long ak = a & k, bk = b & k;
+      long carryout = (ak & bk) | (ak & carryin) | (bk & carryin);
+      sum |= (ak ^ bk ^ carryin);
+      carryin = carryout << 1;
+      k <<= 1;
+      tempA >>= 1;
+      tempB >>= 1;
+    }
+    return sum | carryin;
+  }
   // @exclude
 
   public static void main(String[] args) {

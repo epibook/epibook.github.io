@@ -5,19 +5,19 @@ package com.epi;
  */
 public class UpdateBST {
   // @include
-  public static class BinarySearchTree<T extends Comparable<T>> {
-    private static class TreeNode<T> {
-      public T data;
-      public TreeNode<T> left, right;
+  public static class BinarySearchTree {
+    private static class TreeNode {
+      public Integer data;
+      public TreeNode left, right;
 
-      public TreeNode(T data, TreeNode<T> left, TreeNode<T> right) {
+      public TreeNode(Integer data, TreeNode left, TreeNode right) {
         this.data = data;
         this.left = left;
         this.right = right;
       }
     }
 
-    private TreeNode<T> root;
+    private TreeNode root;
 
     public boolean empty() {
       return root == null;
@@ -27,12 +27,12 @@ public class UpdateBST {
       root = null;
     }
 
-    public boolean insert(T key) {
+    public boolean insert(Integer key) {
       if (empty()) {
-        root = new TreeNode<T>(key, null, null);
+        root = new TreeNode(key, null, null);
       } else {
-        TreeNode<T> curr = root;
-        TreeNode<T> par = curr;
+        TreeNode curr = root;
+        TreeNode par = curr;
         while (curr != null) {
           par = curr;
           if (key.compareTo(curr.data) == 0) {
@@ -46,18 +46,18 @@ public class UpdateBST {
 
         // Insert key according to key and par.
         if (key.compareTo(par.data) < 0) {
-          par.left = new TreeNode<T>(key, null, null);
+          par.left = new TreeNode(key, null, null);
         } else {
-          par.right = new TreeNode<T>(key, null, null);
+          par.right = new TreeNode(key, null, null);
         }
       }
       return true;
     }
 
-    public boolean erase(T key) {
+    public boolean erase(Integer key) {
       // Find the node with key.
-      TreeNode<T> curr = root;
-      TreeNode<T> par = null;
+      TreeNode curr = root;
+      TreeNode par = null;
       while (curr != null && curr.data.compareTo(key) != 0) {
         par = curr;
         curr = key.compareTo(curr.data) < 0 ? curr.left : curr.right;
@@ -70,8 +70,8 @@ public class UpdateBST {
 
       if (curr.right != null) {
         // Find the minimum of the right subtree.
-        TreeNode<T> rCurr = curr.right;
-        TreeNode<T> rPar = curr;
+        TreeNode rCurr = curr.right;
+        TreeNode rPar = curr;
         while (rCurr.left != null) {
           rPar = rCurr;
           rCurr = rCurr.left;
@@ -79,7 +79,7 @@ public class UpdateBST {
         // Move links to erase the node.
         rCurr.left = curr.left;
         curr.left = null;
-        TreeNode<T> rCurrRight = rCurr.right;
+        TreeNode rCurrRight = rCurr.right;
         rCurr.right = null;
         if (curr.right != rCurr) {
           rCurr.right = curr.right;
@@ -111,8 +111,8 @@ public class UpdateBST {
     }
 
     // Replace the link between par and child by new_link.
-    private void replaceParentChildLink(TreeNode<T> par, TreeNode<T> child,
-        TreeNode<T> newLink) {
+    private void replaceParentChildLink(TreeNode par, TreeNode child,
+                                        TreeNode newLink) {
       if (par == null) {
         return;
       }
@@ -125,43 +125,42 @@ public class UpdateBST {
     }
 
     // @exclude
-    public T getRootVal() {
+    public Integer getRootVal() {
       return root.data;
     }
     // @include
   }
-
   // @exclude
 
   public static void main(String[] args) {
-    BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
-    assert (bst.empty() == true);
-    assert (bst.insert(4) == true);
-    assert (bst.insert(5) == true);
-    assert (bst.insert(2) == true);
-    assert (bst.insert(3) == true);
-    assert (bst.insert(1) == true);
-    assert (bst.empty() == false);
-    assert (bst.erase(0) == false);
-    assert (bst.erase(2) == true);
-    assert (bst.erase(2) == false);
-    assert (bst.insert(4) == false);
+    BinarySearchTree bst = new BinarySearchTree();
+    assert (bst.empty());
+    assert (bst.insert(4));
+    assert (bst.insert(5));
+    assert (bst.insert(2));
+    assert (bst.insert(3));
+    assert (bst.insert(1));
+    assert (!bst.empty());
+    assert (!bst.erase(0));
+    assert (bst.erase(2));
+    assert (!bst.erase(2));
+    assert (!bst.insert(4));
     // should output 4
     assert (bst.getRootVal() == 4);
     System.out.println(bst.getRootVal());
-    assert (bst.erase(4) == true);
+    assert (bst.erase(4));
     // should output 5
     assert (bst.getRootVal() == 5);
     System.out.println(bst.getRootVal());
-    assert (bst.erase(5) == true);
+    assert (bst.erase(5));
     // should output 3
     assert (bst.getRootVal() == 3);
     System.out.println(bst.getRootVal());
-    assert (bst.erase(3) == true);
+    assert (bst.erase(3));
     // should output 1
     assert (bst.getRootVal() == 1);
     System.out.println(bst.getRootVal());
-    assert (bst.erase(1) == true);
-    assert (bst.empty() == true);
+    assert (bst.erase(1));
+    assert (bst.empty());
   }
 }

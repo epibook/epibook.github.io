@@ -1,87 +1,58 @@
 package com.epi;
 
 public class ListPivoting {
-  private static class Ref<T> {
-    T value;
-
-    Ref(T v) {
-      value = v;
-    }
-  }
-
   // @include
   public static NodeT<Integer> listPivoting(NodeT<Integer> L, int x) {
     NodeT<Integer> now = L;
-    NodeT<Integer> lessHead = null;
-    NodeT<Integer> lessTail = null;
-    NodeT<Integer> equalHead = null;
-    NodeT<Integer> equalTail = null;
-    NodeT<Integer> largerHead = null;
-    NodeT<Integer> largerTail = null;
+    NodeT<Integer> lessHead = new NodeT<>(0, null);
+    NodeT<Integer> equalHead = new NodeT<>(0, null);
+    NodeT<Integer> largerHead = new NodeT<>(0, null);
+    NodeT<Integer> lessTail = lessHead;
+    NodeT<Integer> equalTail = equalHead;
+    NodeT<Integer> largerTail = largerHead;
     while (now != null) {
       if (now.data < x) {
-        appendNode(new Ref<NodeT<Integer>>(lessHead), new Ref<NodeT<Integer>>(
-            lessTail), now);
+        lessTail.next = now;
+        lessTail = now;
       } else if (now.data == x) {
-        appendNode(new Ref<NodeT<Integer>>(equalHead), new Ref<NodeT<Integer>>(
-            equalTail), now);
+        equalTail.next = now;
+        equalTail = now;
       } else { // now->data > x.
-        appendNode(new Ref<NodeT<Integer>>(largerHead),
-            new Ref<NodeT<Integer>>(largerTail), now);
+        largerTail.next = now;
+        largerTail = now;
       }
       now = now.next;
     }
 
-    if (lessTail != null) {
-      lessTail.next = null;
+    lessTail.next = equalTail.next = largerTail.next = null;
+    if (largerHead.next != null) {
+      equalTail.next = largerHead.next;
     }
-    if (equalTail != null) {
-      equalTail.next = null;
+    if (equalHead.next != null) {
+      lessTail.next = equalHead.next;
     }
-    if (largerTail != null) {
-      largerTail.next = null;
-    }
-    if (largerHead != null) {
-      appendNode(new Ref<NodeT<Integer>>(equalHead), new Ref<NodeT<Integer>>(
-          equalTail), largerTail);
-    }
-    if (equalHead != null) {
-      appendNode(new Ref<NodeT<Integer>>(lessHead), new Ref<NodeT<Integer>>(
-          lessTail), equalHead);
-    }
-    return lessHead;
+    return lessHead.next;
   }
-
   // @exclude
-
-  private static void appendNode(Ref<NodeT<Integer>> head,
-      Ref<NodeT<Integer>> tail, NodeT<Integer> n) {
-    if (head.value != null) {
-      tail.value.next = n;
-    } else {
-      head.value = n;
-    }
-    tail.value = n; // reset tail to the last node.
-  }
 
   public static void main(String[] args) {
     NodeT<Integer> L;
-    L = new NodeT<Integer>(1, new NodeT<Integer>(4, new NodeT<Integer>(3,
-        new NodeT<Integer>(2, new NodeT<Integer>(5, null)))));
+    L = new NodeT<>(1, new NodeT<>(4, new NodeT<>(3,
+        new NodeT<>(2, new NodeT<>(5, null)))));
     int x = 4;
-    NodeT<Integer> res = listPivoting(L, x);
+    NodeT<Integer> result = listPivoting(L, x);
     boolean beforeX = true;
-    while (res != null) {
-      if (res.data >= x) {
+    while (result != null) {
+      if (result.data >= x) {
         beforeX = false;
       }
       if (beforeX) {
-        assert (res.data < x);
+        assert (result.data < x);
       } else {
-        assert (res.data >= x);
+        assert (result.data >= x);
       }
-      System.out.println(res.data);
-      res = res.next;
+      System.out.println(result.data);
+      result = result.next;
     }
   }
 }

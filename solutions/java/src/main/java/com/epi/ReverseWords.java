@@ -1,10 +1,10 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
+import java.util.Random;
+
 import static com.epi.utils.Utils.find;
 import static com.epi.utils.Utils.reverse;
-
-import java.util.Random;
 
 public class ReverseWords {
   static String randString(int len) {
@@ -24,23 +24,22 @@ public class ReverseWords {
   }
 
   // @include
-  static String reverseWords(String input) {
-    // Reverse the whole string first.
+  public static String reverseWords(String input) {
+    // Reverses the whole string first.
     char[] reversed = input.toCharArray();
     reverse(reversed, 0, input.length());
 
     int start = 0, end;
     while ((end = find(reversed, ' ', start)) != -1) {
-      // Reverse each word in the string.
+      // Reverses each word in the string.
       reverse(reversed, start, end);
       start = end + 1;
     }
-    // Reverse the last word.
+    // Reverses the last word.
     reverse(reversed, start, reversed.length);
 
     return new String(reversed);
   }
-
   // @exclude
 
   static void checkAnswer(String ori, String str) {

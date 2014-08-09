@@ -7,8 +7,8 @@ import com.epi.BinaryTreeWithParentPrototype.BinaryTree;
  */
 public class Successor {
   // @include
-  public static <T> BinaryTree<T> findSuccessor(BinaryTree<T> node) {
-    BinaryTree<T> n = node;
+  public static BinaryTree<Integer> findSuccessor(BinaryTree<Integer> node) {
+    BinaryTree<Integer> n = node;
     if (n.getRight() != null) {
       // Find the leftmost element in n's right subtree.
       n = n.getRight();
@@ -25,23 +25,22 @@ public class Successor {
     // Return nullptr means n does not have successor.
     return n.getParent();
   }
-
   // @exclude
 
   public static void main(String[] args) {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> root = new BinaryTree<Integer>(3, null, null);
-    root.setLeft(new BinaryTree<Integer>(2, null, null));
+    BinaryTree<Integer> root = new BinaryTree<>(3, null, null);
+    root.setLeft(new BinaryTree<>(2, null, null));
     root.getLeft().setParent(root);
-    root.getLeft().setLeft(new BinaryTree<Integer>(1, null, null));
+    root.getLeft().setLeft(new BinaryTree<>(1, null, null));
     root.getLeft().getLeft().setParent(root.getLeft());
-    root.setRight(new BinaryTree<Integer>(5, null, null));
+    root.setRight(new BinaryTree<>(5, null, null));
     root.getRight().setParent(root);
-    root.getRight().setLeft(new BinaryTree<Integer>(4, null, null));
+    root.getRight().setLeft(new BinaryTree<>(4, null, null));
     root.getRight().getLeft().setParent(root.getRight());
-    root.getRight().setRight(new BinaryTree<Integer>(6, null, null));
+    root.getRight().setRight(new BinaryTree<>(6, null, null));
     root.getRight().getRight().setParent(root.getRight());
     // should output 6
     BinaryTree<Integer> node = findSuccessor(root.getRight());

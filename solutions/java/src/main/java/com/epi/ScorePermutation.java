@@ -12,7 +12,7 @@ public class ScorePermutation {
   // @include
   public static long countPermutations(int k, List<Integer> scoreWays) {
     long[] permutations = new long[k + 1];
-    permutations[0] = 1; // one way to reach 0.
+    permutations[0] = 1; // One way to reach 0.
     for (int i = 0; i <= k; ++i) {
       for (int score : scoreWays) {
         if (i >= score) {
@@ -22,7 +22,6 @@ public class ScorePermutation {
     }
     return permutations[k];
   }
-
   // @exclude
 
   private static void simpleTest() {
@@ -35,7 +34,7 @@ public class ScorePermutation {
     simpleTest();
     Random r = new Random();
     int k;
-    ArrayList<Integer> scoreWays = new ArrayList<Integer>();
+    List<Integer> scoreWays = new ArrayList<>();
     if (args.length == 0) {
       k = r.nextInt(1000);
       int size = r.nextInt(50) + 1;

@@ -9,19 +9,18 @@ public class PalindromeNumber {
       return false;
     }
 
-    int numDigits = (int) (Math.floor(Math.log10(x))) + 1;
-    int tempX = x, msbShift = (int) Math.pow(10, numDigits - 1);
-    for (int i = 0; i < (numDigits >> 1); ++i) {
-      if (x / msbShift != tempX % 10) {
+    final int NUM_DIGITS = (int) (Math.floor(Math.log10(x))) + 1;
+    int xRemaining = x, msdShift = (int) Math.pow(10, NUM_DIGITS - 1);
+    for (int i = 0; i < (NUM_DIGITS / 2); ++i) {
+      if (x / msdShift != xRemaining % 10) {
         return false;
       }
-      x %= msbShift;
-      msbShift /= 10;
-      tempX /= 10;
+      x %= msdShift;
+      msdShift /= 10;
+      xRemaining /= 10;
     }
     return true;
   }
-
   // @exclude
 
   private static boolean checkAns(int x) {

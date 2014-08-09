@@ -20,13 +20,12 @@ public class FindElementAppearsOnce {
     }
     return ones;
   }
-
   // @exclude
 
   public static void main(String[] args) {
     Random r = new Random();
     for (int times = 0; times < 10000; ++times) {
-      ArrayList<Integer> A = new ArrayList<Integer>();
+      List<Integer> A = new ArrayList<>();
       int n;
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);

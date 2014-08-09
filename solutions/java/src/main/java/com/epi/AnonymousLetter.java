@@ -4,6 +4,7 @@
 package com.epi;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 class AnonymousLetter {
@@ -18,9 +19,9 @@ class AnonymousLetter {
   }
 
   // @include
-  public static boolean anonymousletter(String L, String M) {
-    HashMap<Character, Integer> hash = new HashMap<Character, Integer>();
-    // Insert all chars in L into a hash table.
+  public static boolean anonymousLetter(String L, String M) {
+    Map<Character, Integer> hash = new HashMap<>();
+    // Inserts all chars in L into a hash table.
     for (char c : L.toCharArray()) {
       if (!hash.containsKey(c)) {
         hash.put(c, 1);
@@ -29,7 +30,7 @@ class AnonymousLetter {
       }
     }
 
-    // Check chars in M that could cover chars in a hash table.
+    // Checks characters in M that could cover characters in a hash table.
     for (char c : M.toCharArray()) {
       if (hash.containsKey(c)) {
         hash.put(c, hash.get(c) - 1);
@@ -44,7 +45,6 @@ class AnonymousLetter {
     // No entry in hash means L can be covered by M.
     return hash.isEmpty();
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -60,10 +60,10 @@ class AnonymousLetter {
     }
     System.out.println(L);
     System.out.println(M);
-    assert (!anonymousletter("123", "456"));
-    assert (!anonymousletter("123", "12222222"));
-    assert (anonymousletter("123", "1123"));
-    assert (anonymousletter("123", "123"));
-    System.out.println(anonymousletter(L, M) ? "true" : "false");
+    assert (!anonymousLetter("123", "456"));
+    assert (!anonymousLetter("123", "12222222"));
+    assert (anonymousLetter("123", "1123"));
+    assert (anonymousLetter("123", "123"));
+    System.out.println(anonymousLetter(L, M) ? "true" : "false");
   }
 }

@@ -28,18 +28,17 @@ public class MaximumSubarrayInCircularArrayConstantSpace {
 
   // @include
   public static int maxSubarraySumInCircular(List<Integer> A) {
-    // Find the max in non-circular case and circular case.
+    // Finds the max in non-circular case and circular case.
     int accumulate = 0;
     for (int a : A) {
       accumulate += a;
     }
-    // Return the max of noncircular and circular cases.
-    return Math.max(findOptimumSubarrayUsingComp(A, new MaxComparator()), 
-        accumulate - findOptimumSubarrayUsingComp(A, new MinComparator())); 
+    return Math.max(findOptimumSubarrayUsingComp(A, new MaxComparator()),
+        accumulate - findOptimumSubarrayUsingComp(A, new MinComparator()));
   }
 
   private static int findOptimumSubarrayUsingComp(List<Integer> A,
-      IntegerComparator comp) {
+                                                  IntegerComparator comp) {
     int till = 0, overall = 0;
     for (int a : A) {
       till = comp.compare(a, a + till);
@@ -47,10 +46,9 @@ public class MaximumSubarrayInCircularArrayConstantSpace {
     }
     return overall;
   }
-
   // @exclude
 
-  // O(n^2) solution
+  // O(n^2) solution.
   private static int checkAns(List<Integer> A) {
     int ans = 0;
     for (int i = 0; i < A.size(); ++i) {
@@ -68,7 +66,7 @@ public class MaximumSubarrayInCircularArrayConstantSpace {
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
-      ArrayList<Integer> A = new ArrayList<Integer>();
+      ArrayList<Integer> A = new ArrayList<>();
       if (args.length > 1) {
         for (int i = 1; i < args.length; ++i) {
           A.add(Integer.parseInt(args[i]));

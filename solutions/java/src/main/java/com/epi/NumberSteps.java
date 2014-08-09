@@ -19,7 +19,6 @@ public class NumberSteps {
     }
     return steps[n % (k + 1)];
   }
-
   // @exclude
 
   public static void main(String[] args) {

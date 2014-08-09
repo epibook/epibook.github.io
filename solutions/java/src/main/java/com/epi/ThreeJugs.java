@@ -1,12 +1,8 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
 import com.epi.utils.Pair;
+
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -25,38 +21,37 @@ public class ThreeJugs {
     }
   }
 
+  public static boolean checkFeasible(List<Jug> jugs, int L, int H) {
+    Set<Pair<Integer, Integer>> cache = new HashSet<>();
+    return checkFeasibleHelper(jugs, L, H, cache);
+  }
+
   private static boolean checkFeasibleHelper(List<Jug> jugs, int L, int H,
-      Set<Pair<Integer, Integer>> c) {
-    if (L > H || c.contains(new Pair<Integer, Integer>(L, H))
+                                             Set<Pair<Integer, Integer>> c) {
+    if (L > H || c.contains(new Pair<>(L, H))
         || (L < 0 && H < 0)) {
       return false;
     }
 
     // Checks the volume for each jug to see if it is possible.
     for (Jug j : jugs) {
-      if ((L <= j.low && j.high <= H) || // base case: j is contained in [L, H]
+      if ((L <= j.low && j.high <= H) || // Base case: j is contained in [L, H].
           checkFeasibleHelper(jugs, L - j.low, H - j.high, c)) {
         return true;
       }
     }
-    c.add(new Pair<Integer, Integer>(L, H)); // marks this as impossible
+    c.add(new Pair<>(L, H)); // Marks this as impossible.
     return false;
   }
-
-  public static boolean checkFeasible(List<Jug> jugs, int L, int H) {
-    HashSet<Pair<Integer, Integer>> cache = new HashSet<Pair<Integer, Integer>>();
-    return checkFeasibleHelper(jugs, L, H, cache);
-  }
-
   // @exclude
 
   public static void main(String[] args) {
     int n;
-    ArrayList<Jug> jugs = new ArrayList<Jug>();
+    List<Jug> jugs = new ArrayList<>();
     jugs.add(new Jug(230, 240));
     jugs.add(new Jug(290, 310));
     jugs.add(new Jug(500, 515));
-    assert (checkFeasible(jugs, 2100, 2300) == true);
+    assert (checkFeasible(jugs, 2100, 2300));
     jugs.clear();
     Random r = new Random();
     if (args.length == 1) {

@@ -1,14 +1,9 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-// @include
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
+// @include
 class Person implements Comparable<Person> {
   public Integer key;
   public String name;
@@ -38,10 +33,12 @@ class Person implements Comparable<Person> {
     }
   }
 }
+// @exclude
 
 class CountingSort {
+  // @include
   public static void countingSort(ArrayList<Person> people) {
-    HashMap<Integer, Integer> keyToCount = new HashMap<Integer, Integer>();
+    Map<Integer, Integer> keyToCount = new HashMap<>();
     for (Person p : people) {
       if (keyToCount.containsKey(p.key)) {
         keyToCount.put(p.key, keyToCount.get(p.key) + 1);
@@ -49,7 +46,7 @@ class CountingSort {
         keyToCount.put(p.key, 1);
       }
     }
-    HashMap<Integer, Integer> keyToOffset = new HashMap<Integer, Integer>();
+    Map<Integer, Integer> keyToOffset = new HashMap<>();
     int offset = 0;
     for (Map.Entry<Integer, Integer> kc : keyToCount.entrySet()) {
       keyToOffset.put(kc.getKey(), offset);
@@ -72,7 +69,6 @@ class CountingSort {
       }
     }
   }
-
   // @exclude
 
   private static String randomString(int len) {
@@ -100,12 +96,12 @@ class CountingSort {
       } else {
         k = rnd.nextInt(size) + 1;
       }
-      ArrayList<Person> people = new ArrayList<Person>();
+      ArrayList<Person> people = new ArrayList<>();
       for (int i = 0; i < size; ++i) {
         people
             .add(new Person(rnd.nextInt(k), randomString(rnd.nextInt(10) + 1)));
       }
-      HashSet<Integer> keySet = new HashSet<Integer>();
+      Set<Integer> keySet = new HashSet<>();
       for (Person p : people) {
         keySet.add(p.key);
       }

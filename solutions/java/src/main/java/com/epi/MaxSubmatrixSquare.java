@@ -25,7 +25,7 @@ public class MaxSubmatrixSquare {
                 break;
               }
             }
-            if (all1 == false) {
+            if (!all1) {
               break;
             }
           }
@@ -58,7 +58,8 @@ public class MaxSubmatrixSquare {
         // Find the largest w such that (i, j) to (i, j + w - 1) are feasible.
         table[i][j] = A.get(i).get(j) ? new MaxHW(
             i + 1 < A.size() ? table[i + 1][j].h + 1 : 1, j + 1 < A.get(i)
-                .size() ? table[i][j + 1].w + 1 : 1) : new MaxHW(0, 0);
+            .size() ? table[i][j + 1].w + 1 : 1
+        ) : new MaxHW(0, 0);
       }
     }
 
@@ -95,9 +96,9 @@ public class MaxSubmatrixSquare {
         m = r.nextInt(50) + 1;
       }
 
-      ArrayList<ArrayList<Boolean>> A = new ArrayList<ArrayList<Boolean>>(n);
+      ArrayList<ArrayList<Boolean>> A = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
-        ArrayList<Boolean> last = new ArrayList<Boolean>(m);
+        ArrayList<Boolean> last = new ArrayList<>(m);
         A.add(last);
         for (int j = 0; j < m; ++j) {
           last.add(r.nextBoolean());

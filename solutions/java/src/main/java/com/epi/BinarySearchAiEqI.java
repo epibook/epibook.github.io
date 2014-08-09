@@ -1,9 +1,6 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -13,7 +10,7 @@ public class BinarySearchAiEqI {
   public static int searchIndexValueEqual(ArrayList<Integer> A) {
     int l = 0, r = A.size() - 1;
     while (l <= r) {
-      int m = l + ((r - l) >> 1);
+      int m = l + ((r - l) / 2);
       int val = A.get(m) - m;
       if (val == 0) {
         return m;
@@ -25,7 +22,6 @@ public class BinarySearchAiEqI {
     }
     return -1;
   }
-
   // @exclude
 
   // O(n) way to find ans.
@@ -43,8 +39,8 @@ public class BinarySearchAiEqI {
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
-      ArrayList<Integer> A = new ArrayList<Integer>();
-      HashSet<Integer> table = new HashSet<Integer>();
+      ArrayList<Integer> A = new ArrayList<>();
+      Set<Integer> table = new HashSet<>();
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);
       } else {

@@ -22,7 +22,6 @@ public class ContainerWithMostWater {
     }
     return res;
   }
-
   // @exclude
 
   // O(n^2) checking answer.
@@ -45,7 +44,7 @@ public class ContainerWithMostWater {
       } else {
         n = r.nextInt(9999) + 2;
       }
-      List<Integer> heights = new ArrayList<Integer>();
+      List<Integer> heights = new ArrayList<>();
       for (int i = 0; i < n; i++) {
         heights.add(r.nextInt(1000) + 1);
       }

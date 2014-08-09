@@ -11,18 +11,19 @@ import java.util.Random;
 public class Arbitrage {
   // @include
   public static boolean isArbitrageExist(List<? extends List<Double>> G) {
-    // Transform each edge in G.
+    // Transforms each edge in G.
     for (List<Double> edgeList : G) {
       for (int i = 0; i < edgeList.size(); i++) {
         edgeList.set(i, -Math.log10(edgeList.get(i)));
       }
     }
 
-    // Use Bellman-Ford to find negative weight cycle.
+    // Uses Bellman-Ford to find negative weight cycle.
     return bellmanFord(G, 0);
   }
 
-  private static boolean bellmanFord(List<? extends List<Double>> G, int source) {
+  private static boolean bellmanFord(List<? extends List<Double>> G,
+                                     int source) {
     double[] disToSource = new double[G.size()];
     Arrays.fill(disToSource, Double.MAX_VALUE);
     disToSource[source] = 0;
@@ -45,7 +46,7 @@ public class Arbitrage {
       }
     }
 
-    // Detect cycle if there is any further update.
+    // Detects cycle if there is any further update.
     for (int i = 0; i < G.size(); ++i) {
       for (int j = 0; j < G.get(i).size(); ++j) {
         if (disToSource[i] != Double.MAX_VALUE
@@ -56,7 +57,6 @@ public class Arbitrage {
     }
     return false;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -72,9 +72,9 @@ public class Arbitrage {
       n = r.nextInt(100) + 1;
       m = r.nextInt(n * (n - 1) / 2) + 1;
     }
-    ArrayList<ArrayList<Double>> G = new ArrayList<ArrayList<Double>>();
+    List<List<Double>> G = new ArrayList<>();
     for (int i = 0; i < n; i++) {
-      ArrayList<Double> newList = new ArrayList<Double>();
+      List<Double> newList = new ArrayList<>();
       for (int j = 0; j < n; j++) {
         newList.add(0.0);
       }
@@ -91,9 +91,9 @@ public class Arbitrage {
     boolean res = isArbitrageExist(G);
     System.out.println(res);
 
-    ArrayList<ArrayList<Double>> g = new ArrayList<ArrayList<Double>>();
+    List<List<Double>> g = new ArrayList<>();
     for (int i = 0; i < 3; i++) {
-      ArrayList<Double> newList = new ArrayList<Double>();
+      List<Double> newList = new ArrayList<>();
       for (int j = 0; j < 3; j++) {
         newList.add(0.0);
       }

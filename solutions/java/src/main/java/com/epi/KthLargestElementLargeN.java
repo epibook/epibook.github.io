@@ -1,16 +1,7 @@
 package com.epi;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -39,21 +30,20 @@ public class KthLargestElementLargeN {
 
   // @include
   public static int findKthLargestUnknownLength(InputStream sin, int k) {
-    List<Integer> M = new ArrayList<Integer>();
+    List<Integer> M = new ArrayList<>();
     Scanner s = new Scanner(sin);
     while (s.hasNextInt()) {
       int x = s.nextInt();
       M.add(x);
-      if (M.size() == (k << 1) - 1) {
-        // Keep the k largest elements and discard the small ones.
+      if (M.size() == (k * 2) - 1) {
+        // Keeps the k largest elements and discard the small ones.
         nthElement(M, k - 1, new Greater<Integer>());
-        M = new ArrayList<Integer>(M.subList(0, k));
+        M = new ArrayList<>(M.subList(0, k));
       }
     }
     nthElement(M, k - 1, new Greater<Integer>());
     return M.get(k - 1); // return the k-th largest one.
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -70,15 +60,15 @@ public class KthLargestElementLargeN {
         n = r.nextInt(100000) + 1;
         k = r.nextInt(n) + 1;
       }
-      ArrayList<Integer> a = new ArrayList<Integer>();
+      List<Integer> a = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
         a.add(r.nextInt(10000000));
       }
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       OutputStreamWriter osw = new OutputStreamWriter(baos);
       try {
-        for (int i = 0; i < a.size(); ++i) {
-          osw.write(a.get(i) + " ");
+        for (Integer anA : a) {
+          osw.write(anA + " ");
         }
         osw.close();
       } catch (IOException e) {
@@ -86,11 +76,11 @@ public class KthLargestElementLargeN {
       }
       ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
 
-      int res = findKthLargestUnknownLength(bais, k);
+      int result = findKthLargestUnknownLength(bais, k);
       nthElement(a, a.size() - k);
-      System.out.println(res);
+      System.out.println(result);
       System.out.println(a.get(a.size() - k));
-      assert a.get(a.size() - k).equals(res);
+      assert a.get(a.size() - k).equals(result);
     }
   }
 }

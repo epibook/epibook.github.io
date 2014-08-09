@@ -1,15 +1,7 @@
 package com.epi;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -34,7 +26,6 @@ public class SearchMajority {
     }
     return candidate;
   }
-
   // @exclude
 
   private static String randString(int len) {
@@ -65,14 +56,14 @@ public class SearchMajority {
       assert (ans.equals(stream.get(stream.size() - 1)));
       find = true;
     }
-    assert (find == true);
+    assert (find);
   }
 
   public static void main(String[] args) {
     Random r = new Random();
     for (int times = 0; times < 10000; ++times) {
       int n;
-      ArrayList<String> stream = new ArrayList<String>();
+      ArrayList<String> stream = new ArrayList<>();
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);
       } else {
@@ -88,8 +79,8 @@ public class SearchMajority {
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       OutputStreamWriter osw = new OutputStreamWriter(baos);
       try {
-        for (int i = 0; i < stream.size(); ++i) {
-          osw.write(stream.get(i) + "\n");
+        for (String aStream : stream) {
+          osw.write(aStream + "\n");
         }
         osw.close();
       } catch (IOException e) {

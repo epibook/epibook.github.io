@@ -5,26 +5,26 @@ import java.util.Random;
 
 public class PhoneMnemonic {
   // @include
-  static final String[] M = new String[] { "0", "1", "ABC", "DEF", "GHI",
-      "JKL", "MNO", "PQRS", "TUV", "WXYZ" };
+  public static void phoneMnemonic(String num) {
+    char[] ans = new char[num.length()];
+    phoneMnemonicHelper(num, 0, ans);
+  }
 
-  static void phoneMnemonicHelper(String num, int d, char[] ans) {
-    if (d == num.length()) { // get enough characters and output answer.
+  // The mapping from digit to corresponding charaters.
+  private static final String[] M = new String[]{"0", "1", "ABC", "DEF", "GHI",
+      "JKL", "MNO", "PQRS", "TUV", "WXYZ"};
+
+  private static void phoneMnemonicHelper(String num, int d, char[] ans) {
+    if (d == num.length()) { // All digits are processed so we output answer.
       System.out.println(ans);
     } else {
-      for (char c : M[num.charAt(d) - '0'].toCharArray()) { // try all
-                                                            // combinations.
+      // Try all corresponding characters for this digit.
+      for (char c : M[num.charAt(d) - '0'].toCharArray()) {
         ans[d] = c;
         phoneMnemonicHelper(num, d + 1, ans);
       }
     }
   }
-
-  static void phoneMnemonic(String num) {
-    char[] ans = new char[num.length()];
-    phoneMnemonicHelper(num, 0, ans);
-  }
-
   // @exclude
 
   static String randString(int len) {

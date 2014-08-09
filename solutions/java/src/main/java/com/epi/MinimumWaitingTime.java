@@ -20,7 +20,6 @@ public class MinimumWaitingTime {
     }
     return waiting;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -31,7 +30,7 @@ public class MinimumWaitingTime {
     } else {
       n = r.nextInt(100) + 1;
     }
-    ArrayList<Integer> waitingTime = new ArrayList<Integer>();
+    List<Integer> waitingTime = new ArrayList<>();
     for (int i = 0; i < n; ++i) {
       waitingTime.add(r.nextInt(1000));
     }

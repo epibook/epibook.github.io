@@ -19,15 +19,18 @@ public class RoadNetwork {
       this.y = y;
       this.distance = distance;
     }
+    // @exclude
 
     @Override
     public String toString() {
       return x + " " + y + " " + distance;
     }
+    // @include
   }
 
   public static HighwaySection findBestProposals(List<HighwaySection> H,
-      List<HighwaySection> P, int a, int b, int n) {
+                                                 List<HighwaySection> P,
+                                                 int a, int b, int n) {
     // G stores the shortest path distances between all pairs of vertices.
     double[][] G = new double[n][n];
     for (double[] g : G) {
@@ -37,24 +40,24 @@ public class RoadNetwork {
       G[i][i] = 0;
     }
 
-    // Build a undirected graph G based on existing highway sections H.
+    // Builds a undirected graph G based on existing highway sections H.
     for (HighwaySection h : H) {
       G[h.x][h.y] = G[h.y][h.x] = h.distance;
     }
-    // Perform Floyd Warshall to build the shortest path between vertices.
+    // Performs Floyd Warshall to build the shortest path between vertices.
     FloydWarshall(G);
 
-    // Examine each proposal for shorter distance between a and b.
+    // Examines each proposal for shorter distance between a and b.
     double minDisAB = G[a][b];
     HighwaySection bestProposal = new HighwaySection(-1, -1, 0.0); // default
     for (HighwaySection p : P) {
-      // Check the path of a => p.x => p.y => b.
+      // Checks the path of a => p.x => p.y => b.
       if (G[a][p.x] != Double.MAX_VALUE && G[p.y][b] != Double.MAX_VALUE
           && minDisAB > G[a][p.x] + p.distance + G[p.y][b]) {
         minDisAB = G[a][p.x] + p.distance + G[p.y][b];
         bestProposal = p;
       }
-      // Check the path of a => p.y => p.x => b.
+      // Checks the path of a => p.y => p.x => b.
       if (G[a][p.y] != Double.MAX_VALUE && G[p.x][b] != Double.MAX_VALUE
           && minDisAB > G[a][p.y] + p.distance + G[p.x][b]) {
         minDisAB = G[a][p.y] + p.distance + G[p.x][b];
@@ -76,12 +79,11 @@ public class RoadNetwork {
       }
     }
   }
-
   // @exclude
 
-  // Try to add each proposal and use Floyd Warshall to solve, O(n^4) algorithm.
+  // Tries to add each proposal and use Floyd Warshall to solve, O(n^4) algorithm.
   private static HighwaySection checkAns(List<HighwaySection> H,
-      List<HighwaySection> P, int a, int b, int n) {
+                                         List<HighwaySection> P, int a, int b, int n) {
     // G stores the shortest path distances between all pairs of vertices.
     double[][] G = new double[n][n];
     for (double[] g : G) {
@@ -91,17 +93,17 @@ public class RoadNetwork {
       G[i][i] = 0;
     }
 
-    // Build a undirected graph G based on existing highway sections H.
+    // Builds a undirected graph G based on existing highway sections H.
     for (HighwaySection h : H) {
       G[h.x][h.y] = G[h.y][h.x] = h.distance;
     }
-    // Perform Floyd Warshall to build the shortest path between vertices.
+    // Performs Floyd Warshall to build the shortest path between vertices.
     FloydWarshall(G);
 
     double bestCost = G[a][b];
     HighwaySection bestProposal = new HighwaySection(-1, -1, 0.0); // default
     for (HighwaySection p : P) {
-      // Create new gTest for Floyd Warshall.
+      // Creates new gTest for Floyd Warshall.
       double[][] gTest = new double[G.length][];
       for (int i = 0; i < G.length; i++) {
         gTest[i] = Arrays.copyOf(G[i], G[i].length);
@@ -122,28 +124,29 @@ public class RoadNetwork {
       int n, m, k;
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);
-        m = r.nextInt(n * ((n - 1) >> 1) - 1) + 1;
-        k = r.nextInt(n * ((n - 1) >> 1) - m) + 1;
+        m = r.nextInt(n * ((n - 1) / 2) - 1) + 1;
+        k = r.nextInt(n * ((n - 1) / 2) - m) + 1;
       } else if (args.length == 2) {
         n = Integer.parseInt(args[0]);
         m = Integer.parseInt(args[1]);
-        k = r.nextInt(n * ((n - 1) >> 1) - m) + 1;
+        k = r.nextInt(n * ((n - 1) / 2) - m) + 1;
       } else {
         n = r.nextInt(96) + 5;
-        m = r.nextInt(n * ((n - 1) >> 1) - 1) + 1;
-        k = r.nextInt(n * ((n - 1) >> 1) - m) + 1;
+        m = r.nextInt(n * ((n - 1) / 2) - 1) + 1;
+        k = r.nextInt(n * ((n - 1) / 2) - m) + 1;
       }
       System.out.println("n = " + n + ", m = " + m + ", k = " + k);
       boolean[][] haveEdges = new boolean[n][n];
-      ArrayList<HighwaySection> H = new ArrayList<HighwaySection>(); // existing
-                                                                     // highway
-                                                                     // sections
+
+      // Existing highway sections
+      List<HighwaySection> H = new ArrayList<>();
+
       for (int i = 0; i < m; ++i) {
         int a, b;
         do {
           a = r.nextInt(n);
           b = r.nextInt(n);
-        } while (a == b || haveEdges[a][b] == true);
+        } while (a == b || haveEdges[a][b]);
         haveEdges[a][b] = haveEdges[b][a] = true;
         H.add(new HighwaySection(a, b, r.nextDouble() * 9999 + 1));
       }
@@ -152,13 +155,13 @@ public class RoadNetwork {
         System.out.println("H[i] = " + H.get(i));
       }
       // */
-      ArrayList<HighwaySection> P = new ArrayList<HighwaySection>(); // proposals
+      List<HighwaySection> P = new ArrayList<>(); // Proposals
       for (int i = 0; i < k; ++i) {
         int a, b;
         do {
           a = r.nextInt(n);
           b = r.nextInt(n);
-        } while (a == b || haveEdges[a][b] == true);
+        } while (a == b || haveEdges[a][b]);
         haveEdges[a][b] = haveEdges[b][a] = true;
         P.add(new HighwaySection(a, b, r.nextDouble() * 49 + 1));
       }

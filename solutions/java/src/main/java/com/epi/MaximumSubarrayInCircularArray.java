@@ -13,7 +13,7 @@ public class MaximumSubarrayInCircularArray {
     return Math.max(findMaxSubarray(A), findCircularMaxSubarray(A));
   }
 
-  // Calculate the non-circular solution.
+  // Calculates the non-circular solution.
   private static int findMaxSubarray(List<Integer> A) {
     int maximumTill = 0, maximum = 0;
     for (Integer a : A) {
@@ -23,10 +23,10 @@ public class MaximumSubarrayInCircularArray {
     return maximum;
   }
 
-  // Calculate the solution which is circular.
+  // Calculates the solution which is circular.
   private static int findCircularMaxSubarray(List<Integer> A) {
     // Maximum subarray sum starts at index 0 and ends at or before index i.
-    ArrayList<Integer> maximumBegin = new ArrayList<Integer>();
+    ArrayList<Integer> maximumBegin = new ArrayList<>();
     int sum = A.get(0);
     maximumBegin.add(sum);
     for (int i = 1; i < A.size(); ++i) {
@@ -44,14 +44,13 @@ public class MaximumSubarrayInCircularArray {
       maximumEnd[i] = Math.max(maximumEnd[i + 1], sum);
     }
 
-    // Calculate the maximum subarray which is circular.
+    // Calculates the maximum subarray which is circular.
     int circularMax = 0;
     for (int i = 0; i < A.size(); ++i) {
       circularMax = Math.max(circularMax, maximumBegin.get(i) + maximumEnd[i]);
     }
     return circularMax;
   }
-
   // @exclude
 
   // O(n^2) solution
@@ -72,7 +71,7 @@ public class MaximumSubarrayInCircularArray {
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
-      ArrayList<Integer> A = new ArrayList<Integer>();
+      ArrayList<Integer> A = new ArrayList<>();
       if (args.length > 1) {
         for (int i = 1; i < args.length; ++i) {
           A.add(Integer.parseInt(args[i]));

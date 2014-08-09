@@ -12,7 +12,7 @@ public class PowerXY {
 
   // @include
   public static double pow(double x, int y) {
-    double res = 1.0;
+    double result = 1.0;
     long power = y;
     if (y < 0) {
       power = -power;
@@ -20,14 +20,13 @@ public class PowerXY {
     }
     while (power != 0) {
       if ((power & 1) != 0) {
-        res *= x;
+        result *= x;
       }
       x *= x;
       power >>= 1;
     }
-    return res;
+    return result;
   }
-
   // @exclude
 
   public static void main(String[] args) {

@@ -8,13 +8,13 @@ public class SudokuCheck {
   // Check if a partially filled matrix has any conflicts.
   public static boolean isValidSudoku(int[][] A) {
     // Check row constraints.
-    for (int i = 0; i < A.length; ++i) {
+    for (int[] aA1 : A) {
       boolean[] isPresent = new boolean[A.length + 1];
       for (int j = 0; j < A.length; ++j) {
-        if (A[i][j] != 0 && isPresent[A[i][j]] == true) {
+        if (aA1[j] != 0 && isPresent[aA1[j]]) {
           return false;
         } else {
-          isPresent[A[i][j]] = true;
+          isPresent[aA1[j]] = true;
         }
       }
     }
@@ -22,11 +22,11 @@ public class SudokuCheck {
     // Check column constraints.
     for (int j = 0; j < A.length; ++j) {
       boolean[] isPresent = new boolean[A.length + 1];
-      for (int i = 0; i < A.length; ++i) {
-        if (A[i][j] != 0 && isPresent[A[i][j]] == true) {
+      for (int[] aA : A) {
+        if (aA[j] != 0 && isPresent[aA[j]]) {
           return false;
         } else {
-          isPresent[A[i][j]] = true;
+          isPresent[aA[j]] = true;
         }
       }
     }

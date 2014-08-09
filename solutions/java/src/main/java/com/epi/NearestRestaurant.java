@@ -1,9 +1,9 @@
 package com.epi;
 
+import com.epi.BinaryTreeWithParentPrototype.BinaryTree;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.epi.BinaryTreeWithParentPrototype.BinaryTree;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -28,45 +28,44 @@ public class NearestRestaurant {
   }
 
   // @include
-  public static <T extends Comparable<T>> List<BinaryTree<T>> rangeQueryOnBST(
-      BinaryTree<T> n, T L, T U) {
-    ArrayList<BinaryTree<T>> res = new ArrayList<BinaryTree<T>>();
-    for (BinaryTree<T> it = findFirstLargerEqualK(n, L); it != null
+  public static List<BinaryTree<Integer>> rangeQueryOnBST(
+      BinaryTree<Integer> n, Integer L, Integer U) {
+    List<BinaryTree<Integer>> res = new ArrayList<>();
+    for (BinaryTree<Integer> it = findFirstLargerEqualK(n, L); it != null
         && it.getData().compareTo(U) <= 0; it = findSuccessorBST(it)) {
       res.add(it);
     }
     return res;
   }
 
-  private static <T extends Comparable<T>> BinaryTree<T> findFirstLargerEqualK(
-      BinaryTree<T> r, T k) {
+  private static BinaryTree<Integer> findFirstLargerEqualK(
+      BinaryTree<Integer> r, Integer k) {
     if (r == null) {
       return null;
     } else if (r.getData().compareTo(k) >= 0) {
       // Recursively search the left subtree for first one >= k.
-      BinaryTree<T> n = findFirstLargerEqualK(r.getLeft(), k);
+      BinaryTree<Integer> n = findFirstLargerEqualK(r.getLeft(), k);
       return n != null ? n : r;
     }
     // r->data < k so search the right subtree.
     return findFirstLargerEqualK(r.getRight(), k);
   }
-
   // @exclude
 
   public static void main(String[] args) {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> root = new BinaryTree<Integer>(3, null, null);
-    root.setLeft(new BinaryTree<Integer>(2, null, null));
+    BinaryTree<Integer> root = new BinaryTree<>(3, null, null);
+    root.setLeft(new BinaryTree<>(2, null, null));
     root.getLeft().setParent(root);
-    root.getLeft().setLeft(new BinaryTree<Integer>(1, null, null));
+    root.getLeft().setLeft(new BinaryTree<>(1, null, null));
     root.getLeft().getLeft().setParent(root.getLeft());
-    root.setRight(new BinaryTree<Integer>(5, null, null));
+    root.setRight(new BinaryTree<>(5, null, null));
     root.getRight().setParent(root);
-    root.getRight().setLeft(new BinaryTree<Integer>(4, null, null));
+    root.getRight().setLeft(new BinaryTree<>(4, null, null));
     root.getRight().getLeft().setParent(root.getRight());
-    root.getRight().setRight(new BinaryTree<Integer>(6, null, null));
+    root.getRight().setRight(new BinaryTree<>(6, null, null));
     root.getRight().getRight().setParent(root.getRight());
     List<BinaryTree<Integer>> res = rangeQueryOnBST(root, 2, 5);
     assert (res.size() == 4);

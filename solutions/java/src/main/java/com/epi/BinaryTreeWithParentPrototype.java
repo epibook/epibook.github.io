@@ -4,7 +4,6 @@ package com.epi;
  * @author translated from c++ by Blazheev Alexander
  */
 public class BinaryTreeWithParentPrototype {
-  // @include
   public static class BinaryTree<T> {
     private T data;
     private BinaryTree<T> left, right;
@@ -24,7 +23,7 @@ public class BinaryTreeWithParentPrototype {
     }
 
     public BinaryTree(T data, BinaryTree<T> left, BinaryTree<T> right,
-        BinaryTree<T> parent) {
+                      BinaryTree<T> parent) {
       this(data, left, right);
       this.parent = parent;
     }
@@ -61,5 +60,4 @@ public class BinaryTreeWithParentPrototype {
       this.parent = parent;
     }
   }
-  // @exclude
 }

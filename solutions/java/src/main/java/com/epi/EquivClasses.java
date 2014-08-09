@@ -1,22 +1,15 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import static com.epi.utils.Utils.iota;
-import static com.epi.utils.Utils.simplePrint;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.epi.utils.Utils.iota;
+import static com.epi.utils.Utils.simplePrint;
+
 public class EquivClasses {
   // @include
-  static int backtrace(List<Integer> F, int idx) {
-    while (F.get(idx) != idx) {
-      idx = F.get(idx);
-    }
-    return idx;
-  }
-
   /*
    * A and B encode pairwise equivalences on a cardinality N set whose elements
    * are indexed by 0, 1, 2, ..., N-1.
@@ -29,9 +22,9 @@ public class EquivClasses {
    * equivalent to.
    */
   static List<Integer> computeEquivalClasses(int n, List<Integer> A,
-      List<Integer> B) {
+                                             List<Integer> B) {
     // Each element maps to itself.
-    List<Integer> F = new ArrayList<Integer>();
+    List<Integer> F = new ArrayList<>();
     iota(F, n, 0);
 
     for (int i = 0; i < A.size(); ++i) {
@@ -52,6 +45,12 @@ public class EquivClasses {
     return F;
   }
 
+  static int backtrace(List<Integer> F, int idx) {
+    while (F.get(idx) != idx) {
+      idx = F.get(idx);
+    }
+    return idx;
+  }
   // @exclude
 
   public static void main(String[] args) {

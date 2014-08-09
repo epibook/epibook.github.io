@@ -1,6 +1,7 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -8,14 +9,13 @@ import java.util.Random;
  */
 public class CloseSearch {
   // @include
-  public static int closeSearch(ArrayList<Integer> a, int k) {
+  public static int closeSearch(List<Integer> a, int k) {
     int idx = 0;
     while (idx < a.size() && a.get(idx) != k) {
       idx += StrictMath.abs(a.get(idx) - k);
     }
     return idx < a.size() ? idx : -1; // -1 means no result.
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -27,7 +27,7 @@ public class CloseSearch {
       } else {
         n = r.nextInt(10000) + 1;
       }
-      ArrayList<Integer> a = new ArrayList<Integer>();
+      List<Integer> a = new ArrayList<>();
       a.add(r.nextInt(10));
       for (int i = 1; i < n; ++i) {
         int shift = r.nextInt(3) - 1;
@@ -40,8 +40,8 @@ public class CloseSearch {
         assert (a.get(ans) == k);
       } else {
         boolean found = false;
-        for (int i = 0; i < a.size(); ++i) {
-          if (a.get(i) == k) {
+        for (Integer anA : a) {
+          if (anA == k) {
             found = true;
             break;
           }

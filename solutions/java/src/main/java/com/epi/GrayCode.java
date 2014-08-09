@@ -24,17 +24,16 @@ public class GrayCode {
       };
     }
 
-    List<Integer> prevRes = grayCode(n - 1); // result prepends 0.
+    List<Integer> prevRes = grayCode(n - 1); // Result prepends 0.
     // Creates result prepending 1.
     int leadingBitOne = 1 << (n - 1);
-    List<Integer> res = new ArrayList<Integer>();
+    List<Integer> result = new ArrayList<>();
     for (int i = prevRes.size() - 1; i >= 0; --i) {
-      res.add(leadingBitOne + prevRes.get(i));
+      result.add(leadingBitOne + prevRes.get(i));
     }
-    prevRes.addAll(res);
+    prevRes.addAll(result);
     return prevRes;
   }
-
   // @exclude
 
   private static void smallTest() {

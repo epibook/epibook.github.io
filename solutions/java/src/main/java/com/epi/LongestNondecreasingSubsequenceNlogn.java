@@ -10,7 +10,7 @@ import java.util.List;
 public class LongestNondecreasingSubsequenceNlogn {
   // @include
   public static int longestNondecreasingSubsequence(List<Integer> A) {
-    ArrayList<Integer> tailValues = new ArrayList<Integer>();
+    List<Integer> tailValues = new ArrayList<>();
 
     for (int a : A) {
       int it = Collections.binarySearch(tailValues, a);

@@ -1,12 +1,12 @@
 package com.epi;
 
+import java.util.Arrays;
+import java.util.Random;
+
 import static com.epi.PermutationArray1.applyPermutation1;
 import static com.epi.PermutationArray2.applyPermutation2;
 import static com.epi.utils.Utils.shuffle;
 import static com.epi.utils.Utils.simplePrint;
-
-import java.util.Arrays;
-import java.util.Random;
 
 public class PermutationArray {
   public static void main(String[] args) {

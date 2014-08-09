@@ -1,24 +1,25 @@
 package com.epi;
 
+import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
 /**
  * @author translated from c++ by Blazheev Alexander
  */
 public class FindKLargestBST {
   // @include
-  public static <T> List<T> findKLargestInBST(BinaryTree<T> root, int k) {
-    ArrayList<T> kElements = new ArrayList<T>();
+  public static List<Integer> findKLargestInBST(
+      BinaryTree<Integer> root, int k) {
+    List<Integer> kElements = new ArrayList<>();
     findKLargestInBSTHelper(root, k, kElements);
     return kElements;
   }
 
-  private static <T> void findKLargestInBSTHelper(BinaryTree<T> r, int k,
-      List<T> kElements) {
+  private static void findKLargestInBSTHelper(
+      BinaryTree<Integer> r, int k, List<Integer> kElements) {
     // Performs reverse inorder traversal.
     if (r != null && kElements.size() < k) {
       findKLargestInBSTHelper(r.getRight(), k, kElements);
@@ -28,19 +29,18 @@ public class FindKLargestBST {
       }
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> root = new BinaryTree<Integer>(3);
-    root.setLeft(new BinaryTree<Integer>(2));
-    root.getLeft().setLeft(new BinaryTree<Integer>(1));
-    root.setRight(new BinaryTree<Integer>(5));
-    root.getRight().setLeft(new BinaryTree<Integer>(4));
-    root.getRight().setRight(new BinaryTree<Integer>(6));
+    BinaryTree<Integer> root = new BinaryTree<>(3);
+    root.setLeft(new BinaryTree<>(2));
+    root.getLeft().setLeft(new BinaryTree<>(1));
+    root.setRight(new BinaryTree<>(5));
+    root.getRight().setLeft(new BinaryTree<>(4));
+    root.getRight().setRight(new BinaryTree<>(6));
     Random r = new Random();
     int k;
     if (args.length == 1) {

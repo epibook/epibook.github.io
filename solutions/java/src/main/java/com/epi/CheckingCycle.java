@@ -4,16 +4,16 @@
 package com.epi;
 
 class CheckingCycle {
-// @include
-  public static <T> Node<T> hasCycle(Node<T> head) {
-    Node<T> fast = head;
-    Node<T> slow = head;
+  // @include
+  public static Node<Integer> hasCycle(Node<Integer> head) {
+    Node<Integer> fast = head;
+    Node<Integer> slow = head;
 
     while (slow != null && slow.next != null && fast != null
         && fast.next != null && fast.next.next != null) {
       slow = slow.next;
       fast = fast.next.next;
-      if (slow == fast) { // there is a cycle.
+      if (slow == fast) { // There is a cycle.
         // Calculates the cycle length.
         int cycleLen = 0;
         do {
@@ -33,17 +33,17 @@ class CheckingCycle {
           slow = slow.next;
           fast = fast.next;
         }
-        return slow; // the start of cycle.
+        return slow; // The start of cycle.
       }
     }
     return null; // no cycle.
   }
-// @exclude
+  // @exclude
 
   public static void main(String[] args) {
-    Node<Integer> l3 = new Node<Integer>(3, null);
-    Node<Integer> l2 = new Node<Integer>(2, l3);
-    Node<Integer> l1 = new Node<Integer>(1, l2);
+    Node<Integer> l3 = new Node<>(3, null);
+    Node<Integer> l2 = new Node<>(2, l3);
+    Node<Integer> l1 = new Node<>(1, l2);
 
     // should output "l1 does not have cycle."
     assert (hasCycle(l1) == null);

@@ -8,34 +8,33 @@ public class GenerateParentheses {
   // @include
   public static List<String> generateParentheses(int n) {
     String s = "";
-    List<String> res = new ArrayList<String>();
-    generateParenthesesHelper(n << 1, 0, s, res);
-    return res;
+    List<String> result = new ArrayList<>();
+    generateParenthesesHelper(2 * n, 0, s, result);
+    return result;
   }
 
   private static void generateParenthesesHelper(int remained, int leftParens,
-      String s, List<String> res) {
+                                                String s, List<String> result) {
     if (remained == 0) {
-      res.add(s);
+      result.add(s);
       return;
     }
 
-    if (leftParens < remained) { // is able to insert '('.
-      generateParenthesesHelper(remained - 1, leftParens + 1, s + "(", res);
+    if (leftParens < remained) { // Able to insert '('.
+      generateParenthesesHelper(remained - 1, leftParens + 1, s + "(", result);
     }
-    if (leftParens > 0) { // is able to insert ')'.
-      generateParenthesesHelper(remained - 1, leftParens - 1, s + ")", res);
+    if (leftParens > 0) { // Able to insert ')'.
+      generateParenthesesHelper(remained - 1, leftParens - 1, s + ")", result);
     }
   }
-
   // @exclude
 
   private static void smallTest() {
-    List<String> res = generateParentheses(1);
-    assert (res.size() == 1 && res.get(0).equals("()"));
-    res = generateParentheses(2);
-    assert (res.size() == 2 && ((res.get(0).equals("(())") && res.get(1)
-        .equals("()()")) || (res.get(0).equals("()()") && res.get(1).equals(
+    List<String> result = generateParentheses(1);
+    assert (result.size() == 1 && result.get(0).equals("()"));
+    result = generateParentheses(2);
+    assert (result.size() == 2 && ((result.get(0).equals("(())") && result.get(1)
+        .equals("()()")) || (result.get(0).equals("()()") && result.get(1).equals(
         "(())"))));
   }
 
@@ -49,7 +48,7 @@ public class GenerateParentheses {
       n = r.nextInt(11);
     }
     System.out.println("n = " + n);
-    List<String> res = generateParentheses(n);
-    System.out.println(res);
+    List<String> result = generateParentheses(n);
+    System.out.println(result);
   }
 }

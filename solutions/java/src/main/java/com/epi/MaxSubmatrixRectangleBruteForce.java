@@ -18,7 +18,7 @@ public class MaxSubmatrixRectangleBruteForce {
             int count = 0;
             for (int i = a; i <= c; ++i) {
               for (int j = b; j <= d; ++j) {
-                if (A.get(i).get(j) == false) {
+                if (!A.get(i).get(j)) {
                   all1 = false;
                   count = 0;
                   break;
@@ -26,11 +26,11 @@ public class MaxSubmatrixRectangleBruteForce {
                   ++count;
                 }
               }
-              if (all1 == false) {
+              if (!all1) {
                 break;
               }
             }
-            if (all1 == true && count > max) {
+            if (all1 && count > max) {
               max = count;
             }
           }

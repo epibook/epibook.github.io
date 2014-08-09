@@ -14,8 +14,8 @@ public class RookAttack {
       }
     }
     boolean hasFirstColumnZero = false;
-    for (int i = 0; i < m; ++i) {
-      if (A[i][0] == 0) {
+    for (int[] aA : A) {
+      if (aA[0] == 0) {
         hasFirstColumnZero = true;
         break;
       }
@@ -56,7 +56,6 @@ public class RookAttack {
       }
     }
   }
-
   // @exclude
 
   private static void checkAns(int[][] A, int[][] ans) {

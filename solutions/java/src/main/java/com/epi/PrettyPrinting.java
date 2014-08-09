@@ -20,7 +20,7 @@ public class PrettyPrinting {
 
   // @include
   public static int findPrettyPrinting(List<String> W, int L) {
-    // Calculate M(i).
+    // Calculates M(i).
     long[] M = new long[W.size()];
     Arrays.fill(M, Long.MAX_VALUE);
     for (int i = 0; i < W.size(); ++i) {
@@ -35,7 +35,7 @@ public class PrettyPrinting {
       }
     }
 
-    // Find the minimum cost without considering the last line.
+    // Finds the minimum cost without considering the last line.
     long minMess = (W.size() >= 2 ? M[W.size() - 2] : 0);
     int bLen = L - W.get(W.size() - 1).length();
     for (int i = W.size() - 2; i >= 0; --i) {
@@ -47,7 +47,6 @@ public class PrettyPrinting {
     }
     return (int) minMess;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -63,7 +62,7 @@ public class PrettyPrinting {
       n = r.nextInt(30) + 1;
       L = r.nextInt(10) + 11;
     }
-    ArrayList<String> W = new ArrayList<String>(n);
+    List<String> W = new ArrayList<>(n);
     for (int i = 0; i < n; ++i) {
       W.add(randString(r.nextInt(10) + 1));
     }

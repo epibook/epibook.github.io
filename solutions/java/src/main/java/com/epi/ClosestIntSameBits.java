@@ -45,15 +45,14 @@ public class ClosestIntSameBits {
   public static long closestIntegerSameBits(long x) {
     for (int i = 0; i < 63; ++i) {
       if ((((x >> i) & 1) ^ ((x >> (i + 1)) & 1)) != 0) {
-        x ^= (1L << i) | (1L << (i + 1)); // swaps bit-i and bit-(i + 1)
+        x ^= (1L << i) | (1L << (i + 1)); // swaps bit-i and bit-(i + 1).
         return x;
       }
     }
 
-    // Throw error if all bits of x are 0 or 1
+    // Throw error if all bits of x are 0 or 1.
     throw new RuntimeException("all bits are 0 or 1");
   }
-
   // @exclude
 
   public static int countBitsSetTo1(int x) {

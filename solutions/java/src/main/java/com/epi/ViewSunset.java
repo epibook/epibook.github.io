@@ -1,36 +1,32 @@
 package com.epi;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import com.epi.utils.Pair;
+
+import java.io.*;
 import java.util.LinkedList;
 import java.util.Random;
-
-import com.epi.utils.Pair;
 
 /**
  * @author translated from c++ by Blazheev Alexander
  */
 public class ViewSunset {
   // @include
-  public static <T extends Comparable<T>> LinkedList<Pair<Integer, T>> 
-      examineBuildingsWithSunset( InputStream sin) {
-    int idx = 0; // building's index.
-    T height;
+  public static LinkedList<Pair<Integer, Integer>>
+  examineBuildingsWithSunset(InputStream sin) {
+    int idx = 0; // Building's index.
+    Integer height;
     // Stores (building_idx, building_height) pair with sunset views.
-    LinkedList<Pair<Integer, T>> buildingsWithSunset = new LinkedList<>();
+    LinkedList<Pair<Integer, Integer>> buildingsWithSunset = new LinkedList<>();
     try {
       ObjectInputStream osin = new ObjectInputStream(sin);
       while (true) {
-        height = (T) osin.readObject();
+        height = (Integer) osin.readObject();
         while (!buildingsWithSunset.isEmpty()
-            && height.compareTo(buildingsWithSunset.getLast().getSecond()) >= 0) {
+            && (height.
+            compareTo(buildingsWithSunset.getLast().getSecond()) >= 0)) {
           buildingsWithSunset.removeLast();
         }
-        buildingsWithSunset.addLast(new Pair<Integer, T>(idx++, height));
+        buildingsWithSunset.addLast(new Pair<>(idx++, height));
       }
     } catch (ClassNotFoundException e) {
       System.out.println(e.getMessage());
@@ -39,7 +35,6 @@ public class ViewSunset {
     }
     return buildingsWithSunset;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -58,8 +53,10 @@ public class ViewSunset {
           Integer height = r.nextInt(2 * n) + 1;
           oos.writeObject(height);
         }
-        ByteArrayInputStream sin = new ByteArrayInputStream(baos.toByteArray());
-        LinkedList<Pair<Integer, Integer>> res = examineBuildingsWithSunset(sin);
+        ByteArrayInputStream sin
+            = new ByteArrayInputStream(baos.toByteArray());
+        LinkedList<Pair<Integer, Integer>> res
+            = examineBuildingsWithSunset(sin);
         Pair<Integer, Integer> prev = res.pop();
         System.out.println(prev);
         while (!res.isEmpty()) {

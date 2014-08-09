@@ -1,29 +1,24 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import static com.epi.utils.Utils.close;
-// import static com.epi.utils.Utils.simplePrint;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.EOFException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.epi.utils.Utils.close;
+
+// import static com.epi.utils.Utils.simplePrint;
+
 public class ReservoirSampling {
   // @include
-  static List<Integer> reservoirSampling(InputStream sin, int k)
+  public static List<Integer> reservoirSampling(InputStream sin, int k)
       throws IOException, ClassNotFoundException {
 
-    List<Integer> R = new ArrayList<Integer>();
+    List<Integer> R = new ArrayList<>();
 
     ObjectInputStream osin = new ObjectInputStream(sin);
-    // Store the first k elements.
+    // Stores the first k elements.
     Integer x = (Integer) readObjectSilently(osin);
     for (int i = 0; i < k && x != null; ++i) {
       R.add(x);
@@ -34,7 +29,7 @@ public class ReservoirSampling {
     int elementNum = k + 1;
     x = (Integer) readObjectSilently(osin);
     while (x != null) {
-      Random gen = new Random(); // random num generator.
+      Random gen = new Random(); // Random num generator.
       // Generate random int in [0, elementNum].
       int tar = gen.nextInt(++elementNum);
       if (tar < k) {
@@ -60,7 +55,6 @@ public class ReservoirSampling {
     }
     return object;
   }
-
   // @exclude
 
   public static void main(String[] args) throws IOException,
@@ -79,7 +73,7 @@ public class ReservoirSampling {
       k = gen.nextInt(n) + 1;
     }
 
-    List<Integer> A = new ArrayList<Integer>(n);
+    List<Integer> A = new ArrayList<>(n);
     for (int i = 0; i < n; ++i) {
       A.add(i);
     }

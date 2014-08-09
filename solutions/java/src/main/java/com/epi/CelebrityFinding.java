@@ -4,19 +4,18 @@ import java.util.Random;
 
 public class CelebrityFinding {
   // @include
-  static int celebrityFinding(boolean[][] f) {
+  public static int celebrityFinding(boolean[][] f) {
     // Start checking the relation from f[0][1].
     int i = 0, j = 1;
     while (j < f.length) {
       if (f[i][j]) {
-        i = j++; // all candidates j' < j are not celebrity candidates.
+        i = j++; // All candidates j' < j are not celebrity candidates.
       } else { // f[i][j] == false.
         ++j; // i is still a celebrity candidate but j is not.
       }
     }
     return i;
   }
-
   // @exclude
 
   public static void main(String[] args) {

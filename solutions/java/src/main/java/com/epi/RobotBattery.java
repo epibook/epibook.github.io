@@ -1,20 +1,19 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
+import com.epi.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.epi.utils.Utils;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 public class RobotBattery {
 
   // @include
-  static int findBatteryCapacity(List<Integer> h) {
+  public static int findBatteryCapacity(List<Integer> h) {
     int minHeight = Integer.MAX_VALUE, capacity = 0;
     for (Integer height : h) {
       capacity = max(capacity, height - minHeight);
@@ -22,7 +21,6 @@ public class RobotBattery {
     }
     return capacity;
   }
-
   // @exclude
 
   // O(n^2) checking answer.
@@ -45,12 +43,21 @@ public class RobotBattery {
       } else {
         n = gen.nextInt(10000) + 1;
       }
-      List<Integer> A = new ArrayList<Integer>();
+      List<Integer> A = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
-        A.add(Utils.nextPositiveInt(gen));
+        A.add(Utils.nextPositiveInt(gen, n));
       }
       System.out.println(findBatteryCapacity(A));
-      assert (checkAns(A) == findBatteryCapacity(A));
+      if (checkAns(A) != findBatteryCapacity(A)) {
+        System.out.println("Error with findBatteryCapacity");
+        System.out.println("checkAns is " + checkAns(A));
+        System.out.println("A is ");
+        for (Integer x : A) {
+          System.out.print(x + ",");
+        }
+        System.out.println("");
+        assert (false);
+      }
     }
   }
 

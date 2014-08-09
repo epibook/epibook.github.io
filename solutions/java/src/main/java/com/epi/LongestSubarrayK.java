@@ -1,10 +1,11 @@
 package com.epi;
 
+import com.epi.utils.Pair;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.epi.utils.Pair;
 import static com.epi.utils.Utils.upperBound2;
 
 /**
@@ -15,37 +16,36 @@ public class LongestSubarrayK {
   public static Pair<Integer, Integer> findLongestSubarrayLessEqualK(
       List<Integer> A, int k) {
     // Build the prefix sum according to A.
-    ArrayList<Integer> prefixSum = new ArrayList<Integer>();
+    List<Integer> prefixSum = new ArrayList<>();
     int sum = 0;
     for (int a : A) {
       sum += a;
       prefixSum.add(sum);
     }
 
-    ArrayList<Integer> minPrefixSum = new ArrayList<Integer>(prefixSum);
+    List<Integer> minPrefixSum = new ArrayList<>(prefixSum);
 
     for (int i = minPrefixSum.size() - 2; i >= 0; --i) {
       minPrefixSum.set(i,
           Math.min(minPrefixSum.get(i), minPrefixSum.get(i + 1)));
     }
 
-    Pair<Integer, Integer> arrIdx = new Pair<Integer, Integer>(0,
+    Pair<Integer, Integer> arrIdx = new Pair<>(0,
         upperBound2(minPrefixSum, k) - 1);
     for (int i = 0; i < prefixSum.size(); ++i) {
       int idx = upperBound2(minPrefixSum, k + prefixSum.get(i)) - 1;
       if (idx - i - 1 > arrIdx.getSecond() - arrIdx.getFirst()) {
-        arrIdx = new Pair<Integer, Integer>(i + 1, idx);
+        arrIdx = new Pair<>(i + 1, idx);
       }
     }
     return arrIdx;
   }
-
   // @exclude
 
   // O(n^2) checking answer
   private static void checkAnswer(List<Integer> A, Pair<Integer, Integer> ans,
-      int k) {
-    ArrayList<Integer> sum = new ArrayList<Integer>(A.size() + 1);
+                                  int k) {
+    List<Integer> sum = new ArrayList<>(A.size() + 1);
     sum.add(0);
     for (int i = 0; i < A.size(); ++i) {
       sum.add(sum.get(i) + A.get(i));
@@ -86,7 +86,7 @@ public class LongestSubarrayK {
         n = r.nextInt(10000) + 1;
         k = r.nextInt(10000);
       }
-      ArrayList<Integer> A = new ArrayList<Integer>();
+      List<Integer> A = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
         A.add(r.nextInt(2001) - 1000);
       }

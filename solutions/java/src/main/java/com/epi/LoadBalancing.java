@@ -10,22 +10,22 @@ import java.util.Random;
 public class LoadBalancing {
   // @include
   public static List<Integer> decideLoadBalancing(List<Integer> userFileSize,
-      int serverNum) {
+                                                  int serverNum) {
     // Uses binary search to find the assignment with minimized maximum load.
     int l = 0;
     int r = 0;
     for (int i : userFileSize) {
       r += i;
     }
-    ArrayList<Integer> feasibleAssignment = new ArrayList<Integer>();
+    List<Integer> feasibleAssignment = new ArrayList<>();
     while (l <= r) {
-      int m = l + ((r - l) >> 1);
-      ArrayList<Integer> assignRes = new ArrayList<Integer>(serverNum);
+      int m = l + ((r - l) / 2);
+      List<Integer> assignRes = new ArrayList<>(serverNum);
       for (int i = 0; i < serverNum; i++) {
         assignRes.add(0);
       }
       boolean isFeasible = greedyAssignment(userFileSize, serverNum, m,
-          assignRes);
+                                            assignRes);
       if (isFeasible) {
         feasibleAssignment = assignRes;
         r = m - 1;
@@ -37,7 +37,8 @@ public class LoadBalancing {
   }
 
   private static boolean greedyAssignment(List<Integer> userFileSize,
-      int serverNum, int limit, List<Integer> assignRes) {
+                                          int serverNum, int limit,
+                                          List<Integer> assignRes) {
     int serverIdx = 0;
     for (int file : userFileSize) {
       while (serverIdx < serverNum && file + assignRes.get(serverIdx) > limit) {
@@ -52,7 +53,6 @@ public class LoadBalancing {
     }
     return true;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -66,8 +66,9 @@ public class LoadBalancing {
       m = r.nextInt(n) + 1;
     }
     System.out.println(n + " " + m);
-    ArrayList<Integer> users = new ArrayList<Integer>(); // stores user i's data
-                                                         // size.
+
+    // stores user i's data size.
+    List<Integer> users = new ArrayList<>();
     for (int i = 0; i < n; ++i) {
       users.add(r.nextInt(1000) + 1);
     }

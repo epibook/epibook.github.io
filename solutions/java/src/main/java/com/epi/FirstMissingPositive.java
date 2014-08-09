@@ -40,7 +40,6 @@ public class FirstMissingPositive {
     }
     return A.size() + 1;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -52,7 +51,7 @@ public class FirstMissingPositive {
       } else {
         n = r.nextInt(500001);
       }
-      List<Integer> A = new ArrayList<Integer>();
+      List<Integer> A = new ArrayList<>();
       for (int i = 0; i < n; i++) {
         A.add(r.nextInt(n + 1));
       }

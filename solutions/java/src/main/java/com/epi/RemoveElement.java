@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class RemoveElement {
   // @include
-  public static int removeElement(List<Integer> A, int k) {
+  public static int removeElement(int k, List<Integer> A) {
     int writeIdx = 0;
     for (int i = 0; i < A.size(); ++i) {
       if (A.get(i) != k) {
@@ -15,7 +15,6 @@ public class RemoveElement {
     }
     return writeIdx;
   }
-
   // @exclude
 
   private static void checkAns(List<Integer> A, int n, int k) {
@@ -33,13 +32,13 @@ public class RemoveElement {
       n = r.nextInt(10001);
     }
     for (int times = 0; times < 1000; ++times) {
-      List<Integer> A = new ArrayList<Integer>();
+      List<Integer> A = new ArrayList<>();
       for (int i = 0; i < n; i++) {
         A.add(r.nextInt(2001) - 1000);
       }
-      List<Integer> copyA = new ArrayList<Integer>(A);
+      List<Integer> copyA = new ArrayList<>(A);
       int target = r.nextInt(2001) - 1000;
-      int size = removeElement(A, target);
+      int size = removeElement(target, A);
       System.out.println("size = " + size + " k = " + target);
       checkAns(A, size, target);
       while (copyA.remove((Integer) target)) {

@@ -3,14 +3,15 @@ package com.epi;
 
 public class RunLengthCompression {
   // @include
-  static String decoding(String s) {
+  public static String decoding(String s) {
     int count = 0;
     StringBuilder ret = new StringBuilder();
     for (char c : s.toCharArray()) {
       if (Character.isDigit(c)) {
         count = count * 10 + c - '0';
-      } else { // isalpha.
-        for (int i = 1; i <= count; i++) {
+      } else { // c is a letter of alphabet.
+        // Adds count copies of c to the end of ret.
+        for (int i = 0; i < count; i++) {
           ret.append(c);
         }
         count = 0;
@@ -19,13 +20,14 @@ public class RunLengthCompression {
     return ret.toString();
   }
 
-  static String encoding(String s) {
+  public static String encoding(String s) {
     int count = 1;
     StringBuilder ss = new StringBuilder();
     for (int i = 1; i < s.length(); ++i) {
       if (s.charAt(i) == s.charAt(i - 1)) {
         ++count;
       } else {
+        // Found new character so write the count of previous character.
         ss.append(count);
         ss.append(s.charAt(i - 1));
         count = 1;
@@ -35,7 +37,6 @@ public class RunLengthCompression {
     ss.append(s.charAt(s.length() - 1));
     return ss.toString();
   }
-
   // @exclude
 
   public static void main(String[] args) {

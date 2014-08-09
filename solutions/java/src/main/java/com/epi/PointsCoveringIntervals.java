@@ -1,13 +1,9 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.Random;
-import java.util.TreeSet;
-
 import com.epi.utils.Interval;
+
+import java.util.*;
 
 // @include
 class LeftComp implements Comparator<Interval> {
@@ -51,22 +47,22 @@ class RightComp implements Comparator<Interval> {
 class PointsCoveringIntervals {
 
   // @include
-  public static ArrayList<Integer> findMinimumVisits(
-      ArrayList<Interval> intervals) {
-    TreeSet<Interval> left = new TreeSet<Interval>(new LeftComp());
-    TreeSet<Interval> right = new TreeSet<Interval>(new RightComp());
+  public static List<Integer> findMinimumVisits(
+      List<Interval> intervals) {
+    SortedSet<Interval> left = new TreeSet<>(new LeftComp());
+    SortedSet<Interval> right = new TreeSet<>(new RightComp());
 
     for (Interval interval : intervals) {
       left.add(interval);
       right.add(interval);
     }
 
-    ArrayList<Integer> s = new ArrayList<Integer>();
+    List<Integer> s = new ArrayList<>();
     while (!left.isEmpty() && !right.isEmpty()) {
       int b = right.first().right;
       s.add(b);
 
-      // Remove the intervals which intersect with R.cbegin().
+      // Removes the intervals which intersect with R.cbegin().
       Iterator<Interval> it = left.iterator();
       while (it.hasNext()) {
         Interval interval = it.next();
@@ -81,12 +77,11 @@ class PointsCoveringIntervals {
 
     return s;
   }
-
   // @exclude
 
   // O(n^2) checking solution
-  public static void checkAnswer(ArrayList<Interval> intervals,
-      ArrayList<Integer> answer) {
+  private static void checkAnswer(List<Interval> intervals,
+                                 List<Integer> answer) {
     boolean[] isVisited = new boolean[intervals.size()];
     for (Integer a : answer) {
       for (int i = 0; i < intervals.size(); ++i) {
@@ -97,19 +92,19 @@ class PointsCoveringIntervals {
     }
 
     for (boolean b : isVisited) {
-      assert (b == true);
+      assert (b);
     }
   }
 
-  public static void simpleTest() {
-    ArrayList<Interval> intervals = new ArrayList<Interval>();
+  private static void simpleTest() {
+    List<Interval> intervals = new ArrayList<>();
     intervals.add(new Interval(1, 4));
     intervals.add(new Interval(2, 8));
     intervals.add(new Interval(3, 6));
     intervals.add(new Interval(3, 5));
     intervals.add(new Interval(7, 10));
     intervals.add(new Interval(9, 11));
-    ArrayList<Integer> ans = findMinimumVisits(intervals);
+    List<Integer> ans = findMinimumVisits(intervals);
     assert (ans.size() == 2 && ans.get(0) == 4 && ans.get(1) == 10);
   }
 
@@ -124,13 +119,13 @@ class PointsCoveringIntervals {
       } else {
         n = gen.nextInt(10000) + 1;
       }
-      ArrayList<Interval> intervals = new ArrayList<Interval>();
+      List<Interval> intervals = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
         int left = gen.nextInt(9999);
         int right = gen.nextInt(left + 100) + left + 1;
         intervals.add(new Interval(left, right));
       }
-      ArrayList<Integer> ans = findMinimumVisits(intervals);
+      List<Integer> ans = findMinimumVisits(intervals);
       checkAnswer(intervals, ans);
     }
   }

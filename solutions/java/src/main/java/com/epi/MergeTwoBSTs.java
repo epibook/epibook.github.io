@@ -1,30 +1,33 @@
 package com.epi;
 
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
-import com.epi.utils.Ref;
 
 /**
  * @author translated from c++ by Blazheev Alexander
  */
 public class MergeTwoBSTs {
-  // Build a BST from the (s + 1)-th to the e-th node in L.
-  private static <T> BinaryTree<T> fromSortedDoublyLinkedListHelper(
-      Ref<BinaryTree<T>> L, int s, int e) {
-    BinaryTree<T> curr = null;
-    if (s < e) {
-      int m = s + ((e - s) >> 1);
-      BinaryTree<T> temp = fromSortedDoublyLinkedListHelper(L, s, m);
-      curr = L.value;
-      curr.setLeft(temp);
-      L.value = L.value.getRight();
-      curr.setRight(fromSortedDoublyLinkedListHelper(L, m + 1, e));
-    }
-    return curr;
+  private static BinaryTree<Integer> head;
+
+  private static BinaryTree<Integer> buildSortedDoublyLinkedList(
+      BinaryTree<Integer> L, int n) {
+    head = L;
+    return buildSortedDoublyLinkedListHelper(0, n);
   }
 
-  private static <T> BinaryTree<T> fromSortedDoublyLinkedList(BinaryTree<T> L,
-      int n) {
-    return fromSortedDoublyLinkedListHelper(new Ref<BinaryTree<T>>(L), 0, n);
+  // Build a BST from the (s + 1)-th to the e-th node in L.
+  private static BinaryTree<Integer> buildSortedDoublyLinkedListHelper(int s,
+                                                                       int e) {
+    if (s >= e) {
+      return null;
+    }
+
+    int m = s + ((e - s) / 2);
+    BinaryTree<Integer> left = buildSortedDoublyLinkedListHelper(s, m);
+    BinaryTree<Integer> curr = new BinaryTree<>(head.getData());
+    head = head.getRight();
+    curr.setLeft(left);
+    curr.setRight(buildSortedDoublyLinkedListHelper(m + 1, e));
+    return curr;
   }
 
   // Transform a BST into a circular sorted doubly linked list in-place,
@@ -66,7 +69,7 @@ public class MergeTwoBSTs {
   }
 
   // Count the list length till end.
-  private static <T> int countLen(BinaryTree<T> L) {
+  private static <T> int countLength(BinaryTree<T> L) {
     int len = 0;
     while (L != null) {
       ++len;
@@ -76,62 +79,48 @@ public class MergeTwoBSTs {
   }
 
   // @include
-  public static <T extends Comparable<T>> BinaryTree<T> mergeBSTs(
-      BinaryTree<T> A, BinaryTree<T> B) {
-    // Transform BSTs A and B into sorted doubly lists.
+  public static BinaryTree<Integer> mergeTwoBSTs(BinaryTree<Integer> A,
+                                                 BinaryTree<Integer> B) {
     A = bstToDoublyLinkedList(A);
     B = bstToDoublyLinkedList(B);
     A.getLeft().setRight(null);
     B.getLeft().setRight(null);
     A.setLeft(null);
     B.setLeft(null);
-    int lenA = countLen(A);
-    int lenB = countLen(B);
-    return fromSortedDoublyLinkedList(mergeSortedLinkedLists(A, B), lenA + lenB);
+    int ALength = countLength(A);
+    int BLength = countLength(B);
+    return buildSortedDoublyLinkedList(mergeTwoSortedLinkedLists(A, B),
+                                       ALength + BLength);
   }
+  // @exclude
 
   // Merge two sorted linked lists, return the head of list.
-  private static <T extends Comparable<T>> BinaryTree<T> mergeSortedLinkedLists(
-      BinaryTree<T> A, BinaryTree<T> B) {
-    Ref<BinaryTree<T>> sortedListW = new Ref<BinaryTree<T>>(null);
-    Ref<BinaryTree<T>> tailW = new Ref<BinaryTree<T>>(null);
-    Ref<BinaryTree<T>> aw = new Ref<BinaryTree<T>>(A);
-    Ref<BinaryTree<T>> bw = new Ref<BinaryTree<T>>(B);
+  private static BinaryTree<Integer> mergeTwoSortedLinkedLists(
+      BinaryTree<Integer> A, BinaryTree<Integer> B) {
+    BinaryTree<Integer> dummyHead = new BinaryTree<>();
+    BinaryTree<Integer> current = dummyHead;
+    BinaryTree<Integer> p1 = A;
+    BinaryTree<Integer> p2 = B;
 
-    while (aw.value != null && bw.value != null) {
-      appendNodeAndAdvance(sortedListW, tailW,
-          aw.value.getData().compareTo(bw.value.getData()) < 0 ? aw : bw);
+    while (p1 != null && p2 != null) {
+      if (p1.getData().compareTo(p2.getData()) < 0) {
+        current.setRight(p1);
+        p1 = p1.getRight();
+      } else {
+        current.setRight(p2);
+        p2 = p2.getRight();
+      }
+      current = current.getRight();
     }
 
-    // Append the remaining of A.
-    if (aw.value != null) {
-      appendNode(sortedListW, tailW, aw);
+    if (p1 != null) {
+      current.setRight(p1);
     }
-    // Append the remaining of B.
-    if (bw.value != null) {
-      appendNode(sortedListW, tailW, bw);
+    if (p2 != null) {
+      current.setRight(p2);
     }
-    return sortedListW.value;
+    return dummyHead.getRight();
   }
-
-  private static <T> void appendNodeAndAdvance(Ref<BinaryTree<T>> head,
-      Ref<BinaryTree<T>> tail, Ref<BinaryTree<T>> n) {
-    appendNode(head, tail, n);
-    n.value = n.value.getRight(); // advance n.
-  }
-
-  private static <T> void appendNode(Ref<BinaryTree<T>> head,
-      Ref<BinaryTree<T>> tail, Ref<BinaryTree<T>> n) {
-    if (head.value != null) {
-      tail.value.setRight(n.value);
-      n.value.setLeft(tail.value);
-    } else {
-      head.value = n.value;
-    }
-    tail.value = n.value;
-  }
-
-  // @exclude
 
   private static <T extends Comparable<T>> void printBstInOrder(
       BinaryTree<T> n, T pre) {
@@ -147,21 +136,21 @@ public class MergeTwoBSTs {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> L = new BinaryTree<Integer>(3);
-    L.setLeft(new BinaryTree<Integer>(2));
-    L.getLeft().setLeft(new BinaryTree<Integer>(1));
-    L.setRight(new BinaryTree<Integer>(5));
-    L.getRight().setLeft(new BinaryTree<Integer>(4));
-    L.getRight().setRight(new BinaryTree<Integer>(6));
+    BinaryTree<Integer> L = new BinaryTree<>(3);
+    L.setLeft(new BinaryTree<>(2));
+    L.getLeft().setLeft(new BinaryTree<>(1));
+    L.setRight(new BinaryTree<>(5));
+    L.getRight().setLeft(new BinaryTree<>(4));
+    L.getRight().setRight(new BinaryTree<>(6));
     // 7
     // 2 8
     // 0
-    BinaryTree<Integer> R = new BinaryTree<Integer>(7);
-    R.setLeft(new BinaryTree<Integer>(2));
-    R.getLeft().setLeft(new BinaryTree<Integer>(0));
-    R.setRight(new BinaryTree<Integer>(8));
+    BinaryTree<Integer> R = new BinaryTree<>(7);
+    R.setLeft(new BinaryTree<>(2));
+    R.getLeft().setLeft(new BinaryTree<>(0));
+    R.setRight(new BinaryTree<>(8));
 
-    BinaryTree<Integer> root = mergeBSTs(L, R);
+    BinaryTree<Integer> root = mergeTwoBSTs(L, R);
     // should output 0 1 2 2 3 4 5 6 7 8
     printBstInOrder(root, Integer.MIN_VALUE);
   }

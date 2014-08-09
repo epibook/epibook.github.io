@@ -5,7 +5,7 @@ package com.epi;
  */
 public class Parity1 {
   // @include
-  public static short parity1(long x) {
+  public static short parity(long x) {
     short result = 0;
     while (x != 0) {
       result ^= (x & 1);

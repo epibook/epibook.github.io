@@ -1,12 +1,8 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
-
 import com.epi.utils.Pair;
+
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -52,24 +48,26 @@ public class ClosestPairPoints {
     });
     Tuple<Point, Point, Double> ret = findClosestPairPointsHelper(P, 0,
         P.size());
-    return new Pair<Point, Point>(ret.a, ret.b);
+    return new Pair<>(ret.a, ret.b);
   }
 
-  // Return the closest two points and its distance as a tuple.
+  // Returns the closest two points and its distance as a tuple.
   private static Tuple<Point, Point, Double> findClosestPairPointsHelper(
       List<Point> points, int s, int e) {
-    if (e - s <= 3) { // brute-force to find answer if there are <= 3 points.
+    if (e - s <= 3) { // Brute-force to find answer if there are <= 3 points.
       return bruteForce(points, s, e);
     }
 
-    int mid = (e + s) >> 1;
+    int mid = (e + s) / 2;
     Tuple<Point, Point, Double> lRet = findClosestPairPointsHelper(points, s,
         mid);
     Tuple<Point, Point, Double> rRet = findClosestPairPointsHelper(points, mid,
         e);
     Tuple<Point, Point, Double> minLR = lRet.c < rRet.c ? lRet : rRet;
-    ArrayList<Point> remain = new ArrayList<Point>(); // stores the points whose
-                                                      // x-dis < min_d.
+
+    // Stores the points whose x-dis < min_d.
+    List<Point> remain = new ArrayList<>();
+
     for (Point p : points) {
       if (Math.abs(p.x - points.get(mid).x) < minLR.c) {
         remain.add(p);
@@ -81,23 +79,23 @@ public class ClosestPairPoints {
     return midRet.c < minLR.c ? midRet : minLR;
   }
 
-  // Return the closest two points and the distance between them.
+  // Returns the closest two points and the distance between them.
   private static Tuple<Point, Point, Double> bruteForce(List<Point> P, int s,
-      int e) {
-    Tuple<Point, Point, Double> ret = new Tuple<Point, Point, Double>();
+                                                        int e) {
+    Tuple<Point, Point, Double> ret = new Tuple<>();
     ret.c = Double.MAX_VALUE;
     for (int i = s; i < e; ++i) {
       for (int j = i + 1; j < e; ++j) {
         double dis = distance(P.get(i), P.get(j));
         if (dis < ret.c) {
-          ret = new Tuple<Point, Point, Double>(P.get(i), P.get(j), dis);
+          ret = new Tuple<>(P.get(i), P.get(j), dis);
         }
       }
     }
     return ret;
   }
 
-  // Return the closest two points and its distance as a tuple.
+  // Returns the closest two points and its distance as a tuple.
   private static Tuple<Point, Point, Double> findClosestPairInRemain(
       List<Point> P, double d) {
     Collections.sort(P, new Comparator<Point>() {
@@ -108,13 +106,13 @@ public class ClosestPairPoints {
     });
 
     // At most six points in P.
-    Tuple<Point, Point, Double> ret = new Tuple<Point, Point, Double>();
+    Tuple<Point, Point, Double> ret = new Tuple<>();
     ret.c = Double.MAX_VALUE;
     for (int i = 0; i < P.size(); ++i) {
       for (int j = i + 1; j < P.size() && P.get(j).y - P.get(i).y < d; ++j) {
         double dis = distance(P.get(i), P.get(j));
         if (dis < ret.c) {
-          ret = new Tuple<Point, Point, Double>(P.get(i), P.get(j), dis);
+          ret = new Tuple<>(P.get(i), P.get(j), dis);
         }
       }
     }
@@ -124,7 +122,6 @@ public class ClosestPairPoints {
   private static double distance(Point a, Point b) {
     return Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -137,7 +134,7 @@ public class ClosestPairPoints {
         n = r.nextInt(1000) + 1;
       }
       System.out.println("num of points = " + n);
-      ArrayList<Point> points = new ArrayList<Point>(n);
+      List<Point> points = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
         points.add(new Point(r.nextInt(10000), r.nextInt(10000)));
       }

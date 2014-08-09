@@ -11,7 +11,7 @@ public class SquareRootInt {
 
     long left = 0, right = x;
     while (left + 1 < right) {
-      long mid = left + ((right - left) >> 1);
+      long mid = left + ((right - left) / 2);
       long squareM = mid * mid;
       if (squareM == x) {
         return (int) mid;
@@ -26,7 +26,6 @@ public class SquareRootInt {
     }
     return (int) left;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -37,11 +36,11 @@ public class SquareRootInt {
       Random r = new Random();
       for (int times = 0; times < 100000; ++times) {
         x = r.nextInt(Integer.MAX_VALUE);
-        int res[] = new int[2];
+        int result[] = new int[2];
         System.out.println("x is " + x);
-        System.out.println((res[0] = squareRoot(x)) + " "
-            + (res[1] = (int) Math.sqrt(x)));
-        assert (res[0] == res[1]);
+        System.out.println((result[0] = squareRoot(x)) + " "
+            + (result[1] = (int) Math.sqrt(x)));
+        assert (result[0] == result[1]);
       }
     }
     x = 2147395599;

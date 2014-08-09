@@ -8,24 +8,23 @@ import java.util.Random;
  */
 public class StackSorting {
   // @include
-  private static <T extends Comparable<T>> void insert(LinkedList<T> S, T e) {
-    if (S.isEmpty() || S.peek().compareTo(e) <= 0) {
-      S.push(e);
-    } else {
-      T f = S.pop();
-      insert(S, e);
-      S.push(f);
-    }
-  }
-
-  public static <T extends Comparable<T>> void sort(LinkedList<T> S) {
+  public static void sort(LinkedList<Integer> S) {
     if (!S.isEmpty()) {
-      T e = S.pop();
+      Integer e = S.pop();
       sort(S);
       insert(S, e);
     }
   }
 
+  private static void insert(LinkedList<Integer> S, Integer e) {
+    if (S.isEmpty() || S.peek().compareTo(e) <= 0) {
+      S.push(e);
+    } else {
+      Integer f = S.pop();
+      insert(S, e);
+      S.push(f);
+    }
+  }
   // @exclude
 
   public static void main(String[] args) {
@@ -38,7 +37,7 @@ public class StackSorting {
         n = r.nextInt(10000) + 1;
       }
 
-      LinkedList<Integer> S = new LinkedList<Integer>();
+      LinkedList<Integer> S = new LinkedList<>();
       for (int i = 0; i < n; i++) {
         S.push(r.nextInt(1000000));
       }

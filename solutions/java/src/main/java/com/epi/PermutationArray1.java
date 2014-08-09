@@ -3,7 +3,7 @@ package com.epi;
 
 public class PermutationArray1 {
   // @include
-  static void applyPermutation1(int[] perm, int[] A) {
+  public static void applyPermutation1(int[] perm, int[] A) {
     for (int i = 0; i < A.length; ++i) {
       if (perm[i] >= 0) {
         int a = i;

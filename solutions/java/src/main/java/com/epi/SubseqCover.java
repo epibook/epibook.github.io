@@ -3,14 +3,9 @@
 
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Random;
-
 import com.epi.utils.Pair;
+
+import java.util.*;
 
 class SubseqCover {
 
@@ -25,29 +20,28 @@ class SubseqCover {
 
   // @include
   public static Pair<Integer, Integer> findSmallestSequentiallyCoveringSubset(
-      ArrayList<String> A, ArrayList<String> Q) {
-    HashMap<String, Integer> K = new HashMap<String, Integer>(); // stores the
-                                                                 // order of
-                                                                 // each Q[i].
-    ArrayList<Integer> L = new ArrayList<Integer>(Q.size());
-    ArrayList<Integer> D = new ArrayList<Integer>(Q.size());
-    for (int i = 0; i < Q.size(); i++) {
+      List<String> A, List<String> Q) {
+
+    // Stores the order of each Q[i].
+    Map<String, Integer> K = new HashMap<>();
+
+    List<Integer> L = new ArrayList<>(Q.size());
+    List<Integer> D = new ArrayList<>(Q.size());
+
+    // Initializes L, D, and K.
+    for (int i = 0; i < Q.size(); ++i) {
       L.add(-1);
       D.add(Integer.MAX_VALUE);
-    }
-    // Initialize K.
-    for (int i = 0; i < Q.size(); ++i) {
       K.put(Q.get(i), i);
     }
 
-    // Default value of -1.
-    Pair<Integer, Integer> res = new Pair<Integer, Integer>(-1, A.size()); 
+    Pair<Integer, Integer> res = new Pair<>(-1, A.size());
 
     for (int i = 0; i < A.size(); ++i) {
       Integer it = K.get(A.get(i));
       if (it != null) {
-        if (it == 0) { // first one, no predecessor.
-          D.set(0, 1); // base condition.
+        if (it == 0) { // First one, no predecessor.
+          D.set(0, 1); // Base condition.
         } else if (D.get(it - 1) != Integer.MAX_VALUE) {
           D.set(it, i - L.get(it - 1) + D.get(it - 1));
         }
@@ -62,14 +56,13 @@ class SubseqCover {
     }
     return res;
   }
-
   // @exclude
 
   public static void smallTest() {
-    ArrayList<String> a3 = new ArrayList<String>(Arrays.asList("0", "1", "2",
+    List<String> a3 = new ArrayList<>(Arrays.asList("0", "1", "2",
         "3", "4", "5", "6", "7", "8", "9", "2", "4", "6", "10", "10", "10",
         "3", "2", "1", "0"));
-    ArrayList<String> subseq4 = new ArrayList<String>(Arrays.asList("0", "2",
+    List<String> subseq4 = new ArrayList<>(Arrays.asList("0", "2",
         "9", "4", "6"));
     Pair<Integer, Integer> rr = findSmallestSequentiallyCoveringSubset(a3,
         subseq4);
@@ -81,7 +74,7 @@ class SubseqCover {
     Random gen = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
-      ArrayList<String> A = new ArrayList<String>();
+      List<String> A = new ArrayList<>();
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);
       } else {
@@ -90,7 +83,7 @@ class SubseqCover {
       for (int i = 0; i < n; i++) {
         A.add(randString(gen.nextInt(5) + 1));
       }
-      HashSet<String> dict = new HashSet<String>(A);
+      Set<String> dict = new HashSet<>(A);
 
       System.out.print("A = ");
       for (int i = 0; i < A.size(); i++) {
@@ -102,7 +95,7 @@ class SubseqCover {
       }
       System.out.println("");
       int m = gen.nextInt(Math.min(dict.size(), 10)) + 1;
-      ArrayList<String> Q = new ArrayList<String>();
+      List<String> Q = new ArrayList<>();
       Iterator<String> it = dict.iterator();
       for (int i = 0; i < m; i++) {
         if (it.hasNext()) {
@@ -119,10 +112,11 @@ class SubseqCover {
       }
       System.out.println("");
 
-      Pair<Integer, Integer> res = findSmallestSequentiallyCoveringSubset(A, Q);
+      Pair<Integer, Integer> res
+          = findSmallestSequentiallyCoveringSubset(A, Q);
       System.out.println(res.getFirst() + ", " + res.getSecond());
       if (res.getFirst() != -1 && res.getSecond() != Q.size()) {
-        if (res.getFirst() != res.getSecond()) {
+        if (!res.getFirst().equals(res.getSecond())) {
           System.out.println(res.getFirst() + ", " + res.getSecond());
         }
         dict.clear();

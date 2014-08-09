@@ -55,8 +55,8 @@ public class GaussianPrimes {
   }
 
   public static List<Complex> generateGaussianPrimes(int n) {
-    TreeSet<Complex> candidates = new TreeSet<Complex>();
-    ArrayList<Complex> primes = new ArrayList<Complex>();
+    TreeSet<Complex> candidates = new TreeSet<>();
+    List<Complex> primes = new ArrayList<>();
 
     // Generate all possible Gaussian prime candidates.
     for (int i = -n; i <= n; ++i) {
@@ -97,12 +97,11 @@ public class GaussianPrimes {
         || (z.getReal() == 0 && z.getImag() == 1)
         || (z.getReal() == 0 && z.getImag() == -1);
   }
-
   // @exclude
 
   private static List<Complex> generateGaussianPrimesCanary(int n) {
-    TreeSet<Complex> candidates = new TreeSet<Complex>();
-    ArrayList<Complex> primes = new ArrayList<Complex>();
+    TreeSet<Complex> candidates = new TreeSet<>();
+    List<Complex> primes = new ArrayList<>();
 
     // Generate all possible Gaussian prime candidates.
     for (int i = -n; i <= n; ++i) {

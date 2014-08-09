@@ -1,29 +1,17 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
+import java.util.Arrays;
+import java.util.Random;
+
 import static com.epi.utils.Utils.iota;
 import static com.epi.utils.Utils.shuffle;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
-import java.util.Arrays;
-import java.util.Random;
-
 public class OfflineMinimum {
   // @include
-  static int findSet(int[] set, int x) {
-    if (set[x] != x) {
-      set[x] = findSet(set, set[x]); // path compression.
-    }
-    return set[x];
-  }
-
-  static void unionSet(int[] set, int x, int y) {
-    int xRoot = findSet(set, x), yRoot = findSet(set, y);
-    set[min(xRoot, yRoot)] = max(xRoot, yRoot);
-  }
-
-  static int[] offlineMinimum(int[] A, int[] E) {
+  public static int[] offlineMinimum(int[] A, int[] E) {
     int[] R = new int[A.length];
     Arrays.fill(R, E.length);
     int pre = 0;
@@ -49,6 +37,17 @@ public class OfflineMinimum {
     return ret;
   }
 
+  private static int findSet(int[] set, int x) {
+    if (set[x] != x) {
+      set[x] = findSet(set, set[x]); // path compression.
+    }
+    return set[x];
+  }
+
+  private static void unionSet(int[] set, int x, int y) {
+    int xRoot = findSet(set, x), yRoot = findSet(set, y);
+    set[min(xRoot, yRoot)] = max(xRoot, yRoot);
+  }
   // @exclude
 
   // O(nm) checking method

@@ -1,11 +1,6 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class RemoveDuplicatesFromSortedArray {
   // @include
@@ -14,16 +9,14 @@ public class RemoveDuplicatesFromSortedArray {
       return 0;
     }
 
-    int i = 0, j = 1;
-    while (j < a.size()) {
-      if (!a.get(i).equals(a.get(j))) {
-        a.set(++i, a.get(j));
+    int index = 0;
+    for (int i = 1; i < a.size(); ++i) {
+      if (!a.get(index).equals(a.get(i))) {
+        a.set(++index, a.get(i));
       }
-      ++j;
     }
-    return i + 1;
+    return index + 1;
   }
-
   // @exclude
 
   private static void checkAns(List<Integer> A, int n) {
@@ -41,12 +34,12 @@ public class RemoveDuplicatesFromSortedArray {
       n = r.nextInt(10000) + 1;
     }
     for (int times = 0; times < 1000; ++times) {
-      List<Integer> A = new ArrayList<Integer>();
+      List<Integer> A = new ArrayList<>();
       for (int i = 0; i < n; i++) {
         A.add(r.nextInt(2001) - 1000);
       }
       Collections.sort(A);
-      Set<Integer> unique = new HashSet<Integer>(A);
+      Set<Integer> unique = new HashSet<>(A);
       int size = removeDuplicates(A);
       assert (size == unique.size());
       checkAns(A, size);

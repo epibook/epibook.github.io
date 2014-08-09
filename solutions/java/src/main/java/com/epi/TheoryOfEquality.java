@@ -1,9 +1,6 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -25,13 +22,15 @@ public class TheoryOfEquality {
 
   public static class GraphVertex {
     public int group = -1; // represents the connected component it belongs.
-    public ArrayList<GraphVertex> edges = new ArrayList<GraphVertex>();
+    public List<GraphVertex> edges = new ArrayList<>();
   }
 
-  public static boolean areConstraintsSatisfied(List<Constraint> E, // Equality
-      // constraints.
-      List<Constraint> I) { // Inequality constraints.
-    HashMap<Integer, GraphVertex> G = new HashMap<Integer, GraphVertex>();
+  public static boolean areConstraintsSatisfied(
+      // Equality constraints.
+      List<Constraint> E,
+      // Inequality constraints.
+      List<Constraint> I) {
+    Map<Integer, GraphVertex> G = new HashMap<>();
     // Build graph G according to E.
     for (Constraint e : E) {
       if (!G.containsKey(e.a)) {
@@ -77,12 +76,11 @@ public class TheoryOfEquality {
       }
     }
   }
-
   // @exclude
 
   private static void smallTest() {
-    ArrayList<Constraint> E = new ArrayList<Constraint>();
-    ArrayList<Constraint> I = new ArrayList<Constraint>();
+    List<Constraint> E = new ArrayList<>();
+    List<Constraint> I = new ArrayList<>();
     E.add(new Constraint(0, 1));
     I.add(new Constraint(2, 3));
     assert (areConstraintsSatisfied(E, I));
@@ -102,36 +100,36 @@ public class TheoryOfEquality {
     int n, m, k;
     if (args.length == 1) {
       n = Integer.parseInt(args[0]);
-      m = r.nextInt(n * (n - 1) >> 1) + 1;
-      k = r.nextInt((n * (n - 1) >> 1) - m) + 1;
+      m = r.nextInt(n * (n - 1) / 2) + 1;
+      k = r.nextInt((n * (n - 1) / 2) - m) + 1;
     } else if (args.length == 2) {
       n = Integer.parseInt(args[0]);
       m = Integer.parseInt(args[1]);
-      k = r.nextInt((n * (n - 1) >> 1) - m) + 1;
+      k = r.nextInt((n * (n - 1) / 2) - m) + 1;
     } else {
       n = r.nextInt(100) + 2;
-      m = r.nextInt(n * (n - 1) >> 1) + 1;
-      k = r.nextInt((n * (n - 1) >> 1) - m) + 1;
+      m = r.nextInt(n * (n - 1) / 2) + 1;
+      k = r.nextInt((n * (n - 1) / 2) - m) + 1;
     }
     System.out.println("n = " + n + ", m = " + m + ", k = " + k);
     boolean[][] haveEdges = new boolean[n][n];
-    ArrayList<Constraint> E = new ArrayList<Constraint>();
+    List<Constraint> E = new ArrayList<>();
     for (int i = 0; i < m; ++i) {
       int a, b;
       do {
         a = r.nextInt(n);
         b = r.nextInt(n);
-      } while (a == b || haveEdges[a][b] == true);
+      } while (a == b || haveEdges[a][b]);
       haveEdges[a][b] = haveEdges[b][a] = true;
       E.add(new Constraint(a, b));
     }
-    ArrayList<Constraint> I = new ArrayList<Constraint>();
+    List<Constraint> I = new ArrayList<>();
     for (int i = 0; i < k; ++i) {
       int a, b;
       do {
         a = r.nextInt(n);
         b = r.nextInt(n);
-      } while (a == b || haveEdges[a][b] == true);
+      } while (a == b || haveEdges[a][b]);
       haveEdges[a][b] = haveEdges[b][a] = true;
       I.add(new Constraint(a, b));
     }

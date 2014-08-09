@@ -10,8 +10,9 @@ public class ReverseListInKGroup {
 
   // @include
   public static NodeT<Integer> reverseK(NodeT<Integer> L, int k) {
-    boolean firstTime = true;
-    NodeT<Integer> beforePre = null, pre = L, beforePost = null, post = L;
+    NodeT<Integer> dummyHead = new NodeT<>(0, L);
+    NodeT<Integer> beforePre = dummyHead, pre = dummyHead.next,
+                   beforePost = dummyHead, post = dummyHead.next;
     while (pre != null) {
       int i = k;
       while (i != 0) {
@@ -23,45 +24,38 @@ public class ReverseListInKGroup {
         }
       }
       if (i != 0) {
-        return L;
+        return dummyHead.next;
       }
 
       beforePost.next = null;
       reverseLinkedList(pre);
-      if (beforePre != null) {
-        beforePre.next = beforePost;
-      }
-      if (firstTime) {
-        L = beforePost;
-        firstTime = false;
-      }
+      beforePre.next = beforePost;
       beforePre = pre;
       pre.next = post;
       pre = post;
       beforePost = null;
     }
-    return L;
+    return dummyHead.next;
   }
-
   // @exclude
 
   public static void main(String[] args) {
     NodeT<Integer> L;
-    L = new NodeT<Integer>(1, new NodeT<Integer>(2, new NodeT<Integer>(3,
-        new NodeT<Integer>(4, new NodeT<Integer>(5, null)))));
+    L = new NodeT<>(1, new NodeT<>(2, new NodeT<>(3,
+        new NodeT<>(4, new NodeT<>(5, null)))));
     int k;
     if (args.length == 1) {
       k = Integer.parseInt(args[0]);
     } else {
       k = 2;
     }
-    NodeT<Integer> res = reverseK(L, k);
-    assert (res.data.equals(2) && res.next.data.equals(1)
-        && res.next.next.data.equals(4) && res.next.next.next.data.equals(3)
-        && res.next.next.next.next.data.equals(5) && res.next.next.next.next.next == null);
-    while (res != null) {
-      System.out.println(res.data);
-      res = res.next;
+    NodeT<Integer> result = reverseK(L, k);
+    assert (result.data.equals(2) && result.next.data.equals(1)
+        && result.next.next.data.equals(4) && result.next.next.next.data.equals(3)
+        && result.next.next.next.next.data.equals(5) && result.next.next.next.next.next == null);
+    while (result != null) {
+      System.out.println(result.data);
+      result = result.next;
     }
   }
 }

@@ -22,10 +22,10 @@ public class LevenshteinDistance {
     }
 
     for (int i = 1; i <= A.length(); ++i) {
-      int preI1J1 = D[0]; // stores the value of D[i - 1][j - 1].
+      int preI1J1 = D[0]; // Stores the value of D[i - 1][j - 1].
       D[0] = i;
       for (int j = 1; j <= B.length(); ++j) {
-        int preI1J = D[j]; // stores the value of D[i -1][j].
+        int preI1J = D[j]; // Stores the value of D[i -1][j].
         D[j] = A.charAt(i - 1) == B.charAt(j - 1) ? preI1J1 : 1 + Math.min(
             preI1J1, Math.min(D[j - 1], D[j]));
         // Previous D[i - 1][j] will become the next D[i - 1][j - 1].
@@ -34,7 +34,6 @@ public class LevenshteinDistance {
     }
     return D[D.length - 1];
   }
-
   // @exclude
 
   private static String randString(int len) {

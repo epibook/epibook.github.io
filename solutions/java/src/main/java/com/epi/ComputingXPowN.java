@@ -1,10 +1,7 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -17,22 +14,22 @@ public class ComputingXPowN {
     }
 
     LinkedList<ArrayList<Integer>> expLists = new LinkedList<>();
+    // Constructs the initial list with one node whose value is 1.
     expLists.addLast(new ArrayList<Integer>() {
       {
         add(1);
       }
-    }); // construct the initial list with one node
-    // whose value is 1.
+    });
     while (!expLists.isEmpty()) {
-      ArrayList<Integer> exp = expLists.pop();
-      // Try all possible combinations in list exp.
+      List<Integer> exp = expLists.pop();
+      // Tries all possible combinations in list exp.
       for (int a : exp) {
         int sum = a + exp.get(exp.size() - 1);
         if (sum > n) {
-          break; // no possible solution.
+          break; // No possible solution.
         }
 
-        ArrayList<Integer> newExp = new ArrayList<Integer>(exp);
+        ArrayList<Integer> newExp = new ArrayList<>(exp);
         newExp.add(sum);
         if (sum == n) {
           return newExp;
@@ -41,11 +38,10 @@ public class ComputingXPowN {
       }
     }
     // @exclude
-    throw new RuntimeException("unknown error"); // this line should never be
-                                                 // called.
+    // This line should never be called.
+    throw new RuntimeException("unknown error");
     // @include
   }
-
   // @exclude
 
   public static void main(String[] args) {

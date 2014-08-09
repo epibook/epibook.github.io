@@ -11,7 +11,7 @@ public class InterleavingString {
     }
 
     boolean[][] T = new boolean[s1.length() + 1][s2.length() + 1];
-    T[0][0] = true; // base case.
+    T[0][0] = true; // Base case.
     // Uses chars from s1 only to match s3.
     for (int i = 0; i < s1.length(); ++i) {
       if (s1.charAt(i) == s3.charAt(i)) {
@@ -38,7 +38,6 @@ public class InterleavingString {
 
     return T[s1.length()][s2.length()];
   }
-
   // @exclude
 
   private static String randString(int len) {

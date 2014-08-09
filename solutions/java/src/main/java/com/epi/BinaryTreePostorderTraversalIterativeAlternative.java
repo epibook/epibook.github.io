@@ -1,14 +1,11 @@
 package com.epi;
 
-import static com.epi.BinaryTreeUtils.generatePostOrder;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+
+import java.util.*;
+import java.util.LinkedList;
+
+import static com.epi.BinaryTreeUtils.generatePostOrder;
 
 public class BinaryTreePostorderTraversalIterativeAlternative {
   // @include
@@ -24,9 +21,9 @@ public class BinaryTreePostorderTraversalIterativeAlternative {
       return Collections.emptyList();
     }
 
-    LinkedList<BinaryTree<Integer>> s = new LinkedList<BinaryTree<Integer>>();
+    LinkedList<BinaryTree<Integer>> s = new LinkedList<>();
     s.push(root);
-    List<Integer> res = new ArrayList<Integer>();
+    List<Integer> res = new ArrayList<>();
     while (!s.isEmpty()) {
       BinaryTree<Integer> curr = s.pop();
       res.add(curr.getData());
@@ -39,19 +36,18 @@ public class BinaryTreePostorderTraversalIterativeAlternative {
     }
     return res;
   }
-
   // @exclude
 
   public static void main(String[] args) {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> root = new BinaryTree<Integer>(3);
-    root.setLeft(new BinaryTree<Integer>(2));
-    root.getLeft().setLeft(new BinaryTree<Integer>(1));
-    root.setRight(new BinaryTree<Integer>(5));
-    root.getRight().setLeft(new BinaryTree<Integer>(4));
-    root.getRight().setRight(new BinaryTree<Integer>(6));
+    BinaryTree<Integer> root = new BinaryTree<>(3);
+    root.setLeft(new BinaryTree<>(2));
+    root.getLeft().setLeft(new BinaryTree<>(1));
+    root.setRight(new BinaryTree<>(5));
+    root.getRight().setLeft(new BinaryTree<>(4));
+    root.getRight().setRight(new BinaryTree<>(6));
     List<Integer> res = postOrderTraversal(root);
     List<Integer> goldenRes = generatePostOrder(root);
     assert (res.size() == goldenRes.size() && Arrays.deepEquals(res.toArray(),

@@ -40,32 +40,21 @@ public class InterconvertingStringInteger {
     }
 
     if (isNegative) {
-      s.append('-');
+      s.append('-');  // Adds the negative sign back.
     }
     s.reverse();
     return s.toString();
   }
 
-  // We define the valid strings for this function as those matching regexp
-  // -?[0-9]+.
   public static int stringToInt(String s) {
-    // "-" starts as a valid integer, but has no digits.
-    if (s.equals("-")) {
-      throw new RuntimeException("illegal input");
-    }
-
     boolean isNegative = s.charAt(0) == '-';
-    int x = 0;
+    int r = 0;
     for (int i = isNegative ? 1 : 0; i < s.length(); ++i) {
-      if (Character.isDigit(s.charAt(i))) {
-        x = x * 10 + s.charAt(i) - '0';
-      } else {
-        throw new RuntimeException("illegal input");
-      }
+      int digit = s.charAt(i) - '0';
+      r = r * 10 + digit;
     }
-    return isNegative ? -x : x;
+    return isNegative ? -r : r;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -86,11 +75,6 @@ public class InterconvertingStringInteger {
         x = stringToInt(str);
         System.out.println(str + " " + x);
         assert (x == Integer.parseInt(str));
-      }
-      try {
-        stringToInt("123abc");
-      } catch (Exception e) {
-        System.out.println(e.getMessage());
       }
     }
   }

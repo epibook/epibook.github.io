@@ -4,8 +4,8 @@ package com.epi;
 import java.util.Arrays;
 import java.util.Random;
 
-// @include
 class CountOccurrencesInSentence {
+  // @include
   public static void countOccurrences(String s) {
     char[] a = s.toCharArray();
     Arrays.sort(a);
@@ -21,7 +21,6 @@ class CountOccurrencesInSentence {
     }
     System.out.println("(" + a[a.length - 1] + ',' + count + ")");
   }
-
   // @exclude
 
   private static String randomString(int len) {

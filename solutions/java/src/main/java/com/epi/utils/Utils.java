@@ -3,13 +3,7 @@ package com.epi.utils;
 import java.io.Closeable;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Random;
+import java.util.*;
 
 public class Utils {
 
@@ -29,8 +23,8 @@ public class Utils {
     int gcd = BigInteger.valueOf(a).gcd(BigInteger.valueOf(b)).intValue();
     a /= gcd;
     b /= gcd;
-    return b < 0 ? new Pair<Integer, Integer>(-a, -b)
-        : new Pair<Integer, Integer>(a, b);
+    return b < 0 ? new Pair<>(-a, -b)
+        : new Pair<>(a, b);
   }
 
   public static <T> boolean nullEqual(T first, T second) {
@@ -107,7 +101,7 @@ public class Utils {
 
   /**
    * Fills the given {@link StringBuilder} with the given char.
-   * 
+   *
    * @param sb
    * @param c
    */
@@ -125,7 +119,7 @@ public class Utils {
    * Returns index of the first element in <code>list</code> which compares
    * greater than <code>d</code>. Index is based on the order given by
    * list.iterator().
-   * 
+   *
    * @param list
    * @param d
    * @return
@@ -136,8 +130,7 @@ public class Utils {
     }
 
     int index = 0;
-    for (Iterator<? extends Comparable<T>> it = list.iterator(); it.hasNext();) {
-      Comparable<T> elem = it.next();
+    for (Comparable<T> elem : list) {
       if (elem.compareTo(d) > 0) {
         return index;
       }
@@ -148,7 +141,7 @@ public class Utils {
   }
 
   public static <T> void partialSum(Iterator<T> listIter,
-      ListIterator<T> targetIter, BinaryOperator<T> op) {
+                                    ListIterator<T> targetIter, BinaryOperator<T> op) {
     T result = null;
 
     while (listIter.hasNext()) {
@@ -159,10 +152,10 @@ public class Utils {
   }
 
   public static <T> List<List<T>> copy(List<List<T>> list) {
-    List<List<T>> copy = new ArrayList<List<T>>(list.size());
+    List<List<T>> copy = new ArrayList<>(list.size());
 
     for (List<T> element : list) {
-      copy.add(new ArrayList<T>(element));
+      copy.add(new ArrayList<>(element));
     }
 
     return copy;
@@ -272,9 +265,8 @@ public class Utils {
   /**
    * Adds <code>numOfElements</code> of elements to the list <code>list</code> ,
    * each being a copy of <code>value</code>.
-   * 
+   *
    * @param <T>
-   * 
    * @param list
    * @param numOfElements
    * @param value
@@ -288,7 +280,7 @@ public class Utils {
   /**
    * Fills the range [from, to) with sequentially increasing values, starting
    * with value and repetitively evaluating ++value.
-   * 
+   *
    * @param array
    * @param from
    * @param to
@@ -303,7 +295,7 @@ public class Utils {
   /**
    * Fills the list with sequentially increasing values, starting with value and
    * repetitively evaluating ++value.
-   * 
+   *
    * @param list
    * @param numOfElements
    * @param value
@@ -317,7 +309,7 @@ public class Utils {
   /**
    * Fills the list with sequentially increasing values, starting with value and
    * repetitively evaluating ++value.
-   * 
+   *
    * @param list
    * @param numOfElements
    * @param value
@@ -359,7 +351,7 @@ public class Utils {
       return;
     }
 
-    for (Iterator<T> iterator = collection.iterator(); iterator.hasNext();) {
+    for (Iterator<T> iterator = collection.iterator(); iterator.hasNext(); ) {
       T t = iterator.next();
       System.out.print(t);
       if (iterator.hasNext()) {
@@ -410,4 +402,12 @@ public class Utils {
     int next = random.nextInt();
     return next == Integer.MIN_VALUE ? Integer.MAX_VALUE : next;
   }
+
+  public static Integer nextPositiveInt(Random gen, int maxValue) {
+    Random random = gen == null ? Utils.random : gen;
+    int next = random.nextInt(maxValue);
+    return next == Integer.MIN_VALUE ? Integer.MAX_VALUE : next;
+  }
+
 }
+

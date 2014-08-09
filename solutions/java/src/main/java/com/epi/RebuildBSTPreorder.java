@@ -1,9 +1,9 @@
 package com.epi;
 
+import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -17,19 +17,18 @@ public class RebuildBSTPreorder {
   }
 
   // Build a BST based on preorder[s : e - 1], return its root.
-  private static <T extends Comparable<T>> BinaryTree<T> 
-      rebuildBSTFromPreorderHelper(List<T> preorder, int s, int e) {
+  private static <T extends Comparable<T>> BinaryTree<T>
+  rebuildBSTFromPreorderHelper(List<T> preorder, int s, int e) {
     if (s < e) {
       int x = s + 1;
       while (x < e && preorder.get(x).compareTo(preorder.get(s)) < 0) {
         ++x;
       }
-      return new BinaryTree<T>(preorder.get(s), rebuildBSTFromPreorderHelper(
+      return new BinaryTree<>(preorder.get(s), rebuildBSTFromPreorderHelper(
           preorder, s + 1, x), rebuildBSTFromPreorderHelper(preorder, x, e));
     }
     return null;
   }
-
   // @exclude
 
   private static <T extends Comparable<T>> void checkAns(BinaryTree<T> n, T pre) {
@@ -47,7 +46,7 @@ public class RebuildBSTPreorder {
     // 1 4 6
     // should output 1, 2, 3, 4, 5, 6
     // preorder [3, 2, 1, 5, 4, 6]
-    ArrayList<Integer> preorder = new ArrayList<Integer>();
+    List<Integer> preorder = new ArrayList<>();
     preorder.add(3);
     preorder.add(2);
     preorder.add(1);

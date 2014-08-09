@@ -1,8 +1,8 @@
 package com.epi;
 
-import static com.epi.utils.Utils.simplePrint;
-
 import java.util.Random;
+
+import static com.epi.utils.Utils.simplePrint;
 
 public class PickingUpCoinsDontLose {
   // @include
@@ -19,7 +19,6 @@ public class PickingUpCoinsDontLose {
     }
     return evenSum >= oddSum ? 0 : 1;
   }
-
   // @exclude
 
   static void check(int[] C, int choose) {

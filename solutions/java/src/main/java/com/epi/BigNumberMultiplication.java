@@ -6,7 +6,6 @@ import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Random;
 
-// @exclude
 public class BigNumberMultiplication {
   static String randString(int len) {
     StringBuilder ret = new StringBuilder();
@@ -60,7 +59,6 @@ public class BigNumberMultiplication {
 
 // @include
 class BigInt {
-
   BigInt(int capacity) {
     sign = 1;
     digits = new char[capacity];
@@ -71,7 +69,7 @@ class BigInt {
     digits = new char[s.length() - (s.charAt(0) == '-' ? 1 : 0)];
 
     for (int i = s.length() - 1, j = 0;
-         i >= (s.charAt(0) == '-' ? 1 : 0); 
+         i >= (s.charAt(0) == '-' ? 1 : 0);
          --i, ++j) {
       if (Character.isDigit(s.charAt(i))) {
         digits[j] = (char) (s.charAt(i) - '0');
@@ -124,3 +122,4 @@ class BigInt {
   int sign; // -1 or 1;
   char[] digits;
 }
+// @exclude

@@ -1,24 +1,24 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
+import com.epi.utils.Pair;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
-
-import com.epi.utils.Pair;
 
 class TaskAssignment {
   // @include
-  public static ArrayList<Pair<Integer, Integer>> taskAssignment(
-      ArrayList<Integer> A) {
+  public static List<Pair<Integer, Integer>> taskAssignment(
+      List<Integer> A) {
     Collections.sort(A);
-    ArrayList<Pair<Integer, Integer>> P = new ArrayList<Pair<Integer, Integer>>();
+    List<Pair<Integer, Integer>> P = new ArrayList<>();
     for (int i = 0, j = A.size() - 1; i < j; ++i, --j) {
-      P.add(new Pair<Integer, Integer>(A.get(i), A.get(j)));
+      P.add(new Pair<>(A.get(i), A.get(j)));
     }
     return P;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -29,15 +29,15 @@ class TaskAssignment {
     } else {
       n = gen.nextInt(10000) + 1;
     }
-    ArrayList<Integer> A = new ArrayList<Integer>();
+    List<Integer> A = new ArrayList<>();
     for (int i = 0; i < n; ++i) {
       A.add(gen.nextInt(999));
     }
-    ArrayList<Pair<Integer, Integer>> P = taskAssignment(A);
+    List<Pair<Integer, Integer>> P = taskAssignment(A);
     int max = Integer.MIN_VALUE;
-    for (int i = 0; i < P.size(); ++i) {
-      if (P.get(i).getFirst() + P.get(i).getSecond() > max) {
-        max = P.get(i).getFirst() + P.get(i).getSecond();
+    for (Pair<Integer, Integer> aP : P) {
+      if (aP.getFirst() + aP.getSecond() > max) {
+        max = aP.getFirst() + aP.getSecond();
       }
     }
     System.out.println(max);

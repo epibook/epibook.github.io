@@ -1,47 +1,47 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
-import com.epi.utils.Ref;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author translated from c++ by Blazheev Alexander
  */
 public class RebuildBSTPreorderBetter {
   // @include
-  public static <T extends Comparable<T>> BinaryTree<T> rebuildBSTFromPreorder(
-      List<T> preorder) {
-    Ref<Integer> idx = new Ref<Integer>(0);
-    return rebuildBSFromPreorderHelper(preorder, idx,
-        Collections.min(preorder), Collections.max(preorder));
+  private static Integer idx;
+
+  public static BinaryTree<Integer> rebuildBSTFromPreorder(
+      List<Integer> preorder) {
+    idx = 0;
+    return rebuildBSFromPreorderHelper(preorder,
+        Integer.MIN_VALUE, Integer.MAX_VALUE);
   }
 
-  private static <T extends Comparable<T>> BinaryTree<T> 
-      rebuildBSFromPreorderHelper(
-          List<T> preorder, Ref<Integer> idx, T min, T max) {
-    if (idx.value == preorder.size()) {
+  private static BinaryTree<Integer> rebuildBSFromPreorderHelper(
+      List<Integer> preorder, Integer min, Integer max) {
+    if (idx == preorder.size()) {
       return null;
     }
 
-    T curr = preorder.get(idx.value);
-    if (curr.compareTo(min) < 0 || curr.compareTo(max) > 0) {
+    Integer curr = preorder.get(idx);
+    if (curr < min || curr > max) {
       return null;
     }
 
-    idx.value = idx.value + 1;
-    return new BinaryTree<T>(curr, rebuildBSFromPreorderHelper(preorder, idx,
-        min, curr), rebuildBSFromPreorderHelper(preorder, idx, curr, max));
+    ++idx;
+    return new BinaryTree<>(
+        curr,
+        rebuildBSFromPreorderHelper(preorder, min, curr),
+        rebuildBSFromPreorderHelper(preorder, curr, max));
   }
-
   // @exclude
 
-  private static <T extends Comparable<T>> void checkAns(BinaryTree<T> n, T pre) {
+  private static void checkAns(BinaryTree<Integer> n, Integer pre) {
     if (n != null) {
       checkAns(n.getLeft(), pre);
-      assert (pre.compareTo(n.getData()) <= 0);
+      assert (pre <= n.getData());
       System.out.println(n.getData());
       checkAns(n.getRight(), n.getData());
     }
@@ -53,7 +53,7 @@ public class RebuildBSTPreorderBetter {
     // 1 4 6
     // should output 1, 2, 3, 4, 5, 6
     // preorder [3, 2, 1, 5, 4, 6]
-    ArrayList<Integer> preorder = new ArrayList<Integer>();
+    List<Integer> preorder = new ArrayList<>();
     preorder.add(3);
     preorder.add(2);
     preorder.add(1);

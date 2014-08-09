@@ -12,7 +12,7 @@ public class KThLargestElement {
 
     Random r = new Random();
     while (left <= right) {
-      // Generates random int in [left, right].
+      // Generates a random int in [left, right].
       int p = partition(left, right, r.nextInt(right - left + 1) + left, A);
       if (p == k - 1) {
         return A.get(p);
@@ -28,7 +28,8 @@ public class KThLargestElement {
   }
 
   // Partitions A according pivot, returns its index after partition.
-  private static int partition(int left, int right, int pivot, List<Integer> A) {
+  private static int partition(int left, int right, int pivot,
+                               List<Integer> A) {
     int pivotValue = A.get(pivot);
     int largerIndex = left;
 
@@ -41,7 +42,6 @@ public class KThLargestElement {
     Collections.swap(A, right, largerIndex);
     return largerIndex;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -58,13 +58,13 @@ public class KThLargestElement {
         n = r.nextInt(100000) + 1;
         k = r.nextInt(n - 1) + 1;
       }
-      List<Integer> A = new ArrayList<Integer>();
+      List<Integer> A = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
         A.add(r.nextInt(10000000));
       }
-      int res = findKthLargest(A, k);
+      int result = findKthLargest(A, k);
       Collections.sort(A);
-      assert (res == A.get(A.size() - k));
+      assert (result == A.get(A.size() - k));
     }
   }
 }

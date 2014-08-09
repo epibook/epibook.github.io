@@ -3,12 +3,35 @@
 
 package com.epi;
 
-import com.epi.utils.Ref;
-
-// @include
-// Counts the list length till end.
 class OverlappingListsNoCycle {
-  public static <T> int countLen(Node<T> L) {
+  // @include
+  public static Node<Integer> overlappingNoCycleLists(Node<Integer> L1,
+                                                      Node<Integer> L2) {
+    // Count the lengths of L1 and L2.
+    int l1Length = countLength(L1);
+    int l2Length = countLength(L2);
+
+    // Advances the longer list.
+    int count = Math.abs(l1Length - l2Length);
+    if (l1Length > l2Length) {
+      while (count-- > 0) {
+        L1 = L1.next;
+      }
+    } else {
+      while (count-- > 0) {
+        L2 = L2.next;
+      }
+    }
+
+    while (L1 != null && L2 != null && L1 != L2) {
+      L1 = L1.next;
+      L2 = L2.next;
+    }
+    return L1; // null means no overlap between L1 and L2.
+  }
+
+  // Counts the list length till end.
+  private static int countLength(Node<Integer> L) {
     int len = 0;
     while (L != null) {
       ++len;
@@ -16,42 +39,17 @@ class OverlappingListsNoCycle {
     }
     return len;
   }
-
-  public static <T> void advanceListByK(Ref<Node<T>> L, int k) {
-    while (k-- > 0) {
-      L.value = L.value.next;
-    }
-  }
-
-  public static <T> Node<T> overlappingNoCycleLists(Node<T> L1, Node<T> L2) {
-    // Count the lengths of L1 and L2.
-    int l1Len = countLen(L1);
-    int l2Len = countLen(L2);
-
-    Ref<Node<T>> rl1 = new Ref<Node<T>>(L1);
-    Ref<Node<T>> rl2 = new Ref<Node<T>>(L2);
-
-    // Advance the longer list.
-    advanceListByK(l1Len > l2Len ? rl1 : rl2, Math.abs(l1Len - l2Len));
-
-    while (rl1.value != null && rl2.value != null && rl1.value != rl2.value) {
-      rl1.value = rl1.value.next;
-      rl2.value = rl2.value.next;
-    }
-    return rl1.value; // nullptr means no overlap between L1 and L2.
-  }
+  // @exclude
 
   public static void main(String[] args) {
     Node<Integer> l1 = null;
     Node<Integer> l2 = null;
     // l1: 1->2->3->null
-    l1 = new Node<Integer>(1, new Node<Integer>(2, new Node<Integer>(3, null)));
+    l1 = new Node<>(1, new Node<>(2, new Node<>(3, null)));
     l2 = l1.next.next;
     assert (overlappingNoCycleLists(l1, l2).data == 3);
     // l2: 4->5->null
-    l2 = new Node<Integer>(4, new Node<Integer>(5, null));
+    l2 = new Node<>(4, new Node<>(5, null));
     assert (overlappingNoCycleLists(l1, l2) == null);
   }
 }
-// @exclude
-

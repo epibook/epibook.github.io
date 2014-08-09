@@ -1,9 +1,6 @@
 package com.epi;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -12,7 +9,7 @@ public class AddingCredits {
   // @include
   public static class ClientsCreditsInfo {
     private int offset = 0;
-    private HashMap<String, Integer> credits = new HashMap<String, Integer>();
+    private Map<String, Integer> credits = new HashMap<>();
     private TreeMap<Integer, Set<String>> inverseCredits = new TreeMap<>();
 
     public boolean insert(String s, int c) {
@@ -20,7 +17,7 @@ public class AddingCredits {
         credits.put(s, c - offset);
         Set<String> set = inverseCredits.get(c - offset);
         if (set == null) {
-          set = new HashSet<String>();
+          set = new HashSet<>();
           inverseCredits.put(c - offset, set);
         }
         set.add(s);
@@ -56,7 +53,6 @@ public class AddingCredits {
           .getValue().iterator().next();
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {

@@ -1,15 +1,7 @@
 package com.epi;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.PriorityQueue;
-import java.util.Random;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 /**
  * @author translated from c++ by Blazheev Alexander
@@ -17,7 +9,7 @@ import java.util.Scanner;
 public class KthElementStreaming {
   // @include
   public static void findKthLargestStream(InputStream sin, int k) {
-    PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>();
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>();
     // The first k elements, output the minimum element.
     Scanner s = new Scanner(sin);
     for (int i = 0; i < k && s.hasNextInt(); ++i) {
@@ -36,7 +28,6 @@ public class KthElementStreaming {
       System.out.println(minHeap.peek());
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -52,7 +43,7 @@ public class KthElementStreaming {
       num = r.nextInt(101);
       k = r.nextInt(num) + 1;
     }
-    ArrayList<Integer> stream = new ArrayList<Integer>();
+    List<Integer> stream = new ArrayList<>();
     for (int i = 0; i < num; ++i) {
       stream.add(r.nextInt(10000000));
     }
@@ -60,8 +51,8 @@ public class KthElementStreaming {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     OutputStreamWriter osw = new OutputStreamWriter(baos);
     try {
-      for (int i = 0; i < stream.size(); ++i) {
-        osw.write(stream.get(i) + " ");
+      for (Integer aStream : stream) {
+        osw.write(aStream + " ");
       }
       osw.close();
     } catch (IOException e) {

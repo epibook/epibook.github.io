@@ -27,9 +27,9 @@ public class TeamPhoto2 {
     private ArrayList<Player<HeightType>> members;
 
     public Team(List<HeightType> height) {
-      members = new ArrayList<Player<HeightType>>();
+      members = new ArrayList<>();
       for (HeightType h : height) {
-        members.add(new Player<HeightType>(h));
+        members.add(new Player<>(h));
       }
     }
 
@@ -45,8 +45,8 @@ public class TeamPhoto2 {
     }
 
     private List<Player<HeightType>> sortHeightMembers() {
-      List<Player<HeightType>> sortedMembers = (List<Player<HeightType>>) members
-          .clone();
+      List<Player<HeightType>> sortedMembers
+          = (List<Player<HeightType>>) members.clone();
       Collections.sort(sortedMembers);
       return sortedMembers;
     }
@@ -54,7 +54,7 @@ public class TeamPhoto2 {
 
   // @include
   public static class GraphVertex {
-    public ArrayList<GraphVertex> edges = new ArrayList<GraphVertex>();
+    public List<GraphVertex> edges = new ArrayList<>();
     public int maxDistance = 1;
     public boolean visited = false;
   }
@@ -66,7 +66,7 @@ public class TeamPhoto2 {
 
   private static LinkedList<GraphVertex> buildTopologicalOrdering(
       List<GraphVertex> G) {
-    LinkedList<GraphVertex> vertexOrder = new LinkedList<GraphVertex>();
+    LinkedList<GraphVertex> vertexOrder = new LinkedList<>();
     for (GraphVertex g : G) {
       if (!g.visited) {
         DFS(g, vertexOrder);
@@ -88,7 +88,8 @@ public class TeamPhoto2 {
     return maxDistance;
   }
 
-  private static void DFS(GraphVertex cur, LinkedList<GraphVertex> vertexOrder) {
+  private static void
+  DFS(GraphVertex cur, LinkedList<GraphVertex> vertexOrder) {
     cur.visited = true;
     for (GraphVertex next : cur.edges) {
       if (!next.visited) {
@@ -97,11 +98,10 @@ public class TeamPhoto2 {
     }
     vertexOrder.push(cur);
   }
-
   // @exclude
 
   public static void main(String[] args) {
-    ArrayList<GraphVertex> G = new ArrayList<GraphVertex>(3);
+    List<GraphVertex> G = new ArrayList<>(3);
     for (int i = 0; i < 3; i++) {
       G.add(new GraphVertex());
     }
