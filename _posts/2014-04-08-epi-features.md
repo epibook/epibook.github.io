@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Why EPI?
+title:  EPI in a nutshell
 description:
     Key EPI features
 css:
