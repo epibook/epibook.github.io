@@ -13,25 +13,27 @@ shared_ptr<ListNode<int>> HasCycle(const shared_ptr<ListNode<int>>& head) {
 
   while (slow && slow->next && fast && fast->next && fast->next->next) {
     slow = slow->next, fast = fast->next->next;
-    if (slow == fast) {  // There is a cycle.
-      // Calculates the cycle length.
+    if (slow == fast) {
+      // There is a cycle, so now let's calculate the cycle length.
       int cycle_len = 0;
       do {
         ++cycle_len;
         fast = fast->next;
       } while (slow != fast);
 
-      // Tries to find the start of the cycle.
-      slow = head, fast = head;
-      // Fast pointer advances cycle_len first.
+      // Finds the start of the cycle.
+      auto cycle_len_advanced_iter = head;
       while (cycle_len--) {
-        fast = fast->next;
+        cycle_len_advanced_iter = cycle_len_advanced_iter->next;
       }
-      // Both pointers advance at the same time.
-      while (slow != fast) {
-        slow = slow->next, fast = fast->next;
+
+      auto iter = head;
+      // Both iterators advance in tandem.
+      while (iter != cycle_len_advanced_iter) {
+        iter = iter->next;
+        cycle_len_advanced_iter = cycle_len_advanced_iter->next;
       }
-      return slow;  // The start of cycle.
+      return iter;  // iter is the start of cycle.
     }
   }
   return nullptr;  // No cycle.

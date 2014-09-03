@@ -14,7 +14,7 @@ shared_ptr<ListNode<int>> ReverseLinkedList(
     const shared_ptr<ListNode<int>>& head) {
   shared_ptr<ListNode<int>> prev = nullptr, curr = head;
   while (curr) {
-    shared_ptr<ListNode<int>> temp = curr->next;
+    auto temp = curr->next;
     curr->next = prev;
     prev = curr;
     curr = temp;

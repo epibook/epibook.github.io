@@ -5,26 +5,24 @@
 
 #include "./Linked_list_prototype.h"
 
-int CountLength(shared_ptr<ListNode<int>> L);
-void AdvanceListByK(shared_ptr<ListNode<int>>* L, int k);
+int Length(shared_ptr<ListNode<int>> L);
+void AdvanceListByK(int k, shared_ptr<ListNode<int>>* L);
 
 // @include
 shared_ptr<ListNode<int>> OverlappingNoCycleLists(
     shared_ptr<ListNode<int>> L1, shared_ptr<ListNode<int>> L2) {
-  // Counts the lengths of L1 and L2.
-  int L1_len = CountLength(L1), L2_len = CountLength(L2);
+  int L1_len = Length(L1), L2_len = Length(L2);
 
-  // Advances the longer list.
-  AdvanceListByK(L1_len > L2_len ? &L1 : &L2, abs(L1_len - L2_len));
+  // Advances the longer list to get equal length lists.
+  AdvanceListByK(abs(L1_len - L2_len), L1_len > L2_len ? &L1 : &L2);
 
   while (L1 && L2 && L1 != L2) {
     L1 = L1->next, L2 = L2->next;
   }
-  return L1;  // nullptr means no overlap between L1 and L2.
+  return L1;  // nullptr implies there is no overlap between L1 and L2.
 }
 
-// Counts the list length till end.
-int CountLength(shared_ptr<ListNode<int>> L) {
+int Length(shared_ptr<ListNode<int>> L) {
   int length = 0;
   while (L) {
     ++length, L = L->next;
@@ -33,7 +31,7 @@ int CountLength(shared_ptr<ListNode<int>> L) {
 }
 
 // Advances L by k steps.
-void AdvanceListByK(shared_ptr<ListNode<int>>* L, int k) {
+void AdvanceListByK(int k, shared_ptr<ListNode<int>>* L) {
   while (k--) {
     *L = (*L)->next;
   }

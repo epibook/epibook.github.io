@@ -3,32 +3,30 @@
 #include <cassert>
 #include <iostream>
 #include <memory>
-#include <stdexcept>
 
 #include "./Linked_list_prototype.h"
 
 using std::cout;
 using std::endl;
-using std::exception;
-using std::length_error;
 using std::make_shared;
 using std::shared_ptr;
 
 // @include
+// Assumes L has at least k nodes, deletes the k-th last node in L.
 shared_ptr<ListNode<int>> RemoveKthLast(const shared_ptr<ListNode<int>>& L,
                                         int k) {
   auto dummy_head = make_shared<ListNode<int>>(ListNode<int>{0, L});
-  // Advances k steps first.
-  auto ahead = dummy_head;
+  auto first = dummy_head->next;
   while (k--) {
-    ahead = ahead->next;
+    first = first->next;
   }
 
-  auto pre = dummy_head;
-  while (ahead && ahead->next) {
-    pre = pre->next, ahead = ahead->next;
+  auto second = dummy_head;
+  while (first) {
+    second = second->next, first = first->next;
   }
-  pre->next = pre->next->next;
+  // second points to the (k + 1)-th last node, deletes its successor.
+  second->next = second->next->next;
   return dummy_head->next;
 }
 // @exclude

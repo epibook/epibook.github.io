@@ -21,25 +21,27 @@ shared_ptr<ListNode<int>> EvenOddMerge(const shared_ptr<ListNode<int>>& L) {
     return L;
   }
 
-  auto odd_first = L->next, odd_curr = L->next;
-  shared_ptr<ListNode<int>> pre_even_curr = nullptr, even_curr = L;
+  auto even_list_head = L, even_list_iter = even_list_head;
+  shared_ptr<ListNode<int>> predecessor_even_list_iter = nullptr;
+  auto odd_list_head = L->next, odd_list_iter = odd_list_head;
 
-  while (even_curr && odd_curr) {
-    even_curr->next = odd_curr->next;
-    pre_even_curr = even_curr;
-    even_curr = even_curr->next;
-    if (even_curr) {
-      odd_curr->next = even_curr->next;
-      odd_curr = odd_curr->next;
+  while (even_list_iter && odd_list_iter) {
+    even_list_iter->next = odd_list_iter->next;
+    predecessor_even_list_iter = even_list_iter;
+    even_list_iter = even_list_iter->next;
+    if (even_list_iter) {
+      odd_list_iter->next = even_list_iter->next;
+      odd_list_iter = odd_list_iter->next;
     }
   }
 
-  if (even_curr) {
-    even_curr->next = odd_first;
+  // Appends odd list to the tail of even list.
+  if (even_list_iter) {
+    even_list_iter->next = odd_list_head;
   } else {
-    pre_even_curr->next = odd_first;
+    predecessor_even_list_iter->next = odd_list_head;
   }
-  return L;
+  return even_list_head;
 }
 // @exclude
 

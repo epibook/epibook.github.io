@@ -18,9 +18,10 @@ using std::shared_ptr;
 shared_ptr<ListNode<int>> AddTwoNumbers(shared_ptr<ListNode<int>> L1,
                                         shared_ptr<ListNode<int>> L2) {
   shared_ptr<ListNode<int>> dummy_head(new ListNode<int>);
-  auto digit = dummy_head;
-  int sum = 0;
+  auto place_iter = dummy_head;
+  int carry = 0;
   while (L1 || L2) {
+    int sum = carry;
     if (L1) {
       sum += L1->data;
       L1 = L1->next;
@@ -29,12 +30,14 @@ shared_ptr<ListNode<int>> AddTwoNumbers(shared_ptr<ListNode<int>> L1,
       sum += L2->data;
       L2 = L2->next;
     }
-    digit->next =
+    place_iter->next =
         make_shared<ListNode<int>>(ListNode<int>{sum % 10, nullptr});
-    sum /= 10, digit = digit->next;
+    carry = sum / 10, place_iter = place_iter->next;
   }
-  if (sum) {
-    digit->next = make_shared<ListNode<int>>(ListNode<int>{sum, nullptr});
+  // carry cannot exceed 1, so we at most need to add one more node.
+  if (carry) {
+    place_iter->next = 
+        make_shared<ListNode<int>>(ListNode<int>{carry, nullptr});
   }
   return dummy_head->next;
 }

@@ -18,7 +18,7 @@ shared_ptr<ListNode<int>> ReverseLinkedList(
     return head;
   }
 
-  shared_ptr<ListNode<int>> new_head = ReverseLinkedList(head->next);
+  auto new_head = ReverseLinkedList(head->next);
   head->next->next = head;
   head->next = nullptr;
   return new_head;

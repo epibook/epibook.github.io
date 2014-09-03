@@ -20,27 +20,34 @@ using std::stoi;
 // @include
 shared_ptr<ListNode<int>> ReverseK(shared_ptr<ListNode<int>> L, int k) {
   auto dummy_head = make_shared<ListNode<int>>(ListNode<int>{0, L});
-  shared_ptr<ListNode<int>> before_pre = dummy_head, pre = dummy_head->next,
-                            before_post = dummy_head, post = dummy_head->next;
-  while (pre) {
-    int i = k;
-    while (i) {
-      before_post = post;
-      post = post->next;
-      --i;
-      if (!post) {
+  shared_ptr<ListNode<int>> sublist_predecessor = dummy_head,
+                            sublist_head = dummy_head->next,
+                            sublist_successor = dummy_head,
+                            sublist_tail = dummy_head->next;
+  while (sublist_head) {
+    // Identify the tail of sublist of k nodes to be reversed.
+    int num_remaining = k;
+    while (num_remaining) {
+      sublist_successor = sublist_tail;
+      sublist_tail = sublist_tail->next;
+      --num_remaining;
+      if (!sublist_tail) {
         break;
       }
     }
-    if (i) {
+    if (num_remaining > 0) {
+      // Specification says not to reverse.
       return dummy_head->next;
     }
 
-    before_post->next = nullptr;
-    ReverseLinkedList(pre);
-    before_pre->next = before_post;
-    before_pre = pre, pre->next = post;
-    pre = post, before_post = nullptr;
+    sublist_successor->next = nullptr;
+    ReverseLinkedList(sublist_head);
+
+    // Splice the reversed sublist.
+    sublist_predecessor->next = sublist_successor;
+    // Go on to the head of next sublist.
+    sublist_predecessor = sublist_head, sublist_head->next = sublist_tail;
+    sublist_head = sublist_tail, sublist_successor = nullptr;
   }
   return dummy_head->next;
 }

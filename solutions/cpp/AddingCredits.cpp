@@ -14,18 +14,19 @@ using std::unordered_set;
 // @include
 class ClientsCreditsInfo {
  public:
-  bool Insert(const string& s, int c) {
-    if (credits_.emplace(s, c - offset_).second) {
-      inverse_credits_[c - offset_].emplace(s);
-      return true;
-    }
-    return false;
+  void Insert(const string& s, int c) {
+    Remove(s);
+    credits_.emplace(s, c - offset_);
+    inverse_credits_[c - offset_].emplace(s);
   }
 
   bool Remove(const string& s) {
     auto credits_it = credits_.find(s);
     if (credits_it != credits_.end()) {
       inverse_credits_[credits_it->second].erase(s);
+      if (inverse_credits_[credits_it->second].empty()) {
+        inverse_credits_.erase(credits_it->second);
+      }
       credits_.erase(credits_it);
       return true;
     }
@@ -57,11 +58,11 @@ int main(int argc, char* argv[]) {
   ClientsCreditsInfo a;
   assert(a.Max() == "");
   assert(!a.Remove("foo"));
-  assert(a.Insert("foo", 1));
-  assert(!a.Insert("foo", 10));
-  assert(a.Insert("bar", 2));
+  a.Insert("foo", 10);
+  a.Insert("foo", 1);
+  a.Insert("bar", 2);
   a.AddAll(5);
-  assert(a.Insert("widget", 3));
+  a.Insert("widget", 3);
   a.AddAll(5);
   a.Insert("dothis", 4);
   assert(11 == a.Lookup("foo"));
@@ -71,7 +72,7 @@ int main(int argc, char* argv[]) {
   assert(a.Remove("foo"));
   assert(-1 == a.Lookup("foo"));
   assert(a.Max().compare("bar") == 0);
-  assert(a.Insert("xyz", 13));
+  a.Insert("xyz", 13);
   assert(a.Max().compare("xyz") == 0);
   a.Insert("dd", 15);
   assert(a.Max().compare("dd") == 0);

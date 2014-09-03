@@ -16,12 +16,13 @@ shared_ptr<ListNode<int>> RemoveDuplicates(
     const shared_ptr<ListNode<int>>& L) {
   auto iter = L;
   while (iter) {
-    auto runner = iter->next;
-    while (runner && runner->data == iter->data) {
-      runner = runner->next;
+    // Uses next_distinct to find the next distinct value.
+    auto next_distinct = iter->next;
+    while (next_distinct && next_distinct->data == iter->data) {
+      next_distinct = next_distinct->next;
     }
-    iter->next = runner;
-    iter = runner;
+    iter->next = next_distinct;
+    iter = next_distinct;
   }
   return L;
 }

@@ -13,46 +13,49 @@ using std::endl;
 using std::make_shared;
 using std::shared_ptr;
 
-int DistanceAB(shared_ptr<ListNode<int>> a, shared_ptr<ListNode<int>> b);
+int Distance(shared_ptr<ListNode<int>> a, shared_ptr<ListNode<int>> b);
 
 // @include
 shared_ptr<ListNode<int>> OverlappingLists(shared_ptr<ListNode<int>> L1,
                                            shared_ptr<ListNode<int>> L2) {
   // Store the start of cycle if any.
-  shared_ptr<ListNode<int>> s1 = HasCycle(L1), s2 = HasCycle(L2);
+  auto root1 = HasCycle(L1), root2 = HasCycle(L2);
 
-  if (!s1 && !s2) {
+  if (!root1 && !root2) {
+    // Both lists don't have cycles.
     return OverlappingNoCycleLists(L1, L2);
-  } else if (s1 && s2) {  // Both lists have cycles.
-    shared_ptr<ListNode<int>> temp = s2;
-    do {
-      temp = temp->next;
-    } while (temp != s1 && temp != s2);
-
-    // L1 and L2 do not end in the same cycle.
-    if (temp != s1) {
-      return nullptr;
-    }
-
-    // Since L1 and L2 are end in the same cycle, find the overlapping node
-    // if it happens before cycle starts.
-    int L1_s1_dis = DistanceAB(L1, s1), L2_s2_dis = DistanceAB(L2, s2);
-    AdvanceListByK(L1_s1_dis > L2_s2_dis ? &L1 : &L2,
-                   abs(L1_s1_dis - L2_s2_dis));
-    while (L1 != L2 && L1 != s1 && L2 != s2) {
-      L1 = L1->next, L2 = L2->next;
-    }
-
-    // If L1 == L2 before reaching s1, it means overlapping node happens
-    // before cycle starts; otherwise, the node cycle starts is one of the
-    // overlapping nodes.
-    return L1 == L2 ? L1 : s1;
+  } else if ((root1 && !root2) || (!root1 && root2)) {
+    // One list has cycle, and one list has no cycle.
+    return nullptr;
   }
-  return nullptr;  // One list has cycle, and one list has no cycle.
+  // Both lists have cycles.
+  auto temp = root2;
+  do {
+    temp = temp->next;
+  } while (temp != root1 && temp != root2);
+
+  // L1 and L2 do not end in the same cycle.
+  if (temp != root1) {
+    return nullptr;  // Cycles are disjoint.
+  }
+
+  // L1 and L2 end in the same cycle, locate the overlapping node if they
+  // first overlap before cycle starts.
+  int stem1_length = Distance(L1, root1), stem2_length = Distance(L2, root2);
+  AdvanceListByK(abs(stem1_length - stem2_length),
+                 stem1_length > stem2_length ? &L1 : &L2);
+  while (L1 != L2 && L1 != root1 && L2 != root2) {
+    L1 = L1->next, L2 = L2->next;
+  }
+
+  // If L1 == L2 before reaching root1, it means the overlap first occurs
+  // before the cycle starts; otherwise, the first overlapping node is not
+  // unique, so we can return any node on the cycle.
+  return L1 == L2 ? L1 : root1;
 }
 
 // Calculates the distance between a and b.
-int DistanceAB(shared_ptr<ListNode<int>> a, shared_ptr<ListNode<int>> b) {
+int Distance(shared_ptr<ListNode<int>> a, shared_ptr<ListNode<int>> b) {
   int dis = 0;
   while (a != b) {
     a = a->next, ++dis;

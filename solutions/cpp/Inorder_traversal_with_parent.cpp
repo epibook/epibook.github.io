@@ -16,11 +16,6 @@ vector<int> result;
 
 // @include
 void InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& T) {
-  // Empty tree.
-  if (!T) {
-    return;
-  }
-
   BinaryTreeNode<int>* prev = nullptr, *curr = T.get(), *next;
   while (curr) {
     if (!prev || prev->left.get() == curr || prev->right.get() == curr) {

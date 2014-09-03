@@ -18,7 +18,7 @@ unsigned AddNoOperator(unsigned a, unsigned b);
 unsigned MultiplyNoOperator(unsigned x, unsigned y) {
   unsigned sum = 0;
   while (x) {
-    // Examine each bit of x.
+    // Examines each bit of x.
     if (x & 1) {
       sum = AddNoOperator(sum, y);
     }

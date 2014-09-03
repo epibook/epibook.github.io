@@ -19,25 +19,20 @@ using std::vector;
 
 // @include
 vector<int> PreorderTraversal(const unique_ptr<BinaryTreeNode<int>>& root) {
-  if (!root) {
-    return {};
-  }
-
   stack<BinaryTreeNode<int>*> s;
   s.emplace(root.get());
-  vector<int> res;
+  vector<int> result;
   while (!s.empty()) {
     auto curr = s.top();
     s.pop();
-    res.emplace_back(curr->data);
-    if (curr->right) {
-      s.emplace(curr->right.get());
+    if (!curr) {
+      continue;
     }
-    if (curr->left) {
-      s.emplace(curr->left.get());
-    }
+    result.emplace_back(curr->data);
+    s.emplace(curr->right.get());
+    s.emplace(curr->left.get());
   }
-  return res;
+  return result;
 }
 // @exclude
 

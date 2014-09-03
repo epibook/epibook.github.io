@@ -13,24 +13,20 @@ using std::shared_ptr;
 
 // @include
 shared_ptr<ListNode<int>> InsertionSort(const shared_ptr<ListNode<int>>& L) {
-  if (!L) {
-    return L;
-  }
-
   auto dummy_head = make_shared<ListNode<int>>(ListNode<int>{0, L});
-  auto now = L;
-  while (now && now->next) {
-    if (now->data > now->next->data) {
-      auto target = now->next, pre = dummy_head;
+  auto iter = L;
+  while (iter && iter->next) {
+    if (iter->data > iter->next->data) {
+      auto target = iter->next, pre = dummy_head;
       while (pre->next->data < target->data) {
         pre = pre->next;
       }
       auto temp = pre->next;
       pre->next = target;
-      now->next = target->next;
+      iter->next = target->next;
       target->next = temp;
     } else {
-      now = now->next;
+      iter = iter->next;
     }
   }
   return dummy_head->next;

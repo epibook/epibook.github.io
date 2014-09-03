@@ -5,14 +5,14 @@
 
 #include <vector>
 
-using std::vector;
-
 namespace ApplyPermutation2 {
+
+using std::vector;
 
 // @include
 void ApplyPermutation(vector<int>* perm, vector<int>* A) {
   for (int i = 0; i < A->size(); ++i) {
-    // Traverse the cycle to see if i is the min element.
+    // Traverses the cycle to see if i is the minimum element.
     bool is_min = true;
     int j = (*perm)[i];
     while (j != i) {

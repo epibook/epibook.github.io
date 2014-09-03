@@ -60,7 +60,8 @@ int main(int argc, char *argv[]) {
     vector<int> ans(NextPermutation(p));
     // Use built-in function verification.
     bool has_next_one = next_permutation(p.begin(), p.end());
-    assert((ans.size() == 0 && !has_next_one) || equal(ans.cbegin(), ans.cend(), p.cbegin()));
+    assert((ans.size() == 0 && !has_next_one) ||
+           equal(ans.cbegin(), ans.cend(), p.cbegin()));
   }
   return 0;
 }

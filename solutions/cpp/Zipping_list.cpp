@@ -25,26 +25,27 @@ shared_ptr<ListNode<int>> ZippingLinkedList(
     return L;
   }
 
-  // Finds the middle point of L.
+  // Finds the second half of L.
   auto slow = L, fast = L;
   while (fast && fast->next) {
     fast = fast->next->next, slow = slow->next;
   }
 
-  auto reverse_head = slow->next;
+  auto first_half_head = L, second_half_head = slow->next;
   slow->next = nullptr;  // Splits the list into two lists.
-  reverse_head = ReverseLinkedList(reverse_head);
 
-  // Zips the list.
-  auto curr = L;
-  while (reverse_head) {
-    auto temp = reverse_head->next;
-    reverse_head->next = curr->next;
-    curr->next = reverse_head;
-    curr = curr->next->next;
-    reverse_head = temp;
+  second_half_head = ReverseLinkedList(second_half_head);
+
+  // Interleave the first half and the reversed of the second half.
+  auto first_half_iter = first_half_head, second_half_iter = second_half_head;
+  while (second_half_iter) {
+    auto temp = second_half_iter->next;
+    second_half_iter->next = first_half_iter->next;
+    first_half_iter->next = second_half_iter;
+    first_half_iter = first_half_iter->next->next;
+    second_half_iter = temp;
   }
-  return L;
+  return first_half_head;
 }
 // @exclude
 

@@ -19,20 +19,13 @@ using std::vector;
 
 // @include
 vector<vector<int>> GeneratePascalTriangle(int n) {
-  if (n <= 0) {
-    return {};
-  }
-
   vector<vector<int>> result;
-  result.emplace_back(vector<int>{1});
-  for (int i = 1; i < n; ++i) {
-    vector<int> curr_row;
-    curr_row.emplace_back(1);  // For the first element.
+  for (int i = 0; i < n; ++i) {
+    vector<int> curr_row(i + 1, 1);
     for (int j = 1; j < i; ++j) {
-      // Set this entry to the sum of the two above adjacent entries.
-      curr_row.emplace_back(result.back()[j - 1] + result.back()[j]);
+      // Sets this entry to the sum of the two above adjacent entries.
+      curr_row[j] = result.back()[j - 1] + result.back()[j];
     }
-    curr_row.emplace_back(1);  // For the last element.
     result.emplace_back(curr_row);
   }
   return result;

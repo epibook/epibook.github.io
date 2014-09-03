@@ -20,7 +20,7 @@ using std::uniform_real_distribution;
 
 // 0 means equal, -1 means smaller, and 1 means larger.
 int Compare(double a, double b) {
-  // Use normalization for precision problem.
+  // Uses normalization for precision problem.
   double diff = (a - b) / b;
   return diff < -numeric_limits<double>::epsilon()
              ? -1

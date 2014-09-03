@@ -19,25 +19,26 @@ using std::uniform_int_distribution;
 
 // @include
 double FindMedianSortedCircularLinkedList(
-    const shared_ptr<ListNode<int>>& random_pointer) {
-  // Checks all nodes are identical or not and identify the start of list.
-  auto curr = random_pointer, start = random_pointer;
-  int count = 0;
+    const shared_ptr<ListNode<int>>& arbitrary_node) {
+  // Checks if all nodes are identical and identifies the first smallest node.
+  auto iter = arbitrary_node, first_smallest_node = arbitrary_node;
+  int n = 0;
   do {
-    ++count, curr = curr->next;
-    // start will point to the largest element in the list.
-    if (start->data <= curr->data) {
-      start = curr;
+    ++n, iter = iter->next;
+    if (first_smallest_node->data <= iter->data) {
+      // Now first_smallest_node points to the largest element.
+      first_smallest_node = iter;
     }
-  } while (curr != random_pointer);
-  // start's next is the begin of the list.
-  start = start->next;
+  } while (iter != arbitrary_node);
+  // first_smallest_node's next is the first smallest node.
+  first_smallest_node = first_smallest_node->next;
 
-  // Traverses to the middle of the list and returns the median.
-  for (int i = 0; i < ((count - 1) / 2); ++i) {
-    start = start->next;
+  // Advances to the middle of the list.
+  for (int i = 0; i < ((n - 1) / 2); ++i) {
+    first_smallest_node = first_smallest_node->next;
   }
-  return count & 1 ? start->data : 0.5 * (start->data + start->next->data);
+  return n % 2 ? first_smallest_node->data : 
+         0.5 * (first_smallest_node->data + first_smallest_node->next->data);
 }
 // @exclude
 

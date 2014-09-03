@@ -5,7 +5,7 @@
 #include <memory>
 
 #include "./Linked_list_prototype.h"
-#include "./Merge_sorted_lists.h"  // uses append_node().
+#include "./Merge_sorted_lists.h"  // uses AppendNode().
 
 using std::cout;
 using std::endl;
@@ -15,28 +15,30 @@ using std::shared_ptr;
 // @include
 shared_ptr<ListNode<int>> ListPivoting(const shared_ptr<ListNode<int>>& L,
                                        int x) {
-  auto now = L;
   shared_ptr<ListNode<int>> less_head(new ListNode<int>),
                             equal_head(new ListNode<int>),
-                            larger_head(new ListNode<int>);
-  auto less_tail = less_head, equal_tail = equal_head,
-       larger_tail = larger_head;
-  while (now) {
-    if (now->data < x) {
-      AppendNode(&now, &less_tail);
-    } else if (now->data == x) {
-      AppendNode(&now, &equal_tail);
-    } else {  // now->data > x.
-      AppendNode(&now, &larger_tail);
+                            greater_head(new ListNode<int>);
+  auto less_iter = less_head, equal_iter = equal_head,
+       greater_iter = greater_head;
+  // Populates the three lists.
+  auto iter = L;
+  while (iter) {
+    if (iter->data < x) {
+      AppendNode(&iter, &less_iter);
+    } else if (iter->data == x) {
+      AppendNode(&iter, &equal_iter);
+    } else {  // iter->data > x.
+      AppendNode(&iter, &greater_iter);
     }
   }
+  less_iter->next = equal_iter->next = greater_iter->next = nullptr;
 
-  less_tail->next = equal_tail->next = larger_tail->next = nullptr;
-  if (larger_head->next) {
-    equal_tail->next = larger_head->next;
+  // Combines the three lists.
+  if (greater_head->next) {
+    equal_iter->next = greater_head->next;
   }
   if (equal_head->next) {
-    less_tail->next = equal_head->next;
+    less_iter->next = equal_head->next;
   }
   return less_head->next;
 }

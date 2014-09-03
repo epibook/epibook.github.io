@@ -14,26 +14,30 @@ using std::shared_ptr;
 // @include
 shared_ptr<ListNode<int>> CyclicallyRightShiftList(
     shared_ptr<ListNode<int>> L, int k) {
-  if (!L || !k) {
+  if (L == nullptr) {
     return L;
   }
 
-  // Computes n, the length of L, and stores the tails of the list.
+  // Computes the length of L and the tail.
   auto tail = L;
   int n = 1;
   while (tail->next) {
     ++n, tail = tail->next;
   }
+  k %= n;
+  if (k == 0) {
+    return L;
+  }
 
   tail->next = L;  // Makes a cycle by connecting the tail to the head.
-  int steps = n - k % n;
-  auto prev = tail;
-  while (steps--) {
-    prev = prev->next;;
+  int steps_to_new_head = n - k;
+  auto new_tail = tail;
+  while (steps_to_new_head--) {
+    new_tail = new_tail->next;
   }
-  L = prev->next;
-  prev->next = nullptr;
-  return L;
+  auto new_head = new_tail->next;
+  new_tail->next = nullptr;
+  return new_head;
 }
 // @exclude
 

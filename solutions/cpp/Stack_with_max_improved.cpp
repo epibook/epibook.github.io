@@ -18,46 +18,51 @@ using std::pair;
 // @include
 class Stack {
  public:
-  bool Empty() const { return s_.empty(); }
+  bool Empty() const { return element_.empty(); }
 
   int Max() const {
     if (!Empty()) {
-      return aux_.top().first;
+      return cached_max_with_count_.top().first;
     }
-    throw length_error("empty stack");
+    throw length_error("Max(): empty stack");
   }
 
   int Pop() {
     if (Empty()) {
-      throw length_error("empty stack");
+      throw length_error("Pop(): empty stack");
     }
-    int ret = s_.top();
-    s_.pop();
-    if (ret == aux_.top().first) {
-      --aux_.top().second;
-      if (aux_.top().second == 0) {
-        aux_.pop();
+    int pop_element = element_.top();
+    element_.pop();
+    const int kCurrentMax = cached_max_with_count_.top().first;
+    if (pop_element == kCurrentMax) {
+      int& max_frequency = cached_max_with_count_.top.second;
+      --max_frequency;
+      if (max_frequency == 0) {
+        cached_max_with_count_.pop();
       }
     }
-    return ret;
+    return pop_element;
   }
 
   void Push(int x) {
-    s_.emplace(x);
-    if (!aux_.empty()) {
-      if (x == aux_.top().first) {
-        ++aux_.top().second;
-      } else if (x > aux_.top().first) {
-        aux_.emplace(x, 1);
-      }
+    element_.emplace(x);
+    if (cached_max_with_count_.empty()) {
+      cached_max_with_count_.emplace(x, 1);
     } else {
-      aux_.emplace(x, 1);
+      const int kCurrentMax = cached_max_with_count_.top().first;
+      if (x == kCurrentMax) {
+        int& max_frequency = cached_max_with_count_.top.second;
+        ++max_frequency;
+      } else if (x > kCurrentMax) {
+        cached_max_with_count_.emplace(x, 1);
+      }
     }
   }
 
  private:
-  stack<int> s_;
-  stack<pair<int, int>> aux_;
+  stack<int> element_;
+  // Stores (maximum value, count) pair.
+  stack<pair<int, int>> cached_max_with_count_;
 };
 // @exclude
 

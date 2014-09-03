@@ -28,23 +28,18 @@ vector<int> PostorderTraversal(const unique_ptr<BinaryTreeNode<int>>& root) {
 
 vector<int> InvertedPreorderTraversal(
     const unique_ptr<BinaryTreeNode<int>>& root) {
-  if (!root) {
-    return {};
-  }
-
   stack<BinaryTreeNode<int>*> s;
   s.emplace(root.get());
   vector<int> res;
   while (!s.empty()) {
     auto curr = s.top();
     s.pop();
+    if (!curr) {
+      continue;
+    }
     res.emplace_back(curr->data);
-    if (curr->left) {
-      s.emplace(curr->left.get());
-    }
-    if (curr->right) {
-      s.emplace(curr->right.get());
-    }
+    s.emplace(curr->left.get());
+    s.emplace(curr->right.get());
   }
   return res;
 }

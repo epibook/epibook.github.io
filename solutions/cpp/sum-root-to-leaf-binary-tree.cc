@@ -24,7 +24,7 @@ int PreorderTraversal(const unique_ptr<BinaryTreeNode<int>>& root, int num) {
     return 0;
   }
 
-  num = (num * 2) + root->data;
+  num = num * 2 + root->data;
   if (!root->left && !root->right) {  // Leaf.
     return num;
   }

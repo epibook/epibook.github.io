@@ -18,38 +18,40 @@ using std::uniform_int_distribution;
 // @include
 shared_ptr<ListNode<int>> CopyPostingsList(
     const shared_ptr<ListNode<int>>& L) {
-  // Returns empty list if L is nullptr.
   if (!L) {
     return nullptr;
   }
 
-  // 1st stage: Copies the nodes from L.
-  shared_ptr<ListNode<int>> p = L;
-  while (p) {
-    auto temp =
-        make_shared<ListNode<int>>(ListNode<int>{p->data, p->next, nullptr});
-    p->next = temp;
-    p = temp->next;
+  // Stage 1: Makes a copy of the original list without assigning the jump 
+  //          field, and creates the mapping for each node in the original 
+  //          list to the copied list.
+  auto iter = L;
+  while (iter) {
+    auto new_node = make_shared<ListNode<int>>(
+        ListNode<int>{iter->data, iter->next, nullptr});
+    iter->next = new_node;
+    iter = new_node->next;
   }
 
-  // 2nd stage: Updates the jump field.
-  p = L;
-  while (p) {
-    if (p->jump) {
-      p->next->jump = p->jump->next;
+  // Stage 2: Assigns the jump field in the copied list.
+  iter = L;
+  while (iter) {
+    if (iter->jump) {
+      iter->next->jump = iter->jump->next;
     }
-    p = p->next->next;
+    iter = iter->next->next;
   }
 
-  // 3rd stage: Restores the next field.
-  p = L;
-  shared_ptr<ListNode<int>> copied = p->next;
-  while (p->next) {
-    shared_ptr<ListNode<int>> temp = p->next;
-    p->next = temp->next;
-    p = temp;
+  // Stage 3: Revert the original list, and assigns the next field of 
+  //          the copied list.
+  iter = L;
+  auto new_list_head = iter->next;
+  while (iter->next) {
+    auto temp = iter->next;
+    iter->next = temp->next;
+    iter = temp;
   }
-  return copied;
+  return new_list_head;
 }
 // @exclude
 
