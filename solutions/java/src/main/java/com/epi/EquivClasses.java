@@ -37,9 +37,11 @@ public class EquivClasses {
     }
 
     // Generates the weakest equivalence relation.
+    int i = 0;
     for (int f : F) {
       while (f != F.get(f)) {
         f = F.get(f);
+        F.set(i, f);
       }
     }
     return F;
