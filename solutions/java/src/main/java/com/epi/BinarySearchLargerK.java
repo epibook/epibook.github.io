@@ -1,33 +1,29 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BinarySearchLargerK {
   // @include
-  public static int searchFirstLargerK(ArrayList<Integer> a, int k) {
-    int l = 0, r = a.size() - 1, res = -1;
-    while (l <= r) {
-      int m = l + ((r - l) / 2);
-      if (a.get(m) > k) {
+  public static int searchFirstLargerK(int[] A, int k) {
+    int left = 0, right = A.length - 1, result = -1;
+    while (left <= right) {
+      int mid = left + ((right - left) / 2);
+      if (A[mid] > k) {
         // Records the solution and keep searching the left part.
-        res = m;
-        r = m - 1;
-      } else { // A.get(m) <= k.
-        l = m + 1;
+        result = mid;
+        right = mid - 1;
+      } else { // A[mid] <= k.
+        left = mid + 1;
       }
     }
-    return res;
+    return result;
   }
   // @exclude
 
-  private static int checkAns(ArrayList<Integer> a, int k) {
-    for (int i = 0; i < a.size(); ++i) {
-      if (a.get(i) > k) {
+  private static int checkAns(int[] A, int k) {
+    for (int i = 0; i < A.length; ++i) {
+      if (A[i] > k) {
         return i;
       }
     }
@@ -43,16 +39,16 @@ public class BinarySearchLargerK {
       } else {
         n = r.nextInt(10000) + 1;
       }
-      ArrayList<Integer> A = new ArrayList<>();
+      int[] A = new int[n];
       for (int i = 0; i < n; ++i) {
-        A.add(r.nextInt(n));
+        A[i] = r.nextInt(n);
       }
-      Collections.sort(A);
+      Arrays.sort(A);
       int k = r.nextInt(n);
       int ans = searchFirstLargerK(A, k);
       System.out.println("k = " + k + " locates at " + ans);
       if (ans != -1) {
-        System.out.println("A[k] = " + A.get(ans));
+        System.out.println("A[k] = " + A[ans]);
       }
       assert (ans == checkAns(A, k));
     }

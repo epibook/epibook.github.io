@@ -1,46 +1,49 @@
+// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
 public class ListPivoting {
   // @include
-  public static NodeT<Integer> listPivoting(NodeT<Integer> L, int x) {
-    NodeT<Integer> now = L;
-    NodeT<Integer> lessHead = new NodeT<>(0, null);
-    NodeT<Integer> equalHead = new NodeT<>(0, null);
-    NodeT<Integer> largerHead = new NodeT<>(0, null);
-    NodeT<Integer> lessTail = lessHead;
-    NodeT<Integer> equalTail = equalHead;
-    NodeT<Integer> largerTail = largerHead;
-    while (now != null) {
-      if (now.data < x) {
-        lessTail.next = now;
-        lessTail = now;
-      } else if (now.data == x) {
-        equalTail.next = now;
-        equalTail = now;
-      } else { // now->data > x.
-        largerTail.next = now;
-        largerTail = now;
+  public static ListNode<Integer> listPivoting(ListNode<Integer> L, int x) {
+    ListNode<Integer> lessHead = new ListNode<>(0, null),
+                      equalHead = new ListNode<>(0, null),
+                      greaterHead = new ListNode<>(0, null);
+    ListNode<Integer> lessIter = lessHead, equalIter = equalHead,
+                      greaterIter = greaterHead;
+    // Populates the three lists.
+    ListNode<Integer> iter = L;
+    while (iter != null) {
+      if (iter.data < x) {
+        lessIter.next = iter;
+        lessIter = iter;
+      } else if (iter.data == x) {
+        equalIter.next = iter;
+        equalIter = iter;
+      } else { // iter.data > x.
+        greaterIter.next = iter;
+        greaterIter = iter;
       }
-      now = now.next;
+      iter = iter.next;
     }
+    lessIter.next = equalIter.next = greaterIter.next = null;
 
-    lessTail.next = equalTail.next = largerTail.next = null;
-    if (largerHead.next != null) {
-      equalTail.next = largerHead.next;
+    // Combines the three lists.
+    if (greaterHead.next != null) {
+      equalIter.next = greaterHead.next;
     }
     if (equalHead.next != null) {
-      lessTail.next = equalHead.next;
+      lessIter.next = equalHead.next;
     }
     return lessHead.next;
   }
   // @exclude
 
   public static void main(String[] args) {
-    NodeT<Integer> L;
-    L = new NodeT<>(1, new NodeT<>(4, new NodeT<>(3,
-        new NodeT<>(2, new NodeT<>(5, null)))));
+    ListNode<Integer> L;
+    L = new ListNode<>(1, new ListNode<>(4, new ListNode<>(3,
+        new ListNode<>(2, new ListNode<>(5, null)))));
     int x = 4;
-    NodeT<Integer> result = listPivoting(L, x);
+    ListNode<Integer> result = listPivoting(L, x);
     boolean beforeX = true;
     while (result != null) {
       if (result.data >= x) {

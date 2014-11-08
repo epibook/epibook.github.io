@@ -1,30 +1,30 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
-// @author Ivan Sharov
 
 package com.epi;
 
 class RemoveKthLastList {
   // @include
-  public static Node<Integer> removeKthLast(Node<Integer> L, int k) {
-    Node<Integer> dummyHead = new Node<>(0, L);
-    // Advances k steps first.
-    Node<Integer> ahead = dummyHead;
+  // Assumes L has at least k nodes, deletes the k-th last node in L.
+  public static ListNode<Integer> removeKthLast(ListNode<Integer> L, int k) {
+    ListNode<Integer> dummyHead = new ListNode<>(0, L);
+    ListNode<Integer> first = dummyHead.next;
     while (k-- > 0) {
-      ahead = ahead.next;
+      first = first.next;
     }
 
-    Node<Integer> pre = dummyHead;
-    while (ahead != null && ahead.next != null) {
-      pre = pre.next;
-      ahead = ahead.next;
+    ListNode<Integer> second = dummyHead;
+    while (first != null) {
+      second = second.next;
+      first = first.next;
     }
-    pre.next = pre.next.next;
+    // second points to the (k + 1)-th last node, deletes its successor.
+    second.next = second.next.next;
     return dummyHead.next;
   }
   // @exclude
 
   public static void main(String[] args) {
-    Node<Integer> L = new Node<>(1, new Node<>(2, new Node<>(3, null)));
+    ListNode<Integer> L = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, null)));
     L = removeKthLast(L, 2);
     assert (L.data == 1 && L.next.data == 3);
     L = removeKthLast(L, 2);

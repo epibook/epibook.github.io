@@ -1,36 +1,30 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class CompareKthLargestInHeap {
   // @include
-  private static class Data {
+  private static class Status {
     public int larger;
     public int equal;
   }
 
   // -1 means smaller, 0 means equal, and 1 means larger.
-  public static int compareKthLargestHeap(List<Integer> maxHeap, int k, int x) {
-    Data data = new Data();
+  public static int compareKthLargestHeap(int[] maxHeap, int k, int x) {
+    Status data = new Status();
     data.larger = 0;
     data.equal = 0;
     compareKthLargestHeapHelper(maxHeap, k, x, 0, data);
     return data.larger >= k ? 1 : (data.larger + data.equal >= k ? 0 : -1);
   }
 
-  private static void compareKthLargestHeapHelper(List<Integer> maxHeap, int k,
-                                                  int x, int idx, Data data) {
-    if (data.larger >= k || idx >= maxHeap.size() || maxHeap.get(idx) < x) {
+  private static void compareKthLargestHeapHelper(int[] maxHeap, int k,
+                                                  int x, int idx, Status data) {
+    if (data.larger >= k || idx >= maxHeap.length || maxHeap[idx] < x) {
       return;
-    } else if (maxHeap.get(idx) == x) {
+    } else if (maxHeap[idx] == x) {
       if (++data.equal >= k) {
         return;
       }
-    } else { // max_heap[idx] > x.
+    } else { // maxHeap[idx] > x.
       ++data.larger;
     }
     compareKthLargestHeapHelper(maxHeap, k, x, (idx * 2) + 1, data);
@@ -43,15 +37,7 @@ public class CompareKthLargestInHeap {
     // 4 5
     // 4 4 4 3
     // 4
-    List<Integer> maxHeap = new ArrayList<>();
-    maxHeap.add(5);
-    maxHeap.add(4);
-    maxHeap.add(5);
-    maxHeap.add(4);
-    maxHeap.add(4);
-    maxHeap.add(4);
-    maxHeap.add(3);
-    maxHeap.add(4);
+    int[] maxHeap = new int[]{5, 4, 5, 4, 4, 4, 3, 4};
     int k, x;
     if (args.length == 2) {
       k = Integer.parseInt(args[0]);

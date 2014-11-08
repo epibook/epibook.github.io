@@ -2,35 +2,35 @@ package com.epi;
 
 public class ReverseLinkListFromSToF {
   // @include
-  public static NodeT<Integer> reverseSublistSF(NodeT<Integer> L, int s,
-                                                int f) {
-    if (s == f) { // No need to reverse since s == f.
+  public static ListNode<Integer> reverseSublist(ListNode<Integer> L, int start,
+                                                 int finish) {
+    if (start == finish) { // No need to reverse since start == finish.
       return L;
     }
 
-    NodeT<Integer> dummyHead = new NodeT<>(0, L);
-    NodeT<Integer> p = dummyHead;
+    ListNode<Integer> dummyHead = new ListNode<>(0, L);
+    ListNode<Integer> sublistHead = dummyHead;
     int k = 1;
-    while (k++ < s) {
-      p = p.next;
+    while (k++ < start) {
+      sublistHead = sublistHead.next;
     }
 
     // Reverse sublist.
-    NodeT<Integer> q = p.next;
-    while (s++ < f) {
-      NodeT<Integer> temp = q.next;
-      q.next = temp.next;
-      temp.next = p.next;
-      p.next = temp;
+    ListNode<Integer> sublistIter = sublistHead.next;
+    while (start++ < finish) {
+      ListNode<Integer> temp = sublistIter.next;
+      sublistIter.next = temp.next;
+      temp.next = sublistHead.next;
+      sublistHead.next = temp;
     }
     return dummyHead.next;
   }
   // @exclude
 
   public static void main(String[] args) {
-    NodeT<Integer> L;
-    L = new NodeT<>(1, new NodeT<>(2, new NodeT<>(3, null)));
-    NodeT<Integer> result = reverseSublistSF(L, 3, 3);
+    ListNode<Integer> L;
+    L = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, null)));
+    ListNode<Integer> result = reverseSublist(L, 3, 3);
     assert(result.data.equals(1) && result.next.data.equals(2) &&
            result.next.next.data.equals(3) && result.next.next.next == null);
     while (result != null) {
@@ -38,7 +38,7 @@ public class ReverseLinkListFromSToF {
       result = result.next;
     }
 
-    result = reverseSublistSF(L, 2, 3);
+    result = reverseSublist(L, 2, 3);
     assert(result.data.equals(1) && result.next.data.equals(3) &&
            result.next.next.data.equals(2) && result.next.next.next == null);
     while (result != null) {

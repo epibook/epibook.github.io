@@ -14,8 +14,14 @@ using std::length_error;
 using std::queue;
 using std::vector;
 
+template <typename T>
+bool EqualVector(const vector<T>& A, const vector<T>& B) {
+  return A.size() == B.size() && equal(A.begin(), A.end(), B.begin());
+}
+
 // @include
 struct TrafficElement {
+  // Following operators are needed for Queue with maximum.
   bool operator<(const TrafficElement& that) const {
     return volume < that.volume;
   }
@@ -24,28 +30,37 @@ struct TrafficElement {
     return time == that.time && volume == that.volume;
   }
 
-  int time, volume;
+  int time;
+  double volume;
 };
 
-void CalculateTrafficVolumes(const vector<TrafficElement>& A, int w) {
-  Queue<TrafficElement> Q;
-  for (int i = 0; i < A.size(); ++i) {
-    Q.Enqueue(A[i]);
-    while (A[i].time - Q.Head().time > w) {
-      Q.Dequeue();
+vector<TrafficElement> CalculateTrafficVolumes(
+    const vector<TrafficElement>& A, int w) {
+  Queue<TrafficElement> sliding_window;
+  vector<TrafficElement> maximum_volumes;
+  for (const auto traffic_info : A) {
+    sliding_window.Enqueue(traffic_info);
+    while (traffic_info.time - sliding_window.Head().time > w) {
+      sliding_window.Dequeue();
     }
-    cout << "Max after inserting " << i << " is " << Q.Max().volume << endl;
+    maximum_volumes.emplace_back(
+        TrafficElement{traffic_info.time, sliding_window.Max().volume});
   }
+  return maximum_volumes;
 }
 // @exclude
 
 int main(int argc, char* argv[]) {
   int w = 3;
-  // It should output 0, 1, 3, 3, 3, 3, 2, 2.
-  vector<TrafficElement> A = {TrafficElement{0, 0}, TrafficElement{1, 1},
-                              TrafficElement{2, 3}, TrafficElement{3, 1},
-                              TrafficElement{4, 0}, TrafficElement{5, 2},
-                              TrafficElement{6, 2}, TrafficElement{7, 2}};
-  CalculateTrafficVolumes(A, w);
+  vector<TrafficElement> A = {TrafficElement{0, 1.3}, TrafficElement{2, 2.5},
+                              TrafficElement{3, 3.7}, TrafficElement{5, 1.4},
+                              TrafficElement{6, 2.6}, TrafficElement{8, 2.2},
+                              TrafficElement{9, 1.7}, TrafficElement{14, 1.1}};
+  auto result = CalculateTrafficVolumes(A, w);
+  vector<TrafficElement> golden = {TrafficElement{0, 1.3}, TrafficElement{2, 2.5},
+                              TrafficElement{3, 3.7}, TrafficElement{5, 3.7},
+                              TrafficElement{6, 3.7}, TrafficElement{8, 2.6},
+                              TrafficElement{9, 2.6}, TrafficElement{14, 1.1}};
+  assert(EqualVector(golden, result));
   return 0;
 }

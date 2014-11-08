@@ -12,7 +12,7 @@ public class PermutationsAlternative {
 
   private static void permutationsHelper(int i, List<Integer> A,
                                          List<List<Integer>> result) {
-    if (i == A.size()) {
+    if (i == A.size() - 1) {
       result.add(new ArrayList<>(A));
       return;
     }

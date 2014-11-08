@@ -2,68 +2,83 @@
 
 #include <cassert>
 #include <iostream>
+#include <list>
 #include <memory>
-#include <vector>
 
 #include "./Binary_tree_prototype.h"
 
 using std::cout;
 using std::endl;
+using std::list;
 using std::unique_ptr;
-using std::vector;
 
-void LeftBoundaryBinaryTree(const unique_ptr<BinaryTreeNode<int>>& T,
-                            bool is_boundary);
-void RightBoundaryBinaryTree(const unique_ptr<BinaryTreeNode<int>>& T,
-                             bool is_boundary);
-
-vector<int> result;
+list<const unique_ptr<BinaryTreeNode<int>>*> LeftBoundaryAndLeaves(
+    const unique_ptr<BinaryTreeNode<int>>&, bool);
+list<const unique_ptr<BinaryTreeNode<int>>*> RightBoundaryAndLeaves(
+    const unique_ptr<BinaryTreeNode<int>>&, bool);
+bool IsLeaf(const unique_ptr<BinaryTreeNode<int>>&);
 
 // @include
-void ExteriorBinaryTree(const unique_ptr<BinaryTreeNode<int>>& root) {
-  if (root) {
-    cout << root->data << ' ';
-    // @exclude
-    result.emplace_back(root->data);
-    // @include
-    LeftBoundaryBinaryTree(root->left, true);
-    RightBoundaryBinaryTree(root->right, true);
+list<const unique_ptr<BinaryTreeNode<int>>*> ExteriorBinaryTree(
+    const unique_ptr<BinaryTreeNode<int>>& tree) {
+  list<const unique_ptr<BinaryTreeNode<int>>*> exterior;
+  if (tree != nullptr) {
+    exterior.emplace_back(&tree);
+    exterior.splice(exterior.end(), LeftBoundaryAndLeaves(tree->left, true));
+    exterior.splice(exterior.end(),
+                    RightBoundaryAndLeaves(tree->right, true));
   }
+  return exterior;
 }
 
-void LeftBoundaryBinaryTree(const unique_ptr<BinaryTreeNode<int>>& T,
-                            bool is_boundary) {
-  if (T) {
-    if (is_boundary || (!T->left && !T->right)) {
-      cout << T->data << ' ';
-      // @exclude
-      result.emplace_back(T->data);
-      // @include
+// Computes the nodes from the root to the leftmost leaf followed by all the
+// leaves in subtree_root.
+list<const unique_ptr<BinaryTreeNode<int>>*> LeftBoundaryAndLeaves(
+    const unique_ptr<BinaryTreeNode<int>>& subtree_root, bool is_boundary) {
+  list<const unique_ptr<BinaryTreeNode<int>>*> result;
+  if (subtree_root != nullptr) {
+    if (is_boundary || IsLeaf(subtree_root)) {
+      result.emplace_back(&subtree_root);
     }
-    LeftBoundaryBinaryTree(T->left, is_boundary);
-    LeftBoundaryBinaryTree(T->right, is_boundary && !T->left);
+    result.splice(result.end(),
+                  LeftBoundaryAndLeaves(subtree_root->left, is_boundary));
+    result.splice(
+        result.end(),
+        LeftBoundaryAndLeaves(subtree_root->right,
+                              is_boundary && subtree_root->left == nullptr));
   }
+  return result;
 }
 
-void RightBoundaryBinaryTree(const unique_ptr<BinaryTreeNode<int>>& T,
-                             bool is_boundary) {
-  if (T) {
-    RightBoundaryBinaryTree(T->left, is_boundary && !T->right);
-    RightBoundaryBinaryTree(T->right, is_boundary);
-    if (is_boundary || (!T->left && !T->right)) {
-      cout << T->data << ' ';
-      // @exclude
-      result.emplace_back(T->data);
-      // @include
+// Computes the leaves in left-to-right order followed by the rightmost leaf
+// to the root path in subtree_root.
+list<const unique_ptr<BinaryTreeNode<int>>*> RightBoundaryAndLeaves(
+    const unique_ptr<BinaryTreeNode<int>>& subtree_root, bool is_boundary) {
+  list<const unique_ptr<BinaryTreeNode<int>>*> result;
+  if (subtree_root != nullptr) {
+    result.splice(
+        result.end(),
+        RightBoundaryAndLeaves(subtree_root->left,
+                               is_boundary &&
+                                   subtree_root->right == nullptr));
+    result.splice(result.end(),
+                  RightBoundaryAndLeaves(subtree_root->right, is_boundary));
+    if (is_boundary || IsLeaf(subtree_root)) {
+      result.emplace_back(&subtree_root);
     }
   }
+  return result;
+}
+
+bool IsLeaf(const unique_ptr<BinaryTreeNode<int>>& node) {
+  return node->left == nullptr && node->right == nullptr;
 }
 // @exclude
 
 int main(int argc, char* argv[]) {
-  //      3
-  //    2   5
-  //  1  0 4 6
+  //        3
+  //    2      5
+  //  1  0    4 6
   //   -1 -2
   unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{3, nullptr, nullptr});
@@ -83,10 +98,15 @@ int main(int argc, char* argv[]) {
       new BinaryTreeNode<int>{4, nullptr, nullptr});
   root->right->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{6, nullptr, nullptr});
+  list<int> golden_res = {3, 2, 1, -1, -2, 4, 6, 5};
+  auto L = ExteriorBinaryTree(root);
+  list<int> output;
   // should output 3 2 1 -1 -2 4 6 5
-  vector<int> golden_res = {3, 2, 1, -1, -2, 4, 6, 5};
-  ExteriorBinaryTree(root);
-  assert(result.size() == golden_res.size());
-  assert(equal(result.begin(), result.end(), golden_res.begin()));
+  for (const auto* l : L) {
+    output.push_back((*l)->data);
+    cout << (*l)->data << endl;
+  }
+  assert(output.size() == golden_res.size());
+  assert(equal(output.begin(), output.end(), golden_res.begin()));
   return 0;
 }

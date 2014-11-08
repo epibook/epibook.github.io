@@ -17,31 +17,31 @@ using std::stack;
 using std::unique_ptr;
 using std::vector;
 
-vector<int> InvertedPreorderTraversal(const unique_ptr<BinaryTreeNode<int>>& root);
+vector<int> InvertedPreorderTraversal(const unique_ptr<BinaryTreeNode<int>>&);
 
 // @include
-vector<int> PostorderTraversal(const unique_ptr<BinaryTreeNode<int>>& root) {
-  auto inv_pre_res = InvertedPreorderTraversal(root);
-  reverse(inv_pre_res.begin(), inv_pre_res.end());
-  return inv_pre_res;
+vector<int> PostorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
+  auto sequence = InvertedPreorderTraversal(tree);
+  reverse(sequence.begin(), sequence.end());
+  return sequence; 
 }
 
 vector<int> InvertedPreorderTraversal(
-    const unique_ptr<BinaryTreeNode<int>>& root) {
-  stack<BinaryTreeNode<int>*> s;
-  s.emplace(root.get());
-  vector<int> res;
-  while (!s.empty()) {
-    auto curr = s.top();
-    s.pop();
-    if (!curr) {
+    const unique_ptr<BinaryTreeNode<int>>& tree) {
+  stack<BinaryTreeNode<int>*> path_stack;
+  path_stack.emplace(tree.get());
+  vector<int> result;
+  while (!path_stack.empty()) {
+    auto curr = path_stack.top();
+    path_stack.pop();
+    if (curr != nullptr) {
       continue;
     }
-    res.emplace_back(curr->data);
-    s.emplace(curr->left.get());
-    s.emplace(curr->right.get());
+    result.emplace_back(curr->data);
+    path_stack.emplace(curr->left.get());
+    path_stack.emplace(curr->right.get());
   }
-  return res;
+  return result;
 }
 // @exclude
 

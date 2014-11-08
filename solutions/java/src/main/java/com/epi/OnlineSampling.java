@@ -10,7 +10,7 @@ public class OnlineSampling {
   // @include
   public static int[] onlineSampling(int n, int k) {
     Map<Integer, Integer> H = new HashMap<>();
-    Random gen = new Random(); // Random num generator.
+    Random gen = new Random();
     for (int i = 0; i < k; ++i) {
       // Generate random int in [0, n - 1 - i].
       int r = gen.nextInt(n - i);

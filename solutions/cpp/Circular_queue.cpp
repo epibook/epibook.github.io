@@ -18,32 +18,32 @@ class Queue {
   explicit Queue(size_t cap) : data_(cap) {}
 
   void Enqueue(int x) {
-    // Dynamically resizes due to data_.size() limit.
-    if (size_ == data_.size()) {
-      // Rearranges elements.
+    if (num_queue_elements == data_.size()) {  // Needs to resize.
+      // Makes the queue elements appear consecutively.
       rotate(data_.begin(), data_.begin() + head_, data_.end());
-      head_ = 0, tail_ = size_;  // Resets head and tail.
-      data_.resize(data_.size() * 2);
+      head_ = 0, tail_ = num_queue_elements;  // Resets head and tail.
+      data_.resize(data_.size() * kScaleFactor);
     }
-    // Performs enqueue.
+
     data_[tail_] = x;
-    tail_ = (tail_ + 1) % data_.size(), ++size_;
+    tail_ = (tail_ + 1) % data_.size(), ++num_queue_elements;
   }
 
   int Dequeue() {
-    if (!size_) {
+    if (!num_queue_elements) {
       throw length_error("empty queue");
     }
-    --size_;
+    --num_queue_elements;
     int ret = data_[head_];
     head_ = (head_ + 1) % data_.size();
     return ret;
   }
 
-  size_t size() const { return size_; }
+  size_t size() const { return num_queue_elements; }
 
  private:
-  size_t head_ = 0, tail_ = 0, size_ = 0;
+  const int kScaleFactor = 2;
+  size_t head_ = 0, tail_ = 0, num_queue_elements = 0;
   vector<int> data_;
 };
 // @exclude

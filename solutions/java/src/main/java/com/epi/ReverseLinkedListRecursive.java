@@ -6,19 +6,19 @@ package com.epi;
 class ReverseLinkedListRecursive {
 
   // @include
-  public static Node<Integer> reverseLinkedList(Node<Integer> head) {
+  public static ListNode<Integer> reverseLinkedList(ListNode<Integer> head) {
     if (head == null || head.next == null) {
       return head;
     }
 
-    Node<Integer> newHead = reverseLinkedList(head.next);
+    ListNode<Integer> newHead = reverseLinkedList(head.next);
     head.next.next = head;
     head.next = null;
     return newHead;
   }
   // @exclude
 
-  private static <T> void print(Node<T> head) {
+  private static <T> void print(ListNode<T> head) {
     if (head != null) {
       System.out.println("(" + head.data + ")");
       print(head.next);
@@ -26,15 +26,15 @@ class ReverseLinkedListRecursive {
   }
 
   public static void main(String[] args) {
-    Node<Integer> l1 = new Node<>(1, null);
-    Node<Integer> l2 = new Node<>(2, null);
+    ListNode<Integer> l1 = new ListNode<>(1, null);
+    ListNode<Integer> l2 = new ListNode<>(2, null);
     l1.next = l2;
-    Node<Integer> l3 = new Node<>(3, null);
+    ListNode<Integer> l3 = new ListNode<>(3, null);
     l2.next = l3;
 
     System.out.println("before reverse");
     print(l1);
-    Node<Integer> newhead = reverseLinkedList(l1);
+    ListNode<Integer> newhead = reverseLinkedList(l1);
     System.out.println("\nafter reverse");
     print(newhead);
     newhead = reverseLinkedList(newhead);

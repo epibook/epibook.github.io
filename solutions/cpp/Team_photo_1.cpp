@@ -44,13 +44,12 @@ class Team {
 // @exclude
 
 int main(int argc, char* argv[]) {
-  vector<int> height(3);
-  height[0] = 1, height[1] = 5, height[2] = 4;
+  vector<int> height = {1, 5, 4};
   Team t1(height);
-  height[0] = 2, height[2] = 3, height[2] = 4;
+  height = {2, 3, 4};
   Team t2(height);
   assert(!(t1 < t2) && !(t2 < t1));
-  height[0] = 0, height[1] = 3, height[2] = 2;
+  height = {0, 3, 2};
   Team t3(height);
   assert(t3 < t1 && !(t1 < t3) && t3 < t2 && !(t1 < t2));
   return 0;

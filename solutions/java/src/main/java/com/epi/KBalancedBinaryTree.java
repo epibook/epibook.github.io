@@ -3,39 +3,35 @@ package com.epi;
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 import com.epi.utils.Pair;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class KBalancedBinaryTree {
   // @include
-  public static BinaryTree<Integer> findKUnBalancedNode(BinaryTree<Integer> T,
-                                                        int k) {
-    return findKUnBalancedNodeHelper(T, k).getFirst();
+  public static BinaryTree<Integer> findKUnBalancedNode(
+      BinaryTree<Integer> tree, int k) {
+    return findKUnBalancedNodeHelper(tree, k).getFirst();
   }
 
   private static Pair<BinaryTree<Integer>, Integer> findKUnBalancedNodeHelper(
-      BinaryTree<Integer> T, int k) {
-    // Empty tree.
-    if (T == null) {
-      return new Pair<>(null, 0);
+      BinaryTree<Integer> tree, int k) {
+    if (tree == null) {
+      return new Pair<>(null, 0);  // Base case.
     }
 
     // Early return if left subtree is not k-balanced.
-    Pair<BinaryTree<Integer>, Integer> L =
-        findKUnBalancedNodeHelper(T.getLeft(), k);
-    if (L.getFirst() != null) {
-      return L;
+    Pair<BinaryTree<Integer>, Integer> leftResult =
+        findKUnBalancedNodeHelper(tree.getLeft(), k);
+    if (leftResult.getFirst() != null) {
+      return leftResult;
     }
     // Early return if right subtree is not k-balanced.
-    Pair<BinaryTree<Integer>, Integer> R =
-        findKUnBalancedNodeHelper(T.getRight(), k);
-    if (R.getFirst() != null) {
-      return R;
+    Pair<BinaryTree<Integer>, Integer> rightResult =
+        findKUnBalancedNodeHelper(tree.getRight(), k);
+    if (rightResult.getFirst() != null) {
+      return rightResult;
     }
 
-    int nodeNum = L.getSecond() + R.getSecond() + 1;
-    if (Math.abs(L.getSecond() - R.getSecond()) > k) {
-      return new Pair<>(T, nodeNum);
+    int nodeNum = leftResult.getSecond() + rightResult.getSecond() + 1;
+    if (Math.abs(leftResult.getSecond() - rightResult.getSecond()) > k) {
+      return new Pair<>(tree, nodeNum);
     }
     return new Pair<>(null, nodeNum);
   }

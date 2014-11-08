@@ -2,9 +2,6 @@ package com.epi;
 
 import java.util.LinkedList;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class QueueFromStacks {
   // @include
   public static class Queue {
@@ -17,10 +14,12 @@ public class QueueFromStacks {
 
     public Integer dequeue() {
       if (b.isEmpty()) {
+        // Transfers the elements from a to b.
         while (!a.isEmpty()) {
           b.push(a.pop());
         }
       }
+
       if (!b.isEmpty()) {
         return b.pop();
       }

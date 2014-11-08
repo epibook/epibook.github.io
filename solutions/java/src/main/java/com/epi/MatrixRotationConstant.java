@@ -68,11 +68,11 @@ class RotatedMatrix {
     this.a = A;
   }
 
-  int readEntry(int i, int j) {
+  public int readEntry(int i, int j) {
     return a[a.length - 1 - j][i];
   }
 
-  void writeEntry(int i, int j, int v) {
+  public void writeEntry(int i, int j, int v) {
     a[a.length - 1 - j][i] = v;
   }
 }

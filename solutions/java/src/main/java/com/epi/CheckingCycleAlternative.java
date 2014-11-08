@@ -5,12 +5,10 @@ package com.epi;
 
 class CheckingCycleAlternative {
   // @include
-  public static Node<Integer> hasCycle(Node<Integer> head) {
-    Node<Integer> fast = head;
-    Node<Integer> slow = head;
+  public static ListNode<Integer> hasCycle(ListNode<Integer> head) {
+    ListNode<Integer> fast = head, slow = head;
 
-    while (slow != null && slow.next != null && fast != null
-        && fast.next != null && fast.next.next != null) {
+    while (fast != null && fast.next != null && fast.next.next != null) {
       slow = slow.next;
       fast = fast.next.next;
       if (slow == fast) { // There is a cycle.
@@ -29,9 +27,9 @@ class CheckingCycleAlternative {
   // @exclude
 
   public static void main(String[] args) {
-    Node<Integer> l3 = new Node<>(3, null);
-    Node<Integer> l2 = new Node<>(2, l3);
-    Node<Integer> l1 = new Node<>(1, l2);
+    ListNode<Integer> l3 = new ListNode<>(3, null);
+    ListNode<Integer> l2 = new ListNode<>(2, l3);
+    ListNode<Integer> l1 = new ListNode<>(1, l2);
 
     // should output "l1 does not have cycle."
     assert (hasCycle(l1) == null);
@@ -43,7 +41,7 @@ class CheckingCycleAlternative {
     // should output "l1 has cycle, located at node has value 2"
     assert (hasCycle(l1) != null);
     assert (hasCycle(l1).data == 2);
-    Node<Integer> temp = hasCycle(l1);
+    ListNode<Integer> temp = hasCycle(l1);
     if (temp != null) {
       System.out
           .println("l1 has cycle, located at node has value " + temp.data);

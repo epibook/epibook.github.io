@@ -15,8 +15,18 @@ using std::default_random_engine;
 using std::endl;
 using std::ostream_iterator;
 using std::random_device;
+using std::swap;
 using std::uniform_int_distribution;
 using std::vector;
+
+void permute(vector<int> P, vector<int> &A) {
+  for(int j = 0; j < int(P.size()); ++j) {
+    for(int i = 0; i < int(P.size()); ++i) {
+      swap(A[i], A[P[i]]);
+      swap(P[i], P[P[i]]);
+    }
+  }
+}
 
 int main(int argc, char *argv[]) {
   default_random_engine gen((random_device())());
@@ -47,9 +57,15 @@ int main(int argc, char *argv[]) {
     ApplyPermutation2::ApplyPermutation(&perm, &C);
     copy(C.begin(), C.end(), ostream_iterator<int>(cout, " "));
     cout << endl;
+    vector<int> D(A);
+    permute(perm, D);
+    copy(D.begin(), D.end(), ostream_iterator<int>(cout, " "));
+    cout << endl;
     // Check answer by comparing the two permutations.
     assert(equal(B.begin(), B.end(), C.begin()));
     assert(B.size() == C.size());
+    assert(equal(B.begin(), B.end(), D.begin()));
+    assert(B.size() == D.size());
   }
   return 0;
 }

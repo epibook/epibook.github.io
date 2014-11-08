@@ -6,35 +6,35 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class StackWithMax {
   // @include
   public static class Stack {
-    private LinkedList<Pair<Integer, Integer>> s = new LinkedList<>();
+    // Stores (element, cached maximum) pair.
+    private LinkedList<Pair<Integer, Integer>> elementWithCachedMax =
+        new LinkedList<>();
 
     public boolean empty() {
-      return s.isEmpty();
+      return elementWithCachedMax.isEmpty();
     }
 
     public Integer max() {
       if (!empty()) {
-        return s.peek().getSecond();
+        return elementWithCachedMax.peek().getSecond();
       }
-      throw new RuntimeException("empty stack");
+      throw new RuntimeException("max(): empty stack");
     }
 
     public Integer pop() {
       if (empty()) {
-        throw new RuntimeException("empty stack");
+        throw new RuntimeException("pop(): empty stack");
       }
-      return s.pop().getFirst();
+      return elementWithCachedMax.pop().getFirst();
     }
 
     public void push(Integer x) {
-      s.push(new Pair<>(x, Collections.max(Arrays.asList(x, empty() ? x : s
-          .peek().getSecond()))));
+       elementWithCachedMax.push(new Pair<>(
+           x, Collections.max(Arrays.asList(
+                  x, empty() ? x : elementWithCachedMax.peek().getSecond()))));
     }
   }
   // @exclude

@@ -1,5 +1,3 @@
-// @author Ivan Sharov
-
 package com.epi;
 
 import java.util.*;
@@ -16,25 +14,25 @@ class NearestRepetition {
   }
 
   // @include
-  public static int findNearestRepetition(List<String> s) {
+  public static int findNearestRepetition(String[] s) {
     Map<String, Integer> stringToLocation = new HashMap<>();
     int closestDis = Integer.MAX_VALUE;
-    for (int i = 0; i < s.size(); ++i) {
-      if (stringToLocation.containsKey(s.get(i))) {
-        closestDis = Math.min(closestDis, i - stringToLocation.get(s.get(i)));
+    for (int i = 0; i < s.length; ++i) {
+      if (stringToLocation.containsKey(s[i])) {
+        closestDis = Math.min(closestDis, i - stringToLocation.get(s[i]));
       }
-      stringToLocation.put(s.get(i), i);
+      stringToLocation.put(s[i], i);
     }
     return closestDis;
   }
   // @exclude
 
   // O(n^2) checking
-  private static int checkAnswer(List<String> s) {
+  private static int checkAnswer(String[] s) {
     int closestDis = Integer.MAX_VALUE;
-    for (int i = 0; i < s.size(); ++i) {
-      for (int j = i + 1; j < s.size(); ++j) {
-        if (s.get(i).equals(s.get(j))) {
+    for (int i = 0; i < s.length; ++i) {
+      for (int j = i + 1; j < s.length; ++j) {
+        if (s[i].equals(s[j])) {
           closestDis = Math.min(closestDis, j - i);
         }
       }
@@ -43,17 +41,15 @@ class NearestRepetition {
   }
 
   public static void main(String[] args) {
-    List<String> A = Arrays.asList("foo", "bar", "widget", "foo", "widget",
-        "widget", "adnan");
+    String[] A = new String[]{"foo", "bar", "widget", "foo", "widget", "widget", "adnan"};
     assert (checkAnswer(A) == findNearestRepetition(A));
-    A = Arrays.asList("foo", "bar", "widget", "foo", "xyz", "widget", "bar",
-        "adnan");
+    A = new String[]{"foo", "bar", "widget", "foo", "xyz", "widget", "bar", "adnan"};
     assert (checkAnswer(A) == findNearestRepetition(A));
-    A = Arrays.asList("foo", "bar", "widget", "adnan");
+    A = new String[]{"foo", "bar", "widget", "adnan"};
     assert (checkAnswer(A) == findNearestRepetition(A));
-    A = Arrays.asList();
+    A = new String[]{};
     assert (checkAnswer(A) == findNearestRepetition(A));
-    A = Arrays.asList("foo", "foo", "foo");
+    A = new String[]{"foo", "foo", "foo"};
     assert (checkAnswer(A) == findNearestRepetition(A));
     Random rnd = new Random();
     for (int times = 0; times < 1000; ++times) {
@@ -63,9 +59,9 @@ class NearestRepetition {
       } else {
         n = rnd.nextInt(10000) + 1;
       }
-      List<String> s = new ArrayList<>();
+      String[] s = new String[n];
       for (int i = 0; i < n; ++i) {
-        s.add(randString(rnd.nextInt(10) + 1));
+        s[i] = randString(rnd.nextInt(10) + 1);
       }
       assert (checkAnswer(s) == findNearestRepetition(s));
     }

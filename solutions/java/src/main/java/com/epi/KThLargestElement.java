@@ -1,21 +1,19 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Random;
 
 public class KThLargestElement {
   // @include
-  public static int findKthLargest(List<Integer> A, int k) {
-    int left = 0, right = A.size() - 1;
+  public static int findKthLargest(int[] A, int k) {
+    int left = 0, right = A.length - 1;
 
     Random r = new Random();
     while (left <= right) {
       // Generates a random int in [left, right].
       int p = partition(left, right, r.nextInt(right - left + 1) + left, A);
       if (p == k - 1) {
-        return A.get(p);
+        return A[p];
       } else if (p > k - 1) {
         right = p - 1;
       } else { // p < k - 1.
@@ -28,19 +26,24 @@ public class KThLargestElement {
   }
 
   // Partitions A according pivot, returns its index after partition.
-  private static int partition(int left, int right, int pivot,
-                               List<Integer> A) {
-    int pivotValue = A.get(pivot);
+  private static int partition(int left, int right, int pivot, int[] A) {
+    int pivotValue = A[pivot];
     int largerIndex = left;
 
-    Collections.swap(A, pivot, right);
+    swap(A, pivot, right);
     for (int i = left; i < right; ++i) {
-      if (A.get(i) > pivotValue) {
-        Collections.swap(A, i, largerIndex++);
+      if (A[i] > pivotValue) {
+        swap(A, i, largerIndex++);
       }
     }
-    Collections.swap(A, right, largerIndex);
+    swap(A, right, largerIndex);
     return largerIndex;
+  }
+
+  private static void swap(int[] A, int a, int b) {
+    int temp = A[a];
+    A[a] = A[b];
+    A[b] = temp;
   }
   // @exclude
 
@@ -58,13 +61,13 @@ public class KThLargestElement {
         n = r.nextInt(100000) + 1;
         k = r.nextInt(n - 1) + 1;
       }
-      List<Integer> A = new ArrayList<>();
+      int[] A = new int[n];
       for (int i = 0; i < n; ++i) {
-        A.add(r.nextInt(10000000));
+        A[i] = r.nextInt(10000000);
       }
       int result = findKthLargest(A, k);
-      Collections.sort(A);
-      assert (result == A.get(A.size() - k));
+      Arrays.sort(A);
+      assert (result == A[A.length - k]);
     }
   }
 }

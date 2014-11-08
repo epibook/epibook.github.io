@@ -5,26 +5,26 @@ import com.epi.utils.Pair;
 import java.util.*;
 
 public class LongestContainedRange {
-  private static int checkAns(List<Integer> A) {
-    Collections.sort(A);
+  private static int checkAns(int[] A) {
+    Arrays.sort(A);
     int result = 1;
-    int pre = A.get(0), len = 1;
-    for (int i = 1; i < A.size(); ++i) {
-      if (A.get(i).equals(pre + 1)) {
+    int pre = A[0], len = 1;
+    for (int i = 1; i < A.length; ++i) {
+      if (A[i] == pre + 1) {
         ++len;
-      } else if (!A.get(i).equals(pre)) {
+      } else if (A[i] != pre) {
         result = Math.max(result, len);
         len = 1;
       }
-      pre = A.get(i);
+      pre = A[i];
     }
     result = Math.max(result, len);
     System.out.println(result);
     return result;
   }
 
-  private static int findLongestContainedRangeInt(List<Integer> A) {
-    if (A.isEmpty()) {
+  private static int findLongestContainedRangeInt(int[] A) {
+    if (A.length == 0) {
       return 0;
     }
 
@@ -68,7 +68,7 @@ public class LongestContainedRange {
   }
 
   public static Pair<Integer, Integer>
-  findLongestContainedRange(List<Integer> A) {
+  findLongestContainedRange(int[] A) {
     // S records the existence of each entry in A.
     Set<Integer> S = new HashSet<>();
     for (int a : A) {
@@ -103,35 +103,34 @@ public class LongestContainedRange {
   }
 
   // @include
-  public static int longestContainedRange(List<Integer> A) {
+  public static int longestContainedRange(int[] A) {
     // unprocessedEntries records the existence of each entry in A.
     Set<Integer> unprocessedEntries = new HashSet<>();
-    for (int i = 0 ; i < A.size(); i++) {
-      unprocessedEntries.add(A.get(i));
+    for (int i = 0 ; i < A.length; i++) {
+      unprocessedEntries.add(A[i]);
     }
 
     int maxIntervalSize = 0;
-    for (int i = 0; i < A.size(); i++) {
-      if (unprocessedEntries.contains(A.get(i))) {
-        unprocessedEntries.remove(A.get(i));
+    while (!unprocessedEntries.isEmpty()) {
+      int a = unprocessedEntries.iterator().next();
+      unprocessedEntries.remove(a);
 
-        // Finds the lower bound of the largest range containing a.
-        int lowerBound = A.get(i) - 1;
-        while (unprocessedEntries.contains(lowerBound)) {
-          unprocessedEntries.remove(lowerBound);
-          --lowerBound;
-        }
-
-        // Finds the upper bound of the largest range containing a.
-        int upperBound = A.get(i) + 1;
-        while (unprocessedEntries.contains(upperBound)) {
-          unprocessedEntries.remove(upperBound);
-          ++upperBound;
-        }
-
-        maxIntervalSize = Math.max(upperBound - lowerBound - 1,
-                                   maxIntervalSize);
+      // Finds the lower bound of the largest range containing a.
+      int lowerBound = a - 1;
+      while (unprocessedEntries.contains(lowerBound)) {
+        unprocessedEntries.remove(lowerBound);
+        --lowerBound;
       }
+
+      // Finds the upper bound of the largest range containing a.
+      int upperBound = a + 1;
+      while (unprocessedEntries.contains(upperBound)) {
+        unprocessedEntries.remove(upperBound);
+        ++upperBound;
+      }
+
+      maxIntervalSize = 
+          Math.max(upperBound - lowerBound - 1, maxIntervalSize);
     }
     return maxIntervalSize;
   }
@@ -146,9 +145,9 @@ public class LongestContainedRange {
       } else {
         n = r.nextInt(10001);
       }
-      List<Integer> A = new ArrayList<>();
+      int[] A = new int[n];
       for (int i = 0; i < n; ++i) {
-        A.add(r.nextInt(n + 1));
+        A[i] = r.nextInt(n + 1);
       }
 
       assert (findLongestContainedRangeInt(A) == checkAns(A));

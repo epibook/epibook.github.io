@@ -4,9 +4,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class QueueWithMax {
   // @include
   public static class Queue {

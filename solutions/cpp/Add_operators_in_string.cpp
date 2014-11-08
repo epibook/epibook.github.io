@@ -2,7 +2,6 @@
 
 #include <cassert>
 #include <iostream>
-#include <list>
 #include <numeric>
 #include <random>
 #include <string>
@@ -11,33 +10,32 @@
 using std::cout;
 using std::default_random_engine;
 using std::endl;
-using std::list;
 using std::random_device;
 using std::string;
 using std::uniform_int_distribution;
 using std::vector;
 
 bool ExpressionSynthesisHelper(const vector<int>& A, int k, int cur, int level,
-                               list<int>* operand_list,
-                               list<char>* operator_list);
+                               vector<int>* operand_list,
+                               vector<char>* operator_list);
 int RemainingInt(const vector<int>& A, int idx);
-int Evaluate(list<int> operand_list, const list<char>& operator_list);
+int Evaluate(vector<int> operand_list, const vector<char>& operator_list);
 
-list<int> operand_result;
-list<char> operator_result;
+vector<int> operand_result;
+vector<char> operator_result;
 
 // @include
 void ExpressionSynthesis(const vector<int>& A, int k) {
-  list<char> operator_list;
-  list<int> operand_list;
+  vector<char> operator_list;
+  vector<int> operand_list;
   if (!ExpressionSynthesisHelper(A, k, 0, 0, &operand_list, &operator_list)) {
     cout << "no answer" << endl;
   }
 }
 
 bool ExpressionSynthesisHelper(const vector<int>& A, int k, int cur,
-                               int level, list<int>* operand_list,
-                               list<char>* operator_list) {
+                               int level, vector<int>* operand_list,
+                               vector<char>* operator_list) {
   cur = cur * 10 + A[level];
   if (level == A.size() - 1) {
     operand_list->emplace_back(cur);
@@ -94,7 +92,7 @@ int RemainingInt(const vector<int>& A, int idx) {
   return val;
 }
 
-int Evaluate(list<int> operand_list, const list<char>& operator_list) {
+int Evaluate(vector<int> operand_list, const vector<char>& operator_list) {
   // Evaluates '*' first.
   auto operand_it = operand_list.begin();
   for (const char& oper : operator_list) {
@@ -117,11 +115,11 @@ void SmallTest() {
   vector<int> A = {1, 2, 3, 2, 5, 3, 7, 8, 5, 9};
   int k = 995;
   ExpressionSynthesis(A, k);
-  list<int> golden_operand_result = {123, 2, 5, 3, 7, 85, 9};
+  vector<int> golden_operand_result = {123, 2, 5, 3, 7, 85, 9};
   assert(golden_operand_result.size() == operand_result.size());
   assert(equal(operand_result.begin(), operand_result.end(),
                golden_operand_result.begin()));
-  list<char> golden_operator_result = {'+', '+', '*', '*', '+', '*'};
+  vector<char> golden_operator_result = {'+', '+', '*', '*', '+', '*'};
   assert(golden_operator_result.size() == operator_result.size());
   assert(equal(operator_result.begin(), operator_result.end(),
                golden_operator_result.begin()));

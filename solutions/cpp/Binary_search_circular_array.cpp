@@ -17,16 +17,16 @@ using std::vector;
 
 // @include
 int SearchSmallest(const vector<int>& A) {
-  int l = 0, r = A.size() - 1;
-  while (l < r) {
-    int m = l + ((r - l) / 2);
-    if (A[m] > A[r]) {
-      l = m + 1;
-    } else {  // A[m] <= A[r].
-      r = m;
+  int left = 0, right = A.size() - 1;
+  while (left < right) {
+    int mid = left + ((right - left) / 2);
+    if (A[mid] > A[right]) {
+      left = mid + 1;
+    } else {  // A[mid] <= A[right].
+      right = mid;
     }
   }
-  return l;
+  return left;
 }
 // @exclude
 

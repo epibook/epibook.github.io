@@ -1,31 +1,36 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BinarySearchFirstK {
   // @include
-  public static int searchFirst(ArrayList<Integer> A, int k) {
-    int l = 0, r = A.size() - 1, res = -1;
-    while (l <= r) {
-      int m = l + ((r - l) / 2);
-      if (A.get(m) > k) {
-        r = m - 1;
-      } else if (A.get(m) == k) {
+  public static int searchFirst(int[] A, int k) {
+    int left = 0, right = A.length - 1, result = -1;
+    while (left <= right) {
+      int mid = left + ((right - left) / 2);
+      if (A[mid] > k) {
+        right = mid - 1;
+      } else if (A[mid] == k) {
         // Records the solution and keep searching the left part.
-        res = m;
-        r = m - 1;
-      } else { // A.get(m) < k
-        l = m + 1;
+        result = mid;
+        right = mid - 1;
+      } else { // A[mid] < k
+        left = mid + 1;
       }
     }
-    return res;
+    return result;
   }
   // @exclude
+
+  private static int checkAns(int[] A, int k) {
+    for (int i = 0; i < A.length && A[i] <= k; ++i) {
+      if (A[i] == k) {
+        return i;
+      }
+    }
+    return -1;
+  }
 
   public static void main(String[] args) {
     Random r = new Random();
@@ -36,19 +41,18 @@ public class BinarySearchFirstK {
       } else {
         n = r.nextInt(100000) + 1;
       }
-      ArrayList<Integer> A = new ArrayList<>();
+      int[] A = new int[n];
       int k = r.nextInt(n);
       for (int i = 0; i < n; ++i) {
-        A.add(r.nextInt(n));
+        A[i] = r.nextInt(n);
       }
-      Collections.sort(A);
+      Arrays.sort(A);
       int ans = searchFirst(A, k);
       System.out.println("k = " + k + " locates at " + ans);
       if (ans != -1) {
-        System.out.println("A[k] = " + A.get(ans));
+        System.out.println("A[k] = " + A[ans]);
       }
-      int it = A.indexOf(k);
-      assert (it == ans);
+      assert (checkAns(A, k) == ans);
     }
   }
 }

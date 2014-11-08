@@ -2,24 +2,29 @@ package com.epi;
 
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BinarySearchCircularArray {
   // @include
-  public static int searchSmallest(ArrayList<Integer> A) {
-    int l = 0, r = A.size() - 1;
-    while (l < r) {
-      int m = l + ((r - l) / 2);
-      if (A.get(m) > A.get(r)) {
-        l = m + 1;
-      } else { // A.get(m) <= A.get(r)
-        r = m;
+  public static int searchSmallest(int[] A) {
+    int left = 0, right = A.length - 1;
+    while (left < right) {
+      int mid = left + ((right - left) / 2);
+      if (A[mid] > A[right]) {
+        left = mid + 1;
+      } else { // A[mid] <= A[right].
+        right = mid;
       }
     }
-    return l;
+    return left;
   }
   // @exclude
+
+  private static void reverse(int[] A, int a, int b) {
+    for (int i = a, j = b; i < j; ++i, --j) {
+      int temp = A[i];
+      A[i] = A[j];
+      A[j] = temp;
+    }
+  }
 
   public static void main(String[] args) {
     Random r = new Random();
@@ -30,44 +35,31 @@ public class BinarySearchCircularArray {
       } else {
         n = r.nextInt(10000) + 1;
       }
-      ArrayList<Integer> A = new ArrayList<>();
+      int[] A = new int[n];
       Set<Integer> table = new HashSet<>();
       for (int i = 0; i < n; ++i) {
         while (true) {
           int x = r.nextInt(100001);
           if (table.add(x)) {
-            A.add(x);
+            A[i] = x;
             break;
           }
         }
       }
-      Collections.sort(A);
+      Arrays.sort(A);
       int shift = r.nextInt(n);
-      Collections.reverse(A);
-      Collections.reverse(A.subList(0, shift + 1));
-      Collections.reverse(A.subList(shift + 1, A.size()));
+      reverse(A, 0, A.length - 1);
+      reverse(A, 0, shift);
+      reverse(A, shift + 1, A.length - 1);
       // System.out.println(A);
       assert ((shift + 1) % n == searchSmallest(A));
     }
     // hand-made tests.
-    ArrayList<Integer> A = new ArrayList<>();
-    A.add(2);
-    A.add(3);
-    A.add(4);
+    int[] A = new int[]{2, 3, 4};
     assert (0 == searchSmallest(A));
-    A.clear();
-    A.add(100);
-    A.add(101);
-    A.add(102);
-    A.add(2);
-    A.add(5);
+    A = new int[]{100, 101, 102, 2, 5};
     assert (3 == searchSmallest(A));
-    A.clear();
-    A.add(10);
-    A.add(20);
-    A.add(30);
-    A.add(40);
-    A.add(5);
+    A = new int[]{10, 20, 30, 40, 5};
     assert (4 == searchSmallest(A));
   }
 }

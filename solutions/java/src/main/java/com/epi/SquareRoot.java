@@ -2,37 +2,33 @@ package com.epi;
 
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class SquareRoot {
   // @include
   public static double squareRoot(double x) {
     // Decides the search range according to x.
-    double l, r;
+    double left, right;
     if (compare(x, 1.0) < 0) { // x < 1.0.
-      l = x;
-      r = 1.0;
+      left = x;
+      right = 1.0;
     } else { // x >= 1.0.
-      l = 1.0;
-      r = x;
+      left = 1.0;
+      right = x;
     }
 
-    // Keeps searching if l < r.
-    while (compare(l, r) == -1) {
-      double m = l + 0.5 * (r - l);
-      double squareM = m * m;
+    // Keeps searching if left < right.
+    while (compare(left, right) == -1) {
+      double mid = left + 0.5 * (right - left);
+      double squareM = mid * mid;
       if (compare(squareM, x) == 0) {
-        return m;
+        return mid;
       } else if (compare(squareM, x) == 1) {
-        r = m;
+        right = mid;
       } else {
-        l = m;
+        left = mid;
       }
     }
-    return l;
+    return left;
   }
-
 
   // 0 means equal, -1 means smaller, and 1 means larger.
   private static int compare(double a, double b) {

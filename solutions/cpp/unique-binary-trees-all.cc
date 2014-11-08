@@ -42,8 +42,6 @@ vector<unique_ptr<BinaryTreeNode<int>>> GenerateAllBinaryTreesHelper(
          right_res = GenerateAllBinaryTreesHelper(i + 1, end);
     for (auto& left : left_res) {
       for (auto& right : right_res) {
-        // Use of unique_ptr means that we do not have tree nodes shared
-        // across distinct trees.
         result.emplace_back(
             new BinaryTreeNode<int>{i, move(left), move(right)});
       }

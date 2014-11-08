@@ -27,15 +27,15 @@ BSTNode<int>* BuildBSTFromSortedArray(const vector<int>& A) {
 // Build BST based on subarray A[start : end - 1].
 BSTNode<int>* BuildBSTFromSortedArrayHelper(const vector<int>& A,
                                             size_t start, size_t end) {
-  if (start < end) {
-    size_t mid = start + ((end - start) / 2);
-    return new BSTNode<int>{
-        A[mid], unique_ptr<BSTNode<int>>(
-                    BuildBSTFromSortedArrayHelper(A, start, mid)),
-        unique_ptr<BSTNode<int>>(
-            BuildBSTFromSortedArrayHelper(A, mid + 1, end))};
+  if (start >= end) {
+    return nullptr;
   }
-  return nullptr;
+  size_t mid = start + ((end - start) / 2);
+  return new BSTNode<int>{
+      A[mid], unique_ptr<BSTNode<int>>(
+                  BuildBSTFromSortedArrayHelper(A, start, mid)),
+      unique_ptr<BSTNode<int>>(
+          BuildBSTFromSortedArrayHelper(A, mid + 1, end))};
 }
 // @exclude
 

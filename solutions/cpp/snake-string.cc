@@ -15,38 +15,31 @@ using std::uniform_int_distribution;
 
 // @include
 string SnakeString(const string& s) {
-  string ret;
+  string result;
   // Outputs the first row, i.e., s[1], s[5], s[9], ...
-  size_t idx = 1;
-  while (idx < s.size()) {
-    ret += s[idx];
-    idx += 4;
+  for (int i = 1; i < s.size(); i += 4) {
+    result += s[i];
   }
   // Outputs the second row, i.e., s[0], s[2], s[4], ...
-  idx = 0;
-  while (idx < s.size()) {
-    ret += s[idx];
-    idx += 2;
+  for (int i = 0; i < s.size(); i += 2) {
+    result += s[i];
   }
   // Outputs the third row, i.e., s[3], s[7], s[11], ...
-  idx = 3;
-  while (idx < s.size()) {
-    ret += s[idx];
-    idx += 4;
+  for (int i = 3; i < s.size(); i += 4) {
+    result += s[i];
   }
-
-  return ret;
+  return result;
 }
 // @exclude
 
 string RandString(size_t len) {
   default_random_engine gen((random_device())());
   uniform_int_distribution<char> dis('A', 'Z');
-  string ret;
+  string result;
   while (len--) {
-    ret += dis(gen);
+    result += dis(gen);
   }
-  return ret;
+  return result;
 }
 
 void SmallTest() {

@@ -22,7 +22,7 @@ void CombinationsHelper(int n, int k,  int start, vector<int>* ans,
 vector<vector<int>> Combinations(int n, int k) {
   vector<vector<int>> result;
   vector<int> ans;
-  CombinationsHelper(n, k, 0, &ans, &result);
+  CombinationsHelper(n, k, 1, &ans, &result);
   return result;
 }
 
@@ -33,12 +33,11 @@ void CombinationsHelper(int n, int k,  int start, vector<int>* ans,
     return;
   }
 
-  if (k - ans->size() <= n - (start + 1)) {
-    CombinationsHelper(n, k, start + 1, ans, result);
+  for (int i = start; i <= n && k - ans->size() <= n - i + 1; ++i) {
+    ans->emplace_back(i);
+    CombinationsHelper(n, k, i + 1, ans, result);
+    ans->pop_back();
   }
-  ans->emplace_back(start + 1);
-  CombinationsHelper(n, k, start + 1, ans, result);
-  ans->pop_back();
 }
 // @exclude
 

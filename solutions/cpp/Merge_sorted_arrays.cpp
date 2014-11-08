@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
        cout << endl;
        }
      */
-    vector<int> ans = MergeArrays(S);
+    vector<int> ans = MergeSortedArrays(S);
     for (size_t i = 1; i < ans.size(); ++i) {
       assert(ans[i - 1] <= ans[i]);
     }

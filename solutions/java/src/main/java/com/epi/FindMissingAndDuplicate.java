@@ -2,21 +2,16 @@ package com.epi;
 
 import com.epi.utils.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class FindMissingAndDuplicate {
   // @include
   // Returns Pair<int, int>(duplicate, missing).
-  public static Pair<Integer, Integer> findDuplicateMissing(List<Integer> A) {
+  public static Pair<Integer, Integer> findDuplicateMissing(int[] A) {
     int sum = 0, squareSum = 0;
-    for (int i = 0; i < A.size(); ++i) {
-      sum += i - A.get(i);
-      squareSum += i * i - A.get(i) * A.get(i);
+    for (int i = 0; i < A.length; ++i) {
+      sum += i - A[i];
+      squareSum += i * i - A[i] * A[i];
     }
     return new Pair<>((squareSum / sum - sum) / 2, (squareSum / sum + sum) / 2);
   }
@@ -31,18 +26,18 @@ public class FindMissingAndDuplicate {
       } else {
         n = r.nextInt(9999) + 2;
       }
-      List<Integer> A = new ArrayList<>();
+      int[] A = new int[n];
       for (int i = 0; i < n; ++i) {
-        A.add(i);
+        A[i] = i;
       }
       int missingIdx = r.nextInt(n);
-      int missing = A.get(missingIdx);
+      int missing = A[missingIdx];
       int dupIdx = r.nextInt(n);
       while (dupIdx == missingIdx) {
         dupIdx = r.nextInt(n);
       }
-      int dup = A.get(dupIdx);
-      A.set(missingIdx, dup);
+      int dup = A[dupIdx];
+      A[missingIdx] = dup;
       Pair<Integer, Integer> ans = findDuplicateMissing(A);
       System.out.println("times = " + times);
       System.out.println(dup + " " + missing);

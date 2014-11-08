@@ -20,7 +20,7 @@ void SearchPostingsList(const shared_ptr<ListNode<int>>& L) {
   int order = 0;
   s.emplace(L);
   while (!s.empty()) {
-    shared_ptr<ListNode<int>> curr = s.top();
+    auto curr = s.top();
     s.pop();
     if (curr && curr->order == -1) {
       curr->order = order++;

@@ -2,9 +2,6 @@ package com.epi;
 
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class IntersectRectangle {
   // @include
   public static class Rectangle {
@@ -29,13 +26,13 @@ public class IntersectRectangle {
           Math.min(R.x + R.width, S.x + S.width) - Math.max(R.x, S.x),
           Math.min(R.y + R.height, S.y + S.height) - Math.max(R.y, S.y));
     } else {
-      return new Rectangle(0, 0, -1, -1); // no intersection.
+      return new Rectangle(0, 0, -1, -1); // No intersection.
     }
   }
 
   public static boolean isIntersect(Rectangle R, Rectangle S) {
     return R.x <= S.x + S.width && R.x + R.width >= S.x
-        && R.y <= S.y + S.height && R.y + R.height >= S.y;
+           && R.y <= S.y + S.height && R.y + R.height >= S.y;
   }
   // @exclude
 

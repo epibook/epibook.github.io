@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random>
 #include <string>
+#include <vector>
 
 using std::array;
 using std::cout;
@@ -11,31 +12,38 @@ using std::default_random_engine;
 using std::endl;
 using std::random_device;
 using std::string;
+using std::vector;
 using std::uniform_int_distribution;
 
-void PhoneMnemonicHelper(const string &num, int d, string* answer);
+void PhoneMnemonicHelper(const string&, int, string*, vector<string>*);
 
 // @include
-void PhoneMnemonic(const string &num) {
-  string answer(num.size(), 0);
-  PhoneMnemonicHelper(num, 0, &answer);
+vector<string> PhoneMnemonic(const string& phone_number) {
+  string partial_mnemonic(phone_number.size(), 0);
+  vector<string> mnemonics;
+  PhoneMnemonicHelper(phone_number, 0, &partial_mnemonic, &mnemonics);
+  return mnemonics;
 }
 
 const int kNumTelDigits = 10;
 
-// The mapping from digit to corresponding charaters.
+// The mapping from digit to corresponding characters.
 const array<string, kNumTelDigits> M = {{"0", "1", "ABC", "DEF", "GHI",
                                          "JKL", "MNO", "PQRS", "TUV",
                                          "WXYZ"}};
 
-void PhoneMnemonicHelper(const string &num, int d, string* answer) {
-  if (d == num.size()) {  // All digits are processed so we output answer.
-    cout << *answer << endl;
+void PhoneMnemonicHelper(const string& phone_number, int digit,
+                         string* partial_mnemonic,
+                         vector<string>* mnemonics) {
+  if (digit == phone_number.size()) {
+    // All digits are processed so we add partial_mnemonic to mnemonics.
+    mnemonics->emplace_back(*partial_mnemonic);
   } else {
-    // Try all corresponding characters for this digit.
-    for (const char &c : M[num[d] - '0']) {
-      (*answer)[d] = c;
-      PhoneMnemonicHelper(num, d + 1, answer);
+    // Try all possible characters for this digit.
+    for (const char &c : M[phone_number[digit] - '0']) {
+      (*partial_mnemonic)[digit] = c;
+      PhoneMnemonicHelper(phone_number, digit + 1, partial_mnemonic,
+                          mnemonics);
     }
   }
 }
@@ -58,7 +66,10 @@ int main(int argc, char *argv[]) {
   } else {
     num = RandString(10);
   }
-  PhoneMnemonic(num);
+  auto result = PhoneMnemonic(num);
   cout << "number = " << num << endl;
+  for (const auto& str : result) {
+    cout << str << endl;
+  }
   return 0;
 }

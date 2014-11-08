@@ -1,5 +1,4 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
-// @author Ivan Sharov
 
 package com.epi;
 
@@ -26,8 +25,8 @@ class CanStringBePalindrome {
         s = randString(rnd.nextInt(10) + 1);
       }
       System.out.println(s);
-      assert (CanStringBePalindromeHash.canStringBeAPalindrome(s) == CanStringBePalindromeSorting
-          .canStringBeAPalindrome(s));
+      assert (CanStringBePalindromeHash.canStringBeAPalindrome(s)
+              == CanStringBePalindromeSorting.canStringBeAPalindrome(s));
     }
   }
 }

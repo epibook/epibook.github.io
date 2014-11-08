@@ -7,26 +7,25 @@ import java.util.Random;
 public class Combinations {
   // @include
   public static List<List<Integer>> combinations(int n, int k) {
-    List<List<Integer>> res = new ArrayList<>();
+    List<List<Integer>> result = new ArrayList<>();
     List<Integer> ans = new ArrayList<>();
-    combinationsHelper(n, k, 0, ans, res);
-    return res;
+    combinationsHelper(n, k, 1, ans, result);
+    return result;
   }
 
   private static void combinationsHelper(int n, int k, int start,
                                          List<Integer> ans,
-                                         List<List<Integer>> res) {
+                                         List<List<Integer>> result) {
     if (ans.size() == k) {
-      res.add(new ArrayList<>(ans));
+      result.add(new ArrayList<>(ans));
       return;
     }
 
-    if (k - ans.size() <= n - (start + 1)) {
-      combinationsHelper(n, k, start + 1, ans, res);
+    for (int i = start; i <= n && k - ans.size() <= n - i + 1; ++i) {
+      ans.add(i);
+      combinationsHelper(n, k, i + 1, ans, result);
+      ans.remove(ans.size() - 1);
     }
-    ans.add(start + 1);
-    combinationsHelper(n, k, start + 1, ans, res);
-    ans.remove(ans.size() - 1);
   }
   // @exclude
 

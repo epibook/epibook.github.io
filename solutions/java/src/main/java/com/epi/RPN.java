@@ -2,39 +2,37 @@ package com.epi;
 
 import java.util.LinkedList;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class RPN {
   // @include
-  public static int eval(String s) {
-    LinkedList<Integer> evalStack = new LinkedList<>();
-    String[] symbols = s.split(",");
-    for (String symbol : symbols) {
-      if (symbol.length() == 1 && "+-*/".contains(symbol)) {
-        int y = evalStack.pop();
-        int x = evalStack.pop();
-        switch (symbol.charAt(0)) {
+  public static int eval(String RPNExpression) {
+    LinkedList<Integer> intermediateResults = new LinkedList<>();
+    String delimiter = ",";
+    String[] symbols = RPNExpression.split(delimiter);
+    for (String token : symbols) {
+      if (token.length() == 1 && "+-*/".contains(token)) {
+        int y = intermediateResults.pop();
+        int x = intermediateResults.pop();
+        switch (token.charAt(0)) {
           case '+':
-            evalStack.push(x + y);
+            intermediateResults.push(x + y);
             break;
           case '-':
-            evalStack.push(x - y);
+            intermediateResults.push(x - y);
             break;
           case '*':
-            evalStack.push(x * y);
+            intermediateResults.push(x * y);
             break;
           case '/':
-            evalStack.push(x / y);
+            intermediateResults.push(x / y);
             break;
           default:
-            throw new IllegalArgumentException("Malformed RPN at :" + symbol);
+            throw new IllegalArgumentException("Malformed RPN at :" + token);
         }
-      } else { // symbol is a number.
-        evalStack.push(Integer.parseInt(symbol));
+      } else { // token is a number.
+        intermediateResults.push(Integer.parseInt(token));
       }
     }
-    return evalStack.pop();
+    return intermediateResults.pop();
   }
   // @exclude
 

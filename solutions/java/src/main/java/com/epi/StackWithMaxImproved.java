@@ -4,50 +4,51 @@ import com.epi.utils.Pair;
 
 import java.util.LinkedList;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class StackWithMaxImproved {
   // @include
   public static class Stack {
-    private LinkedList<Integer> s = new LinkedList<>();
-    private LinkedList<Pair<Integer, Integer>> aux = new LinkedList<>();
+    private LinkedList<Integer> element = new LinkedList<>();
+    // Stores (maximum value, count) pair.
+    private LinkedList<Pair<Integer, Integer>> cachedMaxWithCount = 
+        new LinkedList<>();
 
     public boolean empty() {
-      return s.isEmpty();
+      return element.isEmpty();
     }
 
     public Integer max() {
       if (!empty()) {
-        return aux.peek().getFirst();
+        return cachedMaxWithCount.peek().getFirst();
       }
-      throw new RuntimeException("empty_stack");
+      throw new RuntimeException("max(): empty_stack");
     }
 
     public Integer pop() {
       if (empty()) {
-        throw new RuntimeException("empty_stack");
+        throw new RuntimeException("pop(): empty_stack");
       }
-      Integer ret = s.pop();
-      if (ret.equals(aux.peek().getFirst())) {
-        aux.peek().setSecond(aux.peek().getSecond() - 1);
-        if (aux.peek().getSecond().equals(0)) {
-          aux.pop();
+      Integer popElement = element.pop();
+      if (popElement.equals(cachedMaxWithCount.peek().getFirst())) {
+        cachedMaxWithCount.peek().setSecond(
+            cachedMaxWithCount.peek().getSecond() - 1);
+        if (cachedMaxWithCount.peek().getSecond().equals(0)) {
+          cachedMaxWithCount.pop();
         }
       }
-      return ret;
+      return popElement;
     }
 
     public void push(Integer x) {
-      s.push(x);
-      if (!aux.isEmpty()) {
-        if (x.compareTo(aux.peek().getFirst()) == 0) {
-          aux.peek().setSecond(aux.peek().getSecond() + 1);
-        } else if (x.compareTo(aux.peek().getFirst()) > 0) {
-          aux.push(new Pair<>(x, 1));
+      element.push(x);
+      if (!cachedMaxWithCount.isEmpty()) {
+        if (x.compareTo(cachedMaxWithCount.peek().getFirst()) == 0) {
+          cachedMaxWithCount.peek().setSecond(
+              cachedMaxWithCount.peek().getSecond() + 1);
+        } else if (x.compareTo(cachedMaxWithCount.peek().getFirst()) > 0) {
+          cachedMaxWithCount.push(new Pair<>(x, 1));
         }
       } else {
-        aux.push(new Pair<>(x, 1));
+        cachedMaxWithCount.push(new Pair<>(x, 1));
       }
     }
   }

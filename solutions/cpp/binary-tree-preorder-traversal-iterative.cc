@@ -18,19 +18,19 @@ using std::unique_ptr;
 using std::vector;
 
 // @include
-vector<int> PreorderTraversal(const unique_ptr<BinaryTreeNode<int>>& root) {
-  stack<BinaryTreeNode<int>*> s;
-  s.emplace(root.get());
+vector<int> PreorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
+  stack<BinaryTreeNode<int>*> path_stack;
+  path_stack.emplace(tree.get());
   vector<int> result;
-  while (!s.empty()) {
-    auto curr = s.top();
-    s.pop();
-    if (!curr) {
+  while (!path_stack.empty()) {
+    auto curr = path_stack.top();
+    path_stack.pop();
+    if (curr == nullptr) {
       continue;
     }
     result.emplace_back(curr->data);
-    s.emplace(curr->right.get());
-    s.emplace(curr->left.get());
+    path_stack.emplace(curr->right.get());
+    path_stack.emplace(curr->left.get());
   }
   return result;
 }

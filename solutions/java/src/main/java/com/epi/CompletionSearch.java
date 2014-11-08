@@ -1,13 +1,10 @@
 package com.epi;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class CompletionSearch {
   private static int lowerBound(List<Double> a, double val) {
     for (int i = 0; i < a.size(); i++) {
@@ -19,8 +16,8 @@ public class CompletionSearch {
   }
 
   // @include
-  public static double completionSearch(List<Double> A, double budget) {
-    Collections.sort(A);
+  public static double completionSearch(Double[] A, double budget) {
+    Arrays.sort(A);
     // Calculates the prefix sum for A.
     List<Double> prefixSum = new ArrayList<>();
     double val = 0;
@@ -31,7 +28,7 @@ public class CompletionSearch {
     // costs[i] represents the total payroll if the cap is A[i].
     List<Double> costs = new ArrayList<>();
     for (int i = 0; i < prefixSum.size(); ++i) {
-      costs.add(prefixSum.get(i) + (A.size() - i - 1) * A.get(i));
+      costs.add(prefixSum.get(i) + (A.length - i - 1) * A[i]);
     }
 
     int lower = lowerBound(costs, budget);
@@ -41,10 +38,10 @@ public class CompletionSearch {
     }
 
     if (lower == 0) {
-      return budget / A.size();
+      return budget / A.length;
     }
     int idx = lower - 1;
-    return A.get(idx) + (budget - costs.get(idx)) / (A.size() - idx - 1);
+    return A[idx] + (budget - costs.get(idx)) / (A.length - idx - 1);
   }
   // @exclude
 
@@ -52,7 +49,6 @@ public class CompletionSearch {
     Random r = new Random();
     for (int times = 0; times < 10000; ++times) {
       int n;
-      List<Double> A = new ArrayList<>();
       double tar;
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);
@@ -64,8 +60,9 @@ public class CompletionSearch {
         n = r.nextInt(1000) + 1;
         tar = r.nextInt(100000);
       }
+      Double[] A = new Double[n];
       for (int i = 0; i < n; ++i) {
-        A.add((double) r.nextInt(10000));
+        A[i] = (double) r.nextInt(10000);
       }
       System.out.println("A = " + A.toString());
       System.out.println("tar = " + tar);
@@ -74,10 +71,10 @@ public class CompletionSearch {
         System.out.println("ret = " + ret);
         double sum = 0.0;
         for (int i = 0; i < n; ++i) {
-          if (A.get(i) > ret) {
+          if (A[i] > ret) {
             sum += ret;
           } else {
-            sum += A.get(i);
+            sum += A[i];
           }
         }
         tar -= sum;
@@ -87,3 +84,4 @@ public class CompletionSearch {
     }
   }
 }
+

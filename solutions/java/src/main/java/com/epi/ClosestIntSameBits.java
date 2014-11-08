@@ -2,9 +2,6 @@ package com.epi;
 
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ClosestIntSameBits {
   public static int setBit(int x, int bit, boolean setValue) {
     return setValue ? x | (1 << bit) : x & ~(1 << bit);
@@ -65,6 +62,19 @@ public class ClosestIntSameBits {
   }
 
   public static void main(String[] args) {
+    long r1 = closestIntegerSameBits(1L);
+    assert(r1 == 2L);
+
+    long r2 = 0;
+    try {
+      r2 = closestIntegerSameBits(Long.MAX_VALUE);
+    } catch (Exception e) {
+      System.out.println(r2 + " " + e.getMessage());
+    }
+
+    long r3 = closestIntegerSameBits(Long.MAX_VALUE - 1);
+    assert(r3 == Long.MAX_VALUE - 2);
+
     Random r = new Random();
     long x;
     if (args.length == 1) {

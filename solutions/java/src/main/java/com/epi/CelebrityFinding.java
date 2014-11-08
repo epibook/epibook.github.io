@@ -4,13 +4,13 @@ import java.util.Random;
 
 public class CelebrityFinding {
   // @include
-  public static int celebrityFinding(boolean[][] f) {
-    // Start checking the relation from f[0][1].
+  public static int celebrityFinding(boolean[][] F) {
+    // Start checking the relation from F[0][1].
     int i = 0, j = 1;
-    while (j < f.length) {
-      if (f[i][j]) {
+    while (j < F.length) {
+      if (F[i][j]) {
         i = j++; // All candidates j' < j are not celebrity candidates.
-      } else { // f[i][j] == false.
+      } else { // F[i][j] == false.
         ++j; // i is still a celebrity candidate but j is not.
       }
     }

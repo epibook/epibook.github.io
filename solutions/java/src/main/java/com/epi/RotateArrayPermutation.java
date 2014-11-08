@@ -1,21 +1,27 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import static com.epi.utils.Utils.swap;
-
 public class RotateArrayPermutation {
   // @include
-  public static void rotateArray(int i, int[] A) {
-    i %= A.length;
-    // Compute the number of cycles in this rotation.
-    int cycles = (int) GCD.elementaryGCD(A.length, i);
-    int hops = A.length / cycles; // number of elements in a cycle.
+  public static void rotateArray(int rotateAmount, int[] A) {
+    rotateAmount %= A.length;
+    int numCycles = (int) GCD.elementaryGCD(A.length, rotateAmount);
+    int cycleLength = A.length / numCycles;
 
-    for (int c = 0; c < cycles; ++c) {
-      for (int j = 1; j <= hops; ++j) {
-        swap(A, (c + j * i) % A.length, c);
-      }
+    for (int c = 0; c < numCycles; ++c) {
+      applyCyclicPermutation(rotateAmount, c, cycleLength, A);
     }
+  }
+
+  private static void applyCyclicPermutation(int rotateAmount, int offset,
+                                             int cycleLength, int[] A) {
+    int temp = A[offset];
+    for (int i = 1; i < cycleLength; ++i) {
+      int val = A[(offset + i * rotateAmount) % A.length];
+      A[(offset + i * rotateAmount) % A.length] = temp;
+      temp = val;
+    }
+    A[offset] = temp;
   }
   // @exclude
 }

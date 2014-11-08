@@ -18,26 +18,26 @@ int Compare(double a, double b);
 // @include
 double SquareRoot(double x) {
   // Decides the search range according to x.
-  double l, r;
+  double left, right;
   if (Compare(x, 1.0) < 0) {  // x < 1.0.
-    l = x, r = 1.0;
+    left = x, right = 1.0;
   } else {  // x >= 1.0.
-    l = 1.0, r = x;
+    left = 1.0, right = x;
   }
 
-  // Keeps searching if l < r.
-  while (Compare(l, r) == -1) {
-    double m = l + 0.5 * (r - l);
-    double square_m = m * m;
+  // Keeps searching if left < right.
+  while (Compare(left, right) == -1) {
+    double mid = left + 0.5 * (right - left);
+    double square_m = mid * mid;
     if (Compare(square_m, x) == 0) {
-      return m;
+      return mid;
     } else if (Compare(square_m, x) == 1) {
-      r = m;
+      right = mid;
     } else {
-      l = m;
+      left = mid;
     }
   }
-  return l;
+  return left;
 }
 
 // 0 means equal, -1 means smaller, and 1 means larger.

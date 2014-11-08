@@ -5,9 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class LargeArray {
   // @include
   private static final int N = 2000000000;

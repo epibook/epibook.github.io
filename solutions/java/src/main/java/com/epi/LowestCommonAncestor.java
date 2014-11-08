@@ -2,41 +2,38 @@ package com.epi;
 
 import com.epi.BinaryTreeWithParentPrototype.BinaryTree;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class LowestCommonAncestor {
   // @include
-  public static BinaryTree<Integer> LCA(BinaryTree<Integer> i,
-                                        BinaryTree<Integer> j) {
-    int depthI = getDepth(i), depthJ = getDepth(j);
-    if (depthJ > depthI) {
-      BinaryTree<Integer> temp = i;
-      i = j;
-      j = temp;
+  public static BinaryTree<Integer> LCA(BinaryTree<Integer> node0,
+                                        BinaryTree<Integer> node1) {
+    int depth0 = getDepth(node0), depth1 = getDepth(node1);
+    // Makes node0 as the deeper node in order to simplify the code.
+    if (depth1 > depth0) {
+      BinaryTree<Integer> temp = node0;
+      node0 = node1;
+      node1 = temp;
     }
-
-    // Advances deeper node first.
-    int depthDiff = Math.abs(depthI - depthJ);
+    // Ascends from the deeper node.
+    int depthDiff = Math.abs(depth0 - depth1);
     while (depthDiff-- > 0) {
-      i = i.getParent();
+      node0 = node0.getParent();
     }
 
-    // Both pointers advance until they found a common ancestor.
-    while (i != j) {
-      i = i.getParent();
-      j = j.getParent();
+    // Now ascends both nodes until we reach the LCA.
+    while (node0 != node1) {
+      node0 = node0.getParent();
+      node1 = node1.getParent();
     }
-    return i;
+    return node0;
   }
 
-  private static int getDepth(BinaryTree<Integer> n) {
-    int d = 0;
-    while (n != null) {
-      ++d;
-      n = n.getParent();
+  private static int getDepth(BinaryTree<Integer> node) {
+    int depth = 0;
+    while (node != null) {
+      ++depth;
+      node = node.getParent();
     }
-    return d;
+    return depth;
   }
   // @exclude
 

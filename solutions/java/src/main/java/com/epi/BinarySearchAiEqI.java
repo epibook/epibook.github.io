@@ -2,22 +2,19 @@ package com.epi;
 
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BinarySearchAiEqI {
   // @include
-  public static int searchIndexValueEqual(ArrayList<Integer> A) {
-    int l = 0, r = A.size() - 1;
-    while (l <= r) {
-      int m = l + ((r - l) / 2);
-      int val = A.get(m) - m;
+  public static int searchIndexValueEqual(int[] A) {
+    int left = 0, right = A.length - 1;
+    while (left <= right) {
+      int mid = left + ((right - left) / 2);
+      int val = A[mid] - mid;
       if (val == 0) {
-        return m;
+        return mid;
       } else if (val > 0) {
-        r = m - 1;
-      } else { // val < 0
-        l = m + 1;
+        right = mid - 1;
+      } else { // val < 0.
+        left = mid + 1;
       }
     }
     return -1;
@@ -25,10 +22,10 @@ public class BinarySearchAiEqI {
   // @exclude
 
   // O(n) way to find ans.
-  private static int checkAns(ArrayList<Integer> A) {
+  private static int checkAns(int[] A) {
     int ret = -1;
-    for (int i = 0; i < A.size(); ++i) {
-      if (A.get(i).equals(i)) {
+    for (int i = 0; i < A.length; ++i) {
+      if (A[i] == i) {
         return i;
       }
     }
@@ -39,26 +36,26 @@ public class BinarySearchAiEqI {
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
-      ArrayList<Integer> A = new ArrayList<>();
       Set<Integer> table = new HashSet<>();
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);
       } else {
         n = r.nextInt(1000) + 1;
       }
+      int[] A = new int[n];
       for (int i = 0; i < n; ++i) {
         int x;
         do {
           x = r.nextInt(1999) - 999;
         } while (table.contains(x));
         table.add(x);
-        A.add(x);
+        A[i] = x;
       }
-      Collections.sort(A);
+      Arrays.sort(A);
       int ans = searchIndexValueEqual(A);
       if (ans != -1) {
-        System.out.println("A[" + ans + "] = " + A.get(ans));
-        assert (A.get(ans).equals(ans));
+        System.out.println("A[" + ans + "] = " + A[ans]);
+        assert (A[ans] == ans);
       } else {
         System.out.println("no entry where A[k] = k");
         assert (checkAns(A) == -1);

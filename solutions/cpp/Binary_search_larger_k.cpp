@@ -15,17 +15,17 @@ using std::vector;
 
 // @include
 int SearchFirstLargerK(const vector<int>& A, int k) {
-  int l = 0, r = A.size() - 1, res = -1;
-  while (l <= r) {
-    int m = l + ((r - l) / 2);
+  int left = 0, right = A.size() - 1, result = -1;
+  while (left <= right) {
+    int m = left + ((right - left) / 2);
     if (A[m] > k) {
       // Records the solution and keeps searching the left part.
-      res = m, r = m - 1;
+      result = m, right = m - 1;
     } else {  // A[m] <= k.
-      l = m + 1;
+      left = m + 1;
     }
   }
-  return res;
+  return result;
 }
 // @exclude
 

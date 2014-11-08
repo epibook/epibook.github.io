@@ -4,22 +4,22 @@ import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
 public class PathSumBinaryTree {
   // @include
-  public static boolean hasPathSum(BinaryTree<Integer> root, int sum) {
-    return hasPathSumHelper(root, 0, sum);
+  public static boolean hasPathSum(BinaryTree<Integer> root, int targetSum) {
+    return hasPathSumHelper(root, 0, targetSum);
   }
 
-  private static boolean hasPathSumHelper(BinaryTree<Integer> root,
-                                          int pathsum, int sum) {
-    if (root != null) {
-      pathsum += root.getData();
-      if (root.getLeft() == null && root.getRight() == null) { // Leaf.
-        return pathsum == sum;
-      }
-      // Non-leaf.
-      return hasPathSumHelper(root.getLeft(), pathsum, sum)
-             || hasPathSumHelper(root.getRight(), pathsum, sum);
+  private static boolean hasPathSumHelper(BinaryTree<Integer> node,
+                                          int partialPathSum, int targetSum) {
+    if (node == null) {
+      return false;
     }
-    return false;
+    partialPathSum += node.getData();
+    if (node.getLeft() == null && node.getRight() == null) { // Leaf.
+      return partialPathSum == targetSum;
+    }
+    // Non-leaf.
+    return hasPathSumHelper(node.getLeft(), partialPathSum, targetSum)
+           || hasPathSumHelper(node.getRight(), partialPathSum, targetSum);
   }
   // @exclude
 

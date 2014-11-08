@@ -1,18 +1,19 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-class ExInterval implements Comparable<ExInterval> {
+class Interval implements Comparable<Interval> {
   class Endpoint {
     public boolean isClose;
     public int val;
   }
 
-  public int compareTo(ExInterval i) {
+  public int compareTo(Interval i) {
     if (left.val < i.left.val) {
       return -1;
     }
@@ -35,31 +36,30 @@ class ExInterval implements Comparable<ExInterval> {
 class UnionIntervals {
 
   // @include
-  public static List<ExInterval> unionExIntervals(List<ExInterval> I) {
-
+  public static List<Interval> unionIntervals(Interval[] I) {
     // Empty input.
-    List<ExInterval> uni = new ArrayList<>();
-    if (I.isEmpty()) {
+    List<Interval> uni = new ArrayList<>();
+    if (I.length == 0) {
       return uni;
     }
 
-    // Sorts ExIntervals according to their left endpoints.
-    Collections.sort(I);
-    ExInterval curr = new ExInterval();
-    curr = I.get(0);
+    // Sorts Intervals according to their left endpoints.
+    Arrays.sort(I);
+    Interval curr = new Interval();
+    curr = I[0];
 
-    for (int i = 1; i < I.size(); ++i) {
-      if (I.get(i).left.val < curr.right.val
-          || (I.get(i).left.val == curr.right.val
-          && (I.get(i).left.isClose || curr.right.isClose))) {
-        if (I.get(i).right.val > curr.right.val
-            || (I.get(i).right.val == curr.right.val
-            && I.get(i).right.isClose)) {
-          curr.right = I.get(i).right;
+    for (int i = 1; i < I.length; ++i) {
+      if (I[i].left.val < curr.right.val
+          || (I[i].left.val == curr.right.val
+              && (I[i].left.isClose || curr.right.isClose))) {
+        if (I[i].right.val > curr.right.val
+            || (I[i].right.val == curr.right.val
+                && I[i].right.isClose)) {
+          curr.right = I[i].right;
         }
       } else {
         uni.add(curr);
-        curr = I.get(i);
+        curr = I[i];
       }
     }
     uni.add(curr);
@@ -67,8 +67,8 @@ class UnionIntervals {
   }
   // @exclude
 
-  private static void checkExIntervals(List<ExInterval> A) {
-    // only check the ExIntervals do not overlap with each other.
+  private static void checkIntervals(List<Interval> A) {
+    // only check the Intervals do not overlap with each other.
     for (int i = 1; i < A.size(); ++i) {
       assert(A.get(i - 1).right.val < A.get(i).left.val ||
              (A.get(i - 1).right.val == A.get(i).left.val &&
@@ -85,18 +85,18 @@ class UnionIntervals {
       } else {
         n = gen.nextInt(1000) + 1;
       }
-      List<ExInterval> A = new ArrayList<>();
+      Interval[] A = new Interval[n];
       for (int i = 0; i < n; ++i) {
-        ExInterval temp = new ExInterval();
+        Interval temp = new Interval();
         temp.left.isClose = gen.nextBoolean();
         temp.left.val = gen.nextInt(9999);
         temp.right.isClose = gen.nextBoolean();
         temp.right.val = gen.nextInt(temp.left.val + 100) + temp.left.val + 1;
-        A.add(temp);
+        A[i] = temp;
       }
-      List<ExInterval> ret = unionExIntervals(A);
+      List<Interval> ret = unionIntervals(A);
       if (!ret.isEmpty()) {
-        checkExIntervals(ret);
+        checkIntervals(ret);
       }
     }
   }

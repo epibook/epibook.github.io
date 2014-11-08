@@ -43,8 +43,7 @@ int FindFirstMissingPositive(vector<int> A) {
   // greater than n, we just advance i.
   size_t i = 0;
   while (i < A.size()) {
-    if (A[i] > 0 && A[i] <= A.size() &&
-        A[A[i] - 1] != A[i] && A[i] != i + 1) {
+    if (A[i] > 0 && A[i] <= A.size() && A[A[i] - 1] != A[i]) {
       swap(A[i], A[A[i] - 1]);
     } else {
       ++i;

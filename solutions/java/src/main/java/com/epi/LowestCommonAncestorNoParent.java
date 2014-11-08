@@ -2,26 +2,48 @@ package com.epi;
 
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class LowestCommonAncestorNoParent {
   // @include
-  public static BinaryTree<Integer> LCA(BinaryTree<Integer> n,
-                                        BinaryTree<Integer> a,
-                                        BinaryTree<Integer> b) {
-    if (n == null) { // Empty subtree.
-      return null;
-    } else if (n == a || n == b) {
-      return n;
+  private static class Status {
+    int numTargetNodes;
+    BinaryTree<Integer> ancestor;
+
+    public Status(int numTargetNodes,  BinaryTree<Integer> node) {
+      this.numTargetNodes = numTargetNodes;
+      this.ancestor = node;
+    }
+  }
+
+  public static BinaryTree<Integer> LCA(BinaryTree<Integer> tree,
+                                        BinaryTree<Integer> node0,
+                                        BinaryTree<Integer> node1) {
+    return LCAHelper(tree, node0, node1).ancestor;
+  }
+
+  // Returns an object of int and node; int field is 0, 1, or 2 depending on
+  // how many of node0 and node1 are present in tree. If both are present in
+  // tree, the node pointer is a common ancestor. It may not be the LCA
+  // initially, but it will be LCA when the algorithm terminates.
+  private static Status LCAHelper(BinaryTree<Integer> tree,
+                                  BinaryTree<Integer> node0,
+                                  BinaryTree<Integer> node1) {
+    if (tree == null) {
+      return new Status(0, null);
     }
 
-    BinaryTree<Integer> lRes = LCA(n.getLeft(), a, b);
-    BinaryTree<Integer> rRes = LCA(n.getRight(), a, b);
-    if (lRes != null && rRes != null) {
-      return n; // Found a and b in different subtrees.
+    Status leftResult = LCAHelper(tree.getLeft(), node0, node1);
+    if (leftResult.numTargetNodes == 2) {
+      // Found both nodes in the left subtree.
+      return leftResult;
     }
-    return lRes != null ? lRes : rRes;
+    Status rightResult = LCAHelper(tree.getRight(), node0, node1);
+    if (rightResult.numTargetNodes == 2) {
+      // Found both nodes in the right subtree.
+      return rightResult;
+    }
+    int numTargetNodes = leftResult.numTargetNodes + rightResult.numTargetNodes
+                         + (tree == node0 || tree == node1 ? 1 : 0);
+    return new Status(numTargetNodes, numTargetNodes == 2 ? tree : null);
   }
   // @exclude
 

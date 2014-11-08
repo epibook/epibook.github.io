@@ -5,9 +5,6 @@ import com.epi.BinaryTreeWithParentPrototype.BinaryTree;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class NearestRestaurant {
   private static <T> BinaryTree<T> findSuccessorBST(BinaryTree<T> n) {
     if (n.getRight() != null) {
@@ -32,7 +29,7 @@ public class NearestRestaurant {
       BinaryTree<Integer> n, Integer L, Integer U) {
     List<BinaryTree<Integer>> res = new ArrayList<>();
     for (BinaryTree<Integer> it = findFirstLargerEqualK(n, L); it != null
-        && it.getData().compareTo(U) <= 0; it = findSuccessorBST(it)) {
+         && it.getData().compareTo(U) <= 0; it = findSuccessorBST(it)) {
       res.add(it);
     }
     return res;
@@ -42,13 +39,12 @@ public class NearestRestaurant {
       BinaryTree<Integer> r, Integer k) {
     if (r == null) {
       return null;
-    } else if (r.getData().compareTo(k) >= 0) {
-      // Recursively search the left subtree for first one >= k.
-      BinaryTree<Integer> n = findFirstLargerEqualK(r.getLeft(), k);
-      return n != null ? n : r;
+    } else if (r.getData().compareTo(k) < 0) {
+      return findFirstLargerEqualK(r.getRight(), k);
     }
-    // r->data < k so search the right subtree.
-    return findFirstLargerEqualK(r.getRight(), k);
+    // Recursively search the left subtree for first one >= k.
+    BinaryTree<Integer> n = findFirstLargerEqualK(r.getLeft(), k);
+    return n != null ? n : r;
   }
   // @exclude
 

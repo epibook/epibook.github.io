@@ -9,26 +9,20 @@ import static com.epi.BinaryTreeUtils.generatePreOrder;
 
 public class BinaryTreePreorderTraversalIterative {
   // @include
-  public static List<Integer> preOrderTraversal(
-      final BinaryTree<Integer> root) {
-    if (root == null) {
-      return Collections.emptyList();
-    }
-
-    LinkedList<BinaryTree<Integer>> s = new LinkedList<>();
-    s.push(root);
-    List<Integer> res = new ArrayList<>();
-    while (!s.isEmpty()) {
-      BinaryTree<Integer> curr = s.pop();
-      res.add(curr.getData());
-      if (curr.getRight() != null) {
-        s.push(curr.getRight());
+  public static List<Integer> preOrderTraversal(BinaryTree<Integer> tree) {
+    LinkedList<BinaryTree<Integer>> pathStack = new LinkedList<>();
+    pathStack.push(tree);
+    List<Integer> result = new ArrayList<>();
+    while (!pathStack.isEmpty()) {
+      BinaryTree<Integer> curr = pathStack.pop();
+      if (curr == null) {
+        continue;
       }
-      if (curr.getLeft() != null) {
-        s.push(curr.getLeft());
-      }
+      result.add(curr.getData());
+      pathStack.push(curr.getRight());
+      pathStack.push(curr.getLeft());
     }
-    return res;
+    return result;
   }
   // @exclude
 
@@ -44,7 +38,7 @@ public class BinaryTreePreorderTraversalIterative {
     root.getRight().setRight(new BinaryTree<>(6));
     List<Integer> res = preOrderTraversal(root);
     List<Integer> goldenRes = generatePreOrder(root);
-    assert (res.size() == goldenRes.size() && Arrays.deepEquals(res.toArray(),
-        goldenRes.toArray()));
+    assert (res.size() == goldenRes.size()
+            && Arrays.deepEquals(res.toArray(), goldenRes.toArray()));
   }
 }

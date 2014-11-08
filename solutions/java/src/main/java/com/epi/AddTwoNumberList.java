@@ -2,12 +2,13 @@ package com.epi;
 
 public class AddTwoNumberList {
   // @include
-  public static NodeT<Integer> addTwoNumbers(NodeT<Integer> L1,
-                                             NodeT<Integer> L2) {
-    NodeT<Integer> dummyHead = new NodeT<>(0, null);
-    NodeT<Integer> digit = dummyHead;
-    int sum = 0;
+  public static ListNode<Integer> addTwoNumbers(ListNode<Integer> L1,
+                                                ListNode<Integer> L2) {
+    ListNode<Integer> dummyHead = new ListNode<>(0, null);
+    ListNode<Integer> placeIter = dummyHead;
+    int carry = 0;
     while (L1 != null || L2 != null) {
+      int sum = carry;
       if (L1 != null) {
         sum += L1.data;
         L1 = L1.next;
@@ -16,29 +17,30 @@ public class AddTwoNumberList {
         sum += L2.data;
         L2 = L2.next;
       }
-      digit.next = new NodeT<>(sum % 10, null);
-      sum /= 10;
-      digit = digit.next;
+      placeIter.next = new ListNode<>(sum % 10, null);
+      carry = sum / 10;
+      placeIter = placeIter.next;
     }
-    if (sum > 0) {
-      digit.next = new NodeT<>(sum, null);
+    // carry cannot exceed 1, so we at most need to add one more node.
+    if (carry > 0) {
+      placeIter.next = new ListNode<>(carry, null);
     }
     return dummyHead.next;
   }
   // @exclude
 
   public static void main(String[] args) {
-    NodeT<Integer> L;
-    L = new NodeT<>(2,
-        new NodeT<>(4, new NodeT<>(3, null)));
-    NodeT<Integer> R;
-    R = new NodeT<>(5,
-        new NodeT<>(6, new NodeT<>(7, null)));
-    NodeT<Integer> S = addTwoNumbers(L, R);
+    ListNode<Integer> L;
+    L = new ListNode<>(2,
+        new ListNode<>(4, new ListNode<>(3, null)));
+    ListNode<Integer> R;
+    R = new ListNode<>(5,
+        new ListNode<>(6, new ListNode<>(7, null)));
+    ListNode<Integer> S = addTwoNumbers(L, R);
     assert (S.data.equals(7) && S.next.data.equals(0)
             && S.next.next.data.equals(1) && S.next.next.next.data.equals(1));
-    L = new NodeT<>(9, new NodeT<>(9, null));
-    R = new NodeT<>(9, null);
+    L = new ListNode<>(9, new ListNode<>(9, null));
+    R = new ListNode<>(9, null);
     S = addTwoNumbers(L, R);
     assert (S.data.equals(8) && S.next.data.equals(0)
             && S.next.next.data.equals(1));

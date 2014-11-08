@@ -2,9 +2,6 @@ package com.epi;
 
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class InterconvertingStringInteger {
   public static String randIntString(int len) {
     Random r = new Random();
@@ -49,7 +46,7 @@ public class InterconvertingStringInteger {
   public static int stringToInt(String s) {
     boolean isNegative = s.charAt(0) == '-';
     int r = 0;
-    for (int i = isNegative ? 1 : 0; i < s.length(); ++i) {
+    for (int i = s.charAt(0) == '-' ? 1 : 0; i < s.length(); ++i) {
       int digit = s.charAt(i) - '0';
       r = r * 10 + digit;
     }

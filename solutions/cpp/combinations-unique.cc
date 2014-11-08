@@ -17,26 +17,26 @@ using std::stoul;
 using std::uniform_int_distribution;
 using std::vector;
 
-void subsets_unique_helper(const vector<int>& A, size_t start, vector<int>* ans, vector<vector<int>>* res);
+void SubsetsUniqueHelper(const vector<int>&, size_t, vector<int>*, vector<vector<int>>*);
 
 // @include
-vector<vector<int>> subsets_unique(vector<int> A) {
+vector<vector<int>> SubsetsUnique(vector<int> A) {
   vector<vector<int>> res;
   vector<int> ans;
 
   sort(A.begin(), A.end());
-  subsets_unique_helper(A, 0, &ans, &res);
+  SubsetsUniqueHelper(A, 0, &ans, &res);
   return res;
 }
 
-void subsets_unique_helper(const vector<int>& A, size_t start, vector<int>* ans, vector<vector<int>>* res) {
+void SubsetsUniqueHelper(const vector<int>& A, size_t start, vector<int>* ans, vector<vector<int>>* res) {
   res->emplace_back(*ans);
   for (size_t i = start; i < A.size(); ++i) {
     if (i != start && A[i - 1] == A[i]) {
       continue;
     }
     ans->emplace_back(A[i]);
-    subsets_unique_helper(A, i + 1, ans, res);
+    SubsetsUniqueHelper(A, i + 1, ans, res);
     ans->pop_back();
   }
 }
@@ -58,8 +58,8 @@ int main(int argc, char** argv) {
   }
   cout << "n = " << n << endl;
   A.clear();
-  A = { 1, 2, 3, 4, 5, 6, 7, 8, 10, 0 };
-  auto res = subsets_unique(A);
+  A = { 1, 2, 2 };
+  auto res = SubsetsUnique(A);
   for (const auto& vec : res) {
     copy(vec.cbegin(), vec.cend(), ostream_iterator<int>(cout, " "));
     cout << endl;

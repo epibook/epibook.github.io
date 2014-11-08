@@ -2,30 +2,24 @@ package com.epi;
 
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ConnectLeavesBinaryTree {
   // @include
-  public static List<BinaryTree<Integer>> connectLeaves(BinaryTree<Integer> n) {
-    List<BinaryTree<Integer>> L = new ArrayList<>();
-    connectLeavesHelper(n, L);
-    return L;
-  }
-
-  private static void connectLeavesHelper(BinaryTree<Integer> n,
-                                          List<BinaryTree<Integer>> L) {
-    if (n != null) {
-      if (n.getLeft() == null && n.getRight() == null) {
-        L.add(n);
+  public static List<BinaryTree<Integer>> connectLeaves(
+      BinaryTree<Integer> tree) {
+    List<BinaryTree<Integer>> leaves = new LinkedList<>();
+    if (tree != null) {
+      if (tree.getLeft() == null && tree.getRight() == null) {
+        leaves.add(tree);
       } else {
-        connectLeavesHelper(n.getLeft(), L);
-        connectLeavesHelper(n.getRight(), L);
+        // First do the left subtree, and then do the right subtree.
+        leaves.addAll(connectLeaves(tree.getLeft()));
+        leaves.addAll(connectLeaves(tree.getRight()));
       }
     }
+    return leaves;
   }
   // @exclude
 
@@ -41,13 +35,10 @@ public class ConnectLeavesBinaryTree {
     root.getRight().setRight(new BinaryTree<>(6, null, null));
     // should output 1, 4, 6
     List<BinaryTree<Integer>> L = connectLeaves(root);
-    List<Integer> output = new ArrayList<>();
     for (BinaryTree<Integer> l : L) {
-      output.add(l.getData());
       System.out.println(l.getData());
     }
-    assert (output.size() == 3);
-    assert (output.get(0).equals(1) && output.get(1).equals(4) && output.get(2)
-        .equals(6));
+    assert (L.size() == 3);
+    assert (L.get(0).getData().equals(1) && L.get(1).getData().equals(4) && L.get(2).getData().equals(6));
   }
 }

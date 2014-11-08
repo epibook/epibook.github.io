@@ -2,9 +2,6 @@ package com.epi;
 
 import java.util.LinkedList;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class SearchPostingsListIterative {
   // @include
   public static void searchPostingsList(PostingListNode L) {

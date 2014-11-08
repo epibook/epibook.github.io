@@ -1,55 +1,53 @@
 package com.epi;
 
 public class ReverseListInKGroup {
-  private static void reverseLinkedList(NodeT<Integer> sPtr) {
-    if (sPtr.next != null) {
-      reverseLinkedList(sPtr.next);
-      sPtr.next.next = sPtr;
-    }
-  }
-
   // @include
-  public static NodeT<Integer> reverseK(NodeT<Integer> L, int k) {
-    NodeT<Integer> dummyHead = new NodeT<>(0, L);
-    NodeT<Integer> beforePre = dummyHead, pre = dummyHead.next,
-                   beforePost = dummyHead, post = dummyHead.next;
-    while (pre != null) {
-      int i = k;
-      while (i != 0) {
-        beforePost = post;
-        post = post.next;
-        --i;
-        if (post == null) {
+  public static ListNode<Integer> reverseK(ListNode<Integer> L, int k) {
+    ListNode<Integer> dummyHead = new ListNode<>(0, L);
+    ListNode<Integer> sublistPredecessor = dummyHead,
+                      sublistHead = dummyHead.next,
+                      sublistSuccessor = dummyHead,
+                      sublistTail = dummyHead.next;
+    while (sublistHead != null) {
+      int num_remaining = k;
+      while (num_remaining > 0) {
+        sublistSuccessor = sublistTail;
+        sublistTail = sublistTail.next;
+        --num_remaining;
+        if (sublistTail == null) {
           break;
         }
       }
-      if (i != 0) {
+      if (num_remaining > 0) {
         return dummyHead.next;
       }
 
-      beforePost.next = null;
-      reverseLinkedList(pre);
-      beforePre.next = beforePost;
-      beforePre = pre;
-      pre.next = post;
-      pre = post;
-      beforePost = null;
+      sublistSuccessor.next = null;
+      ReverseLinkedListIterative.reverseLinkedList(sublistHead);
+
+      // Splice the reversed sublist.
+      sublistPredecessor.next = sublistSuccessor;
+      // Go on to the head of next sublist.
+      sublistPredecessor = sublistHead;
+      sublistHead.next = sublistTail;
+      sublistHead = sublistTail;
+      sublistSuccessor = null;
     }
     return dummyHead.next;
   }
   // @exclude
 
   public static void main(String[] args) {
-    NodeT<Integer> L;
-    L = new NodeT<>(1, new NodeT<>(2, new NodeT<>(3,
-        new NodeT<>(4, new NodeT<>(5, null)))));
+    ListNode<Integer> L;
+    L = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3,
+        new ListNode<>(4, new ListNode<>(5, null)))));
     int k;
     if (args.length == 1) {
       k = Integer.parseInt(args[0]);
     } else {
       k = 2;
     }
-    NodeT<Integer> result = reverseK(L, k);
+    ListNode<Integer> result = reverseK(L, k);
     assert (result.data.equals(2) && result.next.data.equals(1)
         && result.next.next.data.equals(4) && result.next.next.next.data.equals(3)
         && result.next.next.next.next.data.equals(5) && result.next.next.next.next.next == null);

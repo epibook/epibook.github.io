@@ -24,19 +24,19 @@ vector<int> NextPermutation(vector<int> p) {
     return {};  // p is the last permutation.
   }
 
-  // Find the smallest entry after index k that is bigger than p[k].
-  int l;
-  for (int i = k + 1; i < p.size(); ++i) {
+  // Swap the smallest entry after index k that is greater than p[k].
+  // We exploit the fact that p[k + 1 : p.size() - 1] is decreasing so if we
+  // search in reverse order, the first entry that is greater than p[k] is
+  // the smallest such entry.
+  for (int i = p.size() - 1; i > k; --i) {
     if (p[i] > p[k]) {
-      l = i;
-    } else {
-      // Since p[k+1], p[k+2], ... is decreasing, p[l] must be the result.
+      swap(p[k], p[i]);
       break;
     }
   }
-  swap(p[k], p[l]);
 
-  // Reversing this subarray sorts it in increasing order.
+  // Since p[k + 1 : p.size() - 1] is in decreasing order, we can build the
+  // smallest dictionary ordering of this subarray by reversing it.
   reverse(p.begin() + k + 1, p.end());
   return p;
 }

@@ -1,18 +1,18 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 public class IntersectSortedArrays2 {
   // @include
-  public static List<Integer> intersect(List<Integer> A, List<Integer> B) {
+  public static List<Integer> intersect(int[] A, int[] B) {
     List<Integer> intersect = new ArrayList<>();
-    for (int i = 0; i < A.size(); ++i) {
-      if ((i == 0 || !A.get(i).equals(A.get(i - 1)))
-          && Collections.binarySearch(B, A.get(i)) >= 0) {
-        intersect.add(A.get(i));
+    for (int i = 0; i < A.length; ++i) {
+      if ((i == 0 || A[i] != A[i - 1]) && Arrays.binarySearch(B, A[i]) >= 0) {
+        intersect.add(A[i]);
       }
     }
     return intersect;

@@ -1,22 +1,17 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class MatrixSearch {
   // @include
-  public static boolean matrixSearch(List<List<Integer>> A, int x) {
-    int r = 0, c = A.get(0).size() - 1;
-    while (r < A.size() && c >= 0) {
-      if (A.get(r).get(c).equals(x)) {
+  public static boolean matrixSearch(int[][] A, int x) {
+    int r = 0, c = A[0].length - 1;
+    while (r < A.length && c >= 0) {
+      if (A[r][c] == x) {
         return true;
-      } else if (A.get(r).get(c) < x) {
+      } else if (A[r][c] < x) {
         ++r;
-      } else { // A.get(r).get(c) > x.
+      } else { // A[r][c] > x.
         --c;
       }
     }
@@ -25,10 +20,10 @@ public class MatrixSearch {
   // @exclude
 
   // O(n^2) solution for verifying answer.
-  private static boolean bruteForceSearch(List<List<Integer>> A, int x) {
-    for (List<Integer> aA : A) {
-      for (Integer anAA : aA) {
-        if (anAA.equals(x)) {
+  private static boolean bruteForceSearch(int[][] A, int x) {
+    for (int[] aA : A) {
+      for (int anAA : aA) {
+        if (anAA == x) {
           return true;
         }
       }
@@ -47,20 +42,19 @@ public class MatrixSearch {
         n = r.nextInt(100) + 1;
         m = r.nextInt(100) + 1;
       }
-      List<List<Integer>> A = new ArrayList<>(n);
+      int[][] A = new int[n][];
       for (int i = 0; i < n; i++) {
-        List<Integer> list = new ArrayList<>(m);
+        A[i] = new int[m];
         for (int j = 0; j < m; j++) {
-          list.add(0);
+          A[i][j] = 0;
         }
-        A.add(list);
       }
-      A.get(0).set(0, r.nextInt(100));
+      A[0][0] = r.nextInt(100);
       for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
-          int up = (i == 0) ? 0 : A.get(i - 1).get(j);
-          int left = (j == 0) ? 0 : A.get(i).get(j - 1);
-          A.get(i).set(j, Math.max(up, left) + r.nextInt(20) + 1);
+          int up = (i == 0) ? 0 : A[i - 1][j];
+          int left = (j == 0) ? 0 : A[i][j - 1];
+          A[i][j] = Math.max(up, left) + r.nextInt(20) + 1;
         }
       }
       int x = r.nextInt(1000);

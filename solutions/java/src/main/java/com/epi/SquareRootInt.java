@@ -4,31 +4,27 @@ import java.util.Random;
 
 public class SquareRootInt {
   // @include
-  public static int squareRoot(int x) {
-    if (x <= 1) {
-      return x;
-    }
-
-    long left = 0, right = x;
-    while (left + 1 < right) {
+  public static int squareRoot(int k) {
+    long left = 0, right = k;
+    while (left <= right) {
       long mid = left + ((right - left) / 2);
-      long squareM = mid * mid;
-      if (squareM == x) {
-        return (int) mid;
-      } else if (squareM < x) {
-        left = mid;
-      } else { // squareM > x
+      long squareMid = mid * mid;
+      if (squareMid <= k) {
+        left = mid + 1;
+      } else {
         right = mid - 1;
       }
     }
-    if (right * right <= x) {
-      return (int) right;
-    }
-    return (int) left;
+    return (int) left - 1;
   }
   // @exclude
 
   public static void main(String[] args) {
+    assert (squareRoot(0) == 0);
+    assert (squareRoot(1) == 1);
+    assert (squareRoot(121) == 11);
+    assert (squareRoot(64) == 8);
+    assert (squareRoot(300) == 17);
     int x;
     if (args.length == 1) {
       x = Integer.parseInt(args[0]);

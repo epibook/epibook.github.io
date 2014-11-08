@@ -3,28 +3,31 @@ package com.epi;
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
 import java.util.*;
-import java.util.LinkedList;
 
 import static com.epi.BinaryTreeUtils.generateRandBinaryTree;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ReconstructPreorderWithNull {
   // @include
+  private static Integer idx;
+
   public static BinaryTree<Integer> reconstructPreorder(
-      List<Integer> preorder) {
-    Deque<BinaryTree<Integer>> s = new LinkedList<>();
-    for (int i = preorder.size() - 1; i >= 0; i--) {
-      if (preorder.get(i) == null) {
-        s.push(null);
-      } else { // Non-null.
-        BinaryTree<Integer> l = s.pop();
-        BinaryTree<Integer> r = s.pop();
-        s.push(new BinaryTree<>(preorder.get(i), l, r));
-      }
+      Integer[] preorder) {
+    idx = 0;
+    return reconstructPreorderHelper(preorder);
+  }
+
+  private static BinaryTree<Integer> reconstructPreorderHelper(
+      Integer[] preorder) {
+    Integer subtreeKey = preorder[idx];
+    ++idx;
+    if (subtreeKey == null) {
+      return null;
     }
-    return s.peek();
+    // Note that ReconstructPreorderHelper updates idx. So the order of
+    // following two calls are critical.
+    BinaryTree<Integer> leftSubtree = reconstructPreorderHelper(preorder);
+    BinaryTree<Integer> rightSubtree = reconstructPreorderHelper(preorder);
+    return new BinaryTree<>(subtreeKey, leftSubtree, rightSubtree);
   }
   // @exclude
 
@@ -53,7 +56,12 @@ public class ReconstructPreorderWithNull {
       BinaryTree<Integer> root = generateRandBinaryTree(n, false);
       List<Integer> p = new ArrayList<>();
       genPreorderWithNull(root, p);
-      BinaryTree<Integer> x = reconstructPreorder(p);
+      Integer[] preOrder = new Integer[p.size()];
+      for (int i = 0; i < preOrder.length; ++i) {
+        preOrder[i] = p.get(i);
+      }
+      idx = 0;
+      BinaryTree<Integer> x = reconstructPreorder(preOrder);
       assert (root.equals(x));
     }
   }

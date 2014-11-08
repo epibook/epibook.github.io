@@ -1,13 +1,13 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
-#include <list>
 #include <memory>
+#include <vector>
 
 #include "./BST_parent_prototype.h"
 
-using std::list;
 using std::unique_ptr;
+using std::vector;
 
 BSTNode<int>* FindSuccessorBST(BSTNode<int>* n) {
   if (n->right) {
@@ -32,9 +32,9 @@ BSTNode<int>* FindFirstLargerEqualK(
     int k);
 
 // @include
-list<BSTNode<int>*> RangeQueryOnBST(
+vector<BSTNode<int>*> RangeQueryOnBST(
     const unique_ptr<BSTNode<int>>& n, int L, int U) {
-  list<BSTNode<int>*> res;
+  vector<BSTNode<int>*> res;
   for (auto* it = FindFirstLargerEqualK(n, L); it && it->data <= U;
        it = FindSuccessorBST(it)) {
     res.emplace_back(it);
@@ -46,13 +46,13 @@ BSTNode<int>* FindFirstLargerEqualK(
     const unique_ptr<BSTNode<int>>& r, int k) {
   if (!r) {
     return nullptr;
-  } else if (r->data >= k) {
-    // Recursively search the left subtree for first one >= k.
-    auto n = FindFirstLargerEqualK(r->left, k);
-    return n ? n : r.get();
+  } else if (r->data < k) {
+    // r->data < k so search the right subtree.
+    return FindFirstLargerEqualK(r->right, k);
   }
-  // r->data < k so search the right subtree.
-  return FindFirstLargerEqualK(r->right, k);
+  // Recursively search the left subtree for first one >= k.
+  auto n = FindFirstLargerEqualK(r->left, k);
+  return n ? n : r.get();
 }
 // @exclude
 
@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
   root->right->right =
       unique_ptr<BSTNode<int>>(new BSTNode<int>{6});
   root->right->right->parent = root->right.get();
-  list<BSTNode<int>*> res = RangeQueryOnBST(root, 2, 5);
+  vector<BSTNode<int>*> res = RangeQueryOnBST(root, 2, 5);
   assert(res.size() == 4);
   for (const auto* l : res) {
     assert(l->data >= 2 && l->data <= 5);

@@ -16,19 +16,19 @@ using std::vector;
 
 // @include
 int SearchFirst(const vector<int>& A, int k) {
-  int l = 0, r = A.size() - 1, res = -1;
-  while (l <= r) {
-    int m = l + ((r - l) / 2);
-    if (A[m] > k) {
-      r = m - 1;
-    } else if (A[m] == k) {
+  int left = 0, right = A.size() - 1, result = -1;
+  while (left <= right) {
+    int mid = left + ((right - left) / 2);
+    if (A[mid] > k) {
+      right = mid - 1;
+    } else if (A[mid] == k) {
       // Records the solution and keep searching the left part.
-      res = m, r = m - 1;
-    } else {  // A[m] < k
-      l = m + 1;
+      result = mid, right = mid - 1;
+    } else {  // A[mid] < k.
+      left = mid + 1;
     }
   }
-  return res;
+  return result;
 }
 // @exclude
 

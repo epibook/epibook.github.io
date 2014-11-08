@@ -2,26 +2,23 @@ package com.epi;
 
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class SymmetricBinaryTree {
   // @include
-  public static boolean isSymmetric(BinaryTree<Integer> T) {
-    return T == null || isSymmetricHelper(T.getLeft(), T.getRight());
+  public static boolean isSymmetric(BinaryTree<Integer> tree) {
+    return tree == null || checkSymmetric(tree.getLeft(), tree.getRight());
   }
 
   private static boolean
-  isSymmetricHelper(BinaryTree<Integer> l, BinaryTree<Integer> r) {
-    if (l == null && r == null) {
+  checkSymmetric(BinaryTree<Integer> subtree0, BinaryTree<Integer> subtree1) {
+    if (subtree0 == null && subtree1 == null) {
       return true;
-    } else if (l != null && r != null) {
-      return l.getData() == r.getData()
-          && isSymmetricHelper(l.getLeft(), r.getRight())
-          && isSymmetricHelper(l.getRight(), r.getLeft());
-    } else { // (l != null && r == null) || (l == null && r != null)
-      return false;
+    } else if (subtree0 != null && subtree1 != null) {
+      return subtree0.getData() == subtree1.getData()
+             && checkSymmetric(subtree0.getLeft(), subtree1.getRight())
+             && checkSymmetric(subtree0.getRight(), subtree1.getLeft());
     }
+    // One subtree is empty, and the other is not.
+    return false;
   }
   // @exclude
 

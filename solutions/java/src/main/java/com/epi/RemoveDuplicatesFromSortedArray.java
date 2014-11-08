@@ -4,24 +4,24 @@ import java.util.*;
 
 public class RemoveDuplicatesFromSortedArray {
   // @include
-  public static int removeDuplicates(List<Integer> a) {
-    if (a.isEmpty()) {
+  public static int removeDuplicates(int[] A) {
+    if (A.length == 0) {
       return 0;
     }
 
-    int index = 0;
-    for (int i = 1; i < a.size(); ++i) {
-      if (!a.get(index).equals(a.get(i))) {
-        a.set(++index, a.get(i));
+    int writeIndex = 0;
+    for (int i = 1; i < A.length; ++i) {
+      if (A[writeIndex] != A[i]) {
+        A[++writeIndex] = A[i];
       }
     }
-    return index + 1;
+    return writeIndex + 1;
   }
   // @exclude
 
-  private static void checkAns(List<Integer> A, int n) {
+  private static void checkAns(int[] A, int n) {
     for (int i = 1; i < n; ++i) {
-      assert (!A.get(i - 1).equals(A.get(i)));
+      assert (A[i - 1] != A[i]);
     }
   }
 
@@ -34,12 +34,15 @@ public class RemoveDuplicatesFromSortedArray {
       n = r.nextInt(10000) + 1;
     }
     for (int times = 0; times < 1000; ++times) {
-      List<Integer> A = new ArrayList<>();
+      int[] A = new int[n];
       for (int i = 0; i < n; i++) {
-        A.add(r.nextInt(2001) - 1000);
+        A[i] = r.nextInt(2001) - 1000;
       }
-      Collections.sort(A);
-      Set<Integer> unique = new HashSet<>(A);
+      Arrays.sort(A);
+      Set<Integer> unique = new HashSet<>();
+      for (int a : A) {
+        unique.add(a);
+      }
       int size = removeDuplicates(A);
       assert (size == unique.size());
       checkAns(A, size);

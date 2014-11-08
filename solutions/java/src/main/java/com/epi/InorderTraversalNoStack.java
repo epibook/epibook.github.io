@@ -5,9 +5,6 @@ import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class InorderTraversalNoStack {
   private static List<Integer> result = new ArrayList<>();
 

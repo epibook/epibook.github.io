@@ -12,6 +12,7 @@ using std::cout;
 using std::default_random_engine;
 using std::distance;
 using std::endl;
+using std::generate_canonical;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::uniform_real_distribution;
@@ -23,15 +24,10 @@ double NonuniformRandomNumberGeneration(const vector<double>& T,
   vector<double> prefix_P;
   prefix_P.emplace_back(0);
   partial_sum(P.cbegin(), P.cend(), back_inserter(prefix_P));
-  // gen object is used to generate random numbers.
+
   default_random_engine gen((random_device())());
-  // Generate a random number in [0.0, 1.0].
-  uniform_real_distribution<double> dis(0.0, 1.0);
-  // upper_bound uses binary search to returns an iterator pointing to the
-  // first element in (prefix_P.cbegin(), prefix_P.cend()) which compares
-  // greater than dis(gen) which itself is a uniform random number in
-  // [0.0, 1.0].
-  auto it = upper_bound(prefix_P.cbegin(), prefix_P.cend(), dis(gen));
+  auto it = upper_bound(prefix_P.cbegin(), prefix_P.cend(),
+                        generate_canonical<double, 10>(gen));
   return T[distance(prefix_P.cbegin(), it) - 1];
 }
 // @exclude

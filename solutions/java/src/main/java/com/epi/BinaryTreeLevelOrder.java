@@ -7,39 +7,34 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BinaryTreeLevelOrder {
   private static List<List<Integer>> results = new ArrayList<>();
 
   private static List<Integer> oneLineResult = new ArrayList<>();
 
   // @include
-  public static void printBinaryTreeDepthOrder(BinaryTree<Integer> r) {
-    // Prevent empty tree.
-    if (r == null) {
-      return;
-    }
-
-    LinkedList<BinaryTree<Integer>> q = new LinkedList<>();
-    q.push(r);
-    int count = q.size();
-    while (!q.isEmpty()) {
-      BinaryTree<Integer> front = q.pollLast();
-      System.out.print(front.getData() + " ");
+  public static void printBinaryTreeDepthOrder(BinaryTree<Integer> root) {
+    LinkedList<BinaryTree<Integer>> processingNodes = new LinkedList<>();
+    processingNodes.push(root);
+    int numNodesCurrentLevel = processingNodes.size();
+    while (!processingNodes.isEmpty()) {
+      BinaryTree<Integer> curr = processingNodes.pollLast();
+      --numNodesCurrentLevel;
+      if (curr == null) {
+        continue;
+      }
+      System.out.print(curr.getData() + " ");
       // @exclude
-      oneLineResult.add(front.getData());
+      oneLineResult.add(curr.getData());
       // @include
-      if (front.getLeft() != null) {
-        q.push(front.getLeft());
-      }
-      if (front.getRight() != null) {
-        q.push(front.getRight());
-      }
-      if (--count == 0) { // Finish printing nodes in the current depth.
+
+      // Defer the null checks to the null test above.
+      processingNodes.push(curr.getLeft());
+      processingNodes.push(curr.getRight());
+      // Done with the nodes at the current depth.
+      if (numNodesCurrentLevel == 0) {
         System.out.println();
-        count = q.size();
+        numNodesCurrentLevel = processingNodes.size();
         // @exclude
         results.add(new ArrayList(oneLineResult));
         oneLineResult.clear();

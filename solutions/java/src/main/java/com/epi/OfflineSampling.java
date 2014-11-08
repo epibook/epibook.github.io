@@ -1,5 +1,6 @@
 package com.epi;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import static com.epi.utils.Utils.swap;
@@ -7,12 +8,13 @@ import static com.epi.utils.Utils.swap;
 public class OfflineSampling {
   // @include
   public static int[] offlineSampling(int[] A, int k) {
-    Random gen = new Random(); // Random num generator.
-    for (int i = A.length - 1; i > A.length - 1 - k; i--) {
-      // Generate random int in [i, A.size() - 1].
-      swap(A, i, gen.nextInt(A.length - i) + i);
+    Random gen = new Random();
+    for (int i = 0; i < k; ++i) {
+      // Generate a random int in [i, A.length - 1].
+      swap(A, i, gen.nextInt(A.length - 1));
     }
-    return A;
+    int[] ans = Arrays.copyOf(A, k);
+    return ans;
   }
   // @exclude
 
@@ -40,9 +42,9 @@ public class OfflineSampling {
 
     int[] ans = offlineSampling(A, k);
 
-    assert ans.length == n;
-    for (int i = n - 1; i > n - 1 - k; i--) {
-      System.out.print(ans[i] + " ");
+    assert ans.length == k;
+    for (int a : ans) {
+      System.out.print(a + " ");
     }
     System.out.println();
   }

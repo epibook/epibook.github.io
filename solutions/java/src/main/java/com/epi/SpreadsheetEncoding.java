@@ -2,9 +2,6 @@ package com.epi;
 
 import java.util.Random;
 
-/**
- * @author translated from C++ by Blazheev Alexander
- */
 public class SpreadsheetEncoding {
   private static String randString(int len) {
     Random r = new Random();

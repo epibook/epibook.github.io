@@ -30,7 +30,7 @@ using std::vector;
 // @include
 class Star {
  public:
-  // The distance between this star to the Earth.
+  // The distance between this star to Earth.
   double Distance() const { return sqrt(x_ * x_ + y_ * y_ + z_ * z_); }
 
   bool operator<(const Star& s) const { return Distance() < s.Distance(); }
@@ -39,13 +39,12 @@ class Star {
   double x_, y_, z_;
 };
 
-vector<Star> FindClosestKStars(int k, istringstream *sin) {
-  // Use max_heap to find the closest k stars.
+vector<Star> FindClosestKStars(int k, istringstream *stars) {
+  // max_heap to store the closest k stars seen so far.
   priority_queue<Star, vector<Star>> max_heap;
-  string line;
 
-  // Record the first k stars.
-  while (getline(*sin, line)) {
+  string line;
+  while (getline(*stars, line)) {
     stringstream line_stream(line);
     string buf;
     getline(line_stream, buf, ',');
@@ -55,21 +54,22 @@ vector<Star> FindClosestKStars(int k, istringstream *sin) {
       getline(line_stream, buf, ',');
       data[i] = stod(buf);
     }
-    Star s{ID, data[0], data[1], data[2]};
+    Star star{ID, data[0], data[1], data[2]};
 
-    if (max_heap.size() == k) {
-      // Compare the top of heap with the incoming star.
-      Star far_star = max_heap.top();
-      if (s < far_star) {
-        max_heap.pop();
-        max_heap.emplace(s);
-      }
+    if (max_heap.size() < k) {
+      // Add the first k stars to max_heap.
+      max_heap.emplace(star);
     } else {
-      max_heap.emplace(s);
+      // Compare the new star with the furthest star in max_heap.
+      Star far_star = max_heap.top();
+      if (star < far_star) {
+        max_heap.pop();
+        max_heap.emplace(star);
+      }
     }
   }
 
-  // Store the closest k stars.
+  // Now, compute the closest k stars.
   vector<Star> closest_stars;
   while (!max_heap.empty()) {
     closest_stars.emplace_back(max_heap.top());

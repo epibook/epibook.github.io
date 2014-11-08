@@ -2,26 +2,27 @@ package com.epi;
 
 public class RemoveDuplicatesSortedList {
   // @include
-  public static NodeT<Integer> removeDuplicates(NodeT<Integer> L) {
-    NodeT<Integer> iter = L;
+  public static ListNode<Integer> removeDuplicates(ListNode<Integer> L) {
+    ListNode<Integer> iter = L;
     while (iter != null) {
-      NodeT<Integer> runner = iter.next;
-      while (runner != null && runner.data == iter.data) {
-        runner = runner.next;
+      // Uses next_distinct to find the next distinct value.
+      ListNode<Integer> nextDistinct = iter.next;
+      while (nextDistinct != null && nextDistinct.data == iter.data) {
+        nextDistinct = nextDistinct.next;
       }
-      iter.next = runner;
-      iter = runner;
+      iter.next = nextDistinct;
+      iter = nextDistinct;
     }
     return L;
   }
   // @exclude
 
   public static void main(String[] args) {
-    NodeT<Integer> L;
-    L = new NodeT<>(2, new NodeT<>(2, new NodeT<>(2,
-        new NodeT<>(2, new NodeT<>(2, null)))));
-    NodeT<Integer> pre = null;
-    NodeT<Integer> result = removeDuplicates(L);
+    ListNode<Integer> L;
+    L = new ListNode<>(2, new ListNode<>(2, new ListNode<>(2,
+        new ListNode<>(2, new ListNode<>(2, null)))));
+    ListNode<Integer> pre = null;
+    ListNode<Integer> result = removeDuplicates(L);
     int count = 0;
     while (result != null) {
       ++count;

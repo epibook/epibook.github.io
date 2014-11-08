@@ -5,15 +5,16 @@ package com.epi;
 
 class DeletionList {
   // @include
-  public static void deletionFromList(Node<Integer> v) {
-    v.data = v.next.data;
-    v.next = v.next.next;
+  // Assumes nodeToDelete is not tail.
+  public static void deletionFromList(ListNode<Integer> nodeToDelete) {
+    nodeToDelete.data = nodeToDelete.next.data;
+    nodeToDelete.next = nodeToDelete.next.next;
   }
   // @exclude
 
   public static void main(String[] args) {
-    Node<Integer> L = new Node<>(1, new Node<>(2,
-        new Node<>(3, null)));
+    ListNode<Integer> L = new ListNode<>(1, new ListNode<>(2,
+        new ListNode<>(3, null)));
     deletionFromList(L);
     assert (L.data == 2 && L.next.data == 3);
   }

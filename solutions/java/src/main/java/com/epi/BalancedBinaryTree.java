@@ -2,33 +2,39 @@ package com.epi;
 
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BalancedBinaryTree {
   // @include
-  public static boolean isBalancedBinaryTree(BinaryTree<Integer> T) {
-    return getHeight(T) != -2;
+  private static class Status {
+    public boolean balanced;
+    public int height;
+
+    public Status(boolean balanced, int height) {
+      this.balanced = balanced;
+      this.height = height;
+    }
   }
 
-  private static int getHeight(BinaryTree<Integer> T) {
-    if (T == null) {
-      return -1; // Base case.
+  public static boolean isBalancedBinaryTree(BinaryTree<Integer> tree) {
+    return CheckBalanced(tree).balanced;
+  }
+
+  private static Status CheckBalanced(BinaryTree<Integer> tree) {
+    if (tree == null) {
+      return new Status(true, -1); // Base case.
     }
 
-    int lHeight = getHeight(T.getLeft());
-    if (lHeight == -2) {
-      return -2; // Left subtree is not balanced.
+    Status leftResult = CheckBalanced(tree.getLeft());
+    if (leftResult.balanced == false) {
+      return leftResult; // Left subtree is not balanced.
     }
-    int rHeight = getHeight(T.getRight());
-    if (rHeight == -2) {
-      return -2; // Right subtree is not balanced.
+    Status rightResult = CheckBalanced(tree.getRight());
+    if (rightResult.balanced == false) {
+      return rightResult; // Right subtree is not balanced.
     }
 
-    if (Math.abs(lHeight - rHeight) > 1) {
-      return -2; // Current node T is not balanced.
-    }
-    return Math.max(lHeight, rHeight) + 1; // Returns the height.
+    boolean isBalanced = Math.abs(leftResult.height - rightResult.height) <= 1;
+    int height = Math.max(leftResult.height, rightResult.height) + 1;
+    return new Status(isBalanced, height);
   }
   // @exclude
 

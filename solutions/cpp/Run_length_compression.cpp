@@ -4,43 +4,40 @@
 #include <cctype>
 #include <cstdlib>
 #include <iostream>
-#include <sstream>
 #include <string>
 
 using std::cout;
 using std::endl;
 using std::string;
-using std::stringstream;
+using std::to_string;
 
 // @include
 string Decoding(const string &s) {
   int count = 0;
-  string ret;
+  string result;
   for (const char &c : s) {
     if (isdigit(c)) {
       count = count * 10 + c - '0';
     } else {  // c is a letter of alphabet.
-      ret.append(count, c);  // Adds count copies of c to the end of ret.
+      result.append(count, c);  // Appends count copies of c to result.
       count = 0;
     }
   }
-  return ret;
+  return result;
 }
 
 string Encoding(const string &s) {
-  int count = 1;
-  stringstream ss;
-  for (int i = 1; i < s.size(); ++i) {
-    if (s[i] == s[i - 1]) {
-      ++count;
-    } else {
+  string result;
+  for (int i = 1, count = 1; i <= s.size(); ++i) {
+    if (i == s.size() || s[i] != s[i - 1]) {
       // Found new character so write the count of previous character.
-      ss << count << s[i - 1];
+      result += to_string(count) + s[i - 1];
       count = 1;
+    } else {  // s[i] == s[i - 1].
+      ++count;
     }
   }
-  ss << count << s.back();
-  return ss.str();
+  return result;
 }
 // @exclude
 

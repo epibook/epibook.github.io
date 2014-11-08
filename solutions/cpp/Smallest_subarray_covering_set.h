@@ -20,36 +20,36 @@ pair<int, int> FindSmallestSubarrayCoveringSubset(const vector<string> &A,
                                                   const vector<string> &Q) {
   unordered_set<string> dict(Q.cbegin(), Q.cend());
   unordered_map<string, int> count_Q;
-  int l = 0, r = 0;
+  int left = 0, right = 0;
   pair<int, int> res(-1, -1);
-  while (r < static_cast<int>(A.size())) {
-    // Keeps moving r until it reaches end or count_Q has |Q| items.
-    while (r < static_cast<int>(A.size()) && count_Q.size() < Q.size()) {
-      if (dict.find(A[r]) != dict.end()) {
-        ++count_Q[A[r]];
+  while (right < static_cast<int>(A.size())) {
+    // Keeps moving right until it reaches end or count_Q has |Q| items.
+    while (right < static_cast<int>(A.size()) && count_Q.size() < Q.size()) {
+      if (dict.find(A[right]) != dict.end()) {
+        ++count_Q[A[right]];
       }
-      ++r;
+      ++right;
     }
 
     if (count_Q.size() == Q.size() &&  // Found |Q| keywords.
         ((res.first == -1 && res.second == -1) ||
-         r - 1 - l < res.second - res.first)) {
-      res = {l, r - 1};
+         right - 1 - left < res.second - res.first)) {
+      res = {left, right - 1};
     }
 
-    // Keep smoving l until it reaches end or count_Q has less |Q| items.
-    while (l < r && count_Q.size() == Q.size()) {
-      if (dict.find(A[l]) != dict.end()) {
-        auto it = count_Q.find(A[l]);
+    // Keeps moving left until it reaches end or count_Q has less |Q| items.
+    while (left < right && count_Q.size() == Q.size()) {
+      if (dict.find(A[left]) != dict.end()) {
+        auto it = count_Q.find(A[left]);
         if (--(it->second) == 0) {
           count_Q.erase(it);
           if ((res.first == -1 && res.second == -1) ||
-              r - 1 - l < res.second - res.first) {
-            res = {l, r - 1};
+              right - 1 - left < res.second - res.first) {
+            res = {left, right - 1};
           }
         }
       }
-      ++l;
+      ++left;
     }
   }
   return res;

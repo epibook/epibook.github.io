@@ -3,21 +3,19 @@ package com.epi;
 import java.io.*;
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ApproximateSort {
   // @include
-  public static void approximateSort(InputStream sin, int k) {
+  public static void sortApproximatelySortedArray(InputStream sequence, int k) {
     PriorityQueue<Integer> minHeap = new PriorityQueue<>();
     try {
-      ObjectInputStream osin = new ObjectInputStream(sin);
-      // Firstly pushes k elements into minHeap.
+      ObjectInputStream osin = new ObjectInputStream(sequence);
+      // Adds the first k elements into min_heap. Stop if there are fewer than
+      // k elements.
       for (int i = 0; i < k; ++i) {
         minHeap.add((Integer) osin.readObject());
       }
 
-      // Extracts the minimum one for every incoming element.
+      // For every new element, add it to min_heap and extract the smallest.
       while (true) {
         minHeap.add((Integer) osin.readObject());
         System.out.println(minHeap.remove());
@@ -28,7 +26,7 @@ public class ApproximateSort {
       System.out.println("ClassNotFoundException: " + e.getMessage());
     }
 
-    // Extracts the remaining elements in minHeap.
+    // sequence is exhausted, iteratively extracts the remaining elements.
     while (!minHeap.isEmpty()) {
       System.out.println(minHeap.remove());
     }
@@ -44,8 +42,8 @@ public class ApproximateSort {
       for (Integer a : A) {
         oos.writeObject(a);
       }
-      ByteArrayInputStream sin = new ByteArrayInputStream(baos.toByteArray());
-      approximateSort(sin, 3);
+      ByteArrayInputStream sequence = new ByteArrayInputStream(baos.toByteArray());
+      sortApproximatelySortedArray(sequence, 3);
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
     }
@@ -76,8 +74,8 @@ public class ApproximateSort {
       for (Integer a : A) {
         oos.writeObject(a);
       }
-      ByteArrayInputStream sin = new ByteArrayInputStream(baos.toByteArray());
-      approximateSort(sin, n - 1);
+      ByteArrayInputStream sequence = new ByteArrayInputStream(baos.toByteArray());
+      sortApproximatelySortedArray(sequence, n - 1);
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
     }

@@ -27,7 +27,7 @@ vector<vector<int>> Permutations(vector<int> A) {
 
 void PermutationsHelper(size_t i, vector<int> *A,
                         vector<vector<int>> *result) {
-  if (i == A->size()) {
+  if (i == A->size() - 1) {
     result->emplace_back(*A);
     return;
   }

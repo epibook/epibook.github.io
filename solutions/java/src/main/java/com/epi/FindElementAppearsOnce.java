@@ -1,15 +1,10 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class FindElementAppearsOnce {
   // @include
-  public static int findElementAppearsOnce(List<Integer> A) {
+  public static int findElementAppearsOnce(int[] A) {
     int ones = 0, twos = 0;
     int nextOnes, nextTwos;
     for (int i : A) {
@@ -25,19 +20,20 @@ public class FindElementAppearsOnce {
   public static void main(String[] args) {
     Random r = new Random();
     for (int times = 0; times < 10000; ++times) {
-      List<Integer> A = new ArrayList<>();
       int n;
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);
       } else {
         n = r.nextInt(10000) + 1;
       }
+      int[] A = new int[3 * (n - 1) + 1];
       int single = r.nextInt(n);
+      int idx = 0;
       for (int i = 0; i < n; ++i) {
-        A.add(i);
+        A[idx++] = i;
         if (i != single) {
-          A.add(i);
-          A.add(i);
+          A[idx++] = i;
+          A[idx++] = i;
         }
       }
       System.out.println("Singleton element: " + findElementAppearsOnce(A));

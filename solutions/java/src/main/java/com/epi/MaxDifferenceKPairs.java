@@ -1,57 +1,50 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Random;
 
 import static java.lang.Math.max;
 
 public class MaxDifferenceKPairs {
   // @include
-  public static int maxKPairsProfits(List<Integer> A, int k) {
-    List<Integer> kSum = new ArrayList<>(k * 2);
-    fill(kSum, 2 * k, Integer.MIN_VALUE);
+  public static int maxKPairsProfits(int[] A, int k) {
+    int[] kSum = new int[k * 2];
+    Arrays.fill(kSum, Integer.MIN_VALUE);
 
-    for (int i = 0; i < A.size(); ++i) {
-      List<Integer> preKSum = new ArrayList<>(kSum);
+    for (int i = 0; i < A.length; ++i) {
+      int[] preKSum = Arrays.copyOf(kSum, kSum.length);
 
-      for (int j = 0, sign = -1; j < kSum.size() && j <= i; ++j, sign *= -1) {
-        int diff = sign * A.get(i) + (j == 0 ? 0 : preKSum.get(j - 1));
-        kSum.set(j, max(diff, preKSum.get(j)));
+      for (int j = 0, sign = -1; j < kSum.length && j <= i; ++j, sign *= -1) {
+        int diff = sign * A[i] + (j == 0 ? 0 : preKSum[j - 1]);
+        kSum[j] = max(diff, preKSum[j]);
       }
     }
 
     // Returns the last selling profits as the answer.
-    return kSum.get(kSum.size() - 1);
+    return kSum[kSum.length - 1];
   }
   // @exclude
 
-  static void fill(List<Integer> list, int numOfElements, int value) {
-    for (int i = 1; i <= numOfElements; ++i) {
-      list.add(value);
-    }
-  }
-
   // O(n^k) checking answer.
-  static int checkAnsHelper(List<Integer> A, int l, int k, int pre, int ans,
-                            int maxAns) {
+  private static int checkAnsHelper(int[] A, int l, int k, int pre,
+                                    int ans, int maxAns) {
 
     int finalMaxAns;
     if (l == k) {
       finalMaxAns = max(maxAns, ans);
     } else {
       finalMaxAns = maxAns;
-      for (int i = pre; i < A.size(); ++i) {
+      for (int i = pre; i < A.length; ++i) {
         finalMaxAns = checkAnsHelper(A, l + 1, k, i + 1, ans
-            + (((l & 1) == 1) ? A.get(i) : -A.get(i)), finalMaxAns);
+            + (((l & 1) == 1) ? A[i] : -A[i]), finalMaxAns);
       }
     }
 
     return finalMaxAns;
   }
 
-  static int checkAns(List<Integer> A, int k) {
+  private static int checkAns(int[] A, int k) {
     int ans = 0, maxAns = Integer.MIN_VALUE;
 
     maxAns = checkAnsHelper(A, 0, 2 * k, 0, ans, maxAns);
@@ -65,9 +58,9 @@ public class MaxDifferenceKPairs {
     int n = 40, k = 3;
     // random tests for n = 40, k = 3 for 300 times/
     for (int times = 0; times < 300; ++times) {
-      List<Integer> A = new ArrayList<>();
+      int[] A = new int[n];
       for (int i = 0; i < n; ++i) {
-        A.add(gen.nextInt(100));
+        A[i] = gen.nextInt(100);
       }
 
       System.out.println("n = " + n + ", k = " + k);
@@ -86,14 +79,13 @@ public class MaxDifferenceKPairs {
       k = gen.nextInt(n / 2) + 1;
     }
 
-    List<Integer> A = new ArrayList<>();
+    int[] A = new int[n];
 
     for (int i = 0; i < n; ++i) {
-      A.add(gen.nextInt(100));
+      A[i] = gen.nextInt(100);
     }
 
     System.out.println("n = " + n + ", k = " + k);
     System.out.println(maxKPairsProfits(A, k));
   }
-
 }

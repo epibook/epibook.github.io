@@ -17,18 +17,18 @@ using std::vector;
 
 // @include
 int RemoveDuplicates(vector<int>* A) {
-  auto& A_ref = *A;
-  if (A_ref.empty()) {
+  if (A->empty()) {
     return 0;
   }
 
-  int index = 0;
-  for (size_t i = 1; i < A_ref.size(); ++i) {
-    if (A_ref[index] != A_ref[i]) {
-      A_ref[++index] = A_ref[i];
+  auto& A_ref = *A;
+  int write_index = 0;
+  for (int i = 1; i < A_ref.size(); ++i) {
+    if (A_ref[write_index] != A_ref[i]) {
+      A_ref[++write_index] = A_ref[i];
     }
   }
-  return index + 1;
+  return write_index + 1;
 }
 // @exclude
 

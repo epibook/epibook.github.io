@@ -1,5 +1,4 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
-// @author Andrey Pavlov
 
 package com.epi;
 
@@ -12,7 +11,7 @@ import java.util.Map;
 class SmallestSubarrayCoveringSetStream {
   // @include
   public static Pair<Integer, Integer> findSmallestSubarrayCoveringSubset(
-      List<String> A, List<String> Q) {
+      String[] A, String[] Q) {
 
     // Tracks the last occurrence (index) of each string in Q.
     LinkedList<Integer> loc = new LinkedList<>();
@@ -37,9 +36,9 @@ class SmallestSubarrayCoveringSetStream {
         dict.put(s, back);
       }
 
-      if (loc.size() == Q.size() && // Found |Q| keywords.
-          ((res.getFirst() == -1 && res.getSecond() == -1) || idx
-              - loc.front().item < res.getSecond() - res.getFirst())) {
+      if (loc.size() == Q.length && // Found |Q| keywords.
+          ((res.getFirst() == -1 && res.getSecond() == -1)
+           || idx - loc.front().item < res.getSecond() - res.getFirst())) {
         res.setFirst(loc.front().item);
         res.setSecond(idx);
       }

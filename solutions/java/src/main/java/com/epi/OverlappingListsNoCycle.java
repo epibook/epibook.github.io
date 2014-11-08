@@ -1,37 +1,35 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
-// @author Ivan Sharov
 
 package com.epi;
 
 class OverlappingListsNoCycle {
   // @include
-  public static Node<Integer> overlappingNoCycleLists(Node<Integer> L1,
-                                                      Node<Integer> L2) {
-    // Count the lengths of L1 and L2.
-    int l1Length = countLength(L1);
-    int l2Length = countLength(L2);
+  public static ListNode<Integer> overlappingNoCycleLists(
+      ListNode<Integer> L1, ListNode<Integer> L2) {
+    int L1Length = Length(L1), L2Length = Length(L2);
 
-    // Advances the longer list.
-    int count = Math.abs(l1Length - l2Length);
-    if (l1Length > l2Length) {
-      while (count-- > 0) {
-        L1 = L1.next;
-      }
+    // Advances the longer list to get equal length lists.
+    if (L1Length > L2Length) {
+      L1 = advanceListByK(L1Length - L2Length, L1);
     } else {
-      while (count-- > 0) {
-        L2 = L2.next;
-      }
+      L2 = advanceListByK(L2Length - L1Length, L2);
     }
 
     while (L1 != null && L2 != null && L1 != L2) {
       L1 = L1.next;
       L2 = L2.next;
     }
-    return L1; // null means no overlap between L1 and L2.
+    return L1; // nullptr implies there is no overlap between L1 and L2.
   }
 
-  // Counts the list length till end.
-  private static int countLength(Node<Integer> L) {
+  public static ListNode<Integer> advanceListByK(int k, ListNode<Integer> L) {
+    while (k-- > 0) {
+      L = L.next;
+    }
+    return L;
+  }
+
+  private static int Length(ListNode<Integer> L) {
     int len = 0;
     while (L != null) {
       ++len;
@@ -42,14 +40,14 @@ class OverlappingListsNoCycle {
   // @exclude
 
   public static void main(String[] args) {
-    Node<Integer> l1 = null;
-    Node<Integer> l2 = null;
-    // l1: 1->2->3->null
-    l1 = new Node<>(1, new Node<>(2, new Node<>(3, null)));
-    l2 = l1.next.next;
-    assert (overlappingNoCycleLists(l1, l2).data == 3);
-    // l2: 4->5->null
-    l2 = new Node<>(4, new Node<>(5, null));
-    assert (overlappingNoCycleLists(l1, l2) == null);
+    ListNode<Integer> L1 = null;
+    ListNode<Integer> L2 = null;
+    // L1: 1->2->3->null
+    L1 = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, null)));
+    L2 = L1.next.next;
+    assert (overlappingNoCycleLists(L1, L2).data == 3);
+    // L2: 4->5->null
+    L2 = new ListNode<>(4, new ListNode<>(5, null));
+    assert (overlappingNoCycleLists(L1, L2) == null);
   }
 }

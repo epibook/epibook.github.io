@@ -14,38 +14,38 @@ using std::pair;
 using std::unique_ptr;
 
 pair<BinaryTreeNode<int>*, int> FindKUnbalancedNodeHelper(
-    const unique_ptr<BinaryTreeNode<int>>& T, int k);
+    const unique_ptr<BinaryTreeNode<int>>&, int);
 
 // @include
 BinaryTreeNode<int>* FindKUnbalancedNode(
-    const unique_ptr<BinaryTreeNode<int>>& T, int k) {
-  return FindKUnbalancedNodeHelper(T, k).first;
+    const unique_ptr<BinaryTreeNode<int>>& tree, int k) {
+  return FindKUnbalancedNodeHelper(tree, k).first;
 }
 
-// If there is any k-unbalanced node in T, the first of the return value is a
-// k-unbalanced node; otherwise, null.  The second of the return value is the
-// number of nodes in T.
+// If there is any k-unbalanced node in tree, the first value of the return
+// value is a k-unbalanced node; otherwise, null.  If the first is not null,
+// the second value of the return value is the number of nodes in tree.
 pair<BinaryTreeNode<int>*, int> FindKUnbalancedNodeHelper(
-    const unique_ptr<BinaryTreeNode<int>>& T, int k) {
-  // Empty tree.
-  if (!T) {
-    return {nullptr, 0};
+    const unique_ptr<BinaryTreeNode<int>>& tree, int k) {
+  if (tree == nullptr) {
+    return {nullptr, 0};  // Base case.
   }
 
   // Early return if left subtree is not k-balanced.
-  auto L = FindKUnbalancedNodeHelper(T->left, k);
-  if (L.first) {
-    return L;
+  auto left_result = FindKUnbalancedNodeHelper(tree->left, k);
+  if (left_result.first != nullptr) {
+    return {left_result.first, 0};
   }
   // Early return if right subtree is not k-balanced.
-  auto R = FindKUnbalancedNodeHelper(T->right, k);
-  if (R.first) {
-    return R;
+  auto right_result = FindKUnbalancedNodeHelper(tree->right, k);
+  if (right_result.first != nullptr) {
+    return {right_result.first, 0};
   }
 
-  int node_num = L.second + R.second + 1;
-  if (abs(L.second - R.second) > k) {
-    return {T.get(), node_num};
+  int node_num = left_result.second + right_result.second + 1;
+  if (abs(left_result.second - right_result.second) > k) {
+    // tree is not k-balanced but its children are k-balanced.
+    return {tree.get(), node_num};
   }
   return {nullptr, node_num};
 }

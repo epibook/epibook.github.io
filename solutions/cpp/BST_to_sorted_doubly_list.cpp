@@ -11,56 +11,47 @@ using std::cout;
 using std::endl;
 using std::make_shared;
 using std::numeric_limits;
+using std::pair;
 using std::shared_ptr;
 
-shared_ptr<BSTNode<int>> BSTToDoublyListHelper(
+pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>> BSTToDoublyListHelper(
     const shared_ptr<BSTNode<int>>& T);
 
 // @include
 shared_ptr<BSTNode<int>> BSTToDoublyList(
     const shared_ptr<BSTNode<int>>& T) {
   auto res = BSTToDoublyListHelper(T);
-  res->left->right = nullptr;  // Breaks the link from tail to head.
-  res->left = nullptr;  // Breaks the link from head to tail.
-  return res;
+  res.second->right = nullptr;  // Breaks the link from tail to head.
+  res.first->left = nullptr;  // Breaks the link from head to tail.
+  return res.first;
 }
 
 // Transforms a BST into a circular sorted circular doubly linked list
 // in-place, and return the head of the list.
-shared_ptr<BSTNode<int>> BSTToDoublyListHelper(
-    const shared_ptr<BSTNode<int>>& T) {
+pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>> 
+    BSTToDoublyListHelper(const shared_ptr<BSTNode<int>>& T) {
   // Empty subtree.
   if (!T) {
-    return nullptr;
+    return {nullptr, nullptr};
   }
 
   // Recursively builds the list from left and right subtrees.
-  auto l_head(BSTToDoublyListHelper(T->left));
-  auto r_head(BSTToDoublyListHelper(T->right));
+  auto left = BSTToDoublyListHelper(T->left);
+  auto right = BSTToDoublyListHelper(T->right);
 
   // Appends T to the list from left subtree.
-  shared_ptr<BSTNode<int>> l_tail = nullptr;
-  if (l_head) {
-    l_tail = l_head->left;
-    l_tail->right = T;
-    T->left = l_tail;
-    l_tail = T;
-  } else {
-    l_head = l_tail = T;
+  T->left = left.second;
+  if (left.second) {
+    left.second->right = T;
   }
 
   // Appends the list from right subtree to T.
-  shared_ptr<BSTNode<int>> r_tail = nullptr;
-  if (r_head) {
-    r_tail = r_head->left;
-    l_tail->right = r_head;
-    r_head->left = l_tail;
-  } else {
-    r_tail = l_tail;
+  T->right = right.first;
+  if (right.first) {
+    right.first->left = T;
   }
-  r_tail->right = l_head, l_head->left = r_tail;
 
-  return l_head;
+  return {left.first ? left.first : T, right.second ? right.second : T};
 }
 // @exclude
 

@@ -13,20 +13,20 @@ public class ViewSunset {
   // @include
   public static LinkedList<Pair<Integer, Integer>>
   examineBuildingsWithSunset(InputStream sin) {
-    int idx = 0; // Building's index.
-    Integer height;
-    // Stores (building_idx, building_height) pair with sunset views.
+    int buildingIdx = 0;
+    Integer buildingHeight;
+    // Stores (buildingIdx, buildingHeight) pair with sunset views.
     LinkedList<Pair<Integer, Integer>> buildingsWithSunset = new LinkedList<>();
     try {
       ObjectInputStream osin = new ObjectInputStream(sin);
       while (true) {
-        height = (Integer) osin.readObject();
+        buildingHeight = (Integer) osin.readObject();
         while (!buildingsWithSunset.isEmpty()
-            && (height.
+            && (buildingHeight.
             compareTo(buildingsWithSunset.getLast().getSecond()) >= 0)) {
           buildingsWithSunset.removeLast();
         }
-        buildingsWithSunset.addLast(new Pair<>(idx++, height));
+        buildingsWithSunset.addLast(new Pair<>(buildingIdx++, buildingHeight));
       }
     } catch (ClassNotFoundException e) {
       System.out.println(e.getMessage());

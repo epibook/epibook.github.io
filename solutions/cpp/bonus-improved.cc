@@ -66,6 +66,9 @@ void SmallTest() {
   A = {1,2,3,2,1};
   golden_A = {1, 2, 3, 2, 1};
   assert(EqualVector(CalculateBonus(A), golden_A));
+  A = {300, 400, 500, 200};
+  golden_A = {1, 2, 3, 1};
+  assert(EqualVector(CalculateBonus(A), golden_A));
 }
 
 int main(int argc, char* argv[]) {

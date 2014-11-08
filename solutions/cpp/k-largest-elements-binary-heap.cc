@@ -24,21 +24,25 @@ vector<int> KLargestInBinaryHeap(const vector<int>& A, int k) {
     return {};
   }
 
-  // Stores the (index, value)-pair in this max-heap. Ordered by value.
+  // Stores the (index, value)-pair in candidate_max_heap. This heap is
+  // ordered by value field.
   priority_queue<pair<size_t, int>, vector<pair<size_t, int>>, Compare>
-      max_heap;
-  max_heap.emplace(0, A[0]);  // The largest element stores at index 0.
+      candidate_max_heap;
+  // The largest element in A is at index 0.
+  candidate_max_heap.emplace(0, A[0]);
   vector<int> result;
   for (int i = 0; i < k; ++i) {
-    size_t idx = max_heap.top().first;
-    result.emplace_back(max_heap.top().second);
-    max_heap.pop();
+    size_t candidate_idx = candidate_max_heap.top().first;
+    result.emplace_back(candidate_max_heap.top().second);
+    candidate_max_heap.pop();
 
-    if ((idx * 2) + 1 < A.size()) {
-      max_heap.emplace((idx * 2) + 1, A[(idx * 2) + 1]);
+    size_t left_child_idx = 2 * candidate_idx + 1;
+    if (left_child_idx < A.size()) {
+      candidate_max_heap.emplace(left_child_idx, A[left_child_idx]);
     }
-    if ((idx * 2) + 2 < A.size()) {
-      max_heap.emplace((idx * 2) + 2, A[(idx * 2) + 2]);
+    size_t right_child_idx = 2 * candidate_idx + 2;
+    if (right_child_idx < A.size()) {
+      candidate_max_heap.emplace(right_child_idx, A[right_child_idx]);
     }
   }
   return result;

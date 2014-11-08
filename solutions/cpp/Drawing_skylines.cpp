@@ -25,7 +25,7 @@ struct Skyline {
   int left, right, height;
 };
 
-vector<Skyline> drawing_skylines(vector<Skyline> skylines) {
+vector<Skyline> DrawingSkylines(vector<Skyline> skylines) {
   return DrawingSkylinesHelper(skylines, 0, skylines.size());
 }
 
@@ -56,8 +56,8 @@ vector<Skyline> MergeSkylines(vector<Skyline>* L, vector<Skyline>* R) {
     }
   }
 
-  copy(L->cbegin() + i, L->cend(), back_inserter(merged));
-  copy(R->cbegin() + j, R->cend(), back_inserter(merged));
+  merged.insert(merged.end(), L->cbegin() + i, L->cend());
+  merged.insert(merged.end(), R->cbegin() + j, R->cend());
   return merged;
 }
 
@@ -113,7 +113,7 @@ int main(int argc, char* argv[]) {
       int height = height_dis(gen);
       A.emplace_back(Skyline{left, right, height});
     }
-    vector<Skyline> ans = drawing_skylines(A);
+    vector<Skyline> ans = DrawingSkylines(A);
     cout << "n = " << n << endl;
     // Just check there is no overlap.
     for (int i = 0; i < ans.size(); ++i) {

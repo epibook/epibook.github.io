@@ -7,7 +7,49 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class BigNumberMultiplication {
-  static String randString(int len) {
+  // @include
+  public static String Multiply(String num1, String num2) {
+    boolean isPositive = true;
+    if (num1.charAt(0) == '-') {
+      isPositive = !isPositive;
+      num1 = num1.substring(1);
+    }
+    if (num2.charAt(0) == '-') {
+      isPositive = !isPositive;
+      num2 = num2.substring(1);
+    }
+
+    // Reverses num1 and num2 to make multiplication easier.
+    num1 = new StringBuilder(num1).reverse().toString();
+    num2 = new StringBuilder(num2).reverse().toString();
+    int[] result = new int[num1.length() + num2.length()];
+    java.util.Arrays.fill(result, 0);
+    for (int i = 0; i < num1.length(); ++i) {
+      for (int j = 0; j < num2.length(); ++j) {
+        result[i + j] += (num1.charAt(i) - '0') * (num2.charAt(j) - '0');
+        result[i + j + 1] += result[i + j] / 10;
+        result[i + j] %= 10;
+      }
+    }
+
+    // Converts result to string in reverse order, and skips the first 0s and
+    // keeps one 0 if all are 0s.
+    int i = num1.length() + num2.length() - 1;
+    while (result[i] == 0 && i != 0) {
+      --i;
+    }
+    StringBuilder sb = new StringBuilder();
+    if (!isPositive && result[i] != 0) {  // It won't print "-0".
+      sb.append('-');
+    }
+    while (i >= 0) {
+      sb.append(result[i--]);
+    }
+    return sb.toString();
+  }
+  // @exclude
+
+  private static String randString(int len) {
     StringBuilder ret = new StringBuilder();
     if (len == 0) {
       ret.append("0");
@@ -25,7 +67,10 @@ public class BigNumberMultiplication {
     return ret.toString();
   }
 
-  static void simpleTest() {
+  private static void simpleTest() {
+    assert (Multiply("0", "1000").equals("0"));
+    assert (Multiply("131412", "-1313332").equals("-172587584784"));
+
     assert "0".equals(new BigInt("0").multiply(new BigInt("1000")).toString());
     assert "-172587584784".equals(new BigInt("131412").multiply(
         new BigInt("-1313332")).toString());
@@ -57,7 +102,6 @@ public class BigNumberMultiplication {
 
 }
 
-// @include
 class BigInt {
   BigInt(int capacity) {
     sign = 1;
@@ -104,7 +148,6 @@ class BigInt {
     return result;
   }
 
-  // @exclude
   public String toString() {
     StringBuilder s = new StringBuilder(sign > 0 ? "" : "-");
 
@@ -118,8 +161,6 @@ class BigInt {
     return s.toString();
   }
 
-  // @include
   int sign; // -1 or 1;
   char[] digits;
 }
-// @exclude

@@ -22,13 +22,13 @@ void PrintMatrixInSpiralOrder(vector<vector<int>> A) {
   for (int i = 0; i < A.size() * A.size(); ++i) {
     cout << A[x][y] << ' ';
     A[x][y] = 0;
-    int nx = x + shift[dir][0], ny = y + shift[dir][1];
-    if (nx < 0 || nx >= A.size() || ny < 0 || ny >= A.size() ||
-        A[nx][ny] == 0) {
+    int next_x = x + shift[dir][0], next_y = y + shift[dir][1];
+    if (next_x < 0 || next_x >= A.size() || next_y < 0 ||
+        next_y >= A.size() || A[next_x][next_y] == 0) {
       dir = (dir + 1) & 3;
-      nx = x + shift[dir][0], ny = y + shift[dir][1];
+      next_x = x + shift[dir][0], next_y = y + shift[dir][1];
     }
-    x = nx, y = ny;
+    x = next_x, y = next_y;
   }
 }
 // @exclude

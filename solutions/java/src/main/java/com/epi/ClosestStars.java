@@ -3,9 +3,6 @@ package com.epi;
 import java.io.*;
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ClosestStars {
   public static class Star implements Comparable<Star>, Serializable {
     private int id;
@@ -58,33 +55,34 @@ public class ClosestStars {
     }
 
     @Override
-    public int compareTo(Star s) {
-      return Double.valueOf(distance()).compareTo(s.distance());
+    public int compareTo(Star star) {
+      return Double.valueOf(distance()).compareTo(star.distance());
     }
   }
 
   // @include
-  public static List<Star> findClosestKStars(InputStream sin, int k) {
-    // Use maxHeap to find the closest k stars.
+  public static List<Star> findClosestKStars(InputStream stars, int k) {
+    // maxHeap to store the closest k stars seen so far.
     PriorityQueue<Star> maxHeap = new PriorityQueue<>();
     try {
-      ObjectInputStream osin = new ObjectInputStream(sin);
+      ObjectInputStream osin = new ObjectInputStream(stars);
 
       // Record the first k stars.
       while (true) {
-        Star s = (Star) osin.readObject();
+        Star star = (Star) osin.readObject();
 
-        if (maxHeap.size() == k) {
-          // Compare the top of heap with the incoming star.
+        if (maxHeap.size() < k) {
+          // Adds the first k stars to maxHeap.
+          maxHeap.add(star);
+        } else {
+          // Compare the new star with the furthest star in maxHeap.
           Star farStar = maxHeap.peek();
           // compareTo() method compares the Euclidean distances
-          // of s and farStar to the origin (Earth). 
-          if (s.compareTo(farStar) < 0) {
+          // of star and farStar to the origin (Earth).
+          if (star.compareTo(farStar) < 0) {
             maxHeap.remove();
-            maxHeap.add(s);
+            maxHeap.add(star);
           }
-        } else {
-          maxHeap.add(s);
         }
       }
     } catch (IOException e) {
@@ -93,7 +91,7 @@ public class ClosestStars {
       System.out.println("ClassNotFoundException: " + e.getMessage());
     }
 
-    // Store the closest k stars.
+    // Now, compute the closest k stars.
     List<Star> closestStars = new ArrayList<>();
     while (!maxHeap.isEmpty()) {
       closestStars.add(maxHeap.remove());

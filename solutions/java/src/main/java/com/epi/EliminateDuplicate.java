@@ -1,4 +1,5 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
 import java.util.ArrayList;
@@ -7,20 +8,16 @@ import java.util.Random;
 
 class EliminateDuplicate {
   // @include
-  public static void eliminateDuplicate(ArrayList<Integer> a) {
-    Collections.sort(a); // makes identical elements become neighbors.
-    // C++ unique-like algorithm on indexes
-    if (a.size() < 2) {
-      return;
-    }
+  public static void eliminateDuplicate(ArrayList<Integer> A) {
+    Collections.sort(A); // makes identical elements become neighbors.
     int result = 0;
-    for (int first = 1; first < a.size(); first++) {
-      if (!a.get(first).equals(a.get(result))) {
-        a.set(++result, a.get(first));
+    for (int first = 1; first < A.size(); first++) {
+      if (!A.get(first).equals(A.get(result))) {
+        A.set(++result, A.get(first));
       }
     }
-    // shrink array size
-    a.subList(++result, a.size()).clear();
+    // Shrinks array size.
+    A.subList(++result, A.size()).clear();
   }
   // @exclude
 

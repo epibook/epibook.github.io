@@ -14,7 +14,7 @@
 using namespace std;
 
 // @include
-double completion_search(vector<double> &A, double budget) {
+double CompletionSearch(vector<double> &A, double budget) {
   sort(A.begin(), A.end());
   if (budget / A.size() < A.front()) {
     return budget / A.size();
@@ -23,11 +23,8 @@ double completion_search(vector<double> &A, double budget) {
   double reminder = budget;
   for (int i = 0; i < A.size() - 1; ++i) {
     reminder -= A[i];
-    if (reminder < 0.0) {
-      return -1.0;
-    }
     double cutoff = reminder / (A.size() - i - 1);
-    if (A[i] <= cutoff && cutoff <= A[i + 1]) {
+    if (cutoff <= A[i + 1]) {
       return cutoff;
     }
   }
@@ -35,7 +32,7 @@ double completion_search(vector<double> &A, double budget) {
 }
 // @exclude
 
-double check_answer(vector<double> &A, double budget) {
+double CheckAnswer(vector<double> &A, double budget) {
   sort(A.begin(), A.end());
   // Calculate the prefix sum for A
   vector<double> prefix_sum;
@@ -59,7 +56,6 @@ double check_answer(vector<double> &A, double budget) {
 }
 
 int main(int argc, char *argv[]) {
-  //srand(time(nullptr));
   for (int times = 0; times < 10000; ++times) {
     int n;
     vector<double> A;
@@ -82,8 +78,8 @@ int main(int argc, char *argv[]) {
     cout << endl;
     cout << "tar = " << tar << endl;
     //*/
-    double ret = completion_search(A, tar);
-    double ret2 = check_answer(A, tar);
+    double ret = CompletionSearch(A, tar);
+    double ret2 = CheckAnswer(A, tar);
     cout << ret << " " << ret2 << endl;
     assert(fabs(ret - ret2) <= 1.0e-10);
     if (ret != -1) {

@@ -11,26 +11,26 @@ using std::cout;
 using std::endl;
 using std::unique_ptr;
 
-bool HasPathSumHelper(const unique_ptr<BinaryTreeNode<int>>& root, int path_sum,
-                      int sum);
+bool HasPathSumHelper(const unique_ptr<BinaryTreeNode<int>>& root, int partial_path_sum,
+                      int target_sum);
 
 // @include
-bool HasPathSum(const unique_ptr<BinaryTreeNode<int>>& root, int sum) {
-  return HasPathSumHelper(root, 0, sum);
+bool HasPathSum(const unique_ptr<BinaryTreeNode<int>>& root, int target_sum) {
+  return HasPathSumHelper(root, 0, target_sum);
 }
 
-bool HasPathSumHelper(const unique_ptr<BinaryTreeNode<int>>& root,
-                      int path_sum, int sum) {
-  if (root) {
-    path_sum += root->data;
-    if (!root->left && !root->right) {  // Leaf.
-      return path_sum == sum;
-    }
-    // Non-leaf.
-    return HasPathSumHelper(root->left, path_sum, sum) ||
-           HasPathSumHelper(root->right, path_sum, sum);
+bool HasPathSumHelper(const unique_ptr<BinaryTreeNode<int>>& node,
+                      int partial_path_sum, int target_sum) {
+  if (node == nullptr) {
+    return false;
   }
-  return false;
+  partial_path_sum += node->data;
+  if (node->left == nullptr && node->right == nullptr) {  // Leaf.
+    return partial_path_sum == target_sum;
+  }
+  // Non-leaf.
+  return HasPathSumHelper(node->left, partial_path_sum, target_sum) ||
+         HasPathSumHelper(node->right, partial_path_sum, target_sum);
 }
 // @exclude
 

@@ -5,35 +5,34 @@ package com.epi;
 
 class CheckingCycle {
   // @include
-  public static Node<Integer> hasCycle(Node<Integer> head) {
-    Node<Integer> fast = head;
-    Node<Integer> slow = head;
+  public static ListNode<Integer> hasCycle(ListNode<Integer> head) {
+    ListNode<Integer> fast = head, slow = head;
 
-    while (slow != null && slow.next != null && fast != null
-        && fast.next != null && fast.next.next != null) {
+    while (fast != null && fast.next != null && fast.next.next != null) {
       slow = slow.next;
       fast = fast.next.next;
-      if (slow == fast) { // There is a cycle.
-        // Calculates the cycle length.
+      if (slow == fast) {
+        // There is a cycle, so now let's calculate the cycle length.
         int cycleLen = 0;
         do {
           ++cycleLen;
           fast = fast.next;
         } while (slow != fast);
 
-        // Tries to find the start of the cycle.
-        slow = head;
-        fast = head;
-        // Fast pointer advances cycleLen first.
+        // Finds the start of the cycle.
+        ListNode<Integer> cycleLenAdvancedIter = head;
+        // cycleLenAdvancedIter pointer advances cycleLen first.
         while (cycleLen-- > 0) {
-          fast = fast.next;
+          cycleLenAdvancedIter = cycleLenAdvancedIter.next;
         }
-        // Both pointers advance at the same time.
-        while (slow != fast) {
-          slow = slow.next;
-          fast = fast.next;
+
+        ListNode<Integer> iter = head;
+        // Both iterators advance in tandem.
+        while (iter != cycleLenAdvancedIter) {
+          iter = iter.next;
+          cycleLenAdvancedIter = cycleLenAdvancedIter.next;
         }
-        return slow; // The start of cycle.
+        return iter; // iter is the start of cycle.
       }
     }
     return null; // no cycle.
@@ -41,9 +40,9 @@ class CheckingCycle {
   // @exclude
 
   public static void main(String[] args) {
-    Node<Integer> l3 = new Node<>(3, null);
-    Node<Integer> l2 = new Node<>(2, l3);
-    Node<Integer> l1 = new Node<>(1, l2);
+    ListNode<Integer> l3 = new ListNode<>(3, null);
+    ListNode<Integer> l2 = new ListNode<>(2, l3);
+    ListNode<Integer> l1 = new ListNode<>(1, l2);
 
     // should output "l1 does not have cycle."
     assert (hasCycle(l1) == null);
@@ -55,7 +54,7 @@ class CheckingCycle {
     // should output "l1 has cycle, located at node has value 2"
     assert (hasCycle(l1) != null);
     assert (hasCycle(l1).data == 2);
-    Node<Integer> temp = hasCycle(l1);
+    ListNode<Integer> temp = hasCycle(l1);
     if (temp != null) {
       System.out
           .println("l1 has cycle, located at node has value " + temp.data);

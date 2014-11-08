@@ -59,4 +59,5 @@ int CalculateLargestRectangle(const vector<int>& A) {
   return max_area;
 }
 // @exclude
+
 #endif  // SOLUTIONS_LARGEST_RECTANGLE_UNDER_SKYLINE_H_

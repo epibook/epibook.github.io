@@ -1,16 +1,17 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
-// @author Andrey Pavlov
 
 package com.epi;
 
 // @include
-class Node<T> {
+class ListNode<T> {
   public T data;
-  public Node<T> next;
+  public ListNode<T> next;
+  // @exclude
 
-  Node(T data, Node<T> next) {
+  ListNode(T data, ListNode<T> next) {
     this.data = data;
     this.next = next;
   }
+  // @include
 }
 // @exclude

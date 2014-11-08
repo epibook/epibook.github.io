@@ -19,13 +19,12 @@ public class NonUniformRandomNumberGeneration {
     ListIterator<Double> iter = prefixP.listIterator();
     iter.next();
     partialSum(P.iterator(), iter, BinaryOperators.ADD);
-    // gen object is used to generate random numbers from in [0.0, 1.0]
     Random gen = new Random();
 
     // upperBound returns an iterator pointing to the first element in
     // (prefixP.cbegin(),prefixP.cend()) which compares greater than
     // gen.nextDouble()
-    // which is a uniform random number in [0.0,1.0].
+    // which is a uniform random number in [0.0,1.0).
     int it = upperBound(prefixP, gen.nextDouble());
     return T.get(it - 1);
   }

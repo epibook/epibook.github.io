@@ -2,36 +2,40 @@ package com.epi;
 
 public class CyclicRightShift {
   // @include
-  public static NodeT<Integer> cyclicallyRightShiftList(NodeT<Integer> L,
-                                                        int k) {
-    if (L == null || k == 0) {
+  public static ListNode<Integer> cyclicallyRightShiftList(ListNode<Integer> L,
+                                                           int k) {
+    if (L == null) {
       return L;
     }
 
-    // Computes n, the length of L.
-    NodeT<Integer> tail = L;
+    // Computes the length of L and the tail.
+    ListNode<Integer> tail = L;
     int n = 1;
     while (tail.next != null) {
       ++n;
       tail = tail.next;
     }
+    k %= n;
+    if (k == 0) {
+      return L;
+    }
 
     tail.next = L; // Makes a cycle by connecting the tail to the head.
-    int steps = n - k % n;
-    NodeT<Integer> prev = tail;
-    while (steps-- > 0) {
-      prev = prev.next;
+    int stepsToNewHead = n - k % n;
+    ListNode<Integer> newTail = tail;
+    while (stepsToNewHead-- > 0) {
+      newTail = newTail.next;
     }
-    L = prev.next;
-    prev.next = null;
-    return L;
+    ListNode<Integer> newHead = newTail.next;
+    newTail.next = null;
+    return newHead;
   }
   // @exclude
 
   public static void main(String[] args) {
-    NodeT<Integer> L;
-    L = new NodeT<>(1, new NodeT<>(2, new NodeT<>(3, null)));
-    NodeT<Integer> result = cyclicallyRightShiftList(L, 2);
+    ListNode<Integer> L;
+    L = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, null)));
+    ListNode<Integer> result = cyclicallyRightShiftList(L, 2);
     assert(result.data.equals(2) && result.next.data.equals(3) &&
            result.next.next.data.equals(1) && result.next.next.next == null);
     while (result != null) {

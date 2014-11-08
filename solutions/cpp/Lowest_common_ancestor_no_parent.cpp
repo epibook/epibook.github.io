@@ -8,23 +8,44 @@
 
 using std::cout;
 using std::endl;
+using std::pair;
 using std::unique_ptr;
 
+pair<int, BinaryTreeNode<int>*> LCAHelper(
+    const unique_ptr<BinaryTreeNode<int>>&,
+    const unique_ptr<BinaryTreeNode<int>>&,
+    const unique_ptr<BinaryTreeNode<int>>&);
+
 // @include
-BinaryTreeNode<int>* LCA(const unique_ptr<BinaryTreeNode<int>>& T,
-                         const unique_ptr<BinaryTreeNode<int>>& a,
-                         const unique_ptr<BinaryTreeNode<int>>& b) {
-  if (!T) {  // Empty subtree.
-    return nullptr;
-  } else if (T == a || T == b) {
-    return T.get();
+BinaryTreeNode<int>* LCA(const unique_ptr<BinaryTreeNode<int>>& tree,
+                         const unique_ptr<BinaryTreeNode<int>>& node0,
+                         const unique_ptr<BinaryTreeNode<int>>& node1) {
+  return LCAHelper(tree, node0, node1).second;
+}
+
+// Returns a pair of int and node pointer; int field is 0, 1, or 2 depending
+// on how many of node0 and node1 are present in tree. If both are present in
+// tree, the node pointer is a common ancestor. It may not be the LCA
+// initially, but it will be LCA when the algorithm terminates.
+pair<int, BinaryTreeNode<int>*> LCAHelper(
+    const unique_ptr<BinaryTreeNode<int>>& tree,
+    const unique_ptr<BinaryTreeNode<int>>& node0,
+    const unique_ptr<BinaryTreeNode<int>>& node1) {
+  if (tree == nullptr) {
+    return {0, nullptr};
   }
 
-  auto* l_res = LCA(T->left, a, b), *r_res = LCA(T->right, a, b);
-  if (l_res && r_res) {
-    return T.get();  // Found a and b in different subtrees.
+  auto left_result = LCAHelper(tree->left, node0, node1);
+  if (left_result.first == 2) {  // Found both nodes in the left subtree.
+    return left_result;
   }
-  return l_res ? l_res : r_res;
+  auto right_result = LCAHelper(tree->right, node0, node1);
+  if (right_result.first == 2) {  // Found both nodes in the right subtree.
+    return right_result;
+  }
+  int num_target_nodes = left_result.first + right_result.first +
+                         (tree == node0 || tree == node1);
+  return {num_target_nodes, num_target_nodes == 2 ? tree.get() : nullptr};
 }
 // @exclude
 

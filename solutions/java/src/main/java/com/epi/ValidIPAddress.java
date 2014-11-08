@@ -14,8 +14,8 @@ public class ValidIPAddress {
           String second = s.substring(i, i + j);
           if (isValidPart(second)) {
             for (int k = 1; i + j + k < s.length() && k < 4; ++k) {
-              String third = s.substring(i + j, i + j + k), fourth = s
-                  .substring(i + j + k);
+              String third = s.substring(i + j, i + j + k);
+              String fourth = s.substring(i + j + k);
               if (isValidPart(third) && isValidPart(fourth)) {
                 result.add(first + "." + second + "." + third + "." + fourth);
               }

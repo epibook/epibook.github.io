@@ -17,31 +17,26 @@ using std::stoi;
 using std::uniform_int_distribution;
 
 // @include
-int SquareRoot(int x) {
-  if (x <= 1) {
-    return x;
-  }
-
-  long left = 0, right = x;
-  while (left + 1 < right) {
+int SquareRoot(int k) {
+  long left = 0, right = k;
+  while (left <= right) {
     long mid = left + ((right - left) / 2);
-    long square_m = mid * mid;
-    if (square_m == x) {
-      return mid;
-    } else if (square_m < x) {
-      left = mid;
-    } else {  // square_m > x
+    long mid_squared = mid * mid;
+    if (mid_squared <= k) {
+      left = mid + 1;
+    } else {
       right = mid - 1;
     }
   }
-  if (right * right <= x) {
-    return right;
-  }
-  return left;
+  return left - 1;
 }
 // @exclude
 
 int main(int argc, char** argv) {
+  assert(SquareRoot(0) == 0);
+  assert(SquareRoot(1) == 1);
+  assert(SquareRoot(121) == 11);
+  assert(SquareRoot(64) == 8);
   int x;
   if (argc == 2) {
     x = stoi(argv[1]);

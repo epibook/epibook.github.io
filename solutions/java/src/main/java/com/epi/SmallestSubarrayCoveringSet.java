@@ -1,5 +1,4 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
-// @author Andrey Pavlov
 
 package com.epi;
 
@@ -20,43 +19,44 @@ class SmallestSubarrayCoveringSet {
 
   // @include
   public static Pair<Integer, Integer> findSmallestSubarrayCoveringSubset(
-      final List<String> A, final List<String> Q) {
-    Set<String> dict = new HashSet<>(Q);
+      String[] A, String[] Q) {
+    Set<String> dict = new HashSet<>(Arrays.asList(Q));
     Map<String, Integer> countQ = new HashMap<>();
-    int l = 0, r = 0;
+    int left = 0, right = 0;
     Pair<Integer, Integer> res = new Pair<>(-1, -1);
-    while (r < A.size()) {
-      // Keeps moving r until it reaches end or countQ has |Q| items.
-      while (r < A.size() && countQ.size() < Q.size()) {
-        if (dict.contains(A.get(r))) {
-          countQ.put(A.get(r),
-              countQ.containsKey(A.get(r)) ? countQ.get(A.get(r)) + 1 : 1);
+    while (right < A.length) {
+      // Keeps moving right until it reaches end or countQ has |Q| items.
+      while (right < A.length && countQ.size() < Q.length) {
+        if (dict.contains(A[right])) {
+          countQ.put(A[right],
+              countQ.containsKey(A[right])
+                  ? countQ.get(A[right]) + 1 : 1);
         }
-        ++r;
+        ++right;
       }
 
-      if (countQ.size() == Q.size() && // Found |Q| keywords.
-          ((res.getFirst() == -1 && res.getSecond() == -1) || r - 1 - l < res
-              .getSecond() - res.getFirst())) {
-        res.setFirst(l);
-        res.setSecond(r - 1);
+      if (countQ.size() == Q.length && // Found |Q| keywords.
+          ((res.getFirst() == -1 && res.getSecond() == -1)
+           || right - 1 - left < res.getSecond() - res.getFirst())) {
+        res.setFirst(left);
+        res.setSecond(right - 1);
       }
 
-      // Keeps moving l until it reaches end or countQ has less |Q| items.
-      while (l < r && countQ.size() == Q.size()) {
-        if (dict.contains(A.get(l))) {
-          int it = countQ.get(A.get(l));
-          countQ.put(A.get(l), --it);
+      // Keeps moving left until it reaches end or countQ has less |Q| items.
+      while (left < right && countQ.size() == Q.length) {
+        if (dict.contains(A[left])) {
+          int it = countQ.get(A[left]);
+          countQ.put(A[left], --it);
           if (it == 0) {
-            countQ.remove(A.get(l));
+            countQ.remove(A[left]);
             if ((res.getFirst() == -1 && res.getSecond() == -1)
-                || r - 1 - l < res.getSecond() - res.getFirst()) {
-              res.setFirst(l);
-              res.setSecond(r - 1);
+                || right - 1 - left < res.getSecond() - res.getFirst()) {
+              res.setFirst(left);
+              res.setSecond(right - 1);
             }
           }
         }
-        ++l;
+        ++left;
       }
     }
     return res;
@@ -64,23 +64,20 @@ class SmallestSubarrayCoveringSet {
   // @exclude
 
   // O(n^2) solution
-  public static int checkAns(List<String> A, List<String> Q) {
-    Set<String> dict = new HashSet<>();
-    for (String s : Q) {
-      dict.add(s);
-    }
+  public static int checkAns(String[] A, String[] Q) {
+    Set<String> dict = new HashSet<>(Arrays.asList(Q));
 
-    Pair<Integer, Integer> ans = new Pair<>(0, A.size() - 1);
-    for (int l = 0; l < A.size(); ++l) {
+    Pair<Integer, Integer> ans = new Pair<>(0, A.length - 1);
+    for (int l = 0; l < A.length; ++l) {
       Map<String, Integer> count = new HashMap<>();
       for (int r = l;
-           r < A.size() && r - l < ans.getSecond() - ans.getFirst();
+           r < A.length && r - l < ans.getSecond() - ans.getFirst();
            ++r) {
-        if (dict.contains(A.get(r))) {
-          count.put(A.get(r),
-              count.containsKey(A.get(r)) ? count.get(A.get(r)) + 1 : 1);
+        if (dict.contains(A[r])) {
+          count.put(A[r],
+              count.containsKey(A[r]) ? count.get(A[r]) + 1 : 1);
         }
-        if (count.size() == Q.size()) {
+        if (count.size() == Q.length) {
           if (r - l < ans.getSecond() - ans.getFirst()) {
             ans.setFirst(l);
             ans.setSecond(r);
@@ -98,24 +95,25 @@ class SmallestSubarrayCoveringSet {
     Random gen = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
-      List<String> A = new ArrayList<>();
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);
       } else {
         n = gen.nextInt(10000) + 1;
       }
+      String[] A = new String[n];
       for (int i = 0; i < n; ++i) {
-        A.add(randString(gen.nextInt(10) + 1));
+        A[i] = randString(gen.nextInt(10) + 1);
       }
       /*
        * for (int i = 0; i < A.size(); ++i) { cout << A[i] << ' '; } cout <<
        * endl;
        */
-      Set<String> dict = new HashSet<>(A);
+      Set<String> dict = new HashSet<>(Arrays.asList(A));
       int m = gen.nextInt(dict.size()) + 1;
-      List<String> Q = new ArrayList<>();
+      String[] Q = new String[m];
+      int idx = 0;
       for (String aDict : dict) {
-        Q.add(aDict);
+        Q[idx++] = aDict;
         if (--m == 0) {
           break;
         }
@@ -132,21 +130,21 @@ class SmallestSubarrayCoveringSet {
         dict.add(aQ1);
       }
       for (int i = res.getFirst(); i <= res.getSecond(); ++i) {
-        if (dict.contains(A.get(i))) {
-          dict.remove(A.get(i));
+        if (dict.contains(A[i])) {
+          dict.remove(A[i]);
         }
       }
       assert (dict.isEmpty());
-      Pair<Integer, Integer> res2 = SmallestSubarrayCoveringSetStream
-          .findSmallestSubarrayCoveringSubset(A, Q);
+      Pair<Integer, Integer> res2 =
+          SmallestSubarrayCoveringSetStream.findSmallestSubarrayCoveringSubset(A, Q);
       System.out.println(res2.getFirst() + ", " + res2.getSecond());
       dict.clear();
       for (String aQ : Q) {
         dict.add(aQ);
       }
       for (int i = res.getFirst(); i <= res.getSecond(); ++i) {
-        if (dict.contains(A.get(i))) {
-          dict.remove(A.get(i));
+        if (dict.contains(A[i])) {
+          dict.remove(A[i]);
         }
       }
       assert (dict.isEmpty());

@@ -19,10 +19,9 @@ using std::vector;
 
 // @include
 int GetMaxArea(const vector<int>& heights) {
-  size_t i = 0, j = heights.size() - 1;
-  int res = 0;
+  int i = 0, j = heights.size() - 1, max_area = 0;
   while (i < j) {
-    res = max(res, min(heights[i], heights[j]) * static_cast<int>(j - i));
+    max_area = max(max_area, min(heights[i], heights[j]) * (j - i));
     if (heights[i] > heights[j]) {
       --j;
     } else if (heights[i] < heights[j]) {
@@ -31,7 +30,7 @@ int GetMaxArea(const vector<int>& heights) {
       ++i, --j;
     }
   }
-  return res;
+  return max_area;
 }
 // @exclude
 
@@ -46,7 +45,13 @@ int CheckAns(const vector<int>& heights) {
   return res;
 }
 
+void SmallTest() {
+  vector<int> A = {1,2,1,3,4,4,5,6,2,1,3,1,3,2,1,2,4,1};
+  assert(48 == GetMaxArea(A));
+}
+
 int main(int argc, char** argv) {
+  SmallTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     size_t n;

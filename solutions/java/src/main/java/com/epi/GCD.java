@@ -2,9 +2,6 @@ package com.epi;
 
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class GCD {
   // @include
   public static long elementaryGCD(long x, long y) {
@@ -18,10 +15,10 @@ public class GCD {
       return elementaryGCD(x >> 1, y);
     } else if ((x & 1) != 0 && (y & 1) == 0) { // x is odd, y is even.
       return elementaryGCD(x, y >> 1);
-    } else if (x > y) { // both x and y are odd, and x > y.
+    } else if (x > y) { // Both x and y are odd, and x > y.
       return elementaryGCD(x - y, y);
     }
-    return elementaryGCD(x, y - x); // both x and y are odd, and x <= y.
+    return elementaryGCD(x, y - x); // Both x and y are odd, and x <= y.
   }
   // @exclude
 

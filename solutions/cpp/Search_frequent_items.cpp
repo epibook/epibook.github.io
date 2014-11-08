@@ -33,17 +33,17 @@ string RandString(int len) {
 }
 
 // @include
+// Finds the candidates which may occur >= n / k times.
 vector<string> SearchFrequentItems(int k, istringstream* sin) {
-  // Finds the candidates which may occur >= n / k times.
   string buf;
   unordered_map<string, int> hash;
   int n = 0;  // Count the number of strings.
 
   while (*sin >> buf) {
     ++hash[buf], ++n;
-    // Detecting k + 1 items in hash, at least one of them must have exactly
-    // one in it. We will discard those k + 1 items by 1 for each.
-    if (hash.size() == k + 1) {
+    // Detecting k items in hash, at least one of them must have exactly
+    // one in it. We will discard those k items by one for each.
+    if (hash.size() == k) {
       auto it = hash.begin();
       while (it != hash.end()) {
         if (--(it->second) == 0) {

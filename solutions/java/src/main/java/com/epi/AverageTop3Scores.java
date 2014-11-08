@@ -59,7 +59,7 @@ public class AverageTop3Scores {
 
   // Returns the sum of top three scores.
   private static int getTopThreeScoresSum(TreeSet<UniqueInteger> scores) {
-    Iterator<UniqueInteger> it = scores.iterator();
+    Iterator<UniqueInteger> it = scores.descendingIterator();
     int result = 0;
     for (int i = 0; i < 3 && it.hasNext(); i++) {
       result += it.next().value;

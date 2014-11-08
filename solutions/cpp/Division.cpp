@@ -48,19 +48,19 @@ unsigned DivideXYBsearch(unsigned x, unsigned y) {
 
 // @include
 unsigned DivideXY(unsigned x, unsigned y) {
-  unsigned res = 0;
+  unsigned result = 0;
   while (x >= y) {
     int power = 1;
     // Checks (y << power) >= (y << (power - 1)) to prevent potential
-    // overflow of unsigned.
+    // overflow.
     while ((y << power) >= (y << (power - 1)) && (y << power) <= x) {
       ++power;
     }
 
-    res += 1U << (power - 1);
+    result += 1U << (power - 1);
     x -= y << (power - 1);
   }
-  return res;
+  return result;
 }
 // @exclude
 

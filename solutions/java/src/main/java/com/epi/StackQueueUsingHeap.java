@@ -5,9 +5,6 @@ import com.epi.utils.Pair;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class StackQueueUsingHeap {
   // @include
   private static class Compare implements Comparator<Pair<Integer, Integer>> {

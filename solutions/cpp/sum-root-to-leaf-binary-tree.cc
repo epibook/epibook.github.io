@@ -12,25 +12,26 @@ using std::endl;
 using std::equal;
 using std::unique_ptr;
 
-int PreorderTraversal(const unique_ptr<BinaryTreeNode<int>>& root, int num);
+int SumRootToLeafHelper(const unique_ptr<BinaryTreeNode<int>>&, int);
 
 // @include
-int SumRootToLeaf(const unique_ptr<BinaryTreeNode<int>>& root) {
-  return PreorderTraversal(root, 0);
+int SumRootToLeaf(const unique_ptr<BinaryTreeNode<int>>& tree) {
+  return SumRootToLeafHelper(tree, 0);
 }
 
-int PreorderTraversal(const unique_ptr<BinaryTreeNode<int>>& root, int num) {
-  if (!root) {
+int SumRootToLeafHelper(const unique_ptr<BinaryTreeNode<int>>& node,
+                        int partial_path_sum) {
+  if (node == nullptr) {
     return 0;
   }
 
-  num = num * 2 + root->data;
-  if (!root->left && !root->right) {  // Leaf.
-    return num;
+  partial_path_sum = partial_path_sum * 2 + node->data;
+  if (node->left == nullptr && node->right == nullptr) {  // Leaf.
+    return partial_path_sum;
   }
   // Non-leaf.
-  return PreorderTraversal(root->left, num) +
-         PreorderTraversal(root->right, num);
+  return SumRootToLeafHelper(node->left, partial_path_sum) +
+         SumRootToLeafHelper(node->right, partial_path_sum);
 }
 // @exclude
 

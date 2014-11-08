@@ -36,8 +36,8 @@ double CompletionSearch(double budget, vector<double>* A) {
   if (lower == costs.cbegin()) {
     return budget / A->size();
   }
-  auto idx = distance(costs.cbegin(), lower) - 1;
-  return (*A)[idx] + (budget - costs[idx]) / (A->size() - idx - 1);
+  auto idx = distance(costs.cbegin(), lower);
+  return (budget - prefix_sum[idx - 1]) / (A->size() - idx);
 }
 // @exclude
 

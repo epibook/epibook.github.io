@@ -16,34 +16,34 @@ vector<int> result;
 
 // @include
 void InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& root) {
-  auto* n = root.get();
-  while (n) {
-    if (n->left.get()) {
-      // Finds the predecessor of n.
-      auto* pre = n->left.get();
-      while (pre->right.get() && pre->right.get() != n) {
-        pre = pre->right.get();
+  auto* iter = root.get();
+  while (iter) {
+    if (iter->left.get()) {
+      // Finds the predecessor of iter.
+      auto& pre = iter->left;
+      while (pre->right && pre->right.get() != iter) {
+        pre.reset(pre->right.get());
       }
 
       // Processes the successor link.
-      if (pre->right.get()) {  // pre->right.get() == n.
-        // Reverts the successor link if predecessor's successor is n.
+      if (pre->right) {  // pre->right.get() == iter.
+        // Reverts the successor link if predecessor's successor is iter.
         pre->right.release();
-        cout << n->data << endl;
+        cout << iter->data << endl;
         // @exclude
-        result.emplace_back(n->data);
+        result.emplace_back(iter->data);
         // @include
-        n = n->right.get();
-      } else {  // If predecessor's successor is not n.
-        pre->right.reset(n);
-        n = n->left.get();
+        iter = iter->right.get();
+      } else {  // If predecessor's successor is not iter.
+        pre->right.reset(iter);
+        iter = iter->left.get();
       }
     } else {
-      cout << n->data << endl;
+      cout << iter->data << endl;
       // @exclude
-      result.emplace_back(n->data);
+      result.emplace_back(iter->data);
       // @include
-      n = n->right.get();
+      iter = iter->right.get();
     }
   }
 }

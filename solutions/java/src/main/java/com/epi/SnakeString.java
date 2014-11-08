@@ -5,27 +5,20 @@ import java.util.Random;
 public class SnakeString {
   // @include
   public static String snakeString(String s) {
-    String ret = "";
+    String result = "";
     // Outputs the first row, i.e., s[1], s[5], s[9], ...
-    int idx = 1;
-    while (idx < s.length()) {
-      ret += s.charAt(idx);
-      idx += 4;
+    for (int i = 1; i < s.length(); i += 4) {
+      result += s.charAt(i);
     }
     // Outputs the second row, i.e., s[0], s[2], s[4], ...
-    idx = 0;
-    while (idx < s.length()) {
-      ret += s.charAt(idx);
-      idx += 2;
+    for (int i = 0; i < s.length(); i += 2) {
+      result += s.charAt(i);
     }
     // Outputs the third row, i.e., s[3], s[7], s[11], ...
-    idx = 3;
-    while (idx < s.length()) {
-      ret += s.charAt(idx);
-      idx += 4;
+    for (int i = 3; i < s.length(); i += 4) {
+      result += s.charAt(i);
     }
-
-    return ret;
+    return result;
   }
   // @exclude
 

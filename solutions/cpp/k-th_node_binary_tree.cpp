@@ -20,20 +20,20 @@ struct BinaryTreeNode {
 
 // @include
 const BinaryTreeNode<int>* FindKthNodeBinaryTree(
-    const unique_ptr<BinaryTreeNode<int>>& root, int k) {
-  const auto* n = root.get();
-  while (n) {
-    int left_size = n->left ? n->left->size : 0;
-    if (left_size < k - 1) {
+    const unique_ptr<BinaryTreeNode<int>>& tree, int k) {
+  const auto* iter = tree.get();
+  while (iter != nullptr) {
+    int left_size = iter->left ? iter->left->size : 0;
+    if (left_size + 1 < k) {  // Target node must be in right subtree of iter.
       k -= (left_size + 1);
-      n = n->right.get();
-    } else if (left_size == k - 1) {
-      return n;
-    } else {  // left_size > k - 1.
-      n = n->left.get();
+      iter = iter->right.get();
+    } else if (left_size == k - 1) {  // Target is iter itself.
+      return iter;
+    } else {  // Target node must be in left subtree of iter.
+      iter = iter->left.get();
     }
   }
-  throw length_error("no k-th node in binary tree");
+  return nullptr; // If k is between 1 and the tree size, this is unreachable.
 }
 // @exclude
 
@@ -65,13 +65,7 @@ int main(int argc, char* argv[]) {
   root->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
   root->right->right->size = 1;
   root->right->right->data = 6;
-  // should throw
-  try {
-    FindKthNodeBinaryTree(root, 0);
-  }
-  catch (const exception& e) {
-    cout << e.what() << endl;
-  }
+  assert(nullptr == FindKthNodeBinaryTree(root, 0));
   // should output 1
   assert(FindKthNodeBinaryTree(root, 1)->data == 1);
   cout << (FindKthNodeBinaryTree(root, 1))->data << endl;
@@ -90,12 +84,6 @@ int main(int argc, char* argv[]) {
   // should output 6
   assert(FindKthNodeBinaryTree(root, 6)->data == 6);
   cout << (FindKthNodeBinaryTree(root, 6))->data << endl;
-  // should throw
-  try {
-    FindKthNodeBinaryTree(root, 7);
-  }
-  catch (const exception& e) {
-    cout << e.what() << endl;
-  }
+  assert(nullptr ==  FindKthNodeBinaryTree(root, 7));
   return 0;
 }

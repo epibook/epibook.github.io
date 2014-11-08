@@ -1,36 +1,40 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BinarySearchCircularArrayWithDuplicates {
   // @include
-  public static int searchSmallest(ArrayList<Integer> A) {
-    return searchSmallestHelper(A, 0, A.size() - 1);
+  public static int searchSmallest(int[] A) {
+    return searchSmallestHelper(A, 0, A.length - 1);
   }
 
-  private static int searchSmallestHelper(ArrayList<Integer> A, int l, int r) {
-    if (l == r) {
-      return l;
+  private static int searchSmallestHelper(int[] A, int left, int right) {
+    if (left == right) {
+      return left;
     }
 
-    int m = l + ((r - l) / 2);
-    if (A.get(m) > A.get(r)) {
-      return searchSmallestHelper(A, m + 1, r);
-    } else if (A.get(m) < A.get(r)) {
-      return searchSmallestHelper(A, l, m);
-    } else { // A.get(m) == A.get(r)
+    int mid = left + ((right - left) / 2);
+    if (A[mid] > A[right]) {
+      return searchSmallestHelper(A, mid + 1, right);
+    } else if (A[mid] < A[right]) {
+      return searchSmallestHelper(A, left, mid);
+    } else { // A[mid] == A[right]
       // Smallest element must exist in either left or right side.
-      int lRes = searchSmallestHelper(A, l, m);
-      int rRes = searchSmallestHelper(A, m + 1, r);
-      return A.get(rRes) < A.get(lRes) ? rRes : lRes;
+      int leftResult = searchSmallestHelper(A, left, mid);
+      int rightResult = searchSmallestHelper(A, mid + 1, right);
+      return A[rightResult] < A[leftResult] ? rightResult : leftResult;
     }
   }
   // @exclude
+
+  private static void reverse(int[] A, int a, int b) {
+    for (int i = a, j = b; i < j; ++i, --j) {
+      int temp = A[i];
+      A[i] = A[j];
+      A[j] = temp;
+    }
+  }
 
   public static void main(String[] args) {
     Random r = new Random();
@@ -41,43 +45,26 @@ public class BinarySearchCircularArrayWithDuplicates {
       } else {
         n = r.nextInt(10000) + 1;
       }
-      ArrayList<Integer> A = new ArrayList<>(n);
+      int[] A = new int[n];
       for (int i = 0; i < n; i++) {
-        A.add(r.nextInt(1000000));
+        A[i] = r.nextInt(1000000);
       }
-      Collections.sort(A);
+      Arrays.sort(A);
       int shift = r.nextInt(n);
-      Collections.reverse(A);
-      Collections.reverse(A.subList(0, shift + 1));
-      Collections.reverse(A.subList(shift + 1, A.size()));
+      reverse(A, 0, A.length - 1);
+      reverse(A, 0, shift);
+      reverse(A, shift + 1, A.length - 1);
       // System.out.println(A);
       assert ((shift + 1) % n == searchSmallest(A));
     }
     // hand-made tests
-    ArrayList<Integer> A = new ArrayList<>();
-    A.add(2);
-    A.add(2);
-    A.add(2);
+    int[] A = new int[]{2, 2, 2};
     assert (0 == searchSmallest(A));
-    A.clear();
-    A.add(100);
-    A.add(2);
-    A.add(5);
-    A.add(5);
+    A = new int[]{100, 2, 5, 5};
     assert (1 == searchSmallest(A));
-    A.clear();
-    A.add(1);
-    A.add(2);
-    A.add(3);
-    A.add(3);
-    A.add(3);
+    A = new int[]{1, 2, 3, 3, 3};
     assert (0 == searchSmallest(A));
-    A.clear();
-    A.add(5);
-    A.add(2);
-    A.add(3);
-    A.add(3);
-    A.add(3);
+    A = new int[]{5, 2, 3, 3, 3};
     assert (1 == searchSmallest(A));
   }
 }

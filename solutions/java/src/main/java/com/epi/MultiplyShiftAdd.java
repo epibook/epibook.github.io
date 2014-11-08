@@ -2,15 +2,12 @@ package com.epi;
 
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class MultiplyShiftAdd {
   // @include
   public static long multiplyNoOperator(long x, long y) {
     long sum = 0;
     while (x != 0) {
-      // Examine the lg(k)-th bit of x.
+      // Examines the lg(k)-th bit of x.
       if (x % 2 != 0) {
         sum = addNoOperator(sum, y);
       }

@@ -19,19 +19,25 @@ struct BinaryTreeNode {
   BinaryTreeNode<T>* next;  // Populates this field.
 };
 
+void PopulateChildrenNextField(BinaryTreeNode<int>* start_node);
+
 // @include
-void PopulateNextPointer(BinaryTreeNode<int>* root) {
-  auto left_start = root;
+void ConstructRightSibling(BinaryTreeNode<int>* tree) {
+  auto left_start = tree;
   while (left_start) {
-    auto parent = left_start;
-    while (parent && parent->left) {
-      parent->left->next = parent->right.get();
-      if (parent->next) {
-        parent->right->next = parent->next->left.get();
-      }
-      parent = parent->next;
-    }
+    PopulateChildrenNextField(left_start);
     left_start = left_start->left.get();
+  }
+}
+
+void PopulateChildrenNextField(BinaryTreeNode<int>* start_node) {
+  auto iter = start_node;
+  while (iter && iter->left) {
+    iter->left->next = iter->right.get();
+    if (iter->next) {
+      iter->right->next = iter->next->left.get();
+    }
+    iter = iter->next;
   }
 }
 // @exclude
@@ -54,7 +60,7 @@ int main(int argc, char* argv[]) {
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4, nullptr, nullptr, nullptr});
   root->right->right =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6, nullptr, nullptr, nullptr});
-  PopulateNextPointer(root.get());
+  ConstructRightSibling(root.get());
   assert(root->next == nullptr);
   assert(root->left->next == root->right.get());
   assert(root->left->left->next == root->left->right.get());

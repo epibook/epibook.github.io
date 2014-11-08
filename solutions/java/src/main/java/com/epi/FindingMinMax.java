@@ -2,35 +2,31 @@ package com.epi;
 
 import com.epi.utils.Pair;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class FindingMinMax {
   // @include
   // Returns (min, max) pair of elements in A.
-  public static Pair<Integer, Integer> findMinMax(ArrayList<Integer> A) {
-    if (A.size() <= 1) {
-      return new Pair<>(A.get(0), A.get(0));
+  public static Pair<Integer, Integer> findMinMax(int[] A) {
+    if (A.length <= 1) {
+      return new Pair<>(A[0], A[0]);
     }
 
     // Initializes the min and max pair.
-    Pair<Integer, Integer> minMaxPair = Pair.minmax(A.get(0), A.get(1));
-    for (int i = 2; i + 1 < A.size(); i += 2) {
-      Pair<Integer, Integer> localPair = Pair.minmax(A.get(i), A.get(i + 1));
+    Pair<Integer, Integer> minMaxPair = Pair.minmax(A[0], A[1]);
+    for (int i = 2; i + 1 < A.length; i += 2) {
+      Pair<Integer, Integer> localPair = Pair.minmax(A[i], A[i + 1]);
       minMaxPair = new Pair<>(
-          Math.min(minMaxPair.getFirst(), localPair.getFirst()), 
+          Math.min(minMaxPair.getFirst(), localPair.getFirst()),
           Math.max(minMaxPair.getSecond(), localPair.getSecond()));
     }
     // Special case: If there is odd number of elements in the array, we still
     // need to compare the last element with the existing answer.
-    if ((A.size() & 1) != 0) {
+    if ((A.length & 1) != 0) {
       minMaxPair = new Pair<>(
-          Math.min(minMaxPair.getFirst(), A.get(A.size() - 1)),
-          Math.max(minMaxPair.getSecond(), A.get(A.size() - 1)));
+          Math.min(minMaxPair.getFirst(), A[A.length - 1]),
+          Math.max(minMaxPair.getSecond(), A[A.length - 1]));
     }
     return minMaxPair;
   }
@@ -45,13 +41,13 @@ public class FindingMinMax {
       } else {
         n = r.nextInt(10000) + 1;
       }
-      ArrayList<Integer> A = new ArrayList<>();
+      int[] A = new int[n];
       for (int i = 0; i < n; ++i) {
-        A.add(r.nextInt(1000000));
+        A[i] = r.nextInt(1000000);
       }
       Pair<Integer, Integer> res = findMinMax(A);
-      assert (res.getFirst().equals(Collections.min(A)) && res.getSecond()
-          .equals(Collections.max(A)));
+      Arrays.sort(A);
+      assert (res.getFirst().equals(A[0]) && res.getSecond().equals(A[A.length - 1]));
     }
 
   }

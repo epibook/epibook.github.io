@@ -5,25 +5,26 @@ import java.util.Random;
 public class BiggestProductNMinus1Math {
   // @include
   public static int findBiggestNMinusOneProduct(int[] A) {
-    int zeroCount = 0, posCount = 0, negCount = 0;
-    int zeroIdx = -1, sNegIdx = -1, bNegIdx = -1, sPosIdx = -1;
+    int zeroCount = 0, zeroIdx = - 1;
+    int positiveCount = 0, smallestPositiveIdx = -1;
+    int negativeCount = 0, smallNegativeIdx = -1, biggestNegativeIdx = -1;
 
     for (int i = 0; i < A.length; ++i) {
       if (A[i] < 0) {
-        ++negCount;
-        if (sNegIdx == -1 || A[i] < A[sNegIdx]) {
-          sNegIdx = i;
+        ++negativeCount;
+        if (smallNegativeIdx == -1 || A[i] < A[smallNegativeIdx]) {
+          smallNegativeIdx = i;
         }
-        if (bNegIdx == -1 || A[bNegIdx] < A[i]) {
-          bNegIdx = i;
+        if (biggestNegativeIdx == -1 || A[biggestNegativeIdx] < A[i]) {
+          biggestNegativeIdx = i;
         }
       } else if (A[i] == 0) {
         zeroIdx = i;
         ++zeroCount;
       } else { // A[i] > 0.
-        ++posCount;
-        if (sPosIdx == -1 || A[i] < A[sPosIdx]) {
-          sPosIdx = i;
+        ++positiveCount;
+        if (smallestPositiveIdx == -1 || A[i] < A[smallestPositiveIdx]) {
+          smallestPositiveIdx = i;
         }
       }
     }
@@ -34,19 +35,19 @@ public class BiggestProductNMinus1Math {
     if (zeroCount >= 2) {
       return 0;
     } else if (zeroCount == 1) {
-      if ((negCount & 1) > 0) {
+      if ((negativeCount & 1) > 0) { // Odd number of negatives.
         return 0;
       } else {
         x = zeroIdx;
       }
-    } else {
-      if ((negCount & 1) > 0) { // Odd number negative.
-        x = bNegIdx;
-      } else { // Even number negative.
-        if (posCount > 0) {
-          x = sPosIdx;
+    } else { // No zero in A.
+      if ((negativeCount & 1) > 0) { // Odd number of negatives.
+        x = biggestNegativeIdx;
+      } else { // Even number of negatives.
+        if (positiveCount > 0) {
+          x = smallestPositiveIdx;
         } else {
-          x = sNegIdx;
+          x = smallNegativeIdx;
         }
       }
     }

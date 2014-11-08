@@ -2,36 +2,33 @@ package com.epi;
 
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BSTToSortedDoublyList {
   // @include
   // Transform a BST into a circular sorted doubly linked list in-place,
   // return the head of the list.
   public static BinaryTree<Integer> bstToDoublyLinkedList(
-      BinaryTree<Integer> n) {
+      BinaryTree<Integer> T) {
     // Empty subtree.
-    if (n == null) {
+    if (T == null) {
       return null;
     }
 
     // Recursively build the list from left and right subtrees.
-    BinaryTree<Integer> lHead = bstToDoublyLinkedList(n.getLeft());
-    BinaryTree<Integer> rHead = bstToDoublyLinkedList(n.getRight());
+    BinaryTree<Integer> lHead = bstToDoublyLinkedList(T.getLeft());
+    BinaryTree<Integer> rHead = bstToDoublyLinkedList(T.getRight());
 
-    // Append n to the list from left subtree.
+    // Append T to the list from left subtree.
     BinaryTree<Integer> lTail = null;
     if (lHead != null) {
       lTail = lHead.getLeft();
-      lTail.setRight(n);
-      n.setLeft(lTail);
-      lTail = n;
+      lTail.setRight(T);
+      T.setLeft(lTail);
+      lTail = T;
     } else {
-      lHead = lTail = n;
+      lHead = lTail = T;
     }
 
-    // Append the list from right subtree to n.
+    // Append the list from right subtree to T.
     BinaryTree<Integer> rTail = null;
     if (rHead != null) {
       rTail = rHead.getLeft();
@@ -45,7 +42,6 @@ public class BSTToSortedDoublyList {
 
     return lHead;
   }
-
   // @exclude
 
   public static void main(String[] args) {

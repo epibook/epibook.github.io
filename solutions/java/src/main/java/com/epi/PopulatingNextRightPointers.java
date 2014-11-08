@@ -12,20 +12,25 @@ public class PopulatingNextRightPointers {
   }
 
   // @include
-  public static void populateNextPointer(BinaryTreeNode<Integer> root) {
-    BinaryTreeNode<Integer> leftStart = root;
+  public static void populateNextPointer(BinaryTreeNode<Integer> tree) {
+    BinaryTreeNode<Integer> leftStart = tree;
     while (leftStart != null) {
-      BinaryTreeNode<Integer> parent = leftStart;
-      while (parent != null) {
-        if (parent.left != null) {
-          parent.left.next = parent.right;
-        }
-        if (parent.right != null && parent.next != null) {
-          parent.right.next = parent.next.left;
-        }
-        parent = parent.next;
-      }
+      populateChildrenNextField(leftStart);
       leftStart = leftStart.left;
+    }
+  }
+
+  private static void populateChildrenNextField(
+      BinaryTreeNode<Integer> startNode) {
+    BinaryTreeNode<Integer> iter = startNode;
+    while (iter != null) {
+      if (iter.left != null) {
+        iter.left.next = iter.right;
+      }
+      if (iter.right != null && iter.next != null) {
+        iter.right.next = iter.next.left;
+      }
+      iter = iter.next;
     }
   }
   // @exclude

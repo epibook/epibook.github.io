@@ -13,22 +13,23 @@ using std::unique_ptr;
 // @include
 BinaryTreeNode<int>* FindSuccessor(
     const unique_ptr<BinaryTreeNode<int>>& node) {
-  auto* n = node.get();
-  if (n->right) {
-    // Find the leftmost element in n's right subtree.
-    n = n->right.get();
-    while (n->left) {
-      n = n->left.get();
+  auto* iter = node.get();
+  if (iter->right != nullptr) {
+    // Successor is the leftmost element in node's right subtree.
+    iter = iter->right.get();
+    while (iter->left) {
+      iter = iter->left.get();
     }
-    return n;
+    return iter;
   }
 
-  // Find the first parent whose left child contains n.
-  while (n->parent && n->parent->right.get() == n) {
-    n = n->parent;
+  // Find the closest ancestor whose left subtree contains node.
+  while (iter->parent != nullptr && iter->parent->right.get() == iter) {
+    iter = iter->parent;
   }
-  // Return nullptr means n does not have successor.
-  return n->parent;
+  // A return value of nullptr means node does not have successor, i.e., it is
+  // the rightmost node in the tree.
+  return iter->parent;
 }
 // @exclude
 

@@ -3,43 +3,24 @@ package com.epi;
 import java.io.*;
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class OnlineMedian {
   // @include
-  public static void onlineMedian(InputStream sin) {
-    // Min-heap stores the bigger part of the stream.
-    PriorityQueue<Integer> H = new PriorityQueue<>();
-    // Max-heap stores the smaller part of the stream.
-    PriorityQueue<Integer> L = new PriorityQueue<>(11,
-        new Comparator<Integer>() {
-          @Override
-          public int compare(Integer o1, Integer o2) {
-            return o2.compareTo(o1);
-          }
-        }
-    );
+  public static void onlineMedian(InputStream sequence) {
+    // minHeap stores the larger half seen so far.
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+    // maxHeap stores the smaller half seen so far.
+    PriorityQueue<Integer> maxHeap
+        = new PriorityQueue<>(11, Collections.reverseOrder());
 
-    Scanner s = new Scanner(sin);
+    Scanner s = new Scanner(sequence);
     while (s.hasNextInt()) {
-      int x = s.nextInt();
-      if (!L.isEmpty() && x > L.peek()) {
-        H.add(x);
-      } else {
-        L.add(x);
-      }
-      if (H.size() > L.size() + 1) {
-        L.add(H.remove());
-      } else if (L.size() > H.size() + 1) {
-        H.add(L.remove());
+      minHeap.add(s.nextInt());
+      if (minHeap.size() > maxHeap.size() + 1) {
+        maxHeap.add(minHeap.remove());
       }
 
-      if (H.size() == L.size()) {
-        System.out.println(0.5 * (H.peek() + L.peek()));
-      } else {
-        System.out.println((H.size() > L.size() ? H.peek() : L.peek()));
-      }
+      System.out.println(minHeap.size() == maxHeap.size() ?
+          0.5 * (minHeap.peek() + maxHeap.peek()) : minHeap.peek());
     }
   }
   // @exclude

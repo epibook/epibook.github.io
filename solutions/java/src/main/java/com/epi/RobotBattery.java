@@ -3,8 +3,6 @@ package com.epi;
 
 import com.epi.utils.Utils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import static java.lang.Math.max;
@@ -13,9 +11,9 @@ import static java.lang.Math.min;
 public class RobotBattery {
 
   // @include
-  public static int findBatteryCapacity(List<Integer> h) {
+  public static int findBatteryCapacity(int[] h) {
     int minHeight = Integer.MAX_VALUE, capacity = 0;
-    for (Integer height : h) {
+    for (int height : h) {
       capacity = max(capacity, height - minHeight);
       minHeight = min(minHeight, height);
     }
@@ -24,11 +22,11 @@ public class RobotBattery {
   // @exclude
 
   // O(n^2) checking answer.
-  static int checkAns(List<Integer> h) {
+  private static int checkAns(int[] h) {
     int cap = 0;
-    for (int i = 1; i < h.size(); ++i) {
+    for (int i = 1; i < h.length; ++i) {
       for (int j = 0; j < i; ++j) {
-        cap = max(cap, h.get(i) - h.get(j));
+        cap = max(cap, h[i] - h[j]);
       }
     }
     return cap;
@@ -43,22 +41,12 @@ public class RobotBattery {
       } else {
         n = gen.nextInt(10000) + 1;
       }
-      List<Integer> A = new ArrayList<>();
+      int[] A = new int[n];
       for (int i = 0; i < n; ++i) {
-        A.add(Utils.nextPositiveInt(gen, n));
+        A[i] = Utils.nextPositiveInt(gen, n);
       }
       System.out.println(findBatteryCapacity(A));
-      if (checkAns(A) != findBatteryCapacity(A)) {
-        System.out.println("Error with findBatteryCapacity");
-        System.out.println("checkAns is " + checkAns(A));
-        System.out.println("A is ");
-        for (Integer x : A) {
-          System.out.print(x + ",");
-        }
-        System.out.println("");
-        assert (false);
-      }
+      assert (checkAns(A) == findBatteryCapacity(A));
     }
   }
-
 }

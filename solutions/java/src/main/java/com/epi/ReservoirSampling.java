@@ -12,16 +12,15 @@ import static com.epi.utils.Utils.close;
 
 public class ReservoirSampling {
   // @include
-  public static List<Integer> reservoirSampling(InputStream sin, int k)
+  public static int[] reservoirSampling(InputStream sin, int k)
       throws IOException, ClassNotFoundException {
-
-    List<Integer> R = new ArrayList<>();
+    int[] samplingResults = new int[k];
 
     ObjectInputStream osin = new ObjectInputStream(sin);
     // Stores the first k elements.
     Integer x = (Integer) readObjectSilently(osin);
     for (int i = 0; i < k && x != null; ++i) {
-      R.add(x);
+      samplingResults[i] = x;
       x = (Integer) readObjectSilently(osin);
     }
 
@@ -29,11 +28,11 @@ public class ReservoirSampling {
     int elementNum = k + 1;
     x = (Integer) readObjectSilently(osin);
     while (x != null) {
-      Random gen = new Random(); // Random num generator.
+      Random gen = new Random();
       // Generate random int in [0, elementNum].
       int tar = gen.nextInt(++elementNum);
       if (tar < k) {
-        R.set(tar, x);
+        samplingResults[tar] = x;
       }
 
       x = (Integer) readObjectSilently(osin);
@@ -41,7 +40,7 @@ public class ReservoirSampling {
 
     // Close "osin" silently
     close(osin);
-    return R;
+    return samplingResults;
   }
 
   private static Object readObjectSilently(ObjectInputStream osin)
@@ -87,9 +86,9 @@ public class ReservoirSampling {
     System.out.println(n + " " + k);
 
     ByteArrayInputStream sin = new ByteArrayInputStream(baos.toByteArray());
-    List<Integer> ans = reservoirSampling(sin, k);
+    int[] ans = reservoirSampling(sin, k);
 
-    assert ans.size() == k;
+    assert ans.length == k;
 
     close(baos);
     close(oos);

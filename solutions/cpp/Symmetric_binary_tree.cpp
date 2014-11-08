@@ -11,25 +11,25 @@ using std::cout;
 using std::endl;
 using std::unique_ptr;
 
-bool IsSymmetricHelper(const unique_ptr<BinaryTreeNode<int>>& l_T,
-                       const unique_ptr<BinaryTreeNode<int>>& r_T);
+bool CheckSymmetric(const unique_ptr<BinaryTreeNode<int>>&,
+                       const unique_ptr<BinaryTreeNode<int>>&);
 
 // @include
-bool IsSymmetric(const unique_ptr<BinaryTreeNode<int>>& T) {
-  return !T || IsSymmetricHelper(T->left, T->right);
+bool IsSymmetric(const unique_ptr<BinaryTreeNode<int>>& tree) {
+  return tree == nullptr || CheckSymmetric(tree->left, tree->right);
 }
 
-bool IsSymmetricHelper(const unique_ptr<BinaryTreeNode<int>>& l_T,
-                       const unique_ptr<BinaryTreeNode<int>>& r_T) {
-  if (!l_T && !r_T) {
+bool CheckSymmetric(const unique_ptr<BinaryTreeNode<int>>& subtree_0,
+                       const unique_ptr<BinaryTreeNode<int>>& subtree_1) {
+  if (subtree_0 == nullptr && subtree_1 == nullptr) {
     return true;
-  } else if (l_T && r_T) {
-    return l_T->data == r_T->data &&
-           IsSymmetricHelper(l_T->left, r_T->right) &&
-           IsSymmetricHelper(l_T->right, r_T->left);
-  } else {  // (l_T && !r_T) || (!l_T && r_T)
-    return false;
+  } else if (subtree_0 != nullptr && subtree_1 != nullptr) {
+    return subtree_0->data == subtree_1->data &&
+           CheckSymmetric(subtree_0->left, subtree_1->right) &&
+           CheckSymmetric(subtree_0->right, subtree_1->left);
   }
+  // One subtree is empty, and the other is not.
+  return false;
 }
 // @exclude
 

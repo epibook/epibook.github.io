@@ -20,10 +20,10 @@ using std::vector;
 // @include
 vector<int> ReservoirSampling(istringstream* sin, int k) {
   int x;
-  vector<int> R;
+  vector<int> sampling_results;
   // Stores the first k elements.
   for (int i = 0; i < k && *sin >> x; ++i) {
-    R.emplace_back(x);
+    sampling_results.emplace_back(x);
   }
 
   // After the first k elements.
@@ -34,10 +34,10 @@ vector<int> ReservoirSampling(istringstream* sin, int k) {
     uniform_int_distribution<int> dis(0, element_num++);
     int tar = dis(gen);
     if (tar < k) {
-      R[tar] = x;
+      sampling_results[tar] = x;
     }
   }
-  return R;
+  return sampling_results;
 }
 // @exclude
 

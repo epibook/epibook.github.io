@@ -1,35 +1,29 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
-/**
- * Created by dontrelax on 3/8/14.
- */
 public class JumpGame {
   // @include
-  public static boolean canReach(final List<Integer> A) {
+  public static boolean canReach(int[] A) {
     int furthestReach = 0;
-    for (int i = 0; i <= furthestReach && furthestReach + 1 < A.size(); ++i) {
-      furthestReach = Math.max(furthestReach, i + A.get(i));
+    for (int i = 0; i <= furthestReach && furthestReach < A.length - 1; ++i) {
+      furthestReach = Math.max(furthestReach, i + A[i]);
     }
-    return furthestReach + 1 >= A.size();
+    return furthestReach >= A.length - 1;
   }
   // @exclude
 
   private static void smallTest() {
-    List<Integer> A = Arrays.asList(2, 3, 1, 1, 4);
+    int[] A = {2, 3, 1, 1, 4};
     assert (canReach(A));
-    A = Arrays.asList(3, 2, 1, 0, 4);
-    assert (!canReach(A));
-    A = Arrays.asList(3, 2, 1, -10, 4);
-    assert (!canReach(A));
-    A = Arrays.asList(2, 3, -1, -1, 4);
-    assert (canReach(A));
-    A = Arrays.asList(2, 2, -1, -1, 100);
-    assert (!canReach(A));
+    int[] B = {3, 2, 1, 0, 4};
+    assert (!canReach(B));
+    int[] C = {3, 2, 1, -10, 4};
+    assert (!canReach(C));
+    int[] D = {2, 3, -1, -1, 4};
+    assert (canReach(D));
+    int[] E = {2, 2, -1, -1, 100};
+    assert (!canReach(E));
   }
 
   public static void main(String[] args) {
@@ -41,9 +35,9 @@ public class JumpGame {
     } else {
       n = r.nextInt(1000) + 1;
     }
-    List<Integer> A = new ArrayList<>();
+    int[] A = new int[n];
     for (int i = 0; i < n; i++) {
-      A.add(r.nextInt(10) + 1);
+      A[i] = r.nextInt(10) + 1;
     }
     System.out.println(canReach(A));
   }

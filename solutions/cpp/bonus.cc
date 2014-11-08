@@ -38,15 +38,14 @@ void CheckAns(const vector<int>& ratings, const vector<int>& C) {
 
 // @include
 struct Compare {
-  bool operator()(const pair<int, size_t>& lhs,
-                  const pair<int, size_t>& rhs) {
+  bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) {
     return lhs.first > rhs.first;
   }
 };
 
 vector<int> CalculateBonus(const vector<int>& ratings) {
-  priority_queue<pair<int, size_t>, vector<pair<int, size_t>>, Compare> H;
-  for (size_t i = 0; i < ratings.size(); ++i) {
+  priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> H;
+  for (int i = 0; i < ratings.size(); ++i) {
     H.emplace(ratings[i], i);
   }
 
@@ -84,6 +83,9 @@ void SmallTest() {
   assert(EqualVector(CalculateBonus(A), golden_A));
   A = {1,2,3,2,1};
   golden_A = {1, 2, 3, 2, 1};
+  assert(EqualVector(CalculateBonus(A), golden_A));
+  A = {300, 400, 500, 200};
+  golden_A = {1, 2, 3, 1};
   assert(EqualVector(CalculateBonus(A), golden_A));
 }
 

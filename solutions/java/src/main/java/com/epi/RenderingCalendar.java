@@ -39,7 +39,7 @@ class TEndpoint implements Comparable<TEndpoint> {
 
 class RenderingCalendar {
   // @include
-  public static int findMaxConcurrentEvents(List<TInterval> A) {
+  public static int findMaxConcurrentEvents(TInterval[] A) {
     // Builds the TEndpoint array.
     List<TEndpoint> E = new ArrayList<>();
     for (TInterval i : A) {
@@ -70,12 +70,12 @@ class RenderingCalendar {
     } else {
       n = gen.nextInt(100000) + 1;
     }
-    List<TInterval> A = new ArrayList<>();
+    TInterval[] A = new TInterval[n];
     for (int i = 0; i < n; ++i) {
       TInterval temp = new TInterval();
       temp.start = gen.nextInt(99999);
       temp.finish = gen.nextInt(temp.start + 10000) + temp.start + 1;
-      A.add(temp);
+      A[i] = temp;
     }
     int ans = findMaxConcurrentEvents(A);
     System.out.println(ans);

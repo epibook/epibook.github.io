@@ -2,26 +2,21 @@ package com.epi;
 
 public class InsertionSortList {
   // @include
-  public static NodeT<Integer> insertionSort(final NodeT<Integer> L) {
-    if (L == null) {
-      return L;
-    }
-
-    NodeT<Integer> dummyHead = new NodeT<>(0, L);
-    NodeT<Integer> now = L;
-    while (now != null && now.next != null) {
-      if (now.data > now.next.data) {
-        NodeT<Integer> target = now.next;
-        NodeT<Integer> pre = dummyHead;
+  public static ListNode<Integer> insertionSort(final ListNode<Integer> L) {
+    ListNode<Integer> dummyHead = new ListNode<>(0, L);
+    ListNode<Integer> iter = L;
+    while (iter != null && iter.next != null) {
+      if (iter.data > iter.next.data) {
+        ListNode<Integer> target = iter.next, pre = dummyHead;
         while (pre.next.data < target.data) {
           pre = pre.next;
         }
-        NodeT<Integer> temp = pre.next;
+        ListNode<Integer> temp = pre.next;
         pre.next = target;
-        now.next = target.next;
+        iter.next = target.next;
         target.next = temp;
       } else {
-        now = now.next;
+        iter = iter.next;
       }
     }
     return dummyHead.next;
@@ -29,11 +24,11 @@ public class InsertionSortList {
   // @exclude
 
   public static void main(String[] args) {
-    NodeT<Integer> L;
-    L = new NodeT<>(1, new NodeT<>(4, new NodeT<>(3,
-        new NodeT<>(2, new NodeT<>(5, null)))));
-    NodeT<Integer> result = insertionSort(L);
-    NodeT<Integer> pre = null;
+    ListNode<Integer> L;
+    L = new ListNode<>(1, new ListNode<>(4, new ListNode<>(3,
+        new ListNode<>(2, new ListNode<>(5, null)))));
+    ListNode<Integer> result = insertionSort(L);
+    ListNode<Integer> pre = null;
     while (result != null) {
       assert (pre == null || pre.data <= result.data);
       pre = result;

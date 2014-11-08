@@ -1,8 +1,5 @@
 package com.epi;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class Parity2 {
   // @include
   public static short parity(long x) {

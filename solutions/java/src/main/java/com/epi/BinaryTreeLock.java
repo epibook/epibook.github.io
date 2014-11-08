@@ -1,53 +1,47 @@
 package com.epi;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BinaryTreeLock {
   // @include
   public static class BinaryTree {
     private BinaryTree left, right, parent;
     private boolean locked;
-    private int numChildrenLocks;
+    private int numLockedDescendants;
 
     public boolean isLock() {
       return locked;
     }
 
-    public void lock() {
-      if (numChildrenLocks == 0 && !locked) {
-        // Make sure all parents do not lock.
-        BinaryTree n = parent;
-        while (n != null) {
-          if (n.locked) {
-            return;
-          }
-          n = n.parent;
-        }
+    public boolean lock() {
+      if (numLockedDescendants > 0 || locked) {
+        return false;
+      }
 
-        // Lock itself and update its parents.
-        locked = true;
-        n = parent;
-        while (n != null) {
-          ++n.numChildrenLocks;
-          n = n.parent;
+      // Tests if any of ancestors are not locked.
+      for (BinaryTree iter = parent; iter != null; iter = iter.parent) {
+        if (iter.locked) {
+          return false;
         }
       }
+
+      // Locks itself and increments its ancestors's lock counts.
+      locked = true;
+      for (BinaryTree iter = parent; iter != null; iter = iter.parent) {
+        ++iter.numLockedDescendants;
+      }
+      return true;
     }
 
     public void unlock() {
       if (locked) {
-        // Unlock itself and update its parents.
+        // Unlocks itself and decrements its ancestors's lock counts.
         locked = false;
-        BinaryTree n = parent;
-        while (n != null) {
-          --n.numChildrenLocks;
-          n = n.parent;
+        for (BinaryTree iter = parent; iter != null; iter = iter.parent) {
+          --iter.numLockedDescendants;
         }
       }
     }
-
     // @exclude
+
     public BinaryTree getLeft() {
       return left;
     }
@@ -84,17 +78,17 @@ public class BinaryTreeLock {
     // Should output false.
     assert (!root.isLock());
     System.out.println(root.isLock());
-    root.lock();
+    assert (root.lock());
     // Should output true.
     assert (root.isLock());
     System.out.println(root.isLock());
     root.unlock();
-    root.getLeft().lock();
-    root.lock();
+    assert (root.getLeft().lock());
+    assert (!root.lock());
     // Should output false.
     assert (!root.isLock());
     System.out.println(root.isLock());
-    root.getRight().lock();
+    assert (root.getRight().lock());
     // Should output true.
     assert (root.getRight().isLock());
     System.out.println(root.isLock());

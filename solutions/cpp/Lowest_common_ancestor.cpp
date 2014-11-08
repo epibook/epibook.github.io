@@ -12,36 +12,36 @@ using std::endl;
 using std::swap;
 using std::unique_ptr;
 
-int GetDepth(const BinaryTreeNode<int>* T);
+int GetDepth(const BinaryTreeNode<int>*);
 
 // @include
-BinaryTreeNode<int>* LCA(const unique_ptr<BinaryTreeNode<int>>& a,
-                         const unique_ptr<BinaryTreeNode<int>>& b) {
-  auto* i = a.get(), *j = b.get();
-  int depth_i = GetDepth(i), depth_j = GetDepth(j);
-  if (depth_j > depth_i) {
-    swap(i, j);
+BinaryTreeNode<int>* LCA(const unique_ptr<BinaryTreeNode<int>>& node_0,
+                         const unique_ptr<BinaryTreeNode<int>>& node_1) {
+  auto* iter_0 = node_0.get(), *iter_1 = node_1.get();
+  int depth_0 = GetDepth(iter_0), depth_1 = GetDepth(iter_1);
+  // Makes iter_0 as the deeper node in order to simplify the code.
+  if (depth_1 > depth_0) {
+    swap(iter_0, iter_1);
   }
-
-  // Advances deeper node first.
-  int depth_diff = abs(depth_i - depth_j);
+  // Ascends from the deeper node.
+  int depth_diff = abs(depth_0 - depth_1);
   while (depth_diff--) {
-    i = i->parent;
+    iter_0 = iter_0->parent;
   }
 
-  // Both pointers advance until they found a common ancestor.
-  while (i != j) {
-    i = i->parent, j = j->parent;
+  // Now ascends both nodes until we reach the LCA.
+  while (iter_0 != iter_1) {
+    iter_0 = iter_0->parent, iter_1 = iter_1->parent;
   }
-  return i;
+  return iter_0;
 }
 
-int GetDepth(const BinaryTreeNode<int>* T) {
-  int d = 0;
-  while (T) {
-    ++d, T = T->parent;
+int GetDepth(const BinaryTreeNode<int>* node) {
+  int depth = 0;
+  while (node) {
+    ++depth, node = node->parent;
   }
-  return d;
+  return depth;
 }
 // @exclude
 

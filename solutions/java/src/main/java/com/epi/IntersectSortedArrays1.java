@@ -6,13 +6,13 @@ import java.util.List;
 
 public class IntersectSortedArrays1 {
   // @include
-  public static List<Integer> intersect(List<Integer> A, List<Integer> B) {
+  public static List<Integer> intersect(int[] A, int[] B) {
     List<Integer> intersect = new ArrayList<>();
-    for (int i = 0; i < A.size(); ++i) {
-      if (i == 0 || !A.get(i).equals(A.get(i - 1))) {
+    for (int i = 0; i < A.length; ++i) {
+      if (i == 0 || A[i] != A[i - 1]) {
         for (Integer b : B) {
-          if (A.get(i).equals(b)) {
-            intersect.add(A.get(i));
+          if (A[i] == b) {
+            intersect.add(A[i]);
             break;
           }
         }

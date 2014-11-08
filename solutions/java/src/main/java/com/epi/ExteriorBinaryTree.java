@@ -3,60 +3,66 @@ package com.epi;
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ExteriorBinaryTree {
-  private static List<Integer> result = new ArrayList<>();
-
   // @include
-  public static void exteriorBinaryTree(BinaryTree<Integer> T) {
-    if (T != null) {
-      System.out.print(T.getData() + " ");
-      // @exclude
-      result.add(T.getData());
-      // @include
-      leftBoundaryBinaryTree(T.getLeft(), true);
-      rightBoundaryBinaryTree(T.getRight(), true);
+  public static List<BinaryTree<Integer>> exteriorBinaryTree(
+      BinaryTree<Integer> tree) {
+    List<BinaryTree<Integer>> exterior = new LinkedList<>();
+    if (tree != null) {
+      exterior.add(tree);
+      exterior.addAll(leftBoundaryAndLeaves(tree.getLeft(), true));
+      exterior.addAll(rightBoundaryAndLeaves(tree.getRight(), true));
     }
+    return exterior;
   }
 
-  private static void leftBoundaryBinaryTree(
-      BinaryTree<Integer> T, boolean isBoundary) {
-    if (T != null) {
-      if (isBoundary || (T.getLeft() == null && T.getRight() == null)) {
-        System.out.print(T.getData() + " ");
-        // @exclude
-        result.add(T.getData());
-        // @include
+  // Computes the nodes from the root to the leftmost leaf followed by all the
+  // leaves in subtreeRoot.
+  private static List<BinaryTree<Integer>> leftBoundaryAndLeaves(
+      BinaryTree<Integer> subtreeRoot, boolean isBoundary) {
+    List<BinaryTree<Integer>> result = new LinkedList<>();
+    if (subtreeRoot != null) {
+      if (isBoundary || isLeaf(subtreeRoot)) {
+        result.add(subtreeRoot);
       }
-      leftBoundaryBinaryTree(T.getLeft(), isBoundary);
-      leftBoundaryBinaryTree(T.getRight(), isBoundary && T.getLeft() == null);
+      result.addAll(leftBoundaryAndLeaves(subtreeRoot.getLeft(), isBoundary));
+      result.addAll(
+          leftBoundaryAndLeaves(subtreeRoot.getRight(),
+                                isBoundary && subtreeRoot.getLeft() == null));
     }
+    return result;
   }
 
-  private static void rightBoundaryBinaryTree(
-      BinaryTree<Integer> T, boolean isBoundary) {
-    if (T != null) {
-      rightBoundaryBinaryTree(T.getLeft(), isBoundary && T.getRight() == null);
-      rightBoundaryBinaryTree(T.getRight(), isBoundary);
-      if (isBoundary || (T.getLeft() == null && T.getRight() == null)) {
-        System.out.print(T.getData() + " ");
-        // @exclude
-        result.add(T.getData());
-        // @include
+  // Computes the leaves in left-to-right order followed by the rightmost leaf
+  // to the root path in subtreeRoot.
+  private static List<BinaryTree<Integer>> rightBoundaryAndLeaves(
+      BinaryTree<Integer> subtreeRoot, boolean isBoundary) {
+    List<BinaryTree<Integer>> result = new LinkedList<>();
+    if (subtreeRoot != null) {
+      result.addAll(
+          rightBoundaryAndLeaves(subtreeRoot.getLeft(),
+                                 isBoundary && subtreeRoot.getRight() == null));
+      result.addAll(rightBoundaryAndLeaves(subtreeRoot.getRight(), isBoundary));
+      if (isBoundary || isLeaf(subtreeRoot)) {
+        result.add(subtreeRoot);
       }
     }
+    return result;
+  }
+
+  private static boolean isLeaf(BinaryTree<Integer> node) {
+    return node.getLeft() == null && node.getRight() == null;
   }
   // @exclude
 
   public static void main(String[] args) {
-    // 3
-    // 2 5
-    // 1 0 4 6
-    // -1 -2
+    //       3
+    //    2      5
+    //  1   0   4 6
+    //    -1 -2
     BinaryTree<Integer> root = new BinaryTree<>(3, null, null);
     root.setLeft(new BinaryTree<>(2, null, null));
     root.getLeft().setRight(new BinaryTree<>(0, null, null));
@@ -67,8 +73,13 @@ public class ExteriorBinaryTree {
     root.getRight().setLeft(new BinaryTree<>(4, null, null));
     root.getRight().setRight(new BinaryTree<>(6, null, null));
     // should output 3 2 1 -1 -2 4 6 5
-    exteriorBinaryTree(root);
-    List<Integer> golden_res = new ArrayList<Integer>() {{
+    List<BinaryTree<Integer>> L = exteriorBinaryTree(root);
+    List<Integer> result = new ArrayList<Integer>();
+    for (BinaryTree<Integer> l : L) {
+      result.add(l.getData());
+      System.out.println(l.getData());
+    }
+    List<Integer> goldenResult = new ArrayList<Integer>() {{
       add(3);
       add(2);
       add(1);
@@ -78,6 +89,6 @@ public class ExteriorBinaryTree {
       add(6);
       add(5);
     }};
-    assert (golden_res.equals(result));
+    assert (goldenResult.equals(result));
   }
 }

@@ -10,44 +10,43 @@ import static com.epi.BinaryTreeUtils.generatePostOrder;
 public class BinaryTreePostorderTraversalIterative {
   // @include
   // We use stack and previous node pointer to simulate postorder traversal.
-  public static List<Integer> postOrderTraversal(
-      final BinaryTree<Integer> root) {
-    if (root == null) { // Empty tree.
+  public static List<Integer> postOrderTraversal(BinaryTree<Integer> tree) {
+    if (tree == null) { // Empty tree.
       return Collections.emptyList();
     }
 
-    LinkedList<BinaryTree<Integer>> s = new LinkedList<>();
+    LinkedList<BinaryTree<Integer>> pathStack = new LinkedList<>();
     BinaryTree<Integer> prev = null;
-    s.push(root);
-    List<Integer> res = new ArrayList<>();
-    while (!s.isEmpty()) {
-      BinaryTree<Integer> curr = s.peek();
+    pathStack.push(tree);
+    List<Integer> postorderSequence = new ArrayList<>();
+    while (!pathStack.isEmpty()) {
+      BinaryTree<Integer> curr = pathStack.peek();
       if (prev == null || prev.getLeft() == curr || prev.getRight() == curr) {
-        // Going down.
-        if (curr.getLeft() != null) { // Visit left.
-          s.push(curr.getLeft());
-        } else if (curr.getRight() != null) { // Visit right.
-          s.push(curr.getRight());
-        } else { // Leaf node, then process current node.
-          res.add(curr.getData());
-          s.pop();
+        // We came down to curr from prev.
+        if (curr.getLeft() != null) { // Traverse left.
+          pathStack.push(curr.getLeft());
+        } else if (curr.getRight() != null) { // Traverse right.
+          pathStack.push(curr.getRight());
+        } else { // Leaf node, so visit current node.
+          postorderSequence.add(curr.getData());
+          pathStack.pop();
         }
       } else if (curr.getLeft() == prev) {
-        // Going up, finished visiting left.
+        // Done with left, so now traverse right.
         if (curr.getRight() != null) { // Visit right.
-          s.push(curr.getRight());
-        } else { // No right child, then process current node.
-          res.add(curr.getData());
-          s.pop();
+          pathStack.push(curr.getRight());
+        } else { // // No right child, so visit curr.
+          postorderSequence.add(curr.getData());
+          pathStack.pop();
         }
-      } else { // curr->right.get() == prev.
-        // Going up, finished visiting left and right.
-        res.add(curr.getData());
-        s.pop();
+      } else { 
+        // Finished traversing left and right, so visit curr.
+        postorderSequence.add(curr.getData());
+        pathStack.pop();
       }
       prev = curr;
     }
-    return res;
+    return postorderSequence;
   }
   // @exclude
 

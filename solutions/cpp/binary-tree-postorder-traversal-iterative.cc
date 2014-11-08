@@ -19,43 +19,44 @@ using std::vector;
 
 // @include
 // We use stack and previous node pointer to simulate postorder traversal.
-vector<int> PostorderTraversal(const unique_ptr<BinaryTreeNode<int>>& root) {
-  if (!root) {  // Empty tree.
+vector<int> PostorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
+  if (tree != nullptr) {  // Empty tree.
     return {};
   }
 
-  stack<BinaryTreeNode<int>*> s;
+  stack<BinaryTreeNode<int>*> path_stack;
   BinaryTreeNode<int>* prev = nullptr;
-  s.emplace(root.get());
-  vector<int> res;
-  while (!s.empty()) {
-    auto curr = s.top();
-    if (!prev || prev->left.get() == curr || prev->right.get() == curr) {
-      // Going down.
-      if (curr->left) {  // Visit left.
-        s.emplace(curr->left.get());
-      } else if (curr->right) {  // Visit right.
-        s.emplace(curr->right.get());
-      } else {  // Leaf node, then process current node.
-        res.emplace_back(curr->data);
-        s.pop();
+  path_stack.emplace(tree.get());
+  vector<int> postorder_sequence;
+  while (!path_stack.empty()) {
+    auto curr = path_stack.top();
+    if (prev == nullptr || prev->left.get() == curr || 
+        prev->right.get() == curr) {
+      // We came down to curr from prev.
+      if (curr->left != nullptr) {  // Traverse left.
+        path_stack.emplace(curr->left.get());
+      } else if (curr->right != nullptr) {  // Traverse right.
+        path_stack.emplace(curr->right.get());
+      } else {  // Leaf node, so visit current node.
+        postorder_sequence.emplace_back(curr->data);
+        path_stack.pop();
       }
     } else if (curr->left.get() == prev) {
-      // Going up, finished visiting left.
-      if (curr->right) {  // Visit right.
-        s.emplace(curr->right.get());
-      } else {  // No right child, then process current node.
-        res.emplace_back(curr->data);
-        s.pop();
+      // Done with left, so now traverse right.
+      if (curr->right != nullptr) {  
+        path_stack.emplace(curr->right.get());
+      } else {  // No right child, so visit curr.
+        postorder_sequence.emplace_back(curr->data);
+        path_stack.pop();
       }
-    } else {  // curr->right.get() == prev.
-      // Going up, finished visiting left and right.
-      res.emplace_back(curr->data);
-      s.pop();
+    } else { 
+      // Finished traversing left and right, so visit curr.
+      postorder_sequence.emplace_back(curr->data);
+      path_stack.pop();
     }
     prev = curr;
   }
-  return res;
+  return postorder_sequence;
 }
 // @exclude
 

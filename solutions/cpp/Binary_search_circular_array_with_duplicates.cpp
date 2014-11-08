@@ -22,21 +22,21 @@ int SearchSmallest(const vector<int>& A) {
   return SearchSmallestHelper(A, 0, A.size() - 1);
 }
 
-int SearchSmallestHelper(const vector<int>& A, int l, int r) {
-  if (l == r) {
-    return l;
+int SearchSmallestHelper(const vector<int>& A, int left, int right) {
+  if (left == right) {
+    return left;
   }
 
-  int m = l + ((r - l) / 2);
-  if (A[m] > A[r]) {
-    return SearchSmallestHelper(A, m + 1, r);
-  } else if (A[m] < A[r]) {
-    return SearchSmallestHelper(A, l, m);
-  } else {  // A[m] == A[r].
+  int mid = left + ((right - left) / 2);
+  if (A[mid] > A[right]) {
+    return SearchSmallestHelper(A, mid + 1, right);
+  } else if (A[mid] < A[right]) {
+    return SearchSmallestHelper(A, left, mid);
+  } else {  // A[mid] == A[right].
     // Smallest element must exist in either left or right side.
-    int l_res = SearchSmallestHelper(A, l, m);
-    int r_res = SearchSmallestHelper(A, m + 1, r);
-    return A[r_res] < A[l_res] ? r_res : l_res;
+    int left_result = SearchSmallestHelper(A, left, mid);
+    int right_result = SearchSmallestHelper(A, mid + 1, right);
+    return A[right_result] < A[left_result] ? right_result : left_result;
   }
 }
 // @exclude

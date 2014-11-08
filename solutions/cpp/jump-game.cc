@@ -19,10 +19,10 @@ using std::vector;
 // @include
 bool CanReach(const vector<int>& A) {
   int furthest_reach = 0;
-  for (int i = 0; i <= furthest_reach && furthest_reach + 1 < A.size(); ++i) {
+  for (int i = 0; i <= furthest_reach && furthest_reach < A.size() - 1; ++i) {
     furthest_reach = max(furthest_reach, A[i] + i);
   }
-  return furthest_reach + 1 >= A.size();
+  return furthest_reach >= A.size() - 1;
 }
 // @exclude
 

@@ -9,20 +9,20 @@ public class KThNodeBinaryTree {
 
   // @include
   public static BinaryTreeNode<Integer> findKthNodeBinaryTree(
-      BinaryTreeNode<Integer> root, int k) {
-    BinaryTreeNode<Integer> n = root;
-    while (n != null) {
-      int leftSize = n.left != null ? n.left.size : 0;
-      if (leftSize < k - 1) {
+      BinaryTreeNode<Integer> tree, int k) {
+    BinaryTreeNode<Integer> iter = tree;
+    while (iter != null) {
+      int leftSize = iter.left != null ? iter.left.size : 0;
+      if (leftSize + 1 < k) { // Target node must be in right subtree of iter.
         k -= (leftSize + 1);
-        n = n.right;
-      } else if (leftSize == k - 1) {
-        return n;
-      } else { // leftSize > k - 1.
-        n = n.left;
+        iter = iter.right;
+      } else if (leftSize == k - 1) { // Target is iter itself.
+        return iter;
+      } else { // Target node must be in left subtree of iter.
+        iter = iter.left;
       }
     }
-    throw new RuntimeException("no k-th node in binary tree");
+    return null; // If k is between 1 and the tree size, this is unreachable.
   }
   // @exclude
 
@@ -55,11 +55,7 @@ public class KThNodeBinaryTree {
     root.right.right.size = 1;
     root.right.right.data = 6;
     // should throw
-    try {
-      findKthNodeBinaryTree(root, 0);
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
+    assert (null == findKthNodeBinaryTree(root, 0));
     // should output 1
     assert (findKthNodeBinaryTree(root, 1).data == 1);
     System.out.println((findKthNodeBinaryTree(root, 1)).data);
@@ -79,10 +75,6 @@ public class KThNodeBinaryTree {
     assert (findKthNodeBinaryTree(root, 6).data == 6);
     System.out.println((findKthNodeBinaryTree(root, 6)).data);
     // should throw
-    try {
-      findKthNodeBinaryTree(root, 7);
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
-    }
+    assert (null ==  findKthNodeBinaryTree(root, 7));
   }
 }

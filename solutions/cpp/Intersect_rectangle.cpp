@@ -36,7 +36,7 @@ Rectangle IntersectRectangle(const Rectangle& R, const Rectangle& S) {
             min(R.x + R.width, S.x + S.width) - max(R.x, S.x),
             min(R.y + R.height, S.y + S.height) - max(R.y, S.y)};
   } else {
-    return {0, 0, -1, -1};  // no intersection.
+    return {0, 0, -1, -1};  // No intersection.
   }
 }
 

@@ -1,4 +1,5 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
 import java.util.Arrays;
@@ -44,5 +45,4 @@ class CountOccurrencesInSentence {
     System.out.println(s);
     countOccurrences(s);
   }
-  // @include
 }

@@ -4,17 +4,14 @@ import java.util.*;
 
 import static java.lang.Math.max;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BinarySearchUnknownLength {
   // @include
-  public static int binarySearchUnknownLength(List<Integer> A, int k) {
+  public static int binarySearchUnknownLength(int[] A, int k) {
     // Find the possible range where k exists.
     int p = 0;
     while (true) {
       try {
-        int val = A.get((1 << p) - 1);
+        int val = A[(1 << p) - 1];
         if (val == k) {
           return (1 << p) - 1;
         } else if (val > k) {
@@ -31,18 +28,18 @@ public class BinarySearchUnknownLength {
     // in A, since p becomes 0.
     int left = max(0, 1 << (p - 1)), right = (1 << p) - 2;
     while (left <= right) {
-      int m = left + ((right - left) / 2);
+      int mid = left + ((right - left) / 2);
       try {
-        int val = A.get(m);
+        int val = A[mid];
         if (val == k) {
-          return m;
+          return mid;
         } else if (val > k) {
-          right = m - 1;
-        } else { // A[m] < k
-          left = m + 1;
+          right = mid - 1;
+        } else { // A[mid] < k
+          left = mid + 1;
         }
       } catch (Exception e) {
-        right = m - 1; // Search the left part if out of boundary.
+        right = mid - 1; // Search the left part if out of boundary.
       }
     }
     return -1; // Nothing matched k.
@@ -50,7 +47,7 @@ public class BinarySearchUnknownLength {
   // @exclude
 
   private static void smallTest() {
-    List<Integer> A = Arrays.asList(1, 2, 3);
+    int[] A = new int[]{1, 2, 3};
     assert (binarySearchUnknownLength(A, 3) == 2);
     assert (binarySearchUnknownLength(A, 1) == 0);
     assert (binarySearchUnknownLength(A, 2) == 1);
@@ -74,15 +71,15 @@ public class BinarySearchUnknownLength {
         n = r.nextInt(1000000) + 1;
         k = r.nextInt(n * 2);
       }
-      List<Integer> A = new ArrayList<>();
+      int[] A = new int[n];
       for (int i = 0; i < n; ++i) {
-        A.add(r.nextInt(n * 2));
+        A[i] = r.nextInt(n * 2);
       }
-      Collections.sort(A);
+      Arrays.sort(A);
       System.out.println(n + " " + k);
       int idx = binarySearchUnknownLength(A, k);
       System.out.println(idx);
-      assert (idx != -1 && A.get(idx) == k || Collections.binarySearch(A, k) < 0);
+      assert (idx != -1 && A[idx] == k || Arrays.binarySearch(A, k) < 0);
     }
   }
 }

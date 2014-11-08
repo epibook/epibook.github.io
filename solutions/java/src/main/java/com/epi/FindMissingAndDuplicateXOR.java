@@ -2,20 +2,15 @@ package com.epi;
 
 import com.epi.utils.Pair;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class FindMissingAndDuplicateXOR {
   // @include
   // Returns Pair<Integer, Integer>(duplicate, missing)
-  public static Pair<Integer, Integer> findDuplicateMissing(List<Integer> A) {
+  public static Pair<Integer, Integer> findDuplicateMissing(int[] A) {
     int missXORDup = 0;
-    for (int i = 0; i < A.size(); ++i) {
-      missXORDup ^= i ^ A.get(i);
+    for (int i = 0; i < A.length; ++i) {
+      missXORDup ^= i ^ A[i];
     }
 
     // We need to find a bit that's set to 1 in missXORDup. This assignment
@@ -24,17 +19,17 @@ public class FindMissingAndDuplicateXOR {
     int differBit = missXORDup & (~(missXORDup - 1));
 
     int missOrDup = 0;
-    for (int i = 0; i < A.size(); ++i) {
+    for (int i = 0; i < A.length; ++i) {
       if ((i & differBit) != 0) {
         missOrDup ^= i;
       }
-      if ((A.get(i) & differBit) != 0) {
-        missOrDup ^= A.get(i);
+      if ((A[i] & differBit) != 0) {
+        missOrDup ^= A[i];
       }
     }
 
-    for (int ai : A) {
-      if (ai == missOrDup) { // Find duplicate.
+    for (int a : A) {
+      if (a == missOrDup) { // Find duplicate.
         return new Pair<>(missOrDup, missOrDup ^ missXORDup);
       }
     }
@@ -52,18 +47,18 @@ public class FindMissingAndDuplicateXOR {
       } else {
         n = r.nextInt(9999) + 2;
       }
-      List<Integer> A = new ArrayList<>();
+      int[] A = new int[n];
       for (int i = 0; i < n; ++i) {
-        A.add(i);
+        A[i] = i;
       }
       int missingIdx = r.nextInt(n);
-      int missing = A.get(missingIdx);
+      int missing = A[missingIdx];
       int dupIdx = r.nextInt(n);
       while (dupIdx == missingIdx) {
         dupIdx = r.nextInt(n);
       }
-      int dup = A.get(dupIdx);
-      A.set(missingIdx, dup);
+      int dup = A[dupIdx];
+      A[missingIdx] = dup;
       Pair<Integer, Integer> ans = findDuplicateMissing(A);
       System.out.println("times = " + times);
       System.out.println(dup + " " + missing);

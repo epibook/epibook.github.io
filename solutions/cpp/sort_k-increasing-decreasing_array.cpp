@@ -18,31 +18,26 @@ using std::vector;
 // @include
 vector<int> SortKIncreasingDecreasingArray(const vector<int>& A) {
   // Decomposes A into a set of sorted arrays.
-  vector<vector<int>> S;
-  bool is_increasing = true;  // The trend we are looking for.
+  vector<vector<int>> sorted_subarrays;
+  typedef enum {INCREASING, DECREASING} SubarrayType;
+  SubarrayType subarray_type = INCREASING;
   int start_idx = 0;
-  for (int i = 1; i < A.size(); ++i) {
-    if ((A[i - 1] < A[i] && !is_increasing) ||
-        (A[i - 1] >= A[i] && is_increasing)) {
-      if (is_increasing) {
-        S.emplace_back(A.cbegin() + start_idx, A.cbegin() + i);
+  for (int i = 1; i <= A.size(); ++i) {
+    if (i == A.size() ||  // A is ended. Adds the last subarray.
+        (A[i - 1] < A[i] && subarray_type == DECREASING) ||
+        (A[i - 1] >= A[i] && subarray_type == INCREASING)) {
+      if (subarray_type == INCREASING) {
+        sorted_subarrays.emplace_back(A.cbegin() + start_idx, A.cbegin() + i);
       } else {
-        S.emplace_back(A.crbegin() + A.size() - i,
-                       A.crbegin() + A.size() - start_idx);
+        sorted_subarrays.emplace_back(A.crbegin() + A.size() - i,
+                                      A.crbegin() + A.size() - start_idx);
       }
       start_idx = i;
-      is_increasing = !is_increasing;  // Inverses the trend.
-    }
-  }
-  if (start_idx < A.size()) {
-    if (is_increasing) {
-      S.emplace_back(A.cbegin() + start_idx, A.cend());
-    } else {
-      S.emplace_back(A.crbegin(), A.crbegin() + A.size() - start_idx);
+      subarray_type = (subarray_type == INCREASING ? DECREASING : INCREASING);
     }
   }
 
-  return MergeArrays(S);
+  return MergeSortedArrays(sorted_subarrays);
 }
 // @exclude
 

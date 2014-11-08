@@ -15,28 +15,25 @@ using std::uniform_int_distribution;
 
 // @include
 string ConvertBase(const string& s, int b1, int b2) {
-  bool neg = s.front() == '-';
+  bool is_negative = s.front() == '-';
   int x = 0;
-  for (size_t i = (neg == true ? 1 : 0); i < s.size(); ++i) {
+  for (size_t i = (is_negative == true ? 1 : 0); i < s.size(); ++i) {
     x *= b1;
     x += isdigit(s[i]) ? s[i] - '0' : s[i] - 'A' + 10;
   }
 
-  string ans;
-  while (x) {
-    int r = x % b2;
-    ans.push_back(r >= 10 ? 'A' + r - 10 : '0' + r);
+  string result;
+  do {
+    int reminder = x % b2;
+    result.push_back(reminder >= 10 ? 'A' + reminder - 10 : '0' + reminder);
     x /= b2;
-  }
+  } while (x);
 
-  if (ans.empty()) {  // special case: s is 0.
-    ans.push_back('0');
+  if (is_negative) {  // s is a negative number.
+    result.push_back('-');
   }
-  if (neg) {  // s is a negative number.
-    ans.push_back('-');
-  }
-  reverse(ans.begin(), ans.end());
-  return ans;
+  reverse(result.begin(), result.end());
+  return result;
 }
 // @exclude
 
@@ -74,7 +71,7 @@ int main(int argc, char* argv[]) {
       uniform_int_distribution<int> base_dis(2, 16);
       int base = base_dis(gen);
       cout << "input is " << input << ", base1 = 10, base2 = " << base
-           << ", ans = " << ConvertBase(input, 10, base) << endl;
+           << ", result = " << ConvertBase(input, 10, base) << endl;
       assert(input == ConvertBase(ConvertBase(input, 10, base), base, 10));
     }
   }

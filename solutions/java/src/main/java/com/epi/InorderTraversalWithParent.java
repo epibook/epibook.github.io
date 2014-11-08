@@ -5,38 +5,35 @@ import com.epi.BinaryTreeWithParentPrototype.BinaryTree;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class InorderTraversalWithParent {
   private static List<Integer> results = new ArrayList<>();
 
   // @include
-  public static void inOrderTraversal(BinaryTree<Integer> T) {
-    // Empty tree.
-    if (T == null) {
-      return;
-    }
-
-    BinaryTree<Integer> prev = null, curr = T, next;
+  public static void inOrderTraversal(BinaryTree<Integer> tree) {
+    BinaryTree<Integer> prev = null, curr = tree;
     while (curr != null) {
+      BinaryTree<Integer> next;
       if (prev == null || prev.getLeft() == curr || prev.getRight() == curr) {
-        if (curr.getLeft() != null) {
+        // We came down to curr from prev.
+        if (curr.getLeft() != null) { // Keep going left.
           next = curr.getLeft();
         } else {
           System.out.println(curr.getData());
           // @exclude
           results.add(curr.getData());
           // @include
-          next = (curr.getRight() != null ? curr.getRight() : curr.getParent());
+          // Done with left, so go right if right is not empty.
+          // Otherwise, go up.
+          next = (curr.getRight() != null) ? curr.getRight() : curr.getParent();
         }
       } else if (curr.getLeft() == prev) {
         System.out.println(curr.getData());
         // @exclude
         results.add(curr.getData());
         // @include
-        next = (curr.getRight() != null ? curr.getRight() : curr.getParent());
-      } else { // curr.getRight() == prev.
+        // Done with left, so go right if right is not empty. Otherwise, go up.
+        next = (curr.getRight() != null) ? curr.getRight() : curr.getParent();
+      } else { // Done with both children, so move up.
         next = curr.getParent();
       }
 
@@ -44,7 +41,6 @@ public class InorderTraversalWithParent {
       curr = next;
     }
   }
-
   // @exclude
 
   public static void main(String[] args) {

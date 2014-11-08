@@ -23,7 +23,7 @@ void PrintMatrixInSpiralOrder(const vector<vector<int>> &A) {
 
 void PrintMatrixClockwise(const vector<vector<int>> &A, int offset) {
   if (offset == A.size() - offset - 1) {
-    // A has odd diemnsion, and we are at the center of the matrix A.
+    // A has odd dimension, and we are at the center of the matrix A.
     cout << A[offset][offset];
     return;
   }

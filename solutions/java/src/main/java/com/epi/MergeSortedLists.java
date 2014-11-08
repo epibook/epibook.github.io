@@ -7,12 +7,12 @@ import java.util.Random;
 
 public class MergeSortedLists {
   //@include
-  public static Node<Integer> mergeTwoSortedLinkedLists(
-      Node<Integer> F, Node<Integer> L) {
-    Node<Integer> dummyHead = new Node<>(0, null);
-    Node<Integer> current = dummyHead;
-    Node<Integer> p1 = F;
-    Node<Integer> p2 = L;
+  public static ListNode<Integer> mergeTwoSortedLinkedLists(
+      ListNode<Integer> F, ListNode<Integer> L) {
+    // Creates a placeholder for the result.
+    ListNode<Integer> dummyHead = new ListNode<>(0, null);
+    ListNode<Integer> current = dummyHead;
+    ListNode<Integer> p1 = F, p2 = L;
 
     while (p1 != null && p2 != null) {
       if (p1.data <= p2.data) {
@@ -26,9 +26,11 @@ public class MergeSortedLists {
     }
 
     if (p1 != null) {
+      // Appends the remaining nodes of p1.
       current.next = p1;
     }
     if (p2 != null) {
+      // Appends the remaining nodes of p2.
       current.next = p2;
     }
     return dummyHead.next;
@@ -38,8 +40,8 @@ public class MergeSortedLists {
   public static void main(String[] args) {
     Random rnd = new Random();
     for (int times = 0; times < 10000; ++times) {
-      Node<Integer> F = null;
-      Node<Integer> L = null;
+      ListNode<Integer> F = null;
+      ListNode<Integer> L = null;
       int n, m;
       if (args.length == 2) {
         n = Integer.parseInt(args[0]);
@@ -52,17 +54,17 @@ public class MergeSortedLists {
         m = rnd.nextInt(100);
       }
       for (int i = n; i > 0; --i) {
-        Node<Integer> temp = new Node<>(i, null);
+        ListNode<Integer> temp = new ListNode<>(i, null);
         temp.next = F;
         F = temp;
       }
       for (int j = m; j > 0; --j) {
-        Node<Integer> temp = new Node<>(j, null);
+        ListNode<Integer> temp = new ListNode<>(j, null);
         temp.next = L;
         L = temp;
       }
 
-      Node<Integer> sortedHead = mergeTwoSortedLinkedLists(F, L);
+      ListNode<Integer> sortedHead = mergeTwoSortedLinkedLists(F, L);
       int count = 0;
       int pre = Integer.MIN_VALUE;
       while (sortedHead != null) {

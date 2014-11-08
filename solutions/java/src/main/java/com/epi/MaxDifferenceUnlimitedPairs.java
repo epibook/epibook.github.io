@@ -1,16 +1,14 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class MaxDifferenceUnlimitedPairs {
   // @include
-  public static int maxProfitUnlimitedPairs(List<Integer> A) {
+  public static int maxProfitUnlimitedPairs(int[] A) {
     int profit = 0;
-    for (int i = 1; i < A.size(); ++i) {
-      int delta = A.get(i) - A.get(i - 1);
+    for (int i = 1; i < A.length; ++i) {
+      int delta = A[i] - A[i - 1];
       if (delta > 0) {
         profit += delta;
       }
@@ -19,12 +17,12 @@ public class MaxDifferenceUnlimitedPairs {
   }
   // @exclude
 
-  static int checkAns(List<Integer> A) {
+  private static int checkAns(int[] A) {
     int profit = 0;
 
-    for (int i = 1; i < A.size(); ++i) {
-      if (A.get(i) > A.get(i - 1)) {
-        profit += A.get(i) - A.get(i - 1);
+    for (int i = 1; i < A.length; ++i) {
+      if (A[i] > A[i - 1]) {
+        profit += A[i] - A[i - 1];
       }
     }
     return profit;
@@ -35,9 +33,9 @@ public class MaxDifferenceUnlimitedPairs {
     int n = 5;
     // random tests for n = 40, k = 4 for 100 times
     for (int times = 0; times < 100; ++times) {
-      List<Integer> A = new ArrayList<>();
+      int[] A = new int[n];
       for (int i = 0; i < n; ++i) {
-        A.add(gen.nextInt(100));
+        A[i] = gen.nextInt(100);
       }
       System.out.println("n = " + n);
       System.out.println(checkAns(A));
@@ -51,12 +49,11 @@ public class MaxDifferenceUnlimitedPairs {
     } else {
       n = gen.nextInt(10000) + 1;
     }
-    List<Integer> A = new ArrayList<>();
+    int[] A = new int[n];
     for (int i = 0; i < n; ++i) {
-      A.add(gen.nextInt(100));
+      A[i] = gen.nextInt(100);
     }
     System.out.println("n = " + n);
     System.out.println(maxProfitUnlimitedPairs(A));
   }
-
 }

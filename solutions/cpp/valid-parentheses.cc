@@ -12,41 +12,41 @@ using std::stack;
 using std::string;
 
 // @include
-bool IsValidParentheses(const string& s) {
-  stack<char> left_parens;
+bool IsWellFormed(const string& s) {
+  stack<char> left_chars;
   for (size_t i = 0; i < s.size(); ++i) {
     if (s[i] == '(' || s[i] == '{' || s[i] == '[') {
-      left_parens.emplace(s[i]);
+      left_chars.emplace(s[i]);
     } else {
-      if (left_parens.empty()) {
-        return false;  // No left paren.
+      if (left_chars.empty()) {
+        return false;  // Unmatched right char.
       }
-      if ((s[i] == ')' && left_parens.top() != '(') ||
-          (s[i] == '}' && left_parens.top() != '{') ||
-          (s[i] == ']' && left_parens.top() != '[')) {
-        return false;  // Unmatched left paren.
+      if ((s[i] == ')' && left_chars.top() != '(') ||
+          (s[i] == '}' && left_chars.top() != '{') ||
+          (s[i] == ']' && left_chars.top() != '[')) {
+        return false;  // Mismatched chars.
       }
-      left_parens.pop();
+      left_chars.pop();
     }
   }
-  return left_parens.empty();
+  return left_chars.empty();
 }
 // @exclude
 
 void small_test() {
-  assert(IsValidParentheses("()"));
-  assert(IsValidParentheses("()[]{}"));
-  assert(IsValidParentheses("[()[]]{}"));
-  assert(IsValidParentheses("(()[]{()[]{}{}})"));
-  assert(!IsValidParentheses("([)]"));
-  assert(!IsValidParentheses("["));
-  assert(!IsValidParentheses("(()[]{()[]{})({}})"));
+  assert(IsWellFormed("()"));
+  assert(IsWellFormed("()[]{}"));
+  assert(IsWellFormed("[()[]]{}"));
+  assert(IsWellFormed("(()[]{()[]{}{}})"));
+  assert(!IsWellFormed("([)]"));
+  assert(!IsWellFormed("["));
+  assert(!IsWellFormed("(()[]{()[]{})({}})"));
 }
 
 int main(int argc, char** argv) {
   small_test();
   if (argc == 2) {
-    cout << boolalpha << IsValidParentheses(argv[1]) << endl;
+    cout << boolalpha << IsWellFormed(argv[1]) << endl;
   }
   return 0;
 }

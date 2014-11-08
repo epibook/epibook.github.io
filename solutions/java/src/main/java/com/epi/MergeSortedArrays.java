@@ -2,17 +2,16 @@ package com.epi;
 
 import com.epi.utils.Pair;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 import java.util.PriorityQueue;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class MergeSortedArrays {
   // @include
-  public static ArrayList<Integer> mergeArrays(List<List<Integer>> S) {
+  public static List<Integer> mergeSortedArrays(int[][] sortedArrays) {
     PriorityQueue<Pair<Integer, Integer>> minHeap = new PriorityQueue<>(
         11, new Comparator<Pair<Integer, Integer>>() {
       @Override
@@ -22,30 +21,56 @@ public class MergeSortedArrays {
       }
     }
     );
-    ArrayList<Integer> sIdx = new ArrayList<>(S.size());
+    int[] heads = new int[sortedArrays.length];
 
-    // Every array in S puts its smallest element in heap.
-    for (int i = 0; i < S.size(); ++i) {
-      if (S.get(i).size() > 0) {
-        minHeap.add(new Pair<>(S.get(i).get(0), i));
-        sIdx.add(1);
+    // Puts each sortedArrays' first element in minHeap.
+    for (int i = 0; i < sortedArrays.length; ++i) {
+      if (sortedArrays[i].length > 0) {
+        minHeap.add(new Pair<>(sortedArrays[i][0], i));
+        heads[i] = 1;
       } else {
-        sIdx.add(0);
+        heads[i] = 0;
       }
     }
 
-    ArrayList<Integer> ret = new ArrayList<>();
+    List<Integer> result = new ArrayList<>();
     while (!minHeap.isEmpty()) {
+      Integer smallestEntry = minHeap.peek().getFirst();
       Pair<Integer, Integer> p = minHeap.remove();
-      ret.add(p.getFirst());
-      // Add the smallest element into heap if possible.
-      if (sIdx.get(p.getSecond()) < S.get(p.getSecond()).size()) {
-        minHeap.add(new Pair<>(S.get(p.getSecond()).get(
-            sIdx.get(p.getSecond())), p.getSecond()));
-        sIdx.set(p.getSecond(), sIdx.get(p.getSecond()) + 1);
+      result.add(smallestEntry);
+      // Add the next entry of smallest_array into minHeap.
+      if (heads[p.getSecond()] < sortedArrays[p.getSecond()].length) {
+        minHeap.add(
+            new Pair<>(sortedArrays[p.getSecond()][heads[p.getSecond()]++], p.getSecond()));
       }
     }
-    return ret;
+    return result;
   }
   // @exclude
+
+  public static void main(String[] args) {
+    Random rnd = new Random();
+    for (int times = 0; times < 100; ++times) {
+      int n;
+      if (args.length == 2) {
+        n = Integer.parseInt(args[0]);
+      } else {
+        n = rnd.nextInt(100);
+      }
+
+      int[][] S = new int[n][];
+      for (int i = 0; i < n; ++i) {
+        S[i] = new int[rnd.nextInt(500)];
+        for (int j = 0; j < S[i].length; ++j) {
+          S[i][j] = rnd.nextInt(10000);
+        }
+        Arrays.sort(S[i]);
+      }
+
+      List<Integer> ans = mergeSortedArrays(S);
+      for (int i = 1; i < ans.size(); ++i) {
+        assert (ans.get(i - 1) <= ans.get(i));
+      }
+    }
+  }
 }

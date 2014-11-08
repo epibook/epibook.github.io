@@ -1,5 +1,4 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
-// @author Andrey Pavlov
 
 package com.epi;
 
@@ -29,9 +28,9 @@ class SearchFrequentItems {
       buf = sin.next();
       hash.put(buf, hash.containsKey(buf) ? hash.get(buf) + 1 : 1);
       ++n;
-      // Detecting k + 1 items in hash, at least one of them must have exactly 1
-      // in it. We will discard those k + 1 items by 1 for each.
-      if (hash.size() == k + 1) {
+      // Detecting k items in hash, at least one of them must have exactly one
+      // in it. We will discard those k items by one for each.
+      if (hash.size() == k) {
         List<String> delKeys = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : hash.entrySet()) {
           if (entry.getValue() - 1 == 0) {

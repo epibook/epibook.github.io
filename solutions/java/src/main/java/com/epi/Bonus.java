@@ -72,6 +72,9 @@ public class Bonus {
     a = new int[]{1, 2, 3, 2, 1};
     goldenA = new int[]{1, 2, 3, 2, 1};
     assert (Arrays.equals(calculateBonus(a), goldenA));
+    a = new int[]{300, 400, 500, 200};
+    goldenA = new int[]{1, 2, 3, 1};
+    assert (Arrays.equals(calculateBonus(a), goldenA));
   }
 
   public static void main(String[] args) {

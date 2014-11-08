@@ -14,6 +14,10 @@ using std::shared_ptr;
 
 // @include
 bool IsLinkedListAPalindrome(shared_ptr<ListNode<int>> L) {
+  if (L == nullptr) {
+    return true;
+  }
+
   // Finds the second half of L.
   shared_ptr<ListNode<int>> slow = L, fast = L;
   while (fast && fast->next) {
@@ -77,6 +81,7 @@ int main(int argc, char* argv[]) {
       head = curr;
     }
     assert(IsLinkedListAPalindrome(head) == false);
+    assert(IsLinkedListAPalindrome(nullptr) == true);
   }
   return 0;
 }

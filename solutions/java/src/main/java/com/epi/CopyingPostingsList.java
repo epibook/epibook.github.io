@@ -1,5 +1,4 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
-// @author Ivan Sharov
 
 package com.epi;
 
@@ -8,38 +7,40 @@ import java.util.Random;
 class CopyingPostingsList {
 
   // @include
-  public static PNode<Integer> copyPostingsList(PNode<Integer> l) {
-    // Return empty list if l is nullptr.
-    if (l == null) {
+  public static PNode<Integer> copyPostingsList(PNode<Integer> L) {
+    if (L == null) {
       return null;
     }
 
-    // 1st stage: Copy the nodes from l.
-    PNode<Integer> p = l;
-    while (p != null) {
-      PNode<Integer> temp = new PNode<>(p.data, p.next, null);
-      p.next = temp;
-      p = temp.next;
+    // Stage 1: Makes a copy of the original list without assigning the jump
+    //          field, and creates the mapping for each node in the original
+    //          list to the copied list.
+    PNode<Integer> iter = L;
+    while (iter != null) {
+      PNode<Integer> newNode = new PNode<>(iter.data, iter.next, null);
+      iter.next = newNode;
+      iter = newNode.next;
     }
 
-    // 2nd stage: Update the jump field.
-    p = l;
-    while (p != null) {
-      if (p.jump != null) {
-        p.next.jump = p.jump.next;
+    // Stage 2: Assigns the jump field in the copied list.
+    iter = L;
+    while (iter != null) {
+      if (iter.jump != null) {
+        iter.next.jump = iter.jump.next;
       }
-      p = p.next.next;
+      iter = iter.next.next;
     }
 
-    // 3rd stage: Restore the next field.
-    p = l;
-    PNode<Integer> copied = p.next;
-    while (p.next != null) {
-      PNode<Integer> temp = p.next;
-      p.next = temp.next;
-      p = temp;
+    // Stage 3: Reverts the original list, and assigns the next field of
+    //          the copied list.
+    iter = L;
+    PNode<Integer> newListHead = iter.next;
+    while (iter.next != null) {
+      PNode<Integer> temp = iter.next;
+      iter.next = temp.next;
+      iter = temp;
     }
-    return copied;
+    return newListHead;
   }
   // @exclude
 

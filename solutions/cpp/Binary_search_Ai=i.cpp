@@ -17,16 +17,16 @@ using std::vector;
 
 // @include
 int SearchIndexValueEqual(const vector<int>& A) {
-  int l = 0, r = A.size() - 1;
-  while (l <= r) {
-    int m = l + ((r - l) / 2);
-    int val = A[m] - m;
+  int left = 0, right = A.size() - 1;
+  while (left <= right) {
+    int mid = left + ((right - left) / 2);
+    int val = A[mid] - mid;
     if (val == 0) {
-      return m;
+      return mid;
     } else if (val > 0) {
-      r = m - 1;
+      right = mid - 1;
     } else {  // val < 0.
-      l = m + 1;
+      left = mid + 1;
     }
   }
   return -1;

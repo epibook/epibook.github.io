@@ -15,26 +15,33 @@ using std::vector;
 vector<int> result;
 
 // @include
-void InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& T) {
-  BinaryTreeNode<int>* prev = nullptr, *curr = T.get(), *next;
-  while (curr) {
-    if (!prev || prev->left.get() == curr || prev->right.get() == curr) {
-      if (curr->left) {
+void InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
+  BinaryTreeNode<int>* prev = nullptr, *curr = tree.get();
+  while (curr != nullptr) {
+    BinaryTreeNode<int>* next;
+    if (prev == nullptr || prev->left.get() == curr ||
+        prev->right.get() == curr) {
+      // We came down to curr from prev.
+      if (curr->left != nullptr) {  // Keep going left.
         next = curr->left.get();
       } else {
         cout << curr->data << endl;
         // @exclude
         result.emplace_back(curr->data);
         // @include
-        next = (curr->right ? curr->right.get() : curr->parent);
+        // Done with left, so go right if right is not empty.
+        // Otherwise, go up.
+        next = (curr->right != nullptr) ? curr->right.get() : curr->parent; 
       }
     } else if (curr->left.get() == prev) {
+      // We came up to curr from its left child.
       cout << curr->data << endl;
       // @exclude
       result.emplace_back(curr->data);
       // @include
-      next = (curr->right ? curr->right.get() : curr->parent);
-    } else {  // curr->right.get() == prev.
+      // Done with left, so go right if right is not empty. Otherwise, go up.
+      next = (curr->right != nullptr) ? curr->right.get() : curr->parent; 
+    } else {  // Done with both children, so move up.
       next = curr->parent;
     }
 

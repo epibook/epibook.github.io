@@ -65,7 +65,7 @@ string IntToString(int x) {
 int StringToInt(const string& s) {
   bool is_negative = s[0] == '-';
   int r = 0;
-  for (int i = is_negative; i < s.size(); ++i) {
+  for (int i = s[0] == '-' ? 1 : 0; i < s.size(); ++i) {
     int digit = s[i] - '0';
     r = r * 10 + digit;
   }

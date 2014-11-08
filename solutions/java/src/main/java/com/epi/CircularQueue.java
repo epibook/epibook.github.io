@@ -3,13 +3,11 @@ package com.epi;
 import java.util.Arrays;
 import java.util.Collections;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class CircularQueue {
   // @include
   public static class Queue {
-    private int head = 0, tail = 0, size = 0;
+    private int head = 0, tail = 0, numQueueElements = 0;
+    private final int SCALE_FACTOR = 2;
     private Integer[] data;
 
     public Queue(int cap) {
@@ -17,24 +15,23 @@ public class CircularQueue {
     }
 
     public void enqueue(Integer x) {
-      // Dynamically resizes due to data_.size() limit.
-      if (size == data.length) {
-        // Rearranges elements.
+      if (numQueueElements == data.length) { // Needs to resize.
+        // Makes the queue elements appear consecutively.
         Collections.rotate(Arrays.asList(data), -head);
         // Resets head and tail.
         head = 0;
-        tail = size;
-        data = Arrays.copyOf(data, size * 2);
+        tail = numQueueElements;
+        data = Arrays.copyOf(data, numQueueElements * SCALE_FACTOR);
       }
-      // Performs enqueue
+
       data[tail] = x;
       tail = (tail + 1) % data.length;
-      ++size;
+      ++numQueueElements;
     }
 
     public Integer dequeue() {
-      if (size != 0) {
-        --size;
+      if (numQueueElements != 0) {
+        --numQueueElements;
         Integer ret = data[head];
         head = (head + 1) % data.length;
         return ret;
@@ -43,7 +40,7 @@ public class CircularQueue {
     }
 
     public int size() {
-      return size;
+      return numQueueElements;
     }
   }
   // @exclude

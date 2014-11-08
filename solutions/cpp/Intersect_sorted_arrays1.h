@@ -15,8 +15,8 @@ vector<int> IntersectTwoSortedArrays(const vector<int>& A,
   vector<int> intersect;
   for (int i = 0; i < A.size(); ++i) {
     if (i == 0 || A[i] != A[i - 1]) {
-      for (int j = 0; j < B.size(); ++j) {
-        if (A[i] == B[j]) {
+      for (int b : B) {
+        if (A[i] == b) {
           intersect.emplace_back(A[i]);
           break;
         }

@@ -7,41 +7,41 @@ import java.util.Random;
 
 class EvenOddMergeLinkedList {
   // @include
-  public static Node<Integer> evenOddMerge(Node<Integer> L) {
+  public static ListNode<Integer> evenOddMerge(ListNode<Integer> L) {
     if (L == null) {
       return L;
     }
 
-    Node<Integer> oddFirst = L.next;
-    Node<Integer> oddCurr = oddFirst;
-    Node<Integer> preEvenCurr = null, evenCurr = L;
+    ListNode<Integer> evenListHead = L, evenListIter = evenListHead;
+    ListNode<Integer> predecessorEvenListIter = null;
+    ListNode<Integer> oddListHead = L.next, oddListIter = oddListHead;
 
-    while (evenCurr != null && oddCurr != null) {
-      evenCurr.next = oddCurr.next;
-      preEvenCurr = evenCurr;
-      evenCurr = evenCurr.next;
-      if (evenCurr != null) {
-        oddCurr.next = evenCurr.next;
-        oddCurr = oddCurr.next;
+    while (evenListIter != null && oddListIter != null) {
+      evenListIter.next = oddListIter.next;
+      predecessorEvenListIter = evenListIter;
+      evenListIter = evenListIter.next;
+      if (evenListIter != null) {
+        oddListIter.next = evenListIter.next;
+        oddListIter = oddListIter.next;
       }
     }
 
-    if (evenCurr != null) {
-      evenCurr.next = oddFirst;
+    if (evenListIter != null) {
+      evenListIter.next = oddListHead;
     } else {
-      preEvenCurr.next = oddFirst;
+      predecessorEvenListIter.next = oddListHead;
     }
-    return L;
+    return evenListHead;
   }
   // @exclude
 
   public static void main(String[] args) {
     Random gen = new Random();
-    Node<Integer> head = null;
+    ListNode<Integer> head = null;
     int n = 0;
     if (args.length > 1) {
       for (String element : args) {
-        Node<Integer> curr = new Node<>(Integer.parseInt(element), null);
+        ListNode<Integer> curr = new ListNode<>(Integer.parseInt(element), null);
         curr.next = head;
         head = curr;
       }
@@ -52,12 +52,12 @@ class EvenOddMergeLinkedList {
         n = gen.nextInt(1000) + 1;
       }
       for (int i = n - 1; i >= 0; --i) {
-        Node<Integer> curr = new Node<>(i, null);
+        ListNode<Integer> curr = new ListNode<>(i, null);
         curr.next = head;
         head = curr;
       }
     }
-    Node<Integer> answer = evenOddMerge(head);
+    ListNode<Integer> answer = evenOddMerge(head);
     int x = 0, count = 0;
     while (answer != null) {
       ++count;

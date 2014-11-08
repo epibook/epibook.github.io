@@ -22,32 +22,22 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-void OnlineMedian(istringstream* sin) {
-  // Min-heap stores the bigger part of the stream.
-  priority_queue<int, vector<int>, greater<int>> H;
-  // Max-heap stores the smaller part of the stream.
-  priority_queue<int, vector<int>, less<int>> L;
+void OnlineMedian(istringstream* sequence) {
+  // min_heap stores the larger half seen so far.
+  priority_queue<int, vector<int>, greater<int>> min_heap;
+  // max_heap stores the smaller half seen so far.
+  priority_queue<int, vector<int>, less<int>> max_heap;
 
   int x;
-  while (*sin >> x) {
-    if (!L.empty() && x > L.top()) {
-      H.emplace(x);
-    } else {
-      L.emplace(x);
-    }
-    if (H.size() > L.size() + 1) {
-      L.emplace(H.top());
-      H.pop();
-    } else if (L.size() > H.size() + 1) {
-      H.emplace(L.top());
-      L.pop();
+  while (*sequence >> x) {
+    min_heap.emplace(x);
+    if (min_heap.size() > max_heap.size() + 1) {
+      max_heap.emplace(min_heap.top());
+      min_heap.pop();
     }
 
-    if (H.size() == L.size()) {
-      cout << 0.5 * (H.top() + L.top()) << endl;
-    } else {
-      cout << (H.size() > L.size() ? H.top() : L.top()) << endl;
-    }
+    cout << (min_heap.size() == max_heap.size() ?
+        0.5 * (min_heap.top() + max_heap.top()) : min_heap.top()) << endl;
   }
 }
 // @exclude
@@ -75,7 +65,7 @@ int main(int argc, char* argv[]) {
     s += ' ';
   }
   cout << endl;
-  istringstream sin(s);
-  OnlineMedian(&sin);
+  istringstream sequence(s);
+  OnlineMedian(&sequence);
   return 0;
 }

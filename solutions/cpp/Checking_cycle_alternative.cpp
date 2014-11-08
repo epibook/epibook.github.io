@@ -14,7 +14,7 @@ using std::make_shared;
 shared_ptr<ListNode<int>> HasCycle(const shared_ptr<ListNode<int>>& head) {
   shared_ptr<ListNode<int>> fast = head, slow = head;
 
-  while (slow && slow->next && fast && fast->next && fast->next->next) {
+  while (fast && fast->next && fast->next->next) {
     slow = slow->next, fast = fast->next->next;
     if (slow == fast) {  // There is a cycle.
       // Tries to find the start of the cycle.

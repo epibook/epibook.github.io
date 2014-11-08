@@ -18,17 +18,19 @@ class Queue {
 
   int Dequeue() {
     if (B_.empty()) {
+      // Transfers the elements in A_ to B_.
       while (!A_.empty()) {
         B_.emplace(A_.top());
         A_.pop();
       }
     }
-    if (!B_.empty()) {
-      int ret = B_.top();
-      B_.pop();
-      return ret;
+
+    if (B_.empty()) {  // B_ is still empty!
+      throw length_error("empty queue");
     }
-    throw length_error("empty queue");
+    int ret = B_.top();
+    B_.pop();
+    return ret;
   }
 
  private:

@@ -16,14 +16,14 @@ using std::vector;
 
 // @include
 bool MatrixSearch(const vector<vector<int>>& A, int x) {
-  int r = 0, c = A[0].size() - 1;
-  while (r < A.size() && c >= 0) {
-    if (A[r][c] == x) {
+  int row = 0, col = A[0].size() - 1;
+  while (row < A.size() && col >= 0) {
+    if (A[row][col] == x) {
       return true;
-    } else if (A[r][c] < x) {
-      ++r;
-    } else {  // A[r][c] > x.
-      --c;
+    } else if (A[row][col] < x) {
+      ++row;
+    } else {  // A[row][col] > x.
+      --col;
     }
   }
   return false;

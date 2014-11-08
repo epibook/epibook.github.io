@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BinaryTreeUtils {
   public static BinaryTree<Integer> generateRandBinaryTree(int n,
                                                            boolean isUnique) {

@@ -2,14 +2,11 @@ package com.epi;
 
 import java.util.Stack;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BSTSortedOrder {
   // @include
-  public static void printBSTInSortedOrder(BinarySearchTree<Integer> n) {
+  public static void printBSTInSortedOrder(BinarySearchTree<Integer> root) {
     Stack<BinarySearchTree<Integer>> s = new Stack<>();
-    BinarySearchTree<Integer> curr = n;
+    BinarySearchTree<Integer> curr = root;
 
     while (!s.isEmpty() || curr != null) {
       if (curr != null) {

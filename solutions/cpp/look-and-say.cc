@@ -30,7 +30,7 @@ string LookAndSay(int n) {
 
 string NextNumber(const string& s) {
   string ret;
-  for (size_t i = 0; i < s.size(); ++i) {
+  for (int i = 0; i < s.size(); ++i) {
     int count = 1;
     while (i + 1 < s.size() && s[i] == s[i + 1]) {
       ++i, ++count;

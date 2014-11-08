@@ -90,7 +90,7 @@ string Multiply(string num1, string num2) {
   // Reverses num1 and num2 to make multiplication easier.
   reverse(num1.begin(), num1.end());
   reverse(num2.begin(), num2.end());
-  vector<int> result(num1.size() + num2.size() + 1, 0);
+  vector<int> result(num1.size() + num2.size(), 0);
   for (int i = 0; i < num1.size(); ++i) {
     for (int j = 0; j < num2.size(); ++j) {
       result[i + j] += (num1[i] - '0') * (num2[j] - '0');
@@ -101,7 +101,7 @@ string Multiply(string num1, string num2) {
 
   // Converts result to string in reverse order, and skips the first 0s and
   // keeps one 0 if all are 0s.
-  int i = num1.size() + num2.size();
+  int i = num1.size() + num2.size() - 1;
   while (result[i] == 0 && i != 0) {
     --i;
   }

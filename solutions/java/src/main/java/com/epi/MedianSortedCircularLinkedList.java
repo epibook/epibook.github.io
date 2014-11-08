@@ -7,27 +7,28 @@ import java.util.Random;
 
 class MedianSortedCircularLinkedList {
   // @include
-  public static double findMedianSortedCircularLinkedList(Node<Integer> rNode) {
-    // Checks all nodes are identical or not and identify the start of list.
-    Node<Integer> curr = rNode;
-    Node<Integer> start = rNode;
-    int count = 0;
+  public static double findMedianSortedCircularLinkedList(
+      ListNode<Integer> arbitraryNode) {
+    // Checks if all nodes are identical and identifies the first smallest node.
+    ListNode<Integer> iter = arbitraryNode, firstSmallestNode = arbitraryNode;
+    int n = 0;
     do {
-      ++count;
-      curr = curr.next;
-      // start will point to the largest element in the list.
-      if (start.data.compareTo(curr.data) <= 0) {
-        start = curr;
+      ++n;
+      iter = iter.next;
+      if (firstSmallestNode.data.compareTo(iter.data) <= 0) {
+        // Now firstSmallestNode points to the largest element.
+        firstSmallestNode = iter;
       }
-    } while (curr != rNode);
-    // start's next is the begin of the list.
-    start = start.next;
+    } while (iter != arbitraryNode);
+    // firstSmallestNode's next is the first smallest node.
+    firstSmallestNode = firstSmallestNode.next;
 
-    // Traverses to the middle of the list and returns the median.
-    for (int i = 0; i < ((count - 1) / 2); ++i) {
-      start = start.next;
+    // Advances to the middle of the list.
+    for (int i = 0; i < ((n - 1) / 2); ++i) {
+      firstSmallestNode = firstSmallestNode.next;
     }
-    return (count & 1) != 0 ? start.data : 0.5 * (start.data + start.next.data);
+    return (n % 2) != 0 ? firstSmallestNode.data 
+           : 0.5 * (firstSmallestNode.data + firstSmallestNode.next.data);
   }
   // @exclude
 
@@ -40,13 +41,13 @@ class MedianSortedCircularLinkedList {
       } else {
         n = gen.nextInt(1000) + 1;
       }
-      Node<Integer> head = null;
+      ListNode<Integer> head = null;
       for (int i = n; i >= 0; --i) {
-        Node<Integer> curr = new Node<>(i, null);
+        ListNode<Integer> curr = new ListNode<>(i, null);
         curr.next = head;
         head = curr;
       }
-      Node<Integer> curr = head;
+      ListNode<Integer> curr = head;
       if (curr != null) {
         while (curr.next != null) {
           curr = curr.next;
@@ -59,13 +60,13 @@ class MedianSortedCircularLinkedList {
     }
 
     // Test identical list.
-    Node<Integer> head = null;
+    ListNode<Integer> head = null;
     for (int i = 0; i < 10; ++i) {
-      Node<Integer> curr = new Node<>(5, null);
+      ListNode<Integer> curr = new ListNode<>(5, null);
       curr.next = head;
       head = curr;
     }
-    Node<Integer> curr = head;
+    ListNode<Integer> curr = head;
     if (curr != null) {
       while (curr.next != null) {
         curr = curr.next;

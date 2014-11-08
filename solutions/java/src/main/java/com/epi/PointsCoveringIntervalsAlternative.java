@@ -1,4 +1,5 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
 import com.epi.utils.EndPoint;
@@ -9,9 +10,9 @@ import java.util.*;
 class PointsCoveringIntervalsAlternative {
 
   // @include
-  public static List<Integer> findMinimumVisits(List<Interval> I) {
+  public static List<Integer> findMinimumVisits(Interval[] intervals) {
     List<EndPoint> endpoints = new ArrayList<>();
-    for (Interval aI : I) {
+    for (Interval aI : intervals) {
       endpoints.add(new EndPoint(aI, true));
       endpoints.add(new EndPoint(aI, false));
     }
@@ -40,12 +41,13 @@ class PointsCoveringIntervalsAlternative {
   }
   // @exclude
 
-  // O(n^2) checking solution.
-  public static void checkAnswer(List<Interval> I, List<Integer> ans) {
-    boolean[] isVisited = new boolean[I.size()];
-    for (Integer a : ans) {
-      for (int i = 0; i < I.size(); ++i) {
-        if (a >= I.get(i).left && a <= I.get(i).right) {
+  // O(n^2) checking solution
+  private static void checkAnswer(Interval[] intervals,
+                                  List<Integer> answer) {
+    boolean[] isVisited = new boolean[intervals.length];
+    for (Integer a : answer) {
+      for (int i = 0; i < intervals.length; ++i) {
+        if (a >= intervals[i].left && a <= intervals[i].right) {
           isVisited[i] = true;
         }
       }
@@ -57,14 +59,14 @@ class PointsCoveringIntervalsAlternative {
   }
 
   private static void simpleTest() {
-    List<Interval> I = new ArrayList<>();
-    I.add(new Interval(1, 4));
-    I.add(new Interval(2, 8));
-    I.add(new Interval(3, 6));
-    I.add(new Interval(3, 5));
-    I.add(new Interval(7, 10));
-    I.add(new Interval(9, 11));
-    List<Integer> ans = findMinimumVisits(I);
+    Interval[] intervals = new Interval[6];
+    intervals[0] = new Interval(1, 4);
+    intervals[1] = new Interval(2, 8);
+    intervals[2] = new Interval(3, 6);
+    intervals[3] = new Interval(3, 5);
+    intervals[4] = new Interval(7, 10);
+    intervals[5] = new Interval(9, 11);
+    List<Integer> ans = findMinimumVisits(intervals);
     assert (ans.size() == 2 && ans.get(0) == 4 && ans.get(1) == 10);
   }
 
@@ -79,11 +81,11 @@ class PointsCoveringIntervalsAlternative {
       } else {
         n = gen.nextInt(10000) + 1;
       }
-      List<Interval> A = new ArrayList<>();
+      Interval[] A = new Interval[n];
       for (int i = 0; i < n; ++i) {
         int left = gen.nextInt(9999);
         int right = gen.nextInt(left + 100) + left;
-        A.add(new Interval(left, right));
+        A[i] = new Interval(left, right);
       }
 
       List<Integer> ans = findMinimumVisits(A);

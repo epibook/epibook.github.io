@@ -21,13 +21,13 @@ vector<int> one_line_result;
 
 // @include
 void PrintBinaryTreeDepthOrder(const unique_ptr<BinaryTreeNode<int>>& root) {
-  queue<BinaryTreeNode<int>*> q;
-  q.emplace(root.get());
-  size_t count = q.size();
-  while (!q.empty()) {
-    auto curr = q.front();
-    q.pop();
-    --count;
+  queue<BinaryTreeNode<int>*> processing_nodes;
+  processing_nodes.emplace(root.get());
+  size_t num_nodes_current_level = processing_nodes.size();
+  while (!processing_nodes.empty()) {
+    auto curr = processing_nodes.front();
+    processing_nodes.pop();
+    --num_nodes_current_level;
     if (!curr) {
       continue;
     }
@@ -35,11 +35,14 @@ void PrintBinaryTreeDepthOrder(const unique_ptr<BinaryTreeNode<int>>& root) {
     // @exclude
     one_line_result.emplace_back(curr->data);
     // @include
-    q.emplace(curr->left.get());
-    q.emplace(curr->right.get());
-    if (count == 0) {  // Finish printing nodes in the current depth.
+
+    // Defer the null checks to the null test above.
+    processing_nodes.emplace(curr->left.get());
+    processing_nodes.emplace(curr->right.get());
+    // Done with the nodes at the current depth.
+    if (!num_nodes_current_level) {
       cout << endl;
-      count = q.size();
+      num_nodes_current_level = processing_nodes.size();
       // @exclude
       results.emplace_back(move(one_line_result));
       // @include

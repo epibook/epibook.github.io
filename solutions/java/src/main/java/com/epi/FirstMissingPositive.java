@@ -1,13 +1,11 @@
 package com.epi;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Random;
 
 public class FirstMissingPositive {
-  private static int checkAns(List<Integer> A) {
-    Collections.sort(A);
+  private static int checkAns(int[] A) {
+    Arrays.sort(A);
     int target = 1;
     for (int a : A) {
       if (a > 0) {
@@ -22,23 +20,31 @@ public class FirstMissingPositive {
   }
 
   // @include
-  public static int findFirstMissingPositive(List<Integer> A) {
+  public static int findFirstMissingPositive(int[] A) {
+    // Record which values are present by writing A[i] to index A[i] - 1 if A[i]
+    // is between 1 and A.length, inclusive. We save the value at index
+    // A[i] - 1 by swapping it with the entry at i. If A[i] is negative or
+    // greater than n, we just advance i.
     int i = 0;
-    while (i < A.size()) {
-      if (A.get(i) > 0 && A.get(i) <= A.size()
-          && !A.get(A.get(i) - 1).equals(A.get(i)) && !A.get(i).equals(i + 1)) {
-        Collections.swap(A, i, A.get(i) - 1);
+    while (i < A.length) {
+      if (A[i] > 0 && A[i] <= A.length && A[A[i] - 1] != A[i]) {
+        int temp = A[A[i] - 1];
+        A[A[i] - 1] = A[i];
+        A[i] = temp;
       } else {
         ++i;
       }
     }
 
-    for (i = 0; i < A.size(); ++i) {
-      if (A.get(i) != i + 1) {
+    // Second pass through A to search for the first index i such that
+    // A[i] != i+1, indicating that i + 1 is absent. If all numbers between 1
+    // and A.length are present, the smallest missing positive is A.length + 1.
+    for (i = 0; i < A.length; ++i) {
+      if (A[i] != i + 1) {
         return i + 1;
       }
     }
-    return A.size() + 1;
+    return A.length + 1;
   }
   // @exclude
 
@@ -51,11 +57,12 @@ public class FirstMissingPositive {
       } else {
         n = r.nextInt(500001);
       }
-      List<Integer> A = new ArrayList<>();
+      int[] A = new int[n];
       for (int i = 0; i < n; i++) {
-        A.add(r.nextInt(n + 1));
+        A[i] = r.nextInt(n + 1);
       }
       System.out.println("n = " + n);
+      findFirstMissingPositive(A);
       assert (findFirstMissingPositive(A) == checkAns(A));
     }
   }

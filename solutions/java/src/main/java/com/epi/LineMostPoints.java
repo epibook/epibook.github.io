@@ -1,5 +1,4 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
-// @author Andrey Pavlov
 
 package com.epi;
 
@@ -57,14 +56,14 @@ class Line {
 
 public class LineMostPoints {
 
-  private static int check(List<Point> P) {
+  private static int check(Point[] P) {
     int maxCount = 0;
-    for (int i = 0; i < P.size(); ++i) {
-      for (int j = i + 1; j < P.size(); ++j) {
+    for (int i = 0; i < P.length; ++i) {
+      for (int j = i + 1; j < P.length; ++j) {
         int count = 2;
-        Line temp = new Line(P.get(i), P.get(j));
-        for (int k = j + 1; k < P.size(); ++k) {
-          if (new Line(P.get(i), P.get(k)).equals(temp)) {
+        Line temp = new Line(P[i], P[j]);
+        for (int k = j + 1; k < P.length; ++k) {
+          if (new Line(P[i], P[k]).equals(temp)) {
             ++count;
           }
         }
@@ -76,26 +75,26 @@ public class LineMostPoints {
   }
 
   // @include
-  private static Line findLineWithMostPoints(List<Point> P) {
+  private static Line findLineWithMostPoints(Point[] P) {
     // Adds all possible lines into hash table.
     Map<Line, Set<Point>> table = new HashMap<>();
-    for (int i = 0; i < P.size(); ++i) {
-      for (int j = i + 1; j < P.size(); ++j) {
-        Line l = new Line(P.get(i), P.get(j));
+    for (int i = 0; i < P.length; ++i) {
+      for (int j = i + 1; j < P.length; ++j) {
+        Line l = new Line(P[i], P[j]);
 
         Set<Point> s1 = table.get(l);
         if (s1 == null) {
           s1 = new HashSet<>();
           table.put(l, s1);
         }
-        s1.add(P.get(i));
+        s1.add(P[i]);
 
         Set<Point> s2 = table.get(l);
         if (s2 == null) {
           s2 = new HashSet<>();
           table.put(l, s2);
         }
-        s2.add(P.get(j));
+        s2.add(P[j]);
       }
     }
 
@@ -126,8 +125,8 @@ public class LineMostPoints {
           public int compare(Map.Entry<Line, Set<Point>> e1,
                              Map.Entry<Line, Set<Point>> e2) {
             if (e1 != null && e2 != null) {
-              return new Integer(e1.getValue().size()).compareTo(e2.getValue()
-                  .size());
+              return new
+                  Integer(e1.getValue().size()).compareTo(e2.getValue().size());
             } else if (e1 != null) {
               return 1;
             } else {
@@ -150,12 +149,13 @@ public class LineMostPoints {
       } else {
         n = rnd.nextInt(1000 - 1) + 1;
       }
-      List<Point> points = new ArrayList<>();
+      Point[] points = new Point[n];
       Set<Point> t = new HashSet<>();
+      int idx = 0;
       do {
         Point p = new Point(rnd.nextInt(999), rnd.nextInt(999));
         if (!t.contains(p)) {
-          points.add(p);
+          points[idx++] = p;
           t.add(p);
         }
       } while (t.size() < n);

@@ -18,12 +18,12 @@ using std::uniform_int_distribution;
 // @include
 shared_ptr<ListNode<int>> CopyPostingsList(
     const shared_ptr<ListNode<int>>& L) {
-  if (!L) {
+  if (L == nullptr) {
     return nullptr;
   }
 
-  // Stage 1: Makes a copy of the original list without assigning the jump 
-  //          field, and creates the mapping for each node in the original 
+  // Stage 1: Makes a copy of the original list without assigning the jump
+  //          field, and creates the mapping for each node in the original
   //          list to the copied list.
   auto iter = L;
   while (iter) {
@@ -42,7 +42,7 @@ shared_ptr<ListNode<int>> CopyPostingsList(
     iter = iter->next->next;
   }
 
-  // Stage 3: Revert the original list, and assigns the next field of 
+  // Stage 3: Reverts the original list, and assigns the next field of
   //          the copied list.
   iter = L;
   auto new_list_head = iter->next;

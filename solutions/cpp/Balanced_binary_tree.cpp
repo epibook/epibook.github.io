@@ -4,6 +4,7 @@
 #include <cassert>
 #include <iostream>
 #include <memory>
+#include <utility>
 
 #include "./Binary_tree_prototype.h"
 
@@ -11,33 +12,35 @@ using std::boolalpha;
 using std::cout;
 using std::endl;
 using std::max;
+using std::pair;
 using std::unique_ptr;
 
-int GetHeight(const unique_ptr<BinaryTreeNode<int>>& T);
+pair<bool, int> CheckBalanced(const unique_ptr<BinaryTreeNode<int>>&);
 
 // @include
-bool IsBalancedBinaryTree(const unique_ptr<BinaryTreeNode<int>>& T) {
-  return GetHeight(T) != -2;
+bool IsBalancedBinaryTree(const unique_ptr<BinaryTreeNode<int>>& tree) {
+  return CheckBalanced(tree).first;
 }
 
-int GetHeight(const unique_ptr<BinaryTreeNode<int>>& T) {
-  if (!T) {
-    return -1;  // Base case.
+// First value of the return value indicates if tree is balanced, and if
+// balanced the second value of the return value is the height of tree.
+pair<bool, int> CheckBalanced(const unique_ptr<BinaryTreeNode<int>>& tree) {
+  if (tree == nullptr) {
+    return {true, -1};  // Base case.
   }
 
-  int l_height = GetHeight(T->left);
-  if (l_height == -2) {
-    return -2;  // Left subtree is not balanced.
+  auto left_result = CheckBalanced(tree->left);
+  if (!left_result.first) {
+    return {false, 0};  // Left subtree is not balanced.
   }
-  int r_height = GetHeight(T->right);
-  if (r_height == -2) {
-    return -2;  // Right subtree is not balanced.
+  auto right_result = CheckBalanced(tree->right);
+  if (!right_result.first) {
+    return {false, 0};  // Right subtree is not balanced.
   }
 
-  if (abs(l_height - r_height) > 1) {
-    return -2;  // Current node T is not balanced.
-  }
-  return max(l_height, r_height) + 1;  // Returns the height.
+  bool is_balanced = abs(left_result.second - right_result.second) <= 1;
+  int height = max(left_result.second, right_result.second) + 1;
+  return {is_balanced, height};
 }
 // @exclude
 

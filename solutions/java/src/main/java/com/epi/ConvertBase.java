@@ -2,35 +2,30 @@ package com.epi;
 
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ConvertBase {
   // @include
   public static String convertBase(String s, int b1, int b2) {
-    boolean neg = s.startsWith("-");
+    boolean isNegative = s.startsWith("-");
     int x = 0;
-    for (int i = (neg ? 1 : 0); i < s.length(); ++i) {
+    for (int i = (isNegative ? 1 : 0); i < s.length(); ++i) {
       x *= b1;
       x += Character.isDigit(s.charAt(i)) ? s.charAt(i) - '0'
           : s.charAt(i) - 'A' + 10;
     }
 
-    StringBuilder ans = new StringBuilder();
-    while (x != 0) {
-      int r = x % b2;
-      ans.append((char) (r >= 10 ? 'A' + r - 10 : '0' + r));
+    StringBuilder result = new StringBuilder();
+    do {
+      int reminder = x % b2;
+      result.append(
+          (char) (reminder >= 10 ? 'A' + reminder - 10 : '0' + reminder));
       x /= b2;
-    }
+    } while (x != 0);
 
-    if (ans.length() == 0) { // special case: s is 0.
-      ans.append('0');
+    if (isNegative) { // s is a negative number.
+      result.append('-');
     }
-    if (neg) { // s is a negative number.
-      ans.append('-');
-    }
-    ans.reverse();
-    return ans.toString();
+    result.reverse();
+    return result.toString();
   }
   // @exclude
 
@@ -63,7 +58,7 @@ public class ConvertBase {
         String input = randIntString(r.nextInt(9) + 1);
         int base = r.nextInt(15) + 2;
         System.out.println("input is " + input + ", base1 = 10, base2 = "
-            + base + ", ans = " + convertBase(input, 10, base));
+            + base + ", result = " + convertBase(input, 10, base));
         assert (input
             .equals(convertBase(convertBase(input, 10, base), base, 10)));
       }

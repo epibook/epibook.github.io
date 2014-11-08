@@ -2,9 +2,6 @@ package com.epi;
 
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class Division {
   public static long divideXByYBinSearch(long x, long y) {
     if (x < y) {
@@ -40,19 +37,19 @@ public class Division {
 
   // @include
   public static long divideXByY(long x, long y) {
-    long res = 0;
+    long result = 0;
     while (x >= y) {
       int power = 1;
       // Checks (y << power) >= (y << (power - 1)) to prevent potential
-      // overflow of unsigned.
+      // overflow.
       while ((y << power) >= (y << (power - 1)) && (y << power) <= x) {
         ++power;
       }
 
-      res += 1L << (power - 1);
+      result += 1L << (power - 1);
       x -= y << (power - 1);
     }
-    return res;
+    return result;
   }
   // @exclude
 

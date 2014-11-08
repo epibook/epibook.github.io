@@ -12,12 +12,12 @@ public class InsertInterval {
                                               Interval newInterval) {
     int i = 0;
     List<Interval> result = new ArrayList<>();
-    // Inserts intervals appeared before new_interval.
+    // Inserts intervals appeared before newInterval.
     while (i < intervals.size() && newInterval.left > intervals.get(i).right) {
       result.add(intervals.get(i++));
     }
 
-    // Merges intervals that overlap with new_interval.
+    // Merges intervals that overlap with newInterval.
     while (i < intervals.size() && newInterval.right >= intervals.get(i).left) {
       newInterval = new Interval(Math.min(newInterval.left,
           intervals.get(i).left), Math.max(newInterval.right,
@@ -26,7 +26,7 @@ public class InsertInterval {
     }
     result.add(newInterval);
 
-    // Inserts intervals appearing after new_interval.
+    // Inserts intervals appearing after newInterval.
     result.addAll(intervals.subList(i, intervals.size()));
     return result;
   }

@@ -9,32 +9,27 @@ import static com.epi.BinaryTreeUtils.generatePostOrder;
 
 public class BinaryTreePostorderTraversalIterativeAlternative {
   // @include
-  public static List<Integer> postOrderTraversal(BinaryTree<Integer> root) {
-    List<Integer> invPreRes = invertedPreOrderTraversal(root);
-    Collections.reverse(invPreRes);
-    return invPreRes;
+  public static List<Integer> postOrderTraversal(BinaryTree<Integer> tree) {
+    List<Integer> sequence = invertedPreOrderTraversal(tree);
+    Collections.reverse(sequence);
+    return sequence;
   }
 
   private static List<Integer> invertedPreOrderTraversal(
-      final BinaryTree<Integer> root) {
-    if (root == null) {
-      return Collections.emptyList();
-    }
-
-    LinkedList<BinaryTree<Integer>> s = new LinkedList<>();
-    s.push(root);
-    List<Integer> res = new ArrayList<>();
-    while (!s.isEmpty()) {
-      BinaryTree<Integer> curr = s.pop();
-      res.add(curr.getData());
-      if (curr.getLeft() != null) {
-        s.push(curr.getLeft());
+      BinaryTree<Integer> tree) {
+    LinkedList<BinaryTree<Integer>> pathStack = new LinkedList<>();
+    pathStack.push(tree);
+    List<Integer> result = new ArrayList<>();
+    while (!pathStack.isEmpty()) {
+      BinaryTree<Integer> curr = pathStack.pop();
+      if (curr == null) {
+        continue;
       }
-      if (curr.getRight() != null) {
-        s.push(curr.getRight());
-      }
+      result.add(curr.getData());
+      pathStack.push(curr.getLeft());
+      pathStack.push(curr.getRight());
     }
-    return res;
+    return result;
   }
   // @exclude
 

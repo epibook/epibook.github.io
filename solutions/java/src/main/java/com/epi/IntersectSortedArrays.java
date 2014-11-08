@@ -28,15 +28,13 @@ public class IntersectSortedArrays {
     if (args.length > 1) {
       l = new Integer(args[1]);
     }
-    ArrayList<Integer> a = null;
-    ArrayList<Integer> b = null;
     Random rnd = new Random(0);
     for (int i = 0; i < n; i++) {
-      a = new ArrayList<>(l);
-      b = new ArrayList<>(l);
+      int[] a = new int[l];
+      int[] b = new int[l];
       for (int j = 0; j < l; j++) {
-        a.add(rnd.nextInt());
-        b.add(rnd.nextInt());
+        a[j] = rnd.nextInt();
+        b[j] = rnd.nextInt();
       }
       List<Integer> r1 = IntersectSortedArrays1.intersect(a, b);
       List<Integer> r2 = IntersectSortedArrays2.intersect(a, b);

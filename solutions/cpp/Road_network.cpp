@@ -26,11 +26,11 @@ struct HighwaySection {
 };
 
 HighwaySection FindBestProposals(const vector<HighwaySection>& H,
-                                 const vector<HighwaySection>& P, int a,
-                                 int b, int n) {
+                                 const vector<HighwaySection>& P,
+                                 int a, int b, int n) {
   // G stores the shortest path distances between all pairs of vertices.
   vector<vector<double>> G(n,
-                            vector<double>(n, numeric_limits<double>::max()));
+                           vector<double>(n, numeric_limits<double>::max()));
   for (int i = 0; i < n; ++i) {
     G[i][i] = 0;
   }

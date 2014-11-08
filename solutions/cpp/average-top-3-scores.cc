@@ -58,9 +58,9 @@ string FindStudentWithTopThreeAverageScores(ifstream* ifs) {
 
 // Returns the sum of top three scores.
 int GetTopThreeScoresSum(const multiset<int>& scores) {
-  auto it = scores.begin();
+  auto it = scores.rbegin();
   advance(it, 3);
-  return accumulate(scores.cbegin(), it, 0);
+  return accumulate(scores.crbegin(), it, 0);
 }
 // @exclude
 

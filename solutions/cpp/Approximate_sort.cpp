@@ -21,22 +21,23 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-void ApproximateSort(istringstream* sin, int k) {
+void SortApproximatelySortedArray(istringstream* sequence, int k) {
   priority_queue<int, vector<int>, greater<int>> min_heap;
-  // Firstly pushes k elements into min_heap.
+  // Adds the first k elements into min_heap. Stop if there are fewer than k
+  // elements.
   int x;
-  for (int i = 0; i < k && *sin >> x; ++i) {
+  for (int i = 0; i < k && *sequence >> x; ++i) {
     min_heap.push(x);
   }
 
-  // Extracts the minimum one for every incoming element.
-  while (*sin >> x) {
+  // For every new element, add it to min_heap and extract the smallest.
+  while (*sequence >> x) {
     min_heap.push(x);
     cout << min_heap.top() << endl;
     min_heap.pop();
   }
 
-  // Extracts the remaining elements in min_heap.
+  // sequence is exhausted, iteratively extracts the remaining elements.
   while (!min_heap.empty()) {
     cout << min_heap.top() << endl;
     min_heap.pop();
@@ -51,8 +52,8 @@ void SimpleTest() {
   for (int a : A) {
     ss << a << ' ';
   }
-  istringstream sin(ss.str());
-  ApproximateSort(&sin, 3);
+  istringstream sequence(ss.str());
+  SortApproximatelySortedArray(&sequence, 3);
 }
 
 int main(int argc, char* argv[]) {
@@ -82,7 +83,7 @@ int main(int argc, char* argv[]) {
   for (int a : A) {
     ss << a << ' ';
   }
-  istringstream sin(ss.str());
-  ApproximateSort(&sin, n - 1);
+  istringstream sequence(ss.str());
+  SortApproximatelySortedArray(&sequence, n - 1);
   return 0;
 }

@@ -7,9 +7,6 @@ import java.util.Random;
 import static com.epi.LargestRectangleUnderSkyline.calculateLargestRectangle;
 import static com.epi.MaxSubmatrixRectangleBruteForce.maxRectangleSubmatrixBruteForce;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class MaxSubmatrixRectangleImproved {
   // @include
   public static int maxRectangleSubmatrix(ArrayList<ArrayList<Boolean>> A) {

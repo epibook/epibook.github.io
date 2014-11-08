@@ -22,10 +22,8 @@ using std::unordered_map;
 using std::unordered_set;
 using std::vector;
 
-static unordered_map<string, vector<string>> global_map;
-
 // @include
-void FindAnagrams(const vector<string>& dictionary) {
+vector<vector<string>> FindAnagrams(const vector<string>& dictionary) {
   // Gets the sorted string and then insert into hash table.
   unordered_map<string, vector<string>> hash;
   for (const string& s : dictionary) {
@@ -35,19 +33,14 @@ void FindAnagrams(const vector<string>& dictionary) {
     hash[sorted_str].emplace_back(s);
   }
 
+  vector<vector<string>> anagrams;
   for (const pair<string, vector<string>>& p : hash) {
     // Multiple strings with the same hash code => anagrams.
     if (p.second.size() >= 2) {
-      // Outputs all strings.
-      for (const auto& s : p.second) {
-        cout << s << " ";
-      }
-      cout << endl;
+      anagrams.emplace_back(p.second);
     }
   }
-  // @exclude
-  global_map = hash;
-  // @include
+  return anagrams;
 }
 // @exclude
 
@@ -65,12 +58,8 @@ void SmallTest() {
   vector<string> D = {"debit card",     "bad credit", "the morse code",
                       "here come dots", "the eyes",   "they see",
                       "THL"};
-  FindAnagrams(D);
-  assert(global_map.size() == 4);
-  assert(global_map["  cdeeehmoorst"].size() == 2);
-  assert(global_map[" abcddeirt"].size() == 2);
-  assert(global_map[" eeehsty"].size() == 2);
-  assert(global_map["HLT"].size() == 1);
+  auto result = FindAnagrams(D);
+  assert(result.size() == 3);
 }
 
 int main(int argc, char* argv[]) {

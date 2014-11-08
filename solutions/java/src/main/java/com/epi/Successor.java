@@ -8,22 +8,23 @@ import com.epi.BinaryTreeWithParentPrototype.BinaryTree;
 public class Successor {
   // @include
   public static BinaryTree<Integer> findSuccessor(BinaryTree<Integer> node) {
-    BinaryTree<Integer> n = node;
-    if (n.getRight() != null) {
-      // Find the leftmost element in n's right subtree.
-      n = n.getRight();
-      while (n.getLeft() != null) {
-        n = n.getLeft();
+    BinaryTree<Integer> iter = node;
+    if (iter.getRight() != null) {
+      // Find the leftmost element in node's right subtree.
+      iter = iter.getRight();
+      while (iter.getLeft() != null) {
+        iter = iter.getLeft();
       }
-      return n;
+      return iter;
     }
 
-    // Find the first parent whose left child contains n.
-    while (n.getParent() != null && n.getParent().getRight() == n) {
-      n = n.getParent();
+    // Find the closest ancestor whose left subtree contains node.
+    while (iter.getParent() != null && iter.getParent().getRight() == iter) {
+      iter = iter.getParent();
     }
-    // Return nullptr means n does not have successor.
-    return n.getParent();
+    // A return value of null means node does not have successor, i.e., it is
+    // the rightmost node in the tree.
+    return iter.getParent();
   }
   // @exclude
 

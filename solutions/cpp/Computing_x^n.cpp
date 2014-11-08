@@ -3,7 +3,6 @@
 #include <iostream>
 #include <cassert>
 #include <limits>
-#include <list>
 #include <queue>
 #include <random>
 #include <stdexcept>
@@ -13,37 +12,36 @@ using std::cout;
 using std::default_random_engine;
 using std::endl;
 using std::invalid_argument;
-using std::list;
 using std::queue;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-list<int> GetMinimumExpression(int n) {
+vector<int> GetShortestStraightLineProgram(int n) {
   if (n == 1) {
     return {1};
   }
 
-  queue<list<int>> exp_lists;
-  // Constructs the initial list with one node whose value is 1.
-  exp_lists.emplace(1, 1);
-  while (exp_lists.empty() == false) {
-    list<int> exp = exp_lists.front();
-    exp_lists.pop();
-    // Tries all possible combinations in list exp.
-    for (const int& a : exp) {
-      int sum = a + exp.back();
-      if (sum > n) {
-        break;  // No possible solution.
+  queue<vector<int>> SLPs;  // SLP is acronym for straight line program.
+  // Constructs the initial SLP with one node whose value is 1.
+  SLPs.emplace(1, 1);
+  while (!SLPs.empty()) {
+    vector<int> candidate_SLP = SLPs.front();
+    SLPs.pop();
+    // Tries all possible combinations in candidate_SLP.
+    for (const int& a : candidate_SLP) {
+      int power = a + candidate_SLP.back();
+      if (power > n) {
+        break;  // No possible solution for candidate_SLP.
       }
+      vector<int> new_SLP(candidate_SLP);
+      new_SLP.emplace_back(power);
 
-      list<int> new_exp(exp);
-      new_exp.emplace_back(sum);
-      if (sum == n) {
-        return new_exp;
+      if (power == n) {
+        return new_SLP;
       }
-      exp_lists.emplace(new_exp);
+      SLPs.emplace(new_SLP);
     }
   }
   // @exclude
@@ -52,19 +50,19 @@ list<int> GetMinimumExpression(int n) {
 }
 // @exclude
 
-void small_test() {
-  auto res = GetMinimumExpression(88);
-  list<int> golden_res = {1, 2, 3, 4, 7, 11, 22, 44, 88};
+void SmallTest() {
+  auto res = GetShortestStraightLineProgram(88);
+  vector<int> golden_res = {1, 2, 3, 4, 7, 11, 22, 44, 88};
   assert(res.size() == golden_res.size());
   assert(equal(res.begin(), res.end(), golden_res.begin()));
-  res = GetMinimumExpression(67);
+  res = GetShortestStraightLineProgram(67);
   golden_res = {1, 2, 3, 4, 8, 16, 32, 35, 67};
   assert(res.size() == golden_res.size());
   assert(equal(res.begin(), res.end(), golden_res.begin()));
 }
 
 int main(int argc, char* argv[]) {
-  small_test();
+  SmallTest();
   default_random_engine gen((random_device())());
   int n;
   if (argc == 2) {
@@ -74,7 +72,7 @@ int main(int argc, char* argv[]) {
     n = n_dis(gen);
   }
   cout << "n = " << n << endl;
-  list<int> min_exp = GetMinimumExpression(n);
+  auto min_exp = GetShortestStraightLineProgram(n);
   for (const int& t : min_exp) {
     cout << t << ' ';
   }

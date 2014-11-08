@@ -19,7 +19,7 @@ public class PrimeSieve {
     // everyone is prime (by setting as true).
     boolean[] isPrime = new boolean[size];
     Arrays.fill(isPrime, true);
-    for (long i = 0; i < size; ++i) {
+    for (int i = 0; i < size; ++i) {
       if (isPrime[(int) i]) {
         int p = (int) ((i * 2) + 3);
         primes.add(p);
@@ -57,6 +57,5 @@ public class PrimeSieve {
         }
       }
     }
-
   }
 }

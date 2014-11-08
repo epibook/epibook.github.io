@@ -2,9 +2,6 @@ package com.epi;
 
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ClosestToMedian {
   private static void nthElement(List<Integer> A, int n, Comparator<Integer> c) {
     Collections.sort(A, c);
@@ -20,28 +17,28 @@ public class ClosestToMedian {
   }
 
   // @include
-  public static List<Integer> findKClosestToMedian(List<Integer> a, int k) {
-    // Find the element i where |a[i] - median| is k-th smallest.
-    final double m = findMedian(a);
-    nthElement(a, k - 1, new Comparator<Integer>() {
+  public static List<Integer> findKClosestToMedian(List<Integer> A, int k) {
+    // Find the element i where |A[i] - median| is k-th smallest.
+    final double m = findMedian(A);
+    nthElement(A, k - 1, new Comparator<Integer>() {
       @Override
-      public int compare(Integer a, Integer b) {
-        return Double.valueOf(Math.abs(a - m)).compareTo(Math.abs(b - m));
+      public int compare(Integer A, Integer b) {
+        return Double.valueOf(Math.abs(A - m)).compareTo(Math.abs(b - m));
       }
     });
-    return new ArrayList<>(a.subList(0, k));
+    return new ArrayList<>(A.subList(0, k));
   }
 
   // Promote the return value to double to prevent precision error.
-  public static double findMedian(List<Integer> a) {
-    int half = a.size() / 2;
-    nthElement(a, half);
-    if ((a.size() & 1) != 0) { // a has odd number elements.
-      return a.get(half);
-    } else { // a has even number elements.
-      int x = a.get(half);
-      nthElement(a, half - 1);
-      return 0.5 * (x + a.get(half - 1));
+  public static double findMedian(List<Integer> A) {
+    int half = A.size() / 2;
+    nthElement(A, half);
+    if ((A.size() & 1) != 0) { // A has odd number elements.
+      return A.get(half);
+    } else { // A has even number elements.
+      int x = A.get(half);
+      nthElement(A, half - 1);
+      return 0.5 * (x + A.get(half - 1));
     }
   }
   // @exclude

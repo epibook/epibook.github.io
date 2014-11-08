@@ -5,20 +5,18 @@ import java.util.LinkedList;
 public class LongestValidParentheses {
   // @include
   public static int longestValidParentheses(String s) {
-    int maxLength = 0, lastEnd = 0;
-    LinkedList<Integer> leftParentheses = new LinkedList<>();
+    int maxLength = 0, end = -1;
+    LinkedList<Integer> leftParenthesesIndices = new LinkedList<>();
     for (int i = 0; i < s.length(); ++i) {
       if (s.charAt(i) == '(') {
-        leftParentheses.push(i);
+        leftParenthesesIndices.push(i);
+      } else if (leftParenthesesIndices.isEmpty()) {
+        end = i;
       } else {
-        if (leftParentheses.isEmpty()) {
-          lastEnd = i + 1;
-        } else {
-          leftParentheses.pop();
-          int start =
-              leftParentheses.isEmpty() ? lastEnd - 1 : leftParentheses.peek();
-          maxLength = Math.max(maxLength, i - start);
-        }
+        leftParenthesesIndices.pop();
+        int start = leftParenthesesIndices.isEmpty() 
+            ? end : leftParenthesesIndices.peek();
+        maxLength = Math.max(maxLength, i - start);
       }
     }
     return maxLength;
@@ -26,7 +24,11 @@ public class LongestValidParentheses {
   // @exclude
 
   private static void smallTest() {
+    assert (longestValidParentheses(")(((())()(()(") == 6);
     assert (longestValidParentheses("((())()(()(") == 6);
+    assert (longestValidParentheses(")(") == 0);
+    assert (longestValidParentheses("()") == 2);
+    assert (longestValidParentheses("") == 0);
     assert (longestValidParentheses("()()())") == 6);
   }
 

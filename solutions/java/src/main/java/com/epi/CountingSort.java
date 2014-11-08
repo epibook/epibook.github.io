@@ -1,4 +1,5 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
 import java.util.*;
@@ -37,7 +38,7 @@ class Person implements Comparable<Person> {
 
 class CountingSort {
   // @include
-  public static void countingSort(ArrayList<Person> people) {
+  public static void countingSort(Person[] people) {
     Map<Integer, Integer> keyToCount = new HashMap<>();
     for (Person p : people) {
       if (keyToCount.containsKey(p.key)) {
@@ -56,9 +57,9 @@ class CountingSort {
     while (!keyToOffset.isEmpty()) {
       Map.Entry<Integer, Integer> from = keyToOffset.entrySet().iterator()
           .next();
-      Integer toKey = people.get(from.getValue()).key;
+      Integer toKey = people[from.getValue()].key;
       Integer toValue = keyToOffset.get(toKey);
-      Collections.swap(people, from.getValue(), toValue);
+      swap(people, from.getValue(), toValue);
       // Use key_to_count to see when we are finished with a particular key.
       Integer count = keyToCount.get(toKey) - 1;
       keyToCount.put(toKey, count);
@@ -68,6 +69,12 @@ class CountingSort {
         keyToOffset.remove(toKey);
       }
     }
+  }
+
+  private static void swap(Person[] people, int a, int b) {
+    Person temp = people[a];
+    people[a] = people[b];
+    people[b] = temp;
   }
   // @exclude
 
@@ -96,10 +103,9 @@ class CountingSort {
       } else {
         k = rnd.nextInt(size) + 1;
       }
-      ArrayList<Person> people = new ArrayList<>();
+      Person[] people = new Person[size];
       for (int i = 0; i < size; ++i) {
-        people
-            .add(new Person(rnd.nextInt(k), randomString(rnd.nextInt(10) + 1)));
+        people[i] = new Person(rnd.nextInt(k), randomString(rnd.nextInt(10) + 1));
       }
       Set<Integer> keySet = new HashSet<>();
       for (Person p : people) {
@@ -110,13 +116,12 @@ class CountingSort {
 
       // Check the correctness of sorting.
       int diffCount = 1;
-      for (int i = 1; i < people.size(); ++i) {
-        if (!people.get(i).equals(people.get(i - 1))) {
+      for (int i = 1; i < people.length; ++i) {
+        if (!people[i].equals(people[i - 1])) {
           ++diffCount;
         }
       }
       assert (diffCount == keySet.size());
     }
   }
-  // @include
 }

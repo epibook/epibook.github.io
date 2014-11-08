@@ -19,24 +19,29 @@ using std::uniform_int_distribution;
 using std::unique_ptr;
 using std::vector;
 
+unique_ptr<BinaryTreeNode<int>> ReconstructPreorderHelper(
+    const vector<int*>& preorder, int* idx_pointer);
+
 // @include
-BinaryTreeNode<int>* ReconstructPreorder(const vector<int*>& preorder) {
-  stack<BinaryTreeNode<int>*> s;
-  for (auto it = preorder.crbegin(); it != preorder.crend(); ++it) {
-    if (!*it) {
-      s.emplace(nullptr);
-    } else {  // Non-null.
-      auto* l_node = s.top();
-      s.pop();
-      auto* r_node = s.top();
-      s.pop();
-      s.emplace(
-          new BinaryTreeNode<int>{**it,
-                                  unique_ptr<BinaryTreeNode<int>>(l_node),
-                                  unique_ptr<BinaryTreeNode<int>>(r_node)});
-    }
+unique_ptr<BinaryTreeNode<int>> ReconstructPreorder(
+    const vector<int*>& preorder) {
+  int idx_pointer = 0;
+  return ReconstructPreorderHelper(preorder, &idx_pointer);
+}
+
+unique_ptr<BinaryTreeNode<int>> ReconstructPreorderHelper(
+    const vector<int*>& preorder, int* idx_pointer) {
+  auto* subtree_key = preorder[*idx_pointer];
+  ++*idx_pointer;
+  if (subtree_key == nullptr) {
+    return nullptr;
   }
-  return s.top();
+  // Note that ReconstructPreorderHelper updates idx_pointer. So the order of
+  // following two calls are critical.
+  auto left_subtree = ReconstructPreorderHelper(preorder, idx_pointer);
+  auto right_subtree = ReconstructPreorderHelper(preorder, idx_pointer);
+  return unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{
+      *subtree_key, move(left_subtree), move(right_subtree)});
 }
 // @exclude
 

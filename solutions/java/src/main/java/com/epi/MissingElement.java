@@ -3,9 +3,6 @@ package com.epi;
 import java.io.*;
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class MissingElement {
   // @include
   public static int findMissingElement(InputStream ifs) throws IOException {

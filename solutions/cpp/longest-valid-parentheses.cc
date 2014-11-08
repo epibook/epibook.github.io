@@ -16,20 +16,19 @@ using std::vector;
 
 // @include
 size_t LongestValidParentheses(const string& s) {
-  size_t max_length = 0, last_end = 0;
-  stack<int> left_parentheses;
+  size_t max_length = 0, end = -1;
+  stack<int> left_parentheses_indices;
   for (size_t i = 0; i < s.size(); ++i) {
     if (s[i] == '(') {
-      left_parentheses.emplace(i);
+      left_parentheses_indices.emplace(i);
+    } else if (left_parentheses_indices.empty()) {
+      end = i;
     } else {
-      if (left_parentheses.empty()) {
-        last_end = i + 1;
-      } else {
-        left_parentheses.pop();
-        size_t start =
-            left_parentheses.empty() ? last_end - 1 : left_parentheses.top();
-        max_length = max(max_length, i - start);
-      }
+      left_parentheses_indices.pop();
+      size_t start =
+          left_parentheses_indices.empty() ? 
+              end : left_parentheses_indices.top();
+      max_length = max(max_length, i - start);
     }
   }
   return max_length;
@@ -37,7 +36,11 @@ size_t LongestValidParentheses(const string& s) {
 // @exclude
 
 void small_test() {
+  assert(LongestValidParentheses(")(((())()(()(") == 6);
   assert(LongestValidParentheses("((())()(()(") == 6);
+  assert(LongestValidParentheses(")(") == 0);
+  assert(LongestValidParentheses("()") == 2);
+  assert(LongestValidParentheses("") == 0);
   assert(LongestValidParentheses("()()())") == 6);
 }
 

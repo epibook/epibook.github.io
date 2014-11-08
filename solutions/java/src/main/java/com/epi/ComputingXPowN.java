@@ -3,12 +3,9 @@ package com.epi;
 import java.util.*;
 import java.util.LinkedList;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ComputingXPowN {
   // @include
-  public static List<Integer> getMinimumExpression(int n) {
+  public static List<Integer> getShortestStraightLineProgram(int n) {
     if (n == 1) {
       return Arrays.asList(1);
     }
@@ -53,7 +50,7 @@ public class ComputingXPowN {
       n = r.nextInt(100);
     }
     System.out.println("n = " + n);
-    List<Integer> minExp = getMinimumExpression(n);
+    List<Integer> minExp = getShortestStraightLineProgram(n);
     System.out.println(minExp);
     System.out.println("size = " + minExp.size());
   }
