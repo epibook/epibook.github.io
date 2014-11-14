@@ -23,21 +23,22 @@ struct Compare {
 
 class Stack {
  public:
-  void Push(int x) { H.emplace(order_++, x); }
+  void Push(int x) { max_heap_.emplace(timestamp_++, x); }
 
   int Pop() {
-    int ret = H.top().second;
-    H.pop();
-    return ret;
+    int val = max_heap_.top().second;
+    max_heap_.pop();
+    return val;
   }
 
-  const int& Peek() const { return H.top().second; }
+  const int& Peek() const { return max_heap_.top().second; }
 
  private:
-  int order_ = 0;
-  // Uses a pair where first is the order_ and the second is the element.
-  priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> H;
+  int timestamp_ = 0;
+  // Stores (timestamp, element)-pair. Pairs are ordered by timestamp.
+  priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> max_heap_;
 };
+// @exclude
 
 class Queue {
  public:
@@ -56,7 +57,6 @@ class Queue {
   // Uses a pair where first is the order_ and the second is the element.
   priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> H;
 };
-// @exclude
 
 int main(int argc, char* argv[]) {
   Stack s;

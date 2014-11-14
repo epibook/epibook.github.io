@@ -15,35 +15,38 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-double FindMedian(vector<int>* A);
+double Median(vector<int>* A);
 
 // @include
 class Comp {
  public:
-  explicit Comp(double m) : m_(m) {};
+  explicit Comp(double median) : median_(median) {};
 
-  bool operator()(int a, int b) const { return fabs(a - m_) < fabs(b - m_); }
+  bool operator()(int a, int b) const {
+    return fabs(a - median_) < fabs(b - median_);
+  }
 
  private:
-  double m_;
+  double median_;
 };
 
 vector<int> FindKClosestToMedian(vector<int> A, int k) {
-  // Find the element i where |A[i] - median| is the k-th smallest.
-  nth_element(A.begin(), A.begin() + k - 1, A.end(), Comp{FindMedian(&A)});
-  return {A.cbegin(), A.cbegin() + k};
+  // Reorders A such that A[0 : k - 1] contains the k minimum values of
+  // |A[i] - median| across all i.
+  nth_element(A.begin(), A.begin() + k - 1, A.end(), Comp{Median(&A)});
+  return {A.begin(), A.begin() + k};
 }
 
-// Promote the return value to double to prevent precision error.
-double FindMedian(vector<int>* A) {
-  int half = A->size() / 2;
-  nth_element(A->begin(), A->begin() + half, A->end());
-  if (A->size() & 1) {  // A has odd number of elements.
-    return (*A)[half];
+// Computes the median of A.
+double Median(vector<int>* A) {
+  auto target = A->begin() + A->size() / 2;
+  nth_element(A->begin(), target, A->end());
+  if (A->size() % 2 == 1) {  // A has odd number of elements.
+    return *target;
   } else {  // A has even number of elements.
-    int x = (*A)[half];
-    nth_element(A->begin(), A->begin() + half - 1, A->end());
-    return 0.5 * (x + (*A)[half - 1]);
+    int x = *target;
+    nth_element(A->begin(), target - 1, A->end());
+    return (x + *(target - 1)) / 2.0;
   }
 }
 // @exclude

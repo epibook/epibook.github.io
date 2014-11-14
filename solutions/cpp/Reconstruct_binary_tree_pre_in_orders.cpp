@@ -22,7 +22,7 @@ using std::vector;
 
 unique_ptr<BinaryTreeNode<int>> BinaryTreeFromPreorderInorderHelper(
     const vector<int>& pre, size_t preorder_start, size_t preorder_end,
-    const vector<int>& in, size_t inorder_start, size_t inorder_end,
+    size_t inorder_start, size_t inorder_end,
     const unordered_map<int, size_t>& node_to_inorder_idx);
 
 // @include
@@ -33,7 +33,7 @@ unique_ptr<BinaryTreeNode<int>> BinaryTreeFromPreorderInorder(
     node_to_inorder_idx.emplace(inorder[i], i);
   }
   return BinaryTreeFromPreorderInorderHelper(preorder, 0, preorder.size(),
-                                             inorder, 0, inorder.size(),
+                                             0, inorder.size(),
                                              node_to_inorder_idx);
 }
 
@@ -41,7 +41,7 @@ unique_ptr<BinaryTreeNode<int>> BinaryTreeFromPreorderInorder(
 // inorder[inorder_start : inorder_end - 1].
 unique_ptr<BinaryTreeNode<int>> BinaryTreeFromPreorderInorderHelper(
     const vector<int>& preorder, size_t preorder_start, size_t preorder_end,
-    const vector<int>& inorder, size_t inorder_start, size_t inorder_end,
+    size_t inorder_start, size_t inorder_end,
     const unordered_map<int, size_t>& node_to_inorder_idx) {
   if (preorder_end <= preorder_start || inorder_end <= inorder_start) {
     return nullptr;
@@ -54,12 +54,12 @@ unique_ptr<BinaryTreeNode<int>> BinaryTreeFromPreorderInorderHelper(
       // Recursively builds the left subtree.
       BinaryTreeFromPreorderInorderHelper(
           preorder, preorder_start + 1,
-          preorder_start + 1 + left_subtree_size, inorder, inorder_start,
+          preorder_start + 1 + left_subtree_size, inorder_start,
           root_inorder_idx, node_to_inorder_idx),
       // Recursively builds the right subtree.
       BinaryTreeFromPreorderInorderHelper(
           preorder, preorder_start + 1 + left_subtree_size, preorder_end,
-          inorder, root_inorder_idx + 1, inorder_end, node_to_inorder_idx)});
+          root_inorder_idx + 1, inorder_end, node_to_inorder_idx)});
 }
 // @exclude
 

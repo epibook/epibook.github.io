@@ -15,8 +15,7 @@ public class MergeSortedArrays {
     PriorityQueue<Pair<Integer, Integer>> minHeap = new PriorityQueue<>(
         11, new Comparator<Pair<Integer, Integer>>() {
       @Override
-      public int compare(Pair<Integer, Integer> o1,
-                         Pair<Integer, Integer> o2) {
+      public int compare(Pair<Integer, Integer> o1, Pair<Integer, Integer> o2) {
         return o1.getFirst().compareTo(o2.getFirst());
       }
     }
@@ -35,14 +34,17 @@ public class MergeSortedArrays {
 
     List<Integer> result = new ArrayList<>();
     while (!minHeap.isEmpty()) {
-      Integer smallestEntry = minHeap.peek().getFirst();
-      Pair<Integer, Integer> p = minHeap.remove();
+      int smallestEntry = minHeap.peek().getFirst();
+      int[] smallestArray = sortedArrays[minHeap.peek().getSecond()];
+      int smallestArrayHead = heads[minHeap.peek().getSecond()];
       result.add(smallestEntry);
-      // Add the next entry of smallest_array into minHeap.
-      if (heads[p.getSecond()] < sortedArrays[p.getSecond()].length) {
-        minHeap.add(
-            new Pair<>(sortedArrays[p.getSecond()][heads[p.getSecond()]++], p.getSecond()));
+      if (smallestArrayHead < smallestArray.length) {
+        // Add the next entry of smallestArray into minHeap.
+        minHeap.add(new Pair<>(smallestArray[smallestArrayHead],
+                               minHeap.peek().getSecond()));
+        ++heads[minHeap.peek().getSecond()];
       }
+      minHeap.remove();
     }
     return result;
   }

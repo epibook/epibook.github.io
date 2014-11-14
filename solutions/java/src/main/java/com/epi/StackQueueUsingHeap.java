@@ -16,21 +16,28 @@ public class StackQueueUsingHeap {
 
   public static class Stack {
     private int order = 0;
-    private PriorityQueue<Pair<Integer, Integer>> H = new PriorityQueue<>(
-        11, new Compare());
+    private PriorityQueue<Pair<Integer, Integer>> maxHeap = new PriorityQueue<>(
+        11, new Comparator<Pair<Integer, Integer>>() {
+      @Override
+      public int compare(Pair<Integer, Integer> o1, Pair<Integer, Integer> o2) {
+        return o2.getFirst().compareTo(o1.getFirst());
+      }
+    }
+    );
 
     public void push(Integer x) {
-      H.add(new Pair<>(order++, x));
+      maxHeap.add(new Pair<>(order++, x));
     }
 
     public Integer pop() {
-      return H.remove().getSecond();
+      return maxHeap.remove().getSecond();
     }
 
     public Integer peek() {
-      return H.peek().getSecond();
+      return maxHeap.peek().getSecond();
     }
   }
+  // @exclude
 
   public static class Queue {
     private int order = 0;
@@ -49,7 +56,6 @@ public class StackQueueUsingHeap {
       return H.peek().getSecond();
     }
   }
-  // @exclude
 
   public static void main(String[] args) {
     Stack s = new Stack();

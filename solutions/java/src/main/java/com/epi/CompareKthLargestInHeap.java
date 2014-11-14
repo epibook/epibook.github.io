@@ -2,33 +2,39 @@ package com.epi;
 
 public class CompareKthLargestInHeap {
   // @include
-  private static class Status {
-    public int larger;
-    public int equal;
+  private static class Counts {
+    public int largerX = 0;
+    public int equalX = 0;
   }
 
-  // -1 means smaller, 0 means equal, and 1 means larger.
-  public static int compareKthLargestHeap(int[] maxHeap, int k, int x) {
-    Status data = new Status();
-    data.larger = 0;
-    data.equal = 0;
-    compareKthLargestHeapHelper(maxHeap, k, x, 0, data);
-    return data.larger >= k ? 1 : (data.larger + data.equal >= k ? 0 : -1);
+  public static enum Ordering {
+    SMALLER, EQUAL, LARGER
   }
 
-  private static void compareKthLargestHeapHelper(int[] maxHeap, int k,
-                                                  int x, int idx, Status data) {
-    if (data.larger >= k || idx >= maxHeap.length || maxHeap[idx] < x) {
+  public static Ordering compareKthLargestHeap(int[] maxHeap, int k, int x) {
+    Counts counts = new Counts();
+    compareKthLargestHeapHelper(maxHeap, k, x, 0, counts);
+    return counts.largerX >= k ? Ordering.LARGER :
+        (counts.largerX + counts.equalX >= k
+            ? Ordering.EQUAL : Ordering.SMALLER);
+  }
+
+  private static void compareKthLargestHeapHelper(int[] maxHeap, int k, int x,
+                                                  int idx, Counts counts) {
+     // Check early termination.  Note that we cannot early terminate for
+     // counts.equalX >= k because counts.largerX (which is currently smaller
+     // than k) may still become >= k.
+    if (counts.largerX >= k || idx >= maxHeap.length || maxHeap[idx] < x) {
       return;
     } else if (maxHeap[idx] == x) {
-      if (++data.equal >= k) {
+      if (++counts.equalX >= k) {
         return;
       }
     } else { // maxHeap[idx] > x.
-      ++data.larger;
+      ++counts.largerX;
     }
-    compareKthLargestHeapHelper(maxHeap, k, x, (idx * 2) + 1, data);
-    compareKthLargestHeapHelper(maxHeap, k, x, (idx * 2) + 2, data);
+    compareKthLargestHeapHelper(maxHeap, k, x, 2 * idx + 1, counts);
+    compareKthLargestHeapHelper(maxHeap, k, x, 2 * idx + 2, counts);
   }
   // @exclude
 
@@ -42,17 +48,16 @@ public class CompareKthLargestInHeap {
     if (args.length == 2) {
       k = Integer.parseInt(args[0]);
       x = Integer.parseInt(args[1]);
-      int res = compareKthLargestHeap(maxHeap, k, x);
-      System.out.println((res == -1 ? "smaller" : (res == 0 ? "equal"
-          : "larger")));
+      Ordering res = compareKthLargestHeap(maxHeap, k, x);
+      System.out.println(res);
     } else {
-      assert (-1 == compareKthLargestHeap(maxHeap, 1, 6)); // expect smaller
-      assert (0 == compareKthLargestHeap(maxHeap, 1, 5)); // expect equal
-      assert (0 == compareKthLargestHeap(maxHeap, 6, 4)); // expect equal
-      assert (0 == compareKthLargestHeap(maxHeap, 3, 4)); // expect equal
-      assert (-1 == compareKthLargestHeap(maxHeap, 8, 4)); // expect smaller
-      assert (1 == compareKthLargestHeap(maxHeap, 2, 4)); // expect larger
-      assert (1 == compareKthLargestHeap(maxHeap, 2, 3)); // expect larger
+      assert (Ordering.SMALLER == compareKthLargestHeap(maxHeap, 1, 6)); // expect smaller
+      assert (Ordering.EQUAL == compareKthLargestHeap(maxHeap, 1, 5)); // expect equal
+      assert (Ordering.EQUAL == compareKthLargestHeap(maxHeap, 6, 4)); // expect equal
+      assert (Ordering.EQUAL == compareKthLargestHeap(maxHeap, 3, 4)); // expect equal
+      assert (Ordering.SMALLER == compareKthLargestHeap(maxHeap, 8, 4)); // expect smaller
+      assert (Ordering.LARGER == compareKthLargestHeap(maxHeap, 2, 4)); // expect larger
+      assert (Ordering.LARGER == compareKthLargestHeap(maxHeap, 2, 3)); // expect larger
     }
   }
 }

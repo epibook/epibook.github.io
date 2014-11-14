@@ -59,6 +59,12 @@ void SmallTest() {
                       "here come dots", "the eyes",   "they see",
                       "THL"};
   auto result = FindAnagrams(D);
+  // 3 nontrivial groups: 
+  // {"debit card", "bad credit"}, 
+  // {"the morse code", "here come dots"}
+  // {"the eyes",   "they see"
+  // Since the string "THL" has no anagrams in D, the result 
+  // contains 3 entries
   assert(result.size() == 3);
 }
 

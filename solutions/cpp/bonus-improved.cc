@@ -19,38 +19,38 @@ using std::stoi;
 using std::uniform_int_distribution;
 using std::vector;
 
-void CheckAns(const vector<int>& ratings, const vector<int>& C) {
-  for (size_t i = 0; i < ratings.size(); ++i) {
+void CheckAns(const vector<int>& productivity, const vector<int>& C) {
+  for (size_t i = 0; i < productivity.size(); ++i) {
     if (i > 0) {
-      assert((ratings[i] > ratings[i - 1] && C[i] > C[i - 1]) ||
-             (ratings[i] < ratings[i - 1] && C[i] < C[i - 1]) ||
-             ratings[i] == ratings[i - 1]);
+      assert((productivity[i] > productivity[i - 1] && C[i] > C[i - 1]) ||
+             (productivity[i] < productivity[i - 1] && C[i] < C[i - 1]) ||
+             productivity[i] == productivity[i - 1]);
     }
-    if (i + 1 < ratings.size()) {
-      assert((ratings[i] > ratings[i + 1] && C[i] > C[i + 1]) ||
-             (ratings[i] < ratings[i + 1] && C[i] < C[i + 1]) ||
-             ratings[i] == ratings[i + 1]);
+    if (i + 1 < productivity.size()) {
+      assert((productivity[i] > productivity[i + 1] && C[i] > C[i + 1]) ||
+             (productivity[i] < productivity[i + 1] && C[i] < C[i + 1]) ||
+             productivity[i] == productivity[i + 1]);
     }
   }
 }
 
 // @include
-vector<int> CalculateBonus(const vector<int>& ratings) {
-  // T stores the amount of bonus each one is assigned.
-  vector<int> T(ratings.size(), 1);
+vector<int> CalculateBonus(const vector<int>& productivity) {
+  // Initially assigns one ticket to everyone.
+  vector<int> tickets(productivity.size(), 1);
   // From left to right.
-  for (int i = 1; i < ratings.size(); ++i) {
-    if (ratings[i] > ratings[i - 1]) {
-      T[i] = T[i - 1] + 1;
+  for (int i = 1; i < productivity.size(); ++i) {
+    if (productivity[i] > productivity[i - 1]) {
+      tickets[i] = tickets[i - 1] + 1;
     }
   }
   // From right to left.
-  for (int i = ratings.size() - 2; i >= 0; --i) {
-    if (ratings[i] > ratings[i + 1]) {
-      T[i] = max(T[i], T[i + 1] + 1);
+  for (int i = productivity.size() - 2; i >= 0; --i) {
+    if (productivity[i] > productivity[i + 1]) {
+      tickets[i] = max(tickets[i], tickets[i + 1] + 1);
     }
   }
-  return T;
+  return tickets;
 }
 // @exclude
 

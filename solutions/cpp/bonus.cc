@@ -21,17 +21,17 @@ using std::stoi;
 using std::uniform_int_distribution;
 using std::vector;
 
-void CheckAns(const vector<int>& ratings, const vector<int>& C) {
-  for (size_t i = 0; i < ratings.size(); ++i) {
+void CheckAns(const vector<int>& productivity, const vector<int>& C) {
+  for (size_t i = 0; i < productivity.size(); ++i) {
     if (i > 0) {
-      assert((ratings[i] > ratings[i - 1] && C[i] > C[i - 1]) ||
-             (ratings[i] < ratings[i - 1] && C[i] < C[i - 1]) ||
-             ratings[i] == ratings[i - 1]);
+      assert((productivity[i] > productivity[i - 1] && C[i] > C[i - 1]) ||
+             (productivity[i] < productivity[i - 1] && C[i] < C[i - 1]) ||
+             productivity[i] == productivity[i - 1]);
     }
-    if (i + 1 < ratings.size()) {
-      assert((ratings[i] > ratings[i + 1] && C[i] > C[i + 1]) ||
-             (ratings[i] < ratings[i + 1] && C[i] < C[i + 1]) ||
-             ratings[i] == ratings[i + 1]);
+    if (i + 1 < productivity.size()) {
+      assert((productivity[i] > productivity[i + 1] && C[i] > C[i + 1]) ||
+             (productivity[i] < productivity[i + 1] && C[i] < C[i + 1]) ||
+             productivity[i] == productivity[i + 1]);
     }
   }
 }
@@ -39,36 +39,38 @@ void CheckAns(const vector<int>& ratings, const vector<int>& C) {
 // @include
 struct Compare {
   bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) {
-    return lhs.first > rhs.first;
+    return lhs.second > rhs.second;
   }
 };
 
-vector<int> CalculateBonus(const vector<int>& ratings) {
-  priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> H;
-  for (int i = 0; i < ratings.size(); ++i) {
-    H.emplace(ratings[i], i);
+vector<int> CalculateBonus(const vector<int>& productivity) {
+  // Stores (index, productivity)-pair in min_heap where ordered by
+  // productivity.
+  priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> min_heap;
+  for (int i = 0; i < productivity.size(); ++i) {
+    min_heap.emplace(i, productivity[i]);
   }
 
-  // T stores the amount of bonus each one is assigned.
-  vector<int> T(ratings.size(), 1);
-  // Fills T from lowest rating one to topmost rating.
-  while (!H.empty()) {
-    auto& p = H.top();
+  // Initially assigns one ticket to everyone.
+  vector<int> tickets(productivity.size(), 1);
+  // Fills tickets in the increasing order of productivity.
+  while (!min_heap.empty()) {
+    int next_dev = min_heap.top().first;
     // Handles the left neighbor.
-    if (p.second > 0) {
-      if (ratings[p.second] > ratings[p.second - 1]) {
-        T[p.second] = T[p.second - 1] + 1;
+    if (next_dev > 0) {
+      if (productivity[next_dev] > productivity[next_dev - 1]) {
+        tickets[next_dev] = tickets[next_dev - 1] + 1;
       }
     }
     // Handles the right neighbor.
-    if (p.second + 1 < T.size()) {
-      if (ratings[p.second] > ratings[p.second + 1]) {
-        T[p.second] = max(T[p.second], T[p.second + 1] + 1);
+    if (next_dev + 1 < tickets.size()) {
+      if (productivity[next_dev] > productivity[next_dev + 1]) {
+        tickets[next_dev] = max(tickets[next_dev], tickets[next_dev + 1] + 1);
       }
     }
-    H.pop();
+    min_heap.pop();
   }
-  return T;
+  return tickets;
 }
 // @exclude
 

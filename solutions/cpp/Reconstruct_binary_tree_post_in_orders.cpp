@@ -22,7 +22,7 @@ using std::vector;
 
 unique_ptr<BinaryTreeNode<int>> ReconstructPostInOrdersHelper(
     const vector<int>& post, size_t post_s, size_t post_e,
-    const vector<int>& in, size_t in_s, size_t in_e,
+    size_t in_s, size_t in_e,
     const unordered_map<int, size_t>& in_entry_idx_map);
 
 // @include
@@ -32,13 +32,13 @@ unique_ptr<BinaryTreeNode<int>> ReconstructPostInOrders(
   for (size_t i = 0; i < in.size(); ++i) {
     in_entry_idx_map.emplace(in[i], i);
   }
-  return ReconstructPostInOrdersHelper(post, 0, post.size(), in, 0, in.size(),
+  return ReconstructPostInOrdersHelper(post, 0, post.size(), 0, in.size(),
                                        in_entry_idx_map);
 }
 
 unique_ptr<BinaryTreeNode<int>> ReconstructPostInOrdersHelper(
     const vector<int>& post, size_t post_s, size_t post_e,
-    const vector<int>& in, size_t in_s, size_t in_e,
+    size_t in_s, size_t in_e,
     const unordered_map<int, size_t>& in_entry_idx_map) {
   if (post_e > post_s && in_e > in_s) {
     auto idx = in_entry_idx_map.at(post[post_e - 1]);
@@ -49,11 +49,11 @@ unique_ptr<BinaryTreeNode<int>> ReconstructPostInOrdersHelper(
         // Recursively builds the left subtree.
         ReconstructPostInOrdersHelper(
             post, post_s, post_s + left_tree_size,
-            in, in_s, idx, in_entry_idx_map),
+            in_s, idx, in_entry_idx_map),
         // Recursively builds the right subtree.
         ReconstructPostInOrdersHelper(
             post, post_s + left_tree_size, post_e - 1,
-            in, idx + 1, in_e, in_entry_idx_map)});
+            idx + 1, in_e, in_entry_idx_map)});
   }
   return nullptr;
 }

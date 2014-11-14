@@ -17,14 +17,14 @@ public class ReconstructBinaryTreePreInOrders {
     for (int i = 0; i < in.length; ++i) {
       inEntryIdxMap.put(in[i], i);
     }
-    return reconstructPreInOrdersHelper(pre, 0, pre.length, in, 0, in.length,
+    return reconstructPreInOrdersHelper(pre, 0, pre.length, 0, in.length,
                                         inEntryIdxMap);
   }
 
   // Reconstructs the binary tree from pre[pre_s : pre_e - 1] and
   // in[in_s : in_e - 1].
   private static BinaryTree<Integer> reconstructPreInOrdersHelper(
-      int[] pre, int preS, int preE, int[] in, int inS, int inE,
+      int[] pre, int preS, int preE, int inS, int inE,
       Map<Integer, Integer> inEntryIdxMap) {
     if (preE <= preS || inE <= inS) {
       return null;
@@ -35,9 +35,9 @@ public class ReconstructBinaryTreePreInOrders {
     return new BinaryTree<>(pre[preS],
         // Recursively builds the left subtree.
         reconstructPreInOrdersHelper(pre, preS + 1, preS + 1 + leftTreeSize,
-                                     in, inS, idx, inEntryIdxMap),
+                                     inS, idx, inEntryIdxMap),
         // Recursively builds the right subtree.
-        reconstructPreInOrdersHelper(pre, preS + 1 + leftTreeSize, preE, in,
+        reconstructPreInOrdersHelper(pre, preS + 1 + leftTreeSize, preE,
                                      idx + 1, inE, inEntryIdxMap));
   }
   // @exclude

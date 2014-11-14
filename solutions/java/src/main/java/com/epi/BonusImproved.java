@@ -18,25 +18,24 @@ public class BonusImproved {
   }
 
   // @include
-  public static int[] calculateBonus(int[] ratings) {
-    // T stores the amount of bonus each one is assigned.
-    int[] T = new int[ratings.length];
-    Arrays.fill(T, 1);
+  public static int[] calculateBonus(int[] productivity) {
+    // Initially assigns one ticket to everyone.
+    int[] tickets = new int[productivity.length];
+    Arrays.fill(tickets, 1);
     // From left to right.
-    for (int i = 1; i < ratings.length; ++i) {
-      if (ratings[i] > ratings[i - 1]) {
-        T[i] = T[i - 1] + 1;
+    for (int i = 1; i < productivity.length; ++i) {
+      if (productivity[i] > productivity[i - 1]) {
+        tickets[i] = tickets[i - 1] + 1;
       }
     }
     // From right to left.
-    for (int i = ratings.length - 2; i >= 0; --i) {
-      if (ratings[i] > ratings[i + 1]) {
-        T[i] = Math.max(T[i], T[i + 1] + 1);
+    for (int i = productivity.length - 2; i >= 0; --i) {
+      if (productivity[i] > productivity[i + 1]) {
+        tickets[i] = Math.max(tickets[i], tickets[i + 1] + 1);
       }
     }
-    return T;
+    return tickets;
   }
-
   // @exclude
 
   private static void smallTest() {

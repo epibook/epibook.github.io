@@ -22,8 +22,10 @@ public class Bonus {
   }
 
   // @include
-  public static int[] calculateBonus(int[] ratings) {
-    TreeSet<Pair<Integer, Integer>> h = new TreeSet<>(
+  public static int[] calculateBonus(int[] productivity) {
+    // Stores (index, productivity)-pair in minHeap where ordered by
+    // productivity.
+    TreeSet<Pair<Integer, Integer>> minHeap = new TreeSet<>(
         new Comparator<Pair<Integer, Integer>>() {
           @Override
           public int compare(Pair<Integer, Integer> o1,
@@ -36,32 +38,33 @@ public class Bonus {
           }
         }
     );
-    for (int i = 0; i < ratings.length; ++i) {
-      h.add(new Pair<>(ratings[i], i));
+    for (int i = 0; i < productivity.length; ++i) {
+      minHeap.add(new Pair<>(productivity[i], i));
     }
 
-    // T stores the amount of bonus each one is assigned.
-    int[] T = new int[ratings.length];
-    Arrays.fill(T, 1);
-    // Fills T from lowest rating one to toppmost rating.
-    while (!h.isEmpty()) {
-      Pair<Integer, Integer> p = h.first();
+    // Initially assigns one ticket to everyone.
+    int[] tickets = new int[productivity.length];
+    Arrays.fill(tickets, 1);
+    // Fills tickets from lowest rating one to toppmost rating.
+    while (!minHeap.isEmpty()) {
+      int nextDev = minHeap.first().getSecond();
+      Pair<Integer, Integer> p = minHeap.first();
       // Handles the left neighbor.
-      if (p.getSecond() > 0) {
-        if (ratings[p.getSecond()] > ratings[p.getSecond() - 1]) {
-          T[p.getSecond()] = T[p.getSecond() - 1] + 1;
+      if (nextDev > 0) {
+        if (productivity[nextDev] > productivity[nextDev - 1]) {
+          tickets[nextDev] = tickets[nextDev - 1] + 1;
         }
       }
       // Handles the right neighbor.
-      if (p.getSecond() + 1 < T.length) {
-        if (ratings[p.getSecond()] > ratings[p.getSecond() + 1]) {
-          T[p.getSecond()] = Math.max(T[p.getSecond()],
-              T[p.getSecond() + 1] + 1);
+      if (nextDev + 1 < tickets.length) {
+        if (productivity[nextDev] > productivity[nextDev + 1]) {
+          tickets[nextDev]
+              = Math.max(tickets[nextDev], tickets[nextDev + 1] + 1);
         }
       }
-      h.remove(p);
+      minHeap.remove(p);
     }
-    return T;
+    return tickets;
   }
   // @exclude
 

@@ -17,12 +17,12 @@ public class ReconstructBinaryTreePostInOrders {
     for (int i = 0; i < in.length; ++i) {
       inEntryIdxMap.put(in[i], i);
     }
-    return reconstructPostInOrdersHelper(post, 0, post.length, in, 0,
+    return reconstructPostInOrdersHelper(post, 0, post.length, 0,
                                          in.length, inEntryIdxMap);
   }
 
   private static BinaryTree<Integer> reconstructPostInOrdersHelper(
-      int[] post, int postS, int postE, int[] in, int inS, int inE,
+      int[] post, int postS, int postE, int inS, int inE,
       Map<Integer, Integer> inEntryIdxMap) {
     if (postE <= postS || inE <= inS) {
       return null;
@@ -32,11 +32,11 @@ public class ReconstructBinaryTreePostInOrders {
 
     return new BinaryTree<>(post[postE - 1],
         // Recursively build the left subtree.
-        reconstructPostInOrdersHelper(post, postS, postS + leftTreeSize, in,
+        reconstructPostInOrdersHelper(post, postS, postS + leftTreeSize,
                                       inS, idx, inEntryIdxMap),
         // Recursively build the right subtree.
         reconstructPostInOrdersHelper(post, postS + leftTreeSize, postE - 1,
-                                      in, idx + 1, inE, inEntryIdxMap));
+                                      idx + 1, inE, inEntryIdxMap));
   }
   // @exclude
 
