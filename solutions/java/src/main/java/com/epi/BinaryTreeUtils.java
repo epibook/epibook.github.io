@@ -43,8 +43,8 @@ public class BinaryTreeUtils {
     }
   }
 
-  public static <T> List<T> generatePreOrder(BinaryTree<T> r) {
-    List<T> ret = new ArrayList<>();
+  public static <T> ArrayList<T> generatePreOrder(BinaryTree<T> r) {
+    ArrayList<T> ret = new ArrayList<>();
     generatePreOrderHelper(r, ret);
     return ret;
   }
@@ -58,8 +58,8 @@ public class BinaryTreeUtils {
     }
   }
 
-  public static <T> List<T> generateInOrder(BinaryTree<T> r) {
-    List<T> ret = new ArrayList<>();
+  public static <T> ArrayList<T> generateInOrder(BinaryTree<T> r) {
+    ArrayList<T> ret = new ArrayList<>();
     generateInOrderHelper(r, ret);
     return ret;
   }
@@ -73,8 +73,8 @@ public class BinaryTreeUtils {
     }
   }
 
-  public static <T> List<T> generatePostOrder(BinaryTree<T> r) {
-    List<T> ret = new ArrayList<>();
+  public static <T> ArrayList<T> generatePostOrder(BinaryTree<T> r) {
+    ArrayList<T> ret = new ArrayList<>();
     generatePostOrderHelper(r, ret);
     return ret;
   }

@@ -4,12 +4,12 @@
 package com.epi;
 
 // @include
-class NodeT<T> {
+class Node<T> {
   public T data;
-  public NodeT<T> next;
+  public Node<T> next;
 // @exclude
 
-  public NodeT(T dt, NodeT<T> n) {
+  public Node(T dt, Node<T> n) {
     data = dt;
     next = n;
   }
