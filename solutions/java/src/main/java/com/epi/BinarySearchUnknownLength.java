@@ -11,10 +11,10 @@ public class BinarySearchUnknownLength {
     int p = 0;
     while (true) {
       try {
-        int val = A[(1 << p) - 1];
-        if (val == k) {
-          return (1 << p) - 1;
-        } else if (val > k) {
+        int idx = (1 << p) - 1; // 2^p - 1.
+        if (A[idx] == k) {
+          return idx;
+        } else if (A[idx] > k) {
           break;
         }
       } catch (Exception e) {
@@ -24,22 +24,19 @@ public class BinarySearchUnknownLength {
     }
 
     // Binary search between indices 2^(p - 1) and 2^p - 2.
-    // Need max below in case k is smaller than all entries
-    // in A, since p becomes 0.
-    int left = max(0, 1 << (p - 1)), right = (1 << p) - 2;
+    int left = 1 << (p - 1), right = (1 << p) - 2;
     while (left <= right) {
       int mid = left + ((right - left) / 2);
       try {
-        int val = A[mid];
-        if (val == k) {
+        if (A[mid] == k) {
           return mid;
-        } else if (val > k) {
+        } else if (A[mid] > k) {
           right = mid - 1;
         } else { // A[mid] < k
           left = mid + 1;
         }
       } catch (Exception e) {
-        right = mid - 1; // Search the left part if out of boundary.
+        right = mid - 1; // Search the left part if out-of-bound.
       }
     }
     return -1; // Nothing matched k.
@@ -52,6 +49,7 @@ public class BinarySearchUnknownLength {
     assert (binarySearchUnknownLength(A, 1) == 0);
     assert (binarySearchUnknownLength(A, 2) == 1);
     assert (binarySearchUnknownLength(A, 4) == -1);
+    assert (binarySearchUnknownLength(A, -1) == -1);
   }
 
   public static void main(String[] args) {

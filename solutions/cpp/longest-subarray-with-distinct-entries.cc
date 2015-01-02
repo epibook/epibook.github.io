@@ -23,21 +23,23 @@ using std::vector;
 
 // @include
 int LongestSubarrayWithDistinctEntries(const vector<int>& A) {
-  // Records the last occurrence of each entry.
-  unordered_map<int, size_t> last_occurrence;
-  size_t starting_idx = 0, ans = 0;
+  // Records the last occurrence of each entry in A.
+  unordered_map<int, size_t> most_recent_occurrence;
+  size_t longest_dup_free_subarray_start_idx = 0, result = 0;
   for (size_t i = 0; i < A.size(); ++i) {
-    auto result = last_occurrence.emplace(A[i], i);
-    if (!result.second) {  // A[i] appeared before. Check its validity.
-      if (result.first->second >= starting_idx) {
-        ans = max(ans, i - starting_idx);
-        starting_idx = result.first->second + 1;
+    auto dup_idx = most_recent_occurrence.emplace(A[i], i);
+    // Defer updating dup_idx until we see a duplicate.
+    if (!dup_idx.second) {
+      // A[i] appeared before. Did it appear in the longest current subarray?
+      if (dup_idx.first->second >= longest_dup_free_subarray_start_idx) {
+        result = max(result, i - longest_dup_free_subarray_start_idx);
+        longest_dup_free_subarray_start_idx = dup_idx.first->second + 1;
       }
-      result.first->second = i;
+      dup_idx.first->second = i;
     }
   }
-  ans = max(ans, A.size() - starting_idx);
-  return ans;
+  result = max(result, A.size() - longest_dup_free_subarray_start_idx);
+  return result;
 }
 // @exclude
 

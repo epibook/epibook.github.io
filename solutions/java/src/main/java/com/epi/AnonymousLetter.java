@@ -18,10 +18,10 @@ class AnonymousLetter {
   }
 
   // @include
-  public static boolean anonymousLetter(String L, String M) {
+  public static boolean anonymousLetter(String letter, String magazine) {
     Map<Character, Integer> hash = new HashMap<>();
-    // Inserts all chars in L into a hash table.
-    for (char c : L.toCharArray()) {
+    // Inserts all chars in letter into a hash table.
+    for (char c : letter.toCharArray()) {
       if (!hash.containsKey(c)) {
         hash.put(c, 1);
       } else {
@@ -29,8 +29,8 @@ class AnonymousLetter {
       }
     }
 
-    // Checks characters in M that could cover characters in a hash table.
-    for (char c : M.toCharArray()) {
+    // Checks characters in magazine that could cover characters in hash table.
+    for (char c : magazine.toCharArray()) {
       if (hash.containsKey(c)) {
         hash.put(c, hash.get(c) - 1);
         if (hash.get(c) == 0) {
@@ -41,7 +41,7 @@ class AnonymousLetter {
         }
       }
     }
-    // No entry in hash means L can be covered by M.
+    // No entry in hash means letter can be covered by magazine.
     return hash.isEmpty();
   }
   // @exclude

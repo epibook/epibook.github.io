@@ -16,23 +16,23 @@ using std::swap;
 using std::uniform_int_distribution;
 using std::vector;
 
-int Partition(int left, int right, int pivot, vector<int>* A);
+int PartitionAroundPivot(int left, int right, int pivot, vector<int>* A);
 
 // @include
 int FindKthLargest(vector<int> A, int k) {
   int left = 0, right = A.size() - 1;
-
+  default_random_engine gen((random_device())());
   while (left <= right) {
-    default_random_engine gen((random_device())());
     // Generates a random int in [left, right].
     uniform_int_distribution<int> dis(left, right);
-    int p = Partition(left, right, dis(gen), &A);
-    if (p == k - 1) {
-      return A[p];
-    } else if (p > k - 1) {
-      right = p - 1;
-    } else {  // p < k - 1.
-      left = p + 1;
+    int pivot_idx = dis(gen);
+    int new_pivot_idx = PartitionAroundPivot(left, right, pivot_idx, &A);
+    if (new_pivot_idx == k - 1) {
+      return A[new_pivot_idx];
+    } else if (new_pivot_idx > k - 1) {
+      right = new_pivot_idx - 1;
+    } else {  // new_pivot_idx < k - 1.
+      left = new_pivot_idx + 1;
     }
   }
   // @exclude
@@ -40,20 +40,23 @@ int FindKthLargest(vector<int> A, int k) {
   // @include
 }
 
-// Partitions A according pivot, returns its index after partition.
-int Partition(int left, int right, int pivot, vector<int>* A) {
-  auto& A_ref = *A;  // Reference to *A.
-  int pivot_value = A_ref[pivot];
-  int larger_index = left;
-
-  swap(A_ref[pivot], A_ref[right]);
+// Partition A[left : right] around pivot_idx, returns the new index of the 
+// pivot, new_pivot_idx, after partition. After partitioning, 
+// A[left : new_pivot_idx - 1] contains elements that are greater than the
+// pivot, and A[new_pivot_idx + 1 : right] contains elements that are less 
+// than the pivot.
+int PartitionAroundPivot(int left, int right, int pivot_idx, vector<int>* A) {
+  auto& A_ref = *A;
+  int pivot_value = A_ref[pivot_idx];
+  int new_pivot_idx = left;
+  swap(A_ref[pivot_idx], A_ref[right]);
   for (int i = left; i < right; ++i) {
     if (A_ref[i] > pivot_value) {
-      swap(A_ref[i], A_ref[larger_index++]);
+      swap(A_ref[i], A_ref[new_pivot_idx++]);
     }
   }
-  swap(A_ref[right], A_ref[larger_index]);
-  return larger_index;
+  swap(A_ref[right], A_ref[new_pivot_idx]);
+  return new_pivot_idx;
 }
 // @exclude
 

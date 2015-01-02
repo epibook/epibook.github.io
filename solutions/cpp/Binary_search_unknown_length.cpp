@@ -21,10 +21,10 @@ int BinarySearchUnknownLength(const vector<int>& A, int k) {
   int p = 0;
   while (true) {
     try {
-      int val = A.at((1 << p) - 1);
-      if (val == k) {
-        return (1 << p) - 1;
-      } else if (val > k) {
+      int idx = (1 << p) - 1;  // 2^p - 1.
+      if (A.at(idx) == k) {
+        return idx;
+      } else if (A.at(idx) > k) {
         break;
       }
     }
@@ -35,23 +35,20 @@ int BinarySearchUnknownLength(const vector<int>& A, int k) {
   }
 
   // Binary search between indices 2^(p - 1) and 2^p - 2.
-  // Need max below in case k is smaller than all entries
-  // in A, since p becomes 0.
-  int left = max(0, 1 << (p - 1)), right = (1 << p) - 2;
+  int left = 1 << (p - 1), right = (1 << p) - 2;
   while (left <= right) {
     int mid = left + ((right - left) / 2);
     try {
-      int val = A.at(mid);
-      if (val == k) {
+      if (A.at(mid) == k) {
         return mid;
-      } else if (val > k) {
+      } else if (A.at(mid) > k) {
         right = mid - 1;
-      } else {  // A[mid] < k
+      } else {  // A.at(mid) < k
         left = mid + 1;
       }
     }
     catch (const exception& e) {
-      right = mid - 1;  // Search the left part if out of boundary.
+      right = mid - 1;  // Search the left part if out-of-bound.
     }
   }
   return -1;  // Nothing matched k.
@@ -64,6 +61,7 @@ void SmallTest() {
   assert(BinarySearchUnknownLength(A, 1) == 0);
   assert(BinarySearchUnknownLength(A, 2) == 1);
   assert(BinarySearchUnknownLength(A, 4) == -1);
+  assert(BinarySearchUnknownLength(A, -1) == -1);
 }
 
 int main(int argc, char* argv[]) {

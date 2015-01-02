@@ -6,19 +6,20 @@ public class LongestSubarrayWithDistinctEntries {
   // @include
   public static int longestSubarrayWithDistinctEntries(int[] A) {
     // Records the last occurrences of each entry.
-    Map<Integer, Integer> lastOccurrence = new HashMap<>();
-    int startingIdx = 0, ans = 0;
+    Map<Integer, Integer> mostRecentOccurrence = new HashMap<>();
+    int longestDupFreeSubarrayStartIdx = 0, result = 0;
     for (int i = 0; i < A.length; ++i) {
-      Integer result = lastOccurrence.put(A[i], i);
-      if (result != null) { // A[i] appeared before. Check its validity.
-        if (result >= startingIdx) {
-          ans = Math.max(ans, i - startingIdx);
-          startingIdx = result + 1;
+      Integer dupIdx = mostRecentOccurrence.put(A[i], i);
+      // A[i] appeared before. Did it appear in the longest current subarray?
+      if (dupIdx != null) {
+        if (dupIdx >= longestDupFreeSubarrayStartIdx) {
+          result = Math.max(result, i - longestDupFreeSubarrayStartIdx);
+          longestDupFreeSubarrayStartIdx = dupIdx + 1;
         }
       }
     }
-    ans = Math.max(ans, A.length - startingIdx);
-    return ans;
+    result = Math.max(result, A.length - longestDupFreeSubarrayStartIdx);
+    return result;
   }
   // @exclude
 

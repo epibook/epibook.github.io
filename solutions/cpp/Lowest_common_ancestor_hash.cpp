@@ -15,26 +15,26 @@ using std::unique_ptr;
 using std::unordered_set;
 
 // @include
-BinaryTreeNode<int>* LCA(const unique_ptr<BinaryTreeNode<int>>& a,
-                         const unique_ptr<BinaryTreeNode<int>>& b) {
-  auto* i = a.get(), *j = b.get();
-  unordered_set<const BinaryTreeNode<int>*> hash;
-  while (i || j) {
-    if (i) {
-      if (hash.emplace(i).second == false) {
-        return i;  // Adds i failed because i exists in hash.
+BinaryTreeNode<int>* LCA(const unique_ptr<BinaryTreeNode<int>>& node_0,
+                         const unique_ptr<BinaryTreeNode<int>>& node_1) {
+  auto* iter_0 = node_0.get(), *iter_1 = node_1.get();
+  unordered_set<const BinaryTreeNode<int>*> nodes_on_path_to_root;
+  while (iter_0 || iter_1) {
+    // Ascend in tandem for iter_0 and iter_1.
+    if (iter_0) {
+      if (nodes_on_path_to_root.emplace(iter_0).second == false) {
+        return iter_0;
       }
-      i = i->parent;
+      iter_0 = iter_0->parent;
     }
-    if (j) {
-      if (hash.emplace(j).second == false) {
-        return j;  // Adds j failed because j exists in hash.
+    if (iter_1) {
+      if (nodes_on_path_to_root.emplace(iter_1).second == false) {
+        return iter_1;
       }
-      j = j->parent;
+      iter_1 = iter_1->parent;
     }
   }
-  // Throw error if a and b are not in the same tree.
-  throw invalid_argument("a and b are not in the same tree");
+  throw invalid_argument("node_0 and node_1 are not in the same tree");
 }
 // @exclude
 

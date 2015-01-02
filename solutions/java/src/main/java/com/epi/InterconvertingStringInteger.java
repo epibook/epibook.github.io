@@ -28,29 +28,26 @@ public class InterconvertingStringInteger {
     }
 
     StringBuilder s = new StringBuilder();
-    while (x != 0) {
+    do {
       s.append((char) ('0' + x % 10));
       x /= 10;
-    }
-    if (s.length() == 0) {
-      return "0"; // x is 0.
-    }
+    } while (x != 0);
+    s.reverse();
 
     if (isNegative) {
       s.append('-');  // Adds the negative sign back.
     }
-    s.reverse();
     return s.toString();
   }
 
   public static int stringToInt(String s) {
     boolean isNegative = s.charAt(0) == '-';
-    int r = 0;
+    int result = 0;
     for (int i = s.charAt(0) == '-' ? 1 : 0; i < s.length(); ++i) {
       int digit = s.charAt(i) - '0';
-      r = r * 10 + digit;
+      result = result * 10 + digit;
     }
-    return isNegative ? -r : r;
+    return isNegative ? -result : result;
   }
   // @exclude
 

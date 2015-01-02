@@ -12,7 +12,7 @@ using std::endl;
 using std::unique_ptr;
 
 bool CheckSymmetric(const unique_ptr<BinaryTreeNode<int>>&,
-                       const unique_ptr<BinaryTreeNode<int>>&);
+                    const unique_ptr<BinaryTreeNode<int>>&);
 
 // @include
 bool IsSymmetric(const unique_ptr<BinaryTreeNode<int>>& tree) {
@@ -20,7 +20,7 @@ bool IsSymmetric(const unique_ptr<BinaryTreeNode<int>>& tree) {
 }
 
 bool CheckSymmetric(const unique_ptr<BinaryTreeNode<int>>& subtree_0,
-                       const unique_ptr<BinaryTreeNode<int>>& subtree_1) {
+                    const unique_ptr<BinaryTreeNode<int>>& subtree_1) {
   if (subtree_0 == nullptr && subtree_1 == nullptr) {
     return true;
   } else if (subtree_0 != nullptr && subtree_1 != nullptr) {

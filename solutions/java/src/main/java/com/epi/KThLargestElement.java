@@ -7,17 +7,17 @@ public class KThLargestElement {
   // @include
   public static int findKthLargest(int[] A, int k) {
     int left = 0, right = A.length - 1;
-
     Random r = new Random();
     while (left <= right) {
       // Generates a random int in [left, right].
-      int p = partition(left, right, r.nextInt(right - left + 1) + left, A);
-      if (p == k - 1) {
-        return A[p];
-      } else if (p > k - 1) {
-        right = p - 1;
-      } else { // p < k - 1.
-        left = p + 1;
+      int pivotIdx = r.nextInt(right - left + 1) + left;
+      int newPivotIdx = partitionAroundPivot(left, right, pivotIdx, A);
+      if (newPivotIdx == k - 1) {
+        return A[newPivotIdx];
+      } else if (newPivotIdx > k - 1) {
+        right = newPivotIdx - 1;
+      } else { // newPivotIdx < k - 1.
+        left = newPivotIdx + 1;
       }
     }
     // @exclude
@@ -25,19 +25,24 @@ public class KThLargestElement {
     // @include
   }
 
-  // Partitions A according pivot, returns its index after partition.
-  private static int partition(int left, int right, int pivot, int[] A) {
-    int pivotValue = A[pivot];
-    int largerIndex = left;
+  // Partition A[left : right] around pivotIdx, returns the new index of the 
+  // pivot, newPivotIdx, after partition. After partitioning, 
+  // A[left : newPivotIdx - 1] contains elements that are greater than the
+  // pivot, and A[newPivotIdx + 1 : right] contains elements that are less 
+  // than the pivot.
+  private static int partitionAroundPivot(int left, int right, int pivotIdx,
+                                          int[] A) {
+    int pivotValue = A[pivotIdx];
+    int newPivotIdx = left;
 
-    swap(A, pivot, right);
+    swap(A, pivotIdx, right);
     for (int i = left; i < right; ++i) {
       if (A[i] > pivotValue) {
-        swap(A, i, largerIndex++);
+        swap(A, i, newPivotIdx++);
       }
     }
-    swap(A, right, largerIndex);
-    return largerIndex;
+    swap(A, right, newPivotIdx);
+    return newPivotIdx;
   }
 
   private static void swap(int[] A, int a, int b) {

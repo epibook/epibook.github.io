@@ -36,7 +36,8 @@ void PhoneMnemonicHelper(const string& phone_number, int digit,
                          string* partial_mnemonic,
                          vector<string>* mnemonics) {
   if (digit == phone_number.size()) {
-    // All digits are processed so we add partial_mnemonic to mnemonics.
+    // All digits are processed, so add partial_mnemonic to mnemonics. 
+    // (We add a copy since subsequent calls modify partial_mnemonic.)
     mnemonics->emplace_back(*partial_mnemonic);
   } else {
     // Try all possible characters for this digit.

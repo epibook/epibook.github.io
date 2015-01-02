@@ -13,22 +13,22 @@ public class FindingMinMax {
       return new Pair<>(A[0], A[0]);
     }
 
-    // Initializes the min and max pair.
-    Pair<Integer, Integer> minMaxPair = Pair.minmax(A[0], A[1]);
+    Pair<Integer, Integer> globalMinMax = Pair.minmax(A[0], A[1]);
+    // Process elements one pair at a time.
     for (int i = 2; i + 1 < A.length; i += 2) {
-      Pair<Integer, Integer> localPair = Pair.minmax(A[i], A[i + 1]);
-      minMaxPair = new Pair<>(
-          Math.min(minMaxPair.getFirst(), localPair.getFirst()),
-          Math.max(minMaxPair.getSecond(), localPair.getSecond()));
+      Pair<Integer, Integer> localMinMax = Pair.minmax(A[i], A[i + 1]);
+      globalMinMax = new Pair<>(
+          Math.min(globalMinMax.getFirst(), localMinMax.getFirst()),
+          Math.max(globalMinMax.getSecond(), localMinMax.getSecond()));
     }
-    // Special case: If there is odd number of elements in the array, we still
+    // If there is odd number of elements in the array, we still
     // need to compare the last element with the existing answer.
     if ((A.length & 1) != 0) {
-      minMaxPair = new Pair<>(
-          Math.min(minMaxPair.getFirst(), A[A.length - 1]),
-          Math.max(minMaxPair.getSecond(), A[A.length - 1]));
+      globalMinMax = new Pair<>(
+          Math.min(globalMinMax.getFirst(), A[A.length - 1]),
+          Math.max(globalMinMax.getSecond(), A[A.length - 1]));
     }
-    return minMaxPair;
+    return globalMinMax;
   }
   // @exclude
 

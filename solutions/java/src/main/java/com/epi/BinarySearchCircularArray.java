@@ -9,11 +9,14 @@ public class BinarySearchCircularArray {
     while (left < right) {
       int mid = left + ((right - left) / 2);
       if (A[mid] > A[right]) {
+        // Minimum must be in [mid + 1 : right].
         left = mid + 1;
-      } else { // A[mid] <= A[right].
+      } else { // A[mid] < A[right].
+        // Minimum cannot be in [mid + 1 : right] so it must be in [left : mid].
         right = mid;
       }
     }
+    // Loop ends when left == right.
     return left;
   }
   // @exclude

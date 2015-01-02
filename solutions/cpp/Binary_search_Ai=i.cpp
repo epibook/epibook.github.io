@@ -16,16 +16,17 @@ using std::unordered_set;
 using std::vector;
 
 // @include
-int SearchIndexValueEqual(const vector<int>& A) {
+int SearchEntryEqualToItsIndex(const vector<int>& A) {
   int left = 0, right = A.size() - 1;
   while (left <= right) {
     int mid = left + ((right - left) / 2);
-    int val = A[mid] - mid;
-    if (val == 0) {
+    int difference = A[mid] - mid;
+    // A[mid] == mid iff difference equals to 0.
+    if (difference == 0) {
       return mid;
-    } else if (val > 0) {
+    } else if (difference > 0) {
       right = mid - 1;
-    } else {  // val < 0.
+    } else {  // difference < 0.
       left = mid + 1;
     }
   }
@@ -68,7 +69,7 @@ int main(int argc, char* argv[]) {
       A.emplace_back(x);
     }
     sort(A.begin(), A.end());
-    int ans = SearchIndexValueEqual(A);
+    int ans = SearchEntryEqualToItsIndex(A);
     if (ans != -1) {
       cout << "A[" << ans << "] = " << A[ans] << endl;
       assert(ans == A[ans]);

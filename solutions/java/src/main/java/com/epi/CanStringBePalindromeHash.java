@@ -8,25 +8,25 @@ import java.util.Map;
 class CanStringBePalindromeHash {
   // @include
   public static boolean canStringBeAPalindrome(String s) {
-    Map<Character, Integer> hash = new HashMap<>();
-    // Insert each char into hash.
+    Map<Character, Integer> charFrequencies = new HashMap<>();
+    // Compute the frequency of each char in s.
     for (char c : s.toCharArray()) {
-      if (!hash.containsKey(c)) {
-        hash.put(c, 1);
+      if (!charFrequencies.containsKey(c)) {
+        charFrequencies.put(c, 1);
       } else {
-        hash.put(c, hash.get(c) + 1);
+        charFrequencies.put(c, charFrequencies.get(c) + 1);
       }
     }
 
-    // A string can be permuted as a palindrome if the number of odd time
-    // chars <= 1.
+    // A string can be permuted as a palindrome if and only if the number of
+    // chars whose frequencies is odd is at most 1.
     int oddCount = 0;
-    for (Map.Entry<Character, Integer> p : hash.entrySet()) {
-      if ((p.getValue() & 1) != 0 && ++oddCount > 1) {
-        break;
+    for (Map.Entry<Character, Integer> p : charFrequencies.entrySet()) {
+      if ((p.getValue() % 2) != 0 && ++oddCount > 1) {
+        return false;
       }
     }
-    return oddCount <= 1;
+    return true;
   }
   // @exclude
 }

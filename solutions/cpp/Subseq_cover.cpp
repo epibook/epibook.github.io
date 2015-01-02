@@ -38,33 +38,48 @@ string RandString(int len) {
 
 // @include
 pair<int, int> FindSmallestSequentiallyCoveringSubset(
-    const vector<string>& A, const vector<string>& Q) {
-  unordered_map<string, int> K;  // Stores the order of each Q[i].
-  vector<int> L(Q.size(), -1), D(Q.size(), numeric_limits<int>::max());
-
-  // Initializes K.
-  for (int i = 0; i < Q.size(); ++i) {
-    K.emplace(Q[i], i);
+    const vector<string>& paragraph, const vector<string>& keywords) {
+  // Maps each keyword to its index in the keywords array.
+  unordered_map<string, int> keyword_to_idx;
+  // Initializes keyword_to_idx.
+  for (int i = 0; i < keywords.size(); ++i) {
+    keyword_to_idx.emplace(keywords[i], i);
   }
 
-  pair<int, int> res(-1, A.size());  // Default value.
-  for (int i = 0; i < A.size(); ++i) {
-    auto it = K.find(A[i]);
-    if (it != K.cend()) {
-      if (it->second == 0) {  // First one, no predecessor.
-        D[0] = 1;             // Base condition.
-      } else if (D[it->second - 1] != numeric_limits<int>::max()) {
-        D[it->second] = i - L[it->second - 1] + D[it->second - 1];
-      }
-      L[it->second] = i;
+  // Since keywords are uniquely identified by their indices in keywords
+  // array, we can use those indices as keys to lookup in a vector.
+  vector<int> latest_occurrence(keywords.size(), -1);
+  // For each keyword (identified by its index in keywords array), stores the
+  // length of the shortest subarray ending at the most recent occurence of
+  // that keyword that sequentially cover all keywords up to that keyword.
+  vector<int> shortest_subarray_length(keywords.size(),
+                                       numeric_limits<int>::max());
 
-      if (it->second == Q.size() - 1 &&
-          D.back() < res.second - res.first + 1) {
-        res = {i - D.back() + 1, i};
+  pair<int, int> result(-1, -1);
+  for (int i = 0; i < paragraph.size(); ++i) {
+    if (keyword_to_idx.find(paragraph[i]) != keyword_to_idx.cend()) {
+      int keyword_idx = keyword_to_idx.find(paragraph[i])->second;
+      if (keyword_idx == 0) {  // First keyword.
+        shortest_subarray_length[keyword_idx] = 1;
+      } else if (shortest_subarray_length[keyword_idx - 1] !=
+                 numeric_limits<int>::max()) {
+        int distance_to_previous_keyword =
+            i - latest_occurrence[keyword_idx - 1];
+        shortest_subarray_length[keyword_idx] =
+            distance_to_previous_keyword +
+            shortest_subarray_length[keyword_idx - 1];
+      }
+      latest_occurrence[keyword_idx] = i;
+
+      // Last keyword, look for improved subarray.
+      if (keyword_idx == keywords.size() - 1 &&
+          shortest_subarray_length.back() <
+              result.second - result.first + 1) {
+        result = {i - shortest_subarray_length.back() + 1, i};
       }
     }
   }
-  return res;
+  return result;
 }
 // @exclude
 

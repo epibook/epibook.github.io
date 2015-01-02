@@ -18,48 +18,51 @@ class SmallestSubarrayCoveringSet {
   }
 
   // @include
-  public static Pair<Integer, Integer> findSmallestSubarrayCoveringSubset(
-      String[] A, String[] Q) {
-    Set<String> dict = new HashSet<>(Arrays.asList(Q));
-    Map<String, Integer> countQ = new HashMap<>();
+  public static Pair<Integer, Integer> findSmallestSubarrayCoveringSet(
+      String[] paragraph, Set<String> keywords) {
+    Map<String, Integer> keywordsToCount = new HashMap<>();
     int left = 0, right = 0;
-    Pair<Integer, Integer> res = new Pair<>(-1, -1);
-    while (right < A.length) {
-      // Keeps moving right until it reaches end or countQ has |Q| items.
-      while (right < A.length && countQ.size() < Q.length) {
-        if (dict.contains(A[right])) {
-          countQ.put(A[right],
-              countQ.containsKey(A[right])
-                  ? countQ.get(A[right]) + 1 : 1);
+    Pair<Integer, Integer> result = new Pair<>(-1, -1);
+    while (right < paragraph.length) {
+      // Keeps advancing right until it reaches end or keywordsToCount has
+      // all keywords.
+      while (right < paragraph.length
+             && keywordsToCount.size() < keywords.size()) {
+        if (keywords.contains(paragraph[right])) {
+          keywordsToCount.put(paragraph[right],
+              keywordsToCount.containsKey(paragraph[right])
+                  ? keywordsToCount.get(paragraph[right]) + 1 : 1);
         }
         ++right;
       }
 
-      if (countQ.size() == Q.length && // Found |Q| keywords.
-          ((res.getFirst() == -1 && res.getSecond() == -1)
-           || right - 1 - left < res.getSecond() - res.getFirst())) {
-        res.setFirst(left);
-        res.setSecond(right - 1);
+      // Found all keywords.
+      if (keywordsToCount.size() == keywords.size() &&
+          ((result.getFirst() == -1 && result.getSecond() == -1)
+           || right - 1 - left < result.getSecond() - result.getFirst())) {
+        result.setFirst(left);
+        result.setSecond(right - 1);
       }
 
-      // Keeps moving left until it reaches end or countQ has less |Q| items.
-      while (left < right && countQ.size() == Q.length) {
-        if (dict.contains(A[left])) {
-          int it = countQ.get(A[left]);
-          countQ.put(A[left], --it);
-          if (it == 0) {
-            countQ.remove(A[left]);
-            if ((res.getFirst() == -1 && res.getSecond() == -1)
-                || right - 1 - left < res.getSecond() - res.getFirst()) {
-              res.setFirst(left);
-              res.setSecond(right - 1);
+      // Keeps advancing left until it reaches end or keywordsToCount does not
+      // have all keywords.
+      while (left < right && keywordsToCount.size() == keywords.size()) {
+        if (keywords.contains(paragraph[left])) {
+          int keywordCount = keywordsToCount.get(paragraph[left]);
+          keywordsToCount.put(paragraph[left], --keywordCount);
+          if (keywordCount == 0) {
+            keywordsToCount.remove(paragraph[left]);
+            if ((result.getFirst() == -1 && result.getSecond() == -1)
+                || right - 1 - left < result.getSecond() - result.getFirst()) {
+              result.setFirst(left);
+              result.setSecond(right - 1);
             }
           }
         }
         ++left;
       }
     }
-    return res;
+    return result;
   }
   // @exclude
 
@@ -123,7 +126,9 @@ class SmallestSubarrayCoveringSet {
        * for (int i = 0; i < Q.size(); ++i) { cout << Q[i] << ' '; } cout <<
        * endl;
        */
-      Pair<Integer, Integer> res = findSmallestSubarrayCoveringSubset(A, Q);
+
+      dict = new HashSet<>(Arrays.asList(Q));
+      Pair<Integer, Integer> res = findSmallestSubarrayCoveringSet(A, dict);
       System.out.println(res.getFirst() + ", " + res.getSecond());
       dict.clear();
       for (String aQ1 : Q) {

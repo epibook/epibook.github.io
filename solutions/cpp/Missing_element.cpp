@@ -29,30 +29,43 @@ using std::vector;
 
 // @include
 int FindMissingElement(ifstream* ifs) {
-  vector<size_t> counter(1 << 16, 0);
+  const int kNumBucket = 1 << 16;
+  vector<size_t> counter(kNumBucket, 0);
   unsigned int x;
   while (*ifs >> x) {
-    ++counter[x >> 16];
+    int upper_part_x = x >> 16;
+    ++counter[upper_part_x];
   }
 
-  for (int i = 0; i < counter.size(); ++i) {
-    // Finds one bucket contains less than (1 << 16) elements.
-    if (counter[i] < (1 << 16)) {
-      bitset<(1 << 16)> bit_vec;
-      ifs->clear();
-      ifs->seekg(0, ios::beg);
-      while (*ifs >> x) {
-        if (i == (x >> 16)) {
-          bit_vec.set(((1 << 16) - 1) & x);  // Gets the lower 16 bits of x.
-        }
-      }
-      ifs->close();
+  // Finds one bucket contains less than kBucketCapacity elements.
+  const int kBucketCapacity = 1 << 16;
+  int candidate_bucket;
+  for (int i = 0; i < kNumBucket; ++i) {
+    if (counter[i] < kBucketCapacity) {
+      candidate_bucket = i;
+      break;
+    }
+  }
 
-      for (int j = 0; j < (1 << 16); ++j) {
-        if (bit_vec.test(j) == 0) {
-          return (i << 16) | j;
-        }
-      }
+  // Finds all IP addresses in the stream whose first 16 bits
+  // are equal to candidate_bucket.
+  ifs->clear();
+  ifs->seekg(0, ios::beg);
+  bitset<kBucketCapacity> bit_vec;
+  while (*ifs >> x) {
+    int upper_part_x = x >> 16;
+    if (candidate_bucket == upper_part_x) {
+      // Records the presence of 16 LSB of x.
+      int lower_part_x = ((1 << 16) - 1) & x;
+      bit_vec.set(lower_part_x);
+    }
+  }
+  ifs->close();
+
+  // At least one of the LSB combinations is absent, find it.
+  for (int i = 0; i < kBucketCapacity; ++i) {
+    if (bit_vec[i] == 0) {
+      return (candidate_bucket << 16) | i;
     }
   }
   // @exclude

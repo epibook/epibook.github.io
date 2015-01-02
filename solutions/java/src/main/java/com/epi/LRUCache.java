@@ -16,56 +16,56 @@ public class LRUCache {
   }
 
   public boolean lookup(int isbn) {
-    Pair<LinkedList<Integer>.Node, Integer> it = cache.get(isbn);
+    Pair<LinkedList<Integer>.Node, Integer> it = isbnPriceTable.get(isbn);
     if (it == null) {
       return false;
     }
 
     lookupVal = it.getSecond();
-    moveToFront(isbn, it);
+    moveToFront(isbn, it); // Since isbn is the most recently used ISBN.
     return true;
   }
 
   public void insert(int isbn, int price) {
-    Pair<LinkedList<Integer>.Node, Integer> it = cache.get(isbn);
+    Pair<LinkedList<Integer>.Node, Integer> it = isbnPriceTable.get(isbn);
     if (it != null) {
       moveToFront(isbn, it);
     } else {
-      // Remove the least recently used.
-      if (cache.size() == capacity) {
-        cache.remove(data.back());
+      if (isbnPriceTable.size() == capacity) {
+        // Remove the least recently used ISBN to get space.
+        isbnPriceTable.remove(lruQueue.back());
       }
-      cache.put(isbn,
-          new Pair<>(data.pushFront(isbn),
+      isbnPriceTable.put(isbn,
+          new Pair<>(lruQueue.pushFront(isbn),
               price)
       );
     }
   }
 
   public boolean erase(int isbn) {
-    Pair<LinkedList<Integer>.Node, Integer> it = cache.get(isbn);
+    Pair<LinkedList<Integer>.Node, Integer> it = isbnPriceTable.get(isbn);
     if (it == null) {
       return false;
     }
 
-    data.erase(it.getFirst());
-    cache.remove(isbn);
+    lruQueue.erase(it.getFirst());
+    isbnPriceTable.remove(isbn);
     return true;
   }
 
-  // Moves the most recent accessed item to the front.
+  // Moves isbn to the front of the LRU cache.
   private void moveToFront(int isbn,
                            Pair<LinkedList<Integer>.Node, Integer> it) {
-    data.erase(it.getFirst());
-    data.pushBack(isbn);
-    it.setFirst(data.front());
+    lruQueue.erase(it.getFirst());
+    lruQueue.pushBack(isbn);
+    it.setFirst(lruQueue.front());
   }
 
   public int lookupVal = 0;
   private int capacity;
   private Map<Integer, Pair<LinkedList<Integer>.Node, Integer>>
-      cache = new HashMap<>();
-  private LinkedList<Integer> data = new LinkedList<>();
+      isbnPriceTable = new HashMap<>();
+  private LinkedList<Integer> lruQueue = new LinkedList<>();
   // @exclude
 
   public static void main(String[] args) {

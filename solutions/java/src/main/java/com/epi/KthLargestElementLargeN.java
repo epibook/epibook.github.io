@@ -3,9 +3,6 @@ package com.epi;
 import java.io.*;
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class KthLargestElementLargeN {
   private static <T> void nthElement(List<T> a, int n, Comparator<T> c) {
     Collections.sort(a, c);
@@ -30,19 +27,22 @@ public class KthLargestElementLargeN {
 
   // @include
   public static int findKthLargestUnknownLength(InputStream sin, int k) {
-    List<Integer> M = new ArrayList<>();
+    List<Integer> candidates = new ArrayList<>();
     Scanner s = new Scanner(sin);
     while (s.hasNextInt()) {
       int x = s.nextInt();
-      M.add(x);
-      if (M.size() == (k * 2) - 1) {
+      candidates.add(x);
+      if (candidates.size() == (k * 2) - 1) {
+        // Reorders elements about median with larger elements appearing before 
+        // the median.
+        nthElement(candidates, k - 1, new Greater<Integer>());
         // Keeps the k largest elements and discard the small ones.
-        nthElement(M, k - 1, new Greater<Integer>());
-        M = new ArrayList<>(M.subList(0, k));
+        candidates = new ArrayList<>(candidates.subList(0, k));
       }
     }
-    nthElement(M, k - 1, new Greater<Integer>());
-    return M.get(k - 1); // return the k-th largest one.
+    // Finds the k-th largest element in candidates.
+    nthElement(candidates, k - 1, new Greater<Integer>());
+    return candidates.get(k - 1);
   }
   // @exclude
 

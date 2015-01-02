@@ -13,25 +13,28 @@ using std::numeric_limits;
 using std::random_device;
 using std::uniform_real_distribution;
 
-int Compare(double a, double b);
+// @include
+typedef enum {SMALLER, EQUAL, LARGER} Ordering;
 
+// @exclude
+Ordering Compare(double a, double b);
 // @include
 double SquareRoot(double x) {
-  // Decides the search range according to x.
+  // Decides the search range according to x's value relative to 1.0.
   double left, right;
-  if (Compare(x, 1.0) < 0) {  // x < 1.0.
+  if (x < 1.0) {
     left = x, right = 1.0;
   } else {  // x >= 1.0.
     left = 1.0, right = x;
   }
 
   // Keeps searching if left < right.
-  while (Compare(left, right) == -1) {
+  while (Compare(left, right) == SMALLER) {
     double mid = left + 0.5 * (right - left);
-    double square_m = mid * mid;
-    if (Compare(square_m, x) == 0) {
+    double mid_squared = mid * mid;
+    if (Compare(mid_squared, x) == EQUAL) {
       return mid;
-    } else if (Compare(square_m, x) == 1) {
+    } else if (Compare(mid_squared, x) == LARGER) {
       right = mid;
     } else {
       left = mid;
@@ -40,13 +43,12 @@ double SquareRoot(double x) {
   return left;
 }
 
-// 0 means equal, -1 means smaller, and 1 means larger.
-int Compare(double a, double b) {
+Ordering Compare(double a, double b) {
   // Uses normalization for precision problem.
   double diff = (a - b) / b;
   return diff < -numeric_limits<double>::epsilon()
-             ? -1
-             : diff > numeric_limits<double>::epsilon();
+             ? SMALLER
+             : diff > numeric_limits<double>::epsilon() ? LARGER : EQUAL;
 }
 // @exclude
 
@@ -63,7 +65,7 @@ int main(int argc, char* argv[]) {
     double res[2];
     cout << "x is " << x << endl;
     cout << (res[0] = SquareRoot(x)) << ' ' << (res[1] = sqrt(x)) << endl;
-    assert(Compare(res[0], res[1]) == 0);
+    assert(Compare(res[0], res[1]) == EQUAL);
   }
   return 0;
 }

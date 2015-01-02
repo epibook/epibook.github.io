@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class HuffmanEncoding {
   private static final double[] ENGLISH_FREQ = {8.167, 1.492, 2.782, 4.253,
       12.702, 2.228, 2.015, 6.094, 6.966, 0.153, 0.772, 4.025, 2.406, 6.749,
@@ -21,10 +18,6 @@ public class HuffmanEncoding {
     public char c;
     public double prob;
     public String code;
-
-    public String toString() {
-      return c + " " + prob + " " + code;
-    }
   }
 
   public static class BinaryTree implements Comparable<BinaryTree> {
@@ -42,12 +35,12 @@ public class HuffmanEncoding {
 
     @Override
     public int compareTo(BinaryTree o) {
-      return Double.compare(o.prob, prob);
+      return Double.compare(prob, o.prob);
     }
   }
 
   public static void huffmanEncoding(List<Ref<Symbol>> symbols) {
-    // Initially assigns each symbol into min->heap.
+    // Initially assigns each symbol into minHeap.
     PriorityQueue<BinaryTree> minHeap = new PriorityQueue<>();
     for (Ref<Symbol> s : symbols) {
       minHeap.add(new BinaryTree(s.value.prob, s, null, null));

@@ -47,29 +47,26 @@ string IntToString(int x) {
   }
 
   string s;
-  while (x) {
-    s.push_back('0' + x % 10);
+  do {
+    s += '0' + x % 10;
     x /= 10;
-  }
-  if (s.empty()) {
-    return {"0"};  // x is 0.
-  }
+  } while (x);
+  reverse(s.begin(), s.end());
 
   if (is_negative) {
-    s.push_back('-');  // Adds the negative sign back.
+    s = '-' + s;  // Adds the negative sign back.
   }
-  reverse(s.begin(), s.end());
   return s;
 }
 
 int StringToInt(const string& s) {
   bool is_negative = s[0] == '-';
-  int r = 0;
+  int result = 0;
   for (int i = s[0] == '-' ? 1 : 0; i < s.size(); ++i) {
     int digit = s[i] - '0';
-    r = r * 10 + digit;
+    result = result * 10 + digit;
   }
-  return is_negative ? -r : r;
+  return is_negative ? -result : result;
 }
 // @exclude
 

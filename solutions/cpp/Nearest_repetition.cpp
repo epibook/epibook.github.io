@@ -32,15 +32,15 @@ string RandString(int len) {
 }
 
 // @include
-int FindNearestRepetition(const vector<string>& s) {
-  unordered_map<string, int> string_to_location;
+int FindNearestRepetition(const vector<string>& paragraph) {
+  unordered_map<string, int> word_to_latest_index;
   int closest_dis = numeric_limits<int>::max();
-  for (int i = 0; i < s.size(); ++i) {
-    auto it = string_to_location.find(s[i]);
-    if (it != string_to_location.end()) {
-      closest_dis = min(closest_dis, i - it->second);
+  for (int i = 0; i < paragraph.size(); ++i) {
+    auto latest_equal_word = word_to_latest_index.find(paragraph[i]);
+    if (latest_equal_word != word_to_latest_index.end()) {
+      closest_dis = min(closest_dis, i - latest_equal_word->second);
     }
-    string_to_location[s[i]] = i;
+    word_to_latest_index[paragraph[i]] = i;
   }
   return closest_dis;
 }

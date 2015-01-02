@@ -23,7 +23,8 @@ public class PhoneMnemonic {
                                           char[] partialMnemonic,
                                           List<String> mnemonics) {
     if (digit == phoneNumber.length()) {
-      // All digits are processed so we output partialMnemonic.
+      // All digits are processed, so add partialMnemonic to mnemonics. 
+      // (We add a copy since subsequent calls modify partialMnemonic.)
       mnemonics.add(new String(partialMnemonic));
     } else {
       // Try all possible characters for this digit.

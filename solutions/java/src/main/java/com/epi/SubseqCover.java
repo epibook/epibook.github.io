@@ -19,41 +19,48 @@ class SubseqCover {
 
   // @include
   public static Pair<Integer, Integer> findSmallestSequentiallyCoveringSubset(
-      String[] A, String[] Q) {
+      String[] paragraph, String[] keywords) {
+    // Maps each keyword to its index in the keywords array.
+    Map<String, Integer> keywordToIdx = new HashMap<>();
+    // Since keywords are uniquely identified by their indices in keywords
+    // array, we can use those indices as keys to lookup in a vector.
+    int[] latestOccurrence = new int[keywords.length];
+    // For each keyword (identified by its index in keywords array), stores the
+    // length of the shortest subarray ending at the most recent occurence of
+    // that keyword that sequentially cover all keywords up to that keyword.
+    int[] shortestSubarrayLength = new int[keywords.length];
 
-    // Stores the order of each Q[i].
-    Map<String, Integer> K = new HashMap<>();
-
-    int[] L = new int[Q.length];
-    int[] D = new int[Q.length];
-
-    // Initializes L, D, and K.
-    for (int i = 0; i < Q.length; ++i) {
-      L[i] = -1;
-      D[i] = Integer.MAX_VALUE;
-      K.put(Q[i], i);
+    // Initializes latestOccurrence, shortestSubarrayLength, and keywordToIdx.
+    for (int i = 0; i < keywords.length; ++i) {
+      latestOccurrence[i] = -1;
+      shortestSubarrayLength[i] = Integer.MAX_VALUE;
+      keywordToIdx.put(keywords[i], i);
     }
 
-    Pair<Integer, Integer> res = new Pair<>(-1, A.length);
-
-    for (int i = 0; i < A.length; ++i) {
-      Integer it = K.get(A[i]);
-      if (it != null) {
-        if (it == 0) { // First one, no predecessor.
-          D[0] = 1; // Base condition.
-        } else if (D[it - 1] != Integer.MAX_VALUE) {
-          D[it] = i - L[it - 1] + D[it - 1];
+    Pair<Integer, Integer> result = new Pair<>(-1, -1);
+    for (int i = 0; i < paragraph.length; ++i) {
+      Integer keywordIdx = keywordToIdx.get(paragraph[i]);
+      if (keywordIdx != null) {
+        if (keywordIdx == 0) { // First keyword.
+          shortestSubarrayLength[0] = 1;
+        } else if (shortestSubarrayLength[keywordIdx - 1]
+                   != Integer.MAX_VALUE) {
+          int distanceToPreviousKeyword = i - latestOccurrence[keywordIdx - 1];
+          shortestSubarrayLength[keywordIdx] =
+              distanceToPreviousKeyword +
+              shortestSubarrayLength[keywordIdx - 1];
         }
-        L[it] = i;
+        latestOccurrence[keywordIdx] = i;
 
-        if (it == Q.length - 1
-            && D[D.length - 1] < res.getSecond() - res.getFirst() + 1) {
-          res.setFirst(i - D[D.length - 1] + 1);
-          res.setSecond(i);
+        if (keywordIdx == keywords.length - 1
+            && shortestSubarrayLength[shortestSubarrayLength.length - 1]
+                < result.getSecond() - result.getFirst() + 1) {
+          result.setFirst(i - shortestSubarrayLength[shortestSubarrayLength.length - 1] + 1);
+          result.setSecond(i);
         }
       }
     }
-    return res;
+    return result;
   }
   // @exclude
 

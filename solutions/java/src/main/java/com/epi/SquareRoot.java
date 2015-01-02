@@ -5,9 +5,9 @@ import java.util.Random;
 public class SquareRoot {
   // @include
   public static double squareRoot(double x) {
-    // Decides the search range according to x.
+    // Decides the search range according to x's value relative to 1.0.
     double left, right;
-    if (compare(x, 1.0) < 0) { // x < 1.0.
+    if (x < 1.0) {
       left = x;
       right = 1.0;
     } else { // x >= 1.0.
@@ -16,12 +16,12 @@ public class SquareRoot {
     }
 
     // Keeps searching if left < right.
-    while (compare(left, right) == -1) {
+    while (compare(left, right) == Ordering.SMALLER) {
       double mid = left + 0.5 * (right - left);
-      double squareM = mid * mid;
-      if (compare(squareM, x) == 0) {
+      double midSquared = mid * mid;
+      if (compare(midSquared, x) == Ordering.EQUAL) {
         return mid;
-      } else if (compare(squareM, x) == 1) {
+      } else if (compare(midSquared, x) == Ordering.LARGER) {
         right = mid;
       } else {
         left = mid;
@@ -30,12 +30,16 @@ public class SquareRoot {
     return left;
   }
 
-  // 0 means equal, -1 means smaller, and 1 means larger.
-  private static int compare(double a, double b) {
+  private static enum Ordering {
+    SMALLER, EQUAL, LARGER
+  }
+
+  private static Ordering compare(double a, double b) {
     final double EPSILON = 0.00001;
     // Uses normalization for precision problem.
     double diff = (a - b) / b;
-    return diff < -EPSILON ? -1 : (diff > EPSILON ? 1 : 0);
+    return diff < -EPSILON ? Ordering.SMALLER :
+               (diff > EPSILON ? Ordering.LARGER : Ordering.EQUAL);
   }
   // @exclude
 
@@ -52,7 +56,7 @@ public class SquareRoot {
       System.out.println("x is " + x);
       System.out.println((res[0] = squareRoot(x)) + " "
           + (res[1] = Math.sqrt(x)));
-      assert (compare(res[0], res[1]) == 0);
+      assert (compare(res[0], res[1]) == Ordering.EQUAL);
     }
   }
 }

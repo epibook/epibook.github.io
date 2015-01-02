@@ -4,16 +4,17 @@ import java.util.*;
 
 public class BinarySearchAiEqI {
   // @include
-  public static int searchIndexValueEqual(int[] A) {
+  public static int searchEntryEqualToItsIndex(int[] A) {
     int left = 0, right = A.length - 1;
     while (left <= right) {
       int mid = left + ((right - left) / 2);
-      int val = A[mid] - mid;
-      if (val == 0) {
+      int difference = A[mid] - mid;
+      // A[mid] == mid iff difference equals to 0.
+      if (difference == 0) {
         return mid;
-      } else if (val > 0) {
+      } else if (difference > 0) {
         right = mid - 1;
-      } else { // val < 0.
+      } else { // difference < 0.
         left = mid + 1;
       }
     }
@@ -52,7 +53,7 @@ public class BinarySearchAiEqI {
         A[i] = x;
       }
       Arrays.sort(A);
-      int ans = searchIndexValueEqual(A);
+      int ans = searchEntryEqualToItsIndex(A);
       if (ans != -1) {
         System.out.println("A[" + ans + "] = " + A[ans]);
         assert (A[ans] == ans);

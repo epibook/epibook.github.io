@@ -29,25 +29,28 @@ string RandString(int len) {
 }
 
 // @include
-bool AnonymousLetter(const string& L, const string& M) {
-  unordered_map<char, int> hash;
-  // Inserts all chars in L into a hash table.
-  for_each(L.begin(), L.end(), [&hash](const char & c) { ++hash[c]; });
+bool AnonymousLetter(const string& letter, const string& magazine) {
+  unordered_map<char, int> char_frequency_anonymous_letter;
+  // Inserts all chars in letter into a hash table.
+  for (const char& c : letter) {
+    ++char_frequency_anonymous_letter[c];
+  }
 
-  // Checks characters in M that could cover characters in a hash table.
-  for (const char& c : M) {
-    auto it = hash.find(c);
-    if (it != hash.cend()) {
-      if (--it->second == 0) {
-        hash.erase(it);
-        if (hash.empty()) {
+  // Checks characters in magazine that could cover characters in hash table.
+  for (const char& c : magazine) {
+    auto it = char_frequency_anonymous_letter.find(c);
+    if (it != char_frequency_anonymous_letter.cend()) {
+      --it->second;
+      if (it->second == 0) {
+        char_frequency_anonymous_letter.erase(it);
+        if (char_frequency_anonymous_letter.empty()) {
           return true;
         }
       }
     }
   }
-  // No entry in hash means L can be covered by M.
-  return hash.empty();
+  // No entry in hash means letter can be covered by magazine.
+  return char_frequency_anonymous_letter.empty();
 }
 // @exclude
 

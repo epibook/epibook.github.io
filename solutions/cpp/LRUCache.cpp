@@ -17,55 +17,55 @@ template <size_t capacity>
 class LRUCache {
  public:
   bool Lookup(int isbn, int* price) {
-    auto it = cache_.find(isbn);
-    if (it == cache_.end()) {
+    auto it = isbn_price_table_.find(isbn);
+    if (it == isbn_price_table_.end()) {
       return false;
     }
 
     *price = it->second.second;
-    MoveToFront(isbn, it);
+    MoveToFront(isbn, it);  // Since isbn is the most recently used ISBN.
     return true;
   }
 
   void Insert(int isbn, int price) {
-    auto it = cache_.find(isbn);
-    if (it != cache_.end()) {
+    auto it = isbn_price_table_.find(isbn);
+    if (it != isbn_price_table_.end()) {
       MoveToFront(isbn, it);
     } else {
-      // Remove the least recently used.
-      if (cache_.size() == capacity) {
-        cache_.erase(data_.back());
-        data_.pop_back();
+      if (isbn_price_table_.size() == capacity) {
+        // Remove the least recently used ISBN to get space.
+        isbn_price_table_.erase(lru_queue_.back());
+        lru_queue_.pop_back();
       }
 
-      data_.emplace_front(isbn);
-      cache_[isbn] = {data_.begin(), price};
+      lru_queue_.emplace_front(isbn);
+      isbn_price_table_[isbn] = {lru_queue_.begin(), price};
     }
   }
-
+  
   bool Erase(int isbn) {
-    auto it = cache_.find(isbn);
-    if (it == cache_.end()) {
+    auto it = isbn_price_table_.find(isbn);
+    if (it == isbn_price_table_.end()) {
       return false;
     }
 
-    data_.erase(it->second.first);
-    cache_.erase(it);
+    lru_queue_.erase(it->second.first);
+    isbn_price_table_.erase(it);
     return true;
   }
 
  private:
   typedef unordered_map<int, pair<list<int>::iterator, int>> Table;
 
-  // Moves the most recent accessed item to the front.
+  // Moves isbn to the front of the LRU queue.
   void MoveToFront(int isbn, const Table::iterator& it) {
-    data_.erase(it->second.first);
-    data_.emplace_front(isbn);
-    it->second.first = data_.begin();
+    lru_queue_.erase(it->second.first);
+    lru_queue_.emplace_front(isbn);
+    it->second.first = lru_queue_.begin();
   }
 
-  Table cache_;
-  list<int> data_;
+  Table isbn_price_table_;
+  list<int> lru_queue_;
 };
 // @exclude
 

@@ -7,27 +7,26 @@ import java.util.*;
 class Anagrams {
   // @include
   public static List<List<String>> findAnagrams(String[] dictionary) {
-    // Gets the sorted string and then insert into hash table.
-    Map<String, List<String>> hash = new HashMap<>();
+    Map<String, List<String>> sortedStringToAnagrams = new HashMap<>();
     for (String s : dictionary) {
+      // Sorts the string, uses it as a key, and then appends
+      // the original string as another value into hash table.
       char[] sortedCharArray = s.toCharArray();
-      // Uses sorted string as the hash code.
       Arrays.sort(sortedCharArray);
       String sortedStr = new String(sortedCharArray);
-      if (!hash.containsKey(sortedStr)) {
-        hash.put(sortedStr, new ArrayList<String>());
+      if (!sortedStringToAnagrams.containsKey(sortedStr)) {
+        sortedStringToAnagrams.put(sortedStr, new ArrayList<String>());
       }
-      hash.get(sortedStr).add(s);
+      sortedStringToAnagrams.get(sortedStr).add(s);
     }
 
-    List<List<String>> anagrams = new ArrayList<>();
-    for (Map.Entry<String, List<String>> p : hash.entrySet()) {
-      // Multiple strings with the same hash code => anagrams.
-      if (p.getValue().size() >= 2) {
-        anagrams.add(p.getValue());
+    List<List<String>> anagramGroups = new ArrayList<>();
+    for (Map.Entry<String, List<String>> p : sortedStringToAnagrams.entrySet()) {
+      if (p.getValue().size() >= 2) { // Found anagrams.
+        anagramGroups.add(p.getValue());
       }
     }
-    return anagrams;
+    return anagramGroups;
   }
   // @exclude
 

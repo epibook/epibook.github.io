@@ -15,19 +15,21 @@ namespace CanStringBeAPalindromeHash {
 
 // @include
 bool CanStringBeAPalindrome(const string& s) {
-  unordered_map<char, int> hash;
-  // Inserts each char into hash.
-  for_each(s.begin(), s.end(), [&hash](const char & c) { ++hash[c]; });
+  unordered_map<char, int> char_frequencies;
+  // Compute the frequency of each char in s.
+  for (const auto& c : s) {
+    ++char_frequencies[c];
+  }
 
-  // A string can be permuted as a palindrome if the number of odd time
-  // chars <= 1.
-  int odd_count = 0;
-  for (const auto& p : hash) {
-    if (p.second & 1 && ++odd_count > 1) {
-      break;
+  // A string can be permuted as a palindrome if and only if the number of
+  // chars whose frequencies is odd is at most 1.
+  int odd_frequency_count = 0;
+  for (const auto& p : char_frequencies) {
+    if ((p.second % 2) && ++odd_frequency_count > 1) {
+      return false;
     }
   }
-  return odd_count <= 1;
+  return true;
 }
 // @exclude
 

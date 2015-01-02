@@ -17,7 +17,6 @@ shared_ptr<ListNode<int>> ReverseLinkedList(
   if (!head || !head->next) {
     return head;
   }
-
   auto new_head = ReverseLinkedList(head->next);
   head->next->next = head;
   head->next = nullptr;

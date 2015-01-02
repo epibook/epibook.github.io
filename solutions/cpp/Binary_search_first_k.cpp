@@ -15,15 +15,16 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-int SearchFirst(const vector<int>& A, int k) {
+int SearchFirstOfK(const vector<int>& A, int k) {
   int left = 0, right = A.size() - 1, result = -1;
+  // [left : right] is the candidate set.
   while (left <= right) {
     int mid = left + ((right - left) / 2);
     if (A[mid] > k) {
       right = mid - 1;
     } else if (A[mid] == k) {
-      // Records the solution and keep searching the left part.
-      result = mid, right = mid - 1;
+      result = mid;
+      right = mid - 1;  // Nothing to the right of mid can be solution.
     } else {  // A[mid] < k.
       left = mid + 1;
     }
@@ -50,7 +51,7 @@ int main(int argc, char* argv[]) {
       A.emplace_back(dis(gen));
     }
     sort(A.begin(), A.end());
-    int ans = SearchFirst(A, k);
+    int ans = SearchFirstOfK(A, k);
     cout << "k = " << k << " locates at " << ans << endl;
     if (ans != -1) {
       cout << "A[k] = " << A[ans] << endl;

@@ -5,16 +5,16 @@ import java.util.Random;
 
 public class BinarySearchFirstK {
   // @include
-  public static int searchFirst(int[] A, int k) {
+  public static int searchFirstOfK(int[] A, int k) {
     int left = 0, right = A.length - 1, result = -1;
+    // [left : right] is the candidate set.
     while (left <= right) {
       int mid = left + ((right - left) / 2);
       if (A[mid] > k) {
         right = mid - 1;
       } else if (A[mid] == k) {
-        // Records the solution and keep searching the left part.
         result = mid;
-        right = mid - 1;
+        right = mid - 1; // Nothing to the right of mid can be solution.
       } else { // A[mid] < k
         left = mid + 1;
       }
@@ -47,7 +47,7 @@ public class BinarySearchFirstK {
         A[i] = r.nextInt(n);
       }
       Arrays.sort(A);
-      int ans = searchFirst(A, k);
+      int ans = searchFirstOfK(A, k);
       System.out.println("k = " + k + " locates at " + ans);
       if (ans != -1) {
         System.out.println("A[k] = " + A[ans]);

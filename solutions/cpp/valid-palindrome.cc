@@ -33,6 +33,8 @@ bool IsPalindrome(const string& s) {
 int main(int argc, char** argv) {
   assert(IsPalindrome("A man, a plan, a canal: Panama"));
   assert(!IsPalindrome("race a car"));
+  assert(IsPalindrome("Able was I, ere I saw Elba!"));
+  assert(!IsPalindrome("Ray a Ray"));
   assert(IsPalindrome(""));
   return 0;
 }

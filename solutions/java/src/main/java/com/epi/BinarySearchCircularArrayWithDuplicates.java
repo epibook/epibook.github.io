@@ -20,7 +20,8 @@ public class BinarySearchCircularArrayWithDuplicates {
     } else if (A[mid] < A[right]) {
       return searchSmallestHelper(A, left, mid);
     } else { // A[mid] == A[right]
-      // Smallest element must exist in either left or right side.
+      // We cannot eliminate either side so we compare the results from both
+      // sides.
       int leftResult = searchSmallestHelper(A, left, mid);
       int rightResult = searchSmallestHelper(A, mid + 1, right);
       return A[rightResult] < A[leftResult] ? rightResult : leftResult;

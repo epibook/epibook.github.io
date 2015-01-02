@@ -6,20 +6,24 @@ import java.util.Random;
 
 public class FindMissingAndDuplicateXOR {
   // @include
-  // Returns Pair<Integer, Integer>(duplicate, missing)
+  // Returns a Pair of (duplicate, missing)
   public static Pair<Integer, Integer> findDuplicateMissing(int[] A) {
+    // Compute the XOR of all numbers from 0 to |A| - 1 and all entries in A.
     int missXORDup = 0;
     for (int i = 0; i < A.length; ++i) {
       missXORDup ^= i ^ A[i];
     }
 
-    // We need to find a bit that's set to 1 in missXORDup. This assignment
-    // sets all of bits in differBit to 0 except for the least significant
-    // bit in missXORDup that's 1.
+    // We need to find a bit that's set to 1 in missXORDup. Such a bit
+    // must exist if there is a single missing number and a single duplicated
+    // number in A.
+    //
+    // The bit-fiddling assignment below sets all of bits in differBit to 0
+    // except for the least significant bit in missXORDup that's 1.
     int differBit = missXORDup & (~(missXORDup - 1));
-
     int missOrDup = 0;
     for (int i = 0; i < A.length; ++i) {
+      // Focus on entries and numbers in which the differ_bit-th bit is 1.
       if ((i & differBit) != 0) {
         missOrDup ^= i;
       }
@@ -28,12 +32,13 @@ public class FindMissingAndDuplicateXOR {
       }
     }
 
+    // missOrDup is either the missing entry or the duplicated entry.
     for (int a : A) {
-      if (a == missOrDup) { // Find duplicate.
+      if (a == missOrDup) { // missOrDup is the duplicate.
         return new Pair<>(missOrDup, missOrDup ^ missXORDup);
       }
     }
-    // missOrDup is the missing element.
+    // missOrDup is the missing.
     return new Pair<>(missOrDup ^ missXORDup, missOrDup);
   }
   // @exclude

@@ -26,20 +26,20 @@ pair<int, int> FindMinMax(const vector<int>& A) {
     return {A.front(), A.front()};
   }
 
-  // Initializes the min and max pair.
-  pair<int, int> min_max_pair = minmax(A[0], A[1]);
+  pair<int, int> global_min_max = minmax(A[0], A[1]);
+  // Process elements one pair at a time.
   for (int i = 2; i + 1 < A.size(); i += 2) {
-    pair<int, int> local_pair = minmax(A[i], A[i + 1]);
-    min_max_pair = {min(min_max_pair.first, local_pair.first),
-                    max(min_max_pair.second, local_pair.second)};
+    pair<int, int> local_min_max = minmax(A[i], A[i + 1]);
+    global_min_max = {min(global_min_max.first, local_min_max.first),
+                      max(global_min_max.second, local_min_max.second)};
   }
-  // Special case: If there is odd number of elements in the array, we still
+  // If there is odd number of elements in the array, we still
   // need to compare the last element with the existing answer.
   if (A.size() & 1) {
-    min_max_pair = {min(min_max_pair.first, A.back()),
-                    max(min_max_pair.second, A.back())};
+    global_min_max = {min(global_min_max.first, A.back()),
+                      max(global_min_max.second, A.back())};
   }
-  return min_max_pair;
+  return global_min_max;
 }
 // @exclude
 

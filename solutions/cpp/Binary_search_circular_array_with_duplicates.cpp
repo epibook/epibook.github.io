@@ -15,7 +15,7 @@ using std::stoi;
 using std::uniform_int_distribution;
 using std::vector;
 
-int SearchSmallestHelper(const vector<int>& A, int l, int r);
+int SearchSmallestHelper(const vector<int>&, int, int);
 
 // @include
 int SearchSmallest(const vector<int>& A) {
@@ -33,7 +33,8 @@ int SearchSmallestHelper(const vector<int>& A, int left, int right) {
   } else if (A[mid] < A[right]) {
     return SearchSmallestHelper(A, left, mid);
   } else {  // A[mid] == A[right].
-    // Smallest element must exist in either left or right side.
+    // We cannot eliminate either side so we compare the results from both
+    // sides.
     int left_result = SearchSmallestHelper(A, left, mid);
     int right_result = SearchSmallestHelper(A, mid + 1, right);
     return A[right_result] < A[left_result] ? right_result : left_result;

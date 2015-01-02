@@ -14,14 +14,15 @@ class NearestRepetition {
   }
 
   // @include
-  public static int findNearestRepetition(String[] s) {
-    Map<String, Integer> stringToLocation = new HashMap<>();
+  public static int findNearestRepetition(String[] paragraph) {
+    Map<String, Integer> wordToLatestIndex = new HashMap<>();
     int closestDis = Integer.MAX_VALUE;
-    for (int i = 0; i < s.length; ++i) {
-      if (stringToLocation.containsKey(s[i])) {
-        closestDis = Math.min(closestDis, i - stringToLocation.get(s[i]));
+    for (int i = 0; i < paragraph.length; ++i) {
+      if (wordToLatestIndex.containsKey(paragraph[i])) {
+        closestDis =
+            Math.min(closestDis, i - wordToLatestIndex.get(paragraph[i]));
       }
-      stringToLocation.put(s[i], i);
+      wordToLatestIndex.put(paragraph[i], i);
     }
     return closestDis;
   }

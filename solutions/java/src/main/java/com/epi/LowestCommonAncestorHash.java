@@ -5,30 +5,27 @@ import com.epi.BinaryTreeWithParentPrototype.BinaryTree;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class LowestCommonAncestorHash {
   // @include
-  public static BinaryTree<Integer> LCA(BinaryTree<Integer> i,
-                                        BinaryTree<Integer> j) {
+  public static BinaryTree<Integer> LCA(BinaryTree<Integer> node0,
+                                        BinaryTree<Integer> node1) {
     Set<BinaryTree<Integer>> hash = new HashSet<>();
-    while (i != null || j != null) {
-      if (i != null) {
-        if (!hash.add(i)) {
-          return i; // Adds a failed because a exists in hash.
+    while (node0 != null || node1 != null) {
+      // Ascend in tandem for iter_0 and iter_1.
+      if (node0 != null) {
+        if (!hash.add(node0)) {
+          return node0;
         }
-        i = i.getParent();
+        node0 = node0.getParent();
       }
-      if (j != null) {
-        if (!hash.add(j)) {
-          return j; // Adds a failed because a exists in hash.
+      if (node1 != null) {
+        if (!hash.add(node1)) {
+          return node1;
         }
-        j = j.getParent();
+        node1 = node1.getParent();
       }
     }
-    // Throw error if a and b are not in the same tree.
-    throw new RuntimeException("a and b are not in the same tree");
+    throw new RuntimeException("node0 and node1 are not in the same tree");
   }
   // @exclude
 

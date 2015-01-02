@@ -104,7 +104,8 @@ int main(int argc, char* argv[]) {
     }
     cout << endl;
     */
-    pair<int, int> res(FindSmallestSubarrayCoveringSubset(A, Q));
+    unordered_set<string> input(Q.cbegin(), Q.cend());
+    pair<int, int> res(FindSmallestSubarrayCoveringSet(A, input));
     cout << res.first << ", " << res.second << endl;
     dict.clear();
     for (int i = 0; i < Q.size(); ++i) {

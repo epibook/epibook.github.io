@@ -12,7 +12,11 @@ import static com.epi.utils.Utils.getCanonicalFractional;
 import static com.epi.utils.Utils.nullEqual;
 
 class Line {
+  // slope is a rational number. Note that if the line is parallel to y-axis
+  // that we store 1/0.
   private Pair<Integer, Integer> slope;
+  // intercept is a rational number for the y-intercept unless
+  // the line is parallel to y-axis in which case it is the x-intercept
   private Pair<Integer, Integer> intercept;
 
   Line(Point a, Point b) {
@@ -41,16 +45,15 @@ class Line {
     if (o instanceof Line) {
       Line l = (Line) o;
       return nullEqual(slope, l.getSlope())
-          && nullEqual(intercept, l.getIntercept());
+             && nullEqual(intercept, l.getIntercept());
     }
-
     return false;
   }
 
   @Override
   public int hashCode() {
     return slope.getFirst() ^ slope.getSecond() ^ intercept.getFirst()
-        ^ intercept.getSecond();
+           ^ intercept.getSecond();
   }
 }
 

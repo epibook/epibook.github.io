@@ -14,13 +14,14 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-int SearchFirstLargerK(const vector<int>& A, int k) {
+int SearchFirstLargerOfK(const vector<int>& A, int k) {
   int left = 0, right = A.size() - 1, result = -1;
+  // [left : right] is the candidate set.
   while (left <= right) {
     int m = left + ((right - left) / 2);
     if (A[m] > k) {
-      // Records the solution and keeps searching the left part.
-      result = m, right = m - 1;
+      result = m;
+      right = m - 1;  // Nothing to the right of mid can be solution.
     } else {  // A[m] <= k.
       left = m + 1;
     }
@@ -56,7 +57,7 @@ int main(int argc, char* argv[]) {
     sort(A.begin(), A.end());
     uniform_int_distribution<int> k_dis(0, n - 1);
     int k = k_dis(gen);
-    int ans = SearchFirstLargerK(A, k);
+    int ans = SearchFirstLargerOfK(A, k);
     cout << "k = " << k << " locates at " << ans << endl;
     if (ans != -1) {
       cout << "A[k] = " << A[ans] << endl;

@@ -24,23 +24,22 @@ using std::vector;
 
 // @include
 vector<vector<string>> FindAnagrams(const vector<string>& dictionary) {
-  // Gets the sorted string and then insert into hash table.
-  unordered_map<string, vector<string>> hash;
+  unordered_map<string, vector<string>> sorted_string_to_anagrams;
   for (const string& s : dictionary) {
+    // Sorts the string, uses it as a key, and then appends
+    // the original string as another value into hash table.
     string sorted_str(s);
-    // Uses sorted string as the hash code.
     sort(sorted_str.begin(), sorted_str.end());
-    hash[sorted_str].emplace_back(s);
+    sorted_string_to_anagrams[sorted_str].emplace_back(s);
   }
 
-  vector<vector<string>> anagrams;
-  for (const pair<string, vector<string>>& p : hash) {
-    // Multiple strings with the same hash code => anagrams.
-    if (p.second.size() >= 2) {
-      anagrams.emplace_back(p.second);
+  vector<vector<string>> anagram_groups;
+  for (const pair<string, vector<string>>& p : sorted_string_to_anagrams) {
+    if (p.second.size() >= 2) {  // Found anagrams.
+      anagram_groups.emplace_back(p.second);
     }
   }
-  return anagrams;
+  return anagram_groups;
 }
 // @exclude
 
@@ -59,11 +58,11 @@ void SmallTest() {
                       "here come dots", "the eyes",   "they see",
                       "THL"};
   auto result = FindAnagrams(D);
-  // 3 nontrivial groups: 
-  // {"debit card", "bad credit"}, 
+  // 3 nontrivial groups:
+  // {"debit card", "bad credit"},
   // {"the morse code", "here come dots"}
   // {"the eyes",   "they see"
-  // Since the string "THL" has no anagrams in D, the result 
+  // Since the string "THL" has no anagrams in D, the result
   // contains 3 entries
   assert(result.size() == 3);
 }

@@ -20,18 +20,23 @@ using std::vector;
 
 // @include
 int FindKthLargestUnknownLength(istringstream* sin, int k) {
-  vector<int> M;
+  vector<int> candidates;
   int x;
   while (*sin >> x) {
-    M.emplace_back(x);
-    if (M.size() == (k * 2) - 1) {
+    candidates.emplace_back(x);
+    if (candidates.size() == (k * 2) - 1) {
+      // Reorders elements about median with larger elements appearing before 
+      // the median.
+      nth_element(candidates.begin(), candidates.begin() + k - 1,
+                  candidates.end(), greater<int>());
       // Keeps the k largest elements and discard the smaller ones.
-      nth_element(M.begin(), M.begin() + k - 1, M.end(), greater<int>());
-      M.resize(k);
+      candidates.resize(k);
     }
   }
-  nth_element(M.begin(), M.begin() + k - 1, M.end(), greater<int>());
-  return M[k - 1];  // return the k-th largest one.
+  // Finds the k-th largest element in candidates.
+  nth_element(candidates.begin(), candidates.begin() + k - 1,
+              candidates.end(), greater<int>());
+  return candidates[k - 1];
 }
 // @exclude
 

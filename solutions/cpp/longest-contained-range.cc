@@ -141,8 +141,8 @@ int LongestContainedRange(const vector<int>& A) {
       ++upper_bound;
     }
 
-    max_interval_size = max(max_interval_size,
-      upper_bound - lower_bound - 1);
+    max_interval_size =
+        max(max_interval_size, upper_bound - lower_bound - 1);
   }
   return max_interval_size;
 }
