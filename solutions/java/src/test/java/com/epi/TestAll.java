@@ -78,7 +78,7 @@ public class TestAll {
 
   @Test
   public void testBentleybsearch() {
-    Bentleybsearch.main(NO_ARGS);
+    BentleyBsearch.main(NO_ARGS);
   }
 
   @Test
@@ -1265,7 +1265,7 @@ public class TestAll {
 
   @Test
   public void testisBinaryTreeABST_BFS() {
-    IsBinaryTreeAbstBfs.main(NO_ARGS);
+    IsBinaryTreeABSTBFS.main(NO_ARGS);
   }
 
   @Test
