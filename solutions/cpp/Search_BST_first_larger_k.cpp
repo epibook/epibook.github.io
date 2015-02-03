@@ -7,23 +7,22 @@
 using std::unique_ptr;
 
 // @include
-BSTNode<int>* FindFirstLargerKWithKExist(const unique_ptr<BSTNode<int>>& T,
-                                         int k) {
+BSTNode<int>* FindFirstGreaterThanK(const unique_ptr<BSTNode<int>>& T, int k) {
   bool found_k = false;
-  BSTNode<int>* curr = T.get(), *first = nullptr;
+  BSTNode<int>* subtree = T.get(), *first_so_far = nullptr;
 
-  while (curr) {
-    if (curr->data == k) {
+  while (subtree) {
+    if (subtree->data == k) {
       found_k = true;
-      curr = curr->right.get();
-    } else if (curr->data > k) {
-      first = curr;
-      curr = curr->left.get();
-    } else {  // curr->data < k.
-      curr = curr->right.get();
+      subtree = subtree->right.get();
+    } else if (subtree->data > k) {
+      first_so_far = subtree;
+      subtree = subtree->left.get();
+    } else {  // subtree->data < k.
+      subtree = subtree->right.get();
     }
   }
-  return found_k ? first : nullptr;
+  return found_k ? first_so_far : nullptr;
 }
 // @exclude
 
@@ -37,9 +36,9 @@ int main(int argc, char* argv[]) {
   root->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
   root->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
   root->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{7});
-  assert(FindFirstLargerKWithKExist(root, 1) == root->left.get());
-  assert(FindFirstLargerKWithKExist(root, 5) == root->right->right.get());
-  assert(!FindFirstLargerKWithKExist(root, 6));
-  assert(!FindFirstLargerKWithKExist(root, 7));
+  assert(FindFirstGreaterThanK(root, 1) == root->left.get());
+  assert(FindFirstGreaterThanK(root, 5) == root->right->right.get());
+  assert(!FindFirstGreaterThanK(root, 6));
+  assert(!FindFirstGreaterThanK(root, 7));
   return 0;
 }

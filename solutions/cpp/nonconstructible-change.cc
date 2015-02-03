@@ -17,36 +17,36 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-int NonconstructibleChange(vector<int> A) {
+int SmallestNonconstructibleValue(vector<int> A) {
   sort(A.begin(), A.end());
-  int sum = 0;
+  int max_constructible_value = 0;
   for (int a : A) {
-    if (a > sum + 1) {
+    if (a > max_constructible_value + 1) {
       break;
     }
-    sum += a;
+    max_constructible_value += a;
   }
-  return sum + 1;
+  return max_constructible_value + 1;
 }
 // @exclude
 
 void SmallTest() {
   vector<int> A = {1, 2, 3, 4};
-  assert(11 == NonconstructibleChange(A));
+  assert(11 == SmallestNonconstructibleValue(A));
   A = {1, 2, 2, 4};
-  assert(10 == NonconstructibleChange(A));
+  assert(10 == SmallestNonconstructibleValue(A));
   A = {2, 3, 4, 5};
-  assert(1 == NonconstructibleChange(A));
+  assert(1 == SmallestNonconstructibleValue(A));
   A = {1, 3, 2, 1};
-  assert(8 == NonconstructibleChange(A));
+  assert(8 == SmallestNonconstructibleValue(A));
   A = {1, 3, 2, 5};
-  assert(12 == NonconstructibleChange(A));
+  assert(12 == SmallestNonconstructibleValue(A));
   A = {1, 3, 2, 6};
-  assert(13 == NonconstructibleChange(A));
+  assert(13 == SmallestNonconstructibleValue(A));
   A = {1, 3, 2, 7};
-  assert(14 == NonconstructibleChange(A));
+  assert(14 == SmallestNonconstructibleValue(A));
   A = {1, 3, 2, 8};
-  assert(7 == NonconstructibleChange(A));
+  assert(7 == SmallestNonconstructibleValue(A));
 }
 
 int main(int argc, char* argv[]) {
@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
   generate_n(back_inserter(A), n, [&] { return dis(gen); });
   copy(A.begin(), A.end(), ostream_iterator<int>(cout, " "));
   cout << endl;
-  int ans = NonconstructibleChange(A);
+  int ans = SmallestNonconstructibleValue(A);
   cout << ans << endl;
   return 0;
 }

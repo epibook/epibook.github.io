@@ -6,46 +6,40 @@ import java.util.List;
 import java.util.Random;
 
 public class CompletionSearch {
-  private static int lowerBound(List<Double> a, double val) {
-    for (int i = 0; i < a.size(); i++) {
-      if (a.get(i) > val) {
-        return i;
+  // @include
+  public static double findSalaryCap(double targetPayroll, 
+                                     Double[] currentSalaries) {
+    Arrays.sort(currentSalaries);
+    double unadjustedSalarySum = 0;
+    double adjustedSalarySum = currentSalaries[0] * currentSalaries.length;
+    for (int i = 0; i < currentSalaries.length; ++i) {
+      unadjustedSalarySum += currentSalaries[i];
+      adjustedSalarySum = currentSalaries[i] * 
+                          (currentSalaries.length - (i + 1));
+      if (unadjustedSalarySum + adjustedSalarySum >= targetPayroll) {
+        return (targetPayroll - unadjustedSalarySum + currentSalaries[i]) /
+               (currentSalaries.length - i);
       }
     }
-    return -1;
-  }
-
-  // @include
-  public static double completionSearch(Double[] A, double budget) {
-    Arrays.sort(A);
-    // Calculates the prefix sum for A.
-    List<Double> prefixSum = new ArrayList<>();
-    double val = 0;
-    for (Double a : A) {
-      val += a;
-      prefixSum.add(val);
-    }
-    // costs[i] represents the total payroll if the cap is A[i].
-    List<Double> costs = new ArrayList<>();
-    for (int i = 0; i < prefixSum.size(); ++i) {
-      costs.add(prefixSum.get(i) + (A.length - i - 1) * A[i]);
-    }
-
-    int lower = lowerBound(costs, budget);
-
-    if (lower == -1) {
-      return -1.0; // No solution since budget is too large.
-    }
-
-    if (lower == 0) {
-      return budget / A.length;
-    }
-    int idx = lower - 1;
-    return A[idx] + (budget - costs.get(idx)) / (A.length - idx - 1);
+    // No solution, since targetPayroll > existing payroll.
+    return -1.0;
   }
   // @exclude
 
+  private static void smallTest() {
+    Double[] A = {20.0, 30.0, 40.0, 90.0, 100.0};
+    double T = 210;
+    assert (findSalaryCap(T, A) == 60);
+    T = 280;
+    assert (findSalaryCap(T, A) == 100);
+    T = 50;
+    assert (findSalaryCap(T, A) == 10);
+    T = 281;
+    assert (findSalaryCap(T, A) == -1.0);
+  }
+
   public static void main(String[] args) {
+    smallTest();
     Random r = new Random();
     for (int times = 0; times < 10000; ++times) {
       int n;
@@ -64,9 +58,8 @@ public class CompletionSearch {
       for (int i = 0; i < n; ++i) {
         A[i] = (double) r.nextInt(10000);
       }
-      System.out.println("A = " + A.toString());
       System.out.println("tar = " + tar);
-      double ret = completionSearch(A, tar);
+      double ret = findSalaryCap(tar, A);
       if (ret != -1.0) {
         System.out.println("ret = " + ret);
         double sum = 0.0;

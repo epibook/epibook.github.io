@@ -6,12 +6,12 @@ import java.util.Random;
 public class MergeTwoSortedArraysInPlace {
   // @include
   public static void mergeTwoSortedArrays(int A[], int m, int B[], int n) {
-    int a = m - 1, b = n - 1, tar = m + n - 1;
+    int a = m - 1, b = n - 1, writeIdx = m + n - 1;
     while (a >= 0 && b >= 0) {
-      A[tar--] = A[a] > B[b] ? A[a--] : B[b--];
+      A[writeIdx--] = A[a] > B[b] ? A[a--] : B[b--];
     }
     while (b >= 0) {
-      A[tar--] = B[b--];
+      A[writeIdx--] = B[b--];
     }
   }
   // @exclude

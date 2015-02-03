@@ -21,24 +21,26 @@ struct QNode {
   int lower, upper;
 };
 
-bool IsBST(const unique_ptr<BinaryTreeNode<int>>& root) {
-  queue<QNode> q;
-  q.emplace(
+bool IsBinaryTreeBST(const unique_ptr<BinaryTreeNode<int>>& root) {
+  queue<QNode> BFS_queue;
+  BFS_queue.emplace(
       QNode{root, numeric_limits<int>::min(), numeric_limits<int>::max()});
 
-  while (!q.empty()) {
-    if (q.front().node.get()) {
-      if (q.front().node->data < q.front().lower ||
-          q.front().node->data > q.front().upper) {
+  while (!BFS_queue.empty()) {
+    if (BFS_queue.front().node.get()) {
+      if (BFS_queue.front().node->data < BFS_queue.front().lower ||
+          BFS_queue.front().node->data > BFS_queue.front().upper) {
         return false;
       }
 
-      q.emplace(QNode{q.front().node->left, q.front().lower,
-                      q.front().node->data});
-      q.emplace(QNode{q.front().node->right, q.front().node->data,
-                      q.front().upper});
+      BFS_queue.emplace(QNode{BFS_queue.front().node->left, 
+                        BFS_queue.front().lower, 
+                        BFS_queue.front().node->data});
+      BFS_queue.emplace(QNode{BFS_queue.front().node->right,
+                        BFS_queue.front().node->data,
+                        BFS_queue.front().upper});
     }
-    q.pop();
+    BFS_queue.pop();
   }
   return true;
 }
@@ -55,17 +57,17 @@ int main(int argc, char* argv[]) {
   root->right->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
   root->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
   // should output true
-  assert(IsBST(root) == true);
-  cout << boolalpha << IsBST(root) << endl;
+  assert(IsBinaryTreeBST(root) == true);
+  cout << boolalpha << IsBinaryTreeBST(root) << endl;
   //      10
   //    2   5
   //  1    4 6
   root->data = 10;
   // should output false
-  assert(!IsBST(root));
-  cout << boolalpha << IsBST(root) << endl;
+  assert(!IsBinaryTreeBST(root));
+  cout << boolalpha << IsBinaryTreeBST(root) << endl;
   // empty tree, should output true
-  assert(IsBST(nullptr) == true);
-  cout << boolalpha << IsBST(nullptr) << endl;
+  assert(IsBinaryTreeBST(nullptr) == true);
+  cout << boolalpha << IsBinaryTreeBST(nullptr) << endl;
   return 0;
 }

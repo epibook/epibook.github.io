@@ -29,9 +29,9 @@ struct Person {
   string name;
 };
 
-void CountingSort(vector<Person>* people) {
+void ReorderIntoEqualSubarrays(vector<Person>* person_array) {
   unordered_map<int, int> key_to_count;
-  for (const Person& p : *people) {
+  for (const Person& p : *person_array) {
     ++key_to_count[p.key];
   }
   unordered_map<int, int> key_to_offset;
@@ -43,10 +43,11 @@ void CountingSort(vector<Person>* people) {
 
   while (key_to_offset.size()) {
     auto from = key_to_offset.begin();
-    auto to = key_to_offset.find((*people)[from->second].key);
-    swap((*people)[from->second], (*people)[to->second]);
+    auto to = key_to_offset.find((*person_array)[from->second].key);
+    swap((*person_array)[from->second], (*person_array)[to->second]);
     // Use key_to_count to see when we are finished with a particular key.
-    if (--key_to_count[to->first]) {
+    --key_to_count[to->first];
+    if (key_to_count[to->first] > 0) {
       ++to->second;
     } else {
       key_to_offset.erase(to);
@@ -82,23 +83,23 @@ int main(int argc, char* argv[]) {
       uniform_int_distribution<int> dis(1, size);
       k = dis(gen);
     }
-    vector<Person> people;
+    vector<Person> person_array;
     uniform_int_distribution<int> k_dis(0, k - 1);
     uniform_int_distribution<int> len_dis(1, 10);
     for (int i = 0; i < size; ++i) {
-      people.emplace_back(Person{k_dis(gen), RandString(len_dis(gen))});
+      person_array.emplace_back(Person{k_dis(gen), RandString(len_dis(gen))});
     }
     unordered_set<int> key_set;
-    for (const Person& p : people) {
+    for (const Person& p : person_array) {
       key_set.emplace(p.key);
     }
 
-    CountingSort(&people);
+    ReorderIntoEqualSubarrays(&person_array);
 
     // Check the correctness of sorting.
     int diff_count = 1;
-    for (int i = 1; i < people.size(); ++i) {
-      if (people[i].key != people[i - 1].key) {
+    for (int i = 1; i < person_array.size(); ++i) {
+      if (person_array[i].key != person_array[i - 1].key) {
         ++diff_count;
       }
     }

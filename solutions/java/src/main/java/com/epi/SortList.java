@@ -4,13 +4,13 @@ import java.util.Random;
 
 public class SortList {
   // @include
-  public static ListNode<Integer> sortList(ListNode<Integer> L) {
-    // Base case. L has 0 or 1 node.
+  public static ListNode<Integer> stableSortList(ListNode<Integer> L) {
+    // Base cases: L is empty or a single node, nothing to do.
     if (L == null || L.next == null) {
       return L;
     }
 
-    // Finds the middle point of L.
+    // Find the midpoint of L using a slow and a fast pointer.
     ListNode<Integer> preSlow = null, slow = L, fast = L;
     while (fast != null && fast.next != null) {
       preSlow = slow;
@@ -18,9 +18,10 @@ public class SortList {
       slow = slow.next;
     }
 
-    preSlow.next = null; // Splits the list into two lists.
-    return MergeSortedLists.mergeTwoSortedLinkedLists(sortList(L),
-                                                      sortList(slow));
+    preSlow.next = null; // Splits the list into two equal-sized lists.
+
+    return MergeSortedLists.mergeTwoSortedLinkedLists(stableSortList(L),
+                                                      stableSortList(slow));
   }
   // @exclude
 
@@ -40,7 +41,7 @@ public class SortList {
         L = temp;
       }
 
-      ListNode<Integer> sortedHead = sortList(L);
+      ListNode<Integer> sortedHead = stableSortList(L);
       int count = 0;
       int pre = Integer.MIN_VALUE;
       while (sortedHead != null) {

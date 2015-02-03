@@ -17,15 +17,16 @@ class Team {
  public:
   explicit Team(const vector<int>& height) {
     for (const int& h : height) {
-      members_.emplace_back(Player{h});
+      players_.emplace_back(Player{h});
     }
   }
 
-  bool operator<(const Team& that) const {
-    vector<Player> this_sorted(SortHeightMembers());
-    vector<Player> that_sorted(that.SortHeightMembers());
-    for (int i = 0; i < this_sorted.size() && i < that_sorted.size(); ++i) {
-      if (!(this_sorted[i] < that_sorted[i])) {
+  // Checks if A can be placed in front of B.
+  static bool valid_placement_exists(const Team& A, const Team& B) {
+    vector<Player> A_sorted(A.SortPlayersByHeight());
+    vector<Player> B_sorted(B.SortPlayersByHeight());
+    for (int i = 0; i < A_sorted.size() && i < B_sorted.size(); ++i) {
+      if (B_sorted[i] < A_sorted[i]) {
         return false;
       }
     }
@@ -33,13 +34,13 @@ class Team {
   }
 
  private:
-  vector<Player> SortHeightMembers() const {
-    vector<Player> sorted_members(members_);
-    sort(sorted_members.begin(), sorted_members.end());
-    return sorted_members;
+  vector<Player> SortPlayersByHeight() const {
+    vector<Player> sorted_players(players_);
+    sort(sorted_players.begin(), sorted_players.end());
+    return sorted_players;
   }
 
-  vector<Player> members_;
+  vector<Player> players_;
 };
 // @exclude
 
@@ -48,9 +49,9 @@ int main(int argc, char* argv[]) {
   Team t1(height);
   height = {2, 3, 4};
   Team t2(height);
-  assert(!(t1 < t2) && !(t2 < t1));
+  assert(!Team::valid_placement_exists(t1, t2) && !Team::valid_placement_exists(t2, t1));
   height = {0, 3, 2};
   Team t3(height);
-  assert(t3 < t1 && !(t1 < t3) && t3 < t2 && !(t1 < t2));
+  assert(Team::valid_placement_exists( t3, t1) && !Team::valid_placement_exists(t1, t3) && Team::valid_placement_exists(t3, t2) && !Team::valid_placement_exists(t1, t2));
   return 0;
 }

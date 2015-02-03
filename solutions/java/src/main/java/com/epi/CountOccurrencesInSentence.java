@@ -11,16 +11,16 @@ class CountOccurrencesInSentence {
     char[] a = s.toCharArray();
     Arrays.sort(a);
 
-    int count = 1;
+    int currentCharacterCount = 1;
     for (int i = 1; i < a.length; ++i) {
       if (a[i] == a[i - 1]) {
-        ++count;
+        ++currentCharacterCount;
       } else {
-        System.out.print("(" + a[i - 1] + "," + count + "),");
-        count = 1;
+        System.out.print("(" + a[i - 1] + "," + currentCharacterCount + "),");
+        currentCharacterCount = 1;
       }
     }
-    System.out.println("(" + a[a.length - 1] + ',' + count + ")");
+    System.out.println("(" + a[a.length - 1] + ',' + currentCharacterCount + ")");
   }
   // @exclude
 

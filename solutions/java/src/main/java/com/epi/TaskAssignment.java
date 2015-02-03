@@ -12,13 +12,14 @@ import java.util.Random;
 
 class TaskAssignment {
   // @include
-  public static List<Pair<Integer, Integer>> taskAssignment(int[] A) {
-    Arrays.sort(A);
-    List<Pair<Integer, Integer>> P = new ArrayList<>();
-    for (int i = 0, j = A.length - 1; i < j; ++i, --j) {
-      P.add(new Pair<>(A[i], A[j]));
+  public static List<Pair<Integer, Integer>> taskAssignment(
+      int[] taskDurations) {
+    Arrays.sort(taskDurations);
+    List<Pair<Integer, Integer>> taskPairings = new ArrayList<>();
+    for (int i = 0, j = taskDurations.length - 1; i < j; ++i, --j) {
+      taskPairings.add(new Pair<>(taskDurations[i], taskDurations[j]));
     }
-    return P;
+    return taskPairings;
   }
   // @exclude
 

@@ -9,19 +9,19 @@ using std::unique_ptr;
 
 // @include
 BSTNode<int>* FindFirstEqualK(const unique_ptr<BSTNode<int>>& T, int k) {
-  BSTNode<int>* first = nullptr, *curr = T.get();
+  BSTNode<int>* first_so_far = nullptr, *curr = T.get();
   while (curr) {
     if (curr->data < k) {
       curr = curr->right.get();
     } else if (curr->data > k) {
       curr = curr->left.get();
     } else {  // curr->data == k.
-      // Searches for the leftmost in the left subtree.
-      first = curr;
+      // Record this node, and search for the first node in the left subtree.
+      first_so_far = curr;
       curr = curr->left.get();
     }
   }
-  return first;
+  return first_so_far;
 }
 // @exclude
 

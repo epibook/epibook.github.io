@@ -13,25 +13,25 @@ using std::endl;
 using std::numeric_limits;
 using std::unique_ptr;
 
-bool IsBSTHelper(const unique_ptr<BinaryTreeNode<int>>& root, int lower,
-                 int upper);
+bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& root, int low_range,
+                    int high_range);
 
 // @include
-bool IsBST(const unique_ptr<BinaryTreeNode<int>>& root) {
-  return IsBSTHelper(root, numeric_limits<int>::min(),
-                     numeric_limits<int>::max());
+bool IsBinaryTreeBST(const unique_ptr<BinaryTreeNode<int>>& root) {
+  return AreKeysInRange(root, numeric_limits<int>::min(),
+                        numeric_limits<int>::max());
 }
 
-bool IsBSTHelper(const unique_ptr<BinaryTreeNode<int>>& root, int lower,
-                 int upper) {
-  if (!root) {
+bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& root, int low_range,
+                    int high_range) {
+  if (root == nullptr) {
     return true;
-  } else if (root->data < lower || root->data > upper) {
+  } else if (root->data < low_range || root->data > high_range) {
     return false;
   }
 
-  return IsBSTHelper(root->left, lower, root->data) &&
-         IsBSTHelper(root->right, root->data, upper);
+  return AreKeysInRange(root->left, low_range, root->data) &&
+         AreKeysInRange(root->right, root->data, high_range);
 }
 // @exclude
 
@@ -46,17 +46,17 @@ int main(int argc, char* argv[]) {
   root->right->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
   root->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
   // should output true.
-  assert(IsBST(root) == true);
-  cout << boolalpha << IsBST(root) << endl;
+  assert(IsBinaryTreeBST(root) == true);
+  cout << boolalpha << IsBinaryTreeBST(root) << endl;
   //      10
   //    2   5
   //  1    4 6
   root->data = 10;
   // should output false.
-  assert(!IsBST(root));
-  cout << boolalpha << IsBST(root) << endl;
+  assert(!IsBinaryTreeBST(root));
+  cout << boolalpha << IsBinaryTreeBST(root) << endl;
   // should output true.
-  assert(IsBST(nullptr) == true);
-  cout << boolalpha << IsBST(nullptr) << endl;
+  assert(IsBinaryTreeBST(nullptr) == true);
+  cout << boolalpha << IsBinaryTreeBST(nullptr) << endl;
   return 0;
 }

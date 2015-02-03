@@ -19,25 +19,28 @@ BSTNode<int>* RebuildBSTFromPreorderHelper(
     const vector<int> &preorder, size_t s, size_t e);
 
 // @include
-// Given a preorder traversal of a BST, returns its root.
-BSTNode<int>* RebuildBSTFromPreorder(const vector<int>& preorder) {
-  return RebuildBSTFromPreorderHelper(preorder, 0, preorder.size());
+BSTNode<int>* RebuildBSTFromPreorder(const vector<int>& preorder_sequence) {
+  return RebuildBSTFromPreorderHelper(preorder_sequence, 
+                                      0, preorder_sequence.size());
 }
 
-// Builds a BST based on preorder[s : e - 1], returns its root.
-BSTNode<int>* RebuildBSTFromPreorderHelper(const vector<int>& preorder,
-                                           size_t s, size_t e) {
+// Builds a BST from preorder_sequence[s : e - 1].
+BSTNode<int>* RebuildBSTFromPreorderHelper(
+    const vector<int>& preorder_sequence, size_t s, size_t e) {
   if (s < e) {
-    size_t x = s + 1;
-    while (x < e && preorder[x] < preorder[s]) {
-      ++x;
+    size_t transition_point = s + 1;
+    while (x < e && 
+           preorder_sequence[transition_point] < preorder_sequence[s]) {
+      ++transition_point;
     }
     return new BSTNode<int>{
-        preorder[s],
+        preorder_sequence[s],
         unique_ptr<BSTNode<int>>(
-            RebuildBSTFromPreorderHelper(preorder, s + 1, x)),
+            RebuildBSTFromPreorderHelper(preorder_sequence, s + 1, 
+                                         transition_point)),
         unique_ptr<BSTNode<int>>(
-            RebuildBSTFromPreorderHelper(preorder, x, e))
+            RebuildBSTFromPreorderHelper(preorder_sequence, transition_point, 
+                                         e))
     };
   }
   return nullptr;

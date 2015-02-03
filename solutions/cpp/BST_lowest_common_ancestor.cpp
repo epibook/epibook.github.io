@@ -8,10 +8,10 @@
 using std::unique_ptr;
 
 // @include
-BSTNode<int>* FindLCA(const unique_ptr<BSTNode<int>>& x,
+BSTNode<int>* FindLCA(const unique_ptr<BSTNode<int>>& root,
                       const unique_ptr<BSTNode<int>>& s,
                       const unique_ptr<BSTNode<int>>& b) {
-  auto* p = x.get();
+  auto* p = root.get();
   while (p->data < s->data || p->data > b->data) {
     while (p->data < s->data) {
       p = p->right.get();  // LCA must be in p's right child.
@@ -21,7 +21,7 @@ BSTNode<int>* FindLCA(const unique_ptr<BSTNode<int>>& x,
     }
   }
 
-  // p->data >= s->data && p->data <= b->data.
+  // s->data <= p->data && p->data <= b->data.
   return p;
 }
 // @exclude

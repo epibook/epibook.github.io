@@ -6,19 +6,19 @@ import java.util.List;
 
 public class IntersectSortedArrays1 {
   // @include
-  public static List<Integer> intersect(int[] A, int[] B) {
-    List<Integer> intersect = new ArrayList<>();
+  public static List<Integer> intersectTwoSortedArrays(int[] A, int[] B) {
+    List<Integer> intersectionAB = new ArrayList<>();
     for (int i = 0; i < A.length; ++i) {
       if (i == 0 || A[i] != A[i - 1]) {
         for (Integer b : B) {
           if (A[i] == b) {
-            intersect.add(A[i]);
+            intersectionAB.add(A[i]);
             break;
           }
         }
       }
     }
-    return intersect;
+    return intersectionAB;
   }
 // @exclude
 }

@@ -20,21 +20,22 @@ using std::stoi;
 using std::uniform_int_distribution;
 
 // @include
-shared_ptr<ListNode<int>> SortList(shared_ptr<ListNode<int>> L) {
-  // Base case. L has 0 or 1 node.
-  if (!L || !L->next) {
+shared_ptr<ListNode<int>> StableSortList(shared_ptr<ListNode<int>> L) {
+  // Base cases: L is empty or a single node, nothing to do.
+  if (L == nullptr || L->next == nullptr) {
     return L;
   }
 
-  // Finds the middle point of L.
+  // Find the midpoint of L using a slow and a fast pointer.
   shared_ptr<ListNode<int>> pre_slow = nullptr, slow = L, fast = L;
   while (fast && fast->next) {
     pre_slow = slow;
     fast = fast->next->next, slow = slow->next;
   }
 
-  pre_slow->next = nullptr;  // Splits the list into two lists.
-  return MergeTwoSortedLists(SortList(L), SortList(slow));
+  pre_slow->next = nullptr;  // Splits the list into two equal-sized lists.
+
+  return MergeTwoSortedLists(StableSortList(L), StableSortList(slow));
 }
 // @exclude
 
@@ -56,7 +57,7 @@ int main(int argc, char* argv[]) {
       L = temp;
     }
 
-    auto sorted_head = SortList(L);
+    auto sorted_head = StableSortList(L);
     int count = 0;
     int pre = numeric_limits<int>::min();
     while (sorted_head) {

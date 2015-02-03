@@ -16,26 +16,27 @@ shared_ptr<ListNode<int>> BuildBSTFromSortedDoublyListHelper(
 // @include
 // Returns the root of the corresponding BST. The prev and next
 // fields of the list nodes are used as the BST nodes left and right fields.
+// @param n  The length of the list.
 shared_ptr<ListNode<int>> BuildBSTFromSortedDoublyList(
     shared_ptr<ListNode<int>> L, int n) {
   return BuildBSTFromSortedDoublyListHelper(&L, 0, n);
 }
 
-// Builds a BST from the (s + 1)-th to the e-th node in L, and returns the
-// root. Node numbering is from 1 to n.
+// Builds a BST from the (s + 1)-th to the e-th node, inclusive, in L, 
+// and returns the root. (Nodes are numbered from 1 to n.)
 shared_ptr<ListNode<int>> BuildBSTFromSortedDoublyListHelper(
-    shared_ptr<ListNode<int>>* L, int s, int e) {
+    shared_ptr<ListNode<int>>* Lref, int s, int e) {
   if (s >= e) {
     return nullptr;
   }
 
   int m = s + ((e - s) / 2);
-  auto left = BuildBSTFromSortedDoublyListHelper(L, s, m);
-  auto curr = *L;  // The last function call sets L to the successor of the
-                   // maximum node in the tree rooted at left.
-  *L = (*L)->next;
+  auto left = BuildBSTFromSortedDoublyListHelper(Lref, s, m);
+  auto curr = *Lref;  // The last function call set L to the successor of 
+                      // the maximum node in the tree rooted at left.
+  *Lref = (*Lref)->next;
   curr->prev = left;
-  curr->next = BuildBSTFromSortedDoublyListHelper(L, m + 1, e);
+  curr->next = BuildBSTFromSortedDoublyListHelper(Lref, m + 1, e);
   return curr;
 }
 // @exclude

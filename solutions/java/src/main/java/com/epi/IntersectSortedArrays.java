@@ -36,9 +36,9 @@ public class IntersectSortedArrays {
         a[j] = rnd.nextInt();
         b[j] = rnd.nextInt();
       }
-      List<Integer> r1 = IntersectSortedArrays1.intersect(a, b);
-      List<Integer> r2 = IntersectSortedArrays2.intersect(a, b);
-      List<Integer> r3 = IntersectSortedArrays3.intersect(a, b);
+      List<Integer> r1 = IntersectSortedArrays1.intersectTwoSortedArrays(a, b);
+      List<Integer> r2 = IntersectSortedArrays2.intersectTwoSortedArrays(a, b);
+      List<Integer> r3 = IntersectSortedArrays3.intersectTwoSortedArrays(a, b);
       check(r1, r2, r3);
     }
   }

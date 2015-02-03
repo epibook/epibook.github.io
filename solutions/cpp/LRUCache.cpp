@@ -30,19 +30,21 @@ class LRUCache {
   void Insert(int isbn, int price) {
     auto it = isbn_price_table_.find(isbn);
     if (it != isbn_price_table_.end()) {
+      // Entry is already present, moves it to the front.
       MoveToFront(isbn, it);
     } else {
       if (isbn_price_table_.size() == capacity) {
-        // Remove the least recently used ISBN to get space.
+        // Removes the least recently used ISBN to get space.
         isbn_price_table_.erase(lru_queue_.back());
         lru_queue_.pop_back();
       }
 
+      // Adds the new entry into the front.
       lru_queue_.emplace_front(isbn);
       isbn_price_table_[isbn] = {lru_queue_.begin(), price};
     }
   }
-  
+
   bool Erase(int isbn) {
     auto it = isbn_price_table_.find(isbn);
     if (it == isbn_price_table_.end()) {

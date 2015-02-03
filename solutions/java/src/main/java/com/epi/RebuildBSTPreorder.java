@@ -5,27 +5,27 @@ import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class RebuildBSTPreorder {
   // @include
-  // Given a preorder traversal of a BST, return its root.
   public static <T extends Comparable<T>> BinaryTree<T> rebuildBSTFromPreorder(
-      List<T> preorder) {
-    return rebuildBSTFromPreorderHelper(preorder, 0, preorder.size());
+      List<T> preorderSequence) {
+    return rebuildBSTFromPreorderHelper(preorderSequence, 0, 
+                                        preorderSequence.size());
   }
 
-  // Build a BST based on preorder[s : e - 1], return its root.
+  // Builds a BST from preorderSequence[s : e - 1].
   private static <T extends Comparable<T>> BinaryTree<T>
-  rebuildBSTFromPreorderHelper(List<T> preorder, int s, int e) {
+  rebuildBSTFromPreorderHelper(List<T> preorderSequence, int s, int e) {
     if (s < e) {
-      int x = s + 1;
-      while (x < e && preorder.get(x).compareTo(preorder.get(s)) < 0) {
-        ++x;
+      int transitionPoint = s + 1;
+      while (transitionPoint < e && 
+             preorderSequence.get(transitionPoint).compareTo(preorderSequence.get(s)) < 0) {
+        ++transitionPoint;
       }
-      return new BinaryTree<>(preorder.get(s), rebuildBSTFromPreorderHelper(
-          preorder, s + 1, x), rebuildBSTFromPreorderHelper(preorder, x, e));
+      return new BinaryTree<>(
+          preorderSequence.get(s), 
+          rebuildBSTFromPreorderHelper(preorderSequence, s + 1, transitionPoint),
+          rebuildBSTFromPreorderHelper(preorderSequence, transitionPoint, e));
     }
     return null;
   }

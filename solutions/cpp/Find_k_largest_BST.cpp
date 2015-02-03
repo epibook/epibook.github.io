@@ -17,23 +17,23 @@ using std::unique_ptr;
 using std::vector;
 
 void FindKLargestInBSTHelper(const unique_ptr<BSTNode<int>>& root, int k,
-                             vector<int>* k_elements);
+                             vector<int>* k_largest_elements);
 
 // @include
 vector<int> FindKLargestInBST(const unique_ptr<BSTNode<int>>& root, int k) {
-  vector<int> k_elements;
-  FindKLargestInBSTHelper(root, k, &k_elements);
-  return k_elements;
+  vector<int> k_largest_elements;
+  FindKLargestInBSTHelper(root, k, &k_largest_elements);
+  return k_largest_elements;
 }
 
 void FindKLargestInBSTHelper(const unique_ptr<BSTNode<int>>& root, int k,
-                             vector<int>* k_elements) {
-  // Performs reverse inorder traversal.
-  if (root && k_elements->size() < k) {
-    FindKLargestInBSTHelper(root->right, k, k_elements);
-    if (k_elements->size() < k) {
-      k_elements->emplace_back(root->data);
-      FindKLargestInBSTHelper(root->left, k, k_elements);
+                             vector<int>* k_largest_elements) {
+  // Perform reverse inorder traversal.
+  if (root && k_largest_elements->size() < k) {
+    FindKLargestInBSTHelper(root->right, k, k_largest_elements);
+    if (k_largest_elements->size() < k) {
+      k_largest_elements->emplace_back(root->data);
+      FindKLargestInBSTHelper(root->left, k, k_largest_elements);
     }
   }
 }

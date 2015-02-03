@@ -15,10 +15,10 @@ using std::vector;
 
 // @include
 void EliminateDuplicate(vector<int>* A) {
-  sort(A->begin(), A->end());  // makes identical elements become neighbors.
+  sort(A->begin(), A->end());  // Makes identical elements become neighbors.
   // unique() removes adjacent duplicates and returns an iterator to the
   // element the follows the last element not removed. The effect of erase()
-  // is to restrict A to the distinct element.
+  // is to restrict A to the distinct elements.
   A->erase(unique(A->begin(), A->end()), A->end());
 }
 // @exclude

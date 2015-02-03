@@ -18,33 +18,33 @@ class Player implements Comparable<Player> {
   }
 }
 
-class Team implements Comparable<Team> {
+class Team {
   public Team(int[] height) {
-    members = new Player[height.length];
+    players = new Player[height.length];
     for (int i = 0; i < height.length; ++i) {
-      members[i] = new Player(height[i]);
+      players[i] = new Player(height[i]);
     }
   }
 
-  @Override
-  public int compareTo(Team that) {
-    Player[] thisSorted = sortHeightMembers();
-    Player[] thatSorted = that.sortHeightMembers();
-    for (int i = 0; i < thisSorted.length && i < thatSorted.length; ++i) {
-      if (thisSorted[i].compareTo(thatSorted[i]) >= 0) {
-        return 1;
+  // Checks if A can be placed in front of B.
+  public static boolean validPlacementExists(Team A, Team B) {
+    Player[] ASorted = A.sortPlayersByHeight();
+    Player[] BSorted = B.sortPlayersByHeight();
+    for (int i = 0; i < ASorted.length && i < BSorted.length; ++i) {
+      if (ASorted[i].compareTo(BSorted[i]) >= 0) {
+        return false;
       }
     }
-    return -1;
+    return true;
   }
 
-  private Player[] sortHeightMembers() {
-    Player[] sortedMembers = members;
-    Arrays.sort(sortedMembers);
-    return sortedMembers;
+  private Player[] sortPlayersByHeight() {
+    Player[] sortedPlayers = players;
+    Arrays.sort(sortedPlayers);
+    return sortedPlayers;
   }
 
-  private Player[] members;
+  private Player[] players;
 }
 // @exclude
 
@@ -54,10 +54,10 @@ class TeamPhoto1 {
     Team t1 = new Team(height);
     height = new int[]{2, 3, 4};
     Team t2 = new Team(height);
-    assert (t1.compareTo(t2) >= 0 && t2.compareTo(t1) >= 0);
+    assert (!Team.validPlacementExists(t1, t2) && !Team.validPlacementExists(t2, t1));
     height = new int[]{0, 3, 2};
     Team t3 = new Team(height);
-    assert (t3.compareTo(t1) < 0 && t1.compareTo(t3) >= 0
-            && t3.compareTo(t2) < 0 && t1.compareTo(t2) >= 0);
+    assert (Team.validPlacementExists(t3, t1) && !Team.validPlacementExists(t1, t3) &&
+            Team.validPlacementExists(t3, t2) && !Team.validPlacementExists(t1, t2));
   }
 }

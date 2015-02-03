@@ -14,44 +14,45 @@ using std::vector;
 struct Interval {
  private:
   struct Endpoint {
-    bool isClose;
+    bool isClosed;
     int val;
   };
 
  public:
   bool operator<(const Interval& i) const {
     return left.val != i.left.val ? left.val < i.left.val
-                                  : (left.isClose && !i.left.isClose);
+                                  : (left.isClosed && !i.left.isClosed);
   }
 
   Endpoint left, right;
 };
 
-vector<Interval> UnionIntervals(vector<Interval> I) {
+vector<Interval> UnionOfIntervals(vector<Interval> intervals) {
   // Empty input.
-  if (I.empty()) {
+  if (intervals.empty()) {
     return {};
   }
 
-  // Sorts intervals according to their left endpoints.
-  sort(I.begin(), I.end());
-  Interval curr(I.front());
-  vector<Interval> uni;
-  for (int i = 1; i < I.size(); ++i) {
-    if (I[i].left.val < curr.right.val ||
-        (I[i].left.val == curr.right.val &&
-         (I[i].left.isClose || curr.right.isClose))) {
-      if (I[i].right.val > curr.right.val ||
-          (I[i].right.val == curr.right.val && I[i].right.isClose)) {
-        curr.right = I[i].right;
+  // Sort intervals according to left endpoints of intervals.
+  sort(intervals.begin(), intervals.end());
+  Interval curr(intervals.front());
+  vector<Interval> result;
+  for (int i = 1; i < intervals.size(); ++i) {
+    if (intervals[i].left.val < curr.right.val ||
+        (intervals[i].left.val == curr.right.val &&
+         (intervals[i].left.isClosed || curr.right.isClosed))) {
+      if (intervals[i].right.val > curr.right.val ||
+          (intervals[i].right.val == curr.right.val &&
+           intervals[i].right.isClosed)) {
+        curr.right = intervals[i].right;
       }
     } else {
-      uni.emplace_back(curr);
-      curr = I[i];
+      result.emplace_back(curr);
+      curr = intervals[i];
     }
   }
-  uni.emplace_back(curr);
-  return uni;
+  result.emplace_back(curr);
+  return result;
 }
 // @exclude
 
@@ -59,8 +60,8 @@ void CheckIntervals(const vector<Interval>& A) {
   // Only check the intervals do not overlap with each other.
   for (size_t i = 1; i < A.size(); ++i) {
     assert(A[i - 1].right.val < A[i].left.val ||
-           (A[i - 1].right.val == A[i].left.val && !A[i - 1].right.isClose &&
-            !A[i].left.isClose));
+           (A[i - 1].right.val == A[i].left.val && !A[i - 1].right.isClosed &&
+            !A[i].left.isClosed));
   }
 }
 
@@ -79,13 +80,13 @@ int main(int argc, char* argv[]) {
       Interval temp;
       uniform_int_distribution<int> zero_or_one(0, 1);
       uniform_int_distribution<int> dis1(0, 9999);
-      temp.left.isClose = zero_or_one(gen), temp.left.val = dis1(gen);
+      temp.left.isClosed = zero_or_one(gen), temp.left.val = dis1(gen);
       uniform_int_distribution<int> dis2(temp.left.val + 1,
                                          temp.left.val + 100);
-      temp.right.isClose = zero_or_one(gen), temp.right.val = dis2(gen);
+      temp.right.isClosed = zero_or_one(gen), temp.right.val = dis2(gen);
       A.emplace_back(temp);
     }
-    vector<Interval> ret = UnionIntervals(A);
+    vector<Interval> ret = UnionOfIntervals(A);
     if (!ret.empty()) {
       CheckIntervals(ret);
     }

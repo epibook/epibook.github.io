@@ -29,16 +29,17 @@ public class LRUCache {
   public void insert(int isbn, int price) {
     Pair<LinkedList<Integer>.Node, Integer> it = isbnPriceTable.get(isbn);
     if (it != null) {
+      // Entry is already present, moves it to the front.
       moveToFront(isbn, it);
     } else {
       if (isbnPriceTable.size() == capacity) {
-        // Remove the least recently used ISBN to get space.
+        // Removes the least recently used ISBN to get space.
         isbnPriceTable.remove(lruQueue.back());
       }
-      isbnPriceTable.put(isbn,
-          new Pair<>(lruQueue.pushFront(isbn),
-              price)
-      );
+
+      // Adds the new entry into the front.
+      isbnPriceTable.put(
+          isbn, new Pair<>(lruQueue.pushFront(isbn), price));
     }
   }
 

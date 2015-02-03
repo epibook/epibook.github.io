@@ -9,7 +9,7 @@ import java.util.Random;
 
 class Interval implements Comparable<Interval> {
   class Endpoint {
-    public boolean isClose;
+    public boolean isClosed;
     public int val;
   }
 
@@ -20,10 +20,10 @@ class Interval implements Comparable<Interval> {
     if (left.val > i.left.val) {
       return 1;
     }
-    if (left.isClose && !i.left.isClose) {
+    if (left.isClosed && !i.left.isClosed) {
       return -1;
     }
-    if (!left.isClose && i.left.isClose) {
+    if (!left.isClosed && i.left.isClosed) {
       return 1;
     }
     return 0;
@@ -36,34 +36,33 @@ class Interval implements Comparable<Interval> {
 class UnionIntervals {
 
   // @include
-  public static List<Interval> unionIntervals(Interval[] I) {
+  public static List<Interval> unionOfIntervals(Interval[] intervals) {
     // Empty input.
-    List<Interval> uni = new ArrayList<>();
-    if (I.length == 0) {
-      return uni;
+    if (intervals.length == 0) {
+      return new ArrayList<>();
     }
 
-    // Sorts Intervals according to their left endpoints.
-    Arrays.sort(I);
+    // Sort intervals according to left endpoints of intervals.
+    Arrays.sort(intervals);
     Interval curr = new Interval();
-    curr = I[0];
-
-    for (int i = 1; i < I.length; ++i) {
-      if (I[i].left.val < curr.right.val
-          || (I[i].left.val == curr.right.val
-              && (I[i].left.isClose || curr.right.isClose))) {
-        if (I[i].right.val > curr.right.val
-            || (I[i].right.val == curr.right.val
-                && I[i].right.isClose)) {
-          curr.right = I[i].right;
+    curr = intervals[0];
+    List<Interval> result = new ArrayList<>();
+    for (int i = 1; i < intervals.length; ++i) {
+      if (intervals[i].left.val < curr.right.val
+          || (intervals[i].left.val == curr.right.val
+              && (intervals[i].left.isClosed || curr.right.isClosed))) {
+        if (intervals[i].right.val > curr.right.val
+            || (intervals[i].right.val == curr.right.val
+                && intervals[i].right.isClosed)) {
+          curr.right = intervals[i].right;
         }
       } else {
-        uni.add(curr);
-        curr = I[i];
+        result.add(curr);
+        curr = intervals[i];
       }
     }
-    uni.add(curr);
-    return uni;
+    result.add(curr);
+    return result;
   }
   // @exclude
 
@@ -72,7 +71,7 @@ class UnionIntervals {
     for (int i = 1; i < A.size(); ++i) {
       assert(A.get(i - 1).right.val < A.get(i).left.val ||
              (A.get(i - 1).right.val == A.get(i).left.val &&
-              !A.get(i - 1).right.isClose && !A.get(i).left.isClose));
+              !A.get(i - 1).right.isClosed && !A.get(i).left.isClosed));
     }
   }
 
@@ -88,13 +87,13 @@ class UnionIntervals {
       Interval[] A = new Interval[n];
       for (int i = 0; i < n; ++i) {
         Interval temp = new Interval();
-        temp.left.isClose = gen.nextBoolean();
+        temp.left.isClosed = gen.nextBoolean();
         temp.left.val = gen.nextInt(9999);
-        temp.right.isClose = gen.nextBoolean();
+        temp.right.isClosed = gen.nextBoolean();
         temp.right.val = gen.nextInt(temp.left.val + 100) + temp.left.val + 1;
         A[i] = temp;
       }
-      List<Interval> ret = unionIntervals(A);
+      List<Interval> ret = unionOfIntervals(A);
       if (!ret.isEmpty()) {
         checkIntervals(ret);
       }

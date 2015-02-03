@@ -17,13 +17,13 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-vector<pair<int, int>> TaskAssignment(vector<int> A) {
-  sort(A.begin(), A.end());
-  vector<pair<int, int>> P;
-  for (int i = 0, j = A.size() - 1; i < j; ++i, --j) {
-    P.emplace_back(A[i], A[j]);
+vector<pair<int, int>> TaskAssignment(vector<int> task_durations) {
+  sort(task_durations.begin(), task_durations.end());
+  vector<pair<int, int>> task_pairings;
+  for (int i = 0, j = task_durations.size() - 1; i < j; ++i, --j) {
+    task_pairings.emplace_back(task_durations[i], task_durations[j]);
   }
-  return P;
+  return task_pairings;
 }
 // @exclude
 

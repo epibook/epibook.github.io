@@ -4,39 +4,37 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class CollatzConjecture {
   // @include
   public static boolean testCollatzConjecture(int n) {
-    // Stores the odd number that converges to 1.
-    Set<Long> table = new HashSet<>();
+    // Stores odd numbers already tested to converge to 1.
+    Set<Long> verifiedNumbers = new HashSet<>();
 
-    // Starts from 2 since we don't need to test 1.
+    // Starts from 2, since hypothesis holds trivially for 1.
     for (int i = 2; i <= n; ++i) {
       Set<Long> sequence = new HashSet<>();
       long testI = i;
       while (testI >= i) {
-        // We met some number encountered before.
         if (!sequence.add(testI)) {
+          // We previously encountered testI, so the Collatz sequence 
+          // has fallen into a loop. This disproves the hypothesis, so
+          // we short-circuit, returning false.
           return false;
         }
 
         if ((testI & 1) != 0) { // Odd number
-          if (!table.add(testI)) {
-            break; // This number have already be proven to converge to 1.
+          if (!verifiedNumbers.add(testI)) {
+            break; // testI has already been verified to converge to 1.
           }
-          long nextTestI = 3 * testI + 1; // 3n + 1.
+          long nextTestI = 3 * testI + 1; // Multiply by 3 and add 1.
           if (nextTestI <= testI) {
-            throw new RuntimeException("test process overflow");
+            throw new RuntimeException("Collatz sequence overflow for " + i);
           }
           testI = nextTestI;
-        } else { // Even number.
-          testI >>= 1; // n / 2.
+        } else {
+          testI /= 2; // Even number, halve it.
         }
       }
-      table.remove((long) i);
     }
     return true;
   }

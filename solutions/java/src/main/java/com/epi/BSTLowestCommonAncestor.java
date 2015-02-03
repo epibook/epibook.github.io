@@ -2,14 +2,11 @@ package com.epi;
 
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BSTLowestCommonAncestor {
   // @include
   public static BinaryTree<Integer> findLCA(
-      BinaryTree<Integer> x, BinaryTree<Integer> s, BinaryTree<Integer> b) {
-    BinaryTree<Integer> p = x;
+      BinaryTree<Integer> root, BinaryTree<Integer> s, BinaryTree<Integer> b) {
+    BinaryTree<Integer> p = root;
     while (p.getData() < s.getData() || p.getData() > b.getData()) {
       while (p.getData() < s.getData()) {
         p = p.getRight(); // LCA must be in p's right child.
@@ -19,7 +16,7 @@ public class BSTLowestCommonAncestor {
       }
     }
 
-    // p.getData() >= s.getData() && p.getData() <= b.getData().
+    // s.getData() >= p.getData() && p.getData() <= b.getData().
     return p;
   }
   // @exclude

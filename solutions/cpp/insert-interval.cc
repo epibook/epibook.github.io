@@ -22,25 +22,31 @@ struct Interval {
   int left, right;
 };
 
-vector<Interval> InsertInterval(const vector<Interval>& intervals,
-                                Interval new_interval) {
+vector<Interval> AddInterval(const vector<Interval>& disjoint_intervals,
+                             Interval new_interval) {
   size_t i = 0;
   vector<Interval> result;
-  // Inserts intervals appeared before new_interval.
-  while (i < intervals.size() && new_interval.left > intervals[i].right) {
-    result.emplace_back(intervals[i++]);
+
+  // Processes intervals in disjoint_intervals which come before new_interval.
+  while (i < disjoint_intervals.size() && 
+         new_interval.left > disjoint_intervals[i].right) {
+    result.emplace_back(disjoint_intervals[i++]);
   }
 
-  // Merges intervals that overlap with new_interval.
-  while (i < intervals.size() && new_interval.right >= intervals[i].left) {
-    new_interval = {min(new_interval.left, intervals[i].left),
-                    max(new_interval.right, intervals[i].right)};
+  // Processes intervals in disjoint_intervals which overlap with 
+  // new_interval.
+  while (i < disjoint_intervals.size() && 
+         new_interval.right >= disjoint_intervals[i].left) {
+    // If [a, b] and [c, d] overlap, their union is [min(a, c),max(b, d)].
+    new_interval = {min(new_interval.left, disjoint_intervals[i].left),
+                    max(new_interval.right, disjoint_intervals[i].right)};
     ++i;
   }
   result.emplace_back(new_interval);
 
-  // Inserts intervals appearing after new_interval.
-  result.insert(result.end(), intervals.begin() + i, intervals.end());
+  // Processes intervals in disjoint_intervals which come after new_interval.
+  result.insert(result.end(), disjoint_intervals.begin() + i, 
+                disjoint_intervals.end());
   return result;
 }
 // @exclude
@@ -55,10 +61,10 @@ void CheckIntervals(const vector<Interval>& result) {
 void SmallTest() {
   vector<Interval> A = {{1, 5}};
   Interval new_one = {0, 3};
-  auto result = InsertInterval(A, new_one);
+  auto result = AddInterval(A, new_one);
   assert(result.size() == 1 && result.front().left == 0 && result.front().right == 5);
   new_one = {0, 0};
-  result = InsertInterval(A, new_one);
+  result = AddInterval(A, new_one);
   assert(result.size() == 2 && result.front().left == 0 && result.front().right == 0 && result.back().left == 1 && result.back().right == 5);
 }
 
@@ -95,7 +101,7 @@ int main(int argc, char* argv[]) {
     cout << endl;
     cout << "target = " << target.left << ", " << target.right << endl;
     //*/
-    auto result = InsertInterval(A, target);
+    auto result = AddInterval(A, target);
     /*
     cout << "result = ";
     for (const auto& a : result) {

@@ -14,36 +14,36 @@ using std::numeric_limits;
 using std::pair;
 using std::shared_ptr;
 
-pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>> BSTToDoublyListHelper(
-    const shared_ptr<BSTNode<int>>& T);
+pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>> 
+    BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>& T);
 
 // @include
-shared_ptr<BSTNode<int>> BSTToDoublyList(
+shared_ptr<BSTNode<int>> BSTToDoublyLinkedList(
     const shared_ptr<BSTNode<int>>& T) {
-  auto res = BSTToDoublyListHelper(T);
-  res.second->right = nullptr;  // Breaks the link from tail to head.
-  res.first->left = nullptr;  // Breaks the link from head to tail.
+  auto res = BSTToDoublyLinkedListHelper(T);
+  res.second->right = nullptr;  // Undo the circular link from tail to head.
+  res.first->left = nullptr;  // Undo the circular link from head to tail.
   return res.first;
 }
 
-// Transforms a BST into a circular sorted circular doubly linked list
-// in-place, and return the head of the list.
+// Transforms a BST into a sorted circular doubly linked list
+// in-place, and return the head and tail of the list as a pair.
 pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>> 
-    BSTToDoublyListHelper(const shared_ptr<BSTNode<int>>& T) {
+    BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>& T) {
   // Empty subtree.
   if (!T) {
     return {nullptr, nullptr};
   }
 
   // Recursively builds the list from left and right subtrees.
-  auto left = BSTToDoublyListHelper(T->left);
-  auto right = BSTToDoublyListHelper(T->right);
+  auto left = BSTToDoublyLinkedListHelper(T->left);
+  auto right = BSTToDoublyLinkedListHelper(T->right);
 
   // Appends T to the list from left subtree.
-  T->left = left.second;
   if (left.second) {
     left.second->right = T;
   }
+  T->left = left.second;
 
   // Appends the list from right subtree to T.
   T->right = right.first;
@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
   root->right = make_shared<BSTNode<int>>(BSTNode<int>{5});
   root->right->left = make_shared<BSTNode<int>>(BSTNode<int>{4});
   root->right->right = make_shared<BSTNode<int>>(BSTNode<int>{6});
-  shared_ptr<BSTNode<int>> L = BSTToDoublyList(root);
+  shared_ptr<BSTNode<int>> L = BSTToDoublyLinkedList(root);
   shared_ptr<BSTNode<int>> curr = L;
   int pre = numeric_limits<int>::min();
   do {

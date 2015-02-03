@@ -38,7 +38,7 @@ class Person implements Comparable<Person> {
 
 class CountingSort {
   // @include
-  public static void countingSort(Person[] people) {
+  public static void reorderIntoEqualSubarrays(Person[] people) {
     Map<Integer, Integer> keyToCount = new HashMap<>();
     for (Person p : people) {
       if (keyToCount.containsKey(p.key)) {
@@ -112,7 +112,7 @@ class CountingSort {
         keySet.add(p.key);
       }
 
-      countingSort(people);
+      reorderIntoEqualSubarrays(people);
 
       // Check the correctness of sorting.
       int diffCount = 1;

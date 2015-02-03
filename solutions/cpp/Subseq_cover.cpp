@@ -50,7 +50,7 @@ pair<int, int> FindSmallestSequentiallyCoveringSubset(
   // array, we can use those indices as keys to lookup in a vector.
   vector<int> latest_occurrence(keywords.size(), -1);
   // For each keyword (identified by its index in keywords array), stores the
-  // length of the shortest subarray ending at the most recent occurence of
+  // length of the shortest subarray ending at the most recent occurrence of
   // that keyword that sequentially cover all keywords up to that keyword.
   vector<int> shortest_subarray_length(keywords.size(),
                                        numeric_limits<int>::max());

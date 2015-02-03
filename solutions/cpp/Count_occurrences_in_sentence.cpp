@@ -16,16 +16,16 @@ using std::uniform_int_distribution;
 void CountOccurrences(string S) {
   sort(S.begin(), S.end());
 
-  int count = 1;
+  int current_character_count = 1;
   for (int i = 1; i < S.size(); ++i) {
     if (S[i] == S[i - 1]) {
-      ++count;
+      ++current_character_count;
     } else {
-      cout << '(' << S[i - 1] << ',' << count << "),";
-      count = 1;
+      cout << '(' << S[i - 1] << ',' << current_character_count << "),";
+      current_character_count = 1;
     }
   }
-  cout << '(' << S.back() << ',' << count << ')' << endl;
+  cout << '(' << S.back() << ',' << current_character_count << ')' << endl;
 }
 // @exclude
 

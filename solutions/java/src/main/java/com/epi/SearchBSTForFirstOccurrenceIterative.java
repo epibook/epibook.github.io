@@ -2,14 +2,11 @@ package com.epi;
 
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class SearchBSTForFirstOccurrenceIterative {
   // @include
   public static BinaryTree<Integer> findFirstEqualK(
       BinaryTree<Integer> T, Integer k) {
-    BinaryTree<Integer> first = null;
+    BinaryTree<Integer> firstSoFar = null;
     BinaryTree<Integer> curr = T;
     while (curr != null) {
       if (curr.getData().compareTo(k) < 0) {
@@ -17,12 +14,12 @@ public class SearchBSTForFirstOccurrenceIterative {
       } else if (curr.getData().compareTo(k) > 0) {
         curr = curr.getLeft();
       } else { // curr.getData().compareTo(k) == 0
-        // Searches for the leftmost in the left subtree.
-        first = curr;
+        // Record this node, and search for the first node in the left subtree.
+        firstSoFar = curr;
         curr = curr.getLeft();
       }
     }
-    return first;
+    return firstSoFar;
   }
   // @exclude
 

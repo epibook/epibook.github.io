@@ -18,31 +18,34 @@ class AnonymousLetter {
   }
 
   // @include
-  public static boolean anonymousLetter(String letter, String magazine) {
-    Map<Character, Integer> hash = new HashMap<>();
-    // Inserts all chars in letter into a hash table.
-    for (char c : letter.toCharArray()) {
-      if (!hash.containsKey(c)) {
-        hash.put(c, 1);
+  public static boolean isLetterConstructibleFromMagazine(String letterText,
+                                                          String magazineText) {
+    Map<Character, Integer> charFrequencyForLetter = new HashMap<>();
+    // Inserts all chars in letterText into a hash table.
+    for (char c : letterText.toCharArray()) {
+      if (!charFrequencyForLetter.containsKey(c)) {
+        charFrequencyForLetter.put(c, 1);
       } else {
-        hash.put(c, hash.get(c) + 1);
+        charFrequencyForLetter.put(c, charFrequencyForLetter.get(c) + 1);
       }
     }
 
-    // Checks characters in magazine that could cover characters in hash table.
-    for (char c : magazine.toCharArray()) {
-      if (hash.containsKey(c)) {
-        hash.put(c, hash.get(c) - 1);
-        if (hash.get(c) == 0) {
-          hash.remove(c);
-          if (hash.isEmpty()) {
+    // Checks characters in magazineText can cover characters in
+    // magazineText.
+    for (char c : magazineText.toCharArray()) {
+      if (charFrequencyForLetter.containsKey(c)) {
+        charFrequencyForLetter.put(c, charFrequencyForLetter.get(c) - 1);
+        if (charFrequencyForLetter.get(c) == 0) {
+          charFrequencyForLetter.remove(c);
+          if (charFrequencyForLetter.isEmpty()) {
             return true;
           }
         }
       }
     }
-    // No entry in hash means letter can be covered by magazine.
-    return hash.isEmpty();
+    // Empty charFrequencyForLetter means every char in letterText can be
+    // covered by a character in magazineText.
+    return charFrequencyForLetter.isEmpty();
   }
   // @exclude
 
@@ -59,10 +62,10 @@ class AnonymousLetter {
     }
     System.out.println(L);
     System.out.println(M);
-    assert (!anonymousLetter("123", "456"));
-    assert (!anonymousLetter("123", "12222222"));
-    assert (anonymousLetter("123", "1123"));
-    assert (anonymousLetter("123", "123"));
-    System.out.println(anonymousLetter(L, M) ? "true" : "false");
+    assert (!isLetterConstructibleFromMagazine("123", "456"));
+    assert (!isLetterConstructibleFromMagazine("123", "12222222"));
+    assert (isLetterConstructibleFromMagazine("123", "1123"));
+    assert (isLetterConstructibleFromMagazine("123", "123"));
+    System.out.println(isLetterConstructibleFromMagazine(L, M) ? "true" : "false");
   }
 }

@@ -2,29 +2,26 @@ package com.epi;
 
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class SearchBSTFirstLargerK {
   // @include
   public static BinaryTree<Integer>
-  findFirstLargerKWithKExist(BinaryTree<Integer> r, Integer k) {
+  findFirstGreaterThanK(BinaryTree<Integer> r, Integer k) {
     boolean foundK = false;
-    BinaryTree<Integer> curr = r;
-    BinaryTree<Integer> first = null;
+    BinaryTree<Integer> subtree = r;
+    BinaryTree<Integer> firstSoFar = null;
 
-    while (curr != null) {
-      if (curr.getData().compareTo(k) == 0) {
+    while (subtree != null) {
+      if (subtree.getData().compareTo(k) == 0) {
         foundK = true;
-        curr = curr.getRight();
-      } else if (curr.getData().compareTo(k) > 0) {
-        first = curr;
-        curr = curr.getLeft();
-      } else { // curr.getData().compareTo(k) < 0
-        curr = curr.getRight();
+        subtree = subtree.getRight();
+      } else if (subtree.getData().compareTo(k) > 0) {
+        firstSoFar = subtree;
+        subtree = subtree.getLeft();
+      } else { // subtree.getData().compareTo(k) < 0
+        subtree = subtree.getRight();
       }
     }
-    return foundK ? first : null;
+    return foundK ? firstSoFar : null;
   }
   // @exclude
 
@@ -38,9 +35,9 @@ public class SearchBSTFirstLargerK {
     root.setRight(new BinaryTree<>(5));
     root.getRight().setLeft(new BinaryTree<>(4));
     root.getRight().setRight(new BinaryTree<>(7));
-    assert (findFirstLargerKWithKExist(root, 1) == root.getLeft());
-    assert (findFirstLargerKWithKExist(root, 5) == root.getRight().getRight());
-    assert (findFirstLargerKWithKExist(root, 6) == null);
-    assert (findFirstLargerKWithKExist(root, 7) == null);
+    assert (findFirstGreaterThanK(root, 1) == root.getLeft());
+    assert (findFirstGreaterThanK(root, 5) == root.getRight().getRight());
+    assert (findFirstGreaterThanK(root, 6) == null);
+    assert (findFirstGreaterThanK(root, 7) == null);
   }
 }

@@ -6,26 +6,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class FindKLargestBST {
   // @include
   public static List<Integer> findKLargestInBST(
       BinaryTree<Integer> root, int k) {
-    List<Integer> kElements = new ArrayList<>();
-    findKLargestInBSTHelper(root, k, kElements);
-    return kElements;
+    List<Integer> kLargestElements = new ArrayList<>();
+    findKLargestInBSTHelper(root, k, kLargestElements);
+    return kLargestElements;
   }
 
   private static void findKLargestInBSTHelper(
-      BinaryTree<Integer> r, int k, List<Integer> kElements) {
-    // Performs reverse inorder traversal.
-    if (r != null && kElements.size() < k) {
-      findKLargestInBSTHelper(r.getRight(), k, kElements);
-      if (kElements.size() < k) {
-        kElements.add(r.getData());
-        findKLargestInBSTHelper(r.getLeft(), k, kElements);
+      BinaryTree<Integer> root, int k, List<Integer> kLargestElements) {
+    // Perform reverse inorder traversal.
+    if (root != null && kLargestElements.size() < k) {
+      findKLargestInBSTHelper(root.getRight(), k, kLargestElements);
+      if (kLargestElements.size() < k) {
+        kLargestElements.add(root.getData());
+        findKLargestInBSTHelper(root.getLeft(), k, kLargestElements);
       }
     }
   }

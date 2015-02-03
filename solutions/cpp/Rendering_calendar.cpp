@@ -15,12 +15,13 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-struct Interval {
+struct Event {
   int start, finish;
 };
 
 struct Endpoint {
   bool operator<(const Endpoint& e) const {
+    // If times are equal, times corresponding to start come first.
     return time != e.time ? time < e.time : (isStart && !e.isStart);
   }
 
@@ -28,30 +29,40 @@ struct Endpoint {
   bool isStart;
 };
 
-int FindMaxConcurrentEvents(const vector<Interval>& A) {
-  // Builds the endpoint array.
+int FindMaxSimultaneousEvents(const vector<Event>& A) {
+  // Builds an array of all endpoints.
   vector<Endpoint> E;
-  for (const Interval& i : A) {
+  for (const Event& i : A) {
     E.emplace_back(Endpoint{i.start, true});
     E.emplace_back(Endpoint{i.finish, false});
   }
-  // Sorts the endpoint array according to the time.
+  // Sorts the endpoint array according to the time, breaking ties
+  // by putting start times before end times.
   sort(E.begin(), E.end());
 
-  // Finds the maximum number of events overlapped.
-  int max_count = 0, count = 0;
+  // Track the number of simultaneous events, and record the maximum
+  // number of simultaneous events.
+  int max_num_simultaneous_events = 0, num_simultaneous_events = 0;
   for (const Endpoint& e : E) {
     if (e.isStart) {
-      max_count = max(++count, max_count);
+      ++num_simultaneous_events;
+      max_num_simultaneous_events =
+          max(num_simultaneous_events, max_num_simultaneous_events);
     } else {
-      --count;
+      --num_simultaneous_events;
     }
   }
-  return max_count;
+  return max_num_simultaneous_events;
 }
 // @exclude
 
+void SimpleTest() {
+  vector<Event> A = {{1, 5}, {2, 7}, {4, 5}, {6, 10}, {8, 9}, {9, 17}, {11, 13}, {12, 15}, {14, 15}};
+  assert(FindMaxSimultaneousEvents(A) == 3);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   int n;
   if (argc == 2) {
@@ -60,16 +71,16 @@ int main(int argc, char* argv[]) {
     uniform_int_distribution<int> dis(1, 100000);
     n = dis(gen);
   }
-  vector<Interval> A;
+  vector<Event> A;
   for (int i = 0; i < n; ++i) {
-    Interval temp;
+    Event temp;
     uniform_int_distribution<int> dis1(0, 99999);
     temp.start = dis1(gen);
     uniform_int_distribution<int> dis2(temp.start + 1, temp.start + 10000);
     temp.finish = dis2(gen);
     A.emplace_back(temp);
   }
-  int ans = FindMaxConcurrentEvents(A);
+  int ans = FindMaxSimultaneousEvents(A);
   cout << ans << endl;
   return 0;
 }

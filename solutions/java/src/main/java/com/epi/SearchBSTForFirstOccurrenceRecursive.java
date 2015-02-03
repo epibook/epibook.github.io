@@ -2,9 +2,6 @@ package com.epi;
 
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class SearchBSTForFirstOccurrenceRecursive {
   // @include
   public static BinaryTree<Integer> findFirstEqualK(
@@ -12,11 +9,11 @@ public class SearchBSTForFirstOccurrenceRecursive {
     if (T == null) {
       return null; // No match.
     } else if (T.getData().compareTo(k) == 0) {
-      // Recursively searches the left subtree for first one == k.
+      // Recursively search the left subtree for first node containing k.
       BinaryTree<Integer> n = findFirstEqualK(T.getLeft(), k);
       return n != null ? n : T;
     }
-    // Searches left or right tree according to T.getData() and k.
+    // Search the left or right tree based on T.getData() and k.
     return findFirstEqualK(
         T.getData().compareTo(k) < 0 ? T.getRight() : T.getLeft(), k);
   }

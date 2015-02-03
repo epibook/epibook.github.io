@@ -71,10 +71,7 @@ bool CheckFeasibleHelper(
 
 int main(int argc, char* argv[]) {
   int n;
-  vector<Jug> jugs;
-  jugs.emplace_back(Jug{230, 240});
-  jugs.emplace_back(Jug{290, 310});
-  jugs.emplace_back(Jug{500, 515});
+  vector<Jug> jugs = {{230, 240}, {290, 310}, {500, 515}};
   assert(CheckFeasible(jugs, 2100, 2300) == true);
   jugs.clear();
   default_random_engine gen((random_device())());

@@ -16,26 +16,27 @@ using std::uniform_int_distribution;
 using std::unique_ptr;
 using std::vector;
 
-BSTNode<int>* BuildBSTFromSortedArrayHelper(const vector<int>& A,
-                                            size_t start, size_t end);
+BSTNode<int>* BuildMinHeightBSTFromSortedArrayHelper(const vector<int>& A,
+                                                     size_t start, size_t end);
 
 // @include
-BSTNode<int>* BuildBSTFromSortedArray(const vector<int>& A) {
-  return BuildBSTFromSortedArrayHelper(A, 0, A.size());
+BSTNode<int>* BuildMinHeightBSTFromSortedArray(const vector<int>& A) {
+  return BuildMinHeightBSTFromSortedArrayHelper(A, 0, A.size());
 }
 
-// Build BST based on subarray A[start : end - 1].
-BSTNode<int>* BuildBSTFromSortedArrayHelper(const vector<int>& A,
-                                            size_t start, size_t end) {
+// Build min-height BST over the entries in A[start : end - 1].
+BSTNode<int>* BuildMinHeightBSTFromSortedArrayHelper(const vector<int>& A,
+                                                     size_t start, 
+                                                     size_t end) {
   if (start >= end) {
     return nullptr;
   }
   size_t mid = start + ((end - start) / 2);
   return new BSTNode<int>{
       A[mid], unique_ptr<BSTNode<int>>(
-                  BuildBSTFromSortedArrayHelper(A, start, mid)),
+                  BuildMinHeightBSTFromSortedArrayHelper(A, start, mid)),
       unique_ptr<BSTNode<int>>(
-          BuildBSTFromSortedArrayHelper(A, mid + 1, end))};
+          BuildMinHeightBSTFromSortedArrayHelper(A, mid + 1, end))};
 }
 // @exclude
 
@@ -64,7 +65,7 @@ int main(int argc, char* argv[]) {
       A.emplace_back(i);
     }
     unique_ptr<BSTNode<int>> root =
-        unique_ptr<BSTNode<int>>(BuildBSTFromSortedArray(A));
+        unique_ptr<BSTNode<int>>(BuildMinHeightBSTFromSortedArray(A));
     int target = 0;
     TraversalCheck<int>(root, &target);
   }

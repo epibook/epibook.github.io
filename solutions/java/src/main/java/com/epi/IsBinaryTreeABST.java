@@ -2,17 +2,14 @@ package com.epi;
 
 import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class IsBinaryTreeABST {
   // @include
-  public static boolean isBST(BinaryTree<Integer> root) {
-    return isBSTHelper(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+  public static boolean isBinaryTreeBST(BinaryTree<Integer> root) {
+    return areKeysInRange(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
   }
 
-  private static boolean isBSTHelper(BinaryTree<Integer> root,
-                                     Integer lower, Integer upper) {
+  private static boolean areKeysInRange(BinaryTree<Integer> root,
+                                        Integer lower, Integer upper) {
     if (root == null) {
       return true;
     } else if (root.getData().compareTo(lower) < 0
@@ -20,8 +17,8 @@ public class IsBinaryTreeABST {
       return false;
     }
 
-    return isBSTHelper(root.getLeft(), lower, root.getData())
-        && isBSTHelper(root.getRight(), root.getData(), upper);
+    return areKeysInRange(root.getLeft(), lower, root.getData())
+           && areKeysInRange(root.getRight(), root.getData(), upper);
   }
   // @exclude
 
@@ -36,17 +33,17 @@ public class IsBinaryTreeABST {
     root.getRight().setLeft(new BinaryTree<>(4));
     root.getRight().setRight(new BinaryTree<>(6));
     // should output true.
-    assert isBST(root);
-    System.out.println(isBST(root));
+    assert isBinaryTreeBST(root);
+    System.out.println(isBinaryTreeBST(root));
     // 10
     // 2 5
     // 1 4 6
     root.setData(10);
     // should output false.
-    assert !isBST(root);
-    System.out.println(isBST(root));
+    assert !isBinaryTreeBST(root);
+    System.out.println(isBinaryTreeBST(root));
     // should output true.
-    assert isBST(null);
-    System.out.println(isBST(null));
+    assert isBinaryTreeBST(null);
+    System.out.println(isBinaryTreeBST(null));
   }
 }

@@ -8,26 +8,29 @@ import java.util.Random;
 
 public class InsertInterval {
   // @include
-  public static List<Interval> insertInterval(List<Interval> intervals,
-                                              Interval newInterval) {
+  public static List<Interval> AddInterval(List<Interval> disjointIntervals,
+                                           Interval newInterval) {
     int i = 0;
     List<Interval> result = new ArrayList<>();
-    // Inserts intervals appeared before newInterval.
-    while (i < intervals.size() && newInterval.left > intervals.get(i).right) {
-      result.add(intervals.get(i++));
+    // Processes intervals in disjointIntervals which come before newInterval.
+    while (i < disjointIntervals.size()
+           && newInterval.left > disjointIntervals.get(i).right) {
+      result.add(disjointIntervals.get(i++));
     }
 
-    // Merges intervals that overlap with newInterval.
-    while (i < intervals.size() && newInterval.right >= intervals.get(i).left) {
+    // Processes intervals in disjointIntervals which overlap with newInterval.
+    while (i < disjointIntervals.size() 
+           && newInterval.right >= disjointIntervals.get(i).left) {
+      // If [a, b] and [c, d] overlap, their union is [min(a, c),max(b, d)].
       newInterval = new Interval(Math.min(newInterval.left,
-          intervals.get(i).left), Math.max(newInterval.right,
-          intervals.get(i).right));
+          disjointIntervals.get(i).left), Math.max(newInterval.right,
+          disjointIntervals.get(i).right));
       ++i;
     }
     result.add(newInterval);
 
-    // Inserts intervals appearing after newInterval.
-    result.addAll(intervals.subList(i, intervals.size()));
+    // Processes intervals in disjointIntervals which come after newInterval.
+    result.addAll(disjointIntervals.subList(i, disjointIntervals.size()));
     return result;
   }
   // @exclude
@@ -46,10 +49,10 @@ public class InsertInterval {
       }
     };
     Interval newOne = new Interval(0, 3);
-    List<Interval> result = insertInterval(A, newOne);
+    List<Interval> result = AddInterval(A, newOne);
     assert (result.size() == 1 && result.get(0).left == 0 && result.get(0).right == 5);
     newOne = new Interval(0, 0);
-    result = insertInterval(A, newOne);
+    result = AddInterval(A, newOne);
     assert (result.size() == 2 && result.get(0).left == 0 && result.get(0).right == 0
         && result.get(1).left == 1 && result.get(1).right == 5);
   }
@@ -76,7 +79,7 @@ public class InsertInterval {
       Interval target = new Interval();
       target.left = r.nextInt(101);
       target.right = target.left + r.nextInt(101);
-      List<Interval> result = insertInterval(A, target);
+      List<Interval> result = AddInterval(A, target);
       checkIntervals(result);
     }
   }

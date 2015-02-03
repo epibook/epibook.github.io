@@ -14,10 +14,10 @@ using std::numeric_limits;
 using std::unique_ptr;
 
 // @include
-bool IsBST(const unique_ptr<BinaryTreeNode<int>>& root) {
+bool IsBinaryTreeBST(const unique_ptr<BinaryTreeNode<int>>& root) {
   auto* n = root.get();
   // Stores the value of previous visited node.
-  int last = numeric_limits<int>::min();
+  int prevValue = numeric_limits<int>::min();
   bool result = true;
 
   while (n) {
@@ -32,20 +32,20 @@ bool IsBST(const unique_ptr<BinaryTreeNode<int>>& root) {
       if (pre->right.get()) {  // pre->right == n.
         // Reverts the successor link if predecessor's successor is n.
         pre->right.release();
-        if (last > n->data) {
+        if (prevValue > n->data) {
           result = false;
         }
-        last = n->data;
+        prevValue = n->data;
         n = n->right.get();
       } else {  // If predecessor's successor is not n.
         pre->right.reset(n);
         n = n->left.get();
       }
     } else {
-      if (last > n->data) {
+      if (prevValue > n->data) {
         result = false;
       }
-      last = n->data;
+      prevValue = n->data;
       n = n->right.get();
     }
   }
@@ -63,17 +63,17 @@ int main(int argc, char* argv[]) {
   root->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
   root->right->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
   root->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
-  assert(IsBST(root) == true);
-  cout << boolalpha << IsBST(root) << endl;
+  assert(IsBinaryTreeBST(root) == true);
+  cout << boolalpha << IsBinaryTreeBST(root) << endl;
   //      10
   //    2   5
   //  1    4 6
   root->data = 10;
   // should output false
-  assert(!IsBST(root));
-  cout << boolalpha << IsBST(root) << endl;
+  assert(!IsBinaryTreeBST(root));
+  cout << boolalpha << IsBinaryTreeBST(root) << endl;
   // should output true
-  assert(IsBST(nullptr) == true);
-  cout << boolalpha << IsBST(nullptr) << endl;
+  assert(IsBinaryTreeBST(nullptr) == true);
+  cout << boolalpha << IsBinaryTreeBST(nullptr) << endl;
   return 0;
 }

@@ -17,31 +17,38 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-double CompletionSearch(double budget, vector<double>* A) {
-  sort(A->begin(), A->end());
-  // Calculates the prefix sum for A.
-  vector<double> prefix_sum;
-  partial_sum(A->cbegin(), A->cend(), back_inserter(prefix_sum));
-  // costs[i] represents the total payroll if the cap is A[i].
-  vector<double> costs;
-  for (int i = 0; i < prefix_sum.size(); ++i) {
-    costs.emplace_back(prefix_sum[i] + (A->size() - i - 1) * (*A)[i]);
+double FindSalaryCap(double target_payroll, vector<double> current_salaries) {
+  sort(current_salaries.begin(), current_salaries.end());
+  double unadjusted_salary_sum = 0;
+  double adjusted_salary_sum = current_salaries.size() * current_salaries[0];
+  for (int i = 0; i < current_salaries.size(); ++i) {
+    unadjusted_salary_sum += current_salaries[i];
+    adjusted_salary_sum = current_salaries[i] * 
+                          (current_salaries.size() - (i + 1));
+    if (unadjusted_salary_sum + adjusted_salary_sum >= target_payroll) {
+      return (target_payroll - unadjusted_salary_sum + current_salaries[i]) / 
+             (current_salaries.size() - i);
+    }
   }
-
-  auto lower = lower_bound(costs.cbegin(), costs.cend(), budget);
-  if (lower == costs.cend()) {
-    return -1.0;  // No solution since budget is too large.
-  }
-
-  if (lower == costs.cbegin()) {
-    return budget / A->size();
-  }
-  auto idx = distance(costs.cbegin(), lower);
-  return (budget - prefix_sum[idx - 1]) / (A->size() - idx);
+  // No solution, since target_payroll > existing payroll.
+  return -1.0;
 }
 // @exclude
 
+void SmallTest() {
+  vector<double> A = {20, 30, 40, 90, 100};
+  double T = 210;
+  assert(FindSalaryCap(T, A) == 60);
+  T = 280;
+  assert(FindSalaryCap(T, A) == 100);
+  T = 50;
+  assert(FindSalaryCap(T, A) == 10);
+  T = 281;
+  assert(FindSalaryCap(T, A) == -1.0);
+}
+
 int main(int argc, char* argv[]) {
+  SmallTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 10000; ++times) {
     int n;
@@ -67,7 +74,8 @@ int main(int argc, char* argv[]) {
     copy(A.begin(), A.end(), ostream_iterator<double>(cout, " "));
     cout << endl;
     cout << "tar = " << tar << endl;
-    double ret = CompletionSearch(tar, &A);
+    double ret = FindSalaryCap(tar, A);
+    sort(A.begin(), A.end());
     if (ret != -1.0) {
       cout << "ret = " << ret << endl;
       double sum = 0.0;
