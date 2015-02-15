@@ -34,11 +34,11 @@ bool IsBinaryTreeBST(const unique_ptr<BinaryTreeNode<int>>& tree) {
       }
 
       BFS_queue.emplace(QNode{BFS_queue.front().node->left,
-                        BFS_queue.front().lower,
-                        BFS_queue.front().node->data});
+                              BFS_queue.front().lower,
+                              BFS_queue.front().node->data});
       BFS_queue.emplace(QNode{BFS_queue.front().node->right,
-                        BFS_queue.front().node->data,
-                        BFS_queue.front().upper});
+                              BFS_queue.front().node->data,
+                              BFS_queue.front().upper});
     }
     BFS_queue.pop();
   }

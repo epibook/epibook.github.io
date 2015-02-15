@@ -1,30 +1,30 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 import java.util.LinkedList;
 
 public class IsBinaryTreeABSTBFS {
   // @include
   public static class QNode {
-    public BinaryTree<Integer> node;
+    public BinaryTreeNode<Integer> node;
     public Integer lower, upper;
 
-    public QNode(BinaryTree<Integer> node, Integer lower, Integer upper) {
+    public QNode(BinaryTreeNode<Integer> node, Integer lower, Integer upper) {
       this.node = node;
       this.lower = lower;
       this.upper = upper;
     }
   }
 
-  public static boolean isBinaryTreeBST(BinaryTree<Integer> tree) {
+  public static boolean isBinaryTreeBST(BinaryTreeNode<Integer> tree) {
     LinkedList<QNode> BFSQueue = new LinkedList<>();
     BFSQueue.addLast(new QNode(tree, Integer.MIN_VALUE, Integer.MAX_VALUE));
 
     while (!BFSQueue.isEmpty()) {
       if (BFSQueue.getFirst().node != null) {
-        if (BFSQueue.getFirst().node.getData().compareTo(BFSQueue.getFirst().lower) < 0
-            || BFSQueue.getFirst().node.getData().compareTo(BFSQueue.getFirst().upper) > 0) {
+        if (BFSQueue.getFirst().node.getData() < BFSQueue.getFirst().lower
+            || BFSQueue.getFirst().node.getData() < BFSQueue.getFirst().upper) {
           return false;
         }
 
@@ -45,12 +45,12 @@ public class IsBinaryTreeABSTBFS {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> tree = new BinaryTree<>(3);
-    tree.setLeft(new BinaryTree<>(2));
-    tree.getLeft().setLeft(new BinaryTree<>(1));
-    tree.setRight(new BinaryTree<>(5));
-    tree.getRight().setLeft(new BinaryTree<>(4));
-    tree.getRight().setRight(new BinaryTree<>(6));
+    BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(3);
+    tree.setLeft(new BinaryTreeNode<>(2));
+    tree.getLeft().setLeft(new BinaryTreeNode<>(1));
+    tree.setRight(new BinaryTreeNode<>(5));
+    tree.getRight().setLeft(new BinaryTreeNode<>(4));
+    tree.getRight().setRight(new BinaryTreeNode<>(6));
     // should output true.
     assert isBinaryTreeBST(tree);
     System.out.println(isBinaryTreeBST(tree));

@@ -21,9 +21,8 @@ using std::unordered_map;
 using std::vector;
 
 unique_ptr<BinaryTreeNode<int>> BinaryTreeFromPreorderInorderHelper(
-    const vector<int>& pre, size_t preorder_start, size_t preorder_end,
-    size_t inorder_start, size_t inorder_end,
-    const unordered_map<int, size_t>& node_to_inorder_idx);
+    const vector<int>&, size_t, size_t, size_t, size_t,
+    const unordered_map<int, size_t>&);
 
 // @include
 unique_ptr<BinaryTreeNode<int>> BinaryTreeFromPreorderInorder(

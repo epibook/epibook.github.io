@@ -2,19 +2,19 @@ package com.epi;
 
 public class BinaryTreePrototypeTemplate {
   // @include
-  public static class BinaryTree<T> {
+  public static class BinaryTreeNode<T> {
     private T data;
-    private BinaryTree<T> left, right;
+    private BinaryTreeNode<T> left, right;
     // @exclude
 
-    public BinaryTree() {
+    public BinaryTreeNode() {
     }
 
-    public BinaryTree(T data) {
+    public BinaryTreeNode(T data) {
       this.data = data;
     }
 
-    public BinaryTree(T data, BinaryTree<T> left, BinaryTree<T> right) {
+    public BinaryTreeNode(T data, BinaryTreeNode<T> left, BinaryTreeNode<T> right) {
       this.data = data;
       this.left = left;
       this.right = right;
@@ -28,19 +28,19 @@ public class BinaryTreePrototypeTemplate {
       this.data = data;
     }
 
-    public BinaryTree<T> getLeft() {
+    public BinaryTreeNode<T> getLeft() {
       return left;
     }
 
-    public void setLeft(BinaryTree<T> left) {
+    public void setLeft(BinaryTreeNode<T> left) {
       this.left = left;
     }
 
-    public BinaryTree<T> getRight() {
+    public BinaryTreeNode<T> getRight() {
       return right;
     }
 
-    public void setRight(BinaryTree<T> right) {
+    public void setRight(BinaryTreeNode<T> right) {
       this.right = right;
     }
 
@@ -53,7 +53,7 @@ public class BinaryTreePrototypeTemplate {
         return false;
       }
 
-      BinaryTree that = (BinaryTree) o;
+      BinaryTreeNode that = (BinaryTreeNode) o;
 
       if (data != null ? !data.equals(that.data) : that.data != null) {
         return false;

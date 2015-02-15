@@ -20,10 +20,10 @@ vector<vector<int>> results;
 vector<int> one_line_result;
 
 // @include
-void PrintBinaryTreeDepthOrder(const unique_ptr<BinaryTreeNode<int>>& root) {
+void PrintBinaryTreeDepthOrder(const unique_ptr<BinaryTreeNode<int>>& tree) {
   queue<BinaryTreeNode<int>*> processing_nodes;
-  processing_nodes.emplace(root.get());
-  size_t num_nodes_current_level = processing_nodes.size();
+  processing_nodes.emplace(tree.get());
+  int num_nodes_current_level = processing_nodes.size();
   while (!processing_nodes.empty()) {
     auto curr = processing_nodes.front();
     processing_nodes.pop();
@@ -55,22 +55,22 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
+  unique_ptr<BinaryTreeNode<int>> tree = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{3, nullptr, nullptr});
-  root->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{2, nullptr, nullptr});
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->left->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{1, nullptr, nullptr});
-  root->right = unique_ptr<BinaryTreeNode<int>>(
+  tree->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{5, nullptr, nullptr});
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->right->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{4, nullptr, nullptr});
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(
+  tree->right->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{6, nullptr, nullptr});
   // should output 3
   //               2 5
   //               1 4 6
-  PrintBinaryTreeDepthOrder(root);
+  PrintBinaryTreeDepthOrder(tree);
   vector<vector<int>> golden_res = {{3}, {2, 5}, {1, 4, 6}};
   assert(golden_res.size() == results.size() &&
          equal(golden_res.begin(), golden_res.end(), results.begin()));

@@ -32,39 +32,38 @@ list<const unique_ptr<BinaryTreeNode<int>>*> ExteriorBinaryTree(
 }
 
 // Computes the nodes from the root to the leftmost leaf followed by all the
-// leaves in subtree_root.
+// leaves in subtree.
 list<const unique_ptr<BinaryTreeNode<int>>*> LeftBoundaryAndLeaves(
-    const unique_ptr<BinaryTreeNode<int>>& subtree_root, bool is_boundary) {
+    const unique_ptr<BinaryTreeNode<int>>& subtree, bool is_boundary) {
   list<const unique_ptr<BinaryTreeNode<int>>*> result;
-  if (subtree_root != nullptr) {
-    if (is_boundary || IsLeaf(subtree_root)) {
-      result.emplace_back(&subtree_root);
+  if (subtree != nullptr) {
+    if (is_boundary || IsLeaf(subtree)) {
+      result.emplace_back(&subtree);
     }
     result.splice(result.end(),
-                  LeftBoundaryAndLeaves(subtree_root->left, is_boundary));
+                  LeftBoundaryAndLeaves(subtree->left, is_boundary));
     result.splice(
         result.end(),
-        LeftBoundaryAndLeaves(subtree_root->right,
-                              is_boundary && subtree_root->left == nullptr));
+        LeftBoundaryAndLeaves(subtree->right,
+                              is_boundary && subtree->left == nullptr));
   }
   return result;
 }
 
 // Computes the leaves in left-to-right order followed by the rightmost leaf
-// to the root path in subtree_root.
+// to the root path in subtree.
 list<const unique_ptr<BinaryTreeNode<int>>*> RightBoundaryAndLeaves(
-    const unique_ptr<BinaryTreeNode<int>>& subtree_root, bool is_boundary) {
+    const unique_ptr<BinaryTreeNode<int>>& subtree, bool is_boundary) {
   list<const unique_ptr<BinaryTreeNode<int>>*> result;
-  if (subtree_root != nullptr) {
+  if (subtree != nullptr) {
     result.splice(
         result.end(),
-        RightBoundaryAndLeaves(subtree_root->left,
-                               is_boundary &&
-                                   subtree_root->right == nullptr));
+        RightBoundaryAndLeaves(subtree->left,
+                               is_boundary && subtree->right == nullptr));
     result.splice(result.end(),
-                  RightBoundaryAndLeaves(subtree_root->right, is_boundary));
-    if (is_boundary || IsLeaf(subtree_root)) {
-      result.emplace_back(&subtree_root);
+                  RightBoundaryAndLeaves(subtree->right, is_boundary));
+    if (is_boundary || IsLeaf(subtree)) {
+      result.emplace_back(&subtree);
     }
   }
   return result;
@@ -80,26 +79,26 @@ int main(int argc, char* argv[]) {
   //    2      5
   //  1  0    4 6
   //   -1 -2
-  unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
+  unique_ptr<BinaryTreeNode<int>> tree = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{3, nullptr, nullptr});
-  root->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{2, nullptr, nullptr});
-  root->left->right = unique_ptr<BinaryTreeNode<int>>(
+  tree->left->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{0, nullptr, nullptr});
-  root->left->right->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->left->right->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{-1, nullptr, nullptr});
-  root->left->right->right = unique_ptr<BinaryTreeNode<int>>(
+  tree->left->right->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{-2, nullptr, nullptr});
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->left->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{1, nullptr, nullptr});
-  root->right = unique_ptr<BinaryTreeNode<int>>(
+  tree->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{5, nullptr, nullptr});
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->right->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{4, nullptr, nullptr});
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(
+  tree->right->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{6, nullptr, nullptr});
   list<int> golden_res = {3, 2, 1, -1, -2, 4, 6, 5};
-  auto L = ExteriorBinaryTree(root);
+  auto L = ExteriorBinaryTree(tree);
   list<int> output;
   // should output 3 2 1 -1 -2 4 6 5
   for (const auto* l : L) {

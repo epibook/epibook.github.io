@@ -20,8 +20,7 @@ using std::stoi;
 using std::uniform_int_distribution;
 using std::vector;
 
-vector<unique_ptr<BinaryTreeNode<int>>> GenerateAllBinaryTreesHelper(int start,
-                                                                     int end);
+vector<unique_ptr<BinaryTreeNode<int>>> GenerateAllBinaryTreesHelper(int, int);
 
 // @include
 vector<unique_ptr<BinaryTreeNode<int>>> GenerateAllBinaryTrees(int n) {

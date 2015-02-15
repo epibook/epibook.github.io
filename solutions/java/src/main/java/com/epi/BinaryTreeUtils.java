@@ -1,29 +1,29 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class BinaryTreeUtils {
-  public static BinaryTree<Integer> generateRandBinaryTree(int n,
+  public static BinaryTreeNode<Integer> generateRandBinaryTree(int n,
                                                            boolean isUnique) {
     Random r = new Random();
-    List<BinaryTree<Integer>> l = new ArrayList<>();
-    BinaryTree<Integer> root = new BinaryTree<>(isUnique ? n--
+    List<BinaryTreeNode<Integer>> l = new ArrayList<>();
+    BinaryTreeNode<Integer> root = new BinaryTreeNode<>(isUnique ? n--
         : r.nextInt(Integer.MAX_VALUE));
     l.add(root);
     while (n-- > 0) {
       int x = r.nextInt(l.size());
       boolean addLeft = r.nextBoolean();
-      BinaryTree<Integer> it = l.get(x);
+      BinaryTreeNode<Integer> it = l.get(x);
       if (addLeft && it.getLeft() == null || !addLeft && it.getRight() == null) {
-        it.setLeft(new BinaryTree<>(isUnique ? n : r
+        it.setLeft(new BinaryTreeNode<>(isUnique ? n : r
             .nextInt(Integer.MAX_VALUE)));
         l.add(it.getLeft());
       } else {
-        it.setRight(new BinaryTree<>(isUnique ? n : r
+        it.setRight(new BinaryTreeNode<>(isUnique ? n : r
             .nextInt(Integer.MAX_VALUE)));
         l.add(it.getRight());
       }
@@ -34,7 +34,7 @@ public class BinaryTreeUtils {
     return root;
   }
 
-  private static <T> void generatePreOrderHelper(BinaryTree<T> r,
+  private static <T> void generatePreOrderHelper(BinaryTreeNode<T> r,
                                                  List<T> ret) {
     if (r != null) {
       ret.add(r.getData());
@@ -43,13 +43,13 @@ public class BinaryTreeUtils {
     }
   }
 
-  public static <T> List<T> generatePreOrder(BinaryTree<T> r) {
+  public static <T> List<T> generatePreOrder(BinaryTreeNode<T> r) {
     List<T> ret = new ArrayList<>();
     generatePreOrderHelper(r, ret);
     return ret;
   }
 
-  private static <T> void generateInOrderHelper(BinaryTree<T> r,
+  private static <T> void generateInOrderHelper(BinaryTreeNode<T> r,
                                                 List<T> ret) {
     if (r != null) {
       generateInOrderHelper(r.getLeft(), ret);
@@ -58,13 +58,13 @@ public class BinaryTreeUtils {
     }
   }
 
-  public static <T> List<T> generateInOrder(BinaryTree<T> r) {
+  public static <T> List<T> generateInOrder(BinaryTreeNode<T> r) {
     List<T> ret = new ArrayList<>();
     generateInOrderHelper(r, ret);
     return ret;
   }
 
-  private static <T> void generatePostOrderHelper(BinaryTree<T> r,
+  private static <T> void generatePostOrderHelper(BinaryTreeNode<T> r,
                                                   List<T> ret) {
     if (r != null) {
       generatePostOrderHelper(r.getLeft(), ret);
@@ -73,7 +73,7 @@ public class BinaryTreeUtils {
     }
   }
 
-  public static <T> List<T> generatePostOrder(BinaryTree<T> r) {
+  public static <T> List<T> generatePostOrder(BinaryTreeNode<T> r) {
     List<T> ret = new ArrayList<>();
     generatePostOrderHelper(r, ret);
     return ret;

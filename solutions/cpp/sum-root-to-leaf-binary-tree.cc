@@ -19,19 +19,19 @@ int SumRootToLeaf(const unique_ptr<BinaryTreeNode<int>>& tree) {
   return SumRootToLeafHelper(tree, 0);
 }
 
-int SumRootToLeafHelper(const unique_ptr<BinaryTreeNode<int>>& node,
+int SumRootToLeafHelper(const unique_ptr<BinaryTreeNode<int>>& tree,
                         int partial_path_sum) {
-  if (node == nullptr) {
+  if (tree == nullptr) {
     return 0;
   }
 
-  partial_path_sum = partial_path_sum * 2 + node->data;
-  if (node->left == nullptr && node->right == nullptr) {  // Leaf.
+  partial_path_sum = partial_path_sum * 2 + tree->data;
+  if (tree->left == nullptr && tree->right == nullptr) {  // Leaf.
     return partial_path_sum;
   }
   // Non-leaf.
-  return SumRootToLeafHelper(node->left, partial_path_sum) +
-         SumRootToLeafHelper(node->right, partial_path_sum);
+  return SumRootToLeafHelper(tree->left, partial_path_sum) +
+         SumRootToLeafHelper(tree->right, partial_path_sum);
 }
 // @exclude
 

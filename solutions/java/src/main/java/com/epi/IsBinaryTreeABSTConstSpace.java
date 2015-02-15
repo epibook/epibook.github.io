@@ -1,14 +1,11 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class IsBinaryTreeABSTConstSpace {
   // @include
-  public static boolean isBST(BinaryTree<Integer> root) {
-    BinaryTree<Integer> n = root;
+  public static boolean isBST(BinaryTreeNode<Integer> tree) {
+    BinaryTreeNode<Integer> n = tree;
     // Stores the value of previous visited node.
     Integer last = Integer.MIN_VALUE;
     boolean result = true;
@@ -16,7 +13,7 @@ public class IsBinaryTreeABSTConstSpace {
     while (n != null) {
       if (n.getLeft() != null) {
         // Finds the predecessor of n.
-        BinaryTree<Integer> pre = n.getLeft();
+        BinaryTreeNode<Integer> pre = n.getLeft();
         while (pre.getRight() != null && pre.getRight() != n) {
           pre = pre.getRight();
         }
@@ -50,22 +47,22 @@ public class IsBinaryTreeABSTConstSpace {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> root = new BinaryTree<>(3);
-    root.setLeft(new BinaryTree<>(2));
-    root.getLeft().setLeft(new BinaryTree<>(1));
-    root.setRight(new BinaryTree<>(5));
-    root.getRight().setLeft(new BinaryTree<>(4));
-    root.getRight().setRight(new BinaryTree<>(6));
+    BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(3);
+    tree.setLeft(new BinaryTreeNode<>(2));
+    tree.getLeft().setLeft(new BinaryTreeNode<>(1));
+    tree.setRight(new BinaryTreeNode<>(5));
+    tree.getRight().setLeft(new BinaryTreeNode<>(4));
+    tree.getRight().setRight(new BinaryTreeNode<>(6));
     // should output true.
-    assert isBST(root);
-    System.out.println(isBST(root));
+    assert isBST(tree);
+    System.out.println(isBST(tree));
     // 10
     // 2 5
     // 1 4 6
-    root.setData(10);
+    tree.setData(10);
     // should output false.
-    assert (!isBST(root));
-    System.out.println(isBST(root));
+    assert (!isBST(tree));
+    System.out.println(isBST(tree));
     // should output true.
     assert isBST(null);
     System.out.println(isBST(null));

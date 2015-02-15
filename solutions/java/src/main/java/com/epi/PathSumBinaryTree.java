@@ -1,14 +1,14 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 public class PathSumBinaryTree {
   // @include
-  public static boolean hasPathSum(BinaryTree<Integer> root, int targetSum) {
-    return hasPathSumHelper(root, 0, targetSum);
+  public static boolean hasPathSum(BinaryTreeNode<Integer> tree, int targetSum) {
+    return hasPathSumHelper(tree, 0, targetSum);
   }
 
-  private static boolean hasPathSumHelper(BinaryTree<Integer> node,
+  private static boolean hasPathSumHelper(BinaryTreeNode<Integer> node,
                                           int partialPathSum, int targetSum) {
     if (node == null) {
       return false;
@@ -27,14 +27,14 @@ public class PathSumBinaryTree {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> root = new BinaryTree<>(3);
-    root.setLeft(new BinaryTree<>(2));
-    root.getLeft().setLeft(new BinaryTree<>(1));
-    root.setRight(new BinaryTree<>(5));
-    root.getRight().setLeft(new BinaryTree<>(4));
-    root.getRight().setRight(new BinaryTree<>(6));
-    assert (hasPathSum(root, 6));
-    assert (!hasPathSum(root, 7));
-    assert (!hasPathSum(root, 100));
+    BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(3);
+    tree.setLeft(new BinaryTreeNode<>(2));
+    tree.getLeft().setLeft(new BinaryTreeNode<>(1));
+    tree.setRight(new BinaryTreeNode<>(5));
+    tree.getRight().setLeft(new BinaryTreeNode<>(4));
+    tree.getRight().setRight(new BinaryTreeNode<>(6));
+    assert (hasPathSum(tree, 6));
+    assert (!hasPathSum(tree, 7));
+    assert (!hasPathSum(tree, 100));
   }
 }

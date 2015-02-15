@@ -1,12 +1,12 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
 public class BSTLowestCommonAncestor {
   // @include
-  public static BinaryTree<Integer> findLCA(
-      BinaryTree<Integer> tree, BinaryTree<Integer> s, BinaryTree<Integer> b) {
-    BinaryTree<Integer> p = tree;
+  public static BSTNode<Integer> findLCA(
+      BSTNode<Integer> tree, BSTNode<Integer> s, BSTNode<Integer> b) {
+    BSTNode<Integer> p = tree;
     while (p.getData() < s.getData() || p.getData() > b.getData()) {
       // Keep searching since p is outside of [s, b].
       while (p.getData() < s.getData()) {
@@ -26,12 +26,12 @@ public class BSTLowestCommonAncestor {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> tree = new BinaryTree<>(3);
-    tree.setLeft(new BinaryTree<>(2));
-    tree.getLeft().setLeft(new BinaryTree<>(1));
-    tree.setRight(new BinaryTree<>(5));
-    tree.getRight().setLeft(new BinaryTree<>(4));
-    tree.getRight().setRight(new BinaryTree<>(6));
+    BSTNode<Integer> tree = new BSTNode<>(3);
+    tree.setLeft(new BSTNode<>(2));
+    tree.getLeft().setLeft(new BSTNode<>(1));
+    tree.setRight(new BSTNode<>(5));
+    tree.getRight().setLeft(new BSTNode<>(4));
+    tree.getRight().setRight(new BSTNode<>(6));
     assert (3 == findLCA(tree, tree.getLeft().getLeft(),
             tree.getRight().getLeft()).getData());
     assert (5 == findLCA(tree, tree.getRight().getLeft(),

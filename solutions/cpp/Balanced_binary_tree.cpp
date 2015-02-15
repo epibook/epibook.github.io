@@ -49,22 +49,22 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BinaryTreeNode<int>> root =
+  unique_ptr<BinaryTreeNode<int>> tree =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
-  root->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
-  root->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
-  root->right->left =
+  tree->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  tree->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  tree->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  tree->right->left =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
-  root->right->right =
+  tree->right->right =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
-  assert(IsBalancedBinaryTree(root) == true);
-  cout << boolalpha << IsBalancedBinaryTree(root) << endl;
+  assert(IsBalancedBinaryTree(tree) == true);
+  cout << boolalpha << IsBalancedBinaryTree(tree) << endl;
   // Non-balanced binary tree test.
-  root = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
-  root->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
-  assert(IsBalancedBinaryTree(root) == false);
-  cout << boolalpha << IsBalancedBinaryTree(root) << endl;
+  tree = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  tree->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  tree->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  assert(IsBalancedBinaryTree(tree) == false);
+  cout << boolalpha << IsBalancedBinaryTree(tree) << endl;
   return 0;
 }

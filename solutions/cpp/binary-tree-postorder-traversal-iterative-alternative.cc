@@ -23,7 +23,7 @@ vector<int> InvertedPreorderTraversal(const unique_ptr<BinaryTreeNode<int>>&);
 vector<int> PostorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
   auto sequence = InvertedPreorderTraversal(tree);
   reverse(sequence.begin(), sequence.end());
-  return sequence; 
+  return sequence;
 }
 
 vector<int> InvertedPreorderTraversal(
@@ -49,19 +49,19 @@ int main(int argc, char** argv) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
+  unique_ptr<BinaryTreeNode<int>> tree = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{3, nullptr, nullptr});
-  root->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{2, nullptr, nullptr});
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->left->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{1, nullptr, nullptr});
-  root->right = unique_ptr<BinaryTreeNode<int>>(
+  tree->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{5, nullptr, nullptr});
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->right->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{4, nullptr, nullptr});
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(
+  tree->right->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{6, nullptr, nullptr});
-  auto res = PostorderTraversal(root), golden_res = generate_postorder(root);
+  auto res = PostorderTraversal(tree), golden_res = generate_postorder(tree);
   assert(res.size() == golden_res.size() &&
          equal(res.cbegin(), res.cend(), golden_res.cbegin()));
   return 0;

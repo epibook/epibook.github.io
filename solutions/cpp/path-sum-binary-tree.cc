@@ -11,12 +11,11 @@ using std::cout;
 using std::endl;
 using std::unique_ptr;
 
-bool HasPathSumHelper(const unique_ptr<BinaryTreeNode<int>>& root, int partial_path_sum,
-                      int target_sum);
+bool HasPathSumHelper(const unique_ptr<BinaryTreeNode<int>>&, int, int);
 
 // @include
-bool HasPathSum(const unique_ptr<BinaryTreeNode<int>>& root, int target_sum) {
-  return HasPathSumHelper(root, 0, target_sum);
+bool HasPathSum(const unique_ptr<BinaryTreeNode<int>>& tree, int target_sum) {
+  return HasPathSumHelper(tree, 0, target_sum);
 }
 
 bool HasPathSumHelper(const unique_ptr<BinaryTreeNode<int>>& node,
@@ -38,20 +37,20 @@ int main(int argc, char** argv) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
+  unique_ptr<BinaryTreeNode<int>> tree = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{3, nullptr, nullptr});
-  root->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{2, nullptr, nullptr});
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->left->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{1, nullptr, nullptr});
-  root->right = unique_ptr<BinaryTreeNode<int>>(
+  tree->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{5, nullptr, nullptr});
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->right->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{4, nullptr, nullptr});
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(
+  tree->right->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{6, nullptr, nullptr});
-  assert(HasPathSum(root, 6));
-  assert(!HasPathSum(root, 7));
-  assert(!HasPathSum(root, 100));
+  assert(HasPathSum(tree, 6));
+  assert(!HasPathSum(tree, 7));
+  assert(!HasPathSum(tree, 100));
   return 0;
 }

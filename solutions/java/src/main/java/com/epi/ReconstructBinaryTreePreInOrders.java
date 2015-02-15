@@ -1,6 +1,6 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 import java.util.List;
 import java.util.HashMap;
@@ -11,34 +11,36 @@ import static com.epi.BinaryTreeUtils.*;
 
 public class ReconstructBinaryTreePreInOrders {
   // @include
-  public static BinaryTree<Integer> reconstructPreInOrders(int[] pre,
-                                                           int[] in) {
-    Map<Integer, Integer> inEntryIdxMap = new HashMap<Integer, Integer>();
-    for (int i = 0; i < in.length; ++i) {
-      inEntryIdxMap.put(in[i], i);
+  public static BinaryTreeNode<Integer> reconstructPreInOrders(int[] preorder,
+                                                               int[] inorder) {
+    Map<Integer, Integer> nodeToInorderIdx = new HashMap<Integer, Integer>();
+    for (int i = 0; i < inorder.length; ++i) {
+      nodeToInorderIdx.put(inorder[i], i);
     }
-    return reconstructPreInOrdersHelper(pre, 0, pre.length, 0, in.length,
-                                        inEntryIdxMap);
+    return reconstructPreInOrdersHelper(preorder, 0, preorder.length, 0,
+                                        inorder.length, nodeToInorderIdx);
   }
 
-  // Reconstructs the binary tree from pre[pre_s : pre_e - 1] and
-  // in[in_s : in_e - 1].
-  private static BinaryTree<Integer> reconstructPreInOrdersHelper(
-      int[] pre, int preS, int preE, int inS, int inE,
-      Map<Integer, Integer> inEntryIdxMap) {
-    if (preE <= preS || inE <= inS) {
+  // Builds the subtree with preorder[preorderStart : preorderEnd - 1] and
+  // inorder[inorderStart : inorderEnd - 1].
+  private static BinaryTreeNode<Integer> reconstructPreInOrdersHelper(
+      int[] preorder, int preorderStart, int preorderEnd, int inorderStart,
+      int inorderEnd, Map<Integer, Integer> nodeToInorderIdx) {
+    if (preorderEnd <= preorderStart || inorderEnd <= inorderStart) {
       return null;
     }
-    int idx = inEntryIdxMap.get(pre[preS]);
-    int leftTreeSize = idx - inS;
+    int rootInorderIdx = nodeToInorderIdx.get(preorder[preorderStart]);
+    int leftSubtreeSize = rootInorderIdx - inorderStart;
 
-    return new BinaryTree<>(pre[preS],
+    return new BinaryTreeNode<>(preorder[preorderStart],
         // Recursively builds the left subtree.
-        reconstructPreInOrdersHelper(pre, preS + 1, preS + 1 + leftTreeSize,
-                                     inS, idx, inEntryIdxMap),
+        reconstructPreInOrdersHelper(
+            preorder, preorderStart + 1, preorderStart + 1 + leftSubtreeSize,
+            inorderStart, rootInorderIdx, nodeToInorderIdx),
         // Recursively builds the right subtree.
-        reconstructPreInOrdersHelper(pre, preS + 1 + leftTreeSize, preE,
-                                     idx + 1, inE, inEntryIdxMap));
+        reconstructPreInOrdersHelper(
+            preorder, preorderStart + 1 + leftSubtreeSize, preorderEnd,
+            rootInorderIdx + 1, inorderEnd, nodeToInorderIdx));
   }
   // @exclude
 
@@ -52,18 +54,18 @@ public class ReconstructBinaryTreePreInOrders {
       } else {
         n = r.nextInt(10000) + 1;
       }
-      BinaryTree<Integer> root = generateRandBinaryTree(n, true);
-      List<Integer> pre = generatePreOrder(root);
-      int[] preOrder = new int[pre.size()];
+      BinaryTreeNode<Integer> root = generateRandBinaryTree(n, true);
+      List<Integer> preorder = generatePreOrder(root);
+      int[] preOrder = new int[preorder.size()];
       for (int i = 0; i < preOrder.length; ++i) {
-        preOrder[i] = pre.get(i);
+        preOrder[i] = preorder.get(i);
       }
-      List<Integer> in = generateInOrder(root);
-      int[] inOrder = new int[in.size()];
+      List<Integer> inorder = generateInOrder(root);
+      int[] inOrder = new int[inorder.size()];
       for (int i = 0; i < inOrder.length; ++i) {
-        inOrder[i] = in.get(i);
+        inOrder[i] = inorder.get(i);
       }
-      BinaryTree<Integer> res = reconstructPreInOrders(preOrder, inOrder);
+      BinaryTreeNode<Integer> res = reconstructPreInOrders(preOrder, inOrder);
       assert (root.equals(res));
     }
   }

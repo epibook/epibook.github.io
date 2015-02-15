@@ -1,6 +1,6 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,34 +9,34 @@ public class InorderTraversalNoStack {
   private static List<Integer> result = new ArrayList<>();
 
   // @include
-  public static void inOrderTraversal(BinaryTree<Integer> n) {
-    while (n != null) {
-      if (n.getLeft() != null) {
-        // Finds the predecessor of n.
-        BinaryTree<Integer> pre = n.getLeft();
-        while (pre.getRight() != null && pre.getRight() != n) {
+  public static void inOrderTraversal(BinaryTreeNode<Integer> tree) {
+    while (tree != null) {
+      if (tree.getLeft() != null) {
+        // Finds the predecessor of tree.
+        BinaryTreeNode<Integer> pre = tree.getLeft();
+        while (pre.getRight() != null && pre.getRight() != tree) {
           pre = pre.getRight();
         }
 
         // Processes the successor link.
-        if (pre.getRight() != null) { // pre.getRight() == n
-          // Reverts the successor link if predecessor's successor is n.
+        if (pre.getRight() != null) { // pre.getRight() == tree
+          // Reverts the successor link if predecessor's successor is tree.
           pre.setRight(null);
-          System.out.println(n.getData());
+          System.out.println(tree.getData());
           // @exclude
-          result.add(n.getData());
+          result.add(tree.getData());
           // @include
-          n = n.getRight();
-        } else { // If predecessor's successor is not n.
-          pre.setRight(n);
-          n = n.getLeft();
+          tree = tree.getRight();
+        } else { // If predecessor's successor is not tree.
+          pre.setRight(tree);
+          tree = tree.getLeft();
         }
       } else {
-        System.out.println(n.getData());
+        System.out.println(tree.getData());
         // @exclude
-        result.add(n.getData());
+        result.add(tree.getData());
         // @include
-        n = n.getRight();
+        tree = tree.getRight();
       }
     }
   }
@@ -46,14 +46,14 @@ public class InorderTraversalNoStack {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> root = new BinaryTree<>(3);
-    root.setLeft(new BinaryTree<>(2));
-    root.getLeft().setLeft(new BinaryTree<>(1));
-    root.setRight(new BinaryTree<>(5));
-    root.getRight().setLeft(new BinaryTree<>(4));
-    root.getRight().setRight(new BinaryTree<>(6));
+    BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(3);
+    tree.setLeft(new BinaryTreeNode<>(2));
+    tree.getLeft().setLeft(new BinaryTreeNode<>(1));
+    tree.setRight(new BinaryTreeNode<>(5));
+    tree.getRight().setLeft(new BinaryTreeNode<>(4));
+    tree.getRight().setRight(new BinaryTreeNode<>(6));
     // should output 1 2 3 4 5 6
-    inOrderTraversal(root);
+    inOrderTraversal(tree);
     List<Integer> golden_res = new ArrayList<Integer>() {{
       add(1);
       add(2);

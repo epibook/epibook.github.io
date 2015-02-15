@@ -30,7 +30,7 @@ vector<int> PostorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
   vector<int> postorder_sequence;
   while (!path_stack.empty()) {
     auto curr = path_stack.top();
-    if (prev == nullptr || prev->left.get() == curr || 
+    if (prev == nullptr || prev->left.get() == curr ||
         prev->right.get() == curr) {
       // We came down to curr from prev.
       if (curr->left != nullptr) {  // Traverse left.
@@ -43,13 +43,13 @@ vector<int> PostorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
       }
     } else if (curr->left.get() == prev) {
       // Done with left, so now traverse right.
-      if (curr->right != nullptr) {  
+      if (curr->right != nullptr) {
         path_stack.emplace(curr->right.get());
       } else {  // No right child, so visit curr.
         postorder_sequence.emplace_back(curr->data);
         path_stack.pop();
       }
-    } else { 
+    } else {
       // Finished traversing left and right, so visit curr.
       postorder_sequence.emplace_back(curr->data);
       path_stack.pop();
@@ -64,19 +64,19 @@ int main(int argc, char** argv) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
+  unique_ptr<BinaryTreeNode<int>> tree = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{3, nullptr, nullptr});
-  root->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{2, nullptr, nullptr});
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->left->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{1, nullptr, nullptr});
-  root->right = unique_ptr<BinaryTreeNode<int>>(
+  tree->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{5, nullptr, nullptr});
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->right->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{4, nullptr, nullptr});
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(
+  tree->right->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{6, nullptr, nullptr});
-  auto res = PostorderTraversal(root), golden_res = generate_postorder(root);
+  auto res = PostorderTraversal(tree), golden_res = generate_postorder(tree);
   assert(res.size() == golden_res.size() &&
          equal(res.cbegin(), res.cend(), golden_res.cbegin()));
   return 0;

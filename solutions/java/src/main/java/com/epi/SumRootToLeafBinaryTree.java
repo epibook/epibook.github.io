@@ -1,26 +1,26 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 public class SumRootToLeafBinaryTree {
   // @include
-  public static int sumRootToLeaf(BinaryTree<Integer> tree) {
+  public static int sumRootToLeaf(BinaryTreeNode<Integer> tree) {
     return sumRootToLeafHelper(tree, 0);
   }
 
-  private static int sumRootToLeafHelper(BinaryTree<Integer> node, 
+  private static int sumRootToLeafHelper(BinaryTreeNode<Integer> tree,
                                          int partialPathSum) {
-    if (node == null) {
+    if (tree == null) {
       return 0;
     }
 
-    partialPathSum = partialPathSum * 2 + node.getData();
-    if (node.getLeft() == null && node.getRight() == null) { // Leaf.
+    partialPathSum = partialPathSum * 2 + tree.getData();
+    if (tree.getLeft() == null && tree.getRight() == null) { // Leaf.
       return partialPathSum;
     }
     // Non-leaf.
-    return sumRootToLeafHelper(node.getLeft(), partialPathSum)
-           + sumRootToLeafHelper(node.getRight(), partialPathSum);
+    return sumRootToLeafHelper(tree.getLeft(), partialPathSum)
+           + sumRootToLeafHelper(tree.getRight(), partialPathSum);
   }
   // @exclude
 
@@ -28,12 +28,12 @@ public class SumRootToLeafBinaryTree {
     // 1
     // 1 0
     // 0 1 0
-    BinaryTree<Integer> root = new BinaryTree<>(1);
-    root.setLeft(new BinaryTree<>(1));
-    root.getLeft().setLeft(new BinaryTree<>(0));
-    root.setRight(new BinaryTree<>(0));
-    root.getRight().setLeft(new BinaryTree<>(1));
-    root.getRight().setRight(new BinaryTree<>(0));
+    BinaryTreeNode<Integer> root = new BinaryTreeNode<>(1);
+    root.setLeft(new BinaryTreeNode<>(1));
+    root.getLeft().setLeft(new BinaryTreeNode<>(0));
+    root.setRight(new BinaryTreeNode<>(0));
+    root.getRight().setLeft(new BinaryTreeNode<>(1));
+    root.getRight().setRight(new BinaryTreeNode<>(0));
     int result = sumRootToLeaf(root);
     assert (result == 15);
   }

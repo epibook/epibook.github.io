@@ -1,22 +1,22 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 public class LowestCommonAncestorNoParent {
   // @include
   private static class Status {
     int numTargetNodes;
-    BinaryTree<Integer> ancestor;
+    BinaryTreeNode<Integer> ancestor;
 
-    public Status(int numTargetNodes,  BinaryTree<Integer> node) {
+    public Status(int numTargetNodes,  BinaryTreeNode<Integer> node) {
       this.numTargetNodes = numTargetNodes;
       this.ancestor = node;
     }
   }
 
-  public static BinaryTree<Integer> LCA(BinaryTree<Integer> tree,
-                                        BinaryTree<Integer> node0,
-                                        BinaryTree<Integer> node1) {
+  public static BinaryTreeNode<Integer> LCA(BinaryTreeNode<Integer> tree,
+                                            BinaryTreeNode<Integer> node0,
+                                            BinaryTreeNode<Integer> node1) {
     return LCAHelper(tree, node0, node1).ancestor;
   }
 
@@ -24,9 +24,9 @@ public class LowestCommonAncestorNoParent {
   // how many of node0 and node1 are present in tree. If both are present in
   // tree, the node pointer is a common ancestor. It may not be the LCA
   // initially, but it will be LCA when the algorithm terminates.
-  private static Status LCAHelper(BinaryTree<Integer> tree,
-                                  BinaryTree<Integer> node0,
-                                  BinaryTree<Integer> node1) {
+  private static Status LCAHelper(BinaryTreeNode<Integer> tree,
+                                  BinaryTreeNode<Integer> node0,
+                                  BinaryTreeNode<Integer> node1) {
     if (tree == null) {
       return new Status(0, null);
     }
@@ -51,22 +51,22 @@ public class LowestCommonAncestorNoParent {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> root = new BinaryTree<>(3, null, null);
-    root.setLeft(new BinaryTree<>(2, null, null));
-    root.getLeft().setLeft(new BinaryTree<>(1, null, null));
-    root.setRight(new BinaryTree<>(5, null, null));
-    root.getRight().setLeft(new BinaryTree<>(4, null, null));
-    root.getRight().setRight(new BinaryTree<>(6, null, null));
+    BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(3, null, null);
+    tree.setLeft(new BinaryTreeNode<>(2, null, null));
+    tree.getLeft().setLeft(new BinaryTreeNode<>(1, null, null));
+    tree.setRight(new BinaryTreeNode<>(5, null, null));
+    tree.getRight().setLeft(new BinaryTreeNode<>(4, null, null));
+    tree.getRight().setRight(new BinaryTreeNode<>(6, null, null));
     // should output 3
-    BinaryTree<Integer> x = LCA(root, root.getLeft(), root.getRight());
+    BinaryTreeNode<Integer> x = LCA(tree, tree.getLeft(), tree.getRight());
     assert (x.getData().equals(3));
     System.out.println(x.getData());
     // should output 5
-    x = LCA(root, root.getRight().getLeft(), root.getRight().getRight());
+    x = LCA(tree, tree.getRight().getLeft(), tree.getRight().getRight());
     assert (x.getData().equals(5));
     System.out.println(x.getData());
     // should output 5
-    x = LCA(root, root.getRight(), root.getRight().getRight());
+    x = LCA(tree, tree.getRight(), tree.getRight().getRight());
     assert (x.getData().equals(5));
     System.out.println(x.getData());
   }

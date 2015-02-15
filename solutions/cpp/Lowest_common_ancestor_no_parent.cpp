@@ -53,36 +53,36 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
+  unique_ptr<BinaryTreeNode<int>> tree = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{3, nullptr, nullptr});
-  root->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{2, nullptr, nullptr});
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->left->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{1, nullptr, nullptr});
-  root->right = unique_ptr<BinaryTreeNode<int>>(
+  tree->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{5, nullptr, nullptr});
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(
+  tree->right->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{4, nullptr, nullptr});
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(
+  tree->right->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{6, nullptr, nullptr});
   // should output 3
-  auto* x = LCA(root, root->left, root->right);
+  auto* x = LCA(tree, tree->left, tree->right);
   assert(x->data == 3);
   cout << x->data << endl;
   // should output 5
-  x = LCA(root, root->right->left, root->right->right);
+  x = LCA(tree, tree->right->left, tree->right->right);
   assert(x->data == 5);
   cout << x->data << endl;
   // should output 5
-  x = LCA(root, root->right, root->right->right);
+  x = LCA(tree, tree->right, tree->right->right);
   assert(x->data == 5);
   cout << x->data << endl;
   // should output 3
-  x = LCA(root, root, root->left->left);
+  x = LCA(tree, tree, tree->left->left);
   assert(x->data == 3);
   cout << x->data << endl;
   // should output 2
-  x = LCA(root, root->left, root->left->left);
+  x = LCA(tree, tree->left, tree->left->left);
   assert(x->data == 2);
   cout << x->data << endl;
   return 0;

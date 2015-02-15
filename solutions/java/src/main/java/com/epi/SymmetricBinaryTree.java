@@ -1,15 +1,15 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 public class SymmetricBinaryTree {
   // @include
-  public static boolean isSymmetric(BinaryTree<Integer> tree) {
+  public static boolean isSymmetric(BinaryTreeNode<Integer> tree) {
     return tree == null || checkSymmetric(tree.getLeft(), tree.getRight());
   }
 
-  private static boolean
-  checkSymmetric(BinaryTree<Integer> subtree0, BinaryTree<Integer> subtree1) {
+  private static boolean checkSymmetric(BinaryTreeNode<Integer> subtree0,
+                                        BinaryTreeNode<Integer> subtree1) {
     if (subtree0 == null && subtree1 == null) {
       return true;
     } else if (subtree0 != null && subtree1 != null) {
@@ -27,19 +27,19 @@ public class SymmetricBinaryTree {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> nonSymmRoot = new BinaryTree<>();
-    nonSymmRoot.setLeft(new BinaryTree<Integer>());
-    nonSymmRoot.getLeft().setLeft(new BinaryTree<Integer>());
-    nonSymmRoot.setRight(new BinaryTree<Integer>());
-    nonSymmRoot.getRight().setLeft(new BinaryTree<Integer>());
-    nonSymmRoot.getRight().setRight(new BinaryTree<Integer>());
-    assert (!isSymmetric(nonSymmRoot));
-    System.out.println(isSymmetric(nonSymmRoot));
+    BinaryTreeNode<Integer> nonSymmTree = new BinaryTreeNode<>();
+    nonSymmTree.setLeft(new BinaryTreeNode<Integer>());
+    nonSymmTree.getLeft().setLeft(new BinaryTreeNode<Integer>());
+    nonSymmTree.setRight(new BinaryTreeNode<Integer>());
+    nonSymmTree.getRight().setLeft(new BinaryTreeNode<Integer>());
+    nonSymmTree.getRight().setRight(new BinaryTreeNode<Integer>());
+    assert (!isSymmetric(nonSymmTree));
+    System.out.println(isSymmetric(nonSymmTree));
     // symmetric tree test
-    BinaryTree<Integer> symmRoot = new BinaryTree<>();
-    symmRoot.setLeft(new BinaryTree<Integer>());
-    symmRoot.setRight(new BinaryTree<Integer>());
-    assert (isSymmetric(symmRoot));
-    System.out.println(isSymmetric(symmRoot));
+    BinaryTreeNode<Integer> symmTree = new BinaryTreeNode<>();
+    symmTree.setLeft(new BinaryTreeNode<Integer>());
+    symmTree.setRight(new BinaryTreeNode<Integer>());
+    assert (isSymmetric(symmTree));
+    System.out.println(isSymmetric(symmTree));
   }
 }

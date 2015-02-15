@@ -15,8 +15,8 @@ using std::vector;
 vector<int> result;
 
 // @include
-void InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& root) {
-  auto* iter = root.get();
+void InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
+  auto* iter = tree.get();
   while (iter) {
     if (iter->left.get()) {
       // Finds the predecessor of iter.
@@ -53,15 +53,15 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BinaryTreeNode<int>> root =
+  unique_ptr<BinaryTreeNode<int>> tree =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3});
-  root->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
-  root->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
+  tree->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
+  tree->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
+  tree->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
+  tree->right->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
+  tree->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
   // should output 1 2 3 4 5 6
-  InorderTraversal(root);
+  InorderTraversal(tree);
   vector<int> golden_res = {1, 2, 3, 4, 5, 6};
   assert(result.size() == golden_res.size());
   assert(equal(result.begin(), result.end(), golden_res.begin()));

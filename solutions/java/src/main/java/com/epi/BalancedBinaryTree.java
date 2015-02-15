@@ -1,6 +1,6 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 public class BalancedBinaryTree {
   // @include
@@ -14,11 +14,11 @@ public class BalancedBinaryTree {
     }
   }
 
-  public static boolean isBalancedBinaryTree(BinaryTree<Integer> tree) {
+  public static boolean isBalancedBinaryTree(BinaryTreeNode<Integer> tree) {
     return CheckBalanced(tree).balanced;
   }
 
-  private static Status CheckBalanced(BinaryTree<Integer> tree) {
+  private static Status CheckBalanced(BinaryTreeNode<Integer> tree) {
     if (tree == null) {
       return new Status(true, -1); // Base case.
     }
@@ -43,18 +43,18 @@ public class BalancedBinaryTree {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> root = new BinaryTree<>();
-    root.setLeft(new BinaryTree<Integer>());
-    root.getLeft().setLeft(new BinaryTree<Integer>());
-    root.setRight(new BinaryTree<Integer>());
-    root.getRight().setLeft(new BinaryTree<Integer>());
-    root.getRight().setRight(new BinaryTree<Integer>());
-    assert (isBalancedBinaryTree(root));
-    System.out.println(isBalancedBinaryTree(root));
-    root = new BinaryTree<>();
-    root.setLeft(new BinaryTree<Integer>());
-    root.getLeft().setLeft(new BinaryTree<Integer>());
-    assert (!isBalancedBinaryTree(root));
-    System.out.println(isBalancedBinaryTree(root));
+    BinaryTreeNode<Integer> tree = new BinaryTreeNode<>();
+    tree.setLeft(new BinaryTreeNode<Integer>());
+    tree.getLeft().setLeft(new BinaryTreeNode<Integer>());
+    tree.setRight(new BinaryTreeNode<Integer>());
+    tree.getRight().setLeft(new BinaryTreeNode<Integer>());
+    tree.getRight().setRight(new BinaryTreeNode<Integer>());
+    assert (isBalancedBinaryTree(tree));
+    System.out.println(isBalancedBinaryTree(tree));
+    tree = new BinaryTreeNode<>();
+    tree.setLeft(new BinaryTreeNode<Integer>());
+    tree.getLeft().setLeft(new BinaryTreeNode<Integer>());
+    assert (!isBalancedBinaryTree(tree));
+    System.out.println(isBalancedBinaryTree(tree));
   }
 }

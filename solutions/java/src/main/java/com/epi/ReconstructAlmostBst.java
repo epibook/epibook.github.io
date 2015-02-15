@@ -1,6 +1,6 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 import java.util.List;
 
@@ -8,10 +8,10 @@ import static com.epi.BinaryTreeUtils.generateInOrder;
 
 public class ReconstructAlmostBst {
   // @include
-  private static BinaryTree<Integer> p1, p2;
-  private static BinaryTree<Integer> pre;
+  private static BinaryTreeNode<Integer> p1, p2;
+  private static BinaryTreeNode<Integer> pre;
 
-  public static void reconstructBST(BinaryTree<Integer> root) {
+  public static void reconstructBST(BinaryTreeNode<Integer> root) {
     p1 = null;
     p2 = null;
     pre = null;
@@ -23,7 +23,7 @@ public class ReconstructAlmostBst {
     }
   }
 
-  private static void reconstructBSTHelper(BinaryTree<Integer> root) {
+  private static void reconstructBSTHelper(BinaryTreeNode<Integer> root) {
     if (root == null) {
       return;
     }
@@ -45,12 +45,12 @@ public class ReconstructAlmostBst {
     // 3
     // 2 4
     // 1 5 6
-    BinaryTree<Integer> root = new BinaryTree<>(3);
-    root.setLeft(new BinaryTree<>(2));
-    root.getLeft().setLeft(new BinaryTree<>(1));
-    root.setRight(new BinaryTree<>(4));
-    root.getRight().setLeft(new BinaryTree<>(5));
-    root.getRight().setRight(new BinaryTree<>(6));
+    BinaryTreeNode<Integer> root = new BinaryTreeNode<>(3);
+    root.setLeft(new BinaryTreeNode<>(2));
+    root.getLeft().setLeft(new BinaryTreeNode<>(1));
+    root.setRight(new BinaryTreeNode<>(4));
+    root.getRight().setLeft(new BinaryTreeNode<>(5));
+    root.getRight().setRight(new BinaryTreeNode<>(6));
     reconstructBST(root);
     List<Integer> result = generateInOrder(root);
     System.out.println(result);

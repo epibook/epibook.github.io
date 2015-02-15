@@ -40,19 +40,19 @@ int main(int argc, char** argv) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BinaryTreeNode<int>> root =
+  unique_ptr<BinaryTreeNode<int>> tree =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3, nullptr, nullptr});
-  root->left =
+  tree->left =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2, nullptr, nullptr});
-  root->left->left =
+  tree->left->left =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1, nullptr, nullptr});
-  root->right =
+  tree->right =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5, nullptr, nullptr});
-  root->right->left =
+  tree->right->left =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4, nullptr, nullptr});
-  root->right->right =
+  tree->right->right =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6, nullptr, nullptr});
-  auto res = PreorderTraversal(root), golden_res = generate_preorder(root);
+  auto res = PreorderTraversal(tree), golden_res = generate_preorder(tree);
   assert(res.size() == golden_res.size() &&
          equal(res.cbegin(), res.cend(), golden_res.cbegin()));
   return 0;

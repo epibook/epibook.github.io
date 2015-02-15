@@ -1,6 +1,6 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +10,13 @@ import static com.epi.BinaryTreeUtils.generateInOrder;
 
 public class UniqueBinaryTreesAll {
   // @include
-  public static List<BinaryTree<Integer>> generateAllBinaryTrees(int n) {
+  public static List<BinaryTreeNode<Integer>> generateAllBinaryTrees(int n) {
     return generateAllBinaryTreesHelper(1, n);
   }
 
-  private static List<BinaryTree<Integer>> generateAllBinaryTreesHelper(
+  private static List<BinaryTreeNode<Integer>> generateAllBinaryTreesHelper(
       int start, int end) {
-    List<BinaryTree<Integer>> result = new ArrayList<>();
+    List<BinaryTreeNode<Integer>> result = new ArrayList<>();
     if (start > end) {
       result.add(null);
       return result;
@@ -24,13 +24,13 @@ public class UniqueBinaryTreesAll {
 
     for (int i = start; i <= end; ++i) {
       // Tries all possible combinations of left subtrees and right subtrees.
-      List<BinaryTree<Integer>> leftresult = generateAllBinaryTreesHelper(start,
-          i - 1);
-      List<BinaryTree<Integer>> rightresult = generateAllBinaryTreesHelper(
-          i + 1, end);
-      for (BinaryTree<Integer> left : leftresult) {
-        for (BinaryTree<Integer> right : rightresult) {
-          result.add(new BinaryTree<>(i, left, right));
+      List<BinaryTreeNode<Integer>> leftresult =
+          generateAllBinaryTreesHelper(start, i - 1);
+      List<BinaryTreeNode<Integer>> rightresult =
+          generateAllBinaryTreesHelper(i + 1, end);
+      for (BinaryTreeNode<Integer> left : leftresult) {
+        for (BinaryTreeNode<Integer> right : rightresult) {
+          result.add(new BinaryTreeNode<>(i, left, right));
         }
       }
     }
@@ -47,8 +47,8 @@ public class UniqueBinaryTreesAll {
       n = r.nextInt(10) + 1;
     }
     System.out.println("n = " + n);
-    List<BinaryTree<Integer>> result = generateAllBinaryTrees(n);
-    for (BinaryTree<Integer> tree : result) {
+    List<BinaryTreeNode<Integer>> result = generateAllBinaryTrees(n);
+    for (BinaryTreeNode<Integer> tree : result) {
       List<Integer> sequence = generateInOrder(tree);
       for (int i = 1; i < sequence.size(); i++) {
         assert (sequence.get(i - 1) < sequence.get(i));

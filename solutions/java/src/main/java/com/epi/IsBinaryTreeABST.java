@@ -1,14 +1,14 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 public class IsBinaryTreeABST {
   // @include
-  public static boolean isBinaryTreeBST(BinaryTree<Integer> tree) {
+  public static boolean isBinaryTreeBST(BinaryTreeNode<Integer> tree) {
     return areKeysInRange(tree, Integer.MIN_VALUE, Integer.MAX_VALUE);
   }
 
-  private static boolean areKeysInRange(BinaryTree<Integer> tree,
+  private static boolean areKeysInRange(BinaryTreeNode<Integer> tree,
                                         Integer lower, Integer upper) {
     if (tree == null) {
       return true;
@@ -26,12 +26,12 @@ public class IsBinaryTreeABST {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> tree = new BinaryTree<>(3);
-    tree.setLeft(new BinaryTree<>(2));
-    tree.getLeft().setLeft(new BinaryTree<>(1));
-    tree.setRight(new BinaryTree<>(5));
-    tree.getRight().setLeft(new BinaryTree<>(4));
-    tree.getRight().setRight(new BinaryTree<>(6));
+    BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(3);
+    tree.setLeft(new BinaryTreeNode<>(2));
+    tree.getLeft().setLeft(new BinaryTreeNode<>(1));
+    tree.setRight(new BinaryTreeNode<>(5));
+    tree.getRight().setLeft(new BinaryTreeNode<>(4));
+    tree.getRight().setRight(new BinaryTreeNode<>(6));
     // should output true.
     assert isBinaryTreeBST(tree);
     System.out.println(isBinaryTreeBST(tree));

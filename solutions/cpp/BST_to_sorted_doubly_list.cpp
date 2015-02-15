@@ -19,36 +19,36 @@ pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>>
 
 // @include
 shared_ptr<BSTNode<int>> BSTToDoublyLinkedList(
-    const shared_ptr<BSTNode<int>>& T) {
-  return BSTToDoublyLinkedListHelper(T).first;
+    const shared_ptr<BSTNode<int>>& tree) {
+  return BSTToDoublyLinkedListHelper(tree).first;
 }
 
 // Transforms a BST into a sorted doubly linked list in-place,
 // and return the head and tail of the list as a pair.
 pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>>
-    BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>& T) {
+    BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>& tree) {
   // Empty subtree.
-  if (!T) {
+  if (!tree) {
     return {nullptr, nullptr};
   }
 
   // Recursively builds the list from left and right subtrees.
-  auto left = BSTToDoublyLinkedListHelper(T->left);
-  auto right = BSTToDoublyLinkedListHelper(T->right);
+  auto left = BSTToDoublyLinkedListHelper(tree->left);
+  auto right = BSTToDoublyLinkedListHelper(tree->right);
 
-  // Appends T to the list from left subtree.
+  // Appends tree to the list from left subtree.
   if (left.second) {
-    left.second->right = T;
+    left.second->right = tree;
   }
-  T->left = left.second;
+  tree->left = left.second;
 
-  // Appends the list from right subtree to T.
-  T->right = right.first;
+  // Appends the list from right subtree to tree.
+  tree->right = right.first;
   if (right.first) {
-    right.first->left = T;
+    right.first->left = tree;
   }
 
-  return {left.first ? left.first : T, right.second ? right.second : T};
+  return {left.first ? left.first : tree, right.second ? right.second : tree};
 }
 // @exclude
 
