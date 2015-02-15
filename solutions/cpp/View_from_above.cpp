@@ -34,45 +34,47 @@ class Endpoint {
 };
 
 void CalculateViewFromAbove(const vector<LineSegment>& A) {
-  vector<Endpoint> E;
+  vector<Endpoint> sorted_endpoints;
   for (const auto& a : A) {
-    E.emplace_back(Endpoint{true, &a});
-    E.emplace_back(Endpoint{false, &a});
+    sorted_endpoints.emplace_back(Endpoint{true, &a});
+    sorted_endpoints.emplace_back(Endpoint{false, &a});
   }
-  sort(E.begin(), E.end());
+  sort(sorted_endpoints.begin(), sorted_endpoints.end());
 
-  int prev_xaxis = E.front().Value();  // The first left end point.
+  int prev_xaxis = sorted_endpoints.front().Value();  // Leftmost end point.
   unique_ptr<LineSegment> prev = nullptr;
-  map<int, const LineSegment*> T;
-  for (const auto& e : E) {
-    if (!T.empty() && prev_xaxis != e.Value()) {
+  map<int, const LineSegment*> active_line_segments;
+  for (const auto& e : sorted_endpoints) {
+    if (!active_line_segments.empty() && prev_xaxis != e.Value()) {
       if (prev == nullptr) {  // Found first segment.
         prev = unique_ptr<LineSegment>(new LineSegment{
             prev_xaxis, e.Value(),
-            T.crbegin()->second->color, T.crbegin()->second->height});
+            active_line_segments.crbegin()->second->color,
+            active_line_segments.crbegin()->second->height});
       } else {
-        if (prev->height == T.crbegin()->second->height &&
-            prev->color == T.crbegin()->second->color) {
+        if (prev->height == active_line_segments.crbegin()->second->height &&
+            prev->color == active_line_segments.crbegin()->second->color) {
           prev->right = e.Value();
         } else {
           cout << "[" << prev->left << ", " << prev->right << "]"
                << ", color = " << prev->color << ", height = " << prev->height
                << endl;
           *prev = {prev_xaxis, e.Value(),
-                   T.crbegin()->second->color, T.crbegin()->second->height};
+                   active_line_segments.crbegin()->second->color,
+                   active_line_segments.crbegin()->second->height};
         }
       }
     }
     prev_xaxis = e.Value();
 
-    if (e.isLeft_ == true) {  // left end point.
-      T.emplace(e.l_->height, e.l_);
-    } else {  // right end point.
-      T.erase(e.l_->height);
+    if (e.isLeft_ == true) {  // Left end point.
+      active_line_segments.emplace(e.l_->height, e.l_);
+    } else {  // Right end point.
+      active_line_segments.erase(e.l_->height);
     }
   }
 
-  // Output the remaining segment if any.
+  // Output the remaining segment (if any).
   if (prev) {
     cout << "[" << prev->left << ", " << prev->right << "]"
          << ", color = " << prev->color << ", height = " << prev->height

@@ -8,16 +8,16 @@
 using std::unique_ptr;
 
 // @include
-BSTNode<int>* FindFirstEqualK(const unique_ptr<BSTNode<int>>& T, int k) {
-  if (!T) {
+BSTNode<int>* FindFirstEqualK(const unique_ptr<BSTNode<int>>& tree, int k) {
+  if (!tree) {
     return nullptr;  // No match.
-  } else if (T->data == k) {
+  } else if (tree->data == k) {
     // Recursively search the left subtree for first node containing k.
-    auto* node = FindFirstEqualK(T->left, k);
-    return node ? node : T.get();
+    auto* node = FindFirstEqualK(tree->left, k);
+    return node ? node : tree.get();
   }
-  // Search the left or right subtree based on T->data and k.
-  return FindFirstEqualK(T->data < k ? T->right : T->left, k);
+  // Search the left or right subtree based on tree->data and k.
+  return FindFirstEqualK(tree->data < k ? tree->right : tree->left, k);
 }
 // @exclude
 

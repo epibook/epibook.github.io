@@ -1,13 +1,12 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
 public class SearchBSTForFirstOccurrenceIterative {
   // @include
-  public static BinaryTree<Integer> findFirstEqualK(
-      BinaryTree<Integer> T, Integer k) {
-    BinaryTree<Integer> firstSoFar = null;
-    BinaryTree<Integer> curr = T;
+  public static BSTNode<Integer> findFirstEqualK(
+      BSTNode<Integer> tree, Integer k) {
+    BSTNode<Integer> firstSoFar = null, curr = tree;
     while (curr != null) {
       if (curr.getData().compareTo(k) < 0) {
         curr = curr.getRight();
@@ -27,13 +26,13 @@ public class SearchBSTForFirstOccurrenceIterative {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> root = new BinaryTree<>(3);
-    root.setLeft(new BinaryTree<>(2));
-    root.getLeft().setLeft(new BinaryTree<>(1));
-    root.setRight(new BinaryTree<>(5));
-    root.getRight().setLeft(new BinaryTree<>(4));
-    root.getRight().setRight(new BinaryTree<>(6));
-    assert (findFirstEqualK(root, 7) == null);
-    assert (findFirstEqualK(root, 6).getData().equals(6));
+    BSTNode<Integer> tree = new BSTNode<>(3);
+    tree.setLeft(new BSTNode<>(2));
+    tree.getLeft().setLeft(new BSTNode<>(1));
+    tree.setRight(new BSTNode<>(5));
+    tree.getRight().setLeft(new BSTNode<>(4));
+    tree.getRight().setRight(new BSTNode<>(6));
+    assert (findFirstEqualK(tree, 7) == null);
+    assert (findFirstEqualK(tree, 6).getData().equals(6));
   }
 }

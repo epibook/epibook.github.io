@@ -5,9 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ViewFromAbove {
   // @include
   public static class LineSegment {
@@ -48,44 +45,44 @@ public class ViewFromAbove {
   }
 
   public static void calculateViewFromAbove(List<LineSegment> A) {
-    List<Endpoint> E = new ArrayList<>();
+    List<Endpoint> sortedEndpoints = new ArrayList<>();
     for (LineSegment a : A) {
-      E.add(new Endpoint(true, a));
-      E.add(new Endpoint(false, a));
+      sortedEndpoints.add(new Endpoint(true, a));
+      sortedEndpoints.add(new Endpoint(false, a));
     }
-    Collections.sort(E);
+    Collections.sort(sortedEndpoints);
 
-    int prevXAxis = E.get(0).val(); // The first left end point.
+    int prevXAxis = sortedEndpoints.get(0).val(); // Leftmost end point.
     LineSegment prev = null;
-    TreeMap<Integer, LineSegment> T = new TreeMap<>();
-    for (Endpoint e : E) {
-      if (!T.isEmpty() && prevXAxis != e.val()) {
+    TreeMap<Integer, LineSegment> activeLineSegments = new TreeMap<>();
+    for (Endpoint e : sortedEndpoints) {
+      if (!activeLineSegments.isEmpty() && prevXAxis != e.val()) {
         if (prev == null) { // Found first segment.
           prev = new LineSegment(prevXAxis, e.val(),
-              T.lastEntry().getValue().color,
-              T.lastEntry().getValue().height);
+              activeLineSegments.lastEntry().getValue().color,
+              activeLineSegments.lastEntry().getValue().height);
         } else {
-          if (prev.height == T.lastEntry().getValue().height
-              && prev.color == T.lastEntry().getValue().color) {
+          if (prev.height == activeLineSegments.lastEntry().getValue().height
+              && prev.color == activeLineSegments.lastEntry().getValue().color) {
             prev.right = e.val();
           } else {
             System.out.println(prev);
             prev = new LineSegment(prevXAxis, e.val(),
-                T.lastEntry().getValue().color,
-                T.lastEntry().getValue().height);
+                activeLineSegments.lastEntry().getValue().color,
+                activeLineSegments.lastEntry().getValue().height);
           }
         }
       }
       prevXAxis = e.val();
 
       if (e.isLeft) { // Left end point.
-        T.put(e.l.height, e.l);
+        activeLineSegments.put(e.l.height, e.l);
       } else { // Right end point.
-        T.remove(e.l.height);
+        activeLineSegments.remove(e.l.height);
       }
     }
 
-    // Output the remaining segment if any.
+    // Output the remaining segment (if any).
     if (prev != null) {
       System.out.println(prev);
     }

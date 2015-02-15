@@ -14,43 +14,43 @@ using std::unordered_set;
 // @include
 class ClientsCreditsInfo {
  public:
-  void Insert(const string& s, int c) {
-    Remove(s);
-    credits_.emplace(s, c - offset_);
-    inverse_credits_[c - offset_].emplace(s);
+  void Insert(const string& client_id, int c) {
+    Remove(client_id);
+    client_to_credit_.emplace(client_id, c - offset_);
+    credit_to_clients_[c - offset_].emplace(client_id);
   }
 
-  bool Remove(const string& s) {
-    auto credits_it = credits_.find(s);
-    if (credits_it != credits_.end()) {
-      inverse_credits_[credits_it->second].erase(s);
-      if (inverse_credits_[credits_it->second].empty()) {
-        inverse_credits_.erase(credits_it->second);
+  bool Remove(const string& client_id) {
+    auto client_iter = client_to_credit_.find(client_id);
+    if (client_iter != client_to_credit_.end()) {
+      credit_to_clients_[client_iter->second].erase(client_id);
+      if (credit_to_clients_[client_iter->second].empty()) {
+        credit_to_clients_.erase(client_iter->second);
       }
-      credits_.erase(credits_it);
+      client_to_credit_.erase(client_iter);
       return true;
     }
     return false;
   }
 
-  int Lookup(const string& s) const {
-    auto it = credits_.find(s);
-    return it == credits_.cend() ? -1 : it->second + offset_;
+  int Lookup(const string& client_id) const {
+    auto iter = client_to_credit_.find(client_id);
+    return iter == client_to_credit_.cend() ? -1 : iter->second + offset_;
   }
 
   void AddAll(int C) { offset_ += C; }
 
   string Max() const {
-    auto it = inverse_credits_.crbegin();
-    return it == inverse_credits_.crend() || it->second.empty()
+    auto iter = credit_to_clients_.crbegin();
+    return iter == credit_to_clients_.crend() || iter->second.empty()
                ? ""
-               : *it->second.cbegin();
+               : *iter->second.cbegin();
   }
 
  private:
   int offset_ = 0;
-  unordered_map<string, int> credits_;
-  map<int, unordered_set<string>> inverse_credits_;
+  unordered_map<string, int> client_to_credit_;
+  map<int, unordered_set<string>> credit_to_clients_;
 };
 // @exclude
 

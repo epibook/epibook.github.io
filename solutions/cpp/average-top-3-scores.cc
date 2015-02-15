@@ -34,7 +34,7 @@ using std::vector;
 int GetTopThreeScoresSum(const multiset<int>& scores);
 
 // @include
-string FindStudentWithTopThreeAverageScores(ifstream* ifs) {
+string FindStudentWithHighestBestOfThreeScores(ifstream* ifs) {
   unordered_map<string, multiset<int>> student_scores;
   string name;
   int score;
@@ -96,7 +96,7 @@ int main(int argc, char* argv[]) {
   }
   ofs.close();
   ifstream ifs("scores.txt");
-  string name = FindStudentWithTopThreeAverageScores(&ifs);
+  string name = FindStudentWithHighestBestOfThreeScores(&ifs);
   cout << "top student is " << name << endl;
   // Remove file after the execution.
   // remove("score.txt");

@@ -8,11 +8,12 @@
 using std::unique_ptr;
 
 // @include
-BSTNode<int>* FindLCA(const unique_ptr<BSTNode<int>>& root,
+BSTNode<int>* FindLCA(const unique_ptr<BSTNode<int>>& tree,
                       const unique_ptr<BSTNode<int>>& s,
                       const unique_ptr<BSTNode<int>>& b) {
-  auto* p = root.get();
+  auto* p = tree.get();
   while (p->data < s->data || p->data > b->data) {
+    // Keep searching since p is outside of [s, b].
     while (p->data < s->data) {
       p = p->right.get();  // LCA must be in p's right child.
     }
@@ -30,14 +31,14 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BSTNode<int>> root = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
-  root->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
-  root->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{1});
-  root->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
-  root->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
-  root->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{6});
-  assert(3 == FindLCA(root, root->left->left, root->right->left)->data);
-  assert(5 == FindLCA(root, root->right->left, root->right->right)->data);
-  assert(2 == FindLCA(root, root->left->left, root->left)->data);
+  unique_ptr<BSTNode<int>> tree = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
+  tree->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
+  tree->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{1});
+  tree->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
+  tree->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
+  tree->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{6});
+  assert(3 == FindLCA(tree, tree->left->left, tree->right->left)->data);
+  assert(5 == FindLCA(tree, tree->right->left, tree->right->right)->data);
+  assert(2 == FindLCA(tree, tree->left->left, tree->left)->data);
   return 0;
 }

@@ -4,30 +4,31 @@ public class SortedListToBST {
   // @include
   private static DoublyListNode<Integer> head;
 
-  // Returns the root of the corresponding BST. The prev and next fields of 
-  // the list nodes are used as the BST nodes left and right fields.
+  // Returns the root of the corresponding BST. The prev and next fields of the
+  // list nodes are used as the BST nodes left and right fields, respectively.
+  // n is the length of the list.
   public static DoublyListNode<Integer> buildBSTFromSortedDoublyLinkedList(
       DoublyListNode<Integer> L, int n) {
     head = L;
     return buildSortedDoublyLinkedListHelper(0, n);
   }
 
-  // Builds a BST from the (s + 1)-th to the e-th node in L, and returns the
-  // root. Node numbering is from 1 to n.
+  // Builds a BST from the (start + 1)-th to the end-th node, inclusive, in L,
+  // and returns the root.
   private static DoublyListNode<Integer> buildSortedDoublyLinkedListHelper(
-      int s, int e) {
-    if (s >= e) {
+      int start, int end) {
+    if (start >= end) {
       return null;
     }
 
-    int m = s + ((e - s) / 2);
-    DoublyListNode<Integer> left = buildSortedDoublyLinkedListHelper(s, m);
-    // The last function call sets L to the successor of the maximum node in
+    int mid = start + ((end - start) / 2);
+    DoublyListNode<Integer> left = buildSortedDoublyLinkedListHelper(start, mid);
+    // Previous function call sets head to the successor of the maximum node in
     // the tree rooted at left.
     DoublyListNode<Integer> curr = new DoublyListNode<>(head.data, null, null);
     head = head.next;
     curr.prev = left;
-    curr.next = buildSortedDoublyLinkedListHelper(m + 1, e);
+    curr.next = buildSortedDoublyLinkedListHelper(mid + 1, end);
     return curr;
   }
   // @exclude
@@ -58,7 +59,7 @@ public class SortedListToBST {
     temp3.prev = temp2;
 
     DoublyListNode<Integer> L = temp0;
-    DoublyListNode<Integer> root = buildBSTFromSortedDoublyLinkedList(L, 4);
-    inOrderTraversal(root, -1, 0);
+    DoublyListNode<Integer> tree = buildBSTFromSortedDoublyLinkedList(L, 4);
+    inOrderTraversal(tree, -1, 0);
   }
 }

@@ -21,11 +21,11 @@ class BinarySearchTree {
     if (Empty()) {
       root_ = unique_ptr<TreeNode>(new TreeNode{key, nullptr, nullptr});
     } else {
-      TreeNode* curr = root_.get(), *par;
+      TreeNode* curr = root_.get(), *parent;
       while (curr) {
-        par = curr;
+        parent = curr;
         if (key == curr->data) {
-          return false;  // no insertion for duplicate key.
+          return false;  // key already present, no duplicates to be added.
         } else if (key < curr->data) {
           curr = curr->left.get();
         } else {  // key > curr->data.
@@ -33,61 +33,62 @@ class BinarySearchTree {
         }
       }
 
-      // Inserts key according to key and par.
-      if (key < par->data) {
-        par->left.reset(new TreeNode{key});
+      // Inserts key according to key and parent.
+      if (key < parent->data) {
+        parent->left.reset(new TreeNode{key});
       } else {
-        par->right.reset(new TreeNode{key});
+        parent->right.reset(new TreeNode{key});
       }
     }
     return true;
   }
 
   bool Erase(int key) {
-    // Finds the node with key.
-    TreeNode* curr = root_.get(), *par = nullptr;
+    // Find the node with key.
+    TreeNode* curr = root_.get(), *parent = nullptr;
     while (curr && curr->data != key) {
-      par = curr;
+      parent = curr;
       curr = key < curr->data ? curr->left.get() : curr->right.get();
     }
 
-    // No node with key in this binary tree.
     if (!curr) {
+      // There's no node with key in this binary tree.
       return false;
     }
+    TreeNode* key_node = curr;
 
-    if (curr->right) {
+    if (key_node->right) {
       // Finds the minimum of the right subtree.
-      TreeNode* r_curr = curr->right.get(), *r_par = curr;
-      while (r_curr->left) {
-        r_par = r_curr;
-        r_curr = r_curr->left.get();
+      TreeNode* r_key_node = key_node->right.get(), *r_parent = key_node;
+      while (r_key_node->left) {
+        r_parent = r_key_node;
+        r_key_node = r_key_node->left.get();
       }
       // Moves links to erase the node.
-      r_curr->left.reset(curr->left.release());
-      TreeNode* r_curr_right = r_curr->right.release();
-      if (curr->right.get() != r_curr) {
-        r_curr->right.reset(curr->right.release());
+      r_key_node->left.reset(key_node->left.release());
+      TreeNode* r_key_node_right = r_key_node->right.release();
+      if (key_node->right.get() != r_key_node) {
+        r_key_node->right.reset(key_node->right.release());
       }
-      if (r_par->left.get() == r_curr) {
-        r_curr = r_par->left.release();
-        r_par->left.reset(r_curr_right);
-      } else {  // r_par->right.get() == r_curr.
-        r_curr = r_par->right.release();
-        r_par->right.reset(r_curr_right);
+      if (r_parent->left.get() == r_key_node) {
+        r_key_node = r_parent->left.release();
+        r_parent->left.reset(r_key_node_right);
+      } else {  // r_parent->right.get() == r_key_node.
+        r_key_node = r_parent->right.release();
+        r_parent->right.reset(r_key_node_right);
       }
-      ReplaceParentChildLink(par, curr, r_curr);
+      ReplaceParentChildLink(parent, key_node, r_key_node);
 
       // Updates root_ link if needed.
-      if (root_.get() == curr) {
-        root_.reset(r_curr);
+      if (root_.get() == key_node) {
+        root_.reset(r_key_node);
       }
     } else {
       // Updates root_ link if needed.
-      if (root_.get() == curr) {
-        root_.reset(curr->left.release());
+      if (root_.get() == key_node) {
+        root_.reset(key_node->left.release());
       }
-      ReplaceParentChildLink(par, curr, curr->left.get());
+      ReplaceParentChildLink(parent, key_node, key_node->left.get());
     }
     return true;
   }
@@ -113,18 +114,18 @@ class BinarySearchTree {
     }
   }
 
-  // Replaces the link between par and child by new_link.
-  void ReplaceParentChildLink(TreeNode* par,
+  // Replaces the link between parent and child by new_link.
+  void ReplaceParentChildLink(TreeNode* parent,
                               TreeNode* child,
                               TreeNode* new_link) {
-    if (!par) {
+    if (!parent) {
       return;
     }
 
-    if (par->left.get() == child) {
-      par->left.reset(new_link);
-    } else {  // par->right.get() == child.
-      par->right.reset(new_link);
+    if (parent->left.get() == child) {
+      parent->left.reset(new_link);
+    } else {  // parent->right.get() == child.
+      parent->right.reset(new_link);
     }
   }
 

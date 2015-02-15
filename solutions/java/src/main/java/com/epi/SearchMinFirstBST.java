@@ -1,26 +1,25 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class SearchMinFirstBST {
   // @include
   public static boolean searchMinFirstBST(
-      BinaryTree<Integer> T, Integer k) {
-    if (T == null || T.getData().compareTo(k) > 0) {
+      BSTNode<Integer> minFirstBST, Integer k) {
+    // First handle the base cases.
+    if (minFirstBST == null || minFirstBST.getData().compareTo(k) > 0) {
       return false;
-    } else if (T.getData().compareTo(k) == 0) {
+    } else if (minFirstBST.getData().compareTo(k) == 0) {
       return true;
     }
 
-    // Search the right subtree if the smallest key in the right subtree is
-    // greater than or equal to k.
-    if (T.getRight() != null && k.compareTo(T.getRight().getData()) >= 0) {
-      return searchMinFirstBST(T.getRight(), k);
+    // Recursively search just the right subtree if the smallest key in the
+    // right subtree is greater than or equal to k.
+    if (minFirstBST.getRight() != null
+        && k.compareTo(minFirstBST.getRight().getData()) >= 0) {
+      return searchMinFirstBST(minFirstBST.getRight(), k);
     }
-    return searchMinFirstBST(T.getLeft(), k);
+    return searchMinFirstBST(minFirstBST.getLeft(), k);
   }
   // @exclude
 
@@ -29,15 +28,15 @@ public class SearchMinFirstBST {
     // 1
     // 2 4
     // 3 5 7
-    BinaryTree<Integer> root = new BinaryTree<>(1);
-    root.setLeft(new BinaryTree<>(2));
-    root.getLeft().setLeft(new BinaryTree<>(3));
-    root.setRight(new BinaryTree<>(4));
-    root.getRight().setLeft(new BinaryTree<>(5));
-    root.getRight().setRight(new BinaryTree<>(7));
-    assert (searchMinFirstBST(root, 1));
-    assert (searchMinFirstBST(root, 3));
-    assert (searchMinFirstBST(root, 5));
-    assert (!searchMinFirstBST(root, 6));
+    BSTNode<Integer> tree = new BSTNode<>(1);
+    tree.setLeft(new BSTNode<>(2));
+    tree.getLeft().setLeft(new BSTNode<>(3));
+    tree.setRight(new BSTNode<>(4));
+    tree.getRight().setLeft(new BSTNode<>(5));
+    tree.getRight().setRight(new BSTNode<>(7));
+    assert (searchMinFirstBST(tree, 1));
+    assert (searchMinFirstBST(tree, 3));
+    assert (searchMinFirstBST(tree, 5));
+    assert (!searchMinFirstBST(tree, 6));
   }
 }

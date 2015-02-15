@@ -16,37 +16,35 @@ using std::uniform_int_distribution;
 using std::unique_ptr;
 using std::vector;
 
-BSTNode<int>* BuildMinHeightBSTFromSortedArrayHelper(const vector<int>& A,
-                                                     size_t start, size_t end);
+unique_ptr<BSTNode<int>> BuildMinHeightBSTFromSortedArrayHelper(
+    const vector<int>&, int, int);
 
 // @include
-BSTNode<int>* BuildMinHeightBSTFromSortedArray(const vector<int>& A) {
+unique_ptr<BSTNode<int>> BuildMinHeightBSTFromSortedArray(
+    const vector<int>& A) {
   return BuildMinHeightBSTFromSortedArrayHelper(A, 0, A.size());
 }
 
-// Build min-height BST over the entries in A[start : end - 1].
-BSTNode<int>* BuildMinHeightBSTFromSortedArrayHelper(const vector<int>& A,
-                                                     size_t start, 
-                                                     size_t end) {
+// Build a min-height BST over the entries in A[start : end - 1].
+unique_ptr<BSTNode<int>> BuildMinHeightBSTFromSortedArrayHelper(
+    const vector<int>& A, int start, int end) {
   if (start >= end) {
     return nullptr;
   }
-  size_t mid = start + ((end - start) / 2);
-  return new BSTNode<int>{
-      A[mid], unique_ptr<BSTNode<int>>(
-                  BuildMinHeightBSTFromSortedArrayHelper(A, start, mid)),
-      unique_ptr<BSTNode<int>>(
-          BuildMinHeightBSTFromSortedArrayHelper(A, mid + 1, end))};
+  int mid = start + ((end - start) / 2);
+  return unique_ptr<BSTNode<int>>(new BSTNode<int>{A[mid],
+      BuildMinHeightBSTFromSortedArrayHelper(A, start, mid),
+      BuildMinHeightBSTFromSortedArrayHelper(A, mid + 1, end)});
 }
 // @exclude
 
 template <typename T>
-void TraversalCheck(const unique_ptr<BSTNode<T>>& root, T* target) {
-  if (root) {
-    TraversalCheck(root->left, target);
-    assert(*target == root->data);
+void TraversalCheck(const unique_ptr<BSTNode<T>>& tree, T* target) {
+  if (tree) {
+    TraversalCheck(tree->left, target);
+    assert(*target == tree->data);
     ++*target;
-    TraversalCheck(root->right, target);
+    TraversalCheck(tree->right, target);
   }
 }
 
@@ -64,10 +62,9 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < n; ++i) {
       A.emplace_back(i);
     }
-    unique_ptr<BSTNode<int>> root =
-        unique_ptr<BSTNode<int>>(BuildMinHeightBSTFromSortedArray(A));
+    unique_ptr<BSTNode<int>> tree = BuildMinHeightBSTFromSortedArray(A);
     int target = 0;
-    TraversalCheck<int>(root, &target);
+    TraversalCheck<int>(tree, &target);
   }
   return 0;
 }

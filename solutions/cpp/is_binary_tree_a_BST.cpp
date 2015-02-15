@@ -13,25 +13,25 @@ using std::endl;
 using std::numeric_limits;
 using std::unique_ptr;
 
-bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& root, int low_range,
+bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& tree, int low_range,
                     int high_range);
 
 // @include
-bool IsBinaryTreeBST(const unique_ptr<BinaryTreeNode<int>>& root) {
-  return AreKeysInRange(root, numeric_limits<int>::min(),
+bool IsBinaryTreeBST(const unique_ptr<BinaryTreeNode<int>>& tree) {
+  return AreKeysInRange(tree, numeric_limits<int>::min(),
                         numeric_limits<int>::max());
 }
 
-bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& root, int low_range,
+bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& tree, int low_range,
                     int high_range) {
-  if (root == nullptr) {
+  if (tree == nullptr) {
     return true;
-  } else if (root->data < low_range || root->data > high_range) {
+  } else if (tree->data < low_range || tree->data > high_range) {
     return false;
   }
 
-  return AreKeysInRange(root->left, low_range, root->data) &&
-         AreKeysInRange(root->right, root->data, high_range);
+  return AreKeysInRange(tree->left, low_range, tree->data) &&
+         AreKeysInRange(tree->right, tree->data, high_range);
 }
 // @exclude
 
@@ -39,22 +39,22 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  auto root = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3});
-  root->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
-  root->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
+  auto tree = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3});
+  tree->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
+  tree->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
+  tree->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
+  tree->right->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
+  tree->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
   // should output true.
-  assert(IsBinaryTreeBST(root) == true);
-  cout << boolalpha << IsBinaryTreeBST(root) << endl;
+  assert(IsBinaryTreeBST(tree) == true);
+  cout << boolalpha << IsBinaryTreeBST(tree) << endl;
   //      10
   //    2   5
   //  1    4 6
-  root->data = 10;
+  tree->data = 10;
   // should output false.
-  assert(!IsBinaryTreeBST(root));
-  cout << boolalpha << IsBinaryTreeBST(root) << endl;
+  assert(!IsBinaryTreeBST(tree));
+  cout << boolalpha << IsBinaryTreeBST(tree) << endl;
   // should output true.
   assert(IsBinaryTreeBST(nullptr) == true);
   cout << boolalpha << IsBinaryTreeBST(nullptr) << endl;

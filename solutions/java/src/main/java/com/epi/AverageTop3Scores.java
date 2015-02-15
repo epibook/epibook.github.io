@@ -24,7 +24,7 @@ public class AverageTop3Scores {
   }
 
   // @include
-  public static String findStudentWithTopThreeAverageScores(InputStream ifs) {
+  public static String findStudentWithHighestBestOfThreeScores(InputStream ifs) {
     Map<String, TreeSet<UniqueInteger>> studentScores = new HashMap<>();
     try {
       long sequence = 0;
@@ -102,7 +102,7 @@ public class AverageTop3Scores {
     }
     try {
       InputStream ifs = new FileInputStream("scores.txt");
-      String name = findStudentWithTopThreeAverageScores(ifs);
+      String name = findStudentWithHighestBestOfThreeScores(ifs);
       System.out.println("top student is " + name);
       ifs.close();
     } catch (Exception e) {

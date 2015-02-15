@@ -26,7 +26,7 @@ class SubseqCover {
     // array, we can use those indices as keys to lookup in a vector.
     int[] latestOccurrence = new int[keywords.length];
     // For each keyword (identified by its index in keywords array), stores the
-    // length of the shortest subarray ending at the most recent occurence of
+    // length of the shortest subarray ending at the most recent occurrence of
     // that keyword that sequentially cover all keywords up to that keyword.
     int[] shortestSubarrayLength = new int[keywords.length];
 

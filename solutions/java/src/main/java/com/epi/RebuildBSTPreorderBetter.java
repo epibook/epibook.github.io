@@ -1,44 +1,39 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class RebuildBSTPreorderBetter {
   // @include
   private static Integer idx;
 
-  public static BinaryTree<Integer> rebuildBSTFromPreorder(
-      List<Integer> preorder) {
+  public static BSTNode<Integer> rebuildBSTFromPreorder(
+      List<Integer> preorderSequence) {
     idx = 0;
-    return rebuildBSFromPreorderHelper(preorder,
+    return rebuildBSFromPreorderHelper(preorderSequence,
         Integer.MIN_VALUE, Integer.MAX_VALUE);
   }
 
-  private static BinaryTree<Integer> rebuildBSFromPreorderHelper(
-      List<Integer> preorder, Integer min, Integer max) {
-    if (idx == preorder.size()) {
+  private static BSTNode<Integer> rebuildBSFromPreorderHelper(
+      List<Integer> preorderSequence, Integer min, Integer max) {
+    if (idx == preorderSequence.size()) {
       return null;
     }
 
-    Integer curr = preorder.get(idx);
+    Integer curr = preorderSequence.get(idx);
     if (curr < min || curr > max) {
       return null;
     }
-
     ++idx;
-    return new BinaryTree<>(
-        curr,
-        rebuildBSFromPreorderHelper(preorder, min, curr),
-        rebuildBSFromPreorderHelper(preorder, curr, max));
+    return new BSTNode<>(
+        curr, rebuildBSFromPreorderHelper(preorderSequence, min, curr),
+        rebuildBSFromPreorderHelper(preorderSequence, curr, max));
   }
   // @exclude
 
-  private static void checkAns(BinaryTree<Integer> n, Integer pre) {
+  private static void checkAns(BSTNode<Integer> n, Integer pre) {
     if (n != null) {
       checkAns(n.getLeft(), pre);
       assert (pre <= n.getData());
@@ -60,7 +55,7 @@ public class RebuildBSTPreorderBetter {
     preorder.add(5);
     preorder.add(4);
     preorder.add(6);
-    BinaryTree<Integer> root = rebuildBSTFromPreorder(preorder);
-    checkAns(root, Integer.MIN_VALUE);
+    BSTNode<Integer> tree = rebuildBSTFromPreorder(preorder);
+    checkAns(tree, Integer.MIN_VALUE);
   }
 }

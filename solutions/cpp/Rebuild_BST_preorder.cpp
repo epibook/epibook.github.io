@@ -15,35 +15,33 @@ using std::numeric_limits;
 using std::unique_ptr;
 using std::vector;
 
-BSTNode<int>* RebuildBSTFromPreorderHelper(
-    const vector<int> &preorder, size_t s, size_t e);
+unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
+    const vector<int>&, int, int);
 
 // @include
-BSTNode<int>* RebuildBSTFromPreorder(const vector<int>& preorder_sequence) {
-  return RebuildBSTFromPreorderHelper(preorder_sequence, 
+unique_ptr<BSTNode<int>> RebuildBSTFromPreorder(
+    const vector<int>& preorder_sequence) {
+  return RebuildBSTFromPreorderHelper(preorder_sequence,
                                       0, preorder_sequence.size());
 }
 
-// Builds a BST from preorder_sequence[s : e - 1].
-BSTNode<int>* RebuildBSTFromPreorderHelper(
-    const vector<int>& preorder_sequence, size_t s, size_t e) {
-  if (s < e) {
-    size_t transition_point = s + 1;
-    while (x < e && 
-           preorder_sequence[transition_point] < preorder_sequence[s]) {
-      ++transition_point;
-    }
-    return new BSTNode<int>{
-        preorder_sequence[s],
-        unique_ptr<BSTNode<int>>(
-            RebuildBSTFromPreorderHelper(preorder_sequence, s + 1, 
-                                         transition_point)),
-        unique_ptr<BSTNode<int>>(
-            RebuildBSTFromPreorderHelper(preorder_sequence, transition_point, 
-                                         e))
-    };
+// Builds a BST from preorder_sequence[start : end - 1].
+unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
+    const vector<int>& preorder_sequence, int start, int end) {
+  if (start >= end) {
+    return nullptr;
   }
-  return nullptr;
+  int transition_point = start + 1;
+  while (transition_point < end &&
+         preorder_sequence[transition_point] < preorder_sequence[start]) {
+    ++transition_point;
+  }
+  return unique_ptr<BSTNode<int>>(new BSTNode<int>{
+      preorder_sequence[start],
+      RebuildBSTFromPreorderHelper(preorder_sequence, start + 1,
+                                   transition_point),
+      RebuildBSTFromPreorderHelper(preorder_sequence, transition_point,
+                                   end)});
 }
 // @exclude
 
@@ -70,7 +68,7 @@ int main(int argc, char* argv[]) {
   preorder.emplace_back(5);
   preorder.emplace_back(4);
   preorder.emplace_back(6);
-  unique_ptr<BSTNode<int>> root(RebuildBSTFromPreorder(preorder));
-  CheckAns(root, numeric_limits<int>::min());
+  unique_ptr<BSTNode<int>> tree(RebuildBSTFromPreorder(preorder));
+  CheckAns(tree, numeric_limits<int>::min());
   return 0;
 }

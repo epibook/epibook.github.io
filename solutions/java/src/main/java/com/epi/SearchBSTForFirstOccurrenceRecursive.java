@@ -1,21 +1,20 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
 public class SearchBSTForFirstOccurrenceRecursive {
   // @include
-  public static BinaryTree<Integer> findFirstEqualK(
-      BinaryTree<Integer> T, Integer k) {
-    if (T == null) {
+  public static BSTNode<Integer> findFirstEqualK(BSTNode<Integer> tree, int k) {
+    if (tree == null) {
       return null; // No match.
-    } else if (T.getData().compareTo(k) == 0) {
+    } else if (tree.getData() == k) {
       // Recursively search the left subtree for first node containing k.
-      BinaryTree<Integer> n = findFirstEqualK(T.getLeft(), k);
-      return n != null ? n : T;
+      BSTNode<Integer> node = findFirstEqualK(tree.getLeft(), k);
+      return node != null ? node : tree;
     }
-    // Search the left or right tree based on T.getData() and k.
+    // Search the left or right tree based on tree.getData() and k.
     return findFirstEqualK(
-        T.getData().compareTo(k) < 0 ? T.getRight() : T.getLeft(), k);
+        tree.getData() < k ? tree.getRight() : tree.getLeft(), k);
   }
   // @exclude
 
@@ -23,14 +22,14 @@ public class SearchBSTForFirstOccurrenceRecursive {
     // 3
     // 2 6
     // 1 4 6
-    BinaryTree<Integer> root = new BinaryTree<>(3);
-    root.setLeft(new BinaryTree<>(2));
-    root.getLeft().setLeft(new BinaryTree<>(1));
-    root.setRight(new BinaryTree<>(6));
-    root.getRight().setLeft(new BinaryTree<>(4));
-    root.getRight().setRight(new BinaryTree<>(6));
+    BSTNode<Integer> root = new BSTNode<>(3);
+    root.setLeft(new BSTNode<>(2));
+    root.getLeft().setLeft(new BSTNode<>(1));
+    root.setRight(new BSTNode<>(6));
+    root.getRight().setLeft(new BSTNode<>(4));
+    root.getRight().setRight(new BSTNode<>(6));
     assert (findFirstEqualK(root, 7) == null);
-    assert (findFirstEqualK(root, 6).getData().equals(6) && findFirstEqualK(
-        root, 6).getRight().getData().equals(6));
+    assert (findFirstEqualK(root, 6).getData().equals(6) &&
+            findFirstEqualK(root, 6).getRight().getData().equals(6));
   }
 }

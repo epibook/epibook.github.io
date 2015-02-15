@@ -8,8 +8,8 @@
 using std::unique_ptr;
 
 // @include
-BSTNode<int>* FindFirstEqualK(const unique_ptr<BSTNode<int>>& T, int k) {
-  BSTNode<int>* first_so_far = nullptr, *curr = T.get();
+BSTNode<int>* FindFirstEqualK(const unique_ptr<BSTNode<int>>& tree, int k) {
+  BSTNode<int>* first_so_far = nullptr, *curr = tree.get();
   while (curr) {
     if (curr->data < k) {
       curr = curr->right.get();
@@ -29,13 +29,13 @@ int main(int argc, char* argv[]) {
   //    3
   //  2   5
   // 1   4 6
-  auto root = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
-  root->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
-  root->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{1});
-  root->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
-  root->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
-  root->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{6});
-  assert(!FindFirstEqualK(root, 7));
-  assert(FindFirstEqualK(root, 6)->data == 6);
+  auto tree = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
+  tree->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
+  tree->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{1});
+  tree->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
+  tree->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
+  tree->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{6});
+  assert(!FindFirstEqualK(tree, 7));
+  assert(FindFirstEqualK(tree, 6)->data == 6);
   return 0;
 }

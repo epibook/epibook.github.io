@@ -8,7 +8,7 @@ using std::cout;
 using std::endl;
 using std::string;
 
-bool IsMatchHere(const string &r, size_t r_idx, const string &s, size_t s_idx);
+bool IsMatchHere(const string &r, int r_idx, const string &s, int s_idx);
 
 // @include
 bool IsMatch(const string &r, const string &s) {
@@ -17,7 +17,7 @@ bool IsMatch(const string &r, const string &s) {
     return IsMatchHere(r, 1, s, 0);
   }
 
-  for (size_t i = 0; i <= s.size(); ++i) {
+  for (int i = 0; i <= s.size(); ++i) {
     if (IsMatchHere(r, 0, s, i)) {
       return true;
     }
@@ -25,8 +25,7 @@ bool IsMatch(const string &r, const string &s) {
   return false;
 }
 
-bool IsMatchHere(const string &r, size_t r_idx, const string &s,
-                 size_t s_idx) {
+bool IsMatchHere(const string &r, int r_idx, const string &s, int s_idx) {
   // Case (1.).
   if (r_idx == r.size()) {
     return true;

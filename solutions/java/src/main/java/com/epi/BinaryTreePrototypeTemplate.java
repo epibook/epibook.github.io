@@ -1,8 +1,5 @@
 package com.epi;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BinaryTreePrototypeTemplate {
   // @include
   public static class BinaryTree<T> {
@@ -74,4 +71,3 @@ public class BinaryTreePrototypeTemplate {
   // @include
 }
 // @exclude
-

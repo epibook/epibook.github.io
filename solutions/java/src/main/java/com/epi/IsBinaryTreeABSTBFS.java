@@ -17,9 +17,9 @@ public class IsBinaryTreeABSTBFS {
     }
   }
 
-  public static boolean isBinaryTreeBST(BinaryTree<Integer> root) {
+  public static boolean isBinaryTreeBST(BinaryTree<Integer> tree) {
     LinkedList<QNode> BFSQueue = new LinkedList<>();
-    BFSQueue.addLast(new QNode(root, Integer.MIN_VALUE, Integer.MAX_VALUE));
+    BFSQueue.addLast(new QNode(tree, Integer.MIN_VALUE, Integer.MAX_VALUE));
 
     while (!BFSQueue.isEmpty()) {
       if (BFSQueue.getFirst().node != null) {
@@ -28,7 +28,7 @@ public class IsBinaryTreeABSTBFS {
           return false;
         }
 
-        BFSQueue.addLast(new QNode(BFSQueue.getFirst().node.getLeft(), 
+        BFSQueue.addLast(new QNode(BFSQueue.getFirst().node.getLeft(),
                                    BFSQueue.getFirst().lower,
                                    BFSQueue.getFirst().node.getData()));
         BFSQueue.addLast(new QNode(BFSQueue.getFirst().node.getRight(),
@@ -45,22 +45,22 @@ public class IsBinaryTreeABSTBFS {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> root = new BinaryTree<>(3);
-    root.setLeft(new BinaryTree<>(2));
-    root.getLeft().setLeft(new BinaryTree<>(1));
-    root.setRight(new BinaryTree<>(5));
-    root.getRight().setLeft(new BinaryTree<>(4));
-    root.getRight().setRight(new BinaryTree<>(6));
+    BinaryTree<Integer> tree = new BinaryTree<>(3);
+    tree.setLeft(new BinaryTree<>(2));
+    tree.getLeft().setLeft(new BinaryTree<>(1));
+    tree.setRight(new BinaryTree<>(5));
+    tree.getRight().setLeft(new BinaryTree<>(4));
+    tree.getRight().setRight(new BinaryTree<>(6));
     // should output true.
-    assert isBinaryTreeBST(root);
-    System.out.println(isBinaryTreeBST(root));
+    assert isBinaryTreeBST(tree);
+    System.out.println(isBinaryTreeBST(tree));
     // 10
     // 2 5
     // 1 4 6
-    root.setData(10);
+    tree.setData(10);
     // should output false.
-    assert !isBinaryTreeBST(root);
-    System.out.println(isBinaryTreeBST(root));
+    assert !isBinaryTreeBST(tree);
+    System.out.println(isBinaryTreeBST(tree));
     // should output true.
     assert isBinaryTreeBST(null);
     System.out.println(isBinaryTreeBST(null));

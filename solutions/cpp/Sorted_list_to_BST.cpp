@@ -11,32 +11,32 @@ using std::endl;
 using std::make_shared;
 
 shared_ptr<ListNode<int>> BuildBSTFromSortedDoublyListHelper(
-    shared_ptr<ListNode<int>>* L, int s, int e);
+    shared_ptr<ListNode<int>>*, int, int);
 
 // @include
-// Returns the root of the corresponding BST. The prev and next
-// fields of the list nodes are used as the BST nodes left and right fields.
-// @param n  The length of the list.
+// Returns the root of the corresponding BST. The prev and next fields of the
+// list nodes are used as the BST nodes left and right fields, respectively.
+// n is the length of the list.
 shared_ptr<ListNode<int>> BuildBSTFromSortedDoublyList(
     shared_ptr<ListNode<int>> L, int n) {
   return BuildBSTFromSortedDoublyListHelper(&L, 0, n);
 }
 
-// Builds a BST from the (s + 1)-th to the e-th node, inclusive, in L, 
-// and returns the root. (Nodes are numbered from 1 to n.)
+// Builds a BST from the (start + 1)-th to the end-th node, inclusive, in L,
+// and returns the root.
 shared_ptr<ListNode<int>> BuildBSTFromSortedDoublyListHelper(
-    shared_ptr<ListNode<int>>* Lref, int s, int e) {
-  if (s >= e) {
+    shared_ptr<ListNode<int>>* L_ref, int start, int end) {
+  if (start >= end) {
     return nullptr;
   }
 
-  int m = s + ((e - s) / 2);
-  auto left = BuildBSTFromSortedDoublyListHelper(Lref, s, m);
-  auto curr = *Lref;  // The last function call set L to the successor of 
-                      // the maximum node in the tree rooted at left.
-  *Lref = (*Lref)->next;
+  int mid = start + ((end - start) / 2);
+  auto left = BuildBSTFromSortedDoublyListHelper(L_ref, start, mid);
+  auto curr = *L_ref;  // The last function call sets L_ref to the successor
+                       // of the maximum node in the tree rooted at left.
+  *L_ref = (*L_ref)->next;
   curr->prev = left;
-  curr->next = BuildBSTFromSortedDoublyListHelper(Lref, m + 1, e);
+  curr->next = BuildBSTFromSortedDoublyListHelper(L_ref, mid + 1, end);
   return curr;
 }
 // @exclude
@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
   temp3->prev = temp2;
 
   shared_ptr<ListNode<int>> L = temp0;
-  auto root = BuildBSTFromSortedDoublyList(L, 4);
-  InorderTraversal(root, -1, 0);
+  auto tree = BuildBSTFromSortedDoublyList(L, 4);
+  InorderTraversal(tree, -1, 0);
   return 0;
 }

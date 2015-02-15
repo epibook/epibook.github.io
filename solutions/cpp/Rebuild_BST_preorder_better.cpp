@@ -14,33 +14,32 @@ using std::numeric_limits;
 using std::unique_ptr;
 using std::vector;
 
-BSTNode<int>* RebuildBSTFromPreorderHelper(const vector<int>& preorder, int min,
-                                           int max, size_t* idx);
+unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
+    const vector<int>&, int, int, int*);
 
 // @include
-BSTNode<int>* RebuildBSTFromPreorder(const vector<int>& preorder) {
-  size_t idx = 0;
-  return RebuildBSTFromPreorderHelper(preorder, numeric_limits<int>::min(),
-                                      numeric_limits<int>::max(), &idx);
+unique_ptr<BSTNode<int>> RebuildBSTFromPreorder(
+    const vector<int>& preorder_sequence) {
+  int idx = 0;
+  return RebuildBSTFromPreorderHelper(
+      preorder_sequence, numeric_limits<int>::min(),
+      numeric_limits<int>::max(), &idx);
 }
 
-BSTNode<int>* RebuildBSTFromPreorderHelper(
-    const vector<int>& preorder, int min, int max, size_t* idx) {
-  if (*idx == preorder.size()) {
+unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
+    const vector<int>& preorder_sequence, int min, int max, int* idx) {
+  if (*idx == preorder_sequence.size()) {
     return nullptr;
   }
 
-  int curr = preorder[*idx];
+  int curr = preorder_sequence[*idx];
   if (curr < min || curr > max) {
     return nullptr;
   }
-
   ++*idx;
-  return new BSTNode<int>{
-      curr, unique_ptr<BSTNode<int>>(
-                RebuildBSTFromPreorderHelper(preorder, min, curr, idx)),
-      unique_ptr<BSTNode<int>>(
-          RebuildBSTFromPreorderHelper(preorder, curr, max, idx))};
+  return unique_ptr<BSTNode<int>>(new BSTNode<int>{
+      curr, RebuildBSTFromPreorderHelper(preorder_sequence, min, curr, idx),
+      RebuildBSTFromPreorderHelper(preorder_sequence, curr, max, idx)});
 }
 // @exclude
 
@@ -67,7 +66,7 @@ int main(int argc, char* argv[]) {
   preorder.emplace_back(5);
   preorder.emplace_back(4);
   preorder.emplace_back(6);
-  unique_ptr<BSTNode<int>> root(RebuildBSTFromPreorder(preorder));
-  CheckAns<int>(root, numeric_limits<int>::min());
+  unique_ptr<BSTNode<int>> tree(RebuildBSTFromPreorder(preorder));
+  CheckAns<int>(tree, numeric_limits<int>::min());
   return 0;
 }

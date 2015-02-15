@@ -1,14 +1,13 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
 public class SearchBSTFirstLargerK {
   // @include
-  public static BinaryTree<Integer>
-  findFirstGreaterThanK(BinaryTree<Integer> r, Integer k) {
+  public static BSTNode<Integer>
+  findFirstGreaterThanK(BSTNode<Integer> tree, Integer k) {
     boolean foundK = false;
-    BinaryTree<Integer> subtree = r;
-    BinaryTree<Integer> firstSoFar = null;
+    BSTNode<Integer> subtree = tree, firstSoFar = null;
 
     while (subtree != null) {
       if (subtree.getData().compareTo(k) == 0) {
@@ -29,15 +28,15 @@ public class SearchBSTFirstLargerK {
     // 3
     // 2 5
     // 1 4 7
-    BinaryTree<Integer> root = new BinaryTree<>(3);
-    root.setLeft(new BinaryTree<>(2));
-    root.getLeft().setLeft(new BinaryTree<>(1));
-    root.setRight(new BinaryTree<>(5));
-    root.getRight().setLeft(new BinaryTree<>(4));
-    root.getRight().setRight(new BinaryTree<>(7));
-    assert (findFirstGreaterThanK(root, 1) == root.getLeft());
-    assert (findFirstGreaterThanK(root, 5) == root.getRight().getRight());
-    assert (findFirstGreaterThanK(root, 6) == null);
-    assert (findFirstGreaterThanK(root, 7) == null);
+    BSTNode<Integer> tree = new BSTNode<>(3);
+    tree.setLeft(new BSTNode<>(2));
+    tree.getLeft().setLeft(new BSTNode<>(1));
+    tree.setRight(new BSTNode<>(5));
+    tree.getRight().setLeft(new BSTNode<>(4));
+    tree.getRight().setRight(new BSTNode<>(7));
+    assert (findFirstGreaterThanK(tree, 1) == tree.getLeft());
+    assert (findFirstGreaterThanK(tree, 5) == tree.getRight().getRight());
+    assert (findFirstGreaterThanK(tree, 6) == null);
+    assert (findFirstGreaterThanK(tree, 7) == null);
   }
 }

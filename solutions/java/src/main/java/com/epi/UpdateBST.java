@@ -1,8 +1,5 @@
 package com.epi;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class UpdateBST {
   // @include
   public static class BinarySearchTree {
@@ -32,11 +29,11 @@ public class UpdateBST {
         root = new TreeNode(key, null, null);
       } else {
         TreeNode curr = root;
-        TreeNode par = curr;
+        TreeNode parent = curr;
         while (curr != null) {
-          par = curr;
+          parent = curr;
           if (key.compareTo(curr.data) == 0) {
-            return false; // no insertion for duplicate key.
+            return false; // key already present, no duplicates to be added.
           } else if (key.compareTo(curr.data) < 0) {
             curr = curr.left;
           } else { // key.compareTo(curr.data) > 0.
@@ -44,11 +41,11 @@ public class UpdateBST {
           }
         }
 
-        // Insert key according to key and par.
-        if (key.compareTo(par.data) < 0) {
-          par.left = new TreeNode(key, null, null);
+        // Insert key according to key and parent.
+        if (key.compareTo(parent.data) < 0) {
+          parent.left = new TreeNode(key, null, null);
         } else {
-          par.right = new TreeNode(key, null, null);
+          parent.right = new TreeNode(key, null, null);
         }
       }
       return true;
@@ -56,71 +53,71 @@ public class UpdateBST {
 
     public boolean erase(Integer key) {
       // Find the node with key.
-      TreeNode curr = root;
-      TreeNode par = null;
+      TreeNode curr = root, parent = null;
       while (curr != null && curr.data.compareTo(key) != 0) {
-        par = curr;
+        parent = curr;
         curr = key.compareTo(curr.data) < 0 ? curr.left : curr.right;
       }
 
-      // No node with key in this binary tree.
       if (curr == null) {
+        // There's no node with key in this binary tree.
         return false;
       }
 
-      if (curr.right != null) {
+      TreeNode keyNode = curr;
+      if (keyNode.right != null) {
         // Find the minimum of the right subtree.
-        TreeNode rCurr = curr.right;
-        TreeNode rPar = curr;
-        while (rCurr.left != null) {
-          rPar = rCurr;
-          rCurr = rCurr.left;
+        TreeNode rKeyNode = keyNode.right;
+        TreeNode rParent = keyNode;
+        while (rKeyNode.left != null) {
+          rParent = rKeyNode;
+          rKeyNode = rKeyNode.left;
         }
         // Move links to erase the node.
-        rCurr.left = curr.left;
-        curr.left = null;
-        TreeNode rCurrRight = rCurr.right;
-        rCurr.right = null;
-        if (curr.right != rCurr) {
-          rCurr.right = curr.right;
-          curr.right = null;
+        rKeyNode.left = keyNode.left;
+        keyNode.left = null;
+        TreeNode rKeyNodeRight = rKeyNode.right;
+        rKeyNode.right = null;
+        if (keyNode.right != rKeyNode) {
+          rKeyNode.right = keyNode.right;
+          keyNode.right = null;
         }
-        if (rPar.left == rCurr) {
-          rCurr = rPar.left;
-          rPar.left = null;
-          rPar.left = rCurrRight;
-        } else { // rPar.left != rCurr.
-          rCurr = rPar.right;
-          rPar.right = rCurrRight;
+        if (rParent.left == rKeyNode) {
+          rKeyNode = rParent.left;
+          rParent.left = null;
+          rParent.left = rKeyNodeRight;
+        } else { // rParent.left != rKeyNode.
+          rKeyNode = rParent.right;
+          rParent.right = rKeyNodeRight;
         }
-        replaceParentChildLink(par, curr, rCurr);
+        replaceParentChildLink(parent, keyNode, rKeyNode);
 
-        // Update root_ link if needed.
-        if (root == curr) {
-          root = rCurr;
+        // Update root link if needed.
+        if (root == keyNode) {
+          root = rKeyNode;
         }
       } else {
-        // Update root_ link if needed.
-        if (root == curr) {
-          root = curr.left;
-          curr.left = null;
+        // Update root link if needed.
+        if (root == keyNode) {
+          root = keyNode.left;
+          keyNode.left = null;
         }
-        replaceParentChildLink(par, curr, curr.left);
+        replaceParentChildLink(parent, keyNode, keyNode.left);
       }
       return true;
     }
 
-    // Replace the link between par and child by new_link.
-    private void replaceParentChildLink(TreeNode par, TreeNode child,
+    // Replace the link between parent and child by new_link.
+    private void replaceParentChildLink(TreeNode parent, TreeNode child,
                                         TreeNode newLink) {
-      if (par == null) {
+      if (parent == null) {
         return;
       }
 
-      if (par.left == child) {
-        par.left = newLink;
-      } else { // par->right.get() == child.
-        par.right = newLink;
+      if (parent.left == child) {
+        parent.left = newLink;
+      } else { // parent->right.get() == child.
+        parent.right = newLink;
       }
     }
 

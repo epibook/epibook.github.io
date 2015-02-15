@@ -109,7 +109,7 @@ int check(const vector<Point>& P) {
 }
 // @include
 
-Line find_line_with_most_points(const vector<Point>& P) {
+Line FindLineWithMostPoints(const vector<Point>& P) {
   // Add all possible lines into hash table.
   unordered_map<Line, unordered_set<Point, HashPoint>, HashLine> table;
   for (int i = 0; i < P.size(); ++i) {
@@ -165,7 +165,7 @@ int main(int argc, char* argv[]) {
       cout << points[i].x << ", " << points[i].y << endl;
     }
     */
-    Line l = find_line_with_most_points(points);
+    Line l = FindLineWithMostPoints(points);
     cout << l.slope.numerator << " " << l.slope.denominator << " " << l.intercept.numerator
          << " " << l.intercept.denominator << endl;
   }

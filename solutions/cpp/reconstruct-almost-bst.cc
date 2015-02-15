@@ -38,10 +38,11 @@ void ReconstructBSTHelper(BinaryTreeNode<int>* root,
   }
 
   ReconstructBSTHelper(root->left.get(), p1, p2, prev);
-  if (*prev && (*prev)->data > root->data) {  // Finds inversion.
+  if (*prev && (*prev)->data > root->data) {
+    // Inversion detected.
     *p2 = root;  // Assigns p2 as the current node.
     if (!*p1) {
-      *p1 = *prev;  // Assigns p1 as th first node.
+      *p1 = *prev;  // Assigns p1 as the first node.
     }
   }
   *prev = root;  // Records the previous node as the current node.

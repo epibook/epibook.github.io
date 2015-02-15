@@ -1,6 +1,6 @@
 package com.epi;
 
-import com.epi.BinaryTreePrototypeTemplate.BinaryTree;
+import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,21 +8,20 @@ import java.util.Random;
 
 public class FindKLargestBST {
   // @include
-  public static List<Integer> findKLargestInBST(
-      BinaryTree<Integer> root, int k) {
+  public static List<Integer> findKLargestInBST(BSTNode<Integer> tree, int k) {
     List<Integer> kLargestElements = new ArrayList<>();
-    findKLargestInBSTHelper(root, k, kLargestElements);
+    findKLargestInBSTHelper(tree, k, kLargestElements);
     return kLargestElements;
   }
 
-  private static void findKLargestInBSTHelper(
-      BinaryTree<Integer> root, int k, List<Integer> kLargestElements) {
+  private static void findKLargestInBSTHelper(BSTNode<Integer> tree, int k,
+                                              List<Integer> kLargestElements) {
     // Perform reverse inorder traversal.
-    if (root != null && kLargestElements.size() < k) {
-      findKLargestInBSTHelper(root.getRight(), k, kLargestElements);
+    if (tree != null && kLargestElements.size() < k) {
+      findKLargestInBSTHelper(tree.getRight(), k, kLargestElements);
       if (kLargestElements.size() < k) {
-        kLargestElements.add(root.getData());
-        findKLargestInBSTHelper(root.getLeft(), k, kLargestElements);
+        kLargestElements.add(tree.getData());
+        findKLargestInBSTHelper(tree.getLeft(), k, kLargestElements);
       }
     }
   }
@@ -32,12 +31,12 @@ public class FindKLargestBST {
     // 3
     // 2 5
     // 1 4 6
-    BinaryTree<Integer> root = new BinaryTree<>(3);
-    root.setLeft(new BinaryTree<>(2));
-    root.getLeft().setLeft(new BinaryTree<>(1));
-    root.setRight(new BinaryTree<>(5));
-    root.getRight().setLeft(new BinaryTree<>(4));
-    root.getRight().setRight(new BinaryTree<>(6));
+    BSTNode<Integer> tree = new BSTNode<>(3);
+    tree.setLeft(new BSTNode<>(2));
+    tree.getLeft().setLeft(new BSTNode<>(1));
+    tree.setRight(new BSTNode<>(5));
+    tree.getRight().setLeft(new BSTNode<>(4));
+    tree.getRight().setRight(new BSTNode<>(6));
     Random r = new Random();
     int k;
     if (args.length == 1) {
@@ -46,7 +45,7 @@ public class FindKLargestBST {
       k = r.nextInt(6) + 1;
     }
     System.out.println("k = " + k);
-    List<Integer> ans = findKLargestInBST(root, k);
+    List<Integer> ans = findKLargestInBST(tree, k);
     System.out.println(ans);
     for (int i = 1; i < ans.size(); ++i) {
       assert (ans.get(i - 1) >= ans.get(i));

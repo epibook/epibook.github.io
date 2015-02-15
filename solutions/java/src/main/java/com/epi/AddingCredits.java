@@ -2,43 +2,40 @@ package com.epi;
 
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class AddingCredits {
   // @include
   public static class ClientsCreditsInfo {
     private int offset = 0;
-    private Map<String, Integer> credits = new HashMap<>();
-    private NavigableMap<Integer, Set<String>> inverseCredits = new TreeMap<>();
+    private Map<String, Integer> clientToCredit = new HashMap<>();
+    private NavigableMap<Integer, Set<String>> creditToClients = new TreeMap<>();
 
-    public void insert(String s, int c) {
-      remove(s);
-      credits.put(s, c - offset);
-      Set<String> set = inverseCredits.get(c - offset);
+    public void insert(String clientID, int c) {
+      remove(clientID);
+      clientToCredit.put(clientID, c - offset);
+      Set<String> set = creditToClients.get(c - offset);
       if (set == null) {
         set = new HashSet<>();
-        inverseCredits.put(c - offset, set);
+        creditToClients.put(c - offset, set);
       }
-      set.add(s);
+      set.add(clientID);
     }
 
-    public boolean remove(String s) {
-      Integer creditsIt = credits.get(s);
-      if (creditsIt != null) {
-        inverseCredits.get(creditsIt).remove(s);
-        if (inverseCredits.get(creditsIt).isEmpty()) {
-          inverseCredits.remove(creditsIt);
+    public boolean remove(String clientID) {
+      Integer clientIter = clientToCredit.get(clientID);
+      if (clientIter != null) {
+        creditToClients.get(clientIter).remove(clientID);
+        if (creditToClients.get(clientIter).isEmpty()) {
+          creditToClients.remove(clientIter);
         }
-        credits.remove(s);
+        clientToCredit.remove(clientID);
         return true;
       }
       return false;
     }
 
-    public int lookup(String s) {
-      Integer it = credits.get(s);
-      return it == null ? -1 : it + offset;
+    public int lookup(String clientID) {
+      Integer iter = clientToCredit.get(clientID);
+      return iter == null ? -1 : iter + offset;
     }
 
     public void addAll(int C) {
@@ -46,8 +43,8 @@ public class AddingCredits {
     }
 
     public String max() {
-      return inverseCredits.isEmpty() ? "" : inverseCredits.lastEntry()
-          .getValue().iterator().next();
+      return creditToClients.isEmpty() ? "" :
+             creditToClients.lastEntry().getValue().iterator().next();
     }
   }
   // @exclude

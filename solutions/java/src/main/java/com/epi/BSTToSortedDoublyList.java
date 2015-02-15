@@ -7,28 +7,28 @@ public class BSTToSortedDoublyList {
   // Transform a BST into a circular sorted doubly linked list in-place,
   // return the head of the list.
   public static BinaryTree<Integer> bstToDoublyLinkedList(
-      BinaryTree<Integer> T) {
+      BinaryTree<Integer> tree) {
     // Empty subtree.
-    if (T == null) {
+    if (tree == null) {
       return null;
     }
 
     // Recursively build the list from left and right subtrees.
-    BinaryTree<Integer> lHead = bstToDoublyLinkedList(T.getLeft());
-    BinaryTree<Integer> rHead = bstToDoublyLinkedList(T.getRight());
+    BinaryTree<Integer> lHead = bstToDoublyLinkedList(tree.getLeft());
+    BinaryTree<Integer> rHead = bstToDoublyLinkedList(tree.getRight());
 
-    // Append T to the list from left subtree.
+    // Append tree to the list from left subtree.
     BinaryTree<Integer> lTail = null;
     if (lHead != null) {
       lTail = lHead.getLeft();
-      lTail.setRight(T);
-      T.setLeft(lTail);
-      lTail = T;
+      lTail.setRight(tree);
+      tree.setLeft(lTail);
+      lTail = tree;
     } else {
-      lHead = lTail = T;
+      lHead = lTail = tree;
     }
 
-    // Append the list from right subtree to T.
+    // Append the list from right subtree to tree.
     BinaryTree<Integer> rTail = null;
     if (rHead != null) {
       rTail = rHead.getLeft();

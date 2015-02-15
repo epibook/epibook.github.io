@@ -14,21 +14,18 @@ using std::numeric_limits;
 using std::pair;
 using std::shared_ptr;
 
-pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>> 
-    BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>& T);
+pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>>
+    BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>&);
 
 // @include
 shared_ptr<BSTNode<int>> BSTToDoublyLinkedList(
     const shared_ptr<BSTNode<int>>& T) {
-  auto res = BSTToDoublyLinkedListHelper(T);
-  res.second->right = nullptr;  // Undo the circular link from tail to head.
-  res.first->left = nullptr;  // Undo the circular link from head to tail.
-  return res.first;
+  return BSTToDoublyLinkedListHelper(T).first;
 }
 
-// Transforms a BST into a sorted circular doubly linked list
-// in-place, and return the head and tail of the list as a pair.
-pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>> 
+// Transforms a BST into a sorted doubly linked list in-place,
+// and return the head and tail of the list as a pair.
+pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>>
     BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>& T) {
   // Empty subtree.
   if (!T) {

@@ -7,9 +7,10 @@
 using std::unique_ptr;
 
 // @include
-BSTNode<int>* FindFirstGreaterThanK(const unique_ptr<BSTNode<int>>& T, int k) {
+BSTNode<int>* FindFirstGreaterThanK(const unique_ptr<BSTNode<int>>& tree,
+                                    int k) {
   bool found_k = false;
-  BSTNode<int>* subtree = T.get(), *first_so_far = nullptr;
+  BSTNode<int>* subtree = tree.get(), *first_so_far = nullptr;
 
   while (subtree) {
     if (subtree->data == k) {
@@ -30,15 +31,15 @@ int main(int argc, char* argv[]) {
   //    3
   //  2   5
   // 1   4 7
-  auto root = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
-  root->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
-  root->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{1});
-  root->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
-  root->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
-  root->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{7});
-  assert(FindFirstGreaterThanK(root, 1) == root->left.get());
-  assert(FindFirstGreaterThanK(root, 5) == root->right->right.get());
-  assert(!FindFirstGreaterThanK(root, 6));
-  assert(!FindFirstGreaterThanK(root, 7));
+  auto tree = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
+  tree->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
+  tree->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{1});
+  tree->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
+  tree->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
+  tree->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{7});
+  assert(FindFirstGreaterThanK(tree, 1) == tree->left.get());
+  assert(FindFirstGreaterThanK(tree, 5) == tree->right->right.get());
+  assert(!FindFirstGreaterThanK(tree, 6));
+  assert(!FindFirstGreaterThanK(tree, 7));
   return 0;
 }
