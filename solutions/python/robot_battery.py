@@ -1,5 +1,7 @@
 import sys
 import random
+import itertools
+import operator
 
 
 # @include
@@ -22,6 +24,11 @@ def check_ans(h):
     return cap
 
 
+def check_ans2(h):
+    """O(n^2) checking answer."""
+    return -min(itertools.starmap(operator.sub, itertools.combinations(h, 2)))
+
+
 def main():
     for _ in range(1000):
         if len(sys.argv) == 2:
@@ -31,6 +38,7 @@ def main():
         a = [random.randint(0, sys.maxsize) for i in range(n)]
         print(find_battery_capacity(a))
         assert check_ans(a) == find_battery_capacity(a)
+        assert check_ans2(a) == find_battery_capacity(a)
 
 
 if __name__ == '__main__':
