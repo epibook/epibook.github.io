@@ -3,6 +3,7 @@ import random
 import string
 
 
+# @include
 def convert_base(s, b1, b2):
     is_negative = s[0] == '-'
     x = 0
@@ -22,6 +23,7 @@ def convert_base(s, b1, b2):
         result.append('-')
 
     return ''.join(reversed(result))
+# @exclude
 
 
 def rand_int_string(length):
