@@ -27,15 +27,15 @@ public class ViewFromAbove {
 
   public static class Endpoint implements Comparable<Endpoint> {
     private boolean isLeft;
-    private LineSegment l;
+    private LineSegment line;
 
-    public Endpoint(boolean isLeft, LineSegment l) {
+    public Endpoint(boolean isLeft, LineSegment line) {
       this.isLeft = isLeft;
-      this.l = l;
+      this.line = line;
     }
 
     public int val() {
-      return isLeft ? l.left : l.right;
+      return isLeft ? line.left : line.right;
     }
 
     @Override
@@ -55,30 +55,30 @@ public class ViewFromAbove {
     int prevXAxis = sortedEndpoints.get(0).val(); // Leftmost end point.
     LineSegment prev = null;
     TreeMap<Integer, LineSegment> activeLineSegments = new TreeMap<>();
-    for (Endpoint e : sortedEndpoints) {
-      if (!activeLineSegments.isEmpty() && prevXAxis != e.val()) {
+    for (Endpoint endpoint : sortedEndpoints) {
+      if (!activeLineSegments.isEmpty() && prevXAxis != endpoint.val()) {
         if (prev == null) { // Found first segment.
-          prev = new LineSegment(prevXAxis, e.val(),
+          prev = new LineSegment(prevXAxis, endpoint.val(),
               activeLineSegments.lastEntry().getValue().color,
               activeLineSegments.lastEntry().getValue().height);
         } else {
           if (prev.height == activeLineSegments.lastEntry().getValue().height
               && prev.color == activeLineSegments.lastEntry().getValue().color) {
-            prev.right = e.val();
+            prev.right = endpoint.val();
           } else {
             System.out.println(prev);
-            prev = new LineSegment(prevXAxis, e.val(),
+            prev = new LineSegment(prevXAxis, endpoint.val(),
                 activeLineSegments.lastEntry().getValue().color,
                 activeLineSegments.lastEntry().getValue().height);
           }
         }
       }
-      prevXAxis = e.val();
+      prevXAxis = endpoint.val();
 
-      if (e.isLeft) { // Left end point.
-        activeLineSegments.put(e.l.height, e.l);
+      if (endpoint.isLeft) { // Left end point.
+        activeLineSegments.put(endpoint.line.height, endpoint.line);
       } else { // Right end point.
-        activeLineSegments.remove(e.l.height);
+        activeLineSegments.remove(endpoint.line.height);
       }
     }
 

@@ -15,7 +15,7 @@ short Parity(unsigned long x) {
   x ^= x >> 4;
   x &= 0xf; // Only wants the last 4 bits of x.
   // Return the LSB, which is the parity.
-  return FourBitParityLookup(x) & 1;
+  return FourBitParityLookup(x);
 }
 
 // The LSB of kFourBitParityLookupTable is the parity of 0,
@@ -24,7 +24,7 @@ short Parity(unsigned long x) {
 const int kFourBitParityLookupTable = 0x6996; // = 0b0110100110010110.
 
 short FourBitParityLookup(int x) {
-  return kFourBitParityLookupTable >> x;
+  return (kFourBitParityLookupTable >> x) & 1;
 }
 // @exclude
 

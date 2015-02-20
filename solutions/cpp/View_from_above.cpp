@@ -27,10 +27,10 @@ class Endpoint {
     return Value() < that.Value();
   }
 
-  int Value() const { return isLeft_ ? l_->left : l_->right; }
+  int Value() const { return isLeft_ ? line_->left : line_->right; }
 
   bool isLeft_;
-  const LineSegment* l_;
+  const LineSegment* line_;
 };
 
 void CalculateViewFromAbove(const vector<LineSegment>& A) {
@@ -44,33 +44,33 @@ void CalculateViewFromAbove(const vector<LineSegment>& A) {
   int prev_xaxis = sorted_endpoints.front().Value();  // Leftmost end point.
   unique_ptr<LineSegment> prev = nullptr;
   map<int, const LineSegment*> active_line_segments;
-  for (const auto& e : sorted_endpoints) {
-    if (!active_line_segments.empty() && prev_xaxis != e.Value()) {
+  for (const auto& endpoint : sorted_endpoints) {
+    if (!active_line_segments.empty() && prev_xaxis != endpoint.Value()) {
       if (prev == nullptr) {  // Found first segment.
         prev = unique_ptr<LineSegment>(new LineSegment{
-            prev_xaxis, e.Value(),
+            prev_xaxis, endpoint.Value(),
             active_line_segments.crbegin()->second->color,
             active_line_segments.crbegin()->second->height});
       } else {
         if (prev->height == active_line_segments.crbegin()->second->height &&
             prev->color == active_line_segments.crbegin()->second->color) {
-          prev->right = e.Value();
+          prev->right = endpoint.Value();
         } else {
           cout << "[" << prev->left << ", " << prev->right << "]"
                << ", color = " << prev->color << ", height = " << prev->height
                << endl;
-          *prev = {prev_xaxis, e.Value(),
+          *prev = {prev_xaxis, endpoint.Value(),
                    active_line_segments.crbegin()->second->color,
                    active_line_segments.crbegin()->second->height};
         }
       }
     }
-    prev_xaxis = e.Value();
+    prev_xaxis = endpoint.Value();
 
-    if (e.isLeft_ == true) {  // Left end point.
-      active_line_segments.emplace(e.l_->height, e.l_);
+    if (endpoint.isLeft_ == true) {  // Left end point.
+      active_line_segments.emplace(endpoint.line_->height, endpoint.line_);
     } else {  // Right end point.
-      active_line_segments.erase(e.l_->height);
+      active_line_segments.erase(endpoint.line_->height);
     }
   }
 

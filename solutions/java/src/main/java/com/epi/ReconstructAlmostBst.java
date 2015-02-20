@@ -9,35 +9,55 @@ import static com.epi.BinaryTreeUtils.generateInOrder;
 public class ReconstructAlmostBst {
   // @include
   private static BinaryTreeNode<Integer> p1, p2;
-  private static BinaryTreeNode<Integer> pre;
+  private static BinaryTreeNode<Integer> prev;
 
-  public static void reconstructBST(BinaryTreeNode<Integer> root) {
-    p1 = null;
-    p2 = null;
-    pre = null;
-    reconstructBSTHelper(root);
-    if (p1 != null && p2 != null) { // Swaps the out of order nodes.
-      Integer temp = p1.getData();
-      p1.setData(p2.getData());
-      p2.setData(temp);
+  private static class Inversion {
+    public BinaryTreeNode<Integer> prev;
+    public BinaryTreeNode<Integer> curr;
+
+    public Inversion(BinaryTreeNode<Integer> prev, BinaryTreeNode<Integer> curr) {
+      this.prev = prev;
+      this.curr = curr;
     }
   }
 
-  private static void reconstructBSTHelper(BinaryTreeNode<Integer> root) {
-    if (root == null) {
+  public static void reconstructBST(BinaryTreeNode<Integer> almostBST) {
+    Inversion inversion0 = new Inversion(null, null);
+    Inversion inversion1 = new Inversion(null, null);
+    prev = null;
+    reconstructBSTHelper(almostBST, inversion0, inversion1, prev);
+    if (inversion1.curr != null) { // Swaps the out of order nodes.
+      Integer temp = inversion0.prev.getData();
+      inversion0.prev.setData(inversion1.curr.getData());
+      inversion1.curr.setData(temp);
+    } else {
+      Integer temp = inversion0.prev.getData();
+      inversion0.prev.setData(inversion0.curr.getData());
+      inversion0.curr.setData(temp);
+    }
+  }
+
+  private static void reconstructBSTHelper(BinaryTreeNode<Integer> almostBST, 
+                                           Inversion inversion0, 
+                                           Inversion inversion1,
+                                           BinaryTreeNode<Integer> prev) {
+    if (almostBST == null) {
       return;
     }
 
-    reconstructBSTHelper(root.getLeft());
-    if (pre != null && pre.getData() > root.getData()) {
+    reconstructBSTHelper(almostBST.getLeft(), inversion0, inversion1, prev);
+    if (prev != null && prev.getData() > almostBST.getData()) {
       // Inversion detected.
-      p2 = root; // Assigns p2 as the current node.
-      if (p1 == null) {
-        p1 = pre; // Assigns p1 as the first node.
+      if (inversion0.prev == null && inversion0.curr == null) {
+        inversion0.prev = prev;
+        inversion0.curr = almostBST;
+      } else {
+        inversion1.prev = prev;
+        inversion1.curr = almostBST;
       }
     }
-    pre = root; // Records the previous node as the current node.
-    reconstructBSTHelper(root.getRight());
+    prev = almostBST; // Records the previous node as the current node.
+    reconstructBSTHelper(almostBST.getRight(), inversion0, inversion1, prev);
   }
   // @exclude
 
@@ -45,14 +65,14 @@ public class ReconstructAlmostBst {
     // 3
     // 2 4
     // 1 5 6
-    BinaryTreeNode<Integer> root = new BinaryTreeNode<>(3);
-    root.setLeft(new BinaryTreeNode<>(2));
-    root.getLeft().setLeft(new BinaryTreeNode<>(1));
-    root.setRight(new BinaryTreeNode<>(4));
-    root.getRight().setLeft(new BinaryTreeNode<>(5));
-    root.getRight().setRight(new BinaryTreeNode<>(6));
-    reconstructBST(root);
-    List<Integer> result = generateInOrder(root);
+    BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(3);
+    tree.setLeft(new BinaryTreeNode<>(2));
+    tree.getLeft().setLeft(new BinaryTreeNode<>(1));
+    tree.setRight(new BinaryTreeNode<>(4));
+    tree.getRight().setLeft(new BinaryTreeNode<>(5));
+    tree.getRight().setRight(new BinaryTreeNode<>(6));
+    reconstructBST(tree);
+    List<Integer> result = generateInOrder(tree);
     System.out.println(result);
     for (int i = 1; i < result.size(); i++) {
       assert (result.get(i - 1) < result.get(i));

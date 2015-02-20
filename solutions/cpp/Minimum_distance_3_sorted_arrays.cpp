@@ -47,28 +47,27 @@ struct ArrayData {
 int FindClosestElementsInSortedArrays(
     const vector<vector<int>>& sorted_arrays) {
   // Indices into each of the arrays. 
-  vector<int> idx(sorted_arrays.size(), 0);
-  int min_dis = numeric_limits<int>::max();
+  vector<int> heads(sorted_arrays.size(), 0);
+  int result = numeric_limits<int>::max();
   set<ArrayData> current_heads;
 
   // Adds the minimum element of each array in to current_heads.
   for (int i = 0; i < sorted_arrays.size(); ++i) {
-    if (idx[i] >= sorted_arrays[i].size()) {
-      return min_dis;
-    }
-    current_heads.emplace(ArrayData{i, sorted_arrays[i][idx[i]]});
+    current_heads.emplace(ArrayData{i, sorted_arrays[i][heads[i]]});
   }
 
   while (true) {
-    min_dis = min(min_dis,
-                  current_heads.crbegin()->val - current_heads.cbegin()->val);
-    int tar = current_heads.cbegin()->idx;
+    result = min(result,
+                 current_heads.crbegin()->val - current_heads.cbegin()->val);
+    int idx_next_min = current_heads.cbegin()->idx;
     // Returns if there is no remaining element in one array.
-    if (++idx[tar] >= sorted_arrays[tar].size()) {
-      return min_dis;
+    if (++heads[idx_next_min] >= sorted_arrays[idx_next_min].size()) {
+      return result;
     }
     current_heads.erase(current_heads.begin());
-    current_heads.emplace(ArrayData{tar, sorted_arrays[tar][idx[tar]]});
+    current_heads.emplace(
+        ArrayData{idx_next_min, 
+                  sorted_arrays[idx_next_min][heads[idx_next_min]]});
   }
 }
 // @exclude

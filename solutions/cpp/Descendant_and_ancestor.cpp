@@ -7,38 +7,46 @@
 
 using std::unique_ptr;
 
-bool SearchTarget(BSTNode<int>* p, const unique_ptr<BSTNode<int>>& t);
+bool SearchTarget(BSTNode<int>*, const unique_ptr<BSTNode<int>>&);
 
 // @include
-bool IsRSDescendantAncestorPairForM(const unique_ptr<BSTNode<int>>& r,
-                                    const unique_ptr<BSTNode<int>>& s,
-                                    const unique_ptr<BSTNode<int>>& m) {
-  auto* cur_r = r.get(), *cur_s = s.get();
+bool IsRSDescendantAncestorPairForM(const unique_ptr<BSTNode<int>>& anc_des_0,
+                                    const unique_ptr<BSTNode<int>>& anc_des_1,
+                                    const unique_ptr<BSTNode<int>>& middle) {
+  auto* cur_anc_des_0 = anc_des_0.get(), *cur_anc_des_1 = anc_des_1.get();
 
-  // Perform interleaved searching from r and s for m.
-  while (cur_r && cur_r != s.get() && cur_r != m.get() &&
-         cur_s && cur_s != r.get() && cur_s != m.get()) {
-    cur_r = cur_r->data > m->data ? cur_r->left.get() : cur_r->right.get();
-    cur_s = cur_s->data > m->data ? cur_s->left.get() : cur_s->right.get();
+  // Perform interleaved searching from anc_des_0 and anc_des_1 for middle.
+  while (cur_anc_des_0 && cur_anc_des_0 != anc_des_1.get() && 
+         cur_anc_des_0 != middle.get() &&
+         cur_anc_des_1 && cur_anc_des_1 != anc_des_0.get() && 
+         cur_anc_des_1 != middle.get()) {
+    cur_anc_des_0 = cur_anc_des_0->data > middle->data ? 
+                    cur_anc_des_0->left.get() : cur_anc_des_0->right.get();
+    cur_anc_des_1 = cur_anc_des_1->data > middle->data ? 
+                    cur_anc_des_1->left.get() : cur_anc_des_1->right.get();
   }
 
-  // If both searches were unsuccessful, or we got from r to s without
-  // seeing m, or from s to r without seeing m, m cannot lie between r and s.
-  if ((cur_r != m.get() && cur_s != m.get()) ||
-       cur_r == s.get() || cur_s == r.get()) {
+  // If both searches were unsuccessful, or we got from anc_des_0 to 
+  // anc_des_1 without seeing middle, or from anc_des_1 to anc_des_0 without 
+  // seeing middle, middle cannot lie between anc_des_0 and anc_des_1.
+  if ((cur_anc_des_0 != middle.get() && cur_anc_des_1 != middle.get()) ||
+       cur_anc_des_0 == anc_des_1.get() || cur_anc_des_1 == anc_des_0.get()) {
     return false;
   }
 
-  // Check if m has a path to s or to r. If we get here, we already
-  // know one of r or s has a path to m.
-  return SearchTarget(m.get(), s) || SearchTarget(m.get(), r);
+  // If we get here, we already know one of anc_des_0 or anc_des_1 has a path 
+  // to middle. Check if middle has a path to anc_des_1 or to anc_des_0.
+  return cur_anc_des_0 == middle.get() ? 
+         SearchTarget(middle.get(), anc_des_1) : 
+         SearchTarget(middle.get(), anc_des_0);
 }
 
-bool SearchTarget(BSTNode<int>* p, const unique_ptr<BSTNode<int>>& target) {
-  while (p && p != target.get()) {
-    p = p->data > target->data ? p->left.get() : p->right.get();
+bool SearchTarget(BSTNode<int>* from, 
+                  const unique_ptr<BSTNode<int>>& target) {
+  while (from && from != target.get()) {
+    from = from->data > target->data ? from->left.get() : from->right.get();
   }
-  return p == target.get();
+  return from == target.get();
 }
 // @exclude
 

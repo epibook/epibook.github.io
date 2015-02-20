@@ -5,33 +5,40 @@ import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 public class DescendantAndAncestor {
   // @include
   public static boolean isRSDescendantAncestorPairForM(
-      BSTNode<Integer> r, BSTNode<Integer> s, BSTNode<Integer> m) {
-    BSTNode<Integer> curR = r, curS = s;
+      BSTNode<Integer> ancDes0, BSTNode<Integer> ancDes1, BSTNode<Integer> middle) {
+    BSTNode<Integer> curAncDes0 = ancDes0, curAncDes1 = ancDes1;
 
-    // Perform interleaved searching from r and s for m.
-    while (curR != null && curR != s && curR != m
-           && curS != null && curS != r && curS != m) {
-      curR = curR.getData() > m.getData() ? curR.getLeft() : curR.getRight();
-      curS = curS.getData() > m.getData() ? curS.getLeft() : curS.getRight();
+    // Perform interleaved searching from ancDes0 and ancDes1 for middle.
+    while (curAncDes0 != null && curAncDes0 != ancDes1 && curAncDes0 != middle
+           && curAncDes1 != null && curAncDes1 != ancDes0 
+           && curAncDes1 != middle) {
+      curAncDes0 = curAncDes0.getData() > middle.getData() 
+                   ? curAncDes0.getLeft() : curAncDes0.getRight();
+      curAncDes1 = curAncDes1.getData() > middle.getData() ? 
+                   curAncDes1.getLeft() : curAncDes1.getRight();
     }
 
-    // If both searches were unsuccessful, or we got from r to s without
-    // seeing m, or from s to r without seeing m, m cannot lie between r and s.
-    if (curR == s || curS == r || (curR != m && curS != m)) {
+    // If both searches were unsuccessful, or we got from ancDes0 to ancDes1 
+    // without seeing middle, or from ancDes1 to ancDes0 without seeing middle,
+    // middle cannot lie between ancDes0 and ancDes1.
+    if (curAncDes0 == ancDes1 || curAncDes1 == ancDes0 
+        || (curAncDes0 != middle && curAncDes1 != middle)) {
       return false;
     }
 
-    // Check if m has a path to s or to r. If we get here, we already
-    // know one of r or s has a path to m.
-    return searchTarget(m, s) || searchTarget(m, r);
+    // If we get here, we already know one of ancDes0 or ancDes1 has a path to 
+    // middle. Check if middle has a path to ancDes1 or to ancDes0.
+    return curAncDes0 == middle
+           ? searchTarget(middle, ancDes1) : searchTarget(middle, ancDes0);
   }
 
   private static boolean searchTarget(
-      BSTNode<Integer> p, BSTNode<Integer> target) {
-    while (p != null && p != target) {
-      p = p.getData() > target.getData() ? p.getLeft() : p.getRight();
+      BSTNode<Integer> from, BSTNode<Integer> target) {
+    while (from != null && from != target) {
+      from = from.getData() > target.getData() 
+               ? from.getLeft() : from.getRight();
     }
-    return p == target;
+    return from == target;
   }
   // @exclude
 
