@@ -1,31 +1,31 @@
-package com.epi;
-
 public class RabinKarp {
 	static int kBase = 26, kMod = 997;
-	
+
 	public static void main(String args[]) {
-	    System.out.println("Usage: text and search string");
+		System.out.println("Usage: text and search string");
 
 		String t = "GACGCCA";
 		String s = "CGC";
-	    if (args.length == 2) {
-	      t = args[0];
-	      s = args[1];
-	    }  else {
-	      return;
-	    }
-	    int index = rabinKarp(t,s);
-	    if(index >= 0) {
-	    	System.out.printf("Index of first occurrence of %s in %s: %d\n", s, t, rabinKarp(t,s));
-	    } else {
-	    	System.out.println("No match found");
-	    }
-	    assert (rabinKarp("GACGCCA", "CGC") == 2);
-	    assert (rabinKarp("GATACCCATCGAGTCGGATCGAGT", "GAG") == 10);
-	    
+		if (args.length == 2) {
+			t = args[0];
+			s = args[1];
+		} else {
+			return;
+		}
+		int index = rabinKarp(t, s);
+		if (index >= 0) {
+			System.out.printf("Index of first occurrence of %s in %s: %d\n", s,
+					t, rabinKarp(t, s));
+		} else {
+			System.out.println("No match found");
+		}
+		assert (rabinKarp("GACGCCA", "CGC") == 2);
+		assert (rabinKarp("GATACCCATCGAGTCGGATCGAGT", "GAG") == 10);
+
 	}
-	
-	// Returns the index of the first character of the substring if found, -1 otherwise.`
+
+	// Returns the index of the first character of the substring if found, -1
+	// otherwise.`
 	public static int rabinKarp(String t, String s) {
 		// s is not a substring of t.
 		if (s.length() > t.length()) {
