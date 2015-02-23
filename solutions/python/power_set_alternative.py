@@ -1,0 +1,38 @@
+import sys
+import random
+import itertools
+
+
+# @include
+def generate_power_set(S):
+    subset = []
+    generate_power_set_helper(S, 0, subset)
+
+def generate_power_set_helper(S, m, subset):
+    # Print the subset.
+    print(','.join(map(str, subset)))
+
+    for i in range(m, len(S)):
+        subset.append(S[i])
+        generate_power_set_helper(S, i + 1, subset)
+        subset.pop()
+
+
+def generate_power_set_builtin(S):
+    for n in range(len(S)+1):
+        for i in itertools.combinations(S, n):
+            print(','.join(map(str, i)))
+# @exclude
+
+
+def main():
+    if len(sys.argv) >= 2:
+        S = [int(i) for i in sys.argv[1:]]
+    else:
+        S = list(range(random.randint(1, 10)))
+    generate_power_set(S)
+    generate_power_set_builtin(S)
+
+
+if __name__ == '__main__':
+    main()
