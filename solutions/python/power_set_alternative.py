@@ -10,7 +10,7 @@ def generate_power_set(S):
 
 def generate_power_set_helper(S, m, subset):
     # Print the subset.
-    print(','.join(map(str, subset)))
+    print(*subset, sep=',')
 
     for i in range(m, len(S)):
         subset.append(S[i])
@@ -22,7 +22,7 @@ def generate_power_set_helper(S, m, subset):
 def generate_power_set_builtin(S):
     for n in range(len(S)+1):
         for i in itertools.combinations(S, n):
-            print(','.join(map(str, i)))
+            print(*i, sep=',')
 
 
 def main():

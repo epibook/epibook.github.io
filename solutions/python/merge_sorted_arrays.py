@@ -47,9 +47,7 @@ def main():
                             for j in range(random.randint(1, 500))))
 
 ##        for i in S:
-##            for j in i:
-##                print(j, end=' ')
-##            print()
+##            print(*i, sep=' ')
 
         ans = merge_sorted_arrays(S)
         for i in range(1, len(ans)):
