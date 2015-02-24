@@ -36,10 +36,10 @@ def is_letter_constructible_from_magazine(letter_text, magazine_text):
     # Empty char_frequency_for_letter means every char in letter_text can be
     # covered by a character in magazine_text.
     return len(char_frequency_for_letter) == 0
+# @exclude
 
 def is_letter_constructible_from_magazine_builtin(letter_text, magazine_text):
     return len(collections.Counter(letter_text) - collections.Counter(magazine_text)) == 0
-# @exclude
 
 
 def main():

@@ -16,13 +16,13 @@ def generate_power_set_helper(S, m, subset):
         subset.append(S[i])
         generate_power_set_helper(S, i + 1, subset)
         subset.pop()
+# @exclude
 
 
 def generate_power_set_builtin(S):
     for n in range(len(S)+1):
         for i in itertools.combinations(S, n):
             print(','.join(map(str, i)))
-# @exclude
 
 
 def main():

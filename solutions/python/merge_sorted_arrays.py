@@ -29,10 +29,8 @@ def merge_sorted_arrays(sorted_arrays):
 # @exclude
 
 
-# @include
 def merge_sorted_arrays_builtin(sorted_arrays):
     return list(heapq.merge(*sorted_arrays))
-# @exclude
 
 
 def main():
