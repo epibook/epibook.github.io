@@ -38,7 +38,9 @@ def is_letter_constructible_from_magazine(letter_text, magazine_text):
     return len(char_frequency_for_letter) == 0
 # @exclude
 
-def is_letter_constructible_from_magazine_builtin(letter_text, magazine_text):
+
+# Pythonic solution
+def is_letter_constructible_from_magazine_pythonic(letter_text, magazine_text):
     return len(collections.Counter(letter_text) - collections.Counter(magazine_text)) == 0
 
 
@@ -55,12 +57,12 @@ def main():
     assert not is_letter_constructible_from_magazine('123', '12222222')
     assert is_letter_constructible_from_magazine('123', '1123')
     assert is_letter_constructible_from_magazine('123', '123')
-    assert not is_letter_constructible_from_magazine_builtin('123', '456')
-    assert not is_letter_constructible_from_magazine_builtin('123', '12222222')
-    assert is_letter_constructible_from_magazine_builtin('123', '1123')
-    assert is_letter_constructible_from_magazine_builtin('123', '123')
+    assert not is_letter_constructible_from_magazine_pythonic('123', '456')
+    assert not is_letter_constructible_from_magazine_pythonic('123', '12222222')
+    assert is_letter_constructible_from_magazine_pythonic('123', '1123')
+    assert is_letter_constructible_from_magazine_pythonic('123', '123')
     print(is_letter_constructible_from_magazine(L, M))
-    print(is_letter_constructible_from_magazine_builtin(L, M))
+    print(is_letter_constructible_from_magazine_pythonic(L, M))
 
 
 if __name__ == '__main__':

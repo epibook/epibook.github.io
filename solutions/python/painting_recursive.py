@@ -8,7 +8,7 @@ def print_matrix(A):
 
 
 # @include
-def filp_color(x, y, A):
+def flip_color(x, y, A):
     dirs = ((0, 1), (0, -1),
             (1, 0), (-1, 0))
     color = A[x][y]
@@ -19,7 +19,7 @@ def filp_color(x, y, A):
         ny = y + d[1]
         if (nx in range(len(A)) and ny in range(len(A[nx])) and
                 A[nx][ny] == color):
-            filp_color(nx, ny, A)
+            flip_color(nx, ny, A)
 # @exclude
 
 def main():
@@ -36,7 +36,7 @@ def main():
     j = random.randrange(n)
     print('color =', i, j, A[i][j])
     print_matrix(A)
-    filp_color(i, j, A)
+    flip_color(i, j, A)
     print()
     print_matrix(A)
 

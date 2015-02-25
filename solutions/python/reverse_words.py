@@ -33,6 +33,11 @@ def reverse_words(s):
 # @exclude
 
 
+# Pythonic solution, doesn't reverse in-place, may be used with strings
+def reverse_words_pythonic(s):
+    return ' '.join(reversed(s.split(' ')))
+
+
 def check_answer(ori, s):
     reverse_words(s)
     assert ori == s
@@ -48,6 +53,7 @@ def main():
         print(s.decode())
         reverse_words(s)
         print(s.decode())
+        assert s.decode() == reverse_words_pythonic(original_str.decode())
         check_answer(original_str, s)
 
 

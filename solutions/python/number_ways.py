@@ -18,7 +18,8 @@ def number_of_ways(n, m):
 # @exclude
 
 
-def number_of_ways_builtin(n, m):
+# Pythonic solution
+def number_of_ways_pythonic(n, m):
     if n < m:
         n, m = m, n
 
@@ -52,7 +53,7 @@ def main():
             n = random.randint(1, 10)
             m = random.randint(1, 10)
         print('n =', n, ', m =', m, ', ways =', number_of_ways(n, m))
-        assert check_ans(n, m) == number_of_ways(n, m) == number_of_ways_builtin(n, m)
+        assert check_ans(n, m) == number_of_ways(n, m) == number_of_ways_pythonic(n, m)
         if len(sys.argv) == 3:
             break
 

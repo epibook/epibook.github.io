@@ -19,7 +19,8 @@ def generate_power_set_helper(S, m, subset):
 # @exclude
 
 
-def generate_power_set_builtin(S):
+# Pythonic solution
+def generate_power_set_pythonic(S):
     for n in range(len(S)+1):
         for i in itertools.combinations(S, n):
             print(*i, sep=',')
@@ -31,7 +32,7 @@ def main():
     else:
         S = list(range(random.randint(1, 10)))
     generate_power_set(S)
-    generate_power_set_builtin(S)
+    generate_power_set_pythonic(S)
 
 
 if __name__ == '__main__':

@@ -29,7 +29,8 @@ def merge_sorted_arrays(sorted_arrays):
 # @exclude
 
 
-def merge_sorted_arrays_builtin(sorted_arrays):
+# Pythonic solution
+def merge_sorted_arrays_pythonic(sorted_arrays):
     return list(heapq.merge(*sorted_arrays))
 
 
@@ -53,7 +54,7 @@ def main():
         for i in range(1, len(ans)):
             assert ans[i - 1] <= ans[i]
 
-        assert ans == merge_sorted_arrays_builtin(S)
+        assert ans == merge_sorted_arrays_pythonic(S)
 
 if __name__ == '__main__':
     main()

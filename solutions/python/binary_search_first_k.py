@@ -22,7 +22,8 @@ def search_first_of_k(A, k):
 # @exclude
 
 
-def search_first_of_k_builtin(A, k):
+# Pythonic solution
+def search_first_of_k_pythonic(A, k):
     i = bisect.bisect_left(A, k)
     if i < len(A) and A[i] == k:
         return i
@@ -46,7 +47,7 @@ def main():
         except ValueError:
             it = -1
         assert it == ans
-        assert it == search_first_of_k_builtin(A, k)
+        assert it == search_first_of_k_pythonic(A, k)
 
 if __name__ == '__main__':
     main()
