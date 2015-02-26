@@ -1,3 +1,4 @@
+# Intersect_sorted_arrays2.h 4a4c5f91493e5e482eaa79892816c1ccefa084f4
 import bisect
 
 # @include

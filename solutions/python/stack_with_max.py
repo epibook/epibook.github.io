@@ -1,3 +1,5 @@
+# Stack_with_max.h 98875343ac034c2bd2141da5f5c9c7e25c192d76
+# Stack_with_max.cpp 848813e190b1b85a8e75107fe8513c3be38ad1a9
 # @include
 class Stack:
 
@@ -19,7 +21,7 @@ class Stack:
 
     def push(self, x):
         self.__element_with_cached_max.append(
-            (x, max(x, x if self.empty() else self.__element_with_cached_max[-1][1])))
+            (x, x if self.empty() else max(x, self.max())))
 # @exclude
 
 

@@ -1,3 +1,4 @@
+# Intersect_sorted_arrays1.h 4a4c5f91493e5e482eaa79892816c1ccefa084f4
 # @include
 def intersect_two_sorted_arrays(A, B):
     intersection_A_B = []

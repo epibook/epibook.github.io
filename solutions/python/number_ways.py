@@ -1,3 +1,4 @@
+# Number_ways.cpp 848813e190b1b85a8e75107fe8513c3be38ad1a9
 import sys
 import random
 import itertools

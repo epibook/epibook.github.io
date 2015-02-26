@@ -1,3 +1,4 @@
+# Stack_with_max_improved.cpp 98875343ac034c2bd2141da5f5c9c7e25c192d76
 # @include
 class Stack:
     def __init__(self):
