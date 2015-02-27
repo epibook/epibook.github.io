@@ -2,3 +2,4 @@ foo: bar
 url: http://epibook.github.io/
 Cbaseurl: https://github.com/epibook/epibook.github.io/tree/master/solutions/cpp/
 javabaseurl: https://github.com/epibook/epibook.github.io/tree/master/solutions/java/src/main/java/com/epi/
+javaconcurrencybaseurl: https://github.com/epibook/epibook.github.io/tree/master/solutions/java/concurrency
