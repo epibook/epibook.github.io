@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #ifndef SOLUTIONS_CAN_STRING_BE_PALINDROME_HASH_H_
 #define SOLUTIONS_CAN_STRING_BE_PALINDROME_HASH_H_

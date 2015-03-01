@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #ifndef SOLUTIONS_BST_PROTOTYPE_SHARED_PTR_H_
 #define SOLUTIONS_BST_PROTOTYPE_SHARED_PTR_H_

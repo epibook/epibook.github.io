@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <bitset>
 #include <cassert>
@@ -40,12 +40,16 @@ string FindStudentWithHighestBestOfThreeScores(ifstream* ifs) {
   int score;
   while (*ifs >> name >> score) {
     student_scores[name].emplace(score);
+    if (student_scores[name].size() > 3) {
+      // Remove the smallest score stored in this student.
+      student_scores[name].erase(student_scores[name].begin());
+    }
   }
 
   string top_student("no such student");
   int current_top_three_scores_sum = 0;
   for (const auto& scores : student_scores) {
-    if (scores.second.size() >= 3) {
+    if (scores.second.size() == 3) {
       int current_scores_sum = GetTopThreeScoresSum(scores.second);
       if (current_scores_sum > current_top_three_scores_sum) {
         current_top_three_scores_sum = current_scores_sum;
