@@ -51,11 +51,11 @@ string IntToString(int x) {
     s += '0' + x % 10;
     x /= 10;
   } while (x);
-  reverse(s.begin(), s.end());
 
   if (is_negative) {
-    s = '-' + s;  // Adds the negative sign back.
+    s += '-';  // Adds the negative sign back.
   }
+  reverse(s.begin(), s.end());
   return s;
 }
 

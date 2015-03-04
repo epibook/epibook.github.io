@@ -34,8 +34,7 @@ class Stack {
   }
 
   void Push(int x) {
-    element_with_cached_max_.emplace(
-        x, std::max(x, Empty() ? x : element_with_cached_max_.top().second));
+    element_with_cached_max_.emplace(x, std::max(x, Empty() ? x : Max()));
   }
 
  private:

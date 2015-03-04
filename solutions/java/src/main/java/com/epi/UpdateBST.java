@@ -88,6 +88,7 @@ public class UpdateBST {
           rParent.left = rKeyNodeRight;
         } else { // rParent.left != rKeyNode.
           rKeyNode = rParent.right;
+          rParent.right = null;
           rParent.right = rKeyNodeRight;
         }
         replaceParentChildLink(parent, keyNode, rKeyNode);

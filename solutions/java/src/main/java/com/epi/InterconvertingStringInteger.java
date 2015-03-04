@@ -32,11 +32,11 @@ public class InterconvertingStringInteger {
       s.append((char) ('0' + x % 10));
       x /= 10;
     } while (x != 0);
-    s.reverse();
 
     if (isNegative) {
       s.append('-');  // Adds the negative sign back.
     }
+    s.reverse();
     return s.toString();
   }
 

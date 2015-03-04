@@ -33,8 +33,7 @@ public class StackWithMax {
 
     public void push(Integer x) {
        elementWithCachedMax.push(new Pair<>(
-           x, Collections.max(Arrays.asList(
-                  x, empty() ? x : elementWithCachedMax.peek().getSecond()))));
+           x, Collections.max(Arrays.asList(x, empty() ? x : max()))));
     }
   }
   // @exclude

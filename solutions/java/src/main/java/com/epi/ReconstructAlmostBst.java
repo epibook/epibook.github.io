@@ -36,8 +36,8 @@ public class ReconstructAlmostBst {
     }
   }
 
-  private static void reconstructBSTHelper(BinaryTreeNode<Integer> almostBST,
-                                           Inversion inversion0,
+  private static void reconstructBSTHelper(BinaryTreeNode<Integer> almostBST, 
+                                           Inversion inversion0, 
                                            Inversion inversion1) {
     if (almostBST == null) {
       return;

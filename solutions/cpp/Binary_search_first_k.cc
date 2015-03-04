@@ -33,6 +33,14 @@ int SearchFirstOfK(const vector<int>& A, int k) {
 }
 // @exclude
 
+int SearchFirstOfKAlternative(const vector<int>&A, int k) {
+  auto result = lower_bound(A.begin(), A.end(), k);
+  if (*result == k) {
+    return distance(A.begin(), result);
+  }
+  return -1;
+}
+
 int main(int argc, char* argv[]) {
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
@@ -52,6 +60,7 @@ int main(int argc, char* argv[]) {
     }
     sort(A.begin(), A.end());
     int ans = SearchFirstOfK(A, k);
+    assert(SearchFirstOfKAlternative(A, k) == ans);
     cout << "k = " << k << " locates at " << ans << endl;
     if (ans != -1) {
       cout << "A[k] = " << A[ans] << endl;
