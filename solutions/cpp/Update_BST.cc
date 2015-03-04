@@ -67,9 +67,6 @@ class BinarySearchTree {
       // Moves links to erase the node.
       r_key_node->left.reset(key_node->left.release());
       TreeNode* r_key_node_right = r_key_node->right.release();
-      if (key_node->right.get() != r_key_node) {
-        r_key_node->right.reset(key_node->right.release());
-      }
       if (r_parent->left.get() == r_key_node) {
         r_key_node = r_parent->left.release();
         r_parent->left.reset(r_key_node_right);
@@ -77,6 +74,7 @@ class BinarySearchTree {
         r_key_node = r_parent->right.release();
         r_parent->right.reset(r_key_node_right);
       }
+      r_key_node->right.reset(key_node->right.release());
       ReplaceParentChildLink(parent, key_node, r_key_node);
 
       // Updates root_ link if needed.
@@ -136,32 +134,34 @@ class BinarySearchTree {
 int main(int argc, char* argv[]) {
   BinarySearchTree BST;
   assert(BST.Empty() == true);
+  assert(BST.Insert(7) == true);
+  assert(BST.Insert(8) == true);
+  assert(BST.Insert(9) == true);
   assert(BST.Insert(4) == true);
-  assert(BST.Insert(5) == true);
-  assert(BST.Insert(2) == true);
   assert(BST.Insert(3) == true);
-  assert(BST.Insert(1) == true);
   assert(BST.Empty() == false);
-  assert(BST.Erase(0) == false);
-  assert(BST.Erase(2) == true);
-  assert(BST.Erase(2) == false);
-  assert(BST.Insert(4) == false);
-  // should output 4
-  assert(BST.GetRootVal() == 4);
+  assert(BST.Insert(2) == true);
+  assert(BST.Insert(5) == true);
+  assert(BST.Erase(7) == true);
+  assert(BST.Erase(9) == true);
+  // should output 8
+  assert(BST.GetRootVal() == 8);
   cout << BST.GetRootVal() << endl;
   assert(BST.Erase(4) == true);
+  // should output 8
+  assert(BST.GetRootVal() == 8);
+  cout << BST.GetRootVal() << endl;
+  assert(BST.Erase(8) == true);
   // should output 5
   assert(BST.GetRootVal() == 5);
   cout << BST.GetRootVal() << endl;
   assert(BST.Erase(5) == true);
-  // should output 3
-  assert(BST.GetRootVal() == 3);
-  cout << BST.GetRootVal() << endl;
   assert(BST.Erase(3) == true);
-  // should output 1
-  assert(BST.GetRootVal() == 1);
+  // should output 2
+  assert(BST.GetRootVal() == 2);
   cout << BST.GetRootVal() << endl;
-  assert(BST.Erase(1) == true);
+  assert(BST.Erase(2) == true);
+  assert(BST.Erase(1) == false);
   assert(BST.Empty() == true);
   return 0;
 }

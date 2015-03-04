@@ -9,21 +9,17 @@ using std::unique_ptr;
 // @include
 BSTNode<int>* FindFirstGreaterThanK(const unique_ptr<BSTNode<int>>& tree,
                                     int k) {
-  bool found_k = false;
   BSTNode<int>* subtree = tree.get(), *first_so_far = nullptr;
 
   while (subtree) {
-    if (subtree->data == k) {
-      found_k = true;
-      subtree = subtree->right.get();
-    } else if (subtree->data > k) {
+    if (subtree->data > k) {
       first_so_far = subtree;
       subtree = subtree->left.get();
-    } else {  // subtree->data < k.
+    } else {  // subtree->data <= k.
       subtree = subtree->right.get();
     }
   }
-  return found_k ? first_so_far : nullptr;
+  return first_so_far;
 }
 // @exclude
 
@@ -39,7 +35,7 @@ int main(int argc, char* argv[]) {
   tree->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{7});
   assert(FindFirstGreaterThanK(tree, 1) == tree->left.get());
   assert(FindFirstGreaterThanK(tree, 5) == tree->right->right.get());
-  assert(!FindFirstGreaterThanK(tree, 6));
+  assert(FindFirstGreaterThanK(tree, 6) == tree->right->right.get());
   assert(!FindFirstGreaterThanK(tree, 7));
   return 0;
 }

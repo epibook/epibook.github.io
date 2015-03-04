@@ -78,10 +78,6 @@ public class UpdateBST {
         keyNode.left = null;
         TreeNode rKeyNodeRight = rKeyNode.right;
         rKeyNode.right = null;
-        if (keyNode.right != rKeyNode) {
-          rKeyNode.right = keyNode.right;
-          keyNode.right = null;
-        }
         if (rParent.left == rKeyNode) {
           rKeyNode = rParent.left;
           rParent.left = null;
@@ -91,6 +87,8 @@ public class UpdateBST {
           rParent.right = null;
           rParent.right = rKeyNodeRight;
         }
+        rKeyNode.right = keyNode.right;
+        keyNode.right = null;
         replaceParentChildLink(parent, keyNode, rKeyNode);
 
         // Update root link if needed.
@@ -133,32 +131,34 @@ public class UpdateBST {
   public static void main(String[] args) {
     BinarySearchTree bst = new BinarySearchTree();
     assert (bst.empty());
+    assert (bst.insert(7));
+    assert (bst.insert(8));
+    assert (bst.insert(9));
     assert (bst.insert(4));
-    assert (bst.insert(5));
-    assert (bst.insert(2));
     assert (bst.insert(3));
-    assert (bst.insert(1));
     assert (!bst.empty());
-    assert (!bst.erase(0));
-    assert (bst.erase(2));
-    assert (!bst.erase(2));
-    assert (!bst.insert(4));
-    // should output 4
-    assert (bst.getRootVal() == 4);
+    assert (bst.insert(2));
+    assert (bst.insert(5));
+    assert (bst.erase(7));
+    assert (bst.erase(9));
+    // should output 8
+    assert (bst.getRootVal() == 8);
     System.out.println(bst.getRootVal());
     assert (bst.erase(4));
+    // should output 8
+    assert (bst.getRootVal() == 8);
+    System.out.println(bst.getRootVal());
+    assert (bst.erase(8));
     // should output 5
     assert (bst.getRootVal() == 5);
     System.out.println(bst.getRootVal());
     assert (bst.erase(5));
-    // should output 3
-    assert (bst.getRootVal() == 3);
-    System.out.println(bst.getRootVal());
     assert (bst.erase(3));
-    // should output 1
-    assert (bst.getRootVal() == 1);
+    // should output 2
+    assert (bst.getRootVal() == 2);
     System.out.println(bst.getRootVal());
-    assert (bst.erase(1));
+    assert (bst.erase(2));
+    assert (!bst.erase(1));
     assert (bst.empty());
   }
 }

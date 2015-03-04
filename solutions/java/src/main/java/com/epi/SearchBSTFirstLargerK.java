@@ -6,21 +6,17 @@ public class SearchBSTFirstLargerK {
   // @include
   public static BSTNode<Integer>
   findFirstGreaterThanK(BSTNode<Integer> tree, Integer k) {
-    boolean foundK = false;
     BSTNode<Integer> subtree = tree, firstSoFar = null;
 
     while (subtree != null) {
-      if (subtree.getData().compareTo(k) == 0) {
-        foundK = true;
-        subtree = subtree.getRight();
-      } else if (subtree.getData().compareTo(k) > 0) {
+      if (subtree.getData() > k) {
         firstSoFar = subtree;
         subtree = subtree.getLeft();
-      } else { // subtree.getData().compareTo(k) < 0
+      } else { // subtree.getData() <= k
         subtree = subtree.getRight();
       }
     }
-    return foundK ? firstSoFar : null;
+    return firstSoFar;
   }
   // @exclude
 
@@ -36,7 +32,7 @@ public class SearchBSTFirstLargerK {
     tree.getRight().setRight(new BSTNode<>(7));
     assert (findFirstGreaterThanK(tree, 1) == tree.getLeft());
     assert (findFirstGreaterThanK(tree, 5) == tree.getRight().getRight());
-    assert (findFirstGreaterThanK(tree, 6) == null);
+    assert (findFirstGreaterThanK(tree, 6) == tree.getRight().getRight());
     assert (findFirstGreaterThanK(tree, 7) == null);
   }
 }
