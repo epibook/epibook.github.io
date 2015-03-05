@@ -1,49 +1,64 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
+#include <cassert>
 #include <cmath>
 #include <iostream>
+#include <iterator>
 #include <random>
 #include <vector>
 
 using std::cout;
 using std::default_random_engine;
 using std::endl;
+using std::ostream_iterator;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-void PrintMatrixClockwise(const vector<vector<int>> &A, int offset);
+void MatrixClockwise(const vector<vector<int>>&, int, vector<int>*);
 
 // @include
-void PrintMatrixInSpiralOrder(const vector<vector<int>> &A) {
+vector<int> MatrixInSpiralOrder(const vector<vector<int>> &A) {
+  vector<int> result;
   for (int offset = 0; offset < ceil(0.5 * A.size()); ++offset) {
-    PrintMatrixClockwise(A, offset);
+    MatrixClockwise(A, offset, &result);
   }
+  return result;
 }
 
-void PrintMatrixClockwise(const vector<vector<int>> &A, int offset) {
+void MatrixClockwise(const vector<vector<int>> &A, int offset,
+                     vector<int>* result) {
   if (offset == A.size() - offset - 1) {
     // A has odd dimension, and we are at the center of the matrix A.
-    cout << A[offset][offset];
+    result->emplace_back(A[offset][offset]);
     return;
   }
 
   for (int j = offset; j < A.size() - offset - 1; ++j) {
-    cout << A[offset][j] << ' ';
+    result->emplace_back(A[offset][j]);
   }
   for (int i = offset; i < A.size() - offset - 1; ++i) {
-    cout << A[i][A.size() - offset - 1] << ' ';
+    result->emplace_back(A[i][A.size() - offset - 1]);
   }
   for (int j = A.size() - offset - 1; j > offset; --j) {
-    cout << A[A.size() - offset - 1][j] << ' ';
+    result->emplace_back(A[A.size() - offset - 1][j]);
   }
   for (int i = A.size() - offset - 1; i > offset; --i) {
-    cout << A[i][offset] << ' ';
+    result->emplace_back(A[i][offset]);
   }
 }
 // @exclude
 
+void SimpleTest() {
+  vector<vector<int>> A = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+  auto result = MatrixInSpiralOrder(A);
+  vector<int> golden_result = {1, 2, 3, 6, 9, 8, 7, 4, 5};
+  assert(result.size() == golden_result.size() &&
+         equal(result.begin(), result.end(), golden_result.begin()));
+}
+
 int main(int argc, char *argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   int N;
   if (argc == 2) {
@@ -59,6 +74,8 @@ int main(int argc, char *argv[]) {
       A[i][j] = x++;
     }
   }
-  PrintMatrixInSpiralOrder(A);
+  auto result = MatrixInSpiralOrder(A);
+  copy(result.begin(), result.end(), ostream_iterator<int>(cout, " "));
+  cout << endl;
   return 0;
 }

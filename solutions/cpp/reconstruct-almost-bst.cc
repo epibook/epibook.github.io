@@ -23,8 +23,10 @@ void ReconstructBSTHelper(BinaryTreeNode<int>*,
 
 // @include
 void ReconstructBST(unique_ptr<BinaryTreeNode<int>>* almost_BST) {
-  pair<BinaryTreeNode<int>*, BinaryTreeNode<int>*> inversion_0 = {nullptr, nullptr};
-  pair<BinaryTreeNode<int>*, BinaryTreeNode<int>*> inversion_1 = {nullptr, nullptr};
+  pair<BinaryTreeNode<int>*, BinaryTreeNode<int>*> inversion_0 = {nullptr,
+                                                                  nullptr};
+  pair<BinaryTreeNode<int>*, BinaryTreeNode<int>*> inversion_1 = {nullptr,
+                                                                  nullptr};
   BinaryTreeNode<int> *prev = nullptr;
   ReconstructBSTHelper(almost_BST->get(), &inversion_0, &inversion_1, &prev);
   if (inversion_1.second) {  // Swaps the out of order nodes.
@@ -34,15 +36,17 @@ void ReconstructBST(unique_ptr<BinaryTreeNode<int>>* almost_BST) {
   }
 }
 
-void ReconstructBSTHelper(BinaryTreeNode<int>* almost_BST,
-                          pair<BinaryTreeNode<int>*, BinaryTreeNode<int>*>* inversion_0,
-                          pair<BinaryTreeNode<int>*, BinaryTreeNode<int>*>* inversion_1,
-                          BinaryTreeNode<int>** prev) {
+void ReconstructBSTHelper(
+    BinaryTreeNode<int>* almost_BST,
+    pair<BinaryTreeNode<int>*, BinaryTreeNode<int>*>* inversion_0,
+    pair<BinaryTreeNode<int>*, BinaryTreeNode<int>*>* inversion_1,
+    BinaryTreeNode<int>** prev) {
   if (almost_BST == nullptr) {
     return;
   }
 
-  ReconstructBSTHelper(almost_BST->left.get(), inversion_0, inversion_1, prev);
+  ReconstructBSTHelper(almost_BST->left.get(), inversion_0, inversion_1,
+                       prev);
   if (*prev && (*prev)->data > almost_BST->data) {
     // Inversion detected.
     if (inversion_0->first == nullptr && inversion_0->second == nullptr) {
@@ -52,7 +56,7 @@ void ReconstructBSTHelper(BinaryTreeNode<int>* almost_BST,
     }
   }
   *prev = almost_BST;  // Records the previous node as the current node.
-  ReconstructBSTHelper(almost_BST->right.get(), inversion_0, inversion_1, 
+  ReconstructBSTHelper(almost_BST->right.get(), inversion_0, inversion_1,
                        prev);
 }
 // @exclude

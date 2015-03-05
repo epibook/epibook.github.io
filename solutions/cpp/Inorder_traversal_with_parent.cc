@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <iostream>
@@ -12,11 +12,11 @@ using std::endl;
 using std::unique_ptr;
 using std::vector;
 
-vector<int> result;
-
 // @include
-void InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
+vector<int> InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
   BinaryTreeNode<int>* prev = nullptr, *curr = tree.get();
+  vector<int> result;
+
   while (curr != nullptr) {
     BinaryTreeNode<int>* next;
     if (prev == nullptr || prev->left.get() == curr ||
@@ -25,22 +25,16 @@ void InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
       if (curr->left != nullptr) {  // Keep going left.
         next = curr->left.get();
       } else {
-        cout << curr->data << endl;
-        // @exclude
         result.emplace_back(curr->data);
-        // @include
         // Done with left, so go right if right is not empty.
         // Otherwise, go up.
-        next = (curr->right != nullptr) ? curr->right.get() : curr->parent; 
+        next = (curr->right != nullptr) ? curr->right.get() : curr->parent;
       }
     } else if (curr->left.get() == prev) {
       // We came up to curr from its left child.
-      cout << curr->data << endl;
-      // @exclude
       result.emplace_back(curr->data);
-      // @include
       // Done with left, so go right if right is not empty. Otherwise, go up.
-      next = (curr->right != nullptr) ? curr->right.get() : curr->parent; 
+      next = (curr->right != nullptr) ? curr->right.get() : curr->parent;
     } else {  // Done with both children, so move up.
       next = curr->parent;
     }
@@ -48,6 +42,7 @@ void InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
     prev = curr;
     curr = next;
   }
+  return result;
 }
 // @exclude
 
@@ -74,10 +69,9 @@ int main(int argc, char* argv[]) {
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6, nullptr, nullptr});
   root->right->right->parent = root->right.get();
 
-  // Should output 1 2 3 4 5 6.
-  InorderTraversal(root);
+  auto result = InorderTraversal(root);
   vector<int> golden_res = {1, 2, 3, 4, 5, 6};
-  assert(golden_res.size() == result.size());
-  assert(equal(golden_res.begin(), golden_res.end(), result.begin()));
+  assert(golden_res.size() == result.size() &&
+         equal(golden_res.begin(), golden_res.end(), result.begin()));
   return 0;
 }

@@ -2,16 +2,20 @@
 
 package com.epi;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class SpiralMatrix {
   // @include
-  public static void printMatrixInSpiralOrder(int[][] A) {
+  public static List<Integer> MatrixInSpiralOrder(int[][] A) {
     int[][] shift = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
     int dir = 0, x = 0, y = 0;
+    List<Integer> result = new ArrayList<>();
 
     for (int i = 0; i < A.length * A.length; ++i) {
-      System.out.print(A[x][y] + " ");
+      result.add(A[x][y]);
       A[x][y] = 0;
       int nextX = x + shift[dir][0], nextY = y + shift[dir][1];
       if (nextX < 0 || nextX >= A.length || nextY < 0 || nextY >= A.length
@@ -23,8 +27,16 @@ public class SpiralMatrix {
       x = nextX;
       y = nextY;
     }
+    return result;
   }
   // @exclude
+
+  private static void simpleTest() {
+    int[][] A = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    List<Integer> goldenResult = Arrays.asList(1, 2, 3, 6, 9, 8, 7, 4, 5);
+    List<Integer> result = MatrixInSpiralOrder(A);
+    assert (result.equals(goldenResult));
+  }
 
   public static void main(String[] args) {
     Random gen = new Random();
@@ -41,6 +53,10 @@ public class SpiralMatrix {
         A[i][j] = x++;
       }
     }
-    printMatrixInSpiralOrder(A);
+    List<Integer> result = MatrixInSpiralOrder(A);
+    for (Integer a : result) {
+      System.out.print(a + " ");
+    }
+    System.out.println();
   }
 }

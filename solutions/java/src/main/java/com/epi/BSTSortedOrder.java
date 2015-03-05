@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Stack;
 
 public class BSTSortedOrder {
-  private static List<Integer> result = new ArrayList<>();
-
   // @include
-  public static void printBSTInSortedOrder(BSTNode<Integer> tree) {
+  public static List<Integer> BSTInSortedOrder(BSTNode<Integer> tree) {
     Stack<BSTNode<Integer>> s = new Stack<>();
     BSTNode<Integer> curr = tree;
+    List<Integer> result = new ArrayList<>();
 
     while (!s.isEmpty() || curr != null) {
       if (curr != null) {
@@ -23,14 +22,12 @@ public class BSTSortedOrder {
       } else {
         // Going up.
         curr = s.pop();
-        System.out.println(curr.getData());
-        // @exclude
         result.add(curr.getData());
-        // @include
         // Going right.
         curr = curr.getRight();
       }
     }
+    return result;
   }
   // @exclude
 
@@ -48,7 +45,7 @@ public class BSTSortedOrder {
     tree.getLeft().getRight().setRight(new BSTNode<>(41));
     tree.setRight(new BSTNode<>(47));
     tree.getRight().setRight(new BSTNode<>(53));
-    printBSTInSortedOrder(tree);
+    List<Integer> result = BSTInSortedOrder(tree);
     List<Integer> goldenResult = Arrays.asList(23, 29, 31, 37, 41, 43, 47, 53);
     assert (result.equals(goldenResult));
   }

@@ -13,8 +13,8 @@ using std::endl;
 using std::numeric_limits;
 using std::unique_ptr;
 
-bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& tree, int low_range,
-                    int high_range);
+bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& tree,
+                    int low_range, int high_range);
 
 // @include
 bool IsBinaryTreeBST(const unique_ptr<BinaryTreeNode<int>>& tree) {
@@ -22,8 +22,8 @@ bool IsBinaryTreeBST(const unique_ptr<BinaryTreeNode<int>>& tree) {
                         numeric_limits<int>::max());
 }
 
-bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& tree, int low_range,
-                    int high_range) {
+bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& tree,
+                    int low_range, int high_range) {
   if (tree == nullptr) {
     return true;
   } else if (tree->data < low_range || tree->data > high_range) {
@@ -41,10 +41,13 @@ int main(int argc, char* argv[]) {
   //  1    4 6
   auto tree = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3});
   tree->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
-  tree->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
+  tree->left->left =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
   tree->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
-  tree->right->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
-  tree->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
+  tree->right->left =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
+  tree->right->right =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
   // should output true.
   assert(IsBinaryTreeBST(tree) == true);
   cout << boolalpha << IsBinaryTreeBST(tree) << endl;

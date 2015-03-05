@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <array>
 #include <iostream>
@@ -13,7 +13,7 @@ using std::random_device;
 using std::stack;
 using std::uniform_int_distribution;
 
-void Transfer(int n, array<stack<int>, 3>& pegs, int from, int to, int use);
+void Transfer(int, array<stack<int>, 3>&, int, int, int);
 
 // @include
 void MoveTowerHanoi(int n) {

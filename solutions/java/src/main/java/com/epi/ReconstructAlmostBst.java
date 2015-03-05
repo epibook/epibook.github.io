@@ -14,7 +14,8 @@ public class ReconstructAlmostBst {
     public BinaryTreeNode<Integer> prev;
     public BinaryTreeNode<Integer> curr;
 
-    public Inversion(BinaryTreeNode<Integer> prev, BinaryTreeNode<Integer> curr) {
+    public Inversion(BinaryTreeNode<Integer> prev,
+                     BinaryTreeNode<Integer> curr) {
       this.prev = prev;
       this.curr = curr;
     }
@@ -36,8 +37,8 @@ public class ReconstructAlmostBst {
     }
   }
 
-  private static void reconstructBSTHelper(BinaryTreeNode<Integer> almostBST, 
-                                           Inversion inversion0, 
+  private static void reconstructBSTHelper(BinaryTreeNode<Integer> almostBST,
+                                           Inversion inversion0,
                                            Inversion inversion1) {
     if (almostBST == null) {
       return;

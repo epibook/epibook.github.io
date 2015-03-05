@@ -5,9 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class TowerHanoi {
   // @include
   public static void moveTowerHanoi(int n) {

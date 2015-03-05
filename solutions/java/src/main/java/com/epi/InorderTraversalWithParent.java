@@ -3,14 +3,15 @@ package com.epi;
 import com.epi.BinaryTreeWithParentPrototype.BinaryTree;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class InorderTraversalWithParent {
-  private static List<Integer> results = new ArrayList<>();
-
   // @include
-  public static void inOrderTraversal(BinaryTree<Integer> tree) {
+  public static List<Integer> inOrderTraversal(BinaryTree<Integer> tree) {
     BinaryTree<Integer> prev = null, curr = tree;
+    List<Integer> result = new ArrayList<>();
+
     while (curr != null) {
       BinaryTree<Integer> next;
       if (prev == null || prev.getLeft() == curr || prev.getRight() == curr) {
@@ -18,19 +19,13 @@ public class InorderTraversalWithParent {
         if (curr.getLeft() != null) { // Keep going left.
           next = curr.getLeft();
         } else {
-          System.out.println(curr.getData());
-          // @exclude
-          results.add(curr.getData());
-          // @include
+          result.add(curr.getData());
           // Done with left, so go right if right is not empty.
           // Otherwise, go up.
           next = (curr.getRight() != null) ? curr.getRight() : curr.getParent();
         }
       } else if (curr.getLeft() == prev) {
-        System.out.println(curr.getData());
-        // @exclude
-        results.add(curr.getData());
-        // @include
+        result.add(curr.getData());
         // Done with left, so go right if right is not empty. Otherwise, go up.
         next = (curr.getRight() != null) ? curr.getRight() : curr.getParent();
       } else { // Done with both children, so move up.
@@ -40,13 +35,14 @@ public class InorderTraversalWithParent {
       prev = curr;
       curr = next;
     }
+    return result;
   }
   // @exclude
 
   public static void main(String[] args) {
-    // 3
-    // 2 5
-    // 1 4 6
+    //      3
+    //    2   5
+    //  1    4 6
     BinaryTree<Integer> root = new BinaryTree<>(3, null, null);
     root.setLeft(new BinaryTree<>(2, null, null));
     root.getLeft().setParent(root);
@@ -59,16 +55,8 @@ public class InorderTraversalWithParent {
     root.getRight().setRight(new BinaryTree<>(6, null, null));
     root.getRight().getRight().setParent(root.getRight());
 
-    // Should output 1 2 3 4 5 6.
-    inOrderTraversal(root);
-    List<Integer> goldenRes = new ArrayList<Integer>() {{
-      add(1);
-      add(2);
-      add(3);
-      add(4);
-      add(5);
-      add(6);
-    }};
-    assert (goldenRes.equals(results));
+    List<Integer> result = inOrderTraversal(root);
+    List<Integer> goldenRes = Arrays.asList(1, 2, 3, 4, 5, 6);
+    assert (goldenRes.equals(result));
   }
 }

@@ -1,40 +1,54 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import static java.lang.Math.ceil;
 
 public class SpiralMatrixClockwise {
   // @include
-  public static void printMatrixInSpiralOrder(int[][] A) {
+  public static List<Integer> MatrixInSpiralOrder(int[][] A) {
+    List<Integer> result = new ArrayList<>();
     for (int offset = 0; offset < ceil(0.5 * A.length); ++offset) {
-      printMatrixClockwise(A, offset);
+      MatrixClockwise(A, offset, result);
     }
+    return result;
   }
 
-  private static void printMatrixClockwise(int[][] A, int offset) {
+  private static void MatrixClockwise(int[][] A, int offset,
+                                      List<Integer> result) {
     if (offset == A.length - offset - 1) {
       // A has odd diemnsion, and we are at the center of the matrix A.
-      System.out.print(A[offset][offset]);
+      result.add(A[offset][offset]);
     }
 
     for (int j = offset; j < A.length - offset - 1; ++j) {
-      System.out.print(A[offset][j] + " ");
+      result.add(A[offset][j]);
     }
     for (int i = offset; i < A.length - offset - 1; ++i) {
-      System.out.print(A[i][A.length - offset - 1] + " ");
+      result.add(A[i][A.length - offset - 1]);
     }
     for (int j = A.length - offset - 1; j > offset; --j) {
-      System.out.print(A[A.length - offset - 1][j] + " ");
+      result.add(A[A.length - offset - 1][j]);
     }
     for (int i = A.length - offset - 1; i > offset; --i) {
-      System.out.print(A[i][offset] + " ");
+      result.add(A[i][offset]);
     }
   }
   // @exclude
 
+  private static void simpleTest() {
+    int[][] A = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    List<Integer> goldenResult = Arrays.asList(1, 2, 3, 6, 9, 8, 7, 4, 5);
+    List<Integer> result = MatrixInSpiralOrder(A);
+    assert (result.equals(goldenResult));
+  }
+
   public static void main(String[] args) {
+    simpleTest();
     Random gen = new Random();
     int N;
     if (args.length == 1) {
@@ -49,6 +63,10 @@ public class SpiralMatrixClockwise {
         A[i][j] = x++;
       }
     }
-    printMatrixInSpiralOrder(A);
+    List<Integer> result = MatrixInSpiralOrder(A);
+    for (Integer a : result) {
+      System.out.print(a + " ");
+    }
+    System.out.println();
   }
 }
