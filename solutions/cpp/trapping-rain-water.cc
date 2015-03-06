@@ -78,7 +78,7 @@ void SmallTest() {
   assert(CalculateTrappingWater(A) == 3);
   A = {1, 2, 1, 3, 4, 4, 5, 6, 2, 1, 3, 1, 3, 2, 1, 2, 4, 1};
   cout << CalculateTrappingWater(A) << endl;
-  assert(CalculateTrappingWater(A) == 1);
+  assert(CalculateTrappingWater(A) == 18);
 }
 
 int main(int argc, char *argv[]) {
