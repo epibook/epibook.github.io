@@ -53,7 +53,8 @@ void CalculateViewFromAbove(const vector<LineSegment>& A) {
             active_line_segments.crbegin()->second->height});
       } else {
         if (prev->height == active_line_segments.crbegin()->second->height &&
-            prev->color == active_line_segments.crbegin()->second->color) {
+            prev->color == active_line_segments.crbegin()->second->color &&
+            prev_xaxis == prev->right) {
           prev->right = endpoint.Value();
         } else {
           cout << "[" << prev->left << ", " << prev->right << "]"
@@ -83,7 +84,15 @@ void CalculateViewFromAbove(const vector<LineSegment>& A) {
 }
 // @exclude
 
+void SimpleTest() {
+  vector<LineSegment> A;
+  A.emplace_back(LineSegment{1, 2, 0, 1});
+  A.emplace_back(LineSegment{3, 4, 0, 1});
+  CalculateViewFromAbove(A);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   vector<LineSegment> A;
   A.emplace_back(LineSegment{0, 4, 0, 0});
   A.emplace_back(LineSegment{1, 3, 1, 2});

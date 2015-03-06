@@ -8,23 +8,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BinaryTreeLevelOrder {
-  private static List<List<Integer>> results = new ArrayList<>();
-
-  private static List<Integer> oneLineResult = new ArrayList<>();
-
   // @include
-  public static void printBinaryTreeDepthOrder(BinaryTreeNode<Integer> tree) {
+  public static List<List<Integer>> BinaryTreeDepthOrder(
+      BinaryTreeNode<Integer> tree) {
     LinkedList<BinaryTreeNode<Integer>> processingNodes = new LinkedList<>();
     processingNodes.push(tree);
     int numNodesCurrentLevel = processingNodes.size();
+    List<List<Integer>> result = new ArrayList<>();
+    List<Integer> oneLevel = new ArrayList<>();
+
     while (!processingNodes.isEmpty()) {
       BinaryTreeNode<Integer> curr = processingNodes.pollLast();
       --numNodesCurrentLevel;
       if (curr != null) {
-        System.out.print(curr.getData() + " ");
-        // @exclude
-        oneLineResult.add(curr.getData());
-        // @include
+        oneLevel.add(curr.getData());
 
         // Defer the null checks to the null test above.
         processingNodes.push(curr.getLeft());
@@ -32,21 +29,19 @@ public class BinaryTreeLevelOrder {
       }
       // Done with the nodes at the current depth.
       if (numNodesCurrentLevel == 0) {
-        System.out.println();
         numNodesCurrentLevel = processingNodes.size();
-        // @exclude
-        results.add(new ArrayList(oneLineResult));
-        oneLineResult.clear();
-        // @include
+        result.add(new ArrayList(oneLevel));
+        oneLevel.clear();
       }
     }
+    return result;
   }
   // @exclude
 
   public static void main(String[] args) {
-    //    3
-    //   2 5
-    //  1 4 6
+    //      3
+    //    2   5
+    //  1    4 6
     //10
     // 13
     BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(3);
@@ -57,12 +52,7 @@ public class BinaryTreeLevelOrder {
     tree.setRight(new BinaryTreeNode<>(5));
     tree.getRight().setLeft(new BinaryTreeNode<>(4));
     tree.getRight().setRight(new BinaryTreeNode<>(6));
-    // should output 3
-    //               2 5
-    //               1 4 6
-    //               10
-    //               13
-    printBinaryTreeDepthOrder(tree);
+    List<List<Integer>> result = BinaryTreeDepthOrder(tree);
     List<List<Integer>> goldenRes = new ArrayList<>();
     goldenRes.add(Arrays.asList(3));
     goldenRes.add(Arrays.asList(2, 5));
@@ -70,6 +60,6 @@ public class BinaryTreeLevelOrder {
     goldenRes.add(Arrays.asList(10));
     goldenRes.add(Arrays.asList(13));
     goldenRes.add(new ArrayList());
-    assert (goldenRes.equals(results));
+    assert (goldenRes.equals(result));
   }
 }

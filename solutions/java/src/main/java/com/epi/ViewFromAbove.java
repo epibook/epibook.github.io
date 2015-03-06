@@ -1,5 +1,6 @@
 package com.epi;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -63,7 +64,8 @@ public class ViewFromAbove {
               activeLineSegments.lastEntry().getValue().height);
         } else {
           if (prev.height == activeLineSegments.lastEntry().getValue().height
-              && prev.color == activeLineSegments.lastEntry().getValue().color) {
+              && prev.color == activeLineSegments.lastEntry().getValue().color
+              && prevXAxis == prev.right) {
             prev.right = endpoint.val();
           } else {
             System.out.println(prev);
@@ -89,7 +91,16 @@ public class ViewFromAbove {
   }
   // @exclude
 
+  private static void simpleTest() {
+    List<LineSegment> A = Arrays.asList(
+        new LineSegment(1, 2, 0, 1),
+        new LineSegment(3, 4, 0, 1)
+    );
+    calculateViewFromAbove(A);
+  }
+
   public static void main(String[] args) {
+    simpleTest();
     List<LineSegment> A = new ArrayList<>();
     A.add(new LineSegment(0, 4, 0, 0));
     A.add(new LineSegment(1, 3, 1, 2));

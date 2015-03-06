@@ -16,23 +16,22 @@ using std::queue;
 using std::unique_ptr;
 using std::vector;
 
-vector<vector<int>> results;
-vector<int> one_line_result;
 
 // @include
-void PrintBinaryTreeDepthOrder(const unique_ptr<BinaryTreeNode<int>>& tree) {
+vector<vector<int>> BinaryTreeDepthOrder(
+    const unique_ptr<BinaryTreeNode<int>>& tree) {
   queue<BinaryTreeNode<int>*> processing_nodes;
   processing_nodes.emplace(tree.get());
   int num_nodes_current_level = processing_nodes.size();
+  vector<vector<int>> result;
+  vector<int> one_level;
+
   while (!processing_nodes.empty()) {
     auto curr = processing_nodes.front();
     processing_nodes.pop();
     --num_nodes_current_level;
     if (curr) {
-      cout << curr->data << ' ';
-      // @exclude
-      one_line_result.emplace_back(curr->data);
-      // @include
+      one_level.emplace_back(curr->data);
 
       // Defer the null checks to the null test above.
       processing_nodes.emplace(curr->left.get());
@@ -40,13 +39,11 @@ void PrintBinaryTreeDepthOrder(const unique_ptr<BinaryTreeNode<int>>& tree) {
     }
     // Done with the nodes at the current depth.
     if (!num_nodes_current_level) {
-      cout << endl;
       num_nodes_current_level = processing_nodes.size();
-      // @exclude
-      results.emplace_back(move(one_line_result));
-      // @include
+      result.emplace_back(move(one_level));
     }
   }
+  return result;
 }
 // @exclude
 
@@ -77,9 +74,9 @@ int main(int argc, char* argv[]) {
   //               1 4 6
   //               10
   //               13
-  PrintBinaryTreeDepthOrder(tree);
+  auto result = BinaryTreeDepthOrder(tree);
   vector<vector<int>> golden_res = {{3}, {2, 5}, {1, 4, 6}, {10}, {13}, {}};
-  assert(golden_res.size() == results.size() &&
-         equal(golden_res.begin(), golden_res.end(), results.begin()));
+  assert(golden_res.size() == result.size() &&
+         equal(golden_res.begin(), golden_res.end(), result.begin()));
   return 0;
 }
