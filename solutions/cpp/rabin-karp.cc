@@ -18,6 +18,8 @@ using std::vector;
 // @include
 const int kBase = 26, kMod = 997;
 
+// Returns the index of the first character of the substring if found, -1
+// otherwise.
 int RabinKarp(const string &t, const string &s) {
   if (s.size() > t.size()) {
     return -1;  // s is not a substring of t.
