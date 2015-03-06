@@ -156,7 +156,7 @@ int main(int argc, char *argv[]) {
     }
     string res = Multiply(s1, s2);
     cout << s1 << " * " << s2 << " = " << res << endl;
-    string command = "bc <<<" + s1 + "*" + s2;
+    string command = "bash -c 'bc <<<" + s1 + "*" + s2 +"'";
     string result = execute_shell(command);
     cout << "answer = " << result;
     assert(res.compare(result.substr(0, result.size() - 1)) == 0);
