@@ -10,15 +10,15 @@ public class DescendantAndAncestor {
     BSTNode<Integer> curAncDes0 = ancDes0, curAncDes1 = ancDes1;
 
     // Perform interleaved searching from ancDes0 and ancDes1 for middle.
-    while ((curAncDes0 != null && curAncDes0 != ancDes1 && curAncDes0 != middle)
-           || (curAncDes1 != null && curAncDes1 != ancDes0
-               && curAncDes1 != middle)) {
+    while (curAncDes0 != ancDes1 && curAncDes0 != middle
+           && curAncDes1 != ancDes0 && curAncDes1 != middle
+           && (curAncDes0 != null || curAncDes1 != null)) {
       if (curAncDes0 != null) {
         curAncDes0 = curAncDes0.getData() > middle.getData()
                      ? curAncDes0.getLeft() : curAncDes0.getRight();
       }
       if (curAncDes1 != null) {
-        curAncDes1 = curAncDes1.getData() > middle.getData() 
+        curAncDes1 = curAncDes1.getData() > middle.getData()
                      ? curAncDes1.getLeft() : curAncDes1.getRight();
       }
     }
@@ -34,11 +34,11 @@ public class DescendantAndAncestor {
     // If we get here, we already know one of ancDes0 or ancDes1 has a path to
     // middle. Check if middle has a path to ancDes1 or to ancDes0.
     return curAncDes0 == middle
-           ? searchTarget(ancDes1, middle) : searchTarget(ancDes0, middle);
+           ? searchTarget(middle, ancDes1) : searchTarget(middle, ancDes0);
   }
 
-  private static boolean searchTarget(BSTNode<Integer> target,
-                                      BSTNode<Integer> from) {
+  private static boolean searchTarget(BSTNode<Integer> from,
+                                      BSTNode<Integer> target) {
     while (from != null && from != target) {
       from = from.getData() > target.getData()
                ? from.getLeft() : from.getRight();

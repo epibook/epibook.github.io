@@ -2,9 +2,6 @@ package com.epi;
 
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class Parity {
   public static void main(String[] args) {
     if (args.length == 1) {

@@ -101,22 +101,24 @@ public class ViewFromAbove {
 
   public static void main(String[] args) {
     simpleTest();
-    List<LineSegment> A = new ArrayList<>();
-    A.add(new LineSegment(0, 4, 0, 0));
-    A.add(new LineSegment(1, 3, 1, 2));
-    A.add(new LineSegment(2, 7, 2, 1));
-    A.add(new LineSegment(4, 5, 3, 3));
-    A.add(new LineSegment(5, 7, 3, 0));
-    A.add(new LineSegment(6, 10, 0, 2));
-    A.add(new LineSegment(8, 9, 0, 1));
-    A.add(new LineSegment(9, 18, 4, 0));
-    A.add(new LineSegment(11, 13, 3, 2));
-    A.add(new LineSegment(12, 15, 4, 1));
-    A.add(new LineSegment(14, 15, 2, 2));
-    A.add(new LineSegment(16, 17, 3, 2));
+    List<LineSegment> A = Arrays.asList(
+        new LineSegment(0, 4, 0, 0),
+        new LineSegment(1, 3, 1, 2),
+        new LineSegment(2, 7, 2, 1),
+        new LineSegment(4, 5, 3, 3),
+        new LineSegment(5, 7, 3, 0),
+        new LineSegment(6, 10, 0, 2),
+        new LineSegment(8, 9, 0, 1),
+        new LineSegment(9, 18, 4, 0),
+        new LineSegment(11, 13, 3, 2),
+        new LineSegment(12, 15, 4, 1),
+        new LineSegment(14, 15, 2, 2),
+        new LineSegment(16, 17, 3, 2)
+    );
     for (LineSegment s : A) {
       System.out.println("line segment, left = " + s.left + ", right = "
-          + s.right + ", color = " + s.color + ", height = " + s.height);
+                         + s.right + ", color = " + s.color + ", height = " 
+                         + s.height);
     }
     calculateViewFromAbove(A);
   }

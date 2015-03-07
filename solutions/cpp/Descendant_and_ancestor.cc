@@ -7,7 +7,8 @@
 
 using std::unique_ptr;
 
-bool SearchTarget(const unique_ptr<BSTNode<int>>&, BSTNode<int>*);
+bool SearchTarget(const unique_ptr<BSTNode<int>>&,
+                  const unique_ptr<BSTNode<int>>&);
 
 // @include
 bool IsRSDescendantAncestorPairForM(const unique_ptr<BSTNode<int>>& anc_des_0,
@@ -16,10 +17,9 @@ bool IsRSDescendantAncestorPairForM(const unique_ptr<BSTNode<int>>& anc_des_0,
   auto* cur_anc_des_0 = anc_des_0.get(), *cur_anc_des_1 = anc_des_1.get();
 
   // Perform interleaved searching from anc_des_0 and anc_des_1 for middle.
-  while ((cur_anc_des_0 && cur_anc_des_0 != anc_des_1.get() &&
-          cur_anc_des_0 != middle.get()) ||
-         (cur_anc_des_1 && cur_anc_des_1 != anc_des_0.get() &&
-          cur_anc_des_1 != middle.get())) {
+  while (cur_anc_des_0 != anc_des_1.get() && cur_anc_des_0 != middle.get() &&
+         cur_anc_des_1 != anc_des_0.get() && cur_anc_des_1 != middle.get() &&
+         (cur_anc_des_0 || cur_anc_des_1)) {
     if (cur_anc_des_0) {
       cur_anc_des_0 = cur_anc_des_0->data > middle->data ?
                       cur_anc_des_0->left.get() : cur_anc_des_0->right.get();
@@ -41,16 +41,17 @@ bool IsRSDescendantAncestorPairForM(const unique_ptr<BSTNode<int>>& anc_des_0,
   // If we get here, we already know one of anc_des_0 or anc_des_1 has a path
   // to middle. Check if middle has a path to anc_des_1 or to anc_des_0.
   return cur_anc_des_0 == middle.get() ?
-         SearchTarget(anc_des_1, middle.get()) :
-         SearchTarget(anc_des_0, middle.get());
+         SearchTarget(middle, anc_des_1) :
+         SearchTarget(middle, anc_des_0);
 }
 
-bool SearchTarget(const unique_ptr<BSTNode<int>>& target,
-                  BSTNode<int>* from) {
-  while (from && from != target.get()) {
-    from = from->data > target->data ? from->left.get() : from->right.get();
+bool SearchTarget(const unique_ptr<BSTNode<int>>& from,
+                  const unique_ptr<BSTNode<int>>& target) {
+  auto *iter = from.get();
+  while (iter && iter != target.get()) {
+    iter = iter->data > target->data ? iter->left.get() : iter->right.get();
   }
-  return from == target.get();
+  return iter == target.get();
 }
 // @exclude
 
@@ -97,11 +98,13 @@ int main(int argc, char* argv[]) {
   root->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{6});
   assert(IsRSDescendantAncestorPairForM(root, root->right->right, root->right));
   assert(IsRSDescendantAncestorPairForM(root->right->right, root, root->right));
-  assert(!IsRSDescendantAncestorPairForM(root, root->right, root->right->right));
-  assert(!IsRSDescendantAncestorPairForM(root->right, root, root->right->right));
+  assert(!IsRSDescendantAncestorPairForM(root, root->right,
+                                         root->right->right));
+  assert(!IsRSDescendantAncestorPairForM(root->right, root,
+                                         root->right->right));
   assert(!IsRSDescendantAncestorPairForM(root->right->left, root->right->right,
-                                    root->right));
+                                         root->right));
   assert(!IsRSDescendantAncestorPairForM(root->right->left, root->left->left,
-                                    root->right));
+                                         root->right));
   return 0;
 }

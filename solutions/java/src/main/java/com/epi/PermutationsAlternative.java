@@ -1,3 +1,5 @@
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
 import java.util.*;
@@ -26,13 +28,7 @@ public class PermutationsAlternative {
   // @exclude
 
   private static void smallTest() {
-    List<Integer> A = new ArrayList<Integer>() {
-      {
-        add(0);
-        add(1);
-        add(2);
-      }
-    };
+    List<Integer> A = Arrays.asList(0, 1, 2);
     List<List<Integer>> result = permutations(A);
     assert (result.size() == 6);
     List<List<Integer>> goldenResult = Arrays.asList(Arrays.asList(0, 1, 2),
