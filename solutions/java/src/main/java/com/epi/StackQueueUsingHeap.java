@@ -17,13 +17,7 @@ public class StackQueueUsingHeap {
   public static class Stack {
     private int order = 0;
     private PriorityQueue<Pair<Integer, Integer>> maxHeap = new PriorityQueue<>(
-        11, new Comparator<Pair<Integer, Integer>>() {
-      @Override
-      public int compare(Pair<Integer, Integer> o1, Pair<Integer, Integer> o2) {
-        return o2.getFirst().compareTo(o1.getFirst());
-      }
-    }
-    );
+        11, new Compare());
 
     public void push(Integer x) {
       maxHeap.add(new Pair<>(order++, x));
