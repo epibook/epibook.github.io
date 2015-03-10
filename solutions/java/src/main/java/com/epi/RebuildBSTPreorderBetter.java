@@ -7,29 +7,29 @@ import java.util.List;
 
 public class RebuildBSTPreorderBetter {
   // @include
-  private static Integer idx;
+  private static Integer rootIdx;
 
   public static BSTNode<Integer> rebuildBSTFromPreorder(
       List<Integer> preorderSequence) {
-    idx = 0;
+    rootIdx = 0;
     return rebuildBSFromPreorderHelper(preorderSequence,
         Integer.MIN_VALUE, Integer.MAX_VALUE);
   }
 
   private static BSTNode<Integer> rebuildBSFromPreorderHelper(
-      List<Integer> preorderSequence, Integer min, Integer max) {
-    if (idx == preorderSequence.size()) {
+      List<Integer> preorderSequence, Integer lowerBound, Integer upperBound) {
+    if (rootIdx == preorderSequence.size()) {
       return null;
     }
 
-    Integer curr = preorderSequence.get(idx);
-    if (curr < min || curr > max) {
+    Integer root = preorderSequence.get(rootIdx);
+    if (root < lowerBound || root > upperBound) {
       return null;
     }
-    ++idx;
+    ++rootIdx;
     return new BSTNode<>(
-        curr, rebuildBSFromPreorderHelper(preorderSequence, min, curr),
-        rebuildBSFromPreorderHelper(preorderSequence, curr, max));
+        root, rebuildBSFromPreorderHelper(preorderSequence, lowerBound, root),
+        rebuildBSFromPreorderHelper(preorderSequence, root, upperBound));
   }
   // @exclude
 

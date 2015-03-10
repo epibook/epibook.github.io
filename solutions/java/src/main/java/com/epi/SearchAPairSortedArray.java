@@ -1,17 +1,16 @@
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
 import com.epi.utils.Pair;
 
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class SearchAPairSortedArray {
   // @include
   public static Pair<Integer, Integer> findPairSumK(List<Integer> A, int k) {
-    Pair<Integer, Integer> ret = findPosNegPair(A, k);
-    if (ret.getFirst() == -1 && ret.getSecond() == -1) {
+    Pair<Integer, Integer> result = findPosNegPair(A, k);
+    if (result.getFirst() == -1 && result.getSecond() == -1) {
       return k >= 0 ? findPairUsingComp(A, k, new Comparator<Integer>() {
         @Override
         public int compare(Integer o1, Integer o2) {
@@ -30,69 +29,69 @@ public class SearchAPairSortedArray {
         }
       });
     }
-    return ret;
+    return result;
   }
 
   private static Pair<Integer, Integer>
   findPairUsingComp(List<Integer> A, int k, Comparator<Integer> comp) {
-    Pair<Integer, Integer> ret = new Pair<>(0, A.size() - 1);
-    while (ret.getFirst() < ret.getSecond()
-        && comp.compare(A.get(ret.getFirst()), 0) == 0) {
-      ret.setFirst(ret.getFirst() + 1);
+    Pair<Integer, Integer> result = new Pair<>(0, A.size() - 1);
+    while (result.getFirst() < result.getSecond()
+        && comp.compare(A.get(result.getFirst()), 0) == 0) {
+      result.setFirst(result.getFirst() + 1);
     }
-    while (ret.getFirst() < ret.getSecond()
-        && comp.compare(A.get(ret.getSecond()), 0) == 0) {
-      ret.setSecond(ret.getSecond() - 1);
+    while (result.getFirst() < result.getSecond()
+        && comp.compare(A.get(result.getSecond()), 0) == 0) {
+      result.setSecond(result.getSecond() - 1);
     }
 
-    while (ret.getFirst() < ret.getSecond()) {
-      if (A.get(ret.getFirst()) + A.get(ret.getSecond()) == k) {
-        return ret;
+    while (result.getFirst() < result.getSecond()) {
+      if (A.get(result.getFirst()) + A.get(result.getSecond()) == k) {
+        return result;
       } else if (comp
-          .compare(A.get(ret.getFirst()) + A.get(ret.getSecond()), k) == 0) {
+          .compare(A.get(result.getFirst()) + A.get(result.getSecond()), k) == 0) {
         do {
-          ret.setFirst(ret.getFirst() + 1);
-        } while (ret.getFirst() < ret.getSecond()
-            && comp.compare(A.get(ret.getFirst()), 0) == 0);
+          result.setFirst(result.getFirst() + 1);
+        } while (result.getFirst() < result.getSecond()
+            && comp.compare(A.get(result.getFirst()), 0) == 0);
       } else {
         do {
-          ret.setSecond(ret.getSecond() - 1);
-        } while (ret.getFirst() < ret.getSecond()
-            && comp.compare(A.get(ret.getSecond()), 0) == 0);
+          result.setSecond(result.getSecond() - 1);
+        } while (result.getFirst() < result.getSecond()
+            && comp.compare(A.get(result.getSecond()), 0) == 0);
       }
     }
-    return new Pair<>(-1, -1); // no answer.
+    return new Pair<>(-1, -1); // No answer.
   }
 
   private static Pair<Integer, Integer>
   findPosNegPair(List<Integer> A, int k) {
-    // ret.first for positive, and ret.second for negative.
-    Pair<Integer, Integer> ret = new Pair<>(A.size() - 1,
+    // result.first for positive, and result.second for negative.
+    Pair<Integer, Integer> result = new Pair<>(A.size() - 1,
         A.size() - 1);
     // Find the last positive or zero.
-    while (ret.getFirst() >= 0 && A.get(ret.getFirst()) < 0) {
-      ret.setFirst(ret.getFirst() - 1);
+    while (result.getFirst() >= 0 && A.get(result.getFirst()) < 0) {
+      result.setFirst(result.getFirst() - 1);
     }
 
     // Find the last negative.
-    while (ret.getSecond() >= 0 && A.get(ret.getSecond()) >= 0) {
-      ret.setSecond(ret.getSecond() - 1);
+    while (result.getSecond() >= 0 && A.get(result.getSecond()) >= 0) {
+      result.setSecond(result.getSecond() - 1);
     }
 
-    while (ret.getFirst() >= 0 && ret.getSecond() >= 0) {
-      if (A.get(ret.getFirst()) + A.get(ret.getSecond()) == k) {
-        return ret;
-      } else if (A.get(ret.getFirst()) + A.get(ret.getSecond()) > k) {
+    while (result.getFirst() >= 0 && result.getSecond() >= 0) {
+      if (A.get(result.getFirst()) + A.get(result.getSecond()) == k) {
+        return result;
+      } else if (A.get(result.getFirst()) + A.get(result.getSecond()) > k) {
         do {
-          ret.setFirst(ret.getFirst() - 1);
-        } while (ret.getFirst() >= 0 && A.get(ret.getFirst()) < 0);
-      } else { // A[ret.first] + A[ret.second] < k.
+          result.setFirst(result.getFirst() - 1);
+        } while (result.getFirst() >= 0 && A.get(result.getFirst()) < 0);
+      } else { // A[result.first] + A[result.second] < k.
         do {
-          ret.setSecond(ret.getSecond() - 1);
-        } while (ret.getSecond() >= 0 && A.get(ret.getSecond()) >= 0);
+          result.setSecond(result.getSecond() - 1);
+        } while (result.getSecond() >= 0 && A.get(result.getSecond()) >= 0);
       }
     }
-    return new Pair<>(-1, -1); // no answer.
+    return new Pair<>(-1, -1); // No answer.
   }
   // @exclude
 

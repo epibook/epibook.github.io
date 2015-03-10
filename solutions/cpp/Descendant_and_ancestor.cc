@@ -11,38 +11,47 @@ bool SearchTarget(const unique_ptr<BSTNode<int>>&,
                   const unique_ptr<BSTNode<int>>&);
 
 // @include
-bool IsRSDescendantAncestorPairForM(const unique_ptr<BSTNode<int>>& anc_des_0,
-                                    const unique_ptr<BSTNode<int>>& anc_des_1,
-                                    const unique_ptr<BSTNode<int>>& middle) {
-  auto* cur_anc_des_0 = anc_des_0.get(), *cur_anc_des_1 = anc_des_1.get();
+bool PairIncludesAncestorAndDescendantOfM(
+    const unique_ptr<BSTNode<int>>& possible_anc_or_desc_0,
+    const unique_ptr<BSTNode<int>>& possible_anc_or_desc_1,
+    const unique_ptr<BSTNode<int>>& middle) {
+  auto *search_0 = possible_anc_or_desc_0.get();
+  auto *search_1 = possible_anc_or_desc_1.get();
 
-  // Perform interleaved searching from anc_des_0 and anc_des_1 for middle.
-  while (cur_anc_des_0 != anc_des_1.get() && cur_anc_des_0 != middle.get() &&
-         cur_anc_des_1 != anc_des_0.get() && cur_anc_des_1 != middle.get() &&
-         (cur_anc_des_0 || cur_anc_des_1)) {
-    if (cur_anc_des_0) {
-      cur_anc_des_0 = cur_anc_des_0->data > middle->data ?
-                      cur_anc_des_0->left.get() : cur_anc_des_0->right.get();
+  // Perform interleaved searching from possible_anc_or_desc_0 and 
+  // possible_anc_or_desc_1 for middle.
+  while (search_0 != possible_anc_or_desc_1.get() &&
+         search_0 != middle.get() &&
+         search_1 != possible_anc_or_desc_0.get() && 
+         search_1 != middle.get() &&
+         (search_0 || search_1)) {
+    if (search_0) {
+      search_0 = search_0->data > middle->data ?
+                 search_0->left.get() : search_0->right.get();
     }
-    if (cur_anc_des_1) {
-      cur_anc_des_1 = cur_anc_des_1->data > middle->data ?
-                      cur_anc_des_1->left.get() : cur_anc_des_1->right.get();
+    if (search_1) {
+      search_1 = search_1->data > middle->data ?
+                 search_1->left.get() : search_1->right.get();
     }
   }
 
-  // If both searches were unsuccessful, or we got from anc_des_0 to
-  // anc_des_1 without seeing middle, or from anc_des_1 to anc_des_0 without
-  // seeing middle, middle cannot lie between anc_des_0 and anc_des_1.
-  if ((cur_anc_des_0 != middle.get() && cur_anc_des_1 != middle.get()) ||
-       cur_anc_des_0 == anc_des_1.get() || cur_anc_des_1 == anc_des_0.get()) {
+  // If both searches were unsuccessful, or we got from 
+  // possible_anc_or_desc_0 to possible_anc_or_desc_1 without seeing middle, 
+  // or from possible_anc_or_desc_1 to possible_anc_or_desc_0 without seeing 
+  // middle, middle cannot lie between possible_anc_or_desc_0 and 
+  // possible_anc_or_desc_1.
+  if ((search_0 != middle.get() && search_1 != middle.get()) ||
+      search_0 == possible_anc_or_desc_1.get() || 
+      search_1 == possible_anc_or_desc_0.get()) {
     return false;
   }
 
-  // If we get here, we already know one of anc_des_0 or anc_des_1 has a path
-  // to middle. Check if middle has a path to anc_des_1 or to anc_des_0.
-  return cur_anc_des_0 == middle.get() ?
-         SearchTarget(middle, anc_des_1) :
-         SearchTarget(middle, anc_des_0);
+  // If we get here, we already know one of possible_anc_or_desc_0 or 
+  // possible_anc_or_desc_1 has a path to middle. Check if middle has a path 
+  // to possible_anc_or_desc_1 or to possible_anc_or_desc_0.
+  return search_0 == middle.get() ?
+         SearchTarget(middle, possible_anc_or_desc_1) :
+         SearchTarget(middle, possible_anc_or_desc_0);
 }
 
 bool SearchTarget(const unique_ptr<BSTNode<int>>& from,
@@ -59,7 +68,7 @@ void SmallTest() {
   auto root = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
   root->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
   root->left->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
-  assert(!IsRSDescendantAncestorPairForM(root, root->left, root->left->right));
+  assert(!PairIncludesAncestorAndDescendantOfM(root, root->left, root->left->right));
 
   // Example of the first figure of BST chapter.
   root = unique_ptr<BSTNode<int>>(new BSTNode<int>{19});
@@ -79,9 +88,9 @@ void SmallTest() {
   root->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{47});
   root->right->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{53});
 
-  assert(!IsRSDescendantAncestorPairForM(root->right, root->left,
+  assert(!PairIncludesAncestorAndDescendantOfM(root->right, root->left,
                                          root->right->left));
-  assert(IsRSDescendantAncestorPairForM(root, root->right->left->right->left->right,
+  assert(PairIncludesAncestorAndDescendantOfM(root, root->right->left->right->left->right,
                                          root->right->left));
 }
 
@@ -96,15 +105,15 @@ int main(int argc, char* argv[]) {
   root->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
   root->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
   root->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{6});
-  assert(IsRSDescendantAncestorPairForM(root, root->right->right, root->right));
-  assert(IsRSDescendantAncestorPairForM(root->right->right, root, root->right));
-  assert(!IsRSDescendantAncestorPairForM(root, root->right,
+  assert(PairIncludesAncestorAndDescendantOfM(root, root->right->right, root->right));
+  assert(PairIncludesAncestorAndDescendantOfM(root->right->right, root, root->right));
+  assert(!PairIncludesAncestorAndDescendantOfM(root, root->right,
                                          root->right->right));
-  assert(!IsRSDescendantAncestorPairForM(root->right, root,
+  assert(!PairIncludesAncestorAndDescendantOfM(root->right, root,
                                          root->right->right));
-  assert(!IsRSDescendantAncestorPairForM(root->right->left, root->right->right,
+  assert(!PairIncludesAncestorAndDescendantOfM(root->right->left, root->right->right,
                                          root->right));
-  assert(!IsRSDescendantAncestorPairForM(root->right->left, root->left->left,
+  assert(!PairIncludesAncestorAndDescendantOfM(root->right->left, root->left->left,
                                          root->right));
   return 0;
 }

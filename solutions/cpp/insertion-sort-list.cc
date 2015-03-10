@@ -15,6 +15,10 @@ using std::shared_ptr;
 shared_ptr<ListNode<int>> InsertionSort(const shared_ptr<ListNode<int>>& L) {
   auto dummy_head = make_shared<ListNode<int>>(ListNode<int>{0, L});
   auto iter = L;
+  // The sublist consting of nodes upto and including iter is sorted in 
+  // increasing order. We need to ensure that after we move to iter->next
+  // this property continues to hold. We do this by swapping iter->next
+  // with its predecessors in the list till it's in the right place.
   while (iter && iter->next) {
     if (iter->data > iter->next->data) {
       auto target = iter->next, pre = dummy_head;

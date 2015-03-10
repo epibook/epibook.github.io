@@ -4,44 +4,48 @@ import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
 public class DescendantAndAncestor {
   // @include
-  public static boolean isRSDescendantAncestorPairForM(
-      BSTNode<Integer> ancDes0, BSTNode<Integer> ancDes1,
+  public static boolean pairIncludesAncestorAndDescendantOfM(
+      BSTNode<Integer> possibleAncOrDesc0, BSTNode<Integer> possibleAncOrDesc1,
       BSTNode<Integer> middle) {
-    BSTNode<Integer> curAncDes0 = ancDes0, curAncDes1 = ancDes1;
+    BSTNode<Integer> search0 = possibleAncOrDesc0, search1 = possibleAncOrDesc1;
 
-    // Perform interleaved searching from ancDes0 and ancDes1 for middle.
-    while (curAncDes0 != ancDes1 && curAncDes0 != middle
-           && curAncDes1 != ancDes0 && curAncDes1 != middle
-           && (curAncDes0 != null || curAncDes1 != null)) {
-      if (curAncDes0 != null) {
-        curAncDes0 = curAncDes0.getData() > middle.getData()
-                     ? curAncDes0.getLeft() : curAncDes0.getRight();
+    // Perform interleaved searching from possibleAncOrDesc0 and 
+    // possibleAncOrDesc1 for middle.
+    while (search0 != possibleAncOrDesc1 && search0 != middle
+           && search1 != possibleAncOrDesc0 && search1 != middle
+           && (search0 != null || search1 != null)) {
+      if (search0 != null) {
+        search0 = search0.getData() > middle.getData()
+                  ? search0.getLeft() : search0.getRight();
       }
-      if (curAncDes1 != null) {
-        curAncDes1 = curAncDes1.getData() > middle.getData()
-                     ? curAncDes1.getLeft() : curAncDes1.getRight();
+      if (search1 != null) {
+        search1 = search1.getData() > middle.getData()
+                  ? search1.getLeft() : search1.getRight();
       }
     }
 
-    // If both searches were unsuccessful, or we got from ancDes0 to ancDes1
-    // without seeing middle, or from ancDes1 to ancDes0 without seeing middle,
-    // middle cannot lie between ancDes0 and ancDes1.
-    if (curAncDes0 == ancDes1 || curAncDes1 == ancDes0
-        || (curAncDes0 != middle && curAncDes1 != middle)) {
+    // If both searches were unsuccessful, or we got from possibleAncOrDesc0 
+    // to possibleAncOrDesc1 without seeing middle, or from possibleAncOrDesc1 
+    // to possibleAncOrDesc0 without seeing middle, middle cannot lie between 
+    // possibleAncOrDesc0 and possibleAncOrDesc1.
+    if (search0 == possibleAncOrDesc1 || search1 == possibleAncOrDesc0
+        || (search0 != middle && search1 != middle)) {
       return false;
     }
 
-    // If we get here, we already know one of ancDes0 or ancDes1 has a path to
-    // middle. Check if middle has a path to ancDes1 or to ancDes0.
-    return curAncDes0 == middle
-           ? searchTarget(middle, ancDes1) : searchTarget(middle, ancDes0);
+    // If we get here, we already know one of possibleAncOrDesc0 or 
+    // possibleAncOrDesc1 has a path to middle. Check if middle has a path to 
+    // possibleAncOrDesc1 or to possibleAncOrDesc0.
+    return search0 == middle
+           ? searchTarget(middle, possibleAncOrDesc1) 
+           : searchTarget(middle, possibleAncOrDesc0);
   }
 
   private static boolean searchTarget(BSTNode<Integer> from,
                                       BSTNode<Integer> target) {
     while (from != null && from != target) {
       from = from.getData() > target.getData()
-               ? from.getLeft() : from.getRight();
+             ? from.getLeft() : from.getRight();
     }
     return from == target;
   }
@@ -51,7 +55,7 @@ public class DescendantAndAncestor {
     BSTNode<Integer> root = new BSTNode<>(5);
     root.setLeft(new BSTNode<>(2));
     root.getLeft().setRight(new BSTNode<>(4));
-    assert (!isRSDescendantAncestorPairForM(root, root.getLeft(),
+    assert (!pairIncludesAncestorAndDescendantOfM(root, root.getLeft(),
                                             root.getLeft().getRight()));
 
     // Example of the first figure of BST chapter.
@@ -71,9 +75,9 @@ public class DescendantAndAncestor {
     root.getRight().getLeft().getRight().setRight(new BSTNode<>(41));
     root.getRight().setRight(new BSTNode<>(47));
     root.getRight().getRight().setRight(new BSTNode<>(53));
-    assert (!isRSDescendantAncestorPairForM(root.getRight(), root.getLeft(),
+    assert (!pairIncludesAncestorAndDescendantOfM(root.getRight(), root.getLeft(),
                                             root.getRight().getLeft()));
-    assert (isRSDescendantAncestorPairForM(
+    assert (pairIncludesAncestorAndDescendantOfM(
                 root, root.getRight().getLeft().getRight().getLeft().getRight(),
                 root.getRight().getLeft()));
   }
@@ -89,18 +93,18 @@ public class DescendantAndAncestor {
     root.setRight(new BSTNode<>(5));
     root.getRight().setLeft(new BSTNode<>(4));
     root.getRight().setRight(new BSTNode<>(6));
-    assert (isRSDescendantAncestorPairForM(root, root.getRight().getRight(),
+    assert (pairIncludesAncestorAndDescendantOfM(root, root.getRight().getRight(),
                                            root.getRight()));
-    assert (isRSDescendantAncestorPairForM(root.getRight().getRight(), root,
+    assert (pairIncludesAncestorAndDescendantOfM(root.getRight().getRight(), root,
                                            root.getRight()));
-    assert (!isRSDescendantAncestorPairForM(root, root.getRight(),
+    assert (!pairIncludesAncestorAndDescendantOfM(root, root.getRight(),
                                             root.getRight().getRight()));
-    assert (!isRSDescendantAncestorPairForM(root.getRight(), root,
+    assert (!pairIncludesAncestorAndDescendantOfM(root.getRight(), root,
                                             root.getRight().getRight()));
-    assert (!isRSDescendantAncestorPairForM(root.getRight().getLeft(),
+    assert (!pairIncludesAncestorAndDescendantOfM(root.getRight().getLeft(),
                                             root.getRight().getRight(),
                                             root.getRight()));
-    assert (!isRSDescendantAncestorPairForM(root.getRight().getLeft(),
+    assert (!pairIncludesAncestorAndDescendantOfM(root.getRight().getLeft(),
                                             root.getLeft().getLeft(),
                                             root.getRight()));
   }

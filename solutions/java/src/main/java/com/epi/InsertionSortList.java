@@ -5,6 +5,10 @@ public class InsertionSortList {
   public static ListNode<Integer> insertionSort(final ListNode<Integer> L) {
     ListNode<Integer> dummyHead = new ListNode<>(0, L);
     ListNode<Integer> iter = L;
+    // The sublist consting of nodes upto and including iter is sorted in 
+    // increasing order. We need to ensure that after we move to iter.next
+    // this property continues to hold. We do this by swapping iter.next
+    // with its predecessors in the list till it's in the right place.
     while (iter != null && iter.next != null) {
       if (iter.data > iter.next.data) {
         ListNode<Integer> target = iter.next, pre = dummyHead;

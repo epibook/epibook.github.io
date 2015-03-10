@@ -62,7 +62,7 @@ string FindStudentWithHighestBestOfThreeScores(ifstream* ifs) {
 
 // Returns the sum of top three scores.
 int GetTopThreeScoresSum(const multiset<int>& scores) {
-  auto it = scores.rbegin();
+  auto it = scores.crbegin();
   advance(it, 3);
   return accumulate(scores.crbegin(), it, 0);
 }

@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <iostream>
@@ -53,11 +53,8 @@ int main(int argc, char* argv[]) {
     }
     vector<int> A;
     cout << "n = " << n << endl;
-    uniform_int_distribution<int> pos_or_neg(0, 1);
-    uniform_int_distribution<int> dis(0, 999999);
-    for (size_t i = 0; i < n; ++i) {
-      A.emplace_back(((pos_or_neg(gen)) ? 1 : -1) * dis(gen));
-    }
+    uniform_int_distribution<int> dis(-999999, 999999);
+    generate_n(back_inserter(A), n, [&] { return dis(gen); } );
     vector<int> ans = SortKIncreasingDecreasingArray(A);
     /*
     copy(A.begin(), A.end(), ostream_iterator<int>(cout, " "));

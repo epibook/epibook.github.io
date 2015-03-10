@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -24,67 +24,67 @@ pair<int, int> FindPositiveNegativePair(const vector<int>& A, int k);
 
 // @include
 pair<int, int> FindPairSumK(const vector<int>& A, int k) {
-  pair<int, int> ret = FindPositiveNegativePair(A, k);
-  if (ret.first == -1 && ret.second == -1) {
+  pair<int, int> result = FindPositiveNegativePair(A, k);
+  if (result.first == -1 && result.second == -1) {
     return k >= 0 ? FindPairUsingComp(A, k, less<int>())
                   : FindPairUsingComp(A, k, greater_equal<int>());
   }
-  return ret;
+  return result;
 }
 
 template <typename Comp>
 pair<int, int> FindPairUsingComp(const vector<int>& A, int k, Comp comp) {
-  pair<int, int> ret(0, A.size() - 1);
-  while (ret.first < ret.second && comp(A[ret.first], 0)) {
-    ++ret.first;
+  pair<int, int> result(0, A.size() - 1);
+  while (result.first < result.second && comp(A[result.first], 0)) {
+    ++result.first;
   }
-  while (ret.first < ret.second && comp(A[ret.second], 0)) {
-    --ret.second;
+  while (result.first < result.second && comp(A[result.second], 0)) {
+    --result.second;
   }
 
-  while (ret.first < ret.second) {
-    if (A[ret.first] + A[ret.second] == k) {
-      return ret;
-    } else if (comp(A[ret.first] + A[ret.second], k)) {
+  while (result.first < result.second) {
+    if (A[result.first] + A[result.second] == k) {
+      return result;
+    } else if (comp(A[result.first] + A[result.second], k)) {
       do {
-        ++ret.first;
-      } while (ret.first < ret.second && comp(A[ret.first], 0));
+        ++result.first;
+      } while (result.first < result.second && comp(A[result.first], 0));
     } else {
       do {
-        --ret.second;
-      } while (ret.first < ret.second && comp(A[ret.second], 0));
+        --result.second;
+      } while (result.first < result.second && comp(A[result.second], 0));
     }
   }
-  return {-1, -1};  // no answer.
+  return {-1, -1};  // No answer.
 }
 
 pair<int, int> FindPositiveNegativePair(const vector<int>& A, int k) {
-  // ret.first for positive, and ret.second for negative.
-  pair<int, int> ret(A.size() - 1, A.size() - 1);
+  // result.first for positive, and result.second for negative.
+  pair<int, int> result(A.size() - 1, A.size() - 1);
   // Find the last positive or zero.
-  while (ret.first >= 0 && A[ret.first] < 0) {
-    --ret.first;
+  while (result.first >= 0 && A[result.first] < 0) {
+    --result.first;
   }
 
   // Find the last negative.
-  while (ret.second >= 0 && A[ret.second] >= 0) {
-    --ret.second;
+  while (result.second >= 0 && A[result.second] >= 0) {
+    --result.second;
   }
 
-  while (ret.first >= 0 && ret.second >= 0) {
-    if (A[ret.first] + A[ret.second] == k) {
-      return ret;
-    } else if (A[ret.first] + A[ret.second] > k) {
+  while (result.first >= 0 && result.second >= 0) {
+    if (A[result.first] + A[result.second] == k) {
+      return result;
+    } else if (A[result.first] + A[result.second] > k) {
       do {
-        --ret.first;
-      } while (ret.first >= 0 && A[ret.first] < 0);
-    } else {  // A[ret.first] + A[ret.second] < k.
+        --result.first;
+      } while (result.first >= 0 && A[result.first] < 0);
+    } else {  // A[result.first] + A[result.second] < k.
       do {
-        --ret.second;
-      } while (ret.second >= 0 && A[ret.second] >= 0);
+        --result.second;
+      } while (result.second >= 0 && A[result.second] >= 0);
     }
   }
-  return {-1, -1};  // no answer.
+  return {-1, -1};  // No answer.
 }
 // @exclude
 
@@ -99,13 +99,10 @@ int main(int argc, char* argv[]) {
       n = dis(gen);
     }
     vector<int> A;
-    uniform_int_distribution<int> pos_or_neg(0, 1);
-    uniform_int_distribution<int> dis(0, 10000);
-    for (size_t i = 0; i < n; ++i) {
-      A.emplace_back(((pos_or_neg(gen)) ? 1 : -1) * (dis(gen)));
-    }
+    uniform_int_distribution<int> dis(-10000, 10000);
+    generate_n(back_inserter(A), n, [&] { return dis(gen); } );
     sort(A.begin(), A.end(), [](int x, int y) { return abs(x) < abs(y); });
-    int k = ((pos_or_neg(gen)) ? 1 : -1) * (dis(gen));
+    int k = dis(gen);
     /*
     for (const int& a : A) {
       cout << a << " ";

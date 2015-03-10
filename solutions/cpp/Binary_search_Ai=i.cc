@@ -60,9 +60,8 @@ int main(int argc, char* argv[]) {
       int x;
       unordered_set<int>::iterator iter;
       do {
-        uniform_int_distribution<int> pos_or_neg(0, 1);
-        uniform_int_distribution<int> dis(0, 999);
-        x = ((pos_or_neg(gen) & 1) ? -1 : 1) * dis(gen);
+        uniform_int_distribution<int> dis(-999, 999);
+        x = dis(gen);
         iter = table.find(x);
       } while (iter != table.cend());
       table.emplace_hint(iter, x);
