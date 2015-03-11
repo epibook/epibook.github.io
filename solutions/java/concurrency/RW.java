@@ -18,7 +18,7 @@ import java.math.BigInteger;
 //@include
   // LR and LW are static members of type Object in the RW class.
   // They serve as read and write locks. The static integer
-  // variable readCount in RW tracks the number of readers.
+  // field readCount in RW tracks the number of readers.
   class Reader extends Thread {
     //@exclude
     String name;

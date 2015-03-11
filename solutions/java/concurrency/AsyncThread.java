@@ -34,14 +34,14 @@ public class AsyncThread {
   }
 
   // @include
-  public static void Dispatch(final Requestor r, final String request,
+  public static void Dispatch(final Requestor requestor, final String request,
                               final long delay) {
     Runnable task = new Runnable() {
       public void run() {
         Runnable actualTask = new Runnable() {
           public void run() {
-            String response = r.execute(request, delay);
-            r.ProcessResponse(response);
+            String response = requestor.execute(request, delay);
+            requestor.ProcessResponse(response);
           }
         };
         Thread innerThread = new Thread(actualTask);
