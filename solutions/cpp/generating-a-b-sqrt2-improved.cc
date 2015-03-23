@@ -47,7 +47,7 @@ vector<Num> GenerateFirstK(int k) {
   vector<Num> result;  // Stores the first-k Num.
   result.emplace_back(0, 0);
   size_t i = 0, j = 0;
-  for (int n = 0; n < k; ++n) {
+  for (int n = 1; n < k; ++n) {
     Num x(result[i].a + 1, result[i].b), y(result[j].a, result[j].b + 1);
     if (x.val < y.val) {
       ++i;
@@ -102,6 +102,7 @@ int main(int argc, char* argv[]) {
       k = dis(gen);
     }
     vector<Num> ans(GenerateFirstK(k));
+    assert(ans.size() == k);
     for (size_t i = 0; i < ans.size(); ++i) {
       cout << ans[i].a << ' ' << ans[i].b << ' ' << ans[i].val << endl;
       if (i > 0) {
@@ -109,11 +110,8 @@ int main(int argc, char* argv[]) {
       }
     }
     auto gold_res = Golden(k);
-    for (size_t i = 0; i < k; ++i) {
-      assert(ans[i] == gold_res[i]);
-      //cout << "first " << ans[i].a << " " << ans[i].b << " " << ans[i].val << endl;
-      //cout << "second " << gold_res[i].a << " " << gold_res[i].b << " " << gold_res[i].val << endl;
-    }
+    assert(ans.size() == gold_res.size() && 
+           equal(ans.begin(), ans.end(), gold_res.begin()));
   }
   return 0;
 }

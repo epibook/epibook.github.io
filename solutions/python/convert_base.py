@@ -14,9 +14,8 @@ def convert_base(s, b1, b2):
 
     result = []
     while True:
-        reminder = x % b2
+        x, reminder = divmod(x, b2)
         result.append(chr(ord('A') + reminder - 10) if reminder >= 10 else chr(ord('0') + reminder))
-        x //= b2
         if x == 0:
             break
 

@@ -20,14 +20,14 @@ long TiesElection(const vector<int>& V) {
     return 0;
   }
 
-  vector<vector<long>> table(V.size() + 1, vector<long>(total_votes + 1, 0));
-  table[0][0] = 1;  // Base condition: One way to reach 0.
+  vector<long> table(total_votes + 1, 0);
+  table[0] = 1;  // Base condition: One way to reach 0.
   for (int i = 0; i < V.size(); ++i) {
-    for (int j = 0; j <= total_votes; ++j) {
-      table[i + 1][j] = table[i][j] + (j >= V[i] ? table[i][j - V[i]] : 0);
+    for (int j = total_votes; j >= V[i]; --j) {
+      table[j] = table[j] + table[j - V[i]];
     }
   }
-  return table[V.size()][total_votes / 2];
+  return table[total_votes / 2];
 }
 // @exclude
 
@@ -42,6 +42,7 @@ int main(int argc, char* argv[]) {
                        11, 6, 6,  8,  8,  4,  10, 11, 16, 10, 6, 10, 3,
                        5,  6, 4,  14, 5,  29, 15, 3,  18, 7,  7, 20, 4,
                        9,  3, 11, 38, 6,  3,  13, 12, 5,  10, 3, 3};
+  assert(16976480564070 == TiesElection(votes));
   cout << TiesElection(votes) << endl;
   return 0;
 }
