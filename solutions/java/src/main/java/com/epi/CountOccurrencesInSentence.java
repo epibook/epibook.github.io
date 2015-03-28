@@ -20,7 +20,8 @@ class CountOccurrencesInSentence {
         currentCharacterCount = 1;
       }
     }
-    System.out.println("(" + a[a.length - 1] + ',' + currentCharacterCount + ")");
+    System.out.println("(" + a[a.length - 1] + ',' + currentCharacterCount 
+                       + ")");
   }
   // @exclude
 

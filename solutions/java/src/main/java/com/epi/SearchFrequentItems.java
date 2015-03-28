@@ -18,7 +18,7 @@ class SearchFrequentItems {
   // @include
   public static List<String> searchFrequentTtems(List<String> in,
                                                  int k) {
-    // Finds the candidates which may occur >= n / k times.
+    // Finds the candidates which may occur > n / k times.
     String buf = "";
     Map<String, Integer> hash = new HashMap<>();
     int n = 0; // Counts the number of strings.
@@ -62,10 +62,10 @@ class SearchFrequentItems {
       }
     }
 
-    // Selects the word which occurs >= n / k times.
+    // Selects the word which occurs > n / k times.
     List<String> ret = new ArrayList<>();
     for (Map.Entry<String, Integer> it : hash.entrySet()) {
-      if (n * 1.0 / k <= (double) it.getValue()) {
+      if (n * 1.0 / k < (double) it.getValue()) {
         ret.add(it.getKey());
       }
     }
@@ -82,7 +82,7 @@ class SearchFrequentItems {
     int count = 1, idx = 0;
     for (int i = 1; i < stream.size(); ++i) {
       if (stream.get(i).compareTo(stream.get(i - 1)) != 0) {
-        if ((double) count >= 1.0 * stream.size() / k) {
+        if ((double) count > 1.0 * stream.size() / k) {
           assert (idx < items.size());
           assert (stream.get(i - 1).compareTo(items.get(idx++)) == 0);
         }
@@ -91,7 +91,7 @@ class SearchFrequentItems {
         ++count;
       }
     }
-    if ((double) count >= 1.0 * stream.size() / k) {
+    if ((double) count > 1.0 * stream.size() / k) {
       assert (stream.get(stream.size() - 1).compareTo(items.get(idx++)) == 0);
     }
     assert (idx == items.size());

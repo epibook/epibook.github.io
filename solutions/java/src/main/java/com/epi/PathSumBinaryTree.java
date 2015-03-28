@@ -4,7 +4,8 @@ import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 public class PathSumBinaryTree {
   // @include
-  public static boolean hasPathSum(BinaryTreeNode<Integer> tree, int targetSum) {
+  public static boolean hasPathSum(BinaryTreeNode<Integer> tree, 
+                                   int targetSum) {
     return hasPathSumHelper(tree, 0, targetSum);
   }
 

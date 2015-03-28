@@ -33,7 +33,7 @@ string RandString(int len) {
 }
 
 // @include
-// Finds the candidates which may occur >= n / k times.
+// Finds the candidates which may occur > n / k times.
 vector<string> SearchFrequentItems(int k, istringstream* sin) {
   string buf;
   unordered_map<string, int> hash;
@@ -71,10 +71,10 @@ vector<string> SearchFrequentItems(int k, istringstream* sin) {
     }
   }
 
-  // Selects the word which occurs >= n / k times.
+  // Selects the word which occurs > n / k times.
   vector<string> ret;
   for (const pair<string, int>& it : hash) {
-    if (it.second >= static_cast<double>(n) / k) {
+    if (it.second > static_cast<double>(n) / k) {
       ret.emplace_back(it.first);
     }
   }
@@ -88,7 +88,7 @@ void CheckAns(vector<string>* stream, int k, vector<string>* items) {
   int count = 1, idx = 0;
   for (int i = 1; i < stream->size(); ++i) {
     if ((*stream)[i].compare((*stream)[i - 1])) {
-      if (count >= static_cast<double>(stream->size()) / k) {
+      if (count > static_cast<double>(stream->size()) / k) {
         assert(idx < items->size());
         assert((*stream)[i - 1].compare((*items)[idx++]) == 0);
       }
@@ -97,7 +97,7 @@ void CheckAns(vector<string>* stream, int k, vector<string>* items) {
       ++count;
     }
   }
-  if (count >= static_cast<double>(stream->size()) / k) {
+  if (count > static_cast<double>(stream->size()) / k) {
     assert((*stream).back().compare((*items)[idx++]) == 0);
   }
   assert(idx == items->size());

@@ -21,7 +21,8 @@ class Anagrams {
     }
 
     List<List<String>> anagramGroups = new ArrayList<>();
-    for (Map.Entry<String, List<String>> p : sortedStringToAnagrams.entrySet()) {
+    for (Map.Entry<String, List<String>> p 
+         : sortedStringToAnagrams.entrySet()) {
       if (p.getValue().size() >= 2) { // Found anagrams.
         anagramGroups.add(p.getValue());
       }

@@ -55,7 +55,9 @@ class SubseqCover {
         if (keywordIdx == keywords.length - 1
             && shortestSubarrayLength[shortestSubarrayLength.length - 1]
                 < result.getSecond() - result.getFirst() + 1) {
-          result.setFirst(i - shortestSubarrayLength[shortestSubarrayLength.length - 1] + 1);
+          result.setFirst(
+              i - shortestSubarrayLength[shortestSubarrayLength.length - 1]
+              + 1);
           result.setSecond(i);
         }
       }

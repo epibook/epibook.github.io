@@ -26,8 +26,8 @@ public class KLargestElementsBinaryHeap {
 
     // Stores the (index, value)-pair in candidateMaxHeap. This heap is
     // ordered by value field.
-    PriorityQueue<Pair<Integer, Integer>> candidateMaxHeap = new PriorityQueue<>(
-        11, new Compare());
+    PriorityQueue<Pair<Integer, Integer>> candidateMaxHeap = 
+        new PriorityQueue<>(11, new Compare());
     candidateMaxHeap.add(new Pair<>(0, A[0]));
     List<Integer> result = new ArrayList<>();
     for (int i = 0; i < k; ++i) {
