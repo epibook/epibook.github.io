@@ -1,0 +1,327 @@
+%
+% \section{Best practices}
+%
+% Our favorite best practices book is {\em Effective Java} by Bloch---it covers
+% many topics: object-oriented programming, design patterns, code organization,
+% concurrency, and generics are just a few examples.
+% {\em Effective C++: 55 Specific Ways to Improve Your Programs and Designs} by Meyer is highly thought of for C++.
+% {\em Design Patterns: Elements of Reusable Object-Oriented Software} by
+% Gamma~{\em et al.}~is a very popular introduction to patterns.
+%
+% \begin{itemize}
+% \itemsep 1pt
+% \item Give an example of a problem you solved where you made
+% good use of object-oriented programming.
+% \item What is the factory pattern?  What is the publish-subscribe model?
+% \item Give an example of how inheritance violates encapsulation.
+% \item What do Java bounded wildcards buy you?
+% \item Why should you always override the equals and hash function methods for Java classes?
+% \end{itemize}
+%
+% \section{Tools}
+% %\sds{Building and maintaining programs}
+%
+% There is a paucity of books on programming tools;
+% one book we have used is {\em Essential Open Source Toolset} by Zeller and Krinke.
+%
+% \begin{itemize}
+% \itemsep 1pt
+% \item What version control system do you use?
+% \item What coverage tool do you use?
+% \item What build system do you use?
+% \item What documentation system do you use?
+% \item What bug tracking system do you use?
+% \item How is branching implemented in a version control system?
+% \item Are deltas in the branching for a revision tree stored out forwards
+% or backwards? What are the benefits of each approach?
+% \item What are the advantages and disadvantages of a version control system that locks files?
+% \end{itemize}
+%
+% \section{The Shell}
+%
+% There are scores, if not hundreds of books on the \myindex{UNIX}UNIX shell and related tools.
+% We have enjoyed {\em LINUX 101 Hacks} by Natarajan. It introduces
+% these tools through useful hacks, such as the use of {\texttt{find}}
+% to find all files that have not been modified in the past 100 days
+% and are larger than 100~megabytes in size, sorting the password file on the third field, etc.
+%
+% \begin{itemize}
+% \itemsep 1pt
+% \item Write a \myindex{regular expression}regular expression for identifying social security numbers in a file.
+% \item Write a command that prints out lines in a text file which contain the
+% strings \texttt{foo} and \texttt{bar} in any order.
+% \item Write a command which replaces every occurrence of a \texttt{foo} followed by a \texttt{bar} (with
+% possibly some other characters in between) by \texttt{widget}.
+% \item Given a text file with two columns of integers, i.e., two integers encoded in ASCII per line, write a filter which sorts lines in the file by the second integer.
+% \item How would you take two documents in PDF and create a new document which consists of the pages of the two original documents interleaved in order?
+% \item How would you write a program which checks every hour if a network connection is up?
+% \item How would you write a program which checks the price of a Nikon D40 DLSR each day on amazon.com?
+% \end{itemize}
+%
+% \section{Computer architecture}
+%
+% {\em Computer Architecture: A Quantitative Approach} and {\em Computer
+% Organization and Design, The Hardware/Software Interface}, both by Patterson and Hennessy,
+%  are the definitive works in this field.
+%
+% \begin{itemize}
+% \itemsep 1pt
+% \item What is pipelining? Describe a 5-stage pipeline.
+% \item What is a multi-issue processor?
+% \item What is the difference between a superscalar and a VLIW processor? Where is each appropriate?
+% \item What is a multicore machine?
+% \item What is the significance of the privileged bit?
+% \item How is kernel mode different from running as root?
+% \item What do big-endian and little-endian notations mean?
+% \item You rewrite some machine code to reduce the number of instructions
+% to perform a computation and performance drops. Can you explain this?
+% \item You benchmark a 3.0~gigahertz Pentium 4 and
+% find it to be noticeably slower than a 2.4~gigahertz Pentium Pro---Why?
+% \item You find the same computation on the same operating system with the same
+% load takes longer on hot days---Why?
+% \item How large and fast are the register file, L1 cache, L2 cache, main memory, and disk on
+% current machines?
+% \item How many instructions are in-flight in a modern core?
+% \item What is branch prediction?
+% \item Why is prediction based on the program counter insufficient?
+% \item What is prefetching?  What is a reasonable criterion for prefetching?
+% \end{itemize}
+%
+% \section{Systems}
+%
+% Professional programmers use many software systems everyday and it is reasonable
+% to expect that they should have some understanding of how these systems work.
+%
+% \begin{itemize}
+% \itemsep 1pt
+% \item Describe how an operating system is implemented. Specifically describe how Linux implements processes and \myindex{I/O}I/O.
+% \item How does a web browser work? Specifically, describe how auto-completion (such
+% as in a search engine query box) is implemented.
+% \item How does the Internet work? Specifically describe the roles of the \myindex{TCP}TCP/\myindex{IP}IP protocol, \myindex{router}routers, and Domain Name System (DNS).
+% \item How is a \myindex{social network}social network site built? Specifically comment on scalability,
+% spam prevention, and resilience to denial-of-service.
+% \end{itemize}
+
+
+
+% \begin{comment}
+% To compute the maximum number of times the lead could have changed.
+% The final update to the score can only be of the form $(s-w_i,t)$ to $(s,t)$
+% or $(s,t-w_i)$ to $(s,t)$, for some $w_i$.
+% If $s-w_i < t$ and $s > t$, then the lead changes when the first
+% team scores $w_i$; otherwise it does not. The same is true if
+% $s > t - w_i$ and $s < t$.  Let $C1(s,t,w_i)$ be $1$ if $s-w_i < t$ and $s > t$,
+% and $0$ otherwise. Let $C2(s,t,w_i)$ be $1$ if $s > t - w_i$ and $s < t$,
+% %TODO(AA): check this logic
+% %TODO (THL): it seems we don't need the permutations since we can have M directly.
+% and $0$ otherwise. Let $M(u,v)$ be the maximum number of lead changes
+% when the score is $(u,v)$. Then
+% $M(u,v) = \sum_{i=0}^{n-1} \big( (C1(u,v,w_i) + 1) \times M(u-w_i,v) + (C2(u,v,w_i) + 1) \times M(u,v-w_i) \big)$,
+% where $M(u,v) = 0$ if $u \leq 0$ or  $v \leq 0$.
+% \lstinputlisting[language=C++]{solutions/Lead_changes.cpp}
+% \end{comment}
+
+
+%\begin{figure}[b]
+%\begin{center}
+\begin{comment}
+\includegraphics[width=.9\textwidth]{turing_blue_2x20-bw.jpg}
+\mbox{ }
+
+\includegraphics[width=.7\textwidth]{turing_blue_2x20-bw.jpg}
+\mbox{ }
+
+\includegraphics[width=.6\textwidth]{turing_blue_2x20-bw.jpg}
+\mbox{ }
+
+\includegraphics[width=.5\textwidth]{turing_blue_2x20-bw.jpg}
+\mbox{ }
+
+\includegraphics[width=.4\textwidth]{turing_blue_2x20-bw.jpg}
+\mbox{ }
+
+\includegraphics[width=.3\textwidth]{turing_blue_2x20-bw.jpg}
+% \mycaption{Evolution of a computer scientist (please feel free to redraw the
+%  arrow as you see fit for yourself, we just guessed you are somewhere
+%  between a beginner and a pioneer in computer science if you are
+%  reading this book.)}
+%\mycaption{Alan Turing, father of computer science}
+%\end{center}
+%\end{figure}
+\end{comment}
+
+\begin{comment}
+Let's begin with the picture on the front cover.
+You may have observed that the cities are connected in a loop, and
+that the loop traverses the cities in a left-to-right-to-left order.
+
+Suppose you were asked in an interview to design a program
+that takes a map and a set $S$ of cities in the map, and produces a
+``tour'' of the cities, that is a sequence of cities that
+starts any city $c$, passes exactly once through each city in $S \setminus \{c\}$,
+and returns to $c$.
+%THL: I think you mean TSP such that it should be returned to $c$.
+Between each pair of cities is a distance---your program
+should return a tour that minimizes the total
+distance travelled.
+
+You may have heard this problem is conjectured to be intractable---that
+is no efficient algorithm exists for the problem. However, you are still obliged to solve the problem. A brute-force solution would consider all $n!$ possible tours, and would be acceptable for small values of $n$. A more sophisticated approach would be to compute \myindex{shortest path}shortest paths connecting
+subsets of cities and cache these results; this uses the principle
+of Dynamic Programming, and leads to an $\mathcal{O}(n^2 2^n)$ algorithm.
+\myindex{branch and bound}Branch and bound can also be used to compute an optimum tour, albeit with
+the possibility of very poor run time.
+
+A good question to ask at this point is whether optimality is a strict
+requirement. In many cases, a reasonably cheap tour suffices. There
+are a number of ways in which a tour that has low cost can
+be computed efficiently. One approach, discussed in more detail
+in Problem~\vref{tsp}, is to compute a minimum spanning tree and
+construct a tour from it. When distance between cities satisfies
+the triangle inequality, i.e., $d(A,C) \leq d(A,B) + d(B,c)$,
+the resulting tour is guaranteed to be within
+a factor of two of the optimum tour.
+Alternate approaches are to compute a bitonic tour---one which
+starts with a city that is furthest to the right and progresses strictly
+to the right, and then returns moving strictly to the left, or
+to use a \myindex{greedy}greedy algorithm with limited look-ahead.
+% This method is the subject of Problem~\vref{tsp-bitonic}.
+\end{comment}
+
+
+
+\begin{comment}
+% from Wikipedia
+Let's consider a more sophisticated example now, namely the MU puzzle.
+The following rules may be applied to transform a string over the alphabet \{{\em M,I,U}\}:
+\begin{enumerate}
+\itemsep 1pt
+\item If a string ends with an {\em I}, a {\em U} may be appended ({\em xI $\mapsto$ xIU}). For
+example---{\em MI} to {\em MIU}.
+\item A string after a starting {\em M} may be completely duplicated ({\em Mx $\mapsto$ Mxx}).
+For example---{\em MIU} to {\em MIUIU}.
+\item Three consecutive {\em I}s ({\em III}) may be replaced with a single {\em U} ({\em xIIIy $\mapsto$ xUy}).
+For example---{\em MIIIU} to {\em MUU}.
+\item Two consecutive {\em U}s may be removed ({\em xUUy $\mapsto$ xy}). For example---{\em MUUII} to {\em MII}.
+\end{enumerate}
+
+\noindent{\em Problem:}
+Is it possible to convert {\em MI} into {\em MU} by repeated application of these four transformation rules?
+
+You can try different strategies to find the right sequence of transformations
+and after a while you may begin to suspect that it is impossible to
+perform this conversion. Showing that no sequence of transformations will
+implement the transformation seems daunting at first---after all, there are
+infinitely many transformations. However consider the following invariant: the
+number of {\em I}s in any string $s$ derived from {\em MI} is never a multiple of three.
+
+We prove the invariant by induction on the number of transformations performed on {\em MI}.
+For the base case, {\em MI} has one {\em I}, which is not a multiple of three.
+
+For the inductive step, Transformations 1 and 4 do not change the number of {\em I}s, so induction
+goes through in this case. The number of {\em I}s after application of Transformation 2 is twice
+the number of {\em I}s. So, if the number of {\em I}s was not a multiple of three, i.e., was
+of the form $3n+1$ or $3n+2$, then the number of {\em I}s
+after Transformation $2$ is either
+$2(3n+1) = 3(2n) + 2$ or $2(3n + 2 ) = 3 (2 n + 1 ) + 1$,
+neither of which is a multiple of $3$. Transformation
+$3$ reduces
+the number of {\em I}s by three and induction goes through in this case too.
+
+Since {\em MU} has zero {\em I}s, which is a multiple of three, it is impossible to get from
+{\em MI} to {\em MU}.
+\end{comment}
+
+%\renewcommand{\indexname}{Index of Problems}
+%\printindex[epi_new] %note: build script puts index in epi_new.idx
+
+% \chapter*{Further Readings}
+% \epigraph{
+% Books, like friends, should be few and well chosen. Like friends, too, we should return
+% to them again and again for, like true friends, they will never
+% fail us - never cease to instruct - never cloy.}
+% {
+% ---~\textsc{C.~C.~Colton}
+% }
+%
+% \textit{Algorithms}~\cite{dpv} and \textit{Introduction to Algorithms}~\cite{clrs_3ed}
+% are two of the best algorithm design texts.
+% The first is crisp; the second encyclopediac.
+% For general programming practices, we like \textit{Effective C++: 55 Specific Ways to Improve Your Programs and Designs}~\cite{eC++}, \textit{Effective Java}~\cite{ej}, and
+% \textit{Design Patterns: Elements of Reusable Object-Oriented Software}~\cite{dp}.
+% We recommend \textit{Programming Language Pragmatics}~\cite{plp} for
+% compiler and language theory, \textit{Modern Operating Systems}~\cite{mos} for
+% \myindex{OS}OS, and \textit{Computer Networks: A Systems Approach}~\cite{cn} for networking.
+% \textit{The Little Book of Semaphores}~\cite{downey_semaphores}
+% is a wonderful collection of problems arising in concurrent programming.
+%
+% \textit{How To Solve It: A New Aspect of Mathematical Method}~\cite{htsi}, has many useful tips on tackling mathematical
+% problems; many of its suggestions are applicable to the design of programs.
+% \textit{Problems for Mathematicians, Young and Old}~\cite{halmos} and
+% \textit{The Art and Craft of Problem Solving}~\cite{zeitz} are two of our other favorite
+% math books.
+%
+% %_TODO(BUILD): suppress printing of bibliography heading
+% % http://tex.stackexchange.com/questions/33316/bibtex-with-no-references-title
+% \bibliography{epi}
+
+%\begin{theindex}
+%\input{epi.idx}
+%\end{theindex}
+
+% Suppose you have a scheme for finding patterns in stock trends. You may want
+% to see how good it is with respect to the best possible scheme. One way to formalize
+% this is to consider
+% an array $A$ of $n$ integers representing the price of a share of a company's
+% stock over $n$ days.
+
+% \noindent
+% {\em Problem~\vref{max-difference}:} Given $A$, how
+% would you efficiently determine the maximum amount of money that you could over
+% those $n$ days by buying and selling a share over those $n$ days?
+
+% Note: this may be a good example of how to think. Start with brute-force, then adjust. Point out corner cases.
+
+% % %Source: Google
+
+% % (AA) Way too hard
+%A solution to this problem is discussed in the context of finding Hardy-Ramanujan numbers (Problem~\vref{Hardy-Ramanujan}).
+
+\begin{comment}
+\chapter*{Back Cover}
+
+Have you ever\ldots
+\begin{itemize}
+\item wanted to move a hot futuristic company?
+\item struggled with an interview problem that could have been solved in $15$ minutes?
+\item wished you could study algorithms in the context of real-world problems?
+\end{itemize}
+If so, you need to read Elements of Programming Interviews (EPI).
+
+EPI is not about the arcane and archaic algorithms covered
+in undergraduate algorithms texts. EPI covers the latest data structures and
+algorithms in the context of real-world design problems; it is meant specifically
+to help you with interviewing at large software companies, where  the trend is for
+interviews to address algorithms, problem solving, and design skills rather
+than specific domain knowledge.
+
+EPI's authors are practicing algorithmists, with extensive
+academic and industrial experience. They have published
+over $100$ articles on applied algorithms, and have applied their
+skills to leading companies, such as Facebook, Google, IBM, Microsoft,
+Qualcomm, as well as software startups.
+\end{comment}
+
+% from http://www.latex-community.org/forum/viewtopic.php?f=4&t=7862&start=0
+%\makepagestyle{intro}
+%\makeoddfoot{intro}{}{}{\thepage}
+%\makeevenfoot{intro}{\thepage}{}{}
+%\makeheadrule{intro}{\textwidth}{\normalrulethickness}
+%\makeevenhead{intro}{\scshape Introduction}{}{}
+%\makeoddhead{intro}{}{}{Introduction}
+%\pagestyle{intro}
+%\makeoddhead{headings}{}{}{Introduction}
+
+% \chapter*{Preface}
+
+
