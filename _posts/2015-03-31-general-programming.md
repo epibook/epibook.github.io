@@ -22,7 +22,7 @@ you are asked such questions depends on the company, your experience, the job, e
 Such questions tend to be narrow, and as such are not appropriate for our book.
 We have begun the process of collecting representative questions, which you can see below. 
 
-[Languages]({% post_url 2015-02-26-programming-languages %}),
-[Debugging and Testing]({% post_url 2015-02-26-debugging-and-testing %}), 
-[Operating Systems]({% post_url 2015-02-26-os%}),
-[Tools]({% post_url 2015-02-26-tools%}), 
+[Languages]({% post_url 2015-03-31-programming-languages %}),
+[Debugging and Testing]({% post_url 2015-03-31-debugging-and-testing %}), 
+[Operating Systems]({% post_url 2015-03-31-os%}),
+[Tools]({% post_url 2015-03-31-tools%}), 

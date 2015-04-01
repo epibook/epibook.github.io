@@ -18,14 +18,19 @@ The programming exercises in EPI are representative of what you will be asked
 in an interview. We do not provide textbook-style review questions.
 
 In this document, we present a small set of programming exercises suitable for
-someone who needs to review basics. You are unlikely to be 
-asked these questions - their purpose is to bootstrap reading EPI. 
-Do not try to design clever solutions. This means it is fine to use brute-force approaches, 
-ignore invalid inputs, overflow, etc.
-Analyze your programs for time and space complexity, and write unit tests for each.
-Do not use library calls.
+someone who needs to review basics. (You are unlikely to be 
+asked these questions - their purpose is to bootstrap reading EPI.) 
+Code to the following constraints:
+<ol>
+<li>Do not try to design clever solutions. (This means it is fine to use brute-force approaches, 
+ignore invalid inputs, overflow, etc.)
+<li>Analyze your programs for time and space complexity. 
+<li>Write unit tests for your programs.
+<li>Do not use library calls.
+</ol>
 
 
+<h3>Exercises, one for each EPI chapter</h3>
 <ol>
 <li> Primitive types: write a program that takes as input an integer, N, and prints
 all the integers from 1 to N, replacing numbers divisible by 3 with "fizz", numbers divisible by
@@ -57,7 +62,7 @@ is 5, corresponding to the strings 000, 001, 010, 100, 101.
 <li> Greedy Algorithms and Invariants: Write a program that takes an input a positive integer
 N, and returns the minimum number of coins in the US coinage system to create N cents. For example, if
 N = 37, the answer is 4, corresponding to a quarter, a dime, and two pennies.
-<li> Graphs: Implement Depth First Search and Breadth First Search. (You will need to implment
+<li> Graphs: Implement Depth First Search and Breadth First Search. (You will need to implement
 classes suitable to representing graphs.)
 <li> Parallel Computing: Write a program which uses two threads to print the numbers from
 1 to 100 in order. One thread can only print odd numbers, the other can only print even numbers.
