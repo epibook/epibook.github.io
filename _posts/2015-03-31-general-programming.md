@@ -24,5 +24,5 @@ We have begun the process of collecting representative questions, which you can 
 
 [Languages]({% post_url 2015-02-26-programming-languages %}),
 [Debugging and Testing]({% post_url 2015-02-26-debugging-and-testing %}), 
-[Operating Systems]({% post_url 2015-02-26-os%}), and
+[Operating Systems]({% post_url 2015-02-26-os%}),
 [Tools]({% post_url 2015-02-26-tools%}), 
