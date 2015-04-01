@@ -26,3 +26,6 @@ We have begun the process of collecting representative questions, which you can 
 [Debugging and Testing]({% post_url 2015-03-31-debugging-and-testing %}), 
 [Operating Systems]({% post_url 2015-03-31-os%}),
 [Tools]({% post_url 2015-03-31-tools%}), 
+
+We have also put together a small list of [warm up]({% post_url 2015-04-01-warming-up %}) exercises that are appropriate
+for someone who is a little rusty.
