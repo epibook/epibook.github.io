@@ -14,8 +14,6 @@ js:
 {{ page.title }}
 ================
 
-<h2>General Programming Questions</h2>
-
 Our book is focused on questions that entail writing programs. You may be asked
 questions related to general programming practices, which are conceptual and/or 
 knowledge-based, and do not require writing a program. (The extent to which

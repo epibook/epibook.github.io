@@ -14,8 +14,6 @@ js:
 {{ page.title }}
 ================
 
-<h2>Debugging and Testing</h2>
-
 Debugging and testing are topics which are not usually the focus of university teaching.
 We highly recommend The Practice of Programming by Kernighan and
 Pike, which teaches much more than just writing code. Specifically, it covers testing,

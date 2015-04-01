@@ -33,10 +33,8 @@ memory?
 to memory addresses?
 <li> Give an example of a memory leak in Java.
 <li> What is tail recursion? How can it be removed automatically?
-<li> Is the natural recursive program for computing $n!$ tail recursive?
-<li> Your manager reads an online article that says it is
-$10\times$ faster to code in Python than in C++. He wants you
-to code exclusively in Python from now on. What would you say to him?
+<li> Is the natural recursive program for computing <i>n!</i> tail recursive?
+<li> Your manager reads an online article that says it is 10X faster to code in Python than in C++. He wants you to code exclusively in Python from now on. What would you say to him?
 <li> What does an executable look like as a sequence of bytes?
 </ol>
 
@@ -55,9 +53,8 @@ available as open source. Programmers should know and use these libraries.
 <li>What library would you use in Java if you had to implement a tinyurl service?
 <li>How does STL implement sets?
 <li>How does the library code compute trigonometric functions?
-<li>The strtok(char *s1, char *s2) function in the C standard library successively
-<li>returns occurrences of the characters in s2 in string s1; it returns null
-<li>if there are no more occurrences.  What makes this a dangerous function to use in a multithreaded program?
+<li>The strtok(char *s1, char *s2) function in the C standard library successively returns occurrences of the characters in s2 in string s1; it returns null if there are no more occurrences.  
+<li>What makes this a dangerous function to use in a multithreaded program?
 </ol>
 
 <h3>Programming language implementation</h3>
