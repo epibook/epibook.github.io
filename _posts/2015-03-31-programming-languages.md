@@ -62,7 +62,7 @@ available as open source. Programmers should know and use these libraries.
 
 <h3>Programming language implementation</h3>
 
-
+<ol>
 <li> Give an example of a language which cannot be parsed by any computer.
 <li> What problems does dynamic linkage solve? What problems does it introduce?
 <li> What is a functional language?
