@@ -23,7 +23,7 @@ We have updated EPI to have this integration. The new version should be availabl
 The book will not be available from Amazon till then. (Amazon itself is always the most current version.)
 
 If you have an Ebook, you can always get the latest version for free from <a href="https://play.google.com/store/books/details/Adnan_Aziz_Elements_of_Programming_Interviews?id=y6FLBQAAQBAJ">Google Play</a>. We pushed the integrated version 
-Frida, April 3, 2015 to Google Play, so figure on a few hours to a day for them to update.
+Friday, April 3, 2015 to Google Play, so figure on a few hours to a day for them to update.
 
 Happy Reading,
 The EPI Team
