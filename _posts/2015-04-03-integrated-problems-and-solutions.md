@@ -22,7 +22,7 @@ the links we provide in the PDF between problems and solutions (and also to page
 We have updated EPI to have this integration. The new version should be available by Satuday April 4, 2015.
 The book will not be available till then. 
 
-If you have an Ebook, you can get the updated version for free from Google Play.
+If you have an Ebook, you can get the updated version for free from <a href="https://play.google.com/store/books/details/Adnan_Aziz_Elements_of_Programming_Interviews?id=y6FLBQAAQBAJ">Google Play</a>.
 
 Happy Reading,
 The EPI Team
