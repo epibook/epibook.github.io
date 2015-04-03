@@ -1,5 +1,4 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
-// @author Ivan Sharov
 
 package com.epi;
 
@@ -25,14 +24,8 @@ public class MergeSortedLists {
       current = current.next;
     }
 
-    if (p1 != null) {
-      // Appends the remaining nodes of p1.
-      current.next = p1;
-    }
-    if (p2 != null) {
-      // Appends the remaining nodes of p2.
-      current.next = p2;
-    }
+    // Appends the remaining nodes of p1 or p2.
+    current.next = p1 != null ? p1 : p2;
     return dummyHead.next;
   }
   // @exclude
