@@ -3,14 +3,14 @@ package com.epi;
 import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 import java.util.*;
-import java.util.LinkedList;
+import java.util.Stack;
 
 import static com.epi.BinaryTreeUtils.generatePreOrder;
 
 public class BinaryTreePreorderTraversalIterative {
   // @include
   public static List<Integer> preOrderTraversal(BinaryTreeNode<Integer> tree) {
-    LinkedList<BinaryTreeNode<Integer>> pathStack = new LinkedList<>();
+    Stack<BinaryTreeNode<Integer>> pathStack = new Stack<>();
     pathStack.push(tree);
     List<Integer> result = new ArrayList<>();
     while (!pathStack.isEmpty()) {

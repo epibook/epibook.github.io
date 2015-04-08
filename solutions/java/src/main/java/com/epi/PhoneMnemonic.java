@@ -10,29 +10,29 @@ public class PhoneMnemonic {
   // @include
   public static List<String> phoneMnemonic(String phoneNumber) {
     char[] partialMnemonic = new char[phoneNumber.length()];
-    List<String> mnemonics = new ArrayList<>();
-    phoneMnemonicHelper(phoneNumber, 0, partialMnemonic, mnemonics);
-    return mnemonics;
+    return phoneMnemonicHelper(phoneNumber, 0, partialMnemonic);
   }
 
   // The mapping from digit to corresponding charaters.
   private static final String[] M = new String[]{"0", "1", "ABC", "DEF", "GHI",
       "JKL", "MNO", "PQRS", "TUV", "WXYZ"};
 
-  private static void phoneMnemonicHelper(String phoneNumber, int digit,
-                                          char[] partialMnemonic,
-                                          List<String> mnemonics) {
+  private static List<String> phoneMnemonicHelper(String phoneNumber, int digit,
+                                                  char[] partialMnemonic) {
+    List<String> result = new ArrayList<>();
     if (digit == phoneNumber.length()) {
-      // All digits are processed, so add partialMnemonic to mnemonics. 
-      // (We add a copy since subsequent calls modify partialMnemonic.)
-      mnemonics.add(new String(partialMnemonic));
-    } else {
-      // Try all possible characters for this digit.
-      for (char c : M[phoneNumber.charAt(digit) - '0'].toCharArray()) {
-        partialMnemonic[digit] = c;
-        phoneMnemonicHelper(phoneNumber, digit + 1, partialMnemonic, mnemonics);
-      }
+      // All digits are processed, so return partialMnemonic.
+      result.add(new String(partialMnemonic));
+      return result;
     }
+
+    // Try all possible characters for this digit.
+    for (char c : M[phoneNumber.charAt(digit) - '0'].toCharArray()) {
+      partialMnemonic[digit] = c;
+      result.addAll(phoneMnemonicHelper(phoneNumber, digit + 1,
+                                        partialMnemonic));
+    }
+    return result;
   }
   // @exclude
 

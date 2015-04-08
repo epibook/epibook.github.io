@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -16,27 +16,26 @@ using std::swap;
 using std::uniform_int_distribution;
 using std::vector;
 
-void PermutationsHelper(size_t i, vector<int> *A, vector<vector<int>> *result);
+vector<vector<int>> PermutationsHelper(int i, vector<int> *A);
 
 // @include
 vector<vector<int>> Permutations(vector<int> A) {
-  vector<vector<int>> result;
-  PermutationsHelper(0, &A, &result);
-  return result;
+  return PermutationsHelper(0, &A);
 }
 
-void PermutationsHelper(size_t i, vector<int> *A,
-                        vector<vector<int>> *result) {
+vector<vector<int>> PermutationsHelper(int i, vector<int> *A) {
   if (i == A->size() - 1) {
-    result->emplace_back(*A);
-    return;
+    return {*A};
   }
 
-  for (size_t j = i; j < A->size(); ++j) {
+  vector<vector<int>> result;
+  for (int j = i; j < A->size(); ++j) {
     swap((*A)[i], (*A)[j]);
-    PermutationsHelper(i + 1, A, result);
+    vector<vector<int>> new_result = PermutationsHelper(i + 1, A);
+    result.insert(result.end(), new_result.begin(), new_result.end());
     swap((*A)[i], (*A)[j]);
   }
+  return result;
 }
 // @exclude
 
@@ -50,7 +49,7 @@ void SmallTest() {
   auto result = Permutations(A);
   assert(result.size() == 6);
   vector<vector<int>> golden_result = {{0, 1, 2}, {0, 2, 1}, {1, 0, 2}, {1, 2, 0}, {2, 1, 0}, {2, 0, 1}};
-  for (size_t i = 0; i < 6; ++i) {
+  for (int i = 0; i < 6; ++i) {
     assert(EqualVector(result[i], golden_result[i]));
   }
 }
@@ -58,11 +57,11 @@ void SmallTest() {
 int main(int argc, char** argv) {
   SmallTest();
   default_random_engine gen((random_device())());
-  size_t n;
+  int n;
   if (argc == 2) {
     n = stoul(argv[1]);
   } else {
-    uniform_int_distribution<size_t> dis(1, 10);
+    uniform_int_distribution<int> dis(1, 10);
     n = dis(gen);
   }
   vector<int> A(n);

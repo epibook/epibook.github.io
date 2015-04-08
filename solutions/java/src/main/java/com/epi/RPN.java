@@ -1,11 +1,11 @@
 package com.epi;
 
-import java.util.LinkedList;
+import java.util.Stack;
 
 public class RPN {
   // @include
   public static int eval(String RPNExpression) {
-    LinkedList<Integer> intermediateResults = new LinkedList<>();
+    Stack<Integer> intermediateResults = new Stack<>();
     String delimiter = ",";
     String[] symbols = RPNExpression.split(delimiter);
     for (String token : symbols) {

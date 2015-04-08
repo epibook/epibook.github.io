@@ -21,7 +21,7 @@ vector<int> InvertedPreorderTraversal(const unique_ptr<BinaryTreeNode<int>>&);
 
 // @include
 vector<int> PostorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
-  auto sequence = InvertedPreorderTraversal(tree);
+  vector<int> sequence = InvertedPreorderTraversal(tree);
   reverse(sequence.begin(), sequence.end());
   return sequence;
 }
@@ -32,9 +32,9 @@ vector<int> InvertedPreorderTraversal(
   path_stack.emplace(tree.get());
   vector<int> result;
   while (!path_stack.empty()) {
-    auto curr = path_stack.top();
+    auto* curr = path_stack.top();
     path_stack.pop();
-    if (curr != nullptr) {
+    if (curr == nullptr) {
       continue;
     }
     result.emplace_back(curr->data);
