@@ -54,7 +54,7 @@ bool SolveSudokuHelper(int i, int j, vector<vector<int>>* A) {
   for (int val = 1; val <= A->size(); ++val) {
     // Note: practically, it's substantially quicker to check if entry val
     // conflicts with any of the constraints if we add it at (i,j) before
-    // adding it, rather than adding it and then calling is_valid_Sudoku.
+    // adding it, rather than adding it and then checking all constraints.
     // The reason is that we know we are starting with a valid configuration,
     // and the only entry which can cause a problem is entryval at (i,j).
     if (ValidToAdd(*A, i, j, val)) {

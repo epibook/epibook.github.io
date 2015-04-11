@@ -12,21 +12,26 @@ public class RangeLookupBST {
   // @include
   public static List<Integer> RangeLookupBST(BSTNode<Integer> tree,
                                              Interval interval) {
-    if (tree == null) {
-      return new ArrayList<>();
-    }
+    List<Integer> result = new ArrayList<>();
+    RangeLookupBSTHelper(tree, interval, result);
+    return result;
+  }
 
+  public static void RangeLookupBSTHelper(BSTNode<Integer> tree,
+                                          Interval interval,
+                                          List<Integer> result) {
+    if (tree == null) {
+      return;
+    }
     if (interval.left <= tree.getData() && tree.getData() <= interval.right) {
       // tree.getData() lies in the interval.
-      List<Integer> result = new ArrayList<>();
-      result.addAll(RangeLookupBST(tree.getLeft(), interval));
+      RangeLookupBSTHelper(tree.getLeft(), interval, result);
       result.add(tree.getData());
-      result.addAll(RangeLookupBST(tree.getRight(), interval));
-      return result;
+      RangeLookupBSTHelper(tree.getRight(), interval, result);
     } else if (interval.left > tree.getData()) {
-      return RangeLookupBST(tree.getRight(), interval);
+      RangeLookupBSTHelper(tree.getRight(), interval, result);
     } else { // interval.right >= tree.getData()
-      return RangeLookupBST(tree.getLeft(), interval);
+      RangeLookupBSTHelper(tree.getLeft(), interval, result);
     }
   }
   // @exclude

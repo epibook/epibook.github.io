@@ -32,15 +32,14 @@ vector<unique_ptr<BinaryTreeNode<int>>> GenerateAllBinaryTreesHelper(
   vector<unique_ptr<BinaryTreeNode<int>>> result;
   if (start > end) {
     result.emplace_back(nullptr);
-    return result;
   }
 
   for (int i = start; i <= end; ++i) {
     // Tries all possible combinations of left subtrees and right subtrees.
-    auto left_res = GenerateAllBinaryTreesHelper(start, i - 1),
-         right_res = GenerateAllBinaryTreesHelper(i + 1, end);
-    for (auto& left : left_res) {
-      for (auto& right : right_res) {
+    auto left_subtrees = GenerateAllBinaryTreesHelper(start, i - 1),
+         right_subtrees = GenerateAllBinaryTreesHelper(i + 1, end);
+    for (auto& left : left_subtrees) {
+      for (auto& right : right_subtrees) {
         result.emplace_back(
             new BinaryTreeNode<int>{i, move(left), move(right)});
       }

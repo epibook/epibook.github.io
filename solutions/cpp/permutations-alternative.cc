@@ -1,4 +1,4 @@
-// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -16,26 +16,27 @@ using std::swap;
 using std::uniform_int_distribution;
 using std::vector;
 
-vector<vector<int>> PermutationsHelper(int i, vector<int> *A);
+void PermutationsHelper(int i, vector<int> *A, vector<vector<int>> *result);
 
 // @include
 vector<vector<int>> Permutations(vector<int> A) {
-  return PermutationsHelper(0, &A);
+  vector<vector<int>> result;
+  PermutationsHelper(0, &A, &result);
+  return result;
 }
 
-vector<vector<int>> PermutationsHelper(int i, vector<int> *A) {
+void PermutationsHelper(int i, vector<int> *A,
+                        vector<vector<int>> *result) {
   if (i == A->size() - 1) {
-    return {*A};
+    result->emplace_back(*A);
+    return;
   }
 
-  vector<vector<int>> result;
   for (int j = i; j < A->size(); ++j) {
     swap((*A)[i], (*A)[j]);
-    vector<vector<int>> new_result = PermutationsHelper(i + 1, A);
-    result.insert(result.end(), new_result.begin(), new_result.end());
+    PermutationsHelper(i + 1, A, result);
     swap((*A)[i], (*A)[j]);
   }
-  return result;
 }
 // @exclude
 

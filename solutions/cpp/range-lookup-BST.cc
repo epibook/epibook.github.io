@@ -10,26 +10,33 @@ using std::pair;
 using std::unique_ptr;
 using std::vector;
 
+void RangeLookupInBSTHelper(const unique_ptr<BSTNode<int>>&,
+                            const pair<int, int>&,
+                            vector<int>*);
+
 // @include
 vector<int> RangeLookupInBST(const unique_ptr<BSTNode<int>>& tree,
                              const pair<int, int>& interval) {
-  if (tree == nullptr) {
-    return {};
-  }
+  vector<int> result;
+  RangeLookupInBSTHelper(tree, interval, &result);
+  return result;
+}
 
+void RangeLookupInBSTHelper(const unique_ptr<BSTNode<int>>& tree,
+                            const pair<int, int>& interval,
+                            vector<int>* result) {
+  if (tree == nullptr) {
+    return;
+  }
   if (interval.first <= tree->data && tree->data <= interval.second) {
     // tree->data lies in the interval.
-    vector<int> result;
-    vector<int> left_result = RangeLookupInBST(tree->left, interval);
-    result.insert(result.end(), left_result.begin(), left_result.end());
-    result.emplace_back(tree->data);
-    vector<int> right_result = RangeLookupInBST(tree->right, interval);
-    result.insert(result.end(), right_result.begin(), right_result.end());
-    return result;
+    RangeLookupInBSTHelper(tree->left, interval, result);
+    result->emplace_back(tree->data);
+    RangeLookupInBSTHelper(tree->right, interval, result);
   } else if (interval.first > tree->data) {
-    return RangeLookupInBST(tree->right, interval);
+    RangeLookupInBSTHelper(tree->right, interval, result);
   } else {  // interval.second > tree->data
-    return RangeLookupInBST(tree->left, interval);
+    RangeLookupInBSTHelper(tree->left, interval, result);
   }
 }
 // @exclude

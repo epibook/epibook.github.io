@@ -19,17 +19,16 @@ public class UniqueBinaryTreesAll {
     List<BinaryTreeNode<Integer>> result = new ArrayList<>();
     if (start > end) {
       result.add(null);
-      return result;
     }
 
     for (int i = start; i <= end; ++i) {
       // Tries all possible combinations of left subtrees and right subtrees.
-      List<BinaryTreeNode<Integer>> leftresult =
+      List<BinaryTreeNode<Integer>> leftSubtrees =
           generateAllBinaryTreesHelper(start, i - 1);
-      List<BinaryTreeNode<Integer>> rightresult =
+      List<BinaryTreeNode<Integer>> rightSubtrees =
           generateAllBinaryTreesHelper(i + 1, end);
-      for (BinaryTreeNode<Integer> left : leftresult) {
-        for (BinaryTreeNode<Integer> right : rightresult) {
+      for (BinaryTreeNode<Integer> left : leftSubtrees) {
+        for (BinaryTreeNode<Integer> right : rightSubtrees) {
           result.add(new BinaryTreeNode<>(i, left, right));
         }
       }

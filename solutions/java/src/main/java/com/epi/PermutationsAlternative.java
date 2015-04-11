@@ -7,22 +7,23 @@ import java.util.*;
 public class PermutationsAlternative {
   // @include
   public static List<List<Integer>> permutations(List<Integer> A) {
-    return permutationsHelper(0, A);
+    List<List<Integer>> result = new ArrayList<>();
+    permutationsHelper(0, A, result);
+    return result;
   }
 
-  private static List<List<Integer>> permutationsHelper(int i, List<Integer> A) {
-    List<List<Integer>> result = new ArrayList<>();
+  private static void permutationsHelper(int i, List<Integer> A,
+                                         List<List<Integer>> result) {
     if (i == A.size() - 1) {
       result.add(new ArrayList<>(A));
-      return result;
+      return;
     }
 
     for (int j = i; j < A.size(); ++j) {
       Collections.swap(A, i, j);
-      result.addAll(permutationsHelper(i + 1, A));
+      permutationsHelper(i + 1, A, result);
       Collections.swap(A, i, j);
     }
-    return result;
   }
   // @exclude
 

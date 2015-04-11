@@ -4,9 +4,6 @@ import java.util.Arrays;
 
 import static com.epi.SudokuCheck.isValidSudoku;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class SudokuSolve {
   // @include
   public static boolean solveSudoku(int[][] A) {
@@ -42,7 +39,7 @@ public class SudokuSolve {
     for (int val = 1; val <= A.length; ++val) {
       // Note: practically, it's substantially quicker to check if entry val
       // conflicts with any of the constraints if we add it at (i,j) before
-      // adding it, rather than adding it and then calling isValidSudoku.
+      // adding it, rather than adding it and then checking all constraints.
       // The reason is that we are starting with a valid configuration,
       // and the only entry which can cause a problem is entryval at (i,j).
       if (validToAdd(A, i, j, val)) {
