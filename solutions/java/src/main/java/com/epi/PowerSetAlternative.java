@@ -5,35 +5,41 @@ import java.util.LinkedList;
 
 public class PowerSetAlternative {
   // @include
-  public static List<List<Integer>> generatePowerSet(List<Integer> S) {
+  public static List<List<Integer>> generatePowerSet(List<Integer> inputSet) {
     List<List<Integer>> powerSet = new ArrayList<>();
-    List<Integer> oneSet = new ArrayList<>();
-    generatePowerSetHelper(S, 0, oneSet, powerSet);
+    List<Integer> selectedSoFar = new ArrayList<>();
+    directedPowerSet(inputSet, 0, selectedSoFar, powerSet);
     return powerSet;
   }
 
-  private static void generatePowerSetHelper(List<Integer> S, int idx,
-                                             List<Integer> oneSet,
-                                             List<List<Integer>> powerSet) {
-    powerSet.add(new ArrayList<>(oneSet));
-    for (int i = idx; i < S.size(); ++i) {
-      oneSet.add(S.get(i));
-      generatePowerSetHelper(S, i + 1, oneSet, powerSet);
-      oneSet.remove(oneSet.size() - 1);
+  // Generate all subsets whose intersection with inputSet[0], ..., 
+  // inputSet[toBeSelected - 1] is exactly selectedSoFar.
+  private static void directedPowerSet(List<Integer> inputSet, int toBeSelected,
+                                       List<Integer> selectedSoFar,
+                                       List<List<Integer>> powerSet) {
+    if (toBeSelected == inputSet.size()) {
+      powerSet.add(new ArrayList<>(selectedSoFar));
+      return;
     }
+    // Generate all subsets that contain inputSet[toBeSelected].
+    selectedSoFar.add(inputSet.get(toBeSelected));
+    directedPowerSet(inputSet, toBeSelected + 1, selectedSoFar, powerSet);
+    // Generate all subsets that do not contain inputSet[toBeSelected].
+    selectedSoFar.remove(selectedSoFar.size() - 1);
+    directedPowerSet(inputSet, toBeSelected + 1, selectedSoFar, powerSet);
   }
   // @exclude
 
   private static void simpleTest() {
     List<List<Integer>> goldenResult = Arrays.asList(
-        new ArrayList<Integer>(),
-        Arrays.asList(0),
-        Arrays.asList(0, 1),
         Arrays.asList(0, 1, 2),
+        Arrays.asList(0, 1),
         Arrays.asList(0, 2),
-        Arrays.asList(1),
+        Arrays.asList(0),
         Arrays.asList(1, 2),
-        Arrays.asList(2));
+        Arrays.asList(1),
+        Arrays.asList(2),
+        new ArrayList<Integer>());
     List<List<Integer>> result = generatePowerSet(Arrays.asList(0, 1, 2));
     assert (result.equals(goldenResult));
   }

@@ -19,8 +19,7 @@ vector<int> InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
 
   while (curr != nullptr) {
     BinaryTreeNode<int>* next;
-    if (prev == nullptr || prev->left.get() == curr ||
-        prev->right.get() == curr) {
+    if (curr->parent == prev) {
       // We came down to curr from prev.
       if (curr->left != nullptr) {  // Keep going left.
         next = curr->left.get();

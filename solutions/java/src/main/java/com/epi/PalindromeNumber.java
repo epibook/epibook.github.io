@@ -7,6 +7,8 @@ public class PalindromeNumber {
   public static boolean isPalindrome(int x) {
     if (x < 0) {
       return false;
+    } else if (x == 0) {
+      return true;
     }
 
     final int NUM_DIGITS = (int) (Math.floor(Math.log10(x))) + 1;

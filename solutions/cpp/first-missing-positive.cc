@@ -36,6 +36,7 @@ int CheckAns(vector<int> A) {
 
 
 // @include
+// A is passed by value argument, since we change it.
 int FindFirstMissingPositive(vector<int> A) {
   // Record which values are present by writing A[i] to index A[i] - 1 if A[i]
   // is between 1 and A.size(), inclusive. We save the value at index

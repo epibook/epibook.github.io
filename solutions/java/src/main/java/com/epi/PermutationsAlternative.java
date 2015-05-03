@@ -8,20 +8,22 @@ public class PermutationsAlternative {
   // @include
   public static List<List<Integer>> permutations(List<Integer> A) {
     List<List<Integer>> result = new ArrayList<>();
-    permutationsHelper(0, A, result);
+    directedPermutations(0, A, result);
     return result;
   }
 
-  private static void permutationsHelper(int i, List<Integer> A,
-                                         List<List<Integer>> result) {
+  private static void directedPermutations(int i, List<Integer> A,
+                                           List<List<Integer>> result) {
     if (i == A.size() - 1) {
       result.add(new ArrayList<>(A));
       return;
     }
 
+    // Try every possibility for A[i].
     for (int j = i; j < A.size(); ++j) {
       Collections.swap(A, i, j);
-      permutationsHelper(i + 1, A, result);
+      // Generate all permutations for A[i + 1 : A.size() - 1].
+      directedPermutations(i + 1, A, result);
       Collections.swap(A, i, j);
     }
   }

@@ -16,25 +16,27 @@ using std::swap;
 using std::uniform_int_distribution;
 using std::vector;
 
-void PermutationsHelper(int i, vector<int> *A, vector<vector<int>> *result);
+void DirectedPermutations(int, vector<int>*, vector<vector<int>>*);
 
 // @include
 vector<vector<int>> Permutations(vector<int> A) {
   vector<vector<int>> result;
-  PermutationsHelper(0, &A, &result);
+  DirectedPermutations(0, &A, &result);
   return result;
 }
 
-void PermutationsHelper(int i, vector<int> *A,
-                        vector<vector<int>> *result) {
+void DirectedPermutations(int i, vector<int> *A,
+                          vector<vector<int>> *result) {
   if (i == A->size() - 1) {
     result->emplace_back(*A);
     return;
   }
 
+  // Try every possibility for A[i].
   for (int j = i; j < A->size(); ++j) {
     swap((*A)[i], (*A)[j]);
-    PermutationsHelper(i + 1, A, result);
+    // Generate all permutations for A[i + 1 : A.size() - 1].
+    DirectedPermutations(i + 1, A, result);
     swap((*A)[i], (*A)[j]);
   }
 }

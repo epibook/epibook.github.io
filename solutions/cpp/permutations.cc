@@ -18,6 +18,7 @@ using std::vector;
 // @include
 vector<vector<int>> Permutations(vector<int> A) {
   vector<vector<int>> result;
+  // Generate the first permutation in dictionary order.
   sort(A.begin(), A.end());
   do {
     result.emplace_back(A);

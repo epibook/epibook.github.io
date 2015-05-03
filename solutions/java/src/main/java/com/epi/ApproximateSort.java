@@ -52,18 +52,13 @@ public class ApproximateSort {
   public static void main(String[] args) {
     simpleTest();
     Random r = new Random();
-    int n, k;
+    int n;
     if (args.length == 1) {
       n = Integer.parseInt(args[0]);
-      k = r.nextInt(n) + 1;
-    } else if (args.length == 2) {
-      n = Integer.parseInt(args[0]);
-      k = Integer.parseInt(args[1]);
     } else {
       n = r.nextInt(100000) + 1;
-      k = r.nextInt(n) + 1;
     }
-    System.out.println("n = " + n + " k = " + k);
+    System.out.println("n = " + n);
     List<Integer> A = new ArrayList<>();
     for (int i = 0; i < n; ++i) {
       A.add(r.nextInt(999999) + 1);

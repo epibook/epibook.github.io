@@ -20,6 +20,8 @@ using std::vector;
 bool IsPalindrome(int x) {
   if (x < 0) {
     return false;
+  } else if (x == 0) {
+    return true;
   }
 
   const int kNumDigits = static_cast<int>(floor(log10(x))) + 1;

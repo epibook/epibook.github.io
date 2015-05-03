@@ -35,6 +35,7 @@ int GetTopThreeScoresSum(const multiset<int>& scores);
 
 // @include
 string FindStudentWithHighestBestOfThreeScores(ifstream* ifs) {
+  // Use a multset to handle duplicated test scores.
   unordered_map<string, multiset<int>> student_scores;
   string name;
   int score;

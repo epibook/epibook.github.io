@@ -14,7 +14,7 @@ public class InorderTraversalWithParent {
 
     while (curr != null) {
       BinaryTree<Integer> next;
-      if (prev == null || prev.getLeft() == curr || prev.getRight() == curr) {
+      if (curr.getParent() == prev) {
         // We came down to curr from prev.
         if (curr.getLeft() != null) { // Keep going left.
           next = curr.getLeft();

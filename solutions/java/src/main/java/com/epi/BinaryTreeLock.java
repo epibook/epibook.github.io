@@ -4,8 +4,8 @@ public class BinaryTreeLock {
   // @include
   public static class BinaryTree {
     private BinaryTree left, right, parent;
-    private boolean locked;
-    private int numLockedDescendants;
+    private boolean locked = false;
+    private int numLockedDescendants = 0;
 
     public boolean isLock() {
       return locked;

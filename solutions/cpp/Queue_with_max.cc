@@ -11,6 +11,7 @@ using std::cout;
 using std::endl;
 using std::exception;
 using std::length_error;
+using std::max;
 
 // @include
 class Queue {
@@ -31,7 +32,7 @@ class Queue {
 
   int Max() const {
     if (!A_.Empty()) {
-      return B_.Empty() ? A_.Max() : std::max(A_.Max(), B_.Max());
+      return B_.Empty() ? A_.Max() : max(A_.Max(), B_.Max());
     } else {  // A_.Empty() == true.
       if (!B_.Empty()) {
         return B_.Max();

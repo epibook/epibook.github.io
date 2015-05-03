@@ -15,28 +15,32 @@ using std::stoi;
 using std::uniform_int_distribution;
 using std::vector;
 
-void CombinationsHelper(int n, int k,  int start, vector<int>* ans,
-                        vector<vector<int>>* result);
+void DirectedCombinations(int, int,  int, vector<int>*, vector<vector<int>>*);
 
 // @include
 vector<vector<int>> Combinations(int n, int k) {
   vector<vector<int>> result;
-  vector<int> ans;
-  CombinationsHelper(n, k, 1, &ans, &result);
+  vector<int> partial_combination;
+  DirectedCombinations(n, k, 1, &partial_combination, &result);
   return result;
 }
 
-void CombinationsHelper(int n, int k,  int start, vector<int>* ans,
-                        vector<vector<int>>* result) {
-  if (ans->size() == k) {
-    result->emplace_back(*ans);
+void DirectedCombinations(int n, int k, int offset,
+                          vector<int>* partial_combination,
+                          vector<vector<int>>* result) {
+  if (partial_combination->size() == k) {
+    result->emplace_back(*partial_combination);
     return;
   }
 
-  for (int i = start; i <= n && k - ans->size() <= n - i + 1; ++i) {
-    ans->emplace_back(i);
-    CombinationsHelper(n, k, i + 1, ans, result);
-    ans->pop_back();
+  // Generate remaining combinations over {offset, ..., n - 1} of size
+  // kNumRemaining.
+  const int kNumRemaining = k - partial_combination->size();
+  for (int i = offset; i <= n && kNumRemaining <= n - i - 1;
+       ++i) {
+    partial_combination->emplace_back(i);
+    DirectedCombinations(n, k, i + 1, partial_combination, result);
+    partial_combination->pop_back();
   }
 }
 // @exclude

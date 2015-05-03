@@ -15,40 +15,38 @@ using std::string;
 using std::uniform_int_distribution;
 using std::vector;
 
-bool IsPalindrome(const string& s);
-void PalindromePartitioningHelper(const string& s, size_t begin,
-                                  vector<string>* partition,
-                                  vector<vector<string>>* result);
+bool IsPalindrome(const string&);
+void DirectedPalindromePartitioning(const string&, int, vector<string>*, vector<vector<string>>*);
 
 // @include
-vector<vector<string>> PalindromePartitioning(const string& s) {
+vector<vector<string>> PalindromePartitioning(const string& input) {
   vector<vector<string>> result;
-  vector<string> partition;
-  PalindromePartitioningHelper(s, 0, &partition, &result);
+  vector<string> partial_partition;
+  DirectedPalindromePartitioning(input, 0, &partial_partition, &result);
   return result;
 }
 
-void PalindromePartitioningHelper(const string& s, size_t begin,
-                                  vector<string>* partition,
-                                  vector<vector<string>>* result) {
-  if (begin == s.size()) {
-    result->emplace_back(*partition);
+void DirectedPalindromePartitioning(const string& input, int offset,
+                                    vector<string>* partial_partition,
+                                    vector<vector<string>>* result) {
+  if (offset == input.size()) {
+    result->emplace_back(*partial_partition);
     return;
   }
 
-  for (size_t i = begin + 1; i <= s.size(); ++i) {
-    string prefix = s.substr(begin, i - begin);
+  for (int i = offset + 1; i <= input.size(); ++i) {
+    string prefix = input.substr(offset, i - offset);
     if (IsPalindrome(prefix)) {
-      partition->emplace_back(prefix);
-      PalindromePartitioningHelper(s, i, partition, result);
-      partition->pop_back();
+      partial_partition->emplace_back(prefix);
+      DirectedPalindromePartitioning(input, i, partial_partition, result);
+      partial_partition->pop_back();
     }
   }
 }
 
-bool IsPalindrome(const string& s) {
-  for (int i = 0, j = s.size() - 1; i < j; ++i, --j) {
-    if (s[i] != s[j]) {
+bool IsPalindrome(const string& prefix) {
+  for (int i = 0, j = prefix.size() - 1; i < j; ++i, --j) {
+    if (prefix[i] != prefix[j]) {
       return false;
     }
   }
@@ -81,6 +79,15 @@ string RandString(size_t len) {
 int main(int argc, char** argv) {
   if (argc == 2) {
     string s = argv[1];
+    auto result = PalindromePartitioning(s);
+    CheckAns(result, s);
+    cout << "string s = " << s << endl;
+    for (const auto& vec : result) {
+      for (const auto& t : vec) {
+        cout << t << " ";
+      }
+      cout << endl;
+    }
   } else {
     default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {

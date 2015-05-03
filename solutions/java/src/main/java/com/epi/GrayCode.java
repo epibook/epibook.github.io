@@ -7,32 +7,26 @@ import java.util.Random;
 
 public class GrayCode {
   // @include
-  public static List<Integer> grayCode(int n) {
-    if (n == 0) {
-      return new ArrayList<Integer>() {
-        {
-          add(0);
-        }
-      };
+  public static List<Integer> grayCode(int numBits) {
+    if (numBits == 0) {
+      return Arrays.asList(0);
     }
-    if (n == 1) {
-      return new ArrayList<Integer>() {
-        {
-          add(0);
-          add(1);
-        }
-      };
+    if (numBits == 1) {
+      return Arrays.asList(0, 1);
     }
 
-    List<Integer> prevRes = grayCode(n - 1); // Result prepends 0.
-    // Creates result prepending 1.
-    int leadingBitOne = 1 << (n - 1);
-    List<Integer> result = new ArrayList<>();
-    for (int i = prevRes.size() - 1; i >= 0; --i) {
-      result.add(leadingBitOne + prevRes.get(i));
+    // These implicitly begin with 0.
+    List<Integer> grayCodeNumBitsMinus1 = grayCode(numBits - 1);
+    // Prepend 1 to entries in grayCodeNumBitsMinus1.
+    int leadingBitOne = 1 << (numBits - 1);
+    List<Integer> reflection = new ArrayList<>();
+    // Process in reverse order to achieve reflection of grayCodeNumBitsMinus1.
+    for (int i = grayCodeNumBitsMinus1.size() - 1; i >= 0; --i) {
+      reflection.add(leadingBitOne + grayCodeNumBitsMinus1.get(i));
     }
-    prevRes.addAll(result);
-    return prevRes;
+    List<Integer> result = new ArrayList<>(grayCodeNumBitsMinus1);
+    result.addAll(reflection);
+    return result;
   }
   // @exclude
 
@@ -44,10 +38,10 @@ public class GrayCode {
   }
 
   private static void checkAns(List<Integer> A) {
-    for (int i = 1; i < A.size(); ++i) {
+    for (int i = 0; i < A.size(); ++i) {
       int numDifferBits = 0;
-      String prevS = addZerosTo10(Integer.toBinaryString(A.get(i - 1)));
-      String nowS = addZerosTo10(Integer.toBinaryString(A.get(i)));
+      String prevS = addZerosTo10(Integer.toBinaryString(A.get(i)));
+      String nowS = addZerosTo10(Integer.toBinaryString(A.get((i + 1) % A.size())));
       for (int j = 0; j < 10; ++j) {
         if (prevS.charAt(j) != nowS.charAt(j)) {
           ++numDifferBits;

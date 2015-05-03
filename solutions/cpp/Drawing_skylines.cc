@@ -13,56 +13,61 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-struct Skyline;
-void MergeIntersectSkylines(vector<Skyline>* merged, Skyline* a, int* a_idx,
-                            Skyline* b, int* b_idx);
-vector<Skyline> MergeSkylines(vector<Skyline>* L, vector<Skyline>* R);
-vector<Skyline> DrawingSkylinesHelper(const vector<Skyline>& skylines,
-                                      int start, int end);
+struct Rectangle;
+typedef vector<Rectangle> Skyline;
+void MergeIntersectSkylines(Skyline*, Rectangle*, int*, Rectangle*, int*);
+Skyline MergeSkylines(Skyline*, Skyline*);
+Skyline ComputeSkylineInInterval(const vector<Rectangle>&, int, int);
 
 // @include
-struct Skyline {
+struct Rectangle {
   int left, right, height;
 };
+typedef vector<Rectangle> Skyline;
 
-vector<Skyline> DrawingSkylines(vector<Skyline> skylines) {
-  return DrawingSkylinesHelper(skylines, 0, skylines.size());
+Skyline ComputeSkyline(const vector<Rectangle>& buildings) {
+  return ComputeSkylineInInterval(buildings, 0, buildings.size());
 }
 
-vector<Skyline> DrawingSkylinesHelper(const vector<Skyline>& skylines,
-                                      int start, int end) {
-  if (end - start <= 1) {  // 0 or 1 skyline, just copy it.
-    return {skylines.cbegin() + start, skylines.cbegin() + end};
+Skyline ComputeSkylineInInterval(const vector<Rectangle>& buildings, 
+                                 int left_endpoint, int right_endpoint) {
+  if (right_endpoint - left_endpoint <= 1) {  // 0 or 1 skyline, just copy it.
+    return {buildings.cbegin() + left_endpoint, 
+            buildings.cbegin() + right_endpoint};
   }
-  int mid = start + ((end - start) / 2);
-  auto L = DrawingSkylinesHelper(skylines, start, mid);
-  auto R = DrawingSkylinesHelper(skylines, mid, end);
-  return MergeSkylines(&L, &R);
+  int mid = left_endpoint + ((right_endpoint - left_endpoint) / 2);
+  auto left_skyline = ComputeSkylineInInterval(buildings, left_endpoint, mid);
+  auto right_skyline = ComputeSkylineInInterval(buildings, mid, 
+                                                right_endpoint);
+  return MergeSkylines(&left_skyline, &right_skyline);
 }
 
-vector<Skyline> MergeSkylines(vector<Skyline>* L, vector<Skyline>* R) {
+Skyline MergeSkylines(Skyline* left_skyline, Skyline* right_skyline) {
   int i = 0, j = 0;
-  vector<Skyline> merged;
+  Skyline merged;
 
-  while (i < L->size() && j < R->size()) {
-    if ((*L)[i].right < (*R)[j].left) {
-      merged.emplace_back((*L)[i++]);
-    } else if ((*R)[j].right < (*L)[i].left) {
-      merged.emplace_back((*R)[j++]);
-    } else if ((*L)[i].left <= (*R)[j].left) {
-      MergeIntersectSkylines(&merged, &(*L)[i], &i, &(*R)[j], &j);
-    } else {  // L[i].left > R[j].left.
-      MergeIntersectSkylines(&merged, &(*R)[j], &j, &(*L)[i], &i);
+  while (i < left_skyline->size() && j < right_skyline->size()) {
+    if ((*left_skyline)[i].right < (*right_skyline)[j].left) {
+      merged.emplace_back((*left_skyline)[i++]);
+    } else if ((*right_skyline)[j].right < (*left_skyline)[i].left) {
+      merged.emplace_back((*right_skyline)[j++]);
+    } else if ((*left_skyline)[i].left <= (*right_skyline)[j].left) {
+      MergeIntersectSkylines(&merged, &(*left_skyline)[i], &i,
+                             &(*right_skyline)[j], &j);
+    } else {  // left_skyline[i].left > right_skyline[j].left.
+      MergeIntersectSkylines(&merged, &(*right_skyline)[j], &j, 
+                             &(*left_skyline)[i], &i);
     }
   }
 
-  merged.insert(merged.end(), L->cbegin() + i, L->cend());
-  merged.insert(merged.end(), R->cbegin() + j, R->cend());
+  merged.insert(merged.end(), left_skyline->begin() + i, left_skyline->end());
+  merged.insert(merged.end(), right_skyline->begin() + j, 
+                right_skyline->end());
   return merged;
 }
 
-void MergeIntersectSkylines(vector<Skyline>* merged, Skyline* a, int* a_idx,
-                            Skyline* b, int* b_idx) {
+void MergeIntersectSkylines(Skyline* merged, Rectangle* a, int* a_idx,
+                            Rectangle* b, int* b_idx) {
   if (a->right <= b->right) {
     if (a->height > b->height) {
       if (b->right != a->right) {
@@ -75,7 +80,7 @@ void MergeIntersectSkylines(vector<Skyline>* merged, Skyline* a, int* a_idx,
       b->left = a->left, ++*a_idx;
     } else {  // a->height < b->height.
       if (a->left != b->left) {
-        merged->emplace_back(Skyline{a->left, b->left, a->height});
+        merged->emplace_back(Rectangle{a->left, b->left, a->height});
       }
       ++*a_idx;
     }
@@ -84,7 +89,7 @@ void MergeIntersectSkylines(vector<Skyline>* merged, Skyline* a, int* a_idx,
       ++*b_idx;
     } else {
       if (a->left != b->left) {
-        merged->emplace_back(Skyline{a->left, b->left, a->height});
+        merged->emplace_back(Rectangle{a->left, b->left, a->height});
       }
       a->left = b->right;
       merged->emplace_back(*b), ++*b_idx;
@@ -103,7 +108,7 @@ int main(int argc, char* argv[]) {
       uniform_int_distribution<int> dis(1, 5000);
       n = dis(gen);
     }
-    vector<Skyline> A;
+    vector<Rectangle> A;
     for (int i = 0; i < n; ++i) {
       uniform_int_distribution<int> left_dis(0, 999);
       int left = left_dis(gen);
@@ -111,9 +116,9 @@ int main(int argc, char* argv[]) {
       int right = right_dis(gen);
       uniform_int_distribution<int> height_dis(0, 99);
       int height = height_dis(gen);
-      A.emplace_back(Skyline{left, right, height});
+      A.emplace_back(Rectangle{left, right, height});
     }
-    vector<Skyline> ans = DrawingSkylines(A);
+    Skyline ans = ComputeSkyline(A);
     cout << "n = " << n << endl;
     // Just check there is no overlap.
     for (int i = 0; i < ans.size(); ++i) {

@@ -70,7 +70,7 @@ vector<Star> FindClosestKStars(int k, istringstream *stars) {
   }
 
   // Iteratively extract from the max-heap, which yields the stars
-  // sorted according from closest to furthest.
+  // sorted according from furthest to closest.
   vector<Star> closest_stars(max_heap);
   while (!max_heap.empty()) {
     closest_stars.emplace_back(max_heap.top());

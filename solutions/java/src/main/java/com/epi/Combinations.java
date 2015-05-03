@@ -8,23 +8,26 @@ public class Combinations {
   // @include
   public static List<List<Integer>> combinations(int n, int k) {
     List<List<Integer>> result = new ArrayList<>();
-    List<Integer> ans = new ArrayList<>();
-    combinationsHelper(n, k, 1, ans, result);
+    List<Integer> partialCombination = new ArrayList<>();
+    directedCombinations(n, k, 1, partialCombination, result);
     return result;
   }
 
-  private static void combinationsHelper(int n, int k, int start,
-                                         List<Integer> ans,
-                                         List<List<Integer>> result) {
-    if (ans.size() == k) {
-      result.add(new ArrayList<>(ans));
+  private static void directedCombinations(int n, int k, int offset,
+                                           List<Integer> partialCombination,
+                                           List<List<Integer>> result) {
+    if (partialCombination.size() == k) {
+      result.add(new ArrayList<>(partialCombination));
       return;
     }
 
-    for (int i = start; i <= n && k - ans.size() <= n - i + 1; ++i) {
-      ans.add(i);
-      combinationsHelper(n, k, i + 1, ans, result);
-      ans.remove(ans.size() - 1);
+    // Generate remaining combinations over {offset, ..., n - 1} of size
+    // kNumRemaining.
+    final int NUM_REMAINING = k - partialCombination.size();
+    for (int i = offset; i <= n && NUM_REMAINING <= n - i + 1; ++i) {
+      partialCombination.add(i);
+      directedCombinations(n, k, i + 1, partialCombination, result);
+      partialCombination.remove(partialCombination.size() - 1);
     }
   }
   // @exclude

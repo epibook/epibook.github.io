@@ -4,16 +4,15 @@ package com.epi;
 
 import java.util.*;
 
-import static com.epi.NextPermutation.nextPermutation;
-
 public class Permutations {
   // @include
   public static List<List<Integer>> permutations(List<Integer> A) {
     List<List<Integer>> result = new ArrayList<>();
+    // Generate the first permutation in dictionary order.
     Collections.sort(A);
     do {
       result.add(new ArrayList<>(A));
-      A = nextPermutation(A);
+      A = NextPermutation.nextPermutation(A);
     } while (!A.isEmpty());
     return result;
   }

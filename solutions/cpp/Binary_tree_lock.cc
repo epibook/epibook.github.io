@@ -55,8 +55,8 @@ class BinaryTreeNode {
  private:
   shared_ptr<BinaryTreeNode> left_, right_, parent_;
 
-  bool locked_;
-  int numLockedDescendants_;
+  bool locked_ = false;
+  int numLockedDescendants_ = 0;
 };
 // @exclude
 

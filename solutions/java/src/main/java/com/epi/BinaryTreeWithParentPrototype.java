@@ -1,8 +1,5 @@
 package com.epi;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BinaryTreeWithParentPrototype {
   public static class BinaryTree<T> {
     private T data;

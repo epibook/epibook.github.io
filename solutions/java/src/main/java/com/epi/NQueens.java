@@ -7,48 +7,53 @@ import java.util.Random;
 
 public class NQueens {
   // @include
-  public static List<List<String>> nQueens(int n) {
-    int[] placement = new int[n];
-    List<List<String>> result = new ArrayList<>();
-    nQueensHelper(n, 0, placement, result);
+  public static List<List<Integer>> nQueens(int n) {
+    List<Integer> placement = new ArrayList<>();
+    List<List<Integer>> result = new ArrayList<>();
+    solveNQueens(n, 0, placement, result);
     return result;
   }
 
-  private static void nQueensHelper(int n, int row, int[] colPlacement,
-                                    List<List<String>> result) {
+  private static void solveNQueens(int n, int row, List<Integer> colPlacement,
+                                   List<List<Integer>> result) {
     if (row == n) {
-      result.add(createOutput(colPlacement));
+      // All queens are legally placed.
+      result.add(new ArrayList<>(colPlacement));
     } else {
       for (int col = 0; col < n; ++col) {
-        colPlacement[row] = col;
-        if (isFeasible(colPlacement, row)) {
-          nQueensHelper(n, row + 1, colPlacement, result);
+        colPlacement.add(col);
+        if (isValid(colPlacement)) {
+          solveNQueens(n, row + 1, colPlacement, result);
         }
+        colPlacement.remove(colPlacement.size() - 1);
       }
     }
   }
 
-  private static List<String> createOutput(int[] colPlacement) {
-    List<String> sol = new ArrayList<>();
-    for (int aColPlacement : colPlacement) {
-      char[] line = new char[colPlacement.length];
-      Arrays.fill(line, '.');
-      line[aColPlacement] = 'Q';
-      sol.add(new String(line));
-    }
-    return sol;
-  }
-
-  private static boolean isFeasible(int[] colPlacement, int row) {
-    for (int i = 0; i < row; ++i) {
-      int diff = Math.abs(colPlacement[i] - colPlacement[row]);
-      if (diff == 0 || diff == row - i) {
+  // Test if a newly placed queen on rowID will conflict any earlier queens
+  // placed before.
+  private static boolean isValid(List<Integer> colPlacement) {
+    int rowID = colPlacement.size() - 1;
+    for (int i = 0; i < rowID; ++i) {
+      int diff = Math.abs(colPlacement.get(i) - colPlacement.get(rowID));
+      if (diff == 0 || diff == rowID - i) {
         return false;
       }
     }
     return true;
   }
   // @exclude
+
+  private static List<String> toTextRepresentation(List<Integer> colPlacement) {
+    List<String> sol = new ArrayList<>();
+    for (int aColPlacement : colPlacement) {
+      char[] line = new char[colPlacement.size()];
+      Arrays.fill(line, '.');
+      line[aColPlacement] = 'Q';
+      sol.add(new String(line));
+    }
+    return sol;
+  }
 
   public static void main(String[] args) {
     Random r = new Random();
@@ -59,9 +64,10 @@ public class NQueens {
       n = r.nextInt(15) + 1;
     }
     System.out.println("n = " + n);
-    List<List<String>> result = nQueens(n);
-    for (List<String> vec : result) {
-      for (String s : vec) {
+    List<List<Integer>> result = nQueens(n);
+    for (List<Integer> vec : result) {
+      List<String> textRep = toTextRepresentation(vec);
+      for (String s : textRep) {
         System.out.println(s);
       }
       System.out.println();

@@ -3,144 +3,123 @@
 #include <cassert>
 #include <iostream>
 #include <numeric>
-#include <random>
+#include <stack>
 #include <string>
 #include <vector>
 
 using std::cout;
-using std::default_random_engine;
 using std::endl;
-using std::random_device;
+using std::stack;
 using std::string;
-using std::uniform_int_distribution;
 using std::vector;
 
-bool ExpressionSynthesisHelper(const vector<int>& A, int k, int cur, int level,
-                               vector<int>* operand_list,
-                               vector<char>* operator_list);
-int RemainingInt(const vector<int>& A, int idx);
-int Evaluate(vector<int> operand_list, const vector<char>& operator_list);
-
-vector<int> operand_result;
-vector<char> operator_result;
+bool DirectedExpressionSynthesis(const vector<int>&, int, int, int, vector<int>*, vector<char>*);
+int RemainingInt(const vector<int>&, int);
+int Evaluate(const vector<int>&, const vector<char>&);
 
 // @include
-void ExpressionSynthesis(const vector<int>& A, int k) {
-  vector<char> operator_list;
-  vector<int> operand_list;
-  if (!ExpressionSynthesisHelper(A, k, 0, 0, &operand_list, &operator_list)) {
-    cout << "no answer" << endl;
-  }
+bool ExpressionSynthesis(const vector<int>& digits, int target) {
+  vector<char> operators;
+  vector<int> operands;
+  return DirectedExpressionSynthesis(digits, target, 0, 0, &operands, 
+                                     &operators);
 }
 
-bool ExpressionSynthesisHelper(const vector<int>& A, int k, int cur,
-                               int level, vector<int>* operand_list,
-                               vector<char>* operator_list) {
-  cur = cur * 10 + A[level];
-  if (level == A.size() - 1) {
-    operand_list->emplace_back(cur);
-    if (Evaluate(*operand_list, *operator_list) == k) {  // Found a match.
+bool DirectedExpressionSynthesis(
+    const vector<int>& digits, int target, int current_term, int offset, 
+    vector<int>* operands, vector<char>* operators) {
+  current_term = current_term * 10 + digits[offset];
+  if (offset == digits.size() - 1) {
+    operands->emplace_back(current_term);
+    if (Evaluate(*operands, *operators) == target) {  // Found a match.
       // @exclude
-      operand_result = *operand_list, operator_result = *operator_list;
-      // @include
-      auto operand_it = operand_list->cbegin();
+      auto operand_it = operands->cbegin();
       cout << *operand_it++;
-      for (const char& oper : *operator_list) {
+      for (const char& oper : *operators) {
         cout << ' ' << oper << ' ' << *operand_it++;
       }
-      cout << " = " << k << endl;
+      cout << " = " << target << endl;
+      // @include
       return true;
     }
-    operand_list->pop_back();
-  } else {
-    // No operator.
-    if (ExpressionSynthesisHelper(A, k, cur, level + 1, operand_list,
-                                  operator_list)) {
-      return true;
-    }
+    operands->pop_back();
+    return false;
+  } 
 
-    // Adds operator '+'.
-    operand_list->emplace_back(cur);
-    if (k - Evaluate(*operand_list, *operator_list) <=
-        RemainingInt(A, level + 1)) {  // Pruning.
-      operator_list->emplace_back('+');
-      if (ExpressionSynthesisHelper(A, k, 0, level + 1, operand_list,
-                                    operator_list)) {
-        return true;
-      }
-      operator_list->pop_back();
-    }
-    operand_list->pop_back();
-
-    // Adds operator '*'.
-    operand_list->emplace_back(cur), operator_list->emplace_back('*');
-    if (ExpressionSynthesisHelper(A, k, 0, level + 1, operand_list,
-                                  operator_list)) {
-      return true;
-    }
-    operand_list->pop_back(), operator_list->pop_back();
+  // No operator.
+  if (DirectedExpressionSynthesis(digits, target, current_term, offset + 1, 
+                                  operands, operators)) {
+    return true;
   }
+  // Adds operator '*'.
+  operands->emplace_back(current_term), operators->emplace_back('*');
+  if (DirectedExpressionSynthesis(digits, target, 0, offset + 1, operands,
+      operators)) {
+    return true;
+  }
+  operands->pop_back(), operators->pop_back();
+  // Adds operator '+'.
+  operands->emplace_back(current_term);
+  // First check feasibility of plus operator.
+  if (target - Evaluate(*operands, *operators) <=
+      RemainingInt(digits, offset + 1)) {
+    operators->emplace_back('+');
+    if (DirectedExpressionSynthesis(digits, target, 0, offset + 1, operands, 
+        operators)) {
+      return true;
+    }
+    operators->pop_back();
+  }
+  operands->pop_back();
   return false;
 }
 
-// Calculates the int represented by A[idx:].
-int RemainingInt(const vector<int>& A, int idx) {
+// Calculates the int represented by digits[idx : digits.size() - 1].
+int RemainingInt(const vector<int>& digits, int idx) {
   int val = 0;
-  for (size_t i = idx; i < A.size(); ++i) {
-    val = val * 10 + A[idx];
+  for (int i = idx; i < digits.size(); ++i) {
+    val = val * 10 + digits[idx];
   }
   return val;
 }
 
-int Evaluate(vector<int> operand_list, const vector<char>& operator_list) {
+int Evaluate(const vector<int>& operands, const vector<char>& operators) {
+  stack<int> intermediate_operands;
+  int operand_idx = 0;
+  intermediate_operands.push(operands[operand_idx++]);
   // Evaluates '*' first.
-  auto operand_it = operand_list.begin();
-  for (const char& oper : operator_list) {
+  for (char oper : operators) {
     if (oper == '*') {
-      int product = *operand_it;
-      operand_it = operand_list.erase(operand_it);
-      product *= *operand_it;
-      *operand_it = product;
-    } else {
-      ++operand_it;
+      int product = intermediate_operands.top() * operands[operand_idx++];
+      intermediate_operands.pop();
+      intermediate_operands.push(product);
+    } else {  // oper == '+'.
+      intermediate_operands.push(operands[operand_idx++]);
     }
   }
 
   // Evaluates '+' second.
-  return accumulate(operand_list.cbegin(), operand_list.cend(), 0);
+  int sum = 0;
+  while (!intermediate_operands.empty()) {
+    sum += intermediate_operands.top();
+    intermediate_operands.pop();
+  }
+  return sum;
 }
 // @exclude
 
-void SmallTest() {
-  vector<int> A = {1, 2, 3, 2, 5, 3, 7, 8, 5, 9};
-  int k = 995;
-  ExpressionSynthesis(A, k);
-  vector<int> golden_operand_result = {123, 2, 5, 3, 7, 85, 9};
-  assert(golden_operand_result.size() == operand_result.size());
-  assert(equal(operand_result.begin(), operand_result.end(),
-               golden_operand_result.begin()));
-  vector<char> golden_operator_result = {'+', '+', '*', '*', '+', '*'};
-  assert(golden_operator_result.size() == operator_result.size());
-  assert(equal(operator_result.begin(), operator_result.end(),
-               golden_operator_result.begin()));
-}
-
 int main(int argc, char* argv[]) {
-  SmallTest();
-  default_random_engine gen((random_device())());
-  vector<int> A;
-  for (size_t i = 0; i < 10; ++i) {
-    uniform_int_distribution<int> A_dis(0, 9);
-    A.emplace_back(A_dis(gen));
-  }
-  int k;
-  uniform_int_distribution<int> k_dis(0, 999);
-  k = k_dis(gen);
-  cout << "A = ";
-  for (size_t i = 0; i < A.size(); ++i) {
-    cout << A[i];
-  }
-  cout << ", k = " << k << endl;
-  ExpressionSynthesis(A, k);
+  vector<int> A = {2, 3, 4};
+  int k = 4;
+  assert(!ExpressionSynthesis(A, k));
+  A = {1, 2, 3, 4};
+  k = 11;
+  assert(ExpressionSynthesis(A, k));
+  A = {1, 2, 3, 2, 5, 3, 7, 8, 5, 9};
+  k = 995;
+  assert(ExpressionSynthesis(A, k));
+  A = {5, 2, 3, 4, 1};
+  k = 20;
+  assert(ExpressionSynthesis(A, k));
   return 0;
 }

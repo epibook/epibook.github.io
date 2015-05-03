@@ -66,15 +66,15 @@ int main(int argc, char* argv[]) {
     int pivot = A[pivot_index];
     DutchFlagPartition(pivot_index, &A);
     int i = 0;
-    while (A[i] < pivot && i < A.size()) {
+    while (i < A.size() && A[i] < pivot) {
       cout << A[i] << ' ';
       ++i;
     }
-    while (A[i] == pivot && i < A.size()) {
+    while (i < A.size() && A[i] < pivot) {
       cout << A[i] << ' ';
       ++i;
     }
-    while (A[i] > pivot && i < A.size()) {
+    while (i < A.size() && A[i] < pivot) {
       cout << A[i] << ' ';
       ++i;
     }

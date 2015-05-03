@@ -4,30 +4,32 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.Stack;
 
 public class TowerHanoi {
   // @include
-  public static void moveTowerHanoi(int n) {
-    List<LinkedList<Integer>> pegs = new ArrayList<>();
-    for (int i = 0; i < 3; i++) {
-      pegs.add(new LinkedList<Integer>());
-    }
+  private static final int NUM_PEGS = 3;
 
+  public static void computeTowerHanoi(int numRings) {
+    List<Stack<Integer>> pegs = new ArrayList<>();
+    for (int i = 0; i < NUM_PEGS; i++) {
+      pegs.add(new Stack<Integer>());
+    }
     // Initialize pegs.
-    for (int i = n; i >= 1; --i) {
+    for (int i = numRings; i >= 1; --i) {
       pegs.get(0).push(i);
     }
 
-    transfer(n, pegs, 0, 1, 2);
+    computeTowerHanoiSteps(numRings, pegs, 0, 1, 2);
   }
 
-  private static void transfer(int n, List<LinkedList<Integer>> pegs,
-                               int from, int to, int use) {
-    if (n > 0) {
-      transfer(n - 1, pegs, from, use, to);
-      pegs.get(to).push(pegs.get(from).pop());
-      System.out.println("Move from peg " + from + " to peg " + to);
-      transfer(n - 1, pegs, use, to, from);
+  private static void computeTowerHanoiSteps(int numRingsToMove, 
+      List<Stack<Integer>> pegs, int fromPeg, int toPeg, int usePeg) {
+    if (numRingsToMove > 0) {
+      computeTowerHanoiSteps(numRingsToMove - 1, pegs, fromPeg, usePeg, toPeg);
+      pegs.get(toPeg).push(pegs.get(fromPeg).pop());
+      System.out.println("Move from peg " + fromPeg + " to peg " + toPeg);
+      computeTowerHanoiSteps(numRingsToMove - 1, pegs, usePeg, toPeg, fromPeg);
     }
   }
   // @exclude
@@ -41,6 +43,6 @@ public class TowerHanoi {
       n = r.nextInt(10) + 1;
     }
     System.out.println("n = " + n);
-    moveTowerHanoi(n);
+    computeTowerHanoi(n);
   }
 }
