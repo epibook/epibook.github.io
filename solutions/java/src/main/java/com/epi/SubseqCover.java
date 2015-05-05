@@ -37,6 +37,7 @@ class SubseqCover {
       keywordToIdx.put(keywords[i], i);
     }
 
+    int shortestDistance = Integer.MAX_VALUE;
     Pair<Integer, Integer> result = new Pair<>(-1, -1);
     for (int i = 0; i < paragraph.length; ++i) {
       Integer keywordIdx = keywordToIdx.get(paragraph[i]);
@@ -52,9 +53,12 @@ class SubseqCover {
         }
         latestOccurrence[keywordIdx] = i;
 
+        // Last keyword, look for improved subarray.
         if (keywordIdx == keywords.length - 1
             && shortestSubarrayLength[shortestSubarrayLength.length - 1]
-                < result.getSecond() - result.getFirst() + 1) {
+                < shortestDistance) {
+          shortestDistance =
+              shortestSubarrayLength[shortestSubarrayLength.length - 1];
           result.setFirst(
               i - shortestSubarrayLength[shortestSubarrayLength.length - 1]
               + 1);
