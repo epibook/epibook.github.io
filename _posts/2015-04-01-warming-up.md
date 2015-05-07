@@ -69,3 +69,17 @@ classes suitable to representing graphs.)
 1 to 100 in order. One thread can only print odd numbers, the other can only print even numbers.
 </ol>
 
+Discource <a href="http://talk.elementsofprogramminginterviews.com/t/discussion-around-the-warming-up-blog-post/217">discussion</a> around this article.
+
+<div id="discourse-comments"></div>
+
+<script type="text/javascript">
+  var discourseUrl = "http://fishtank.eviltrout.com/",
+      discourseEmbedUrl = 'http://talk.elementsofprogramminginterviews.com/t/discussion-around-the-warming-up-blog-post/217';
+
+  (function() {
+    var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+      d.src = discourseUrl + 'javascripts/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+  })();
+</script>
