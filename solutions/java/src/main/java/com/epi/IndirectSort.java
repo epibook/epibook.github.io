@@ -8,8 +8,8 @@ import java.util.*;
 
 import static com.epi.utils.Utils.close;
 
-// @include
 class IndirectSort {
+  // @include
   public static void indirectSort(String fileName) throws Exception {
     // Stores file records into A.
     Scanner ifs = null;
@@ -37,6 +37,7 @@ class IndirectSort {
       close(ofs);
     }
   }
+  // @exclude
 
   public static <T extends Comparable<T>> boolean isSorted(
       Iterable<T> iterable) {
@@ -54,7 +55,6 @@ class IndirectSort {
     }
     return true;
   }
-  // @exclude
 
   public static void main(String[] args) throws Exception {
     Random rnd = new Random();
@@ -98,5 +98,4 @@ class IndirectSort {
       input.delete();
     }
   }
-  // @include
 }

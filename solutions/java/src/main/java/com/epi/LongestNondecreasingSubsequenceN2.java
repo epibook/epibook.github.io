@@ -3,9 +3,6 @@ package com.epi;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class LongestNondecreasingSubsequenceN2 {
   // @include
   public static List<Integer> longestNondecreasingSubsequence(List<Integer> A) {

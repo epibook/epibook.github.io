@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class LongestNondecreasingSubsequenceNlogn {
   // @include
   public static int longestNondecreasingSubsequence(List<Integer> A) {
