@@ -59,7 +59,7 @@ public class MatrixSearch {
         }
       }
       int x = r.nextInt(1000);
-      assert (bruteForceSearch(A, x) == matrixSearch(A, x));
+      assert(bruteForceSearch(A, x) == matrixSearch(A, x));
     }
   }
 }

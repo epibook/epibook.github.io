@@ -9,12 +9,10 @@ public class StackWithMaxImproved {
   public static class Stack {
     private LinkedList<Integer> element = new LinkedList<>();
     // Stores (maximum value, count) pair.
-    private LinkedList<Pair<Integer, Integer>> cachedMaxWithCount = 
+    private LinkedList<Pair<Integer, Integer>> cachedMaxWithCount =
         new LinkedList<>();
 
-    public boolean empty() {
-      return element.isEmpty();
-    }
+    public boolean empty() { return element.isEmpty(); }
 
     public Integer max() {
       if (!empty()) {
@@ -58,20 +56,20 @@ public class StackWithMaxImproved {
     Stack s = new Stack();
     s.push(1);
     s.push(2);
-    assert (s.max() == 2);
+    assert(s.max() == 2);
     System.out.println(s.max()); // 2
     System.out.println(s.pop()); // 2
-    assert (s.max() == 1);
+    assert(s.max() == 1);
     System.out.println(s.max()); // 1
     s.push(3);
     s.push(2);
-    assert (s.max() == 3);
+    assert(s.max() == 3);
     System.out.println(s.max()); // 3
     s.pop();
-    assert (s.max() == 3);
+    assert(s.max() == 3);
     System.out.println(s.max()); // 3
     s.pop();
-    assert (s.max() == 1);
+    assert(s.max() == 1);
     System.out.println(s.max()); // 1
     s.pop();
     try {

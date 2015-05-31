@@ -14,7 +14,7 @@ using std::random_device;
 using std::uniform_real_distribution;
 
 // @include
-typedef enum {SMALLER, EQUAL, LARGER} Ordering;
+typedef enum { SMALLER, EQUAL, LARGER } Ordering;
 
 // @exclude
 Ordering Compare(double a, double b);

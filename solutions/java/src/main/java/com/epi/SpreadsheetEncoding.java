@@ -7,7 +7,7 @@ public class SpreadsheetEncoding {
     Random r = new Random();
     StringBuilder ret = new StringBuilder();
     while (len-- != 0) {
-      ret.append((char) (r.nextInt('Z' - 'A' + 1) + 'A'));
+      ret.append((char)(r.nextInt('Z' - 'A' + 1) + 'A'));
     }
     return ret.toString();
   }
@@ -23,8 +23,8 @@ public class SpreadsheetEncoding {
   // @exclude
 
   private static void simpleTest() {
-    assert (1 == ssDecodeColID("A"));
-    assert (27 == ssDecodeColID("AA"));
+    assert(1 == ssDecodeColID("A"));
+    assert(27 == ssDecodeColID("AA"));
   }
 
   public static void main(String[] args) {

@@ -11,8 +11,7 @@ using std::unique_ptr;
 using std::vector;
 
 void RangeLookupInBSTHelper(const unique_ptr<BSTNode<int>>&,
-                            const pair<int, int>&,
-                            vector<int>*);
+                            const pair<int, int>&, vector<int>*);
 
 // @include
 vector<int> RangeLookupInBST(const unique_ptr<BSTNode<int>>& tree,
@@ -53,20 +52,25 @@ int main(int argc, char* argv[]) {
   // 2  5    17   37    53
   //        13  29  41
   //             31
-  unique_ptr<BSTNode<int>> tree = unique_ptr<BSTNode<int>>(new BSTNode<int>{19});
+  unique_ptr<BSTNode<int>> tree =
+      unique_ptr<BSTNode<int>>(new BSTNode<int>{19});
   tree->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{7});
   tree->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
   tree->left->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
   tree->left->left->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
   tree->left->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{11});
   tree->left->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{17});
-  tree->left->right->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{13});
+  tree->left->right->right->left =
+      unique_ptr<BSTNode<int>>(new BSTNode<int>{13});
   tree->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{43});
   tree->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{23});
   tree->right->left->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{37});
-  tree->right->left->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{29});
-  tree->right->left->right->left->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{31});
-  tree->right->left->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{41});
+  tree->right->left->right->left =
+      unique_ptr<BSTNode<int>>(new BSTNode<int>{29});
+  tree->right->left->right->left->right =
+      unique_ptr<BSTNode<int>>(new BSTNode<int>{31});
+  tree->right->left->right->right =
+      unique_ptr<BSTNode<int>>(new BSTNode<int>{41});
   tree->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{47});
   tree->right->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{53});
   auto result = RangeLookupInBST(tree, {16, 31});

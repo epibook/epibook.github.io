@@ -36,7 +36,7 @@ shared_ptr<ListNode<int>> AddTwoNumbers(shared_ptr<ListNode<int>> L1,
   }
   // carry cannot exceed 1, so we at most need to add one more node.
   if (carry) {
-    place_iter->next = 
+    place_iter->next =
         make_shared<ListNode<int>>(ListNode<int>{carry, nullptr});
   }
   return dummy_head->next;
@@ -55,8 +55,8 @@ int main(int argc, char* argv[]) {
   auto S = AddTwoNumbers(L, R);
   assert(S->data == 7 && S->next->data == 0 && S->next->next->data == 1 &&
          S->next->next->next->data == 1);
-  L = make_shared<ListNode<int>>(ListNode<int>{
-      9, make_shared<ListNode<int>>(ListNode<int>{9, nullptr})});
+  L = make_shared<ListNode<int>>(
+      ListNode<int>{9, make_shared<ListNode<int>>(ListNode<int>{9, nullptr})});
   R = make_shared<ListNode<int>>(ListNode<int>{9, nullptr});
   S = AddTwoNumbers(L, R);
   assert(S->data == 8 && S->next->data == 0 && S->next->next->data == 1);

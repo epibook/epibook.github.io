@@ -18,8 +18,7 @@ bool GreedyAssignment(const vector<int>& user_file_size, int server_num,
 // @include
 vector<int> DecideLoadBalancing(vector<int> user_file_size, int server_num) {
   // Uses binary search to find the assignment with minimized maximum load.
-  int l = 0,
-      r = accumulate(user_file_size.cbegin(), user_file_size.cend(), 0);
+  int l = 0, r = accumulate(user_file_size.cbegin(), user_file_size.cend(), 0);
   vector<int> feasible_assignment;
   while (l <= r) {
     int m = l + ((r - l) / 2);

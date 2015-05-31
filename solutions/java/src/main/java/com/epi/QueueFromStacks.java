@@ -8,9 +8,7 @@ public class QueueFromStacks {
     private LinkedList<Integer> a = new LinkedList<>();
     private LinkedList<Integer> b = new LinkedList<>();
 
-    public void enqueue(Integer x) {
-      a.push(x);
-    }
+    public void enqueue(Integer x) { a.push(x); }
 
     public Integer dequeue() {
       if (b.isEmpty()) {
@@ -30,7 +28,7 @@ public class QueueFromStacks {
 
   private static void assertDequeue(Queue q, Integer t) {
     Integer dequeue = q.dequeue();
-    assert (t.equals(dequeue));
+    assert(t.equals(dequeue));
   }
 
   public static void main(String[] args) {

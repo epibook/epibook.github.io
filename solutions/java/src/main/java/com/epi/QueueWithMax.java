@@ -10,9 +10,7 @@ public class QueueWithMax {
     private LinkedList<Integer> a = new LinkedList<>();
     private LinkedList<Integer> b = new LinkedList<>();
 
-    public void enqueue(Integer x) {
-      a.push(x);
-    }
+    public void enqueue(Integer x) { a.push(x); }
 
     public Integer dequeue() {
       if (b.isEmpty()) {
@@ -28,8 +26,9 @@ public class QueueWithMax {
 
     public Integer max() {
       if (!a.isEmpty()) {
-        return b.isEmpty() ? Collections.max(a) : Collections.max(Arrays
-            .asList(Collections.max(a), Collections.max(b)));
+        return b.isEmpty() ? Collections.max(a)
+                           : Collections.max(Arrays.asList(Collections.max(a),
+                                                           Collections.max(b)));
       } else { // A_.empty() == true.
         if (!b.isEmpty()) {
           return Collections.max(b);
@@ -42,19 +41,19 @@ public class QueueWithMax {
 
   private static void assertDequeue(Queue q, Integer t) {
     Integer dequeue = q.dequeue();
-    assert (t.equals(dequeue));
+    assert(t.equals(dequeue));
   }
 
   public static void main(String[] args) {
     Queue Q = new Queue();
     Q.enqueue(1);
     Q.enqueue(2);
-    assert (2 == Q.max());
+    assert(2 == Q.max());
     assertDequeue(Q, 1);
-    assert (2 == Q.max());
+    assert(2 == Q.max());
     assertDequeue(Q, 2);
     Q.enqueue(3);
-    assert (3 == Q.max());
+    assert(3 == Q.max());
     assertDequeue(Q, 3);
     try {
       Q.max();

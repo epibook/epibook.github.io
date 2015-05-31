@@ -18,8 +18,10 @@ void RotateMatrix(vector<vector<int>>* A) {
     for (int j = i; j < A_ref.size() - i - 1; ++j) {
       int temp = A_ref[i][j];
       A_ref[i][j] = A_ref[A_ref.size() - 1 - j][i];
-      A_ref[A_ref.size() - 1 - j][i] = A_ref[A_ref.size() - 1 - i][A_ref.size() - 1 - j];
-      A_ref[A_ref.size() - 1 - i][A_ref.size() - 1 - j] = A_ref[j][A_ref.size() - 1 - i];
+      A_ref[A_ref.size() - 1 - j][i] =
+          A_ref[A_ref.size() - 1 - i][A_ref.size() - 1 - j];
+      A_ref[A_ref.size() - 1 - i][A_ref.size() - 1 - j] =
+          A_ref[j][A_ref.size() - 1 - i];
       A_ref[j][A_ref.size() - 1 - i] = temp;
     }
   }

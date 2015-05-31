@@ -25,8 +25,7 @@ list<const unique_ptr<BinaryTreeNode<int>>*> ExteriorBinaryTree(
   if (tree != nullptr) {
     exterior.emplace_back(&tree);
     exterior.splice(exterior.end(), LeftBoundaryAndLeaves(tree->left, true));
-    exterior.splice(exterior.end(),
-                    RightBoundaryAndLeaves(tree->right, true));
+    exterior.splice(exterior.end(), RightBoundaryAndLeaves(tree->right, true));
   }
   return exterior;
 }
@@ -42,10 +41,9 @@ list<const unique_ptr<BinaryTreeNode<int>>*> LeftBoundaryAndLeaves(
     }
     result.splice(result.end(),
                   LeftBoundaryAndLeaves(subtree->left, is_boundary));
-    result.splice(
-        result.end(),
-        LeftBoundaryAndLeaves(subtree->right,
-                              is_boundary && subtree->left == nullptr));
+    result.splice(result.end(),
+                  LeftBoundaryAndLeaves(
+                      subtree->right, is_boundary && subtree->left == nullptr));
   }
   return result;
 }
@@ -56,10 +54,9 @@ list<const unique_ptr<BinaryTreeNode<int>>*> RightBoundaryAndLeaves(
     const unique_ptr<BinaryTreeNode<int>>& subtree, bool is_boundary) {
   list<const unique_ptr<BinaryTreeNode<int>>*> result;
   if (subtree != nullptr) {
-    result.splice(
-        result.end(),
-        RightBoundaryAndLeaves(subtree->left,
-                               is_boundary && subtree->right == nullptr));
+    result.splice(result.end(),
+                  RightBoundaryAndLeaves(
+                      subtree->left, is_boundary && subtree->right == nullptr));
     result.splice(result.end(),
                   RightBoundaryAndLeaves(subtree->right, is_boundary));
     if (is_boundary || IsLeaf(subtree)) {

@@ -26,7 +26,7 @@ public class KLargestElementsBinaryHeap {
 
     // Stores the (index, value)-pair in candidateMaxHeap. This heap is
     // ordered by value field.
-    PriorityQueue<Pair<Integer, Integer>> candidateMaxHeap = 
+    PriorityQueue<Pair<Integer, Integer>> candidateMaxHeap =
         new PriorityQueue<>(11, new Compare());
     candidateMaxHeap.add(new Pair<>(0, A[0]));
     List<Integer> result = new ArrayList<>();
@@ -48,17 +48,17 @@ public class KLargestElementsBinaryHeap {
   // @exclude
 
   public static void main(String[] args) {
-    int[] maxHeap = new int[]{10, 2, 9, 2, 2, 8, 8, 2, 2, 2, 2, 7, 7, 7, 7};
+    int[] maxHeap = new int[] {10, 2, 9, 2, 2, 8, 8, 2, 2, 2, 2, 7, 7, 7, 7};
     List<Integer> result = kLargestInBinaryHeap(maxHeap, 3);
     List<Integer> expectedResult = Arrays.asList(10, 9, 8);
-    assert (result.equals(expectedResult));
+    assert(result.equals(expectedResult));
     result = kLargestInBinaryHeap(maxHeap, 5);
     expectedResult = Arrays.asList(10, 9, 8, 8, 7);
-    assert (result.equals(expectedResult));
+    assert(result.equals(expectedResult));
 
-    maxHeap = new int[]{97, 84, 93, 83, 81, 90, 79, 83, 55, 42, 21, 73};
+    maxHeap = new int[] {97, 84, 93, 83, 81, 90, 79, 83, 55, 42, 21, 73};
     result = kLargestInBinaryHeap(maxHeap, 3);
     expectedResult = Arrays.asList(97, 93, 90);
-    assert (result.equals(expectedResult));
+    assert(result.equals(expectedResult));
   }
 }

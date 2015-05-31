@@ -11,7 +11,7 @@ public class EndPoint implements Comparable<EndPoint> {
 
   public int compareTo(EndPoint that) {
     int a = isLeft ? ptr.left : ptr.right, b = that.isLeft ? that.ptr.left
-        : that.ptr.right;
+                                                           : that.ptr.right;
     if (a < b) {
       return -1;
     }
@@ -20,5 +20,4 @@ public class EndPoint implements Comparable<EndPoint> {
     }
     return 1;
   }
-
 }

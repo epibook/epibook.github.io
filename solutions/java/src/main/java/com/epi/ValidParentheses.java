@@ -13,9 +13,9 @@ public class ValidParentheses {
         if (leftChars.isEmpty()) {
           return false; // Unmatched right char.
         }
-        if ((s.charAt(i) == ')' && leftChars.peek() != '(')
-            || (s.charAt(i) == '}' && leftChars.peek() != '{')
-            || (s.charAt(i) == ']' && leftChars.peek() != '[')) {
+        if ((s.charAt(i) == ')' && leftChars.peek() != '(') ||
+            (s.charAt(i) == '}' && leftChars.peek() != '{') ||
+            (s.charAt(i) == ']' && leftChars.peek() != '[')) {
           return false; // Mismatched chars.
         }
         leftChars.pop();
@@ -26,13 +26,13 @@ public class ValidParentheses {
   // @exclude
 
   private static void smallTest() {
-    assert (isWellFormed("()"));
-    assert (isWellFormed("()[]{}"));
-    assert (isWellFormed("[()[]]{}"));
-    assert (isWellFormed("(()[]{()[]{}{}})"));
-    assert (!isWellFormed("([)]"));
-    assert (!isWellFormed("["));
-    assert (!isWellFormed("(()[]{()[]{})({}})"));
+    assert(isWellFormed("()"));
+    assert(isWellFormed("()[]{}"));
+    assert(isWellFormed("[()[]]{}"));
+    assert(isWellFormed("(()[]{()[]{}{}})"));
+    assert(!isWellFormed("([)]"));
+    assert(!isWellFormed("["));
+    assert(!isWellFormed("(()[]{()[]{})({}})"));
   }
 
   public static void main(String[] args) {

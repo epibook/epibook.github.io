@@ -17,16 +17,16 @@ public class FindingMinMax {
     // Process elements one pair at a time.
     for (int i = 2; i + 1 < A.length; i += 2) {
       Pair<Integer, Integer> localMinMax = Pair.minmax(A[i], A[i + 1]);
-      globalMinMax = new Pair<>(
-          Math.min(globalMinMax.getFirst(), localMinMax.getFirst()),
-          Math.max(globalMinMax.getSecond(), localMinMax.getSecond()));
+      globalMinMax =
+          new Pair<>(Math.min(globalMinMax.getFirst(), localMinMax.getFirst()),
+                     Math.max(globalMinMax.getSecond(), localMinMax.getSecond()));
     }
     // If there is odd number of elements in the array, we still
     // need to compare the last element with the existing answer.
     if ((A.length & 1) != 0) {
-      globalMinMax = new Pair<>(
-          Math.min(globalMinMax.getFirst(), A[A.length - 1]),
-          Math.max(globalMinMax.getSecond(), A[A.length - 1]));
+      globalMinMax =
+          new Pair<>(Math.min(globalMinMax.getFirst(), A[A.length - 1]),
+                     Math.max(globalMinMax.getSecond(), A[A.length - 1]));
     }
     return globalMinMax;
   }
@@ -47,8 +47,8 @@ public class FindingMinMax {
       }
       Pair<Integer, Integer> res = findMinMax(A);
       Arrays.sort(A);
-      assert (res.getFirst().equals(A[0]) && res.getSecond().equals(A[A.length - 1]));
+      assert(res.getFirst().equals(A[0]) &&
+             res.getSecond().equals(A[A.length - 1]));
     }
-
   }
 }

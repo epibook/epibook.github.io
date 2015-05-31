@@ -48,8 +48,7 @@ int main(int argc, char* argv[]) {
   assert(3 == Q.Dequeue());  // 3
   try {
     Q.Dequeue();
-  }
-  catch (const exception& e) {
+  } catch (const exception& e) {
     cout << e.what() << endl;  // throw
   }
   return 0;

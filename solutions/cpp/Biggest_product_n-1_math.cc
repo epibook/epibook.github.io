@@ -19,8 +19,7 @@ using std::vector;
 int FindBiggestNMinusOneProduct(const vector<int>& A) {
   int zero_count = 0, zero_idx = -1;
   int positive_count = 0, smallest_positive_idx = -1;
-  int negative_count = 0, smallest_negative_idx = -1,
-      biggest_negative_idx = -1;
+  int negative_count = 0, smallest_negative_idx = -1, biggest_negative_idx = -1;
 
   for (int i = 0; i < A.size(); ++i) {
     if (A[i] < 0) {

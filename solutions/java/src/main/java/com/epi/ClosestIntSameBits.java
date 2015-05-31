@@ -85,7 +85,7 @@ public class ClosestIntSameBits {
     try {
       long res = closestIntegerSameBits(x);
       System.out.println(x + " " + res);
-      assert (countBitsSetTo1((int) x) == countBitsSetTo1((int) res));
+      assert(countBitsSetTo1((int)x) == countBitsSetTo1((int)res));
     } catch (Exception e) {
       System.out.println(x + " " + e.getMessage());
     }

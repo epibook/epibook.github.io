@@ -7,9 +7,7 @@ public class BinaryTreeLock {
     private boolean locked = false;
     private int numLockedDescendants = 0;
 
-    public boolean isLock() {
-      return locked;
-    }
+    public boolean isLock() { return locked; }
 
     public boolean lock() {
       if (numLockedDescendants > 0 || locked) {
@@ -42,25 +40,15 @@ public class BinaryTreeLock {
     }
     // @exclude
 
-    public BinaryTree getLeft() {
-      return left;
-    }
+    public BinaryTree getLeft() { return left; }
 
-    public void setLeft(BinaryTree left) {
-      this.left = left;
-    }
+    public void setLeft(BinaryTree left) { this.left = left; }
 
-    public BinaryTree getRight() {
-      return right;
-    }
+    public BinaryTree getRight() { return right; }
 
-    public void setRight(BinaryTree right) {
-      this.right = right;
-    }
+    public void setRight(BinaryTree right) { this.right = right; }
 
-    public void setParent(BinaryTree parent) {
-      this.parent = parent;
-    }
+    public void setParent(BinaryTree parent) { this.parent = parent; }
     // @include
   }
   // @exclude
@@ -76,21 +64,21 @@ public class BinaryTreeLock {
     root.getLeft().setRight(new BinaryTree());
     root.getLeft().getRight().setParent(root.getLeft());
     // Should output false.
-    assert (!root.isLock());
+    assert(!root.isLock());
     System.out.println(root.isLock());
-    assert (root.lock());
+    assert(root.lock());
     // Should output true.
-    assert (root.isLock());
+    assert(root.isLock());
     System.out.println(root.isLock());
     root.unlock();
-    assert (root.getLeft().lock());
-    assert (!root.lock());
+    assert(root.getLeft().lock());
+    assert(!root.lock());
     // Should output false.
-    assert (!root.isLock());
+    assert(!root.isLock());
     System.out.println(root.isLock());
-    assert (root.getRight().lock());
+    assert(root.getRight().lock());
     // Should output true.
-    assert (root.getRight().isLock());
+    assert(root.getRight().isLock());
     System.out.println(root.isLock());
   }
 }

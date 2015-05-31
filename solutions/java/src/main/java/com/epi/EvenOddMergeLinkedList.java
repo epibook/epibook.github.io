@@ -61,7 +61,7 @@ class EvenOddMergeLinkedList {
     int x = 0, count = 0;
     while (answer != null) {
       ++count;
-      assert (x == answer.data);
+      assert(x == answer.data);
       x += 2;
       if (x >= n) {
         x = 1;
@@ -69,6 +69,6 @@ class EvenOddMergeLinkedList {
       System.out.println(answer.data);
       answer = answer.next;
     }
-    assert (count == n);
+    assert(count == n);
   }
 }

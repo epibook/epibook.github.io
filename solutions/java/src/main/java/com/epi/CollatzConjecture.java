@@ -16,7 +16,7 @@ public class CollatzConjecture {
       long testI = i;
       while (testI >= i) {
         if (!sequence.add(testI)) {
-          // We previously encountered testI, so the Collatz sequence 
+          // We previously encountered testI, so the Collatz sequence
           // has fallen into a loop. This disproves the hypothesis, so
           // we short-circuit, returning false.
           return false;
@@ -67,7 +67,7 @@ public class CollatzConjecture {
       System.out.println("n = " + n);
       boolean res = testCollatzConjecture(n);
       System.out.println(res);
-      assert (res == check(n));
+      assert(res == check(n));
     }
   }
 }

@@ -9,7 +9,7 @@ public class Parity4 {
     x ^= x >>> 4;
     x &= 0xf; // Only wants the last 4 bits of x.
     // Return the LSB, which is the parity.
-    return (short) (fourBitParityLookup((int) x) & 1);
+    return (short)(fourBitParityLookup((int)x) & 1);
   }
 
   // The LSB of FOUR_BIT_PARITY_LOOKUP_TABLE is the parity of 0,
@@ -19,7 +19,7 @@ public class Parity4 {
   private static final int K_FOUR_BIT_PARITY_LOOKUP_TABLE = 0x6996;
 
   private static short fourBitParityLookup(int x) {
-    return (short) (K_FOUR_BIT_PARITY_LOOKUP_TABLE >>> x);
+    return (short)(K_FOUR_BIT_PARITY_LOOKUP_TABLE >>> x);
   }
   // @exclude
 }

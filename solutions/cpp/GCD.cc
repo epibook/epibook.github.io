@@ -24,8 +24,8 @@ int main(int argc, char *argv[]) {
   } else {
     default_random_engine gen((random_device())());
     for (int times = 0; times < 1000; ++times) {
-      uniform_int_distribution<long long>
-          dis(1, numeric_limits<long long>::max());
+      uniform_int_distribution<long long> dis(1,
+                                              numeric_limits<long long>::max());
       x = dis(gen), y = dis(gen);
       assert(GCD(x, y) == AnotherGCD(x, y));
     }

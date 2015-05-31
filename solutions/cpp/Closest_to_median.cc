@@ -20,7 +20,7 @@ double Median(vector<int>* A);
 // @include
 class Comp {
  public:
-  explicit Comp(double median) : median_(median) {};
+  explicit Comp(double median) : median_(median){};
 
   bool operator()(int a, int b) const {
     return fabs(a - median_) < fabs(b - median_);

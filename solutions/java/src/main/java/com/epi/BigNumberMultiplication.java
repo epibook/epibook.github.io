@@ -39,7 +39,7 @@ public class BigNumberMultiplication {
       --i;
     }
     StringBuilder sb = new StringBuilder();
-    if (!isPositive && result[i] != 0) {  // It won't print "-0".
+    if (!isPositive && result[i] != 0) { // It won't print "-0".
       sb.append('-');
     }
     while (i >= 0) {
@@ -68,12 +68,12 @@ public class BigNumberMultiplication {
   }
 
   private static void simpleTest() {
-    assert (Multiply("0", "1000").equals("0"));
-    assert (Multiply("131412", "-1313332").equals("-172587584784"));
+    assert(Multiply("0", "1000").equals("0"));
+    assert(Multiply("131412", "-1313332").equals("-172587584784"));
 
     assert "0".equals(new BigInt("0").multiply(new BigInt("1000")).toString());
-    assert "-172587584784".equals(new BigInt("131412").multiply(
-        new BigInt("-1313332")).toString());
+    assert "-172587584784".equals(
+        new BigInt("131412").multiply(new BigInt("-1313332")).toString());
   }
 
   public static void main(String[] args) {
@@ -96,10 +96,9 @@ public class BigNumberMultiplication {
       BigInteger result = new BigInteger(s1).multiply(new BigInteger(s2));
       System.out.println("answer = " + result.toString());
 
-      assert (res.toString().equals(result.toString()));
+      assert(res.toString().equals(result.toString()));
     }
   }
-
 }
 
 class BigInt {
@@ -112,11 +111,10 @@ class BigInt {
     sign = s.charAt(0) == '-' ? -1 : 1;
     digits = new char[s.length() - (s.charAt(0) == '-' ? 1 : 0)];
 
-    for (int i = s.length() - 1, j = 0;
-         i >= (s.charAt(0) == '-' ? 1 : 0);
+    for (int i = s.length() - 1, j = 0; i >= (s.charAt(0) == '-' ? 1 : 0);
          --i, ++j) {
       if (Character.isDigit(s.charAt(i))) {
-        digits[j] = (char) (s.charAt(i) - '0');
+        digits[j] = (char)(s.charAt(i) - '0');
       }
     }
   }
@@ -129,17 +127,17 @@ class BigInt {
       if (n.digits[i] != 0) {
         int carry = 0;
         for (j = 0; j < digits.length || carry > 0; ++j) {
-          int nDigit = result.digits[i + j]
-              + (j < digits.length ? n.digits[i] * digits[j] : 0) + carry;
-          result.digits[i + j] = (char) (nDigit % 10);
+          int nDigit = result.digits[i + j] +
+                       (j < digits.length ? n.digits[i] * digits[j] : 0) + carry;
+          result.digits[i + j] = (char)(nDigit % 10);
           carry = nDigit / 10;
         }
       }
     }
 
     // If one number is 0, the result size should be 0.
-    if ((digits.length == 1 && digits[0] == 0)
-        || (n.digits.length == 1 && n.digits[0] == 0)) {
+    if ((digits.length == 1 && digits[0] == 0) ||
+        (n.digits.length == 1 && n.digits[0] == 0)) {
       result.sign = 1;
       result.digits = Arrays.copyOf(result.digits, 1);
     } else {
@@ -152,7 +150,7 @@ class BigInt {
     StringBuilder s = new StringBuilder(sign > 0 ? "" : "-");
 
     for (int i = digits.length - 1; i >= 0; --i) {
-      s.append((char) (digits[i] + '0'));
+      s.append((char)(digits[i] + '0'));
     }
 
     if (digits.length == 0) {

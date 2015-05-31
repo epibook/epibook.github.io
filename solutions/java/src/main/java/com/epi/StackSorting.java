@@ -44,7 +44,7 @@ public class StackSorting {
       sort(S);
       int pre = Integer.MAX_VALUE;
       while (!S.isEmpty()) {
-        assert (pre >= S.peek());
+        assert(pre >= S.peek());
         System.out.println(S.peek());
         pre = S.pop();
       }

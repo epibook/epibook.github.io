@@ -6,9 +6,7 @@ public class PopulatingNextRightPointers {
     public BinaryTreeNode<T> left, right;
     public BinaryTreeNode<T> next; // Populates this field.
 
-    public BinaryTreeNode(T data) {
-      this.data = data;
-    }
+    public BinaryTreeNode(T data) { this.data = data; }
   }
 
   // @include
@@ -47,10 +45,10 @@ public class PopulatingNextRightPointers {
     root.right.left = new BinaryTreeNode<>(4);
     root.right.right = new BinaryTreeNode<>(6);
     populateNextPointer(root);
-    assert (root.next == null);
-    assert (root.left.next == root.right);
-    assert (root.left.left.next == root.left.right);
-    assert (root.left.right.next == root.right.left);
-    assert (root.right.left.next == root.right.right);
+    assert(root.next == null);
+    assert(root.left.next == root.right);
+    assert(root.left.left.next == root.left.right);
+    assert(root.left.right.next == root.right.left);
+    assert(root.right.left.next == root.right.right);
   }
 }

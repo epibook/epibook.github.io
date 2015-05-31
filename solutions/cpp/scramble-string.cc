@@ -39,7 +39,8 @@ bool is_scramble(const string& s1, const string& s2) {
       for (int j = 0; j + len < n; ++j) {
         T[i][j][len] = false;
         for (int k = 0; k < len; ++k) {
-          if ((T[i][j][k] && T[i + k + 1][j + k + 1][len - 1 - k]) || (T[i][j + len - k][k] && T[i + k + 1][j][len - 1 -k])) {
+          if ((T[i][j][k] && T[i + k + 1][j + k + 1][len - 1 - k]) ||
+              (T[i][j + len - k][k] && T[i + k + 1][j][len - 1 - k])) {
             T[i][j][len] = true;
             break;
           }

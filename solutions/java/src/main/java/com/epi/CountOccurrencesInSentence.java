@@ -20,8 +20,7 @@ class CountOccurrencesInSentence {
         currentCharacterCount = 1;
       }
     }
-    System.out.println("(" + a[a.length - 1] + ',' + currentCharacterCount 
-                       + ")");
+    System.out.println("(" + a[a.length - 1] + ',' + currentCharacterCount + ")");
   }
   // @exclude
 
@@ -30,7 +29,7 @@ class CountOccurrencesInSentence {
     Random rnd = new Random();
 
     while (len-- > 0) {
-      ret.append((char) (rnd.nextInt(26) + 97));
+      ret.append((char)(rnd.nextInt(26) + 97));
     }
     return ret.toString();
   }

@@ -25,7 +25,7 @@ vector<string> GetValidIPAddress(const string& s) {
     auto first = s.substr(0, i);
     if (IsValidPart(first)) {
       for (size_t j = 1; i + j < s.size() && j < 4; ++j) {
-        auto second = s.substr(i , j);
+        auto second = s.substr(i, j);
         if (IsValidPart(second)) {
           for (size_t k = 1; i + j + k < s.size() && k < 4; ++k) {
             auto third = s.substr(i + j, k), fourth = s.substr(i + j + k);

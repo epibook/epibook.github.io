@@ -40,7 +40,7 @@ public class MaxDifferenceUnlimitedPairs {
       System.out.println("n = " + n);
       System.out.println(checkAns(A));
       System.out.println(maxProfitUnlimitedPairs(A));
-      assert (checkAns(A) == maxProfitUnlimitedPairs(A));
+      assert(checkAns(A) == maxProfitUnlimitedPairs(A));
     }
 
     // For input

@@ -45,7 +45,7 @@ public class BinaryTreePostorderTraversalIterativeAlternative {
     tree.getRight().setRight(new BinaryTreeNode<>(6));
     List<Integer> res = postOrderTraversal(tree);
     List<Integer> goldenRes = generatePostOrder(tree);
-    assert (res.size() == goldenRes.size() && Arrays.deepEquals(res.toArray(),
-        goldenRes.toArray()));
+    assert(res.size() == goldenRes.size() &&
+           Arrays.deepEquals(res.toArray(), goldenRes.toArray()));
   }
 }

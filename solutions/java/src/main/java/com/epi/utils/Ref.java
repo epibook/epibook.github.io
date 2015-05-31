@@ -5,7 +5,5 @@ package com.epi.utils;
 public class Ref<T> {
   public T value;
 
-  public Ref(T v) {
-    value = v;
-  }
+  public Ref(T v) { value = v; }
 }

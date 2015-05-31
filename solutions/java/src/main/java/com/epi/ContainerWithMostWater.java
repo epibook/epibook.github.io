@@ -35,8 +35,8 @@ public class ContainerWithMostWater {
   }
 
   private static void smallTest() {
-    int[] A = {1,2,1,3,4,4,5,6,2,1,3,1,3,2,1,2,4,1};
-    assert (48 == getMaxArea(A));
+    int[] A = {1, 2, 1, 3, 4, 4, 5, 6, 2, 1, 3, 1, 3, 2, 1, 2, 4, 1};
+    assert(48 == getMaxArea(A));
   }
 
   public static void main(String[] args) {
@@ -54,7 +54,7 @@ public class ContainerWithMostWater {
         heights[i] = r.nextInt(1000) + 1;
       }
       System.out.println(getMaxArea(heights));
-      assert (getMaxArea(heights) == checkAns(heights));
+      assert(getMaxArea(heights) == checkAns(heights));
     }
   }
 }

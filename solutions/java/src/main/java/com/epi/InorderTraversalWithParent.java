@@ -57,6 +57,6 @@ public class InorderTraversalWithParent {
 
     List<Integer> result = inOrderTraversal(root);
     List<Integer> goldenRes = Arrays.asList(1, 2, 3, 4, 5, 6);
-    assert (goldenRes.equals(result));
+    assert(goldenRes.equals(result));
   }
 }

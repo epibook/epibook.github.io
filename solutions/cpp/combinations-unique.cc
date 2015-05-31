@@ -17,7 +17,8 @@ using std::stoul;
 using std::uniform_int_distribution;
 using std::vector;
 
-void SubsetsUniqueHelper(const vector<int>&, size_t, vector<int>*, vector<vector<int>>*);
+void SubsetsUniqueHelper(const vector<int>&, size_t, vector<int>*,
+                         vector<vector<int>>*);
 
 // @include
 vector<vector<int>> SubsetsUnique(vector<int> A) {
@@ -29,7 +30,8 @@ vector<vector<int>> SubsetsUnique(vector<int> A) {
   return res;
 }
 
-void SubsetsUniqueHelper(const vector<int>& A, size_t start, vector<int>* ans, vector<vector<int>>* res) {
+void SubsetsUniqueHelper(const vector<int>& A, size_t start, vector<int>* ans,
+                         vector<vector<int>>* res) {
   res->emplace_back(*ans);
   for (size_t i = start; i < A.size(); ++i) {
     if (i != start && A[i - 1] == A[i]) {
@@ -58,7 +60,7 @@ int main(int argc, char** argv) {
   }
   cout << "n = " << n << endl;
   A.clear();
-  A = { 1, 2, 2 };
+  A = {1, 2, 2};
   auto res = SubsetsUnique(A);
   for (const auto& vec : res) {
     copy(vec.cbegin(), vec.cend(), ostream_iterator<int>(cout, " "));

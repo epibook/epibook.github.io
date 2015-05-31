@@ -17,7 +17,7 @@ public class UniqueBinaryTreesAll {
       result.add(null);
     }
 
-    for (int numLeftTreeNodes = 0; numLeftTreeNodes < numNodes; 
+    for (int numLeftTreeNodes = 0; numLeftTreeNodes < numNodes;
          ++numLeftTreeNodes) {
       int numRightTreeNodes = numNodes - 1 - numLeftTreeNodes;
       List<BinaryTreeNode<Integer>> leftSubtrees =

@@ -19,20 +19,21 @@ public class RemoveDuplicatesSortedList {
 
   public static void main(String[] args) {
     ListNode<Integer> L;
-    L = new ListNode<>(2, new ListNode<>(2, new ListNode<>(2,
-        new ListNode<>(2, new ListNode<>(2, null)))));
+    L = new ListNode<>(
+        2, new ListNode<>(
+               2, new ListNode<>(2, new ListNode<>(2, new ListNode<>(2, null)))));
     ListNode<Integer> pre = null;
     ListNode<Integer> result = removeDuplicates(L);
     int count = 0;
     while (result != null) {
       ++count;
       if (pre != null) {
-        assert (!pre.data.equals(result.data));
+        assert(!pre.data.equals(result.data));
       }
       System.out.println(result.data);
       pre = result;
       result = result.next;
     }
-    assert (count == 1);
+    assert(count == 1);
   }
 }

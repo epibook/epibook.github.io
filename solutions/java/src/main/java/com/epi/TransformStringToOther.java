@@ -15,7 +15,7 @@ public class TransformStringToOther {
     Random r = new Random();
     StringBuilder ret = new StringBuilder(len);
     while (len-- > 0) {
-      ret.append((char) (r.nextInt(26) + 'a'));
+      ret.append((char)(r.nextInt(26) + 'a'));
     }
     return ret.toString();
   }
@@ -40,7 +40,7 @@ public class TransformStringToOther {
         String strStart = i == 0 ? "" : str.substring(0, i);
         String strEnd = i + 1 < str.length() ? str.substring(i + 1) : "";
         for (int j = 0; j < 26; ++j) { // Iterates through 'a' ~ 'z'.
-          String modStr = strStart + (char) ('a' + j) + strEnd;
+          String modStr = strStart + (char)('a' + j) + strEnd;
           if (D.remove(modStr)) {
             q.push(new Pair<>(modStr, f.getSecond() + 1));
           }

@@ -18,9 +18,8 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-
 pair<int, int> FindLongestSubarrayLessEqualKAnother(const vector<int> &A,
-                                                          int k) {
+                                                    int k) {
   // Builds the prefix sum according to A.
   vector<int> prefix_sum;
   partial_sum(A.cbegin(), A.cend(), back_inserter(prefix_sum));

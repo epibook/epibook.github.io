@@ -23,9 +23,7 @@ struct LineSegment {
 
 class Endpoint {
  public:
-  bool operator<(const Endpoint& that) const {
-    return Value() < that.Value();
-  }
+  bool operator<(const Endpoint& that) const { return Value() < that.Value(); }
 
   int Value() const { return isLeft_ ? line_->left : line_->right; }
 
@@ -47,10 +45,10 @@ void CalculateViewFromAbove(const vector<LineSegment>& A) {
   for (const auto& endpoint : sorted_endpoints) {
     if (!active_line_segments.empty() && prev_xaxis != endpoint.Value()) {
       if (prev == nullptr) {  // Found first segment.
-        prev = unique_ptr<LineSegment>(new LineSegment{
-            prev_xaxis, endpoint.Value(),
-            active_line_segments.crbegin()->second->color,
-            active_line_segments.crbegin()->second->height});
+        prev = unique_ptr<LineSegment>(
+            new LineSegment{prev_xaxis, endpoint.Value(),
+                            active_line_segments.crbegin()->second->color,
+                            active_line_segments.crbegin()->second->height});
       } else {
         if (prev->height == active_line_segments.crbegin()->second->height &&
             prev->color == active_line_segments.crbegin()->second->color &&

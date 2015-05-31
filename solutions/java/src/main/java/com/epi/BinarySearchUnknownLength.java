@@ -44,12 +44,12 @@ public class BinarySearchUnknownLength {
   // @exclude
 
   private static void smallTest() {
-    int[] A = new int[]{1, 2, 3};
-    assert (binarySearchUnknownLength(A, 3) == 2);
-    assert (binarySearchUnknownLength(A, 1) == 0);
-    assert (binarySearchUnknownLength(A, 2) == 1);
-    assert (binarySearchUnknownLength(A, 4) == -1);
-    assert (binarySearchUnknownLength(A, -1) == -1);
+    int[] A = new int[] {1, 2, 3};
+    assert(binarySearchUnknownLength(A, 3) == 2);
+    assert(binarySearchUnknownLength(A, 1) == 0);
+    assert(binarySearchUnknownLength(A, 2) == 1);
+    assert(binarySearchUnknownLength(A, 4) == -1);
+    assert(binarySearchUnknownLength(A, -1) == -1);
   }
 
   public static void main(String[] args) {
@@ -77,7 +77,7 @@ public class BinarySearchUnknownLength {
       System.out.println(n + " " + k);
       int idx = binarySearchUnknownLength(A, k);
       System.out.println(idx);
-      assert (idx != -1 && A[idx] == k || Arrays.binarySearch(A, k) < 0);
+      assert(idx != -1 && A[idx] == k || Arrays.binarySearch(A, k) < 0);
     }
   }
 }

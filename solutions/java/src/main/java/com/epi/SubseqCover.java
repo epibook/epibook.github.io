@@ -7,12 +7,11 @@ import com.epi.utils.Pair;
 import java.util.*;
 
 class SubseqCover {
-
   public static String randString(int len) {
     StringBuilder sb = new StringBuilder();
     Random gen = new Random();
     while (len-- != 0) {
-      sb.append((char) (gen.nextInt('z' + 1 - 'a') + 'a'));
+      sb.append((char)(gen.nextInt('z' + 1 - 'a') + 'a'));
     }
     return sb.toString();
   }
@@ -44,24 +43,21 @@ class SubseqCover {
       if (keywordIdx != null) {
         if (keywordIdx == 0) { // First keyword.
           shortestSubarrayLength[0] = 1;
-        } else if (shortestSubarrayLength[keywordIdx - 1]
-                   != Integer.MAX_VALUE) {
+        } else if (shortestSubarrayLength[keywordIdx - 1] != Integer.MAX_VALUE) {
           int distanceToPreviousKeyword = i - latestOccurrence[keywordIdx - 1];
           shortestSubarrayLength[keywordIdx] =
-              distanceToPreviousKeyword +
-              shortestSubarrayLength[keywordIdx - 1];
+              distanceToPreviousKeyword + shortestSubarrayLength[keywordIdx - 1];
         }
         latestOccurrence[keywordIdx] = i;
 
         // Last keyword, look for improved subarray.
-        if (keywordIdx == keywords.length - 1
-            && shortestSubarrayLength[shortestSubarrayLength.length - 1]
-                < shortestDistance) {
+        if (keywordIdx == keywords.length - 1 &&
+            shortestSubarrayLength[shortestSubarrayLength.length - 1] <
+                shortestDistance) {
           shortestDistance =
               shortestSubarrayLength[shortestSubarrayLength.length - 1];
           result.setFirst(
-              i - shortestSubarrayLength[shortestSubarrayLength.length - 1]
-              + 1);
+              i - shortestSubarrayLength[shortestSubarrayLength.length - 1] + 1);
           result.setSecond(i);
         }
       }
@@ -71,12 +67,13 @@ class SubseqCover {
   // @exclude
 
   public static void smallTest() {
-    String[] a3 = new String[]{"0", "1", "2",
-        "3", "4", "5", "6", "7", "8", "9", "2", "4", "6", "10", "10", "10",
-        "3", "2", "1", "0"};
-    String[] subseq4 = new String[]{"0", "2", "9", "4", "6"};
-    Pair<Integer, Integer> rr = findSmallestSequentiallyCoveringSubset(a3, subseq4);
-    assert (rr.getFirst() == 0 && rr.getSecond() == 12);
+    String[] a3 =
+        new String[] {"0", "1", "2", "3",  "4",  "5",  "6", "7", "8", "9",
+                      "2", "4", "6", "10", "10", "10", "3", "2", "1", "0"};
+    String[] subseq4 = new String[] {"0", "2", "9", "4", "6"};
+    Pair<Integer, Integer> rr =
+        findSmallestSequentiallyCoveringSubset(a3, subseq4);
+    assert(rr.getFirst() == 0 && rr.getSecond() == 12);
   }
 
   public static void main(String[] args) {
@@ -122,8 +119,7 @@ class SubseqCover {
       }
       System.out.println("");
 
-      Pair<Integer, Integer> res
-          = findSmallestSequentiallyCoveringSubset(A, Q);
+      Pair<Integer, Integer> res = findSmallestSequentiallyCoveringSubset(A, Q);
       System.out.println(res.getFirst() + ", " + res.getSecond());
       if (res.getFirst() != -1 && res.getSecond() != Q.length) {
         if (!res.getFirst().equals(res.getSecond())) {
@@ -136,7 +132,7 @@ class SubseqCover {
             dict.remove(A[i]);
           }
         }
-        assert (dict.isEmpty());
+        assert(dict.isEmpty());
       }
     }
   }

@@ -40,18 +40,18 @@ int main(int argc, char** argv) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BinaryTreeNode<int>> tree =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3, nullptr, nullptr});
-  tree->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2, nullptr, nullptr});
-  tree->left->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1, nullptr, nullptr});
-  tree->right =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5, nullptr, nullptr});
-  tree->right->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4, nullptr, nullptr});
-  tree->right->right =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6, nullptr, nullptr});
+  unique_ptr<BinaryTreeNode<int>> tree = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{3, nullptr, nullptr});
+  tree->left = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{2, nullptr, nullptr});
+  tree->left->left = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{1, nullptr, nullptr});
+  tree->right = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{5, nullptr, nullptr});
+  tree->right->left = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{4, nullptr, nullptr});
+  tree->right->right = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{6, nullptr, nullptr});
   auto res = PreorderTraversal(tree), golden_res = generate_preorder(tree);
   assert(res.size() == golden_res.size() &&
          equal(res.cbegin(), res.cend(), golden_res.cbegin()));

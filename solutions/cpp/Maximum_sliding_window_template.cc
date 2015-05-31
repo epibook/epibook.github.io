@@ -10,7 +10,7 @@ using namespace std;
 // @include
 template <typename T>
 void pop_unqualified(const vector<T> &A, const T &A_i, const int &i,
-                    deque<T> &Q) {
+                     deque<T> &Q) {
   // Delete elements from tail of Q whose values are not greater than A[i]
   while (!Q.empty() && A[i] >= A[Q.back()]) {
     Q.pop_back();

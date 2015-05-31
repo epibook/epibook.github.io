@@ -24,8 +24,8 @@ public class LoadBalancing {
       for (int i = 0; i < serverNum; i++) {
         assignRes.add(0);
       }
-      boolean isFeasible = greedyAssignment(userFileSize, serverNum, m,
-                                            assignRes);
+      boolean isFeasible =
+          greedyAssignment(userFileSize, serverNum, m, assignRes);
       if (isFeasible) {
         feasibleAssignment = assignRes;
         r = m - 1;

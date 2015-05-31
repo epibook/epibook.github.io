@@ -16,7 +16,7 @@ public class HouseMajority {
 
     // Accumulates the probabilities of majority cases.
     double probSum = 0.0;
-    for (int r = (int) ceil(0.5 * n); r <= n; ++r) {
+    for (int r = (int)ceil(0.5 * n); r <= n; ++r) {
       probSum += houseMajorityHelper(prob, r, n, P);
     }
     return probSum;
@@ -35,8 +35,8 @@ public class HouseMajority {
     }
 
     if (P[r][n] == -1.0) {
-      P[r][n] = houseMajorityHelper(prob, r - 1, n - 1, P) * prob[n - 1]
-          + houseMajorityHelper(prob, r, n - 1, P) * (1.0 - prob[n - 1]);
+      P[r][n] = houseMajorityHelper(prob, r - 1, n - 1, P) * prob[n - 1] +
+                houseMajorityHelper(prob, r, n - 1, P) * (1.0 - prob[n - 1]);
     }
     return P[r][n];
   }
@@ -46,7 +46,7 @@ public class HouseMajority {
     Arrays.sort(prob);
     for (int i = 0; i < prob.length; ++i) {
       System.out.println(String.format("%s:%s:%s", i, 100 * prob[i],
-          ((i + 1) % 10 == 0) ? "\n" : " "));
+                                       ((i + 1) % 10 == 0) ? "\n" : " "));
     }
     System.out.println();
   }
@@ -61,7 +61,7 @@ public class HouseMajority {
     }
     printVector(prob);
     double ans = houseMajority(prob, n);
-    assert 0.0 <= ans && ans <= 1.0;
+    assert 0.0 <= ans&& ans <= 1.0;
     System.out.println();
   }
 }

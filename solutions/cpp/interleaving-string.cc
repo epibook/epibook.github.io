@@ -73,7 +73,7 @@ void SmallTest() {
   assert(IsInterleavingString("bbc", "acaab", "abcbcaab"));
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   SmallTest();
   if (argc == 4) {
     string s1 = argv[1], s2 = argv[2], s3 = argv[3];

@@ -45,10 +45,10 @@ public class PalindromePartitioning {
     for (List<String> vec : vecs) {
       String temp = "";
       for (String s : vec) {
-        assert (isPalindrome(s));
+        assert(isPalindrome(s));
         temp += s;
       }
-      assert (temp.equals(input));
+      assert(temp.equals(input));
     }
   }
 
@@ -56,7 +56,7 @@ public class PalindromePartitioning {
     Random r = new Random();
     StringBuilder ret = new StringBuilder(len);
     while (len-- > 0) {
-      ret.append((char) (r.nextInt(26) + 'a'));
+      ret.append((char)(r.nextInt(26) + 'a'));
     }
     return ret.toString();
   }
@@ -82,6 +82,5 @@ public class PalindromePartitioning {
         }
       }
     }
-
   }
 }

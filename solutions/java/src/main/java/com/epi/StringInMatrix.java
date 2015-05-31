@@ -20,8 +20,7 @@ public class StringInMatrix {
     public B b;
     public C c;
 
-    public Tuple() {
-    }
+    public Tuple() {}
 
     public Tuple(A aVal, B bVal, C cVal) {
       this.a = aVal;
@@ -38,7 +37,7 @@ public class StringInMatrix {
         return false;
       }
 
-      Tuple tuple = (Tuple) o;
+      Tuple tuple = (Tuple)o;
 
       if (a != null ? !a.equals(tuple.a) : tuple.a != null) {
         return false;
@@ -75,24 +74,22 @@ public class StringInMatrix {
     return false;
   }
 
-  private static boolean
-  matchHelper(int[][] A, List<Integer> S,
-              Set<Tuple<Integer, Integer, Integer>> cache,
-              int i, int j, int len) {
+  private static boolean matchHelper(int[][] A, List<Integer> S,
+                                     Set<Tuple<Integer, Integer, Integer>> cache,
+                                     int i, int j, int len) {
     if (S.size() == len) {
       return true;
     }
 
-    if (i < 0 || i >= A.length || j < 0 || j >= A[i].length
-        || cache.contains(new Tuple<>(i, j, len))) {
+    if (i < 0 || i >= A.length || j < 0 || j >= A[i].length ||
+        cache.contains(new Tuple<>(i, j, len))) {
       return false;
     }
 
-    if (A[i][j] == S.get(len)
-        && (matchHelper(A, S, cache, i - 1, j, len + 1)
-        || matchHelper(A, S, cache, i + 1, j, len + 1)
-        || matchHelper(A, S, cache, i, j - 1, len + 1) || matchHelper(A, S,
-        cache, i, j + 1, len + 1))) {
+    if (A[i][j] == S.get(len) && (matchHelper(A, S, cache, i - 1, j, len + 1) ||
+                                  matchHelper(A, S, cache, i + 1, j, len + 1) ||
+                                  matchHelper(A, S, cache, i, j - 1, len + 1) ||
+                                  matchHelper(A, S, cache, i, j + 1, len + 1))) {
       return true;
     }
     cache.add(new Tuple<>(i, j, len));

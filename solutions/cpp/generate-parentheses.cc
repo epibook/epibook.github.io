@@ -18,7 +18,8 @@ using std::string;
 using std::uniform_int_distribution;
 using std::vector;
 
-void DirectedGenerateBalancedParentheses(int, int, const string&, vector<string>*);
+void DirectedGenerateBalancedParentheses(int, int, const string&,
+                                         vector<string>*);
 
 // @include
 vector<string> GenerateBalancedParentheses(int num_pairs) {
@@ -27,10 +28,11 @@ vector<string> GenerateBalancedParentheses(int num_pairs) {
   return result;
 }
 
-void DirectedGenerateBalancedParentheses(
-    int num_left_parens_needed, int num_right_parens_needed,
-    const string& valid_prefix, vector<string>* result) {
-  if (!num_left_parens_needed && ! num_right_parens_needed) {
+void DirectedGenerateBalancedParentheses(int num_left_parens_needed,
+                                         int num_right_parens_needed,
+                                         const string& valid_prefix,
+                                         vector<string>* result) {
+  if (!num_left_parens_needed && !num_right_parens_needed) {
     result->emplace_back(valid_prefix);
     return;
   }

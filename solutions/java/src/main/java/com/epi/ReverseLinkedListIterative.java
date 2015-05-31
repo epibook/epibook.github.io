@@ -3,7 +3,6 @@
 package com.epi;
 
 class ReverseLinkedListIterative {
-
   // @include
   public static ListNode<Integer> reverseLinkedList(ListNode<Integer> head) {
     ListNode<Integer> prev = null, curr = head;

@@ -8,7 +8,7 @@ using std::cout;
 using std::endl;
 using std::string;
 
-bool IsMatchHere(const string&, int, const string&, int);
+bool IsMatchHere(const string &, int, const string &, int);
 
 // @include
 bool IsMatch(const string &regex, const string &s) {
@@ -73,8 +73,8 @@ int main(int argc, char *argv[]) {
   assert(IsMatch("c*", "c"));
   assert(!IsMatch("aa*", "c"));
   assert(IsMatch("ca*", "c"));
-  assert(IsMatch(".*",  "asdsdsa"));
-  assert(IsMatch("9$" , "xxxxW19"));
+  assert(IsMatch(".*", "asdsdsa"));
+  assert(IsMatch("9$", "xxxxW19"));
 
   assert(IsMatch(".*a", "ba"));
 

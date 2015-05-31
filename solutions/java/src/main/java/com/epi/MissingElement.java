@@ -71,7 +71,7 @@ public class MissingElement {
         ifs = new FileInputStream(missingFile);
         BufferedInputStream bis = new BufferedInputStream(ifs);
         int missing = findMissingElement(bis);
-        assert (!hash.contains(missing));
+        assert(!hash.contains(missing));
         System.out.println(missing);
       } finally {
         if (ifs != null) {

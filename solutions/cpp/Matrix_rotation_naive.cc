@@ -35,7 +35,7 @@ void CheckAnswer(const vector<vector<int>> &A) {
 
 // @include
 void RotateMatrix(vector<vector<int>> *A) {
-  auto& A_ref = *A;
+  auto &A_ref = *A;
   for (int i = 0; i < (A_ref.size() / 2); ++i) {
     for (int j = i; j < A_ref.size() - 1 - i; ++j) {
       int temp = A_ref[i][j];

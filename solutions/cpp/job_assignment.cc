@@ -28,10 +28,10 @@ bool comp(const pair<int, int>& a, const pair<int, int>& b);
 vector<deque<bool>> find_feasible_job_assignment(const vector<int>& T,
                                                  const vector<int>& S) {
   int T_total = accumulate(T.cbegin(), T.cend(), 0),  // aggregated work units
-      S_total = accumulate(
-          S.cbegin(), S.cend(), 0, [&T](const int & x, const int & y)->int {
-            return x + min(y, static_cast<int>(T.size()));
-          });  // tighter bound of server capacity.
+      S_total = accumulate(S.cbegin(), S.cend(), 0,
+                           [&T](const int &x, const int &y) -> int {
+                             return x + min(y, static_cast<int>(T.size()));
+                           });  // tighter bound of server capacity.
   if (T_total > S_total || *max_element(T.cbegin(), T.cend()) > S.size()) {
     return {};  // too many jobs or one task needs too many servers.
   }
@@ -48,10 +48,8 @@ vector<deque<bool>> find_feasible_job_assignment(const vector<int>& T,
   vector<deque<bool>> X(T.size(), deque<bool>(S.size(), false));
   for (int j = 0; j < S_idx_data.size(); ++j) {
     if (S_idx_data[j].second < T_idx_data.size()) {
-      nth_element(T_idx_data.begin(),
-                  T_idx_data.begin() + S_idx_data[j].second,
-                  T_idx_data.end(),
-                  comp);
+      nth_element(T_idx_data.begin(), T_idx_data.begin() + S_idx_data[j].second,
+                  T_idx_data.end(), comp);
     }
 
     // Greedily assign jobs.
@@ -75,8 +73,7 @@ bool comp(const pair<int, int>& a, const pair<int, int>& b) {
 }
 // @exclude
 
-void check_answer(const vector<int>& T,
-                  const vector<int>& S,
+void check_answer(const vector<int>& T, const vector<int>& S,
                   const vector<deque<bool>>& result) {
   // Check row constraints.
   for (int i = 0; i < T.size(); ++i) {
@@ -126,7 +123,8 @@ int main(int argc, char* argv[]) {
     if (!result.empty()) {  // there is a feasible answer.
       cout << "found feasible assignment!" << endl;
       for (int i = 0; i < result.size(); ++i) {
-        copy(result[i].cbegin(), result[i].cend(), ostream_iterator<int>(cout, " "));
+        copy(result[i].cbegin(), result[i].cend(),
+             ostream_iterator<int>(cout, " "));
         cout << endl;
       }
       check_answer(T, S, result);

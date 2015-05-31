@@ -40,10 +40,10 @@ int FindKthLargest(vector<int> A, int k) {
   // @include
 }
 
-// Partition A[left : right] around pivot_idx, returns the new index of the 
-// pivot, new_pivot_idx, after partition. After partitioning, 
+// Partition A[left : right] around pivot_idx, returns the new index of the
+// pivot, new_pivot_idx, after partition. After partitioning,
 // A[left : new_pivot_idx - 1] contains elements that are greater than the
-// pivot, and A[new_pivot_idx + 1 : right] contains elements that are less 
+// pivot, and A[new_pivot_idx + 1 : right] contains elements that are less
 // than the pivot.
 int PartitionAroundPivot(int left, int right, int pivot_idx, vector<int>* A) {
   auto& A_ref = *A;

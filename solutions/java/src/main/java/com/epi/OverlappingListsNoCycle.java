@@ -4,8 +4,8 @@ package com.epi;
 
 class OverlappingListsNoCycle {
   // @include
-  public static ListNode<Integer> overlappingNoCycleLists(
-      ListNode<Integer> L1, ListNode<Integer> L2) {
+  public static ListNode<Integer> overlappingNoCycleLists(ListNode<Integer> L1,
+                                                          ListNode<Integer> L2) {
     int L1Length = Length(L1), L2Length = Length(L2);
 
     // Advances the longer list to get equal length lists.
@@ -45,9 +45,9 @@ class OverlappingListsNoCycle {
     // L1: 1->2->3->null
     L1 = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, null)));
     L2 = L1.next.next;
-    assert (overlappingNoCycleLists(L1, L2).data == 3);
+    assert(overlappingNoCycleLists(L1, L2).data == 3);
     // L2: 4->5->null
     L2 = new ListNode<>(4, new ListNode<>(5, null));
-    assert (overlappingNoCycleLists(L1, L2) == null);
+    assert(overlappingNoCycleLists(L1, L2) == null);
   }
 }

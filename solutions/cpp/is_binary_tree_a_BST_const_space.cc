@@ -59,10 +59,13 @@ int main(int argc, char* argv[]) {
   //  1    4 6
   auto root = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3});
   root->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
+  root->left->left =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
   root->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
+  root->right->left =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
+  root->right->right =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
   assert(IsBinaryTreeBST(root) == true);
   cout << boolalpha << IsBinaryTreeBST(root) << endl;
   //      10

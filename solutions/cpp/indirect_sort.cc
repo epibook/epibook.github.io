@@ -36,9 +36,8 @@ void IndirectSort(const string& file_name) {
   }
 
   // Indirectly sorts file.
-  sort(P.begin(), P.end(), [](const int * a, const int * b)->bool {
-    return *a < *b;
-  });
+  sort(P.begin(), P.end(),
+       [](const int* a, const int* b) -> bool { return *a < *b; });
 
   // Outputs file.
   ofstream ofs(file_name.c_str());

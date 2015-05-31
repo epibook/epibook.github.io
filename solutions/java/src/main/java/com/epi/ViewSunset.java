@@ -11,8 +11,8 @@ import java.util.Random;
  */
 public class ViewSunset {
   // @include
-  public static LinkedList<Pair<Integer, Integer>>
-  examineBuildingsWithSunset(InputStream sin) {
+  public static LinkedList<Pair<Integer, Integer>> examineBuildingsWithSunset(
+      InputStream sin) {
     int buildingIdx = 0;
     Integer buildingHeight;
     // Stores (buildingIdx, buildingHeight) pair with sunset views.
@@ -20,10 +20,10 @@ public class ViewSunset {
     try {
       ObjectInputStream osin = new ObjectInputStream(sin);
       while (true) {
-        buildingHeight = (Integer) osin.readObject();
-        while (!buildingsWithSunset.isEmpty()
-            && (buildingHeight.
-            compareTo(buildingsWithSunset.getLast().getSecond()) >= 0)) {
+        buildingHeight = (Integer)osin.readObject();
+        while (!buildingsWithSunset.isEmpty() &&
+               (buildingHeight.compareTo(
+                    buildingsWithSunset.getLast().getSecond()) >= 0)) {
           buildingsWithSunset.removeLast();
         }
         buildingsWithSunset.addLast(new Pair<>(buildingIdx++, buildingHeight));
@@ -53,17 +53,15 @@ public class ViewSunset {
           Integer height = r.nextInt(2 * n) + 1;
           oos.writeObject(height);
         }
-        ByteArrayInputStream sin
-            = new ByteArrayInputStream(baos.toByteArray());
-        LinkedList<Pair<Integer, Integer>> res
-            = examineBuildingsWithSunset(sin);
+        ByteArrayInputStream sin = new ByteArrayInputStream(baos.toByteArray());
+        LinkedList<Pair<Integer, Integer>> res = examineBuildingsWithSunset(sin);
         Pair<Integer, Integer> prev = res.pop();
         System.out.println(prev);
         while (!res.isEmpty()) {
           Pair<Integer, Integer> current = res.pop();
           System.out.println(current);
-          assert (prev.getFirst() < current.getFirst());
-          assert (prev.getSecond() > current.getSecond());
+          assert(prev.getFirst() < current.getFirst());
+          assert(prev.getSecond() > current.getSecond());
           prev = current;
         }
       }

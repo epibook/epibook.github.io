@@ -23,7 +23,7 @@ void DFS(GraphVertex* cur, int time, vector<GraphVertex*>* contacts);
 // @include
 struct GraphVertex {
   int visit_time = -1;
-  vector<GraphVertex*> edges, extended_contacts;
+  vector<GraphVertex *> edges, extended_contacts;
 };
 
 void transitive_closure(vector<GraphVertex>* G) {

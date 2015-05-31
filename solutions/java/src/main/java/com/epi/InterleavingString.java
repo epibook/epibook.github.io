@@ -31,8 +31,8 @@ public class InterleavingString {
 
     for (int i = 0; i < s1.length(); ++i) {
       for (int j = 0; j < s2.length(); ++j) {
-        T[i + 1][j + 1] = (T[i][j + 1] && s1.charAt(i) == s3.charAt(i + j + 1))
-            || (T[i + 1][j] && s2.charAt(j) == s3.charAt(i + j + 1));
+        T[i + 1][j + 1] = (T[i][j + 1] && s1.charAt(i) == s3.charAt(i + j + 1)) ||
+                          (T[i + 1][j] && s2.charAt(j) == s3.charAt(i + j + 1));
       }
     }
 
@@ -44,16 +44,16 @@ public class InterleavingString {
     Random r = new Random();
     StringBuilder ret = new StringBuilder(len);
     while (len-- > 0) {
-      ret.append((char) (r.nextInt(26) + 'a'));
+      ret.append((char)(r.nextInt(26) + 'a'));
     }
     return ret.toString();
   }
 
   private static void smallTest() {
-    assert (isInterleavingString("aabcc", "dbbca", "aadbbcbcac"));
-    assert (!isInterleavingString("aabcc", "dbbca", "aadbbbaccc"));
-    assert (isInterleavingString("aabaac", "aadaaeaaf", "aadaaeaabaafaac"));
-    assert (isInterleavingString("bbc", "acaab", "abcbcaab"));
+    assert(isInterleavingString("aabcc", "dbbca", "aadbbcbcac"));
+    assert(!isInterleavingString("aabcc", "dbbca", "aadbbbaccc"));
+    assert(isInterleavingString("aabaac", "aadaaeaaf", "aadaaeaabaafaac"));
+    assert(isInterleavingString("bbc", "acaab", "abcbcaab"));
   }
 
   public static void main(String[] args) {
@@ -64,8 +64,8 @@ public class InterleavingString {
       System.out.println(isInterleavingString(s1, s2, s3));
     } else {
       Random r = new Random();
-      String s1 = randString(r.nextInt(100) + 1), s2 = randString(r
-          .nextInt(100) + 1);
+      String s1 = randString(r.nextInt(100) + 1),
+             s2 = randString(r.nextInt(100) + 1);
       String s3 = randString(s1.length() + s2.length());
       System.out.println(s1 + " " + s2 + " " + s3);
       System.out.println(isInterleavingString(s1, s2, s3));

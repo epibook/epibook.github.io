@@ -54,21 +54,19 @@ public class LongestContainedRange {
       }
     }
 
-    Map.Entry<Integer, Integer> m = Collections.max(L.entrySet(),
-        new Comparator<Map.Entry<Integer, Integer>>() {
+    Map.Entry<Integer, Integer> m = Collections.max(
+        L.entrySet(), new Comparator<Map.Entry<Integer, Integer>>() {
           @Override
           public int compare(Map.Entry<Integer, Integer> o1,
                              Map.Entry<Integer, Integer> o2) {
-            return Integer.valueOf(o1.getValue() - o1.getKey()).compareTo(
-                o2.getValue() - o2.getKey());
+            return Integer.valueOf(o1.getValue() - o1.getKey())
+                .compareTo(o2.getValue() - o2.getKey());
           }
-        }
-    );
+        });
     return m.getValue() - m.getKey() + 1;
   }
 
-  public static Pair<Integer, Integer>
-  findLongestContainedRange(int[] A) {
+  public static Pair<Integer, Integer> findLongestContainedRange(int[] A) {
     // S records the existence of each entry in A.
     Set<Integer> S = new HashSet<>();
     for (int a : A) {
@@ -106,7 +104,7 @@ public class LongestContainedRange {
   public static int longestContainedRange(int[] A) {
     // unprocessedEntries records the existence of each entry in A.
     Set<Integer> unprocessedEntries = new HashSet<>();
-    for (int i = 0 ; i < A.length; i++) {
+    for (int i = 0; i < A.length; i++) {
       unprocessedEntries.add(A[i]);
     }
 
@@ -129,8 +127,7 @@ public class LongestContainedRange {
         ++upperBound;
       }
 
-      maxIntervalSize = 
-          Math.max(upperBound - lowerBound - 1, maxIntervalSize);
+      maxIntervalSize = Math.max(upperBound - lowerBound - 1, maxIntervalSize);
     }
     return maxIntervalSize;
   }
@@ -150,11 +147,13 @@ public class LongestContainedRange {
         A[i] = r.nextInt(n + 1);
       }
 
-      assert (findLongestContainedRangeInt(A) == checkAns(A));
+      assert(findLongestContainedRangeInt(A) == checkAns(A));
       Pair<Integer, Integer> result = findLongestContainedRange(A);
       System.out.println(result);
-      assert (result.getSecond() - result.getFirst() + 1 == findLongestContainedRangeInt(A));
-      assert (result.getSecond() - result.getFirst() + 1 == longestContainedRange(A));
+      assert(result.getSecond() - result.getFirst() + 1 ==
+             findLongestContainedRangeInt(A));
+      assert(result.getSecond() - result.getFirst() + 1 ==
+             longestContainedRange(A));
     }
   }
 }

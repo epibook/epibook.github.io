@@ -36,7 +36,7 @@ public class MinimumDistance3SortedArrays {
 
   public static int findMinDistanceSortedArrays(
       List<? extends List<Integer>> sortedArrays) {
-    // Indices into each of the arrays. 
+    // Indices into each of the arrays.
     List<Integer> heads = new ArrayList<>(sortedArrays.size());
     for (List<Integer> arr : sortedArrays) {
       heads.add(0);
@@ -50,7 +50,8 @@ public class MinimumDistance3SortedArrays {
     }
 
     while (true) {
-      result = Math.min(result, currentHeads.last().val - currentHeads.first().val);
+      result =
+          Math.min(result, currentHeads.last().val - currentHeads.first().val);
       int idxNextMin = currentHeads.first().idx;
       // Return if there is no remaining element in one array.
       heads.set(idxNextMin, heads.get(idxNextMin) + 1);
@@ -58,7 +59,8 @@ public class MinimumDistance3SortedArrays {
         return result;
       }
       currentHeads.pollFirst();
-      currentHeads.add(new ArrayData(idxNextMin, sortedArrays.get(idxNextMin).get(heads.get(idxNextMin))));
+      currentHeads.add(new ArrayData(
+          idxNextMin, sortedArrays.get(idxNextMin).get(heads.get(idxNextMin))));
     }
   }
   // @exclude
@@ -77,7 +79,8 @@ public class MinimumDistance3SortedArrays {
     }
   }
 
-  private static int bruteForceGenAnswer(List<? extends List<Integer>> sortedArrays) {
+  private static int bruteForceGenAnswer(
+      List<? extends List<Integer>> sortedArrays) {
     List<Integer> idx = new ArrayList<>(sortedArrays.size());
     for (List<Integer> arr : sortedArrays) {
       idx.add(0);
@@ -108,7 +111,7 @@ public class MinimumDistance3SortedArrays {
       }
       int ans = findMinDistanceSortedArrays(sortedArrays);
       System.out.println(ans);
-      assert (bruteForceGenAnswer(sortedArrays) == ans);
+      assert(bruteForceGenAnswer(sortedArrays) == ans);
     }
   }
 }

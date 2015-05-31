@@ -2,49 +2,25 @@ package com.epi;
 
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
+// These numbers have very interesting property, and people called it ugly
+// numbers. It is also called Quadratic integer rings.
 public class GeneratingABSqrt2 {
   // @include
-  public static class Num implements Comparable<Num> {
-    private int a, b;
-    private double val;
+  public static class ABSqrt2 implements Comparable<ABSqrt2> {
+    public int a, b;
+    public double val;
 
-    public Num(int aVal, int bVal) {
-      this.a = aVal;
-      this.b = bVal;
+    public ABSqrt2(int a, int b) {
+      this.a = a;
+      this.b = b;
       val = a + b * Math.sqrt(2);
     }
 
-    public int getA() {
-      return a;
-    }
-
-    public void setA(int aVal) {
-      this.a = aVal;
-    }
-
-    public int getB() {
-      return b;
-    }
-
-    public void setB(int bVal) {
-      this.b = bVal;
-    }
-
-    public double getVal() {
-      return val;
-    }
-
-    public void setVal(double val) {
-      this.val = val;
-    }
-
     @Override
-    public int compareTo(Num o) {
-      return Double.valueOf(val).compareTo(o.getVal());
+    public int compareTo(ABSqrt2 o) {
+      return Double.valueOf(val).compareTo(o.val);
     }
+    // @exclude
 
     @Override
     public boolean equals(Object o) {
@@ -55,35 +31,28 @@ public class GeneratingABSqrt2 {
         return false;
       }
 
-      Num that = (Num) o;
+      ABSqrt2 that = (ABSqrt2)o;
       return a == that.a && b == that.b;
     }
-
-    @Override
-    public String toString() {
-      return a + " " + b + " " + val;
-    }
+    // @include
   }
 
-  public static List<Num> generateFirstK(int k) {
-    List<Num> smallest = new ArrayList<>();
-    TreeSet<Num> set = new TreeSet<>();
-
+  public static List<ABSqrt2> generateFirstK(int k) {
+    TreeSet<ABSqrt2> candidates = new TreeSet<>();
     // Initial for 0 + 0 * sqrt(2).
-    set.add(new Num(0, 0));
+    candidates.add(new ABSqrt2(0, 0));
 
-    while (smallest.size() < k) {
-      Num s = set.first();
-      smallest.add(s);
+    List<ABSqrt2> result = new ArrayList<>();
+    while (result.size() < k) {
+      ABSqrt2 nextSmallest = candidates.first();
+      result.add(nextSmallest);
 
-      // Add the next two numbers derived from s.
-      Num c1 = new Num(s.a + 1, s.b);
-      set.add(c1);
-      Num c2 = new Num(s.a, s.b + 1);
-      set.add(c2);
-      set.remove(s);
+      // Add the next two numbers derived from nextSmallest.
+      candidates.add(new ABSqrt2(nextSmallest.a + 1, nextSmallest.b));
+      candidates.add(new ABSqrt2(nextSmallest.a, nextSmallest.b + 1));
+      candidates.remove(nextSmallest);
     }
-    return smallest;
+    return result;
   }
   // @exclude
 
@@ -96,11 +65,12 @@ public class GeneratingABSqrt2 {
       } else {
         k = r.nextInt(10000) + 1;
       }
-      List<Num> ans = generateFirstK(k);
+      List<ABSqrt2> ans = generateFirstK(k);
       for (int i = 0; i < ans.size(); ++i) {
-        System.out.println(ans.get(i));
+        System.out.println(ans.get(i).a + " " + ans.get(i).b + " " +
+                           ans.get(i).val);
         if (i > 0) {
-          assert (ans.get(i).getVal() >= ans.get(i - 1).getVal());
+          assert(ans.get(i).val >= ans.get(i - 1).val);
         }
       }
     }

@@ -9,15 +9,15 @@ public class ApproximateSort {
     PriorityQueue<Integer> minHeap = new PriorityQueue<>();
     try {
       ObjectInputStream osin = new ObjectInputStream(sequence);
-      // Adds the first k elements into min_heap. Stop if there are fewer than
+      // Adds the first k elements into minHeap. Stop if there are fewer than
       // k elements.
       for (int i = 0; i < k; ++i) {
-        minHeap.add((Integer) osin.readObject());
+        minHeap.add((Integer)osin.readObject());
       }
 
-      // For every new element, add it to min_heap and extract the smallest.
+      // For every new element, add it to minHeap and extract the smallest.
       while (true) {
-        minHeap.add((Integer) osin.readObject());
+        minHeap.add((Integer)osin.readObject());
         System.out.println(minHeap.remove());
       }
     } catch (IOException e) {
@@ -42,7 +42,8 @@ public class ApproximateSort {
       for (Integer a : A) {
         oos.writeObject(a);
       }
-      ByteArrayInputStream sequence = new ByteArrayInputStream(baos.toByteArray());
+      ByteArrayInputStream sequence =
+          new ByteArrayInputStream(baos.toByteArray());
       sortApproximatelySortedArray(sequence, 3);
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
@@ -69,7 +70,8 @@ public class ApproximateSort {
       for (Integer a : A) {
         oos.writeObject(a);
       }
-      ByteArrayInputStream sequence = new ByteArrayInputStream(baos.toByteArray());
+      ByteArrayInputStream sequence =
+          new ByteArrayInputStream(baos.toByteArray());
       sortApproximatelySortedArray(sequence, n - 1);
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());

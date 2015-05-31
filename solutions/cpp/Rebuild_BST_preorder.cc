@@ -15,14 +15,14 @@ using std::numeric_limits;
 using std::unique_ptr;
 using std::vector;
 
-unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
-    const vector<int>&, int, int);
+unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(const vector<int>&, int,
+                                                      int);
 
 // @include
 unique_ptr<BSTNode<int>> RebuildBSTFromPreorder(
     const vector<int>& preorder_sequence) {
-  return RebuildBSTFromPreorderHelper(preorder_sequence,
-                                      0, preorder_sequence.size());
+  return RebuildBSTFromPreorderHelper(preorder_sequence, 0,
+                                      preorder_sequence.size());
 }
 
 // Builds a BST from preorder_sequence[start : end - 1].
@@ -40,8 +40,7 @@ unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
       preorder_sequence[start],
       RebuildBSTFromPreorderHelper(preorder_sequence, start + 1,
                                    transition_point),
-      RebuildBSTFromPreorderHelper(preorder_sequence, transition_point,
-                                   end)});
+      RebuildBSTFromPreorderHelper(preorder_sequence, transition_point, end)});
 }
 // @exclude
 

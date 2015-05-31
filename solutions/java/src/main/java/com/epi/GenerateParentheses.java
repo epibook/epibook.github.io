@@ -22,8 +22,8 @@ public class GenerateParentheses {
 
     if (numLeftParensNeeded > 0) { // Able to insert '('.
       directedGenerateBalancedParentheses(numLeftParensNeeded - 1,
-                                          numRightParensNeeded,
-                                          validPrefix + "(", result);
+                                          numRightParensNeeded, validPrefix + "(",
+                                          result);
     }
     if (numLeftParensNeeded < numRightParensNeeded) { // Able to insert ')'.
       directedGenerateBalancedParentheses(numLeftParensNeeded,
@@ -35,11 +35,11 @@ public class GenerateParentheses {
 
   private static void smallTest() {
     List<String> result = generateBalancedParentheses(1);
-    assert (result.size() == 1 && result.get(0).equals("()"));
+    assert(result.size() == 1 && result.get(0).equals("()"));
     result = generateBalancedParentheses(2);
-    assert (result.size() == 2 && ((result.get(0).equals("(())") && result.get(1)
-        .equals("()()")) || (result.get(0).equals("()()") && result.get(1).equals(
-        "(())"))));
+    assert(result.size() == 2 &&
+           ((result.get(0).equals("(())") && result.get(1).equals("()()")) ||
+            (result.get(0).equals("()()") && result.get(1).equals("(())"))));
   }
 
   public static void main(String[] args) {

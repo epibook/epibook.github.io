@@ -36,8 +36,8 @@ public class RabinKarp {
     }
 
     // Tries to match s and t[t.size() - s.size() : t.size() - 1].
-    if (tHash == sHash
-        && t.subSequence(t.length() - s.length(), t.length()).equals(s)) {
+    if (tHash == sHash &&
+        t.subSequence(t.length() - s.length(), t.length()).equals(s)) {
       return t.length() - s.length();
     }
     return -1; // s is not a substring of t.
@@ -55,12 +55,12 @@ public class RabinKarp {
     }
     int index = rabinKarp(t, s);
     if (index >= 0) {
-      System.out.printf("Index of first occurrence of %s in %s: %d\n",
-                        s, t, rabinKarp(t, s));
+      System.out.printf("Index of first occurrence of %s in %s: %d\n", s, t,
+                        rabinKarp(t, s));
     } else {
       System.out.println("No match found");
     }
-    assert (rabinKarp("GACGCCA", "CGC") == 2);
-    assert (rabinKarp("GATACCCATCGAGTCGGATCGAGT", "GAG") == 10);
+    assert(rabinKarp("GACGCCA", "CGC") == 2);
+    assert(rabinKarp("GATACCCATCGAGTCGGATCGAGT", "GAG") == 10);
   }
 }

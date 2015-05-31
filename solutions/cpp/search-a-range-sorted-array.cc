@@ -64,7 +64,7 @@ int main(int argc, char** argv) {
     cout << endl;
     */
     int target = A_dis(gen);
-    //cout << "target = " << target << endl;
+    // cout << "target = " << target << endl;
     auto result = search_range(A, target), ans = check_ans(A, target);
     /*
     cout << result.first << ", " << result.second << endl;

@@ -7,42 +7,28 @@ public class BinaryTreePrototypeTemplate {
     private BinaryTreeNode<T> left, right;
     // @exclude
 
-    public BinaryTreeNode() {
-    }
+    public BinaryTreeNode() {}
 
-    public BinaryTreeNode(T data) {
-      this.data = data;
-    }
+    public BinaryTreeNode(T data) { this.data = data; }
 
-    public BinaryTreeNode(T data, BinaryTreeNode<T> left, BinaryTreeNode<T> right) {
+    public BinaryTreeNode(T data, BinaryTreeNode<T> left,
+                          BinaryTreeNode<T> right) {
       this.data = data;
       this.left = left;
       this.right = right;
     }
 
-    public T getData() {
-      return data;
-    }
+    public T getData() { return data; }
 
-    public void setData(T data) {
-      this.data = data;
-    }
+    public void setData(T data) { this.data = data; }
 
-    public BinaryTreeNode<T> getLeft() {
-      return left;
-    }
+    public BinaryTreeNode<T> getLeft() { return left; }
 
-    public void setLeft(BinaryTreeNode<T> left) {
-      this.left = left;
-    }
+    public void setLeft(BinaryTreeNode<T> left) { this.left = left; }
 
-    public BinaryTreeNode<T> getRight() {
-      return right;
-    }
+    public BinaryTreeNode<T> getRight() { return right; }
 
-    public void setRight(BinaryTreeNode<T> right) {
-      this.right = right;
-    }
+    public void setRight(BinaryTreeNode<T> right) { this.right = right; }
 
     @Override
     public boolean equals(Object o) {
@@ -53,7 +39,7 @@ public class BinaryTreePrototypeTemplate {
         return false;
       }
 
-      BinaryTreeNode that = (BinaryTreeNode) o;
+      BinaryTreeNode that = (BinaryTreeNode)o;
 
       if (data != null ? !data.equals(that.data) : that.data != null) {
         return false;

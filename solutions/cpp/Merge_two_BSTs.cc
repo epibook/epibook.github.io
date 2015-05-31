@@ -16,11 +16,10 @@ using std::shared_ptr;
 shared_ptr<BSTNode<int>> BSTToDoublyListHelper(
     const shared_ptr<BSTNode<int>>& node);
 
-shared_ptr<BSTNode<int>> MergeTwoSortedLists(
-    shared_ptr<BSTNode<int>> A, shared_ptr<BSTNode<int>> B);
+shared_ptr<BSTNode<int>> MergeTwoSortedLists(shared_ptr<BSTNode<int>> A,
+                                             shared_ptr<BSTNode<int>> B);
 
-void AppendNode(shared_ptr<BSTNode<int>>* node,
-                shared_ptr<BSTNode<int>>* tail);
+void AppendNode(shared_ptr<BSTNode<int>>* node, shared_ptr<BSTNode<int>>* tail);
 
 // Build a BST from the (s + 1)-th to the e-th node in L.
 shared_ptr<BSTNode<int>> BuildBSTFromSortedDoublyListHelper(
@@ -42,8 +41,7 @@ shared_ptr<BSTNode<int>> BuildBSTFromSortedDoublyList(
   return BuildBSTFromSortedDoublyListHelper(&L, 0, n);
 }
 
-shared_ptr<BSTNode<int>> BSTToDoublyList(
-    const shared_ptr<BSTNode<int>>& n) {
+shared_ptr<BSTNode<int>> BSTToDoublyList(const shared_ptr<BSTNode<int>>& n) {
   auto res = BSTToDoublyListHelper(n);
   res->left->right = nullptr;  // breaks the link from tail to head.
   res->left = nullptr;  // breaks the link from head to tail.
@@ -98,8 +96,8 @@ int CountLength(shared_ptr<BSTNode<int>> L) {
 }
 
 // @include
-shared_ptr<BSTNode<int>> MergeTwoBSTs(
-    shared_ptr<BSTNode<int>> A, shared_ptr<BSTNode<int>> B) {
+shared_ptr<BSTNode<int>> MergeTwoBSTs(shared_ptr<BSTNode<int>> A,
+                                      shared_ptr<BSTNode<int>> B) {
   A = BSTToDoublyList(A), B = BSTToDoublyList(B);
   int A_length = CountLength(A), B_length = CountLength(B);
   return BuildBSTFromSortedDoublyList(MergeTwoSortedLists(A, B),
@@ -152,10 +150,8 @@ int main(int argc, char* argv[]) {
   L->left = make_shared<BSTNode<int>>(BSTNode<int>{2});
   L->left->left = make_shared<BSTNode<int>>(BSTNode<int>{1});
   L->right = make_shared<BSTNode<int>>(BSTNode<int>{5});
-  L->right->left =
-      make_shared<BSTNode<int>>(BSTNode<int>{4});
-  L->right->right =
-      make_shared<BSTNode<int>>(BSTNode<int>{6});
+  L->right->left = make_shared<BSTNode<int>>(BSTNode<int>{4});
+  L->right->right = make_shared<BSTNode<int>>(BSTNode<int>{6});
   //     7
   //   2   8
   // 0

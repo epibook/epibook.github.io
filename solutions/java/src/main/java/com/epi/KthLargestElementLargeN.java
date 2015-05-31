@@ -17,8 +17,7 @@ public class KthLargestElementLargeN {
     });
   }
 
-  private static class Greater<T extends Comparable<T>> implements
-      Comparator<T> {
+  private static class Greater<T extends Comparable<T>> implements Comparator<T> {
     @Override
     public int compare(T o1, T o2) {
       return o2.compareTo(o1);
@@ -33,7 +32,7 @@ public class KthLargestElementLargeN {
       int x = s.nextInt();
       candidates.add(x);
       if (candidates.size() == (k * 2) - 1) {
-        // Reorders elements about median with larger elements appearing before 
+        // Reorders elements about median with larger elements appearing before
         // the median.
         nthElement(candidates, k - 1, new Greater<Integer>());
         // Keeps the k largest elements and discard the small ones.

@@ -48,8 +48,7 @@ public class FindKLargestBST {
     List<Integer> ans = findKLargestInBST(tree, k);
     System.out.println(ans);
     for (int i = 1; i < ans.size(); ++i) {
-      assert (ans.get(i - 1) >= ans.get(i));
+      assert(ans.get(i - 1) >= ans.get(i));
     }
-
   }
 }

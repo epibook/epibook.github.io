@@ -31,9 +31,9 @@ public class PickingUpCoinsDontLose {
       }
     }
     if (choose == 0) {
-      assert (even >= odd);
+      assert(even >= odd);
     } else {
-      assert (odd >= even);
+      assert(odd >= even);
     }
   }
 
@@ -61,5 +61,4 @@ public class PickingUpCoinsDontLose {
       check(C, res);
     }
   }
-
 }

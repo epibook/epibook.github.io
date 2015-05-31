@@ -29,9 +29,8 @@ public class ExteriorBinaryTree {
         result.add(subtreeRoot);
       }
       result.addAll(leftBoundaryAndLeaves(subtreeRoot.getLeft(), isBoundary));
-      result.addAll(
-          leftBoundaryAndLeaves(subtreeRoot.getRight(),
-                                isBoundary && subtreeRoot.getLeft() == null));
+      result.addAll(leftBoundaryAndLeaves(
+          subtreeRoot.getRight(), isBoundary && subtreeRoot.getLeft() == null));
     }
     return result;
   }
@@ -42,9 +41,8 @@ public class ExteriorBinaryTree {
       BinaryTreeNode<Integer> subtreeRoot, boolean isBoundary) {
     List<BinaryTreeNode<Integer>> result = new LinkedList<>();
     if (subtreeRoot != null) {
-      result.addAll(
-          rightBoundaryAndLeaves(subtreeRoot.getLeft(),
-                                 isBoundary && subtreeRoot.getRight() == null));
+      result.addAll(rightBoundaryAndLeaves(
+          subtreeRoot.getLeft(), isBoundary && subtreeRoot.getRight() == null));
       result.addAll(rightBoundaryAndLeaves(subtreeRoot.getRight(), isBoundary));
       if (isBoundary || isLeaf(subtreeRoot)) {
         result.add(subtreeRoot);
@@ -79,16 +77,18 @@ public class ExteriorBinaryTree {
       result.add(l.getData());
       System.out.println(l.getData());
     }
-    List<Integer> goldenResult = new ArrayList<Integer>() {{
-      add(3);
-      add(2);
-      add(1);
-      add(-1);
-      add(-2);
-      add(4);
-      add(6);
-      add(5);
-    }};
-    assert (goldenResult.equals(result));
+    List<Integer> goldenResult = new ArrayList<Integer>() {
+      {
+        add(3);
+        add(2);
+        add(1);
+        add(-1);
+        add(-2);
+        add(4);
+        add(6);
+        add(5);
+      }
+    };
+    assert(goldenResult.equals(result));
   }
 }

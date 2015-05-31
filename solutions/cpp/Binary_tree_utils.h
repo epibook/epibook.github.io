@@ -23,13 +23,13 @@ using std::uniform_int_distribution;
 using std::vector;
 
 template <typename T>
-unique_ptr<BinaryTreeNode<T>> generate_rand_binary_tree(int n,
-                                                    bool is_unique = false) {
+unique_ptr<BinaryTreeNode<T>> generate_rand_binary_tree(
+    int n, bool is_unique = false) {
   default_random_engine gen((random_device())());
   list<unique_ptr<BinaryTreeNode<T>>*> l;
   uniform_int_distribution<int> dis(0, numeric_limits<int>::max());
-  auto root =
-      unique_ptr<BinaryTreeNode<T>>(new BinaryTreeNode<T>{(is_unique ? n-- : dis(gen))});
+  auto root = unique_ptr<BinaryTreeNode<T>>(
+      new BinaryTreeNode<T>{(is_unique ? n-- : dis(gen))});
   l.emplace_back(&(root->left));
   l.emplace_back(&(root->right));
   while (n--) {
@@ -37,7 +37,8 @@ unique_ptr<BinaryTreeNode<T>> generate_rand_binary_tree(int n,
     int x = x_dis(gen);
     typename list<unique_ptr<BinaryTreeNode<T>>*>::iterator it = l.begin();
     advance(it, x);
-    **it = unique_ptr<BinaryTreeNode<T>>(new BinaryTreeNode<T>{(is_unique ? n : dis(gen))});
+    **it = unique_ptr<BinaryTreeNode<T>>(
+        new BinaryTreeNode<T>{(is_unique ? n : dis(gen))});
     l.emplace_back(&((**it)->left));
     l.emplace_back(&((**it)->right));
     l.erase(it);

@@ -88,8 +88,7 @@ int main(int argc, char* argv[]) {
     unsigned long res = ClosestIntSameBits(x);
     cout << x << ' ' << res << endl;
     assert(CountBitsSetTo1(x) == CountBitsSetTo1(res));
-  }
-  catch (const exception& e) {
+  } catch (const exception& e) {
     cout << x << ' ' << e.what() << endl;
   }
   return 0;

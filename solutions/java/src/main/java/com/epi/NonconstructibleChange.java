@@ -18,22 +18,22 @@ public class NonconstructibleChange {
   // @exclude
 
   private static void smallTest() {
-    int[] A = new int[]{1, 2, 3, 4};
-    assert (11 == SmallestNonconstructibleValue(A));
-    A = new int[]{1, 2, 2, 4};
-    assert (10 == SmallestNonconstructibleValue(A));
-    A = new int[]{2, 3, 4, 5};
-    assert (1 == SmallestNonconstructibleValue(A));
-    A = new int[]{1, 3, 2, 1};
-    assert (8 == SmallestNonconstructibleValue(A));
-    A = new int[]{1, 3, 2, 5};
-    assert (12 == SmallestNonconstructibleValue(A));
-    A = new int[]{1, 3, 2, 6};
-    assert (13 == SmallestNonconstructibleValue(A));
-    A = new int[]{1, 3, 2, 7};
-    assert (14 == SmallestNonconstructibleValue(A));
-    A = new int[]{1, 3, 2, 8};
-    assert (7 == SmallestNonconstructibleValue(A));
+    int[] A = new int[] {1, 2, 3, 4};
+    assert(11 == SmallestNonconstructibleValue(A));
+    A = new int[] {1, 2, 2, 4};
+    assert(10 == SmallestNonconstructibleValue(A));
+    A = new int[] {2, 3, 4, 5};
+    assert(1 == SmallestNonconstructibleValue(A));
+    A = new int[] {1, 3, 2, 1};
+    assert(8 == SmallestNonconstructibleValue(A));
+    A = new int[] {1, 3, 2, 5};
+    assert(12 == SmallestNonconstructibleValue(A));
+    A = new int[] {1, 3, 2, 6};
+    assert(13 == SmallestNonconstructibleValue(A));
+    A = new int[] {1, 3, 2, 7};
+    assert(14 == SmallestNonconstructibleValue(A));
+    A = new int[] {1, 3, 2, 8};
+    assert(7 == SmallestNonconstructibleValue(A));
   }
 
   public static void main(String[] args) {

@@ -49,12 +49,12 @@ public class BalancedBinaryTree {
     tree.setRight(new BinaryTreeNode<Integer>());
     tree.getRight().setLeft(new BinaryTreeNode<Integer>());
     tree.getRight().setRight(new BinaryTreeNode<Integer>());
-    assert (isBalancedBinaryTree(tree));
+    assert(isBalancedBinaryTree(tree));
     System.out.println(isBalancedBinaryTree(tree));
     tree = new BinaryTreeNode<>();
     tree.setLeft(new BinaryTreeNode<Integer>());
     tree.getLeft().setLeft(new BinaryTreeNode<Integer>());
-    assert (!isBalancedBinaryTree(tree));
+    assert(!isBalancedBinaryTree(tree));
     System.out.println(isBalancedBinaryTree(tree));
   }
 }

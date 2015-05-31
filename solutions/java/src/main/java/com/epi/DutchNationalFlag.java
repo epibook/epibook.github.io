@@ -6,7 +6,6 @@ import java.util.Random;
 import static com.epi.utils.Utils.swap;
 
 public class DutchNationalFlag {
-
   // @include
   public static void dutchFlagPartition(int pivotIndex, int[] A) {
     int pivot = A[pivotIndex];
@@ -77,8 +76,7 @@ public class DutchNationalFlag {
       }
       System.out.println();
 
-      assert (i == n);
+      assert(i == n);
     }
-
   }
 }

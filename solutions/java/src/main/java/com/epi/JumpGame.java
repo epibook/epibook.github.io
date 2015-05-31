@@ -15,15 +15,15 @@ public class JumpGame {
 
   private static void smallTest() {
     int[] A = {2, 3, 1, 1, 4};
-    assert (canReach(A));
+    assert(canReach(A));
     int[] B = {3, 2, 1, 0, 4};
-    assert (!canReach(B));
+    assert(!canReach(B));
     int[] C = {3, 2, 1, -10, 4};
-    assert (!canReach(C));
+    assert(!canReach(C));
     int[] D = {2, 3, -1, -1, 4};
-    assert (canReach(D));
+    assert(canReach(D));
     int[] E = {2, 2, -1, -1, 100};
-    assert (!canReach(E));
+    assert(!canReach(E));
   }
 
   public static void main(String[] args) {

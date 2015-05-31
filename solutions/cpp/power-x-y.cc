@@ -50,7 +50,8 @@ int main(int argc, char** argv) {
   int y;
   if (argc == 3) {
     x = stod(argv[1]), y = stoi(argv[2]);
-    cout << x << "^" << y << ": " << PowerXY(x, y) << ", " << std::pow(x, y) << endl;
+    cout << x << "^" << y << ": " << PowerXY(x, y) << ", " << std::pow(x, y)
+         << endl;
     assert(!Compare(PowerXY(x, y), std::pow(x, y)));
   } else {
     uniform_real_distribution<> dis_x(0.0, 10.0);
@@ -58,8 +59,9 @@ int main(int argc, char** argv) {
     for (int times = 0; times < 10000; ++times) {
       x = dis_x(gen);
       y = dis_y(gen);
-      cout << x << "^" << y << ": " << PowerXY(x, y) << " " << std::pow(x, y) << endl;
-      //assert(!Compare(PowerXY(x, y), std::pow(x, y)));
+      cout << x << "^" << y << ": " << PowerXY(x, y) << " " << std::pow(x, y)
+           << endl;
+      // assert(!Compare(PowerXY(x, y), std::pow(x, y)));
     }
   }
   return 0;

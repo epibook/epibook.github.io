@@ -17,7 +17,7 @@ int GetDepth(const BinaryTreeNode<int>*);
 // @include
 BinaryTreeNode<int>* LCA(const unique_ptr<BinaryTreeNode<int>>& node_0,
                          const unique_ptr<BinaryTreeNode<int>>& node_1) {
-  auto* iter_0 = node_0.get(), *iter_1 = node_1.get();
+  auto *iter_0 = node_0.get(), *iter_1 = node_1.get();
   int depth_0 = GetDepth(iter_0), depth_1 = GetDepth(iter_1);
   // Makes iter_0 as the deeper node in order to simplify the code.
   if (depth_1 > depth_0) {

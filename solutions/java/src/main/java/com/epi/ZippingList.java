@@ -25,8 +25,8 @@ class ZippingList {
     secondHalfHead = reverseLinkedList(secondHalfHead);
 
     // Interleave the first half and the reversed of the second half.
-    ListNode<Integer> firstHalfIter = firstHalfHead,
-                      secondHalfIter = secondHalfHead;
+    ListNode<Integer> firstHalfIter = firstHalfHead, secondHalfIter =
+                                                         secondHalfHead;
     while (secondHalfIter != null) {
       ListNode<Integer> temp = secondHalfIter.next;
       secondHalfIter.next = firstHalfIter.next;
@@ -66,7 +66,7 @@ class ZippingList {
     while (curr != null) {
       if (args.length <= 1) {
         if ((idx & 1) != 0) {
-          assert (pre + curr.data == n);
+          assert(pre + curr.data == n);
         }
       }
       ++idx;

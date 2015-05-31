@@ -15,7 +15,7 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-void MatrixClockwise(const vector<vector<int>>&, int, vector<int>*);
+void MatrixClockwise(const vector<vector<int>> &, int, vector<int> *);
 
 // @include
 vector<int> MatrixInSpiralOrder(const vector<vector<int>> &A) {
@@ -27,7 +27,7 @@ vector<int> MatrixInSpiralOrder(const vector<vector<int>> &A) {
 }
 
 void MatrixClockwise(const vector<vector<int>> &A, int offset,
-                     vector<int>* result) {
+                     vector<int> *result) {
   if (offset == A.size() - offset - 1) {
     // A has odd dimension, and we are at the center of the matrix A.
     result->emplace_back(A[offset][offset]);

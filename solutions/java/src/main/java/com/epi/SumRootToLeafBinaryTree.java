@@ -19,8 +19,8 @@ public class SumRootToLeafBinaryTree {
       return partialPathSum;
     }
     // Non-leaf.
-    return sumRootToLeafHelper(tree.getLeft(), partialPathSum)
-           + sumRootToLeafHelper(tree.getRight(), partialPathSum);
+    return sumRootToLeafHelper(tree.getLeft(), partialPathSum) +
+        sumRootToLeafHelper(tree.getRight(), partialPathSum);
   }
   // @exclude
 
@@ -35,6 +35,6 @@ public class SumRootToLeafBinaryTree {
     root.getRight().setLeft(new BinaryTreeNode<>(1));
     root.getRight().setRight(new BinaryTreeNode<>(0));
     int result = sumRootToLeaf(root);
-    assert (result == 15);
+    assert(result == 15);
   }
 }

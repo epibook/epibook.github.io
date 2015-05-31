@@ -96,16 +96,16 @@ bool is_monochromatic(const vector<vector<int>>& image_sum,
   if (lower_left.i >= 1 && lower_left.j >= 1) {
     pixel_sum += image_sum[lower_left.i - 1][lower_left.j - 1];
   }
-  return pixel_sum == 0 ||                                  // totally white.
-         pixel_sum == (upper_right.i - lower_left.i + 1) *  // totally black.
-                          (upper_right.j - lower_left.j + 1);
+  return pixel_sum == 0 ||  // totally white.
+         pixel_sum ==
+             (upper_right.i - lower_left.i + 1) *  // totally black.
+                 (upper_right.j - lower_left.j + 1);
 }
 
 shared_ptr<TreeNode> calculate_optimal_2D_tree_helper(
     const vector<vector<int>>& image, const vector<vector<int>>& image_sum,
     const Point& lower_left, const Point& upper_right,
-    unordered_map<Point,
-                  unordered_map<Point, shared_ptr<TreeNode>, HashPoint>,
+    unordered_map<Point, unordered_map<Point, shared_ptr<TreeNode>, HashPoint>,
                   HashPoint>& table) {
   // Illegal rectangle region, returns empty node.
   if (lower_left > upper_right) {
@@ -132,9 +132,8 @@ shared_ptr<TreeNode> calculate_optimal_2D_tree_helper(
                     image, image_sum, Point{lower_left.i, t},
                     Point{s - 1, upper_right.j}, table),
                 // NE rectangle.
-                calculate_optimal_2D_tree_helper(image, image_sum,
-                                                 Point{s, t}, upper_right,
-                                                 table),
+                calculate_optimal_2D_tree_helper(image, image_sum, Point{s, t},
+                                                 upper_right, table),
                 // SE rectangle.
                 calculate_optimal_2D_tree_helper(
                     image, image_sum, Point{s, lower_left.j},

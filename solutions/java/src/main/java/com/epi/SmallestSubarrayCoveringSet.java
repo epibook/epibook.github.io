@@ -7,12 +7,11 @@ import com.epi.utils.Pair;
 import java.util.*;
 
 class SmallestSubarrayCoveringSet {
-
   public static String randString(int len) {
     StringBuilder sb = new StringBuilder();
     Random gen = new Random();
     while (len-- != 0) {
-      sb.append((char) (gen.nextInt('z' + 1 - 'a') + 'a'));
+      sb.append((char)(gen.nextInt('z' + 1 - 'a') + 'a'));
     }
     return sb.toString();
   }
@@ -26,20 +25,21 @@ class SmallestSubarrayCoveringSet {
     while (right < paragraph.length) {
       // Keeps advancing right until it reaches end or keywordsToCount has
       // all keywords.
-      while (right < paragraph.length
-             && keywordsToCount.size() < keywords.size()) {
+      while (right < paragraph.length &&
+             keywordsToCount.size() < keywords.size()) {
         if (keywords.contains(paragraph[right])) {
           keywordsToCount.put(paragraph[right],
-              keywordsToCount.containsKey(paragraph[right])
-                  ? keywordsToCount.get(paragraph[right]) + 1 : 1);
+                              keywordsToCount.containsKey(paragraph[right])
+                                  ? keywordsToCount.get(paragraph[right]) + 1
+                                  : 1);
         }
         ++right;
       }
 
       // Found all keywords.
       if (keywordsToCount.size() == keywords.size() &&
-          ((result.getFirst() == -1 && result.getSecond() == -1)
-           || right - 1 - left < result.getSecond() - result.getFirst())) {
+          ((result.getFirst() == -1 && result.getSecond() == -1) ||
+           right - 1 - left < result.getSecond() - result.getFirst())) {
         result.setFirst(left);
         result.setSecond(right - 1);
       }
@@ -52,8 +52,8 @@ class SmallestSubarrayCoveringSet {
           keywordsToCount.put(paragraph[left], --keywordCount);
           if (keywordCount == 0) {
             keywordsToCount.remove(paragraph[left]);
-            if ((result.getFirst() == -1 && result.getSecond() == -1)
-                || right - 1 - left < result.getSecond() - result.getFirst()) {
+            if ((result.getFirst() == -1 && result.getSecond() == -1) ||
+                right - 1 - left < result.getSecond() - result.getFirst()) {
               result.setFirst(left);
               result.setSecond(right - 1);
             }
@@ -73,12 +73,10 @@ class SmallestSubarrayCoveringSet {
     Pair<Integer, Integer> ans = new Pair<>(0, A.length - 1);
     for (int l = 0; l < A.length; ++l) {
       Map<String, Integer> count = new HashMap<>();
-      for (int r = l;
-           r < A.length && r - l < ans.getSecond() - ans.getFirst();
+      for (int r = l; r < A.length && r - l < ans.getSecond() - ans.getFirst();
            ++r) {
         if (dict.contains(A[r])) {
-          count.put(A[r],
-              count.containsKey(A[r]) ? count.get(A[r]) + 1 : 1);
+          count.put(A[r], count.containsKey(A[r]) ? count.get(A[r]) + 1 : 1);
         }
         if (count.size() == Q.length) {
           if (r - l < ans.getSecond() - ans.getFirst()) {
@@ -139,9 +137,10 @@ class SmallestSubarrayCoveringSet {
           dict.remove(A[i]);
         }
       }
-      assert (dict.isEmpty());
+      assert(dict.isEmpty());
       Pair<Integer, Integer> res2 =
-          SmallestSubarrayCoveringSetStream.findSmallestSubarrayCoveringSubset(A, Q);
+          SmallestSubarrayCoveringSetStream.findSmallestSubarrayCoveringSubset(A,
+                                                                               Q);
       System.out.println(res2.getFirst() + ", " + res2.getSecond());
       dict.clear();
       for (String aQ : Q) {
@@ -152,10 +151,10 @@ class SmallestSubarrayCoveringSet {
           dict.remove(A[i]);
         }
       }
-      assert (dict.isEmpty());
-      assert (res.getSecond() - res.getFirst() == res2.getSecond()
-          - res2.getFirst());
-      assert (res.getSecond() - res.getFirst() == checkAns(A, Q));
+      assert(dict.isEmpty());
+      assert(res.getSecond() - res.getFirst() ==
+             res2.getSecond() - res2.getFirst());
+      assert(res.getSecond() - res.getFirst() == checkAns(A, Q));
     }
   }
 }

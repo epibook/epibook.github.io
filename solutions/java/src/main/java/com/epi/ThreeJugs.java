@@ -4,16 +4,12 @@ import com.epi.utils.Pair;
 
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ThreeJugs {
   // @include
   public static class Jug {
     public int low, high;
 
-    public Jug() {
-    }
+    public Jug() {}
 
     public Jug(int low, int high) {
       this.low = low;
@@ -28,8 +24,7 @@ public class ThreeJugs {
 
   private static boolean checkFeasibleHelper(List<Jug> jugs, int L, int H,
                                              Set<Pair<Integer, Integer>> c) {
-    if (L > H || c.contains(new Pair<>(L, H))
-        || (L < 0 && H < 0)) {
+    if (L > H || c.contains(new Pair<>(L, H)) || (L < 0 && H < 0)) {
       return false;
     }
 
@@ -51,7 +46,7 @@ public class ThreeJugs {
     jugs.add(new Jug(230, 240));
     jugs.add(new Jug(290, 310));
     jugs.add(new Jug(500, 515));
-    assert (checkFeasible(jugs, 2100, 2300));
+    assert(checkFeasible(jugs, 2100, 2300));
     jugs.clear();
     Random r = new Random();
     if (args.length == 1) {

@@ -46,12 +46,12 @@ void ReverseWords(string* s) {
 }
 // @exclude
 
-void check_answer(const string &ori, string* str) {
+void check_answer(const string& ori, string* str) {
   ReverseWords(str);
   assert(ori.compare(*str) == 0);
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     string str;

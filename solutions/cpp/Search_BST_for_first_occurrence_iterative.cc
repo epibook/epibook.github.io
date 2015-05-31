@@ -9,7 +9,7 @@ using std::unique_ptr;
 
 // @include
 BSTNode<int>* FindFirstEqualK(const unique_ptr<BSTNode<int>>& tree, int k) {
-  BSTNode<int>* first_so_far = nullptr, *curr = tree.get();
+  BSTNode<int> *first_so_far = nullptr, *curr = tree.get();
   while (curr) {
     if (curr->data < k) {
       curr = curr->right.get();

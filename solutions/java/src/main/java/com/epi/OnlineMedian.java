@@ -11,8 +11,8 @@ public class OnlineMedian {
     // minHeap stores the larger half seen so far.
     PriorityQueue<Integer> minHeap = new PriorityQueue<>();
     // maxHeap stores the smaller half seen so far.
-    PriorityQueue<Integer> maxHeap
-        = new PriorityQueue<>(11, Collections.reverseOrder());
+    PriorityQueue<Integer> maxHeap =
+        new PriorityQueue<>(11, Collections.reverseOrder());
 
     Scanner s = new Scanner(sequence);
     while (s.hasNextInt()) {
@@ -27,8 +27,8 @@ public class OnlineMedian {
           maxHeap.add(x);
         }
       }
-      // Ensure minHeap and maxHeap should have equal number of elements 
-      // if even number of elements are read, otherwise, minHeap should have 
+      // Ensure minHeap and maxHeap should have equal number of elements
+      // if even number of elements are read, otherwise, minHeap should have
       // one more element.
       if (minHeap.size() > maxHeap.size() + 1) {
         maxHeap.add(minHeap.remove());
@@ -37,11 +37,13 @@ public class OnlineMedian {
       }
 
       // @exclude
-      globalResult.add((minHeap.size() == maxHeap.size() ?
-          0.5 * (minHeap.peek() + maxHeap.peek()) : minHeap.peek()));
+      globalResult.add((minHeap.size() == maxHeap.size()
+                            ? 0.5 * (minHeap.peek() + maxHeap.peek())
+                            : minHeap.peek()));
       // @include
-      System.out.println(minHeap.size() == maxHeap.size() ?
-          0.5 * (minHeap.peek() + maxHeap.peek()) : minHeap.peek());
+      System.out.println(minHeap.size() == maxHeap.size()
+                             ? 0.5 * (minHeap.peek() + maxHeap.peek())
+                             : minHeap.peek());
     }
   }
   // @exclude
@@ -65,7 +67,7 @@ public class OnlineMedian {
     onlineMedian(generateStream(stream));
     List<Double> golden = Arrays.asList(5.0, 4.5, 4.0, 3.5, 3.0);
     assert golden.equals(globalResult);
-    
+
     globalResult.clear();
     stream = Arrays.asList(1, 2, 3, 4, 5);
     onlineMedian(generateStream(stream));

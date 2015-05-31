@@ -27,10 +27,9 @@ public class ZeroSumSubset {
         iota(ans, i + 1, 0);
         return ans;
       } else if (table.get(prefixSum.get(i)) != -1) {
-        List<Integer> ans = new ArrayList<>(i
-            - table.get(prefixSum.get(i)));
+        List<Integer> ans = new ArrayList<>(i - table.get(prefixSum.get(i)));
         iota(ans, i - table.get(prefixSum.get(i)),
-            table.get(prefixSum.get(i)) + 1);
+             table.get(prefixSum.get(i)) + 1);
         return ans;
       }
       table.set(prefixSum.get(i), i);
@@ -46,7 +45,7 @@ public class ZeroSumSubset {
     for (int a : ans) {
       sum = (sum + A.get(a)) % A.size();
     }
-    assert (sum == 0);
+    assert(sum == 0);
   }
 
   public static void main(String[] args) {

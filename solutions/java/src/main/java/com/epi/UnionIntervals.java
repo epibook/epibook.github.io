@@ -34,7 +34,6 @@ class Interval implements Comparable<Interval> {
 }
 
 class UnionIntervals {
-
   // @include
   public static List<Interval> unionOfIntervals(Interval[] intervals) {
     // Empty input.
@@ -48,12 +47,12 @@ class UnionIntervals {
     curr = intervals[0];
     List<Interval> result = new ArrayList<>();
     for (int i = 1; i < intervals.length; ++i) {
-      if (intervals[i].left.val < curr.right.val
-          || (intervals[i].left.val == curr.right.val
-              && (intervals[i].left.isClosed || curr.right.isClosed))) {
-        if (intervals[i].right.val > curr.right.val
-            || (intervals[i].right.val == curr.right.val
-                && intervals[i].right.isClosed)) {
+      if (intervals[i].left.val < curr.right.val ||
+          (intervals[i].left.val == curr.right.val &&
+           (intervals[i].left.isClosed || curr.right.isClosed))) {
+        if (intervals[i].right.val > curr.right.val ||
+            (intervals[i].right.val == curr.right.val &&
+             intervals[i].right.isClosed)) {
           curr.right = intervals[i].right;
         }
       } else {

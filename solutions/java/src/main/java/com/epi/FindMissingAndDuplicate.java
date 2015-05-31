@@ -42,7 +42,7 @@ public class FindMissingAndDuplicate {
       System.out.println("times = " + times);
       System.out.println(dup + " " + missing);
       System.out.println(ans.getFirst() + " " + ans.getSecond());
-      assert (ans.getFirst().equals(dup) && ans.getSecond().equals(missing));
+      assert(ans.getFirst().equals(dup) && ans.getSecond().equals(missing));
     }
   }
 }

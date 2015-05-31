@@ -18,15 +18,15 @@ public class ReservoirSampling {
 
     ObjectInputStream osin = new ObjectInputStream(sin);
     // Stores the first k elements.
-    Integer x = (Integer) readObjectSilently(osin);
+    Integer x = (Integer)readObjectSilently(osin);
     for (int i = 0; i < k && x != null; ++i) {
       samplingResults[i] = x;
-      x = (Integer) readObjectSilently(osin);
+      x = (Integer)readObjectSilently(osin);
     }
 
     // After the first k elements.
     int elementNum = k + 1;
-    x = (Integer) readObjectSilently(osin);
+    x = (Integer)readObjectSilently(osin);
     while (x != null) {
       Random gen = new Random();
       // Generate random int in [0, elementNum].
@@ -35,7 +35,7 @@ public class ReservoirSampling {
         samplingResults[tar] = x;
       }
 
-      x = (Integer) readObjectSilently(osin);
+      x = (Integer)readObjectSilently(osin);
     }
 
     // Close "osin" silently
@@ -56,8 +56,8 @@ public class ReservoirSampling {
   }
   // @exclude
 
-  public static void main(String[] args) throws IOException,
-      ClassNotFoundException {
+  public static void main(String[] args)
+      throws IOException, ClassNotFoundException {
     int n, k;
     Random gen = new Random();
 
@@ -94,5 +94,4 @@ public class ReservoirSampling {
     close(oos);
     // simplePrint(ans);
   }
-
 }

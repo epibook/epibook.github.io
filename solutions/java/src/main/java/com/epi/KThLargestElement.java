@@ -25,10 +25,10 @@ public class KThLargestElement {
     // @include
   }
 
-  // Partition A[left : right] around pivotIdx, returns the new index of the 
-  // pivot, newPivotIdx, after partition. After partitioning, 
+  // Partition A[left : right] around pivotIdx, returns the new index of the
+  // pivot, newPivotIdx, after partition. After partitioning,
   // A[left : newPivotIdx - 1] contains elements that are greater than the
-  // pivot, and A[newPivotIdx + 1 : right] contains elements that are less 
+  // pivot, and A[newPivotIdx + 1 : right] contains elements that are less
   // than the pivot.
   private static int partitionAroundPivot(int left, int right, int pivotIdx,
                                           int[] A) {
@@ -72,7 +72,7 @@ public class KThLargestElement {
       }
       int result = findKthLargest(A, k);
       Arrays.sort(A);
-      assert (result == A[A.length - k]);
+      assert(result == A[A.length - k]);
     }
   }
 }

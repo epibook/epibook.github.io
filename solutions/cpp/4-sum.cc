@@ -102,7 +102,7 @@ int main(int argc, char** argv) {
   int target = target_dis(gen);
   auto vecs = four_sum(A, target);
   check_ans(target, vecs);
-  A = {-2,-1,0,0,1,2};
+  A = {-2, -1, 0, 0, 1, 2};
   vecs = four_sum(A, 0);
   for (const auto& vec : vecs) {
     for (int a : vec) {

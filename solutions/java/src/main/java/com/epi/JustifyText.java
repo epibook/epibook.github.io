@@ -22,8 +22,8 @@ public class JustifyText {
         numWordsCurrLine = 0;
         currLineLength = 0;
       } else if (lookaheadLineLength > L) {
-        result.add(joinALineWithSpace(words, currLineStart, i - 1,
-                                      L - currLineLength));
+        result.add(
+            joinALineWithSpace(words, currLineStart, i - 1, L - currLineLength));
         currLineStart = i;
         numWordsCurrLine = 1;
         currLineLength = words[i].length();
@@ -45,14 +45,14 @@ public class JustifyText {
   }
 
   // Joins strings in words[start : end] with num_spaces spaces spread evenly.
-  private static String joinALineWithSpace(String[] words, int start,
-                                           int end, int numSpaces) {
+  private static String joinALineWithSpace(String[] words, int start, int end,
+                                           int numSpaces) {
     int numWordsCurrLine = end - start + 1;
     StringBuilder line = new StringBuilder();
     for (int i = start; i < end; ++i) {
       line.append(words[i]);
       --numWordsCurrLine;
-      int numCurrSpace = (int) Math.ceil((double) numSpaces / numWordsCurrLine);
+      int numCurrSpace = (int)Math.ceil((double)numSpaces / numWordsCurrLine);
       for (int j = 0; j < numCurrSpace; j++) {
         line.append(' ');
       }
@@ -72,35 +72,42 @@ public class JustifyText {
       System.out.println("\"" + s + "\"");
     }
     System.out.println();
-    assert (Arrays.equals(result.toArray(), golden));
+    assert(Arrays.equals(result.toArray(), golden));
   }
 
   public static void main(String[] args) {
-    String words[] = new String[]{"Text", "justification", "is", "trickier", "than", "it", "seems!"};
-    String golden[] = new String[]{"Text          ", "justification ", "is    trickier", "than it seems!"};
+    String words[] = new String[] {"Text", "justification", "is", "trickier",
+                                   "than", "it", "seems!"};
+    String golden[] = new String[] {"Text          ", "justification ",
+                                    "is    trickier", "than it seems!"};
     int L = 14;
     System.out.println("L = " + L);
     testCase(words, L, golden);
-    words = new String[]{"Listen", "to", "many,", "speak", "to", "a", "few."};
-    golden = new String[]{"Listen", "to    ", "many, ", "speak ", "to   a", "few.  "};
+    words = new String[] {"Listen", "to", "many,", "speak", "to", "a", "few."};
+    golden =
+        new String[] {"Listen", "to    ", "many, ", "speak ", "to   a", "few.  "};
     L = 6;
     System.out.println("L = " + L);
     testCase(words, L, golden);
-    words = new String[]{"The", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dogs."};
-    golden = new String[]{"The   quick", "brown   fox", "jumped over", "the    lazy", "dogs.      "};
+    words = new String[] {"The",  "quick", "brown", "fox",  "jumped",
+                          "over", "the",   "lazy",  "dogs."};
+    golden = new String[] {"The   quick", "brown   fox", "jumped over",
+                           "the    lazy", "dogs.      "};
     L = 11;
     System.out.println("L = " + L);
     testCase(words, L, golden);
-    golden = new String[]{"The  quick brown", "fox  jumped over", "the lazy dogs.  "};
+    golden =
+        new String[] {"The  quick brown", "fox  jumped over", "the lazy dogs.  "};
     L = 16;
     System.out.println("L = " + L);
     testCase(words, L, golden);
-    golden = new String[]{"The  quick  brown", "fox  jumped  over", "the lazy dogs.   "};
+    golden = new String[] {"The  quick  brown", "fox  jumped  over",
+                           "the lazy dogs.   "};
     L = 17;
     System.out.println("L = " + L);
     testCase(words, L, golden);
-    words = new String[]{"Hello", "World"};
-    golden = new String[]{"Hello World   "};
+    words = new String[] {"Hello", "World"};
+    golden = new String[] {"Hello World   "};
     L = 14;
     System.out.println("L = " + L);
     testCase(words, L, golden);

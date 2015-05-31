@@ -55,26 +55,26 @@ public class KThNodeBinaryTree {
     root.right.right.size = 1;
     root.right.right.data = 6;
     // should throw
-    assert (null == findKthNodeBinaryTree(root, 0));
+    assert(null == findKthNodeBinaryTree(root, 0));
     // should output 1
-    assert (findKthNodeBinaryTree(root, 1).data == 1);
+    assert(findKthNodeBinaryTree(root, 1).data == 1);
     System.out.println((findKthNodeBinaryTree(root, 1)).data);
     // should output 2
-    assert (findKthNodeBinaryTree(root, 2).data == 2);
+    assert(findKthNodeBinaryTree(root, 2).data == 2);
     System.out.println((findKthNodeBinaryTree(root, 2)).data);
     // should output 3
-    assert (findKthNodeBinaryTree(root, 3).data == 3);
+    assert(findKthNodeBinaryTree(root, 3).data == 3);
     System.out.println((findKthNodeBinaryTree(root, 3)).data);
     // should output 4
-    assert (findKthNodeBinaryTree(root, 4).data == 4);
+    assert(findKthNodeBinaryTree(root, 4).data == 4);
     System.out.println((findKthNodeBinaryTree(root, 4)).data);
     // should output 5
-    assert (findKthNodeBinaryTree(root, 5).data == 5);
+    assert(findKthNodeBinaryTree(root, 5).data == 5);
     System.out.println((findKthNodeBinaryTree(root, 5)).data);
     // should output 6
-    assert (findKthNodeBinaryTree(root, 6).data == 6);
+    assert(findKthNodeBinaryTree(root, 6).data == 6);
     System.out.println((findKthNodeBinaryTree(root, 6)).data);
     // should throw
-    assert (null ==  findKthNodeBinaryTree(root, 7));
+    assert(null == findKthNodeBinaryTree(root, 7));
   }
 }

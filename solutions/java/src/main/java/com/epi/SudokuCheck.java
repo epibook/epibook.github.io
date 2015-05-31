@@ -19,11 +19,11 @@ public class SudokuCheck {
     }
 
     // Check region constraints.
-    int regionSize = (int) Math.sqrt(A.length);
+    int regionSize = (int)Math.sqrt(A.length);
     for (int I = 0; I < regionSize; ++I) {
       for (int J = 0; J < regionSize; ++J) {
-        if (hasDuplicate(A, regionSize * I, regionSize * (I + 1),
-                         regionSize * J, regionSize * (J + 1), A.length)) {
+        if (hasDuplicate(A, regionSize * I, regionSize * (I + 1), regionSize * J,
+                         regionSize * (J + 1), A.length)) {
           return false;
         }
       }
@@ -34,8 +34,7 @@ public class SudokuCheck {
   // Return true if subarray A[startRow : endRow - 1][startCol : endCol - 1]
   // contains any duplicates in [1 : numElements]; otherwise return false.
   private static boolean hasDuplicate(int[][] A, int startRow, int endRow,
-                                      int startCol, int endCol,
-                                      int numElements) {
+                                      int startCol, int endCol, int numElements) {
     boolean[] isPresent = new boolean[numElements + 1];
     for (int i = startRow; i < endRow; ++i) {
       for (int j = startCol; j < endCol; ++j) {

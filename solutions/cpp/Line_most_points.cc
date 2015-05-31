@@ -59,10 +59,9 @@ Rational GetCanonicalForm(int a, int b) {
 // y = x(b.y - a.y) / (b.x - a.x) + (b.x * a.y - a.x * b.y) / (b.x - a.x).
 struct Line {
   Line(const Point& a, const Point& b) {
-    slope = a.x != b.x ? GetCanonicalForm(b.y - a.y, b.x - a.x)
-                       : Rational{1, 0};
-    intercept = a.x != b.x ? GetCanonicalForm(b.x * a.y - a.x * b.y,
-                                              b.x - a.x)
+    slope =
+        a.x != b.x ? GetCanonicalForm(b.y - a.y, b.x - a.x) : Rational{1, 0};
+    intercept = a.x != b.x ? GetCanonicalForm(b.x * a.y - a.x * b.y, b.x - a.x)
                            : Rational{a.x, 1};
   }
 
@@ -121,21 +120,22 @@ Line FindLineWithMostPoints(const vector<Point>& P) {
 
   // @exclude
   auto line_max_points =
-      max_element(table.cbegin(),
-                  table.cend(),
+      max_element(table.cbegin(), table.cend(),
                   [](const pair<Line, unordered_set<Point, HashPoint>>& a,
-                     const pair<Line, unordered_set<Point, HashPoint>>& b)
-                  { return a.second.size() < b.second.size(); });
+                     const pair<Line, unordered_set<Point, HashPoint>>& b) {
+                    return a.second.size() < b.second.size();
+                  });
   int res = check(P);
   // cout << res << " " << line_max_points.second.size() << endl;
   assert(res == line_max_points->second.size());
   // @include
   // Return the line with most points have passed.
-  return max_element(table.cbegin(),
-                     table.cend(),
+  return max_element(table.cbegin(), table.cend(),
                      [](const pair<Line, unordered_set<Point, HashPoint>>& a,
-                        const pair<Line, unordered_set<Point, HashPoint>>& b)
-                     { return a.second.size() < b.second.size(); })->first;
+                        const pair<Line, unordered_set<Point, HashPoint>>& b) {
+                       return a.second.size() < b.second.size();
+                     })
+      ->first;
 }
 // @exclude
 
@@ -166,8 +166,8 @@ int main(int argc, char* argv[]) {
     }
     */
     Line l = FindLineWithMostPoints(points);
-    cout << l.slope.numerator << " " << l.slope.denominator << " " << l.intercept.numerator
-         << " " << l.intercept.denominator << endl;
+    cout << l.slope.numerator << " " << l.slope.denominator << " "
+         << l.intercept.numerator << " " << l.intercept.denominator << endl;
   }
   return 0;
 }

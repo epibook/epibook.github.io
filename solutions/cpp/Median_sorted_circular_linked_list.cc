@@ -37,8 +37,9 @@ double FindMedianSortedCircularLinkedList(
   for (int i = 0; i < ((n - 1) / 2); ++i) {
     first_smallest_node = first_smallest_node->next;
   }
-  return n % 2 ? first_smallest_node->data : 
-         0.5 * (first_smallest_node->data + first_smallest_node->next->data);
+  return n % 2 ? first_smallest_node->data
+               : 0.5 * (first_smallest_node->data +
+                        first_smallest_node->next->data);
 }
 // @exclude
 

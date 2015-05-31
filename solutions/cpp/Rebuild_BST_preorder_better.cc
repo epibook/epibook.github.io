@@ -14,21 +14,21 @@ using std::numeric_limits;
 using std::unique_ptr;
 using std::vector;
 
-unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
-    const vector<int>&, int, int, int*);
+unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(const vector<int>&, int,
+                                                      int, int*);
 
 // @include
 unique_ptr<BSTNode<int>> RebuildBSTFromPreorder(
     const vector<int>& preorder_sequence) {
   int root_idx = 0;
-  return RebuildBSTFromPreorderHelper(
-      preorder_sequence, numeric_limits<int>::min(),
-      numeric_limits<int>::max(), &root_idx);
+  return RebuildBSTFromPreorderHelper(preorder_sequence,
+                                      numeric_limits<int>::min(),
+                                      numeric_limits<int>::max(), &root_idx);
 }
 
-// Builds a BST from preorder_sequence on keys in [lower_bound : upper_bound].
+// Builds a BST from preorder_sequence on keys in (lower_bound : upper_bound).
 unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
-    const vector<int>& preorder_sequence, int lower_bound, int upper_bound, 
+    const vector<int>& preorder_sequence, int lower_bound, int upper_bound,
     int* root_idx) {
   if (*root_idx == preorder_sequence.size()) {
     return nullptr;
@@ -40,10 +40,9 @@ unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
   }
   ++*root_idx;
   return unique_ptr<BSTNode<int>>(new BSTNode<int>{
-      root, 
-      RebuildBSTFromPreorderHelper(preorder_sequence, lower_bound, root, 
-                                   root_idx),
-      RebuildBSTFromPreorderHelper(preorder_sequence, root, upper_bound, 
+      root, RebuildBSTFromPreorderHelper(preorder_sequence, lower_bound, root,
+                                         root_idx),
+      RebuildBSTFromPreorderHelper(preorder_sequence, root, upper_bound,
                                    root_idx)});
 }
 // @exclude

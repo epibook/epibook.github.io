@@ -21,7 +21,7 @@ class BinarySearchTree {
     if (Empty()) {
       root_ = unique_ptr<TreeNode>(new TreeNode{key, nullptr, nullptr});
     } else {
-      TreeNode* curr = root_.get(), *parent;
+      TreeNode *curr = root_.get(), *parent;
       while (curr) {
         parent = curr;
         if (key == curr->data) {
@@ -45,21 +45,21 @@ class BinarySearchTree {
 
   bool Erase(int key) {
     // Find the node with key.
-    TreeNode* curr = root_.get(), *parent = nullptr;
+    TreeNode *curr = root_.get(), *parent = nullptr;
     while (curr && curr->data != key) {
       parent = curr;
       curr = key < curr->data ? curr->left.get() : curr->right.get();
     }
 
     if (!curr) {
-      // There's no node with key in this binary tree.
+      // There's no node with key in this tree.
       return false;
     }
     TreeNode* key_node = curr;
 
     if (key_node->right) {
       // Finds the minimum of the right subtree.
-      TreeNode* r_key_node = key_node->right.get(), *r_parent = key_node;
+      TreeNode *r_key_node = key_node->right.get(), *r_parent = key_node;
       while (r_key_node->left) {
         r_parent = r_key_node;
         r_key_node = r_key_node->left.get();
@@ -113,8 +113,7 @@ class BinarySearchTree {
   }
 
   // Replaces the link between parent and child by new_link.
-  void ReplaceParentChildLink(TreeNode* parent,
-                              TreeNode* child,
+  void ReplaceParentChildLink(TreeNode* parent, TreeNode* child,
                               TreeNode* new_link) {
     if (!parent) {
       return;

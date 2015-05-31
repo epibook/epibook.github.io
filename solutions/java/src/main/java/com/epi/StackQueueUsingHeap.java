@@ -16,39 +16,27 @@ public class StackQueueUsingHeap {
 
   public static class Stack {
     private int order = 0;
-    private PriorityQueue<Pair<Integer, Integer>> maxHeap = new PriorityQueue<>(
-        11, new Compare());
+    private PriorityQueue<Pair<Integer, Integer>> maxHeap =
+        new PriorityQueue<>(11, new Compare());
 
-    public void push(Integer x) {
-      maxHeap.add(new Pair<>(order++, x));
-    }
+    public void push(Integer x) { maxHeap.add(new Pair<>(order++, x)); }
 
-    public Integer pop() {
-      return maxHeap.remove().getSecond();
-    }
+    public Integer pop() { return maxHeap.remove().getSecond(); }
 
-    public Integer peek() {
-      return maxHeap.peek().getSecond();
-    }
+    public Integer peek() { return maxHeap.peek().getSecond(); }
   }
   // @exclude
 
   public static class Queue {
     private int order = 0;
-    private PriorityQueue<Pair<Integer, Integer>> H = new PriorityQueue<>(
-        11, new Compare());
+    private PriorityQueue<Pair<Integer, Integer>> H =
+        new PriorityQueue<>(11, new Compare());
 
-    public void enqueue(Integer x) {
-      H.add(new Pair<>(order--, x));
-    }
+    public void enqueue(Integer x) { H.add(new Pair<>(order--, x)); }
 
-    public Integer dequeue() {
-      return H.remove().getSecond();
-    }
+    public Integer dequeue() { return H.remove().getSecond(); }
 
-    public Integer head() {
-      return H.peek().getSecond();
-    }
+    public Integer head() { return H.peek().getSecond(); }
   }
 
   public static void main(String[] args) {
@@ -56,12 +44,12 @@ public class StackQueueUsingHeap {
     s.push(1);
     s.push(2);
     s.push(3);
-    assert (s.peek().equals(3));
+    assert(s.peek().equals(3));
     s.pop();
-    assert (s.peek().equals(2));
+    assert(s.peek().equals(2));
     s.pop();
     s.push(4);
-    assert (s.peek().equals(4));
+    assert(s.peek().equals(4));
     s.pop();
     s.pop();
     try {
@@ -74,9 +62,9 @@ public class StackQueueUsingHeap {
     Queue q = new Queue();
     q.enqueue(1);
     q.enqueue(2);
-    assert (q.head().equals(1));
+    assert(q.head().equals(1));
     q.dequeue();
-    assert (q.head().equals(2));
+    assert(q.head().equals(2));
     q.dequeue();
     try {
       q.dequeue();
@@ -84,6 +72,5 @@ public class StackQueueUsingHeap {
       System.out.println("empty queue");
       System.out.println(e.getMessage());
     }
-
   }
 }

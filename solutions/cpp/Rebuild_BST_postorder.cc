@@ -24,8 +24,8 @@ BSTNode<int>* rebuild_BST_from_postorder(const vector<int>& postorder) {
 }
 
 // Build a BST based on postorder[s : e - 1], return its root.
-BSTNode<int>* rebuild_BST_postorder_helper(
-    const vector<int> &postorder, int s, int e) {
+BSTNode<int>* rebuild_BST_postorder_helper(const vector<int>& postorder, int s,
+                                           int e) {
   if (s < e) {
     int x = s;
     while (x < e && postorder[x] < postorder[e - 1]) {
@@ -33,11 +33,9 @@ BSTNode<int>* rebuild_BST_postorder_helper(
     }
     return new BSTNode<int>{
         postorder[e - 1],
+        unique_ptr<BSTNode<int>>(rebuild_BST_postorder_helper(postorder, s, x)),
         unique_ptr<BSTNode<int>>(
-          rebuild_BST_postorder_helper(postorder, s, x)),
-        unique_ptr<BSTNode<int>>(
-          rebuild_BST_postorder_helper(postorder, x, e - 1))
-    };
+            rebuild_BST_postorder_helper(postorder, x, e - 1))};
   }
   return nullptr;
 }
@@ -53,7 +51,7 @@ void check_ans(const unique_ptr<BSTNode<T>>& n, const T& pre) {
   }
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   //      1
   //        2
   //          3

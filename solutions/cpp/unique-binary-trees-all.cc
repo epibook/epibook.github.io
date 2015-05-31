@@ -21,14 +21,13 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-vector<unique_ptr<BinaryTreeNode<int>>> GenerateAllBinaryTrees(
-    int num_nodes) {
+vector<unique_ptr<BinaryTreeNode<int>>> GenerateAllBinaryTrees(int num_nodes) {
   vector<unique_ptr<BinaryTreeNode<int>>> result;
   if (num_nodes == 0) {  // Empty tree, add as an nullptr.
     result.emplace_back(nullptr);
   }
 
-  for (int num_left_tree_nodes = 0; num_left_tree_nodes < num_nodes; 
+  for (int num_left_tree_nodes = 0; num_left_tree_nodes < num_nodes;
        ++num_left_tree_nodes) {
     int num_right_tree_nodes = num_nodes - 1 - num_left_tree_nodes;
     auto left_subtrees = GenerateAllBinaryTrees(num_left_tree_nodes);

@@ -52,7 +52,7 @@ public class FindElementAppearsOnce {
         }
       }
       System.out.println("Singleton element: " + findElementAppearsOnce(A));
-      assert (findElementAppearsOnce(A) == single);
+      assert(findElementAppearsOnce(A) == single);
     }
   }
 }

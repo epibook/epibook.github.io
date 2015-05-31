@@ -28,8 +28,7 @@ string rand_string(int len) {
 }
 
 // @include
-bool word_breaking_helper(const string& s,
-                          const unordered_set<string>& dict,
+bool word_breaking_helper(const string& s, const unordered_set<string>& dict,
                           vector<string>* ret) {
   if (s.empty()) {
     return true;

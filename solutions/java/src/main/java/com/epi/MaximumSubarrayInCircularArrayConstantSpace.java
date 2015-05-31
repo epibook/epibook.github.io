@@ -8,9 +8,7 @@ import java.util.Random;
  * @author translated from c++ by Blazheev Alexander
  */
 public class MaximumSubarrayInCircularArrayConstantSpace {
-  private interface IntegerComparator {
-    Integer compare(Integer o1, Integer o2);
-  }
+  private interface IntegerComparator { Integer compare(Integer o1, Integer o2); }
 
   private static class MaxComparator implements IntegerComparator {
     @Override
@@ -33,7 +31,8 @@ public class MaximumSubarrayInCircularArrayConstantSpace {
     for (int a : A) {
       accumulate += a;
     }
-    return Math.max(findOptimumSubarrayUsingComp(A, new MaxComparator()),
+    return Math.max(
+        findOptimumSubarrayUsingComp(A, new MaxComparator()),
         accumulate - findOptimumSubarrayUsingComp(A, new MinComparator()));
   }
 
@@ -84,7 +83,7 @@ public class MaximumSubarrayInCircularArrayConstantSpace {
       int ans = maxSubarraySumInCircular(A);
       // System.out.println(A);
       System.out.println("maximum sum = " + ans);
-      assert (ans == checkAns(A));
+      assert(ans == checkAns(A));
     }
   }
 }

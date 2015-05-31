@@ -50,7 +50,7 @@ public class BinarySearchLargerK {
       if (ans != -1) {
         System.out.println("A[k] = " + A[ans]);
       }
-      assert (ans == checkAns(A, k));
+      assert(ans == checkAns(A, k));
     }
   }
 }

@@ -13,7 +13,8 @@ using std::stack;
 using std::string;
 using std::vector;
 
-bool DirectedExpressionSynthesis(const vector<int>&, int, int, int, vector<int>*, vector<char>*);
+bool DirectedExpressionSynthesis(const vector<int>&, int, int, int,
+                                 vector<int>*, vector<char>*);
 int RemainingInt(const vector<int>&, int);
 int Evaluate(const vector<int>&, const vector<char>&);
 
@@ -21,13 +22,14 @@ int Evaluate(const vector<int>&, const vector<char>&);
 bool ExpressionSynthesis(const vector<int>& digits, int target) {
   vector<char> operators;
   vector<int> operands;
-  return DirectedExpressionSynthesis(digits, target, 0, 0, &operands, 
+  return DirectedExpressionSynthesis(digits, target, 0, 0, &operands,
                                      &operators);
 }
 
-bool DirectedExpressionSynthesis(
-    const vector<int>& digits, int target, int current_term, int offset, 
-    vector<int>* operands, vector<char>* operators) {
+bool DirectedExpressionSynthesis(const vector<int>& digits, int target,
+                                 int current_term, int offset,
+                                 vector<int>* operands,
+                                 vector<char>* operators) {
   current_term = current_term * 10 + digits[offset];
   if (offset == digits.size() - 1) {
     operands->emplace_back(current_term);
@@ -44,17 +46,17 @@ bool DirectedExpressionSynthesis(
     }
     operands->pop_back();
     return false;
-  } 
+  }
 
   // No operator.
-  if (DirectedExpressionSynthesis(digits, target, current_term, offset + 1, 
+  if (DirectedExpressionSynthesis(digits, target, current_term, offset + 1,
                                   operands, operators)) {
     return true;
   }
   // Adds operator '*'.
   operands->emplace_back(current_term), operators->emplace_back('*');
   if (DirectedExpressionSynthesis(digits, target, 0, offset + 1, operands,
-      operators)) {
+                                  operators)) {
     return true;
   }
   operands->pop_back(), operators->pop_back();
@@ -64,8 +66,8 @@ bool DirectedExpressionSynthesis(
   if (target - Evaluate(*operands, *operators) <=
       RemainingInt(digits, offset + 1)) {
     operators->emplace_back('+');
-    if (DirectedExpressionSynthesis(digits, target, 0, offset + 1, operands, 
-        operators)) {
+    if (DirectedExpressionSynthesis(digits, target, 0, offset + 1, operands,
+                                    operators)) {
       return true;
     }
     operators->pop_back();

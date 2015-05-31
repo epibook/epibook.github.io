@@ -46,12 +46,12 @@ public class NormalizedPathnames {
   // @exclude
 
   public static void main(String[] args) {
-    assert (ShortestEquivalentPath("123/456").equals("123/456"));
-    assert (ShortestEquivalentPath("/123/456").equals("/123/456"));
-    assert (ShortestEquivalentPath("usr/lib/../bin/gcc").equals("usr/bin/gcc"));
-    assert (ShortestEquivalentPath("./../").equals(".."));
-    assert (ShortestEquivalentPath("../../local").equals("../../local"));
-    assert (ShortestEquivalentPath("./.././../local").equals("../../local"));
+    assert(ShortestEquivalentPath("123/456").equals("123/456"));
+    assert(ShortestEquivalentPath("/123/456").equals("/123/456"));
+    assert(ShortestEquivalentPath("usr/lib/../bin/gcc").equals("usr/bin/gcc"));
+    assert(ShortestEquivalentPath("./../").equals(".."));
+    assert(ShortestEquivalentPath("../../local").equals("../../local"));
+    assert(ShortestEquivalentPath("./.././../local").equals("../../local"));
     try {
       ShortestEquivalentPath("/..");
     } catch (Exception e) {
@@ -62,8 +62,8 @@ public class NormalizedPathnames {
     } catch (Exception e) {
       System.out.println(e.getMessage());
     }
-    assert (ShortestEquivalentPath("scripts//./../scripts/awkscripts/././")
-        .equals("scripts/awkscripts"));
+    assert(ShortestEquivalentPath("scripts//./../scripts/awkscripts/././")
+               .equals("scripts/awkscripts"));
     if (args.length == 1) {
       System.out.println(ShortestEquivalentPath(args[0]));
     }

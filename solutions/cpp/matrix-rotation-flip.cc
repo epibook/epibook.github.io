@@ -36,7 +36,7 @@ void check_answer(const vector<vector<int>> &A) {
 
 // @include
 void rotate_matrix(vector<vector<int>> *A) {
-  auto& A_ref = *A;
+  auto &A_ref = *A;
   reverse(A_ref.begin(), A_ref.end());
   for (size_t i = 0; i < A_ref.size(); ++i) {
     for (size_t j = i + 1; j < A_ref.size(); ++j) {

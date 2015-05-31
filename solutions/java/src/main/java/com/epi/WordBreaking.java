@@ -10,7 +10,7 @@ public class WordBreaking {
     Random r = new Random();
     StringBuilder ret = new StringBuilder(len);
     while (len-- > 0) {
-      ret.append((char) (r.nextInt(26) + 'a'));
+      ret.append((char)(r.nextInt(26) + 'a'));
     }
     return ret.toString();
   }
@@ -27,8 +27,8 @@ public class WordBreaking {
 
       // Set T[i] if T[j] != 0 and s(j + 1, i) is a valid word.
       for (int j = 0; j < i && T[i] == 0; ++j) {
-        if (T[j] != 0 && (j + 1 < i - j)
-            && dict.contains(s.substring(j + 1, i - j))) {
+        if (T[j] != 0 && (j + 1 < i - j) &&
+            dict.contains(s.substring(j + 1, i - j))) {
           T[i] = i - j;
         }
       }
@@ -57,7 +57,7 @@ public class WordBreaking {
       temp += an;
     }
     System.out.println();
-    assert (ans.size() == 0 || s.equals(temp));
+    assert(ans.size() == 0 || s.equals(temp));
   }
 
   public static void main(String[] args) {

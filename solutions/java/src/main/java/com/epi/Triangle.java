@@ -20,12 +20,12 @@ public class Triangle {
       // For the first element.
       currRow.set(0, currRow.get(0) + prevRow.get(0));
       for (int j = 1; j < currRow.size() - 1; ++j) {
-        currRow.set(j,
-            currRow.get(j) + Math.min(prevRow.get(j - 1), prevRow.get(j)));
+        currRow.set(
+            j, currRow.get(j) + Math.min(prevRow.get(j - 1), prevRow.get(j)));
       }
       // For the last element
-      currRow.set(currRow.size() - 1,
-          currRow.get(currRow.size() - 1) + prevRow.get(prevRow.size() - 1));
+      currRow.set(currRow.size() - 1, currRow.get(currRow.size() - 1) +
+                                          prevRow.get(prevRow.size() - 1));
 
       prevRow = currRow;
     }
@@ -34,10 +34,9 @@ public class Triangle {
   // @exclude
 
   public static void main(String[] args) {
-    List<List<Integer>> A = Arrays.asList(Arrays.asList(2),
-        Arrays.asList(3, 4),
-        Arrays.asList(6, 5, 7),
-        Arrays.asList(4, 1, 8, 3));
-    assert (11 == findMinimumTotal(A));
+    List<List<Integer>> A =
+        Arrays.asList(Arrays.asList(2), Arrays.asList(3, 4),
+                      Arrays.asList(6, 5, 7), Arrays.asList(4, 1, 8, 3));
+    assert(11 == findMinimumTotal(A));
   }
 }

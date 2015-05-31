@@ -28,7 +28,7 @@ bool TestCollatzConjecture(int n) {
     long test_i = i;
     while (test_i >= i) {
       if (!sequence.emplace(test_i).second) {
-        // We previously encountered test_i, so the Collatz sequence 
+        // We previously encountered test_i, so the Collatz sequence
         // has fallen into a loop. This disproves the hypothesis, so
         // we short-circuit, returning false.
         return false;
@@ -40,11 +40,10 @@ bool TestCollatzConjecture(int n) {
         }
         long next_test_i = 3 * test_i + 1;  // Multiply by 3 and add 1.
         if (next_test_i <= test_i) {
-          throw overflow_error("Collatz sequence overflow for " + 
-                               to_string(i));
+          throw overflow_error("Collatz sequence overflow for " + to_string(i));
         }
         test_i = next_test_i;
-      } else {         
+      } else {
         test_i /= 2;  // Even number, halve it.
       }
     }

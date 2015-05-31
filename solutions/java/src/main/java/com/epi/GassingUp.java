@@ -4,7 +4,7 @@ import com.epi.utils.Pair;
 
 import java.util.Random;
 
-//import static com.epi.utils.Utils.simplePrint;
+// import static com.epi.utils.Utils.simplePrint;
 
 public class GassingUp {
   // @include
@@ -26,7 +26,7 @@ public class GassingUp {
     int gas = 0;
     do {
       gas += G[s] - D[s];
-      assert (gas >= 0);
+      assert(gas >= 0);
       s = (s + 1) % G.length;
     } while (s != c);
   }
@@ -60,7 +60,7 @@ public class GassingUp {
 
       /*
        * simplePrint(G); System.out.println();
-       * 
+       *
        * simplePrint(D); System.out.println();
        */
       int c = findStartCity(G, D);

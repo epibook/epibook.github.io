@@ -21,7 +21,7 @@ public class RemoveDuplicatesFromSortedArray {
 
   private static void checkAns(int[] A, int n) {
     for (int i = 1; i < n; ++i) {
-      assert (A[i - 1] != A[i]);
+      assert(A[i - 1] != A[i]);
     }
   }
 
@@ -44,7 +44,7 @@ public class RemoveDuplicatesFromSortedArray {
         unique.add(a);
       }
       int size = removeDuplicates(A);
-      assert (size == unique.size());
+      assert(size == unique.size());
       checkAns(A, size);
       System.out.println(size);
     }

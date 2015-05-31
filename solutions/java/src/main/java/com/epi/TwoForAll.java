@@ -53,12 +53,11 @@ public class TwoForAll {
   }
   // @exclude
 
-  private static void
-  dfsExclusion(GraphVertex cur, GraphVertex a, GraphVertex b) {
+  private static void dfsExclusion(GraphVertex cur, GraphVertex a,
+                                   GraphVertex b) {
     cur.d = 1;
     for (GraphVertex next : cur.edges) {
-      if (next.d == 0
-          && ((cur != a && cur != b) || (next != a && next != b))) {
+      if (next.d == 0 && ((cur != a && cur != b) || (next != a && next != b))) {
         dfsExclusion(next, a, b);
       }
     }
@@ -127,7 +126,7 @@ public class TwoForAll {
 
       boolean res = isGraphTwoForAll(G);
       System.out.println(res);
-      assert (checkAnswer(G) == res);
+      assert(checkAnswer(G) == res);
     }
   }
 }

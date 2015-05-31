@@ -14,8 +14,9 @@ public class LongestValidParentheses {
         end = i;
       } else {
         leftParenthesesIndices.pop();
-        int start = leftParenthesesIndices.isEmpty() 
-            ? end : leftParenthesesIndices.peek();
+        int start = leftParenthesesIndices.isEmpty()
+                        ? end
+                        : leftParenthesesIndices.peek();
         maxLength = Math.max(maxLength, i - start);
       }
     }
@@ -24,12 +25,12 @@ public class LongestValidParentheses {
   // @exclude
 
   private static void smallTest() {
-    assert (longestValidParentheses(")(((())()(()(") == 6);
-    assert (longestValidParentheses("((())()(()(") == 6);
-    assert (longestValidParentheses(")(") == 0);
-    assert (longestValidParentheses("()") == 2);
-    assert (longestValidParentheses("") == 0);
-    assert (longestValidParentheses("()()())") == 6);
+    assert(longestValidParentheses(")(((())()(()(") == 6);
+    assert(longestValidParentheses("((())()(()(") == 6);
+    assert(longestValidParentheses(")(") == 0);
+    assert(longestValidParentheses("()") == 2);
+    assert(longestValidParentheses("") == 0);
+    assert(longestValidParentheses("()()())") == 6);
   }
 
   public static void main(String[] args) {

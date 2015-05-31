@@ -49,9 +49,12 @@ int main(int argc, char *argv[]) {
     }
     sort(A.begin(), A.end());
     sort(B.begin(), B.end());
-    vector<int> res1 = IntersectTwoSortedArrays1::IntersectTwoSortedArrays(A, B);
-    vector<int> res2 = IntersectTwoSortedArrays2::IntersectTwoSortedArrays(A, B);
-    vector<int> res3 = IntersectTwoSortedArrays3::IntersectTwoSortedArrays(A, B);
+    vector<int> res1 =
+        IntersectTwoSortedArrays1::IntersectTwoSortedArrays(A, B);
+    vector<int> res2 =
+        IntersectTwoSortedArrays2::IntersectTwoSortedArrays(A, B);
+    vector<int> res3 =
+        IntersectTwoSortedArrays3::IntersectTwoSortedArrays(A, B);
     CheckAns(res1, res2, res3);
   }
   return 0;

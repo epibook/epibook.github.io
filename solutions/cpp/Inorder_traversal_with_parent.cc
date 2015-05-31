@@ -14,7 +14,7 @@ using std::vector;
 
 // @include
 vector<int> InorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
-  BinaryTreeNode<int>* prev = nullptr, *curr = tree.get();
+  BinaryTreeNode<int> *prev = nullptr, *curr = tree.get();
   vector<int> result;
 
   while (curr != nullptr) {
@@ -49,23 +49,23 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BinaryTreeNode<int>> root =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3, nullptr, nullptr});
+  unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{3, nullptr, nullptr});
   root->parent = nullptr;
-  root->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2, nullptr, nullptr});
+  root->left = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{2, nullptr, nullptr});
   root->left->parent = root.get();
-  root->left->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1, nullptr, nullptr});
+  root->left->left = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{1, nullptr, nullptr});
   root->left->left->parent = root->left.get();
-  root->right =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5, nullptr, nullptr});
+  root->right = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{5, nullptr, nullptr});
   root->right->parent = root.get();
-  root->right->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4, nullptr, nullptr});
+  root->right->left = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{4, nullptr, nullptr});
   root->right->left->parent = root->right.get();
-  root->right->right =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6, nullptr, nullptr});
+  root->right->right = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{6, nullptr, nullptr});
   root->right->right->parent = root->right.get();
 
   auto result = InorderTraversal(root);

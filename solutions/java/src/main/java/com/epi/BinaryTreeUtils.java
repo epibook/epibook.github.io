@@ -8,23 +8,23 @@ import java.util.Random;
 
 public class BinaryTreeUtils {
   public static BinaryTreeNode<Integer> generateRandBinaryTree(int n,
-                                                           boolean isUnique) {
+                                                               boolean isUnique) {
     Random r = new Random();
     List<BinaryTreeNode<Integer>> l = new ArrayList<>();
-    BinaryTreeNode<Integer> root = new BinaryTreeNode<>(isUnique ? n--
-        : r.nextInt(Integer.MAX_VALUE));
+    BinaryTreeNode<Integer> root =
+        new BinaryTreeNode<>(isUnique ? n-- : r.nextInt(Integer.MAX_VALUE));
     l.add(root);
     while (n-- > 0) {
       int x = r.nextInt(l.size());
       boolean addLeft = r.nextBoolean();
       BinaryTreeNode<Integer> it = l.get(x);
       if (addLeft && it.getLeft() == null || !addLeft && it.getRight() == null) {
-        it.setLeft(new BinaryTreeNode<>(isUnique ? n : r
-            .nextInt(Integer.MAX_VALUE)));
+        it.setLeft(
+            new BinaryTreeNode<>(isUnique ? n : r.nextInt(Integer.MAX_VALUE)));
         l.add(it.getLeft());
       } else {
-        it.setRight(new BinaryTreeNode<>(isUnique ? n : r
-            .nextInt(Integer.MAX_VALUE)));
+        it.setRight(
+            new BinaryTreeNode<>(isUnique ? n : r.nextInt(Integer.MAX_VALUE)));
         l.add(it.getRight());
       }
       if (it.getLeft() != null && it.getRight() != null) {
@@ -78,5 +78,4 @@ public class BinaryTreeUtils {
     generatePostOrderHelper(r, ret);
     return ret;
   }
-
 }

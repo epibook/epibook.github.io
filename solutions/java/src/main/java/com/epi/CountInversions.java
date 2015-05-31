@@ -18,16 +18,18 @@ public class CountInversions {
     }
 
     int mid = start + ((end - start) / 2);
-    return countSubarrayInversions(A, start, mid)
-           + countSubarrayInversions(A, mid, end) 
-           + mergeSortAndCountInversionsAcrossSubarrays(A, start, mid, end);
+    return countSubarrayInversions(A, start, mid) +
+        countSubarrayInversions(A, mid, end) +
+        mergeSortAndCountInversionsAcrossSubarrays(A, start, mid, end);
   }
 
-  // Merge two sorted subarrays A[start : mid - 1] and A[mid : end - 1] 
-  // into A[start : end - 1] and return the number of inversions across 
+  // Merge two sorted subarrays A[start : mid - 1] and A[mid : end - 1]
+  // into A[start : end - 1] and return the number of inversions across
   // A[start : mid - 1] and A[mid : end - 1].
-  private static int mergeSortAndCountInversionsAcrossSubarrays(
-      List<Integer> A, int start, int mid, int end) {
+  private static int mergeSortAndCountInversionsAcrossSubarrays(List<Integer> A,
+                                                                int start,
+                                                                int mid,
+                                                                int end) {
     List<Integer> sortedA = new ArrayList<>();
     int leftStart = start, rightStart = mid, inversionCount = 0;
 
@@ -78,7 +80,7 @@ public class CountInversions {
       for (int i = 0; i < n; ++i) {
         A.add(r.nextInt(2000001) - 1000000);
       }
-      assert (n2Check(A) == countInversions(A));
+      assert(n2Check(A) == countInversions(A));
     }
   }
 }

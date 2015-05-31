@@ -4,8 +4,8 @@ import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
 public class SearchBSTForFirstOccurrenceIterative {
   // @include
-  public static BSTNode<Integer> findFirstEqualK(
-      BSTNode<Integer> tree, Integer k) {
+  public static BSTNode<Integer> findFirstEqualK(BSTNode<Integer> tree,
+                                                 Integer k) {
     BSTNode<Integer> firstSoFar = null, curr = tree;
     while (curr != null) {
       if (curr.getData().compareTo(k) < 0) {
@@ -32,7 +32,7 @@ public class SearchBSTForFirstOccurrenceIterative {
     tree.setRight(new BSTNode<>(5));
     tree.getRight().setLeft(new BSTNode<>(4));
     tree.getRight().setRight(new BSTNode<>(6));
-    assert (findFirstEqualK(tree, 7) == null);
-    assert (findFirstEqualK(tree, 6).getData().equals(6));
+    assert(findFirstEqualK(tree, 7) == null);
+    assert(findFirstEqualK(tree, 6).getData().equals(6));
   }
 }

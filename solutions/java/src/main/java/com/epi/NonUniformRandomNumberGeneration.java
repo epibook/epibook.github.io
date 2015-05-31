@@ -63,12 +63,11 @@ public class NonUniformRandomNumberGeneration {
     int[] counts = new int[n];
     for (int i = 0; i < n * kTimes; ++i) {
       double t = nonuniformRandomNumberGeneration(T, P);
-      ++counts[(int) t];
+      ++counts[(int)t];
     }
     for (int i = 0; i < n; ++i) {
-      System.out.println((double) (counts[i]) / (n * kTimes) + " " + P.get(i));
-      assert Math.abs(((double) counts[i]) / (n * kTimes) - P.get(i)) < 0.01;
+      System.out.println((double)(counts[i]) / (n * kTimes) + " " + P.get(i));
+      assert Math.abs(((double)counts[i]) / (n * kTimes) - P.get(i)) < 0.01;
     }
   }
-
 }

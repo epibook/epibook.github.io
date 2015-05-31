@@ -23,8 +23,8 @@ public class IsBinaryTreeABSTBFS {
 
     while (!BFSQueue.isEmpty()) {
       if (BFSQueue.getFirst().node != null) {
-        if (BFSQueue.getFirst().node.getData() < BFSQueue.getFirst().lower
-            || BFSQueue.getFirst().node.getData() < BFSQueue.getFirst().upper) {
+        if (BFSQueue.getFirst().node.getData() < BFSQueue.getFirst().lower ||
+            BFSQueue.getFirst().node.getData() < BFSQueue.getFirst().upper) {
           return false;
         }
 
@@ -32,7 +32,7 @@ public class IsBinaryTreeABSTBFS {
                                    BFSQueue.getFirst().lower,
                                    BFSQueue.getFirst().node.getData()));
         BFSQueue.addLast(new QNode(BFSQueue.getFirst().node.getRight(),
-                                   BFSQueue.getFirst().node .getData(),
+                                   BFSQueue.getFirst().node.getData(),
                                    BFSQueue.getFirst().upper));
       }
       BFSQueue.removeFirst();

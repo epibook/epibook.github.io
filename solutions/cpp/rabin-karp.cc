@@ -33,7 +33,7 @@ int RabinKarp(const string &t, const string &s) {
     s_hash = (s_hash * kBase + s[i]) % kMod;
   }
 
-  for(int i = s.size(); i < t.size(); ++i) {
+  for (int i = s.size(); i < t.size(); ++i) {
     // In case of hash collision but two strings are not equal, checks the
     // two substrings are actually equal or not.
     if (t_hash == s_hash && !t.compare(i - s.size(), s.size(), s)) {

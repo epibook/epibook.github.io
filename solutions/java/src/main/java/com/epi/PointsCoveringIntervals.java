@@ -46,7 +46,6 @@ class RightComp implements Comparator<Interval> {
 // @exclude
 
 class PointsCoveringIntervals {
-
   // @include
   public static List<Integer> findMinimumVisits(Interval[] intervals) {
     SortedSet<Interval> left = new TreeSet<>(new LeftComp());
@@ -80,8 +79,7 @@ class PointsCoveringIntervals {
   // @exclude
 
   // O(n^2) checking solution
-  private static void checkAnswer(Interval[] intervals,
-                                  List<Integer> answer) {
+  private static void checkAnswer(Interval[] intervals, List<Integer> answer) {
     boolean[] isVisited = new boolean[intervals.length];
     for (Integer a : answer) {
       for (int i = 0; i < intervals.length; ++i) {
@@ -92,7 +90,7 @@ class PointsCoveringIntervals {
     }
 
     for (boolean b : isVisited) {
-      assert (b);
+      assert(b);
     }
   }
 
@@ -105,7 +103,7 @@ class PointsCoveringIntervals {
     intervals[4] = new Interval(7, 10);
     intervals[5] = new Interval(9, 11);
     List<Integer> ans = findMinimumVisits(intervals);
-    assert (ans.size() == 2 && ans.get(0) == 4 && ans.get(1) == 10);
+    assert(ans.size() == 2 && ans.get(0) == 4 && ans.get(1) == 10);
   }
 
   public static void main(String[] args) {

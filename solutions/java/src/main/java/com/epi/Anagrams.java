@@ -21,8 +21,7 @@ class Anagrams {
     }
 
     List<List<String>> anagramGroups = new ArrayList<>();
-    for (Map.Entry<String, List<String>> p 
-         : sortedStringToAnagrams.entrySet()) {
+    for (Map.Entry<String, List<String>> p : sortedStringToAnagrams.entrySet()) {
       if (p.getValue().size() >= 2) { // Found anagrams.
         anagramGroups.add(p.getValue());
       }
@@ -32,7 +31,9 @@ class Anagrams {
   // @exclude
 
   private static void smallTest() {
-    String[] dictionary = new String[]{"debit card", "bad credit", "the morse code", "here come dots", "the eyes", "they see", "THL"};
+    String[] dictionary = new String[] {
+        "debit card", "bad credit", "the morse code", "here come dots",
+        "the eyes",   "they see",   "THL"};
     List<List<String>> result = findAnagrams(dictionary);
     assert result.size() == 3;
   }
@@ -42,7 +43,7 @@ class Anagrams {
     Random rnd = new Random();
 
     while (len-- > 0) {
-      ret.append((char) (rnd.nextInt(26) + 97));
+      ret.append((char)(rnd.nextInt(26) + 97));
     }
     return ret.toString();
   }

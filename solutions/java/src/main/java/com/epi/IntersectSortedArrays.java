@@ -5,17 +5,15 @@ import java.util.List;
 import java.util.Random;
 
 public class IntersectSortedArrays {
-
-  public static void check(List<Integer> R1, List<Integer> R2,
-                           List<Integer> R3) {
-    assert (R1.size() == R2.size());
-    assert (R2.size() == R3.size());
+  public static void check(List<Integer> R1, List<Integer> R2, List<Integer> R3) {
+    assert(R1.size() == R2.size());
+    assert(R2.size() == R3.size());
     for (Integer aR1 : R1) {
       int r1 = aR1;
       int r2 = aR1;
       int r3 = aR1;
-      assert (r1 == r2);
-      assert (r2 == r3);
+      assert(r1 == r2);
+      assert(r2 == r3);
     }
   }
 

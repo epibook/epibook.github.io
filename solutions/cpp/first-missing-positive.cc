@@ -34,7 +34,6 @@ int CheckAns(vector<int> A) {
   return target;
 }
 
-
 // @include
 // A is passed by value argument, since we change it.
 int FindFirstMissingPositive(vector<int> A) {

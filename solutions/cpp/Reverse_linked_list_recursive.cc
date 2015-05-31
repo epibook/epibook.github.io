@@ -44,11 +44,13 @@ int main(int argc, char* argv[]) {
   cout << "before reverse" << endl;
   Print(L1);
   shared_ptr<ListNode<int>> newhead = ReverseLinkedList(L1);
-  assert(newhead->data == 3 && newhead->next->data == 2 && newhead->next->next->data == 1);
+  assert(newhead->data == 3 && newhead->next->data == 2 &&
+         newhead->next->next->data == 1);
   cout << endl << "after reverse" << endl;
   Print(newhead);
   newhead = ReverseLinkedList(newhead);
-  assert(newhead->data == 1 && newhead->next->data == 2 && newhead->next->next->data == 3);
+  assert(newhead->data == 1 && newhead->next->data == 2 &&
+         newhead->next->next->data == 3);
   cout << endl << "after another reverse" << endl;
   Print(newhead);
   return 0;

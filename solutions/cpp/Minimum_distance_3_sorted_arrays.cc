@@ -1,9 +1,11 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
 #include <iostream>
+#include <iterator>
 #include <limits>
+#include <map>
 #include <queue>
 #include <random>
 #include <set>
@@ -14,7 +16,10 @@ using std::default_random_engine;
 using std::endl;
 using std::max;
 using std::min;
+using std::multimap;
+using std::next;
 using std::numeric_limits;
+using std::pair;
 using std::random_device;
 using std::set;
 using std::uniform_int_distribution;
@@ -31,49 +36,36 @@ int Distance(const vector<vector<int>>& sorted_arrays, const vector<int>& idx) {
 }
 
 // @include
-struct ArrayData {
-  bool operator<(const ArrayData& a) const {
-    if (val != a.val) {
-      return val < a.val;
-    } else {
-      return idx < a.idx;
-    }
-  }
-
-  int idx;
-  int val;
-};
-
 int FindClosestElementsInSortedArrays(
     const vector<vector<int>>& sorted_arrays) {
-  // Indices into each of the arrays. 
-  vector<int> heads(sorted_arrays.size(), 0);
   int result = numeric_limits<int>::max();
-  set<ArrayData> current_heads;
+  multimap<int, pair<vector<int>::const_iterator, vector<int>::const_iterator>>
+      current_heads;
 
   // Adds the minimum element of each array in to current_heads.
-  for (int i = 0; i < sorted_arrays.size(); ++i) {
-    current_heads.emplace(ArrayData{i, sorted_arrays[i][heads[i]]});
+  for (const auto& sorted_array : sorted_arrays) {
+    current_heads.emplace(sorted_array.front(), make_pair(sorted_array.cbegin(),
+                                                          sorted_array.cend()));
   }
 
   while (true) {
-    result = min(result,
-                 current_heads.crbegin()->val - current_heads.cbegin()->val);
-    int idx_next_min = current_heads.cbegin()->idx;
+    int min_value = current_heads.cbegin()->first,
+        max_value = current_heads.crbegin()->first;
+    result = min(max_value - min_value, result);
+    const auto next_min = next(current_heads.cbegin()->second.first),
+               next_end = current_heads.cbegin()->second.second;
     // Returns if there is no remaining element in one array.
-    if (++heads[idx_next_min] >= sorted_arrays[idx_next_min].size()) {
+    if (next_min == next_end) {
       return result;
     }
-    current_heads.erase(current_heads.begin());
-    current_heads.emplace(
-        ArrayData{idx_next_min, 
-                  sorted_arrays[idx_next_min][heads[idx_next_min]]});
+    current_heads.emplace(*next_min, make_pair(next_min, next_end));
+    current_heads.erase(current_heads.cbegin());
   }
 }
 // @exclude
 
-void RecGenAnswer(const vector<vector<int>>& sorted_arrays, vector<int>& idx, int level,
-                  int* ans) {
+void RecGenAnswer(const vector<vector<int>>& sorted_arrays, vector<int>& idx,
+                  int level, int* ans) {
   if (level == sorted_arrays.size()) {
     *ans = min(Distance(sorted_arrays, idx), *ans);
     return;

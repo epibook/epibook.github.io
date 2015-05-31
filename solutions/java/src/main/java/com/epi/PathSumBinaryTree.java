@@ -4,8 +4,7 @@ import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 public class PathSumBinaryTree {
   // @include
-  public static boolean hasPathSum(BinaryTreeNode<Integer> tree, 
-                                   int targetSum) {
+  public static boolean hasPathSum(BinaryTreeNode<Integer> tree, int targetSum) {
     return hasPathSumHelper(tree, 0, targetSum);
   }
 
@@ -19,8 +18,8 @@ public class PathSumBinaryTree {
       return partialPathSum == targetSum;
     }
     // Non-leaf.
-    return hasPathSumHelper(node.getLeft(), partialPathSum, targetSum)
-           || hasPathSumHelper(node.getRight(), partialPathSum, targetSum);
+    return hasPathSumHelper(node.getLeft(), partialPathSum, targetSum) ||
+        hasPathSumHelper(node.getRight(), partialPathSum, targetSum);
   }
   // @exclude
 
@@ -34,8 +33,8 @@ public class PathSumBinaryTree {
     tree.setRight(new BinaryTreeNode<>(5));
     tree.getRight().setLeft(new BinaryTreeNode<>(4));
     tree.getRight().setRight(new BinaryTreeNode<>(6));
-    assert (hasPathSum(tree, 6));
-    assert (!hasPathSum(tree, 7));
-    assert (!hasPathSum(tree, 100));
+    assert(hasPathSum(tree, 6));
+    assert(!hasPathSum(tree, 7));
+    assert(!hasPathSum(tree, 100));
   }
 }

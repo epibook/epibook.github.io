@@ -38,21 +38,20 @@ public class AddingCredits {
       return iter == null ? -1 : iter + offset;
     }
 
-    public void addAll(int C) {
-      offset += C;
-    }
+    public void addAll(int C) { offset += C; }
 
     public String max() {
-      return creditToClients.isEmpty() ? "" :
-             creditToClients.lastEntry().getValue().iterator().next();
+      return creditToClients.isEmpty()
+          ? ""
+          : creditToClients.lastEntry().getValue().iterator().next();
     }
   }
   // @exclude
 
   public static void main(String[] args) {
     ClientsCreditsInfo a = new ClientsCreditsInfo();
-    assert (a.max().isEmpty());
-    assert (!a.remove("foo"));
+    assert(a.max().isEmpty());
+    assert(!a.remove("foo"));
     a.insert("foo", 10);
     a.insert("foo", 1);
     a.insert("bar", 2);
@@ -60,16 +59,16 @@ public class AddingCredits {
     a.insert("widget", 3);
     a.addAll(5);
     a.insert("dothis", 4);
-    assert (11 == a.lookup("foo"));
-    assert (12 == a.lookup("bar"));
-    assert (8 == a.lookup("widget"));
-    assert (4 == a.lookup("dothis"));
-    assert (a.remove("foo"));
-    assert (-1 == a.lookup("foo"));
-    assert (a.max().equals("bar"));
+    assert(11 == a.lookup("foo"));
+    assert(12 == a.lookup("bar"));
+    assert(8 == a.lookup("widget"));
+    assert(4 == a.lookup("dothis"));
+    assert(a.remove("foo"));
+    assert(-1 == a.lookup("foo"));
+    assert(a.max().equals("bar"));
     a.insert("xyz", 13);
-    assert (a.max().equals("xyz"));
+    assert(a.max().equals("xyz"));
     a.insert("dd", 15);
-    assert (a.max().equals("dd"));
+    assert(a.max().equals("dd"));
   }
 }

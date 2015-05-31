@@ -38,7 +38,7 @@ public class BinaryTreePreorderTraversalIterative {
     tree.getRight().setRight(new BinaryTreeNode<>(6));
     List<Integer> res = preOrderTraversal(tree);
     List<Integer> goldenRes = generatePreOrder(tree);
-    assert (res.size() == goldenRes.size()
-            && Arrays.deepEquals(res.toArray(), goldenRes.toArray()));
+    assert(res.size() == goldenRes.size() &&
+           Arrays.deepEquals(res.toArray(), goldenRes.toArray()));
   }
 }

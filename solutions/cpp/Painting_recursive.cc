@@ -18,7 +18,7 @@ using std::stoul;
 using std::uniform_int_distribution;
 using std::vector;
 
-void PrintMatrix(const vector<deque<bool>> &A) {
+void PrintMatrix(const vector<deque<bool>>& A) {
   for (size_t i = 0; i < A.size(); ++i) {
     for (size_t j = 0; j < A.size(); ++j) {
       cout << A[i][j] << ' ';
@@ -28,9 +28,9 @@ void PrintMatrix(const vector<deque<bool>> &A) {
 }
 
 // @include
-void FilpColor(int x, int y, vector<deque<bool>> *A) {
-  const array<array<int, 2>, 4> dir = {{{{0, 1}}, {{0, -1}},
-                                        {{1, 0}}, {{-1, 0}}}};
+void FilpColor(int x, int y, vector<deque<bool>>* A) {
+  const array<array<int, 2>, 4> dir = {
+      {{{0, 1}}, {{0, -1}}, {{1, 0}}, {{-1, 0}}}};
   const bool color = (*A)[x][y];
 
   (*A)[x][y] = !(*A)[x][y];  // Flips.

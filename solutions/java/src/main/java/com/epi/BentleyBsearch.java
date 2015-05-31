@@ -37,9 +37,9 @@ public class BentleyBsearch {
     A.add(6);
     A.add(10);
     A.add(100);
-    assert (0 == bsearch(1, A));
-    assert (1 <= bsearch(2, A) && bsearch(2, A) <= 4);
-    assert (5 <= bsearch(3, A));
-    assert (-1 == bsearch(4, A));
+    assert(0 == bsearch(1, A));
+    assert(1 <= bsearch(2, A) && bsearch(2, A) <= 4);
+    assert(5 <= bsearch(3, A));
+    assert(-1 == bsearch(4, A));
   }
 }

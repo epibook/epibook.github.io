@@ -23,10 +23,10 @@ public class SurroundedRegions {
     }
   }
 
-  private static void
-  markRegionIfSurrounded(int i, int j,
-                         List<List<Character>> board, boolean[][] visited) {
-    int dir[][] = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+  private static void markRegionIfSurrounded(int i, int j,
+                                             List<List<Character>> board,
+                                             boolean[][] visited) {
+    int dir[][] = new int[][] {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
     // Uses q as a queue.
     List<Pair<Integer, Integer>> q = new ArrayList<>();
     q.add(new Pair<>(i, j));
@@ -37,16 +37,16 @@ public class SurroundedRegions {
     while (idx < q.size()) {
       Pair<Integer, Integer> curr = q.get(idx++);
       // A 'W' on the border means this region is not surrounded.
-      if (curr.getFirst() == 0 || curr.getFirst() == board.size() - 1
-          || curr.getSecond() == 0
-          || curr.getSecond() == board.get(curr.getFirst()).size() - 1) {
+      if (curr.getFirst() == 0 || curr.getFirst() == board.size() - 1 ||
+          curr.getSecond() == 0 ||
+          curr.getSecond() == board.get(curr.getFirst()).size() - 1) {
         isSurrounded = false;
       } else {
         for (int[] d : dir) {
-          Pair<Integer, Integer> next = new Pair<>(
-              curr.getFirst() + d[0], curr.getSecond() + d[1]);
-          if (board.get(next.getFirst()).get(next.getSecond()) == 'W'
-              && !visited[next.getFirst()][next.getSecond()]) {
+          Pair<Integer, Integer> next =
+              new Pair<>(curr.getFirst() + d[0], curr.getSecond() + d[1]);
+          if (board.get(next.getFirst()).get(next.getSecond()) == 'W' &&
+              !visited[next.getFirst()][next.getSecond()]) {
             visited[next.getFirst()][next.getSecond()] = true;
             q.add(next);
           }

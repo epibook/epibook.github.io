@@ -15,14 +15,14 @@ using std::swap;
 using std::unique_ptr;
 
 // @include
-void recover_BST(unique_ptr<BinaryTreeNode<int>>* root) {
+void recover_BST(unique_ptr<BinaryTreeNode<int>> *root) {
   bool is_first = true;
   BinaryTreeNode<int> *n = root->get(), *parent = nullptr, *first = nullptr,
-                           *second = nullptr;
+                      *second = nullptr;
   while (n) {
     if (n->left.get()) {
       // Finds the predecessor of n.
-      auto* pre = n->left.get();
+      auto *pre = n->left.get();
       while (pre->right.get() && pre->right.get() != n) {
         pre = pre->right.get();
       }
@@ -62,17 +62,20 @@ void recover_BST(unique_ptr<BinaryTreeNode<int>>* root) {
 }
 // @exclude
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   //      3
   //    2   4
   //  1    5 6
   unique_ptr<BinaryTreeNode<int>> root =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3});
   root->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
+  root->left->left =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
   root->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
+  root->right->left =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
+  root->right->right =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
   recover_BST(&root);
   auto result = generate_inorder(root);
   copy(result.cbegin(), result.cend(), ostream_iterator<int>(cout, " "));

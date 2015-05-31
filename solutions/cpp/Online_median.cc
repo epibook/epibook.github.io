@@ -43,8 +43,8 @@ void OnlineMedian(istringstream* sequence) {
         max_heap.emplace(x);
       }
     }
-    // Ensure min_heap and max_heap should have equal number of elements 
-    // if even number of elements are read, otherwise, min_heap should have 
+    // Ensure min_heap and max_heap should have equal number of elements
+    // if even number of elements are read, otherwise, min_heap should have
     // one more element.
     if (min_heap.size() > max_heap.size() + 1) {
       max_heap.emplace(min_heap.top());
@@ -55,11 +55,13 @@ void OnlineMedian(istringstream* sequence) {
     }
 
     // @exclude
-    global_result.emplace_back(min_heap.size() == max_heap.size() ?
-        0.5 * (min_heap.top() + max_heap.top()) : min_heap.top());
+    global_result.emplace_back(min_heap.size() == max_heap.size()
+                                   ? 0.5 * (min_heap.top() + max_heap.top())
+                                   : min_heap.top());
     // @include
-    cout << (min_heap.size() == max_heap.size() ?
-        0.5 * (min_heap.top() + max_heap.top()) : min_heap.top()) << endl;
+    cout << (min_heap.size() == max_heap.size()
+                 ? 0.5 * (min_heap.top() + max_heap.top())
+                 : min_heap.top()) << endl;
   }
 }
 // @exclude
@@ -68,21 +70,21 @@ void SmallTest() {
   istringstream sequence("5 4 3 2 1");
   OnlineMedian(&sequence);
   vector<double> golden = {5, 4.5, 4, 3.5, 3};
-  assert(golden.size() == global_result.size() && 
+  assert(golden.size() == global_result.size() &&
          equal(golden.begin(), golden.end(), global_result.begin()));
 
   global_result.clear();
   istringstream sequence1("1 2 3 4 5");
   OnlineMedian(&sequence1);
   golden = {1, 1.5, 2, 2.5, 3};
-  assert(golden.size() == global_result.size() && 
+  assert(golden.size() == global_result.size() &&
          equal(golden.begin(), golden.end(), global_result.begin()));
-  
+
   global_result.clear();
   istringstream sequence2("1 0 3 5 2 0 1");
   OnlineMedian(&sequence2);
   golden = {1, 0.5, 1, 2, 2, 1.5, 1};
-  assert(golden.size() == global_result.size() && 
+  assert(golden.size() == global_result.size() &&
          equal(golden.begin(), golden.end(), global_result.begin()));
 }
 

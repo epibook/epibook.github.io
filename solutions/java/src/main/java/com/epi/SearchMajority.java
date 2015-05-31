@@ -32,7 +32,7 @@ public class SearchMajority {
     Random r = new Random();
     StringBuilder ret = new StringBuilder(len);
     while (len-- > 0) {
-      ret.append((char) (r.nextInt(26) + 'a'));
+      ret.append((char)(r.nextInt(26) + 'a'));
     }
     return ret.toString();
   }
@@ -44,7 +44,7 @@ public class SearchMajority {
     for (int i = 1; i < stream.size(); ++i) {
       if (!stream.get(i).equals(stream.get(i - 1))) {
         if (count * 2 >= stream.size()) {
-          assert (ans.equals(stream.get(i - 1)));
+          assert(ans.equals(stream.get(i - 1)));
           find = true;
         }
         count = 1;
@@ -53,10 +53,10 @@ public class SearchMajority {
       }
     }
     if (count * 2 >= stream.size()) {
-      assert (ans.equals(stream.get(stream.size() - 1)));
+      assert(ans.equals(stream.get(stream.size() - 1)));
       find = true;
     }
-    assert (find);
+    assert(find);
   }
 
   public static void main(String[] args) {

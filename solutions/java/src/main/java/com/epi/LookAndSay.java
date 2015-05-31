@@ -35,9 +35,9 @@ public class LookAndSay {
     } else {
       n = r.nextInt(20) + 1;
     }
-    assert (lookAndSay(1).equals("1"));
-    assert (lookAndSay(2).equals("11"));
-    assert (lookAndSay(3).equals("21"));
+    assert(lookAndSay(1).equals("1"));
+    assert(lookAndSay(2).equals("11"));
+    assert(lookAndSay(3).equals("21"));
     System.out.println("n = " + n);
     System.out.println(lookAndSay(n));
   }

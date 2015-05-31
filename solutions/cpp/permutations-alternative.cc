@@ -16,7 +16,7 @@ using std::swap;
 using std::uniform_int_distribution;
 using std::vector;
 
-void DirectedPermutations(int, vector<int>*, vector<vector<int>>*);
+void DirectedPermutations(int, vector<int> *, vector<vector<int>> *);
 
 // @include
 vector<vector<int>> Permutations(vector<int> A) {
@@ -25,8 +25,7 @@ vector<vector<int>> Permutations(vector<int> A) {
   return result;
 }
 
-void DirectedPermutations(int i, vector<int> *A,
-                          vector<vector<int>> *result) {
+void DirectedPermutations(int i, vector<int> *A, vector<vector<int>> *result) {
   if (i == A->size() - 1) {
     result->emplace_back(*A);
     return;
@@ -51,13 +50,14 @@ void SmallTest() {
   vector<int> A = {0, 1, 2};
   auto result = Permutations(A);
   assert(result.size() == 6);
-  vector<vector<int>> golden_result = {{0, 1, 2}, {0, 2, 1}, {1, 0, 2}, {1, 2, 0}, {2, 1, 0}, {2, 0, 1}};
+  vector<vector<int>> golden_result = {
+      {0, 1, 2}, {0, 2, 1}, {1, 0, 2}, {1, 2, 0}, {2, 1, 0}, {2, 0, 1}};
   for (int i = 0; i < 6; ++i) {
     assert(EqualVector(result[i], golden_result[i]));
   }
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
   SmallTest();
   default_random_engine gen((random_device())());
   int n;
@@ -71,7 +71,7 @@ int main(int argc, char** argv) {
   iota(A.begin(), A.end(), 0);
   auto result = Permutations(A);
   cout << "n = " << n << endl;
-  for (const auto& vec : result) {
+  for (const auto &vec : result) {
     for (int a : vec) {
       cout << a << " ";
     }

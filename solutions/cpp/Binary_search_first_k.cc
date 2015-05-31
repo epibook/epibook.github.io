@@ -33,7 +33,7 @@ int SearchFirstOfK(const vector<int>& A, int k) {
 }
 // @exclude
 
-int SearchFirstOfKAlternative(const vector<int>&A, int k) {
+int SearchFirstOfKAlternative(const vector<int>& A, int k) {
   auto result = lower_bound(A.begin(), A.end(), k);
   if (*result == k) {
     return distance(A.begin(), result);

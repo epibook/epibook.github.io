@@ -23,8 +23,7 @@ public class TransitiveClosure {
     }
   }
 
-  private static void
-  DFS(GraphVertex cur, int time, List<GraphVertex> contacts) {
+  private static void DFS(GraphVertex cur, int time, List<GraphVertex> contacts) {
     for (GraphVertex next : cur.edges) {
       if (next.visitTime != time) {
         next.visitTime = time;

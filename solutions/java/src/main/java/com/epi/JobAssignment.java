@@ -79,7 +79,7 @@ public class JobAssignment {
       for (int j = 0; j < S.size(); ++j) {
         sum += result[i][j] ? 1 : 0;
       }
-      assert (sum == T.get(i));
+      assert(sum == T.get(i));
     }
 
     // Check column constraints.
@@ -88,7 +88,7 @@ public class JobAssignment {
       for (int i = 0; i < T.size(); ++i) {
         sum += result[i][j] ? 1 : 0;
       }
-      assert (sum <= S.get(j));
+      assert(sum <= S.get(j));
     }
   }
 

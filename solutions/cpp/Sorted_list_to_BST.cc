@@ -33,7 +33,7 @@ shared_ptr<ListNode<int>> BuildBSTFromSortedDoublyListHelper(
   int mid = start + ((end - start) / 2);
   auto left = BuildBSTFromSortedDoublyListHelper(L_ref, start, mid);
   auto curr = *L_ref;  // The last function call sets L_ref to the successor
-                       // of the maximum node in the tree rooted at left.
+  // of the maximum node in the tree rooted at left.
   *L_ref = (*L_ref)->next;
   curr->prev = left;
   curr->next = BuildBSTFromSortedDoublyListHelper(L_ref, mid + 1, end);
@@ -42,7 +42,8 @@ shared_ptr<ListNode<int>> BuildBSTFromSortedDoublyListHelper(
 // @exclude
 
 template <typename T>
-void InorderTraversal(const shared_ptr<ListNode<T>>& node, const T& pre, int depth) {
+void InorderTraversal(const shared_ptr<ListNode<T>>& node, const T& pre,
+                      int depth) {
   if (node) {
     InorderTraversal(node->prev, pre, depth + 1);
     assert(pre <= node->data);
@@ -58,10 +59,14 @@ int main(int argc, char* argv[]) {
     A[i] = make_shared<ListNode<int>>(ListNode<int>{0});
   }
 
-  shared_ptr<ListNode<int>> temp0 = make_shared<ListNode<int>>(ListNode<int>{0});
-  shared_ptr<ListNode<int>> temp1 = make_shared<ListNode<int>>(ListNode<int>{1});
-  shared_ptr<ListNode<int>> temp2 = make_shared<ListNode<int>>(ListNode<int>{2});
-  shared_ptr<ListNode<int>> temp3 = make_shared<ListNode<int>>(ListNode<int>{3});
+  shared_ptr<ListNode<int>> temp0 =
+      make_shared<ListNode<int>>(ListNode<int>{0});
+  shared_ptr<ListNode<int>> temp1 =
+      make_shared<ListNode<int>>(ListNode<int>{1});
+  shared_ptr<ListNode<int>> temp2 =
+      make_shared<ListNode<int>>(ListNode<int>{2});
+  shared_ptr<ListNode<int>> temp3 =
+      make_shared<ListNode<int>>(ListNode<int>{3});
   temp0->next = temp1;
   temp1->next = temp2;
   temp2->next = temp3;

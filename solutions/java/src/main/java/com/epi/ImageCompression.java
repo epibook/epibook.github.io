@@ -15,9 +15,7 @@ public class ImageCompression {
       this.j = j;
     }
 
-    public boolean isGreater(Point that) {
-      return i > that.i || j > that.j;
-    }
+    public boolean isGreater(Point that) { return i > that.i || j > that.j; }
 
     @Override
     public boolean equals(Object o) {
@@ -28,7 +26,7 @@ public class ImageCompression {
         return false;
       }
 
-      Point point = (Point) o;
+      Point point = (Point)o;
 
       if (i != point.i) {
         return false;
@@ -47,9 +45,7 @@ public class ImageCompression {
       return result;
     }
 
-    public String toString() {
-      return "(" + i + " " + j + ")";
-    }
+    public String toString() { return "(" + i + " " + j + ")"; }
   }
 
   public static class TreeNode {
@@ -81,7 +77,8 @@ public class ImageCompression {
     }
 
     Map<Point, Map<Point, TreeNode>> table = new HashMap<>();
-    return calculateOptimal2DTreeHelper(image, imageSum, new Point(0, 0),
+    return calculateOptimal2DTreeHelper(
+        image, imageSum, new Point(0, 0),
         new Point(image.length - 1, image[0].length - 1), table);
   }
 
@@ -98,13 +95,14 @@ public class ImageCompression {
       pixelSum += imageSum[lowerLeft.i - 1][lowerLeft.j - 1];
     }
     return pixelSum == 0 || // totally white.
-        pixelSum == (upperRight.i - lowerLeft.i + 1) * // totally black.
-            (upperRight.j - lowerLeft.j + 1);
+        pixelSum ==
+            (upperRight.i - lowerLeft.i + 1) * // totally black.
+                (upperRight.j - lowerLeft.j + 1);
   }
 
-  public static TreeNode calculateOptimal2DTreeHelper(int[][] image,
-                                                      int[][] imageSum, Point lowerLeft, Point upperRight,
-                                                      Map<Point, Map<Point, TreeNode>> table) {
+  public static TreeNode calculateOptimal2DTreeHelper(
+      int[][] image, int[][] imageSum, Point lowerLeft, Point upperRight,
+      Map<Point, Map<Point, TreeNode>> table) {
     // Illegal rectangle region, returns empty node.
     if (lowerLeft.isGreater(upperRight)) {
       return new TreeNode(0, lowerLeft, upperRight);
@@ -114,29 +112,29 @@ public class ImageCompression {
     }
     if (!table.get(lowerLeft).containsKey(upperRight)) {
       if (isMonochromatic(imageSum, lowerLeft, upperRight)) {
-        table.get(lowerLeft).put(upperRight,
-            new TreeNode(1, lowerLeft, upperRight));
+        table.get(lowerLeft)
+            .put(upperRight, new TreeNode(1, lowerLeft, upperRight));
       } else {
         TreeNode p = new TreeNode(Integer.MAX_VALUE, lowerLeft, upperRight);
         for (int s = lowerLeft.i; s <= upperRight.i + 1; ++s) {
           for (int t = lowerLeft.j; t <= upperRight.j + 1; ++t) {
-            if ((s != lowerLeft.i && s != upperRight.i + 1)
-                || (t != lowerLeft.j && t != upperRight.j + 1)) {
+            if ((s != lowerLeft.i && s != upperRight.i + 1) ||
+                (t != lowerLeft.j && t != upperRight.j + 1)) {
               List<TreeNode> children = new ArrayList<>();
               // SW rectangle.
-              children.add(calculateOptimal2DTreeHelper(image, imageSum,
-                  lowerLeft, new Point(s - 1, t - 1), table));
+              children.add(calculateOptimal2DTreeHelper(
+                  image, imageSum, lowerLeft, new Point(s - 1, t - 1), table));
               // NW rectangle.
-              children.add(calculateOptimal2DTreeHelper(image, imageSum,
-                  new Point(lowerLeft.i, t), new Point(s - 1, upperRight.j),
-                  table));
+              children.add(calculateOptimal2DTreeHelper(
+                  image, imageSum, new Point(lowerLeft.i, t),
+                  new Point(s - 1, upperRight.j), table));
               // NE rectangle.
-              children.add(calculateOptimal2DTreeHelper(image, imageSum,
-                  new Point(s, t), upperRight, table));
+              children.add(calculateOptimal2DTreeHelper(
+                  image, imageSum, new Point(s, t), upperRight, table));
               // SE rectangle.
-              children.add(calculateOptimal2DTreeHelper(image, imageSum,
-                  new Point(s, lowerLeft.j), new Point(upperRight.i, t - 1),
-                  table));
+              children.add(calculateOptimal2DTreeHelper(
+                  image, imageSum, new Point(s, lowerLeft.j),
+                  new Point(upperRight.i, t - 1), table));
 
               int nodeNum = 1; // itself.
               List<TreeNode> toRemove = new ArrayList<>();

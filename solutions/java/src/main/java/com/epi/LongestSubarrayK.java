@@ -26,12 +26,11 @@ public class LongestSubarrayK {
     List<Integer> minPrefixSum = new ArrayList<>(prefixSum);
 
     for (int i = minPrefixSum.size() - 2; i >= 0; --i) {
-      minPrefixSum.set(i,
-          Math.min(minPrefixSum.get(i), minPrefixSum.get(i + 1)));
+      minPrefixSum.set(i, Math.min(minPrefixSum.get(i), minPrefixSum.get(i + 1)));
     }
 
-    Pair<Integer, Integer> arrIdx = new Pair<>(0,
-        upperBound2(minPrefixSum, k) - 1);
+    Pair<Integer, Integer> arrIdx =
+        new Pair<>(0, upperBound2(minPrefixSum, k) - 1);
     for (int i = 0; i < prefixSum.size(); ++i) {
       int idx = upperBound2(minPrefixSum, k + prefixSum.get(i)) - 1;
       if (idx - i - 1 > arrIdx.getSecond() - arrIdx.getFirst()) {
@@ -55,18 +54,18 @@ public class LongestSubarrayK {
       for (int i = ans.getFirst(); i <= ans.getSecond(); ++i) {
         s += A.get(i);
       }
-      assert (s <= k);
+      assert(s <= k);
       for (int i = 0; i < sum.size(); ++i) {
         for (int j = i + 1; j < sum.size(); ++j) {
           if (sum.get(j) - sum.get(i) <= k) {
-            assert ((j - i) <= (ans.getSecond() - ans.getFirst() + 1));
+            assert((j - i) <= (ans.getSecond() - ans.getFirst() + 1));
           }
         }
       }
     } else {
       for (int i = 0; i < sum.size(); ++i) {
         for (int j = i + 1; j < sum.size(); ++j) {
-          assert (sum.get(j) - sum.get(i) > k);
+          assert(sum.get(j) - sum.get(i) > k);
         }
       }
     }

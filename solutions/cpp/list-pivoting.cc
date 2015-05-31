@@ -16,8 +16,7 @@ using std::shared_ptr;
 shared_ptr<ListNode<int>> ListPivoting(const shared_ptr<ListNode<int>>& L,
                                        int x) {
   shared_ptr<ListNode<int>> less_head(new ListNode<int>),
-                            equal_head(new ListNode<int>),
-                            greater_head(new ListNode<int>);
+      equal_head(new ListNode<int>), greater_head(new ListNode<int>);
   auto less_iter = less_head, equal_iter = equal_head,
        greater_iter = greater_head;
   // Populates the three lists.

@@ -71,7 +71,7 @@ void Test() {
   // Ok till here. Now head = 3 and tail = 3
 
   q.Enqueue(14);  // now the vector (data) is resized; but the head and tail.
-                  // (or elements) does not change accordingly.
+  // (or elements) does not change accordingly.
   q.Enqueue(15);
   q.Enqueue(16);
   q.Enqueue(17);
@@ -100,8 +100,7 @@ int main(int argc, char* argv[]) {
   assert(4 == q.Dequeue());
   try {
     q.Dequeue();
-  }
-  catch (const exception& e) {
+  } catch (const exception& e) {
     cout << e.what() << endl;
   }
   // test resize().

@@ -6,28 +6,28 @@ import java.util.*;
 
 // @include
 class Person implements Comparable<Person> {
-  public Integer key;
+  public Integer age;
   public String name;
 
   public Person(Integer k, String n) {
-    key = k;
+    age = k;
     name = n;
   }
 
   // Hash function for Person.
   @Override
   public int hashCode() {
-    return key.hashCode() ^ name.hashCode();
+    return age.hashCode() ^ name.hashCode();
   }
 
   @Override
   public int compareTo(Person p) {
-    return key.compareTo(p.key);
+    return age.compareTo(p.age);
   }
 
   @Override
   public boolean equals(Object o) {
-    if (o instanceof Person && ((Person) o).key.equals(key)) {
+    if (o instanceof Person && ((Person)o).age.equals(age)) {
       return true;
     } else {
       return false;
@@ -36,37 +36,36 @@ class Person implements Comparable<Person> {
 }
 // @exclude
 
-class CountingSort {
+class PartitionArray {
   // @include
-  public static void reorderIntoEqualSubarrays(Person[] people) {
-    Map<Integer, Integer> keyToCount = new HashMap<>();
+  public static void groupByAge(Person[] people) {
+    Map<Integer, Integer> ageToCount = new HashMap<>();
     for (Person p : people) {
-      if (keyToCount.containsKey(p.key)) {
-        keyToCount.put(p.key, keyToCount.get(p.key) + 1);
+      if (ageToCount.containsKey(p.age)) {
+        ageToCount.put(p.age, ageToCount.get(p.age) + 1);
       } else {
-        keyToCount.put(p.key, 1);
+        ageToCount.put(p.age, 1);
       }
     }
-    Map<Integer, Integer> keyToOffset = new HashMap<>();
+    Map<Integer, Integer> ageToOffset = new HashMap<>();
     int offset = 0;
-    for (Map.Entry<Integer, Integer> kc : keyToCount.entrySet()) {
-      keyToOffset.put(kc.getKey(), offset);
+    for (Map.Entry<Integer, Integer> kc : ageToCount.entrySet()) {
+      ageToOffset.put(kc.getKey(), offset);
       offset += kc.getValue();
     }
 
-    while (!keyToOffset.isEmpty()) {
-      Map.Entry<Integer, Integer> from = keyToOffset.entrySet().iterator()
-          .next();
-      Integer toKey = people[from.getValue()].key;
-      Integer toValue = keyToOffset.get(toKey);
+    while (!ageToOffset.isEmpty()) {
+      Map.Entry<Integer, Integer> from = ageToOffset.entrySet().iterator().next();
+      Integer toAge = people[from.getValue()].age;
+      Integer toValue = ageToOffset.get(toAge);
       swap(people, from.getValue(), toValue);
-      // Use key_to_count to see when we are finished with a particular key.
-      Integer count = keyToCount.get(toKey) - 1;
-      keyToCount.put(toKey, count);
+      // Use ageToCount to see when we are finished with a particular age.
+      Integer count = ageToCount.get(toAge) - 1;
+      ageToCount.put(toAge, count);
       if (count > 0) {
-        keyToOffset.put(toKey, toValue + 1);
+        ageToOffset.put(toAge, toValue + 1);
       } else {
-        keyToOffset.remove(toKey);
+        ageToOffset.remove(toAge);
       }
     }
   }
@@ -83,7 +82,7 @@ class CountingSort {
     Random rnd = new Random();
 
     while (len-- > 0) {
-      ret.append((char) (rnd.nextInt(26) + 97));
+      ret.append((char)(rnd.nextInt(26) + 97));
     }
     return ret.toString();
   }
@@ -107,12 +106,12 @@ class CountingSort {
       for (int i = 0; i < size; ++i) {
         people[i] = new Person(rnd.nextInt(k), randomString(rnd.nextInt(10) + 1));
       }
-      Set<Integer> keySet = new HashSet<>();
+      Set<Integer> ageSet = new HashSet<>();
       for (Person p : people) {
-        keySet.add(p.key);
+        ageSet.add(p.age);
       }
 
-      reorderIntoEqualSubarrays(people);
+      groupByAge(people);
 
       // Check the correctness of sorting.
       int diffCount = 1;
@@ -121,7 +120,7 @@ class CountingSort {
           ++diffCount;
         }
       }
-      assert (diffCount == keySet.size());
+      assert(diffCount == ageSet.size());
     }
   }
 }

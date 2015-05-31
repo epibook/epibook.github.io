@@ -12,7 +12,7 @@ class AnonymousLetter {
     Random rnd = new Random();
 
     while (len-- > 0) {
-      ret.append((char) (rnd.nextInt(26) + 97));
+      ret.append((char)(rnd.nextInt(26) + 97));
     }
     return ret.toString();
   }
@@ -62,10 +62,11 @@ class AnonymousLetter {
     }
     System.out.println(L);
     System.out.println(M);
-    assert (!isLetterConstructibleFromMagazine("123", "456"));
-    assert (!isLetterConstructibleFromMagazine("123", "12222222"));
-    assert (isLetterConstructibleFromMagazine("123", "1123"));
-    assert (isLetterConstructibleFromMagazine("123", "123"));
-    System.out.println(isLetterConstructibleFromMagazine(L, M) ? "true" : "false");
+    assert(!isLetterConstructibleFromMagazine("123", "456"));
+    assert(!isLetterConstructibleFromMagazine("123", "12222222"));
+    assert(isLetterConstructibleFromMagazine("123", "1123"));
+    assert(isLetterConstructibleFromMagazine("123", "123"));
+    System.out.println(isLetterConstructibleFromMagazine(L, M) ? "true"
+                                                               : "false");
   }
 }

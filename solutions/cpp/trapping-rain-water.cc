@@ -23,7 +23,7 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-int CalculateTrappingWater(const vector<int>& A) {
+int CalculateTrappingWater(const vector<int> &A) {
   if (A.empty()) {
     return 0;
   }
@@ -93,7 +93,7 @@ int main(int argc, char *argv[]) {
     }
     vector<int> A;
     uniform_int_distribution<int> A_dis(0, 10);
-    generate_n(back_inserter(A), n, [&] { return A_dis(gen); } );
+    generate_n(back_inserter(A), n, [&] { return A_dis(gen); });
     copy(A.cbegin(), A.cend(), ostream_iterator<int>(cout, " "));
     cout << endl;
     cout << CheckAnswer(A) << " " << CalculateTrappingWater(A) << endl;

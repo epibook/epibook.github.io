@@ -37,20 +37,20 @@ public class SearchPostingsListRecursive {
     // 4
     L.getNext().getNext().setJump(L); // 3's jump points to 1
     L.getNext().getNext().getNext().setJump(null); // no jump from 4
-    L.getNext().getNext().getNext().getNext()
-        .setJump(L.getNext().getNext().getNext().getNext()); // 5's jump points
+    L.getNext().getNext().getNext().getNext().setJump(
+        L.getNext().getNext().getNext().getNext()); // 5's jump points
     // to 5
     PostingListNode temp = L;
     searchPostingsList(L);
     // output the jump-first order, it should be 0, 1, 4, 2, 3
-    assert (temp.getOrder() == 0);
+    assert(temp.getOrder() == 0);
     temp = temp.getNext();
-    assert (temp.getOrder() == 1);
+    assert(temp.getOrder() == 1);
     temp = temp.getNext();
-    assert (temp.getOrder() == 4);
+    assert(temp.getOrder() == 4);
     temp = temp.getNext();
-    assert (temp.getOrder() == 2);
+    assert(temp.getOrder() == 2);
     temp = temp.getNext();
-    assert (temp.getOrder() == 3);
+    assert(temp.getOrder() == 3);
   }
 }

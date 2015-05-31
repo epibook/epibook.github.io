@@ -10,9 +10,11 @@ public class AddOperatorsInString {
     return directedExpressionSynthesis(digits, target, 0, 0, operands, operators);
   }
 
-  private static boolean directedExpressionSynthesis(
-      List<Integer> digits, int target, int currentTerm, int offset, 
-      List<Integer> operands, List<Character> operators) {
+  private static boolean directedExpressionSynthesis(List<Integer> digits,
+                                                     int target, int currentTerm,
+                                                     int offset,
+                                                     List<Integer> operands,
+                                                     List<Character> operators) {
     currentTerm = currentTerm * 10 + digits.get(offset);
     if (offset == digits.size() - 1) {
       operands.add(currentTerm);
@@ -33,7 +35,7 @@ public class AddOperatorsInString {
     }
 
     // No operator.
-    if (directedExpressionSynthesis(digits, target, currentTerm, offset + 1, 
+    if (directedExpressionSynthesis(digits, target, currentTerm, offset + 1,
                                     operands, operators)) {
       return true;
     }
@@ -48,10 +50,10 @@ public class AddOperatorsInString {
     operands.remove(operands.size() - 1);
     // Adds operator '+'.
     operands.add(currentTerm);
-    if (target - evaluate(operands, operators) 
-        <= remainingInt(digits, offset + 1)) {
+    if (target - evaluate(operands, operators) <=
+        remainingInt(digits, offset + 1)) {
       operators.add('+');
-      if (directedExpressionSynthesis(digits, target, 0, offset + 1, operands, 
+      if (directedExpressionSynthesis(digits, target, 0, offset + 1, operands,
                                       operators)) {
         return true;
       }
@@ -60,7 +62,7 @@ public class AddOperatorsInString {
     operands.remove(operands.size() - 1);
     return false;
   }
-  
+
   // Calculates the int represented by digits[idx : digits.size() - 1].
   private static int remainingInt(List<Integer> digits, int idx) {
     int val = 0;
@@ -70,16 +72,15 @@ public class AddOperatorsInString {
     return val;
   }
 
-  private static int evaluate(List<Integer> operands, 
-                              List<Character> operators) {
+  private static int evaluate(List<Integer> operands, List<Character> operators) {
     Stack<Integer> intermediateOperands = new Stack<>();
     int operandIdx = 0;
     intermediateOperands.push(operands.get(operandIdx++));
     // Evaluates '*' first.
     for (char oper : operators) {
       if (oper == '*') {
-        intermediateOperands.push(
-            intermediateOperands.pop() * operands.get(operandIdx++));
+        intermediateOperands.push(intermediateOperands.pop() *
+                                  operands.get(operandIdx++));
       } else {
         intermediateOperands.push(operands.get(operandIdx++));
       }

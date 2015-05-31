@@ -83,7 +83,7 @@ class RenderingCalendar {
     events[6] = new Event(11, 13);
     events[7] = new Event(12, 15);
     events[8] = new Event(14, 15);
-    assert (3 == findMaxSimultaneousEvents(events));
+    assert(3 == findMaxSimultaneousEvents(events));
   }
 
   public static void main(String[] args) {

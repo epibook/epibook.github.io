@@ -26,7 +26,13 @@ void SortApproximatelySortedArray(istringstream* sequence, int k) {
   // Adds the first k elements into min_heap. Stop if there are fewer than k
   // elements.
   int x;
+  // @exclude
+  // clang-format off
+  // @include
   for (int i = 0; i < k && *sequence >> x; ++i) {
+    // @exclude
+    // clang-format on
+    // @include
     min_heap.push(x);
   }
 

@@ -32,7 +32,6 @@ pair<int, int> FindSmallestSubarrayCoveringSet(
       ++right;
     }
 
-
     // Found all keywords.
     if (keywords_to_count.size() == keywords.size() &&
         ((result.first == -1 && result.second == -1) ||

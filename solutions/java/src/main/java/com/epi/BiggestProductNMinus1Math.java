@@ -5,7 +5,7 @@ import java.util.Random;
 public class BiggestProductNMinus1Math {
   // @include
   public static int findBiggestNMinusOneProduct(int[] A) {
-    int zeroCount = 0, zeroIdx = - 1;
+    int zeroCount = 0, zeroIdx = -1;
     int positiveCount = 0, smallestPositiveIdx = -1;
     int negativeCount = 0, smallNegativeIdx = -1, biggestNegativeIdx = -1;
 
@@ -97,7 +97,6 @@ public class BiggestProductNMinus1Math {
         // Get a random number from [-9, 9]
         A[i] = gen.nextInt(19) - 9;
         System.out.print(A[i] + " ");
-
       }
       System.out.println();
       int res = findBiggestNMinusOneProduct(A);

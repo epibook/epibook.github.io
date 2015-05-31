@@ -28,7 +28,7 @@ vector<vector<int>> Permutations(vector<int> A) {
 // @exclude
 
 template <typename T>
-bool EqualVector(const vector<T> &A, const vector<T> &B) {
+bool EqualVector(const vector<T>& A, const vector<T>& B) {
   return A.size() == B.size() && equal(A.begin(), A.end(), B.begin());
 }
 
@@ -36,7 +36,8 @@ void SmallTest() {
   vector<int> A = {1, 2, 3};
   auto result = Permutations(A);
   assert(result.size() == 6);
-  vector<vector<int>> golden_result = {{1, 2, 3}, {1, 3, 2}, {2, 1, 3}, {2, 3, 1}, {3, 1, 2}, {3, 2, 1}};
+  vector<vector<int>> golden_result = {
+      {1, 2, 3}, {1, 3, 2}, {2, 1, 3}, {2, 3, 1}, {3, 1, 2}, {3, 2, 1}};
   for (size_t i = 0; i < 6; ++i) {
     assert(EqualVector(result[i], golden_result[i]));
   }

@@ -22,7 +22,7 @@ public class MatrixRotationConstant {
     RotatedMatrix rA = new RotatedMatrix(A);
     for (int i = 0; i < A.length; ++i) {
       for (int j = 0; j < A.length; ++j) {
-        assert (rA.readEntry(i, j) == B[i][j]);
+        assert(rA.readEntry(i, j) == B[i][j]);
       }
     }
   }
@@ -64,16 +64,10 @@ public class MatrixRotationConstant {
 class RotatedMatrix {
   private int[][] a;
 
-  public RotatedMatrix(int[][] A) {
-    this.a = A;
-  }
+  public RotatedMatrix(int[][] A) { this.a = A; }
 
-  public int readEntry(int i, int j) {
-    return a[a.length - 1 - j][i];
-  }
+  public int readEntry(int i, int j) { return a[a.length - 1 - j][i]; }
 
-  public void writeEntry(int i, int j, int v) {
-    a[a.length - 1 - j][i] = v;
-  }
+  public void writeEntry(int i, int j, int v) { a[a.length - 1 - j][i] = v; }
 }
 // @exclude

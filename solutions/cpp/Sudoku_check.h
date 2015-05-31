@@ -10,7 +10,7 @@ using std::deque;
 using std::vector;
 
 bool HasDuplicate(const vector<vector<int>>& A, int start_row, int end_row,
-                   int start_col, int end_col, int num_elements);
+                  int start_col, int end_col, int num_elements);
 
 // @include
 // Check if a partially filled matrix has any conflicts.

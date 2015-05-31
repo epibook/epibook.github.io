@@ -18,8 +18,8 @@ using std::vector;
 
 // @include
 vector<int> MatrixInSpiralOrder(vector<vector<int>> A) {
-  const array<array<int, 2>, 4> shift = {{{{0, 1}}, {{1, 0}},
-                                          {{0, -1}}, {{-1, 0}}}};
+  const array<array<int, 2>, 4> shift = {
+      {{{0, 1}}, {{1, 0}}, {{0, -1}}, {{-1, 0}}}};
   int dir = 0, x = 0, y = 0;
   vector<int> result;
 
@@ -27,8 +27,8 @@ vector<int> MatrixInSpiralOrder(vector<vector<int>> A) {
     result.emplace_back(A[x][y]);
     A[x][y] = 0;
     int next_x = x + shift[dir][0], next_y = y + shift[dir][1];
-    if (next_x < 0 || next_x >= A.size() || next_y < 0 ||
-        next_y >= A.size() || A[next_x][next_y] == 0) {
+    if (next_x < 0 || next_x >= A.size() || next_y < 0 || next_y >= A.size() ||
+        A[next_x][next_y] == 0) {
       dir = (dir + 1) & 3;
       next_x = x + shift[dir][0], next_y = y + shift[dir][1];
     }

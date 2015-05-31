@@ -19,7 +19,7 @@ public class RemoveElement {
 
   private static void checkAns(int[] A, int n, int k) {
     for (int i = 0; i < n; ++i) {
-      assert (A[i] != k);
+      assert(A[i] != k);
     }
   }
 
@@ -44,9 +44,10 @@ public class RemoveElement {
       int size = removeElement(target, A);
       System.out.println("size = " + size + " k = " + target);
       checkAns(A, size, target);
-      while (copyA.remove((Integer) target));
+      while (copyA.remove((Integer)target))
+        ;
       System.out.println(copyA.size());
-      assert (size == copyA.size());
+      assert(size == copyA.size());
     }
   }
 }

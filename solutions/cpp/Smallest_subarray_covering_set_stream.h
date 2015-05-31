@@ -16,8 +16,8 @@ using std::pair;
 using std::unordered_map;
 
 // @include
-pair<int, int> FindSmallestSubarrayCoveringSubset(
-    istringstream* sin, const vector<string> &Q) {
+pair<int, int> FindSmallestSubarrayCoveringSubset(istringstream* sin,
+                                                  const vector<string>& Q) {
   list<int> loc;  // Tracks the last occurrence (index) of each string in Q.
   unordered_map<string, list<int>::iterator> dict;
   for (const string& s : Q) {

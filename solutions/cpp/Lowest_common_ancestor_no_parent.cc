@@ -43,8 +43,8 @@ pair<int, BinaryTreeNode<int>*> LCAHelper(
   if (right_result.first == 2) {  // Found both nodes in the right subtree.
     return right_result;
   }
-  int num_target_nodes = left_result.first + right_result.first +
-                         (tree == node0 || tree == node1);
+  int num_target_nodes =
+      left_result.first + right_result.first + (tree == node0 || tree == node1);
   return {num_target_nodes, num_target_nodes == 2 ? tree.get() : nullptr};
 }
 // @exclude

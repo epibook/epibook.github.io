@@ -33,21 +33,22 @@ public class GrayCode {
   private static void smallTest() {
     List<Integer> vec = grayCode(3);
     List<Integer> expected = Arrays.asList(0, 1, 3, 2, 6, 7, 5, 4);
-    assert (vec.size() == expected.size());
-    assert (Arrays.equals(vec.toArray(), expected.toArray()));
+    assert(vec.size() == expected.size());
+    assert(Arrays.equals(vec.toArray(), expected.toArray()));
   }
 
   private static void checkAns(List<Integer> A) {
     for (int i = 0; i < A.size(); ++i) {
       int numDifferBits = 0;
       String prevS = addZerosTo10(Integer.toBinaryString(A.get(i)));
-      String nowS = addZerosTo10(Integer.toBinaryString(A.get((i + 1) % A.size())));
+      String nowS =
+          addZerosTo10(Integer.toBinaryString(A.get((i + 1) % A.size())));
       for (int j = 0; j < 10; ++j) {
         if (prevS.charAt(j) != nowS.charAt(j)) {
           ++numDifferBits;
         }
       }
-      assert (numDifferBits == 1);
+      assert(numDifferBits == 1);
     }
   }
 

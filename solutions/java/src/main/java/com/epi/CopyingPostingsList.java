@@ -5,7 +5,6 @@ package com.epi;
 import java.util.Random;
 
 class CopyingPostingsList {
-
   // @include
   public static PNode<Integer> copyPostingsList(PNode<Integer> L) {
     if (L == null) {
@@ -47,9 +46,9 @@ class CopyingPostingsList {
   public static <T> void checkPostingsListEqual(PNode<T> a, PNode<T> b) {
     while (a != null && b != null) {
       System.out.print(a.data + " ");
-      assert (a.data == b.data);
-      assert (a.jump == null && b.jump == null || (a.jump != null
-          && b.jump != null && a.jump.data == b.jump.data));
+      assert(a.data == b.data);
+      assert(a.jump == null && b.jump == null ||
+             (a.jump != null && b.jump != null && a.jump.data == b.jump.data));
       if (a.jump != null) {
         System.out.print(a.jump.data);
       }
@@ -58,7 +57,7 @@ class CopyingPostingsList {
       b = b.next;
     }
 
-    assert (a == null && b == null);
+    assert(a == null && b == null);
   }
 
   public static void main(String[] args) {

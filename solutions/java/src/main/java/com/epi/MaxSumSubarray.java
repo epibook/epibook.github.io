@@ -49,7 +49,7 @@ public class MaxSumSubarray {
       int sum = 0;
       for (int j = i; j < A.size(); ++j) {
         sum += A.get(j);
-        assert (sum <= maxSum);
+        assert(sum <= maxSum);
       }
     }
   }

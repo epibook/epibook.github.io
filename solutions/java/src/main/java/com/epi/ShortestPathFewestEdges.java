@@ -11,8 +11,7 @@ public class ShortestPathFewestEdges {
   // @include
   public static class GraphVertex implements Comparable<GraphVertex> {
     // Stores (dis, #edges) pair.
-    public Pair<Integer, Integer> distance = new Pair<>(
-        Integer.MAX_VALUE, 0);
+    public Pair<Integer, Integer> distance = new Pair<>(Integer.MAX_VALUE, 0);
     public List<Pair<GraphVertex, Integer>> edges = new ArrayList<>();
     public int id; // The id of this vertex.
     public GraphVertex pred = null; // The predecessor in the shortest path.
@@ -45,13 +44,12 @@ public class ShortestPathFewestEdges {
       for (Pair<GraphVertex, Integer> v : u.edges) {
         int vDistance = u.distance.getFirst() + v.getSecond();
         int vNumEdges = u.distance.getSecond() + 1;
-        if (v.getFirst().distance.getFirst() > vDistance
-            || (v.getFirst().distance.getFirst() == vDistance
-            && v.getFirst().distance.getSecond() > vNumEdges)) {
+        if (v.getFirst().distance.getFirst() > vDistance ||
+            (v.getFirst().distance.getFirst() == vDistance &&
+             v.getFirst().distance.getSecond() > vNumEdges)) {
           nodeSet.remove(v.getFirst());
           v.getFirst().pred = u;
-          v.getFirst().distance = new Pair<>(vDistance,
-              vNumEdges);
+          v.getFirst().distance = new Pair<>(vDistance, vNumEdges);
           nodeSet.add(v.getFirst());
         }
       }
@@ -120,10 +118,10 @@ public class ShortestPathFewestEdges {
 
     dijkstraShortestPath(G.get(s), G.get(t));
     System.out.println("\nMin distance: " + G.get(t).distance.getFirst());
-    assert (G.get(t).distance.getFirst() == 21);
+    assert(G.get(t).distance.getFirst() == 21);
     System.out.println("Number of edges: " + G.get(t).distance.getSecond());
     System.out.println("Number of edges: " + G.get(t).distance.getSecond());
-    assert (G.get(t).distance.getSecond() == 3);
+    assert(G.get(t).distance.getSecond() == 3);
   }
 
   public static void main(String[] args) {
@@ -166,8 +164,8 @@ public class ShortestPathFewestEdges {
     for (int i = 0; i < G.size(); ++i) {
       G.get(i).id = i;
       for (Pair<GraphVertex, Integer> e : G.get(i).edges) {
-        System.out.print(e.getFirst().id + "-" + G.get(0).id + " "
-            + e.getSecond() + ",");
+        System.out.print(e.getFirst().id + "-" + G.get(0).id + " " +
+                         e.getSecond() + ",");
       }
       System.out.println();
     }

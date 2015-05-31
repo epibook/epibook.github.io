@@ -13,9 +13,7 @@ public class ComputingXPowN {
     LinkedList<ArrayList<Integer>> expLists = new LinkedList<>();
     // Constructs the initial list with one node whose value is 1.
     expLists.addLast(new ArrayList<Integer>() {
-      {
-        add(1);
-      }
+      { add(1); }
     });
     while (!expLists.isEmpty()) {
       List<Integer> exp = expLists.pop();

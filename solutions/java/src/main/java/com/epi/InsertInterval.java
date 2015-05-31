@@ -13,18 +13,18 @@ public class InsertInterval {
     int i = 0;
     List<Interval> result = new ArrayList<>();
     // Processes intervals in disjointIntervals which come before newInterval.
-    while (i < disjointIntervals.size()
-           && newInterval.left > disjointIntervals.get(i).right) {
+    while (i < disjointIntervals.size() &&
+           newInterval.left > disjointIntervals.get(i).right) {
       result.add(disjointIntervals.get(i++));
     }
 
     // Processes intervals in disjointIntervals which overlap with newInterval.
-    while (i < disjointIntervals.size() 
-           && newInterval.right >= disjointIntervals.get(i).left) {
+    while (i < disjointIntervals.size() &&
+           newInterval.right >= disjointIntervals.get(i).left) {
       // If [a, b] and [c, d] overlap, their union is [min(a, c),max(b, d)].
-      newInterval = new Interval(Math.min(newInterval.left,
-          disjointIntervals.get(i).left), Math.max(newInterval.right,
-          disjointIntervals.get(i).right));
+      newInterval = new Interval(
+          Math.min(newInterval.left, disjointIntervals.get(i).left),
+          Math.max(newInterval.right, disjointIntervals.get(i).right));
       ++i;
     }
     result.add(newInterval);
@@ -38,23 +38,23 @@ public class InsertInterval {
   private static void checkIntervals(List<Interval> result) {
     // Only check the intervals do not overlap with each other.
     for (int i = 1; i < result.size(); ++i) {
-      assert (result.get(i - 1).right < result.get(i).left);
+      assert(result.get(i - 1).right < result.get(i).left);
     }
   }
 
   private static void smallTest() {
     List<Interval> A = new ArrayList<Interval>() {
-      {
-        add(new Interval(1, 5));
-      }
+      { add(new Interval(1, 5)); }
     };
     Interval newOne = new Interval(0, 3);
     List<Interval> result = AddInterval(A, newOne);
-    assert (result.size() == 1 && result.get(0).left == 0 && result.get(0).right == 5);
+    assert(result.size() == 1 && result.get(0).left == 0 &&
+           result.get(0).right == 5);
     newOne = new Interval(0, 0);
     result = AddInterval(A, newOne);
-    assert (result.size() == 2 && result.get(0).left == 0 && result.get(0).right == 0
-        && result.get(1).left == 1 && result.get(1).right == 5);
+    assert(result.size() == 2 && result.get(0).left == 0 &&
+           result.get(0).right == 0 && result.get(1).left == 1 &&
+           result.get(1).right == 5);
   }
 
   public static void main(String[] args) {

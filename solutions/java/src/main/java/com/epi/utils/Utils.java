@@ -6,7 +6,6 @@ import java.math.BigInteger;
 import java.util.*;
 
 public class Utils {
-
   private static Random random;
 
   public static void close(Closeable closeable) {
@@ -23,8 +22,7 @@ public class Utils {
     int gcd = BigInteger.valueOf(a).gcd(BigInteger.valueOf(b)).intValue();
     a /= gcd;
     b /= gcd;
-    return b < 0 ? new Pair<>(-a, -b)
-        : new Pair<>(a, b);
+    return b < 0 ? new Pair<>(-a, -b) : new Pair<>(a, b);
   }
 
   public static <T> boolean nullEqual(T first, T second) {
@@ -124,7 +122,8 @@ public class Utils {
    * @param d
    * @return
    */
-  public static <T> int upperBound(Collection<? extends Comparable<T>> list, T d) {
+  public static <T> int upperBound(Collection<? extends Comparable<T>> list,
+                                   T d) {
     if (list == null || list.isEmpty()) {
       return -1;
     }
@@ -141,7 +140,8 @@ public class Utils {
   }
 
   public static <T> void partialSum(Iterator<T> listIter,
-                                    ListIterator<T> targetIter, BinaryOperator<T> op) {
+                                    ListIterator<T> targetIter,
+                                    BinaryOperator<T> op) {
     T result = null;
 
     while (listIter.hasNext()) {
@@ -205,7 +205,6 @@ public class Utils {
       array[i - 1] = array[newIndex];
       array[newIndex] = tmp;
     }
-
   }
 
   public static void reverse(char[] array, int start, int stopIndex) {
@@ -351,13 +350,12 @@ public class Utils {
       return;
     }
 
-    for (Iterator<T> iterator = collection.iterator(); iterator.hasNext(); ) {
+    for (Iterator<T> iterator = collection.iterator(); iterator.hasNext();) {
       T t = iterator.next();
       System.out.print(t);
       if (iterator.hasNext()) {
         System.out.print(" ");
       }
-
     }
   }
 
@@ -408,6 +406,4 @@ public class Utils {
     int next = random.nextInt(maxValue);
     return next == Integer.MIN_VALUE ? Integer.MAX_VALUE : next;
   }
-
 }
-

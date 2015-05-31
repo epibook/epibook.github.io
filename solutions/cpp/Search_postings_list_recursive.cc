@@ -20,8 +20,7 @@ void SearchPostingsList(const shared_ptr<ListNode<int>>& L) {
   SearchPostingsListHelper(L, &order);
 }
 
-void SearchPostingsListHelper(const shared_ptr<ListNode<int>>& L,
-                              int* order) {
+void SearchPostingsListHelper(const shared_ptr<ListNode<int>>& L, int* order) {
   if (L && L->order == -1) {
     L->order = (*order)++;
     SearchPostingsListHelper(L->jump, order);
@@ -44,9 +43,9 @@ int main(int argc, char* argv[]) {
       curr = L = temp;
     }
   }
-  L->jump = nullptr;                    // no jump from 1
+  L->jump = nullptr;  // no jump from 1
   L->next->jump = L->next->next->next;  // 2's jump points to 4
-  L->next->next->jump = L;              // 3's jump points to 1
+  L->next->next->jump = L;  // 3's jump points to 1
   L->next->next->next->jump = nullptr;  // no jump from 4
   L->next->next->next->next->jump =
       L->next->next->next->next;  // 5's jump points to 5

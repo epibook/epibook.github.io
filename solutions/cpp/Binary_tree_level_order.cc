@@ -16,7 +16,6 @@ using std::queue;
 using std::unique_ptr;
 using std::vector;
 
-
 // @include
 vector<vector<int>> BinaryTreeDepthOrder(
     const unique_ptr<BinaryTreeNode<int>>& tree) {
@@ -51,7 +50,7 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  //10
+  // 10
   // 13
   unique_ptr<BinaryTreeNode<int>> tree = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{3, nullptr, nullptr});

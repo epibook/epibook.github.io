@@ -47,7 +47,7 @@ class Trie {
     // s already existed in this trie.
     if (p->isString) {
       return false;
-    } else {               // p->isString == false.
+    } else {  // p->isString == false.
       p->isString = true;  // Inserts s into this trie.
       return true;
     }

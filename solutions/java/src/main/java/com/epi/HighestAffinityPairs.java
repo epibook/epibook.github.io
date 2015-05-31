@@ -31,8 +31,7 @@ public class HighestAffinityPairs {
     List<String> keys = new ArrayList<>(pageUsersMap.keySet());
     for (int i = 0; i < keys.size(); i++) {
       for (int j = i + 1; j < keys.size(); ++j) {
-        Set<String> intersectUsers =
-            new HashSet<>(pageUsersMap.get(keys.get(i)));
+        Set<String> intersectUsers = new HashSet<>(pageUsersMap.get(keys.get(i)));
         intersectUsers.retainAll(pageUsersMap.get(keys.get(j)));
 
         // Updates result if we find larger intersection.
@@ -50,7 +49,7 @@ public class HighestAffinityPairs {
     Random r = new Random();
     StringBuilder ret = new StringBuilder(len);
     while (len-- > 0) {
-      ret.append((char) (r.nextInt(26) + 'a'));
+      ret.append((char)(r.nextInt(26) + 'a'));
     }
     return ret.toString();
   }

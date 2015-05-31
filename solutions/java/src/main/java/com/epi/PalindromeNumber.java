@@ -11,8 +11,8 @@ public class PalindromeNumber {
       return true;
     }
 
-    final int NUM_DIGITS = (int) (Math.floor(Math.log10(x))) + 1;
-    int xRemaining = x, msdShift = (int) Math.pow(10, NUM_DIGITS - 1);
+    final int NUM_DIGITS = (int)(Math.floor(Math.log10(x))) + 1;
+    int xRemaining = x, msdShift = (int)Math.pow(10, NUM_DIGITS - 1);
     for (int i = 0; i < (NUM_DIGITS / 2); ++i) {
       if (x / msdShift != xRemaining % 10) {
         return false;
@@ -41,11 +41,11 @@ public class PalindromeNumber {
     if (args.length == 1) {
       x = Integer.parseInt(args[0]);
       System.out.println(x + " " + isPalindrome(x));
-      assert (checkAns(x) == isPalindrome(x));
+      assert(checkAns(x) == isPalindrome(x));
     } else {
       for (int times = 0; times < 1000; ++times) {
         x = r.nextInt(99999 * 2 + 1) - 99999;
-        assert (checkAns(x) == isPalindrome(x));
+        assert(checkAns(x) == isPalindrome(x));
       }
     }
   }

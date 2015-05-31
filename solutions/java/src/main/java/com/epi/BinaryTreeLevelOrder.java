@@ -42,7 +42,7 @@ public class BinaryTreeLevelOrder {
     //      3
     //    2   5
     //  1    4 6
-    //10
+    // 10
     // 13
     BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(3);
     tree.setLeft(new BinaryTreeNode<>(2));
@@ -60,6 +60,6 @@ public class BinaryTreeLevelOrder {
     goldenRes.add(Arrays.asList(10));
     goldenRes.add(Arrays.asList(13));
     goldenRes.add(new ArrayList());
-    assert (goldenRes.equals(result));
+    assert(goldenRes.equals(result));
   }
 }

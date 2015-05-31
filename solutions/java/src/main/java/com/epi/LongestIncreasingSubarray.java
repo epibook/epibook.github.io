@@ -10,8 +10,8 @@ import java.util.Random;
 
 public class LongestIncreasingSubarray {
   // @include
-  public static Pair<Integer, Integer>
-      findLongestIncreasingSubarray(List<Integer> A) {
+  public static Pair<Integer, Integer> findLongestIncreasingSubarray(
+      List<Integer> A) {
     int maxLength = 1;
     Pair<Integer, Integer> ans = new Pair<>(0, 0);
     int i = 0;
@@ -41,11 +41,11 @@ public class LongestIncreasingSubarray {
   // @exclude
 
   private static void simpleTest() {
-    Pair<Integer, Integer> ans = findLongestIncreasingSubarray(Arrays.asList(
-        -1, -1));
-    assert (ans.getFirst() == 0 && ans.getSecond() == 0);
+    Pair<Integer, Integer> ans =
+        findLongestIncreasingSubarray(Arrays.asList(-1, -1));
+    assert(ans.getFirst() == 0 && ans.getSecond() == 0);
     ans = findLongestIncreasingSubarray(Arrays.asList(1, 2));
-    assert (ans.getFirst() == 0 && ans.getSecond() == 1);
+    assert(ans.getFirst() == 0 && ans.getSecond() == 1);
   }
 
   public static void main(String[] args) {
@@ -78,7 +78,7 @@ public class LongestIncreasingSubarray {
         } else {
           len = 1;
         }
-        assert (len <= result.getSecond() - result.getFirst() + 1);
+        assert(len <= result.getSecond() - result.getFirst() + 1);
       }
     }
   }

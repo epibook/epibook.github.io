@@ -38,4 +38,3 @@ int main(int argc, char** argv) {
   assert(11 == FindMinimumTotal(A));
   return 0;
 }
-

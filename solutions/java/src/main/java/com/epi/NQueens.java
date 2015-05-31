@@ -72,6 +72,5 @@ public class NQueens {
       }
       System.out.println();
     }
-
   }
 }

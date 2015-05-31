@@ -4,7 +4,6 @@ package com.epi;
 import java.util.Random;
 
 public class MatrixRotationNaive {
-
   private static void printMatrix(int[][] A) {
     for (int i = 0; i < A.length; ++i) {
       // simplePrint(A[i]);
@@ -19,7 +18,7 @@ public class MatrixRotationNaive {
     int k = 1;
     for (int j = A.length - 1; j >= 0; --j) {
       for (int[] element : A) {
-        assert (k++ == element[j]);
+        assert(k++ == element[j]);
       }
     }
   }
@@ -69,5 +68,4 @@ public class MatrixRotationNaive {
       }
     }
   }
-
 }

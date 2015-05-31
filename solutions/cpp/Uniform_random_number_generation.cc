@@ -19,15 +19,15 @@ int ZeroOneRandom() {
 
 // @include
 int UniformRandom(int a, int b) {
-  int t = b - a + 1, res;
+  int t = b - a + 1, result;
   do {
-    res = 0;
+    result = 0;
     for (int i = 0; (1 << i) < t; ++i) {
       // ZeroOneRandom() is the system-provided random number generator.
-      res = (res * 2) | ZeroOneRandom();
+      result = (result * 2) | ZeroOneRandom();
     }
-  } while (res >= t);
-  return res + a;
+  } while (result >= t);
+  return result + a;
 }
 // @exclude
 

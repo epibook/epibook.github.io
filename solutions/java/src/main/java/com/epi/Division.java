@@ -54,23 +54,23 @@ public class Division {
   // @exclude
 
   private static void simpleTest() {
-    assert (divideXByY(64, 1) == 64);
-    assert (divideXByY(64, 2) == 32);
-    assert (divideXByY(64, 3) == 21);
-    assert (divideXByY(64, 4) == 16);
-    assert (divideXByY(64, 5) == 12);
-    assert (divideXByY(65, 2) == 32);
-    assert (divideXByY(2600540749L, 2147483647L) == 1);
-    assert (divideXByYBinSearch(4, 2) == 2);
-    assert (divideXByYBinSearch(64, 1) == 64);
-    assert (divideXByYBinSearch(64, 2) == 32);
-    assert (divideXByYBinSearch(64, 3) == 21);
-    assert (divideXByYBinSearch(64, 4) == 16);
-    assert (divideXByYBinSearch(64, 5) == 12);
-    assert (divideXByYBinSearch(65, 2) == 32);
-    assert (divideXByYBinSearch(9444, 4714) == 2);
-    assert (divideXByYBinSearch(8186, 19) == 430);
-    assert (divideXByYBinSearch(8186, 19) == 430);
+    assert(divideXByY(64, 1) == 64);
+    assert(divideXByY(64, 2) == 32);
+    assert(divideXByY(64, 3) == 21);
+    assert(divideXByY(64, 4) == 16);
+    assert(divideXByY(64, 5) == 12);
+    assert(divideXByY(65, 2) == 32);
+    assert(divideXByY(2600540749L, 2147483647L) == 1);
+    assert(divideXByYBinSearch(4, 2) == 2);
+    assert(divideXByYBinSearch(64, 1) == 64);
+    assert(divideXByYBinSearch(64, 2) == 32);
+    assert(divideXByYBinSearch(64, 3) == 21);
+    assert(divideXByYBinSearch(64, 4) == 16);
+    assert(divideXByYBinSearch(64, 5) == 12);
+    assert(divideXByYBinSearch(65, 2) == 32);
+    assert(divideXByYBinSearch(9444, 4714) == 2);
+    assert(divideXByYBinSearch(8186, 19) == 430);
+    assert(divideXByYBinSearch(8186, 19) == 430);
   }
 
   public static void main(String[] args) {
@@ -78,20 +78,18 @@ public class Division {
     if (args.length == 2) {
       long x = Long.parseLong(args[0]);
       long y = Long.parseLong(args[1]);
-      assert (x / y == divideXByY(x, y));
-      assert (x / y == divideXByYBinSearch(x, y));
+      assert(x / y == divideXByY(x, y));
+      assert(x / y == divideXByYBinSearch(x, y));
     } else {
       Random r = new Random();
       for (int times = 0; times < 100000; ++times) {
         long x = r.nextInt(Integer.MAX_VALUE), y = r.nextInt(Integer.MAX_VALUE);
         y = (y == 0) ? 1 : y; // ensure no divide by 0.
         System.out.println("times = " + times + ", x = " + x + ", y = " + y);
-        System.out.println("first = " + x / y + ", second = "
-            + divideXByY(x, y));
-        assert (x / y == divideXByY(x, y));
-        assert (x / y == divideXByYBinSearch(x, y));
+        System.out.println("first = " + x / y + ", second = " + divideXByY(x, y));
+        assert(x / y == divideXByY(x, y));
+        assert(x / y == divideXByYBinSearch(x, y));
       }
     }
-
   }
 }

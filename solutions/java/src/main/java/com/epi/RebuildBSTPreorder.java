@@ -21,12 +21,14 @@ public class RebuildBSTPreorder {
     }
     int transitionPoint = start + 1;
     while (transitionPoint < end &&
-           preorderSequence.get(transitionPoint).compareTo(preorderSequence.get(start)) < 0) {
+           preorderSequence.get(transitionPoint)
+                   .compareTo(preorderSequence.get(start)) < 0) {
       ++transitionPoint;
     }
     return new BSTNode<>(
         preorderSequence.get(start),
-        rebuildBSTFromPreorderHelper(preorderSequence, start + 1, transitionPoint),
+        rebuildBSTFromPreorderHelper(preorderSequence, start + 1,
+                                     transitionPoint),
         rebuildBSTFromPreorderHelper(preorderSequence, transitionPoint, end));
   }
   // @exclude
@@ -34,7 +36,7 @@ public class RebuildBSTPreorder {
   private static void checkAns(BSTNode<Integer> n, Integer pre) {
     if (n != null) {
       checkAns(n.getLeft(), pre);
-      assert (pre.compareTo(n.getData()) <= 0);
+      assert(pre.compareTo(n.getData()) <= 0);
       System.out.println(n.getData());
       checkAns(n.getRight(), n.getData());
     }

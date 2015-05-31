@@ -4,7 +4,6 @@
 package com.epi;
 
 class ReverseLinkedListRecursive {
-
   // @include
   public static ListNode<Integer> reverseLinkedList(ListNode<Integer> head) {
     if (head == null || head.next == null) {

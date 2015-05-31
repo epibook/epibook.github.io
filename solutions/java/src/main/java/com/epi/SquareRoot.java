@@ -30,16 +30,14 @@ public class SquareRoot {
     return left;
   }
 
-  private static enum Ordering {
-    SMALLER, EQUAL, LARGER
-  }
+  private static enum Ordering { SMALLER, EQUAL, LARGER }
 
   private static Ordering compare(double a, double b) {
     final double EPSILON = 0.00001;
     // Uses normalization for precision problem.
     double diff = (a - b) / b;
-    return diff < -EPSILON ? Ordering.SMALLER :
-               (diff > EPSILON ? Ordering.LARGER : Ordering.EQUAL);
+    return diff < -EPSILON ? Ordering.SMALLER
+                           : (diff > EPSILON ? Ordering.LARGER : Ordering.EQUAL);
   }
   // @exclude
 
@@ -54,9 +52,9 @@ public class SquareRoot {
       }
       double[] res = new double[2];
       System.out.println("x is " + x);
-      System.out.println((res[0] = squareRoot(x)) + " "
-          + (res[1] = Math.sqrt(x)));
-      assert (compare(res[0], res[1]) == Ordering.EQUAL);
+      System.out.println((res[0] = squareRoot(x)) + " " +
+                         (res[1] = Math.sqrt(x)));
+      assert(compare(res[0], res[1]) == Ordering.EQUAL);
     }
   }
 }

@@ -49,9 +49,11 @@ vector<int> RandVector(size_t len) {
 
 void SmallTest() {
   auto result = PlusOne({9, 9});
-  assert(result.size() == 3 && result[0] == 1 && result[1] == 0 && result[2] == 0);
+  assert(result.size() == 3 && result[0] == 1 && result[1] == 0 &&
+         result[2] == 0);
   result = PlusOne({3, 1, 4});
-  assert(result.size() == 3 && result[0] == 3 && result[1] == 1 && result[2] == 5);
+  assert(result.size() == 3 && result[0] == 3 && result[1] == 1 &&
+         result[2] == 5);
 }
 
 int main(int argc, char** argv) {

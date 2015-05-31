@@ -16,28 +16,32 @@ public class SortKIncreasingDecreasingArray {
   public static List<Integer> sortKIncreasingDecreasingArray(List<Integer> A) {
     // Decomposes A into a set of sorted arrays.
     List<List<Integer>> sortedSubarrays = new ArrayList<>();
-    Boolean isIncreasing = true;
+    SubarrayType subarrayType = SubarrayType.INCREASING;
     int startIdx = 0;
     for (int i = 1; i <= A.size(); ++i) {
       if (i == A.size() // A is ended. Adds the last subarray
-          || (A.get(i - 1) < A.get(i) && !isIncreasing)
-          || (A.get(i - 1) >= A.get(i) && isIncreasing)) {
+          ||
+          (A.get(i - 1) < A.get(i) && subarrayType == SubarrayType.DECREASING) ||
+          (A.get(i - 1) >= A.get(i) && subarrayType == SubarrayType.INCREASING)) {
         List<Integer> subList = A.subList(startIdx, i);
-        if (!isIncreasing) {
+        if (subarrayType == SubarrayType.DECREASING) {
           Collections.reverse(subList);
         }
         sortedSubarrays.add(subList);
         startIdx = i;
-        isIncreasing = !isIncreasing;
+        subarrayType =
+            (subarrayType == SubarrayType.INCREASING ? SubarrayType.DECREASING
+                                                     : SubarrayType.INCREASING);
       }
     }
 
     return MergeSortedArrays.mergeSortedArrays(sortedSubarrays);
   }
+
+  private static enum SubarrayType { INCREASING, DECREASING }
   // @exclude
 
-  public static <T extends Comparable<T>> boolean isSorted(
-      Iterable<T> iterable) {
+  public static <T extends Comparable<T>> boolean isSorted(Iterable<T> iterable) {
     Iterator<T> iter = iterable.iterator();
     if (!iter.hasNext()) {
       return true;
@@ -69,8 +73,8 @@ public class SortKIncreasingDecreasingArray {
       }
 
       List<Integer> ans = sortKIncreasingDecreasingArray(A);
-      assert (A.size() == ans.size());
-      assert (isSorted(ans));
+      assert(A.size() == ans.size());
+      assert(isSorted(ans));
     }
   }
 }

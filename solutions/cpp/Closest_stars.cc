@@ -47,7 +47,7 @@ struct Star {
   double x, y, z;
 };
 
-vector<Star> FindClosestKStars(int k, istringstream *stars) {
+vector<Star> FindClosestKStars(int k, istringstream* stars) {
   // max_heap to store the closest k stars seen so far.
   priority_queue<Star, vector<Star>> max_heap;
 
@@ -114,8 +114,10 @@ int main(int argc, char* argv[]) {
     sort(closest_stars.begin(), closest_stars.end());
     sort(stars.begin(), stars.end());
     cout << "k = " << k << endl;
-    cout << stars[k - 1].x << " " << stars[k - 1].y << " " << stars[k - 1].z << endl;
-    cout << closest_stars.back().x << " " << closest_stars.back().y << " " << closest_stars.back().z << endl;
+    cout << stars[k - 1].x << " " << stars[k - 1].y << " " << stars[k - 1].z
+         << endl;
+    cout << closest_stars.back().x << " " << closest_stars.back().y << " "
+         << closest_stars.back().z << endl;
     assert(stars[k - 1] == closest_stars.back());
   }
   return 0;

@@ -17,7 +17,8 @@ using namespace std::tr1;
 // @include
 template <typename T>
 vector<T> partition(const vector<T> &A) {
-  vector<vector<unordered_set<T>>> table(A.size() + 1, vector<unordered_set<int>>(A.size() + 1));
+  vector<vector<unordered_set<T>>> table(
+      A.size() + 1, vector<unordered_set<int>>(A.size() + 1));
   table[0][0].insert(T(0));
   for (int i = 1; i <= A.size(); ++i) {
     for (int j = 0; j <= i; ++j) {

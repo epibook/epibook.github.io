@@ -10,10 +10,7 @@ import java.util.Map;
 
 // @include
 public class LRUCache {
-
-  public LRUCache(int c) {
-    capacity = c;
-  }
+  public LRUCache(int c) { capacity = c; }
 
   public boolean lookup(int isbn) {
     Pair<LinkedList<Integer>.Node, Integer> it = isbnPriceTable.get(isbn);
@@ -38,8 +35,7 @@ public class LRUCache {
       }
 
       // Adds the new entry into the front.
-      isbnPriceTable.put(
-          isbn, new Pair<>(lruQueue.pushFront(isbn), price));
+      isbnPriceTable.put(isbn, new Pair<>(lruQueue.pushFront(isbn), price));
     }
   }
 
@@ -55,8 +51,7 @@ public class LRUCache {
   }
 
   // Moves isbn to the front of the LRU cache.
-  private void moveToFront(int isbn,
-                           Pair<LinkedList<Integer>.Node, Integer> it) {
+  private void moveToFront(int isbn, Pair<LinkedList<Integer>.Node, Integer> it) {
     lruQueue.erase(it.getFirst());
     lruQueue.pushBack(isbn);
     it.setFirst(lruQueue.front());
@@ -64,8 +59,8 @@ public class LRUCache {
 
   public int lookupVal = 0;
   private int capacity;
-  private Map<Integer, Pair<LinkedList<Integer>.Node, Integer>>
-      isbnPriceTable = new HashMap<>();
+  private Map<Integer, Pair<LinkedList<Integer>.Node, Integer>> isbnPriceTable =
+      new HashMap<>();
   private LinkedList<Integer> lruQueue = new LinkedList<>();
   // @exclude
 
@@ -76,12 +71,12 @@ public class LRUCache {
     System.out.println("c.insert(1, 10)");
     c.insert(1, 10);
     System.out.println("c.lookup(2, val)");
-    assert (!c.lookup(2));
+    assert(!c.lookup(2));
     System.out.println("c.lookup(1, val)");
-    assert (c.lookup(1));
-    assert (c.lookupVal == 1);
+    assert(c.lookup(1));
+    assert(c.lookupVal == 1);
     c.erase(1);
-    assert (!c.lookup(1));
+    assert(!c.lookup(1));
   }
   // @include
 }

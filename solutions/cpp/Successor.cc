@@ -41,13 +41,16 @@ int main(int argc, char* argv[]) {
   root->parent = nullptr;
   root->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
   root->left->parent = root.get();
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
+  root->left->left =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
   root->left->left->parent = root->left.get();
   root->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
   root->right->parent = root.get();
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
+  root->right->left =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
   root->right->left->parent = root->right.get();
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
+  root->right->right =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
   root->right->right->parent = root->right.get();
   // should output 6
   auto* node = FindSuccessor(root->right);

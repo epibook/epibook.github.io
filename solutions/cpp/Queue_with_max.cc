@@ -14,40 +14,42 @@ using std::length_error;
 using std::max;
 
 // @include
-class Queue {
+class QueueWithMax {
  public:
-  void Enqueue(int x) { A_.Push(x); }
+  void Enqueue(int x) { enqueue_stack_.Push(x); }
 
   int Dequeue() {
-    if (B_.Empty()) {
-      while (!A_.Empty()) {
-        B_.Push(A_.Pop());
+    if (dequeue_stack_.Empty()) {
+      while (!enqueue_stack_.Empty()) {
+        dequeue_stack_.Push(enqueue_stack_.Pop());
       }
     }
-    if (!B_.Empty()) {
-      return B_.Pop();
+    if (!dequeue_stack_.Empty()) {
+      return dequeue_stack_.Pop();
     }
     throw length_error("empty queue");
   }
 
   int Max() const {
-    if (!A_.Empty()) {
-      return B_.Empty() ? A_.Max() : max(A_.Max(), B_.Max());
-    } else {  // A_.Empty() == true.
-      if (!B_.Empty()) {
-        return B_.Max();
+    if (!enqueue_stack_.Empty()) {
+      return dequeue_stack_.Empty()
+                 ? enqueue_stack_.Max()
+                 : max(enqueue_stack_.Max(), dequeue_stack_.Max());
+    } else {  // enqueue_stack_.Empty() == true.
+      if (!dequeue_stack_.Empty()) {
+        return dequeue_stack_.Max();
       }
       throw length_error("empty queue");
     }
   }
 
  private:
-  Stack A_, B_;
+  Stack enqueue_stack_, dequeue_stack_;
 };
 // @exclude
 
 int main(int argc, char* argv[]) {
-  Queue Q;
+  QueueWithMax Q;
   Q.Enqueue(1);
   Q.Enqueue(2);
   assert(2 == Q.Max());
@@ -59,14 +61,12 @@ int main(int argc, char* argv[]) {
   assert(3 == Q.Dequeue());  // 3
   try {
     Q.Max();
-  }
-  catch (const exception& e) {
+  } catch (const exception& e) {
     cout << e.what() << endl;  // throw
   }
   try {
     Q.Dequeue();
-  }
-  catch (const exception& e) {
+  } catch (const exception& e) {
     cout << e.what() << endl;  // throw
   }
   return 0;

@@ -12,8 +12,8 @@ using std::make_shared;
 using std::shared_ptr;
 
 // @include
-shared_ptr<ListNode<int>> ReverseSublist(
-    shared_ptr<ListNode<int>> L, int start, int finish) {
+shared_ptr<ListNode<int>> ReverseSublist(shared_ptr<ListNode<int>> L, int start,
+                                         int finish) {
   if (start == finish) {  // No need to reverse since start == finish.
     return L;
   }
@@ -58,8 +58,8 @@ int main(int argc, char* argv[]) {
     result = result->next;
   }
 
-  L = make_shared<ListNode<int>>(ListNode<int>{
-      3, make_shared<ListNode<int>>(ListNode<int>{5, nullptr})});
+  L = make_shared<ListNode<int>>(
+      ListNode<int>{3, make_shared<ListNode<int>>(ListNode<int>{5, nullptr})});
   result = ReverseSublist(L, 1, 2);
   assert(result->data == 5 && result->next->data == 3 && !result->next->next);
   while (result) {

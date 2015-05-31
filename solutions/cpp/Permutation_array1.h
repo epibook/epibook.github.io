@@ -31,7 +31,7 @@ void ApplyPermutation(vector<int>* perm, vector<int>* A) {
   }
 
   // Restore perm back.
-  for_each(perm->begin(), perm->end(), [&](int &x) { x += perm->size(); });
+  for_each(perm->begin(), perm->end(), [&](int& x) { x += perm->size(); });
 }
 // @exclude
 

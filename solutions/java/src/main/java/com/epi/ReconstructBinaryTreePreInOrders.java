@@ -32,7 +32,8 @@ public class ReconstructBinaryTreePreInOrders {
     int rootInorderIdx = nodeToInorderIdx.get(preorder[preorderStart]);
     int leftSubtreeSize = rootInorderIdx - inorderStart;
 
-    return new BinaryTreeNode<>(preorder[preorderStart],
+    return new BinaryTreeNode<>(
+        preorder[preorderStart],
         // Recursively builds the left subtree.
         reconstructPreInOrdersHelper(
             preorder, preorderStart + 1, preorderStart + 1 + leftSubtreeSize,
@@ -66,7 +67,7 @@ public class ReconstructBinaryTreePreInOrders {
         inOrder[i] = inorder.get(i);
       }
       BinaryTreeNode<Integer> res = reconstructPreInOrders(preOrder, inOrder);
-      assert (root.equals(res));
+      assert(root.equals(res));
     }
   }
 }

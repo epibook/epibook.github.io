@@ -19,21 +19,15 @@ public class GaussianPrimes {
       this.imag = imag;
     }
 
-    public int getReal() {
-      return real;
-    }
+    public int getReal() { return real; }
 
-    public int getImag() {
-      return imag;
-    }
+    public int getImag() { return imag; }
 
-    public int getNorm() {
-      return real * real + imag * imag;
-    }
+    public int getNorm() { return real * real + imag * imag; }
 
     public Complex multiply(Complex p) {
-      return new Complex(real * p.getReal() - imag * p.getImag(), real
-          * p.getImag() + imag * p.getReal());
+      return new Complex(real * p.getReal() - imag * p.getImag(),
+                         real * p.getImag() + imag * p.getReal());
     }
 
     @Override
@@ -70,8 +64,8 @@ public class GaussianPrimes {
     while (!candidates.isEmpty()) {
       Complex p = candidates.pollFirst();
       primes.add(p);
-      int maxMultiplier = (int) Math.ceil(Math.sqrt(2.0) * n
-          / Math.floor(Math.sqrt(p.getNorm())));
+      int maxMultiplier =
+          (int)Math.ceil(Math.sqrt(2.0) * n / Math.floor(Math.sqrt(p.getNorm())));
 
       // Any Gaussian integer outside the range we're iterating
       // over below has a modulus greater than maxMultiplier.
@@ -92,10 +86,10 @@ public class GaussianPrimes {
   }
 
   private static boolean isUnit(Complex z) {
-    return (z.getReal() == 1 && z.getImag() == 0)
-        || (z.getReal() == -1 && z.getImag() == 0)
-        || (z.getReal() == 0 && z.getImag() == 1)
-        || (z.getReal() == 0 && z.getImag() == -1);
+    return (z.getReal() == 1 && z.getImag() == 0) ||
+        (z.getReal() == -1 && z.getImag() == 0) ||
+        (z.getReal() == 0 && z.getImag() == 1) ||
+        (z.getReal() == 0 && z.getImag() == -1);
   }
   // @exclude
 
@@ -144,8 +138,8 @@ public class GaussianPrimes {
       List<Complex> gPrimes = generateGaussianPrimes(i);
       System.out.println(first.size() + " " + gPrimes.size());
       for (int j = 0; j < first.size(); ++j) {
-        if (first.get(j).getReal() != gPrimes.get(j).getReal()
-            || first.get(j).getImag() != gPrimes.get(j).getImag()) {
+        if (first.get(j).getReal() != gPrimes.get(j).getReal() ||
+            first.get(j).getImag() != gPrimes.get(j).getImag()) {
           System.out.print(first.get(j) + " ");
           System.out.print(gPrimes.get(j) + " ");
         }
@@ -153,7 +147,7 @@ public class GaussianPrimes {
       for (int j = first.size(); j < gPrimes.size(); ++j) {
         System.out.print(gPrimes.get(i) + " ");
       }
-      assert (first.size() == gPrimes.size());
+      assert(first.size() == gPrimes.size());
     }
   }
 }

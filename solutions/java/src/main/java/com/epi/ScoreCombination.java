@@ -25,7 +25,7 @@ public class ScoreCombination {
   private static void simpleTest() {
     int k = 12;
     List<Integer> scoreWays = Arrays.asList(2, 3, 7);
-    assert (4 == countCombinations(k, scoreWays));
+    assert(4 == countCombinations(k, scoreWays));
   }
 
   public static void main(String[] args) {

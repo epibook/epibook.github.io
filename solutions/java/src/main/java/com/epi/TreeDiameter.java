@@ -23,8 +23,8 @@ public class TreeDiameter {
     double diameter = Double.MIN_VALUE;
     double[] height = {0.0, 0.0}; // Stores the max two heights.
     for (Pair<TreeNode, Double> e : r.edges) {
-      Pair<Double, Double> heightDiameter = computeHeightAndDiameter(e
-          .getFirst());
+      Pair<Double, Double> heightDiameter =
+          computeHeightAndDiameter(e.getFirst());
       if (heightDiameter.getFirst() + e.getSecond() > height[0]) {
         height[1] = height[0];
         height[0] = heightDiameter.getFirst() + e.getSecond();
@@ -33,24 +33,21 @@ public class TreeDiameter {
       }
       diameter = Math.max(diameter, heightDiameter.getSecond());
     }
-    return new Pair<>(height[0], Math.max(diameter, height[0]
-        + height[1]));
+    return new Pair<>(height[0], Math.max(diameter, height[0] + height[1]));
   }
   // @exclude
 
   public static void main(String[] args) {
     TreeNode r = null;
-    assert (0.0 == computeDiameter(r));
+    assert(0.0 == computeDiameter(r));
     r = new TreeNode();
     r.edges.add(new Pair<>(new TreeNode(), 10.0));
-    r.edges.get(0).getFirst().edges.add(new Pair<>(
-        new TreeNode(), 50.0));
+    r.edges.get(0).getFirst().edges.add(new Pair<>(new TreeNode(), 50.0));
     r.edges.add(new Pair<>(new TreeNode(), 20.0));
-    assert (80 == computeDiameter(r));
+    assert(80 == computeDiameter(r));
     System.out.println(computeDiameter(r));
-    r.edges.get(0).getFirst().edges.add(new Pair<>(
-        new TreeNode(), 100.0));
-    assert (150 == computeDiameter(r));
+    r.edges.get(0).getFirst().edges.add(new Pair<>(new TreeNode(), 100.0));
+    assert(150 == computeDiameter(r));
     System.out.println(computeDiameter(r));
   }
 }

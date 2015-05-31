@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class MergeSortedLists {
   //@include
-  public static ListNode<Integer> mergeTwoSortedLinkedLists(
-      ListNode<Integer> F, ListNode<Integer> L) {
+  public static ListNode<Integer> mergeTwoSortedLinkedLists(ListNode<Integer> F,
+                                                            ListNode<Integer> L) {
     // Creates a placeholder for the result.
     ListNode<Integer> dummyHead = new ListNode<>(0, null);
     ListNode<Integer> current = dummyHead;
@@ -61,13 +61,13 @@ public class MergeSortedLists {
       int count = 0;
       int pre = Integer.MIN_VALUE;
       while (sortedHead != null) {
-        assert (pre <= sortedHead.data);
+        assert(pre <= sortedHead.data);
         pre = sortedHead.data;
         sortedHead = sortedHead.next;
         ++count;
       }
       // Make sure the merged list have the same number of nodes as F and L.
-      assert (count == n + m);
+      assert(count == n + m);
     }
   }
 }

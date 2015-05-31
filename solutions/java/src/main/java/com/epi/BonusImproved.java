@@ -7,12 +7,14 @@ public class BonusImproved {
   private static void checkAns(int[] ratings, int[] C) {
     for (int i = 0; i < ratings.length; ++i) {
       if (i > 0) {
-        assert ((ratings[i] > ratings[i - 1] && C[i] > C[i - 1])
-            || (ratings[i] < ratings[i - 1] && C[i] < C[i - 1]) || ratings[i] == ratings[i - 1]);
+        assert((ratings[i] > ratings[i - 1] && C[i] > C[i - 1]) ||
+               (ratings[i] < ratings[i - 1] && C[i] < C[i - 1]) ||
+               ratings[i] == ratings[i - 1]);
       }
       if (i + 1 < ratings.length) {
-        assert ((ratings[i] > ratings[i + 1] && C[i] > C[i + 1])
-            || (ratings[i] < ratings[i + 1] && C[i] < C[i + 1]) || ratings[i] == ratings[i + 1]);
+        assert((ratings[i] > ratings[i + 1] && C[i] > C[i + 1]) ||
+               (ratings[i] < ratings[i + 1] && C[i] < C[i + 1]) ||
+               ratings[i] == ratings[i + 1]);
       }
     }
   }
@@ -39,15 +41,15 @@ public class BonusImproved {
   // @exclude
 
   private static void smallTest() {
-    int[] A = new int[]{1, 2, 2};
-    int[] goldenA = new int[]{1, 2, 1};
-    assert (Arrays.equals(calculateBonus(A), goldenA));
-    A = new int[]{1, 2, 3, 2, 1};
-    goldenA = new int[]{1, 2, 3, 2, 1};
-    assert (Arrays.equals(calculateBonus(A), goldenA));
-    A = new int[]{300, 400, 500, 200};
-    goldenA = new int[]{1, 2, 3, 1};
-    assert (Arrays.equals(calculateBonus(A), goldenA));
+    int[] A = new int[] {1, 2, 2};
+    int[] goldenA = new int[] {1, 2, 1};
+    assert(Arrays.equals(calculateBonus(A), goldenA));
+    A = new int[] {1, 2, 3, 2, 1};
+    goldenA = new int[] {1, 2, 3, 2, 1};
+    assert(Arrays.equals(calculateBonus(A), goldenA));
+    A = new int[] {300, 400, 500, 200};
+    goldenA = new int[] {1, 2, 3, 1};
+    assert(Arrays.equals(calculateBonus(A), goldenA));
   }
 
   public static void main(String[] args) {

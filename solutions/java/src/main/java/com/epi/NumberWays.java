@@ -58,9 +58,9 @@ public class NumberWays {
         n = r.nextInt(10) + 1;
         m = r.nextInt(10) + 1;
       }
-      System.out.println("n = " + n + ", m = " + m + ", number of ways = "
-          + numberOfWays(n, m));
-      assert (checkAns(n + m - 2, m - 1) == numberOfWays(n, m));
+      System.out.println("n = " + n + ", m = " + m + ", number of ways = " +
+                         numberOfWays(n, m));
+      assert(checkAns(n + m - 2, m - 1) == numberOfWays(n, m));
       if (args.length == 2) {
         break;
       }

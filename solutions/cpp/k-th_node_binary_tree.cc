@@ -33,7 +33,7 @@ const BinaryTreeNode<int>* FindKthNodeBinaryTree(
       iter = iter->left.get();
     }
   }
-  return nullptr; // If k is between 1 and the tree size, this is unreachable.
+  return nullptr;  // If k is between 1 and the tree size, this is unreachable.
 }
 // @exclude
 
@@ -59,10 +59,12 @@ int main(int argc, char* argv[]) {
   root->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
   root->right->size = 3;
   root->right->data = 5;
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  root->right->left =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
   root->right->left->size = 1;
   root->right->left->data = 4;
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  root->right->right =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
   root->right->right->size = 1;
   root->right->right->data = 6;
   assert(nullptr == FindKthNodeBinaryTree(root, 0));
@@ -84,6 +86,6 @@ int main(int argc, char* argv[]) {
   // should output 6
   assert(FindKthNodeBinaryTree(root, 6)->data == 6);
   cout << (FindKthNodeBinaryTree(root, 6))->data << endl;
-  assert(nullptr ==  FindKthNodeBinaryTree(root, 7));
+  assert(nullptr == FindKthNodeBinaryTree(root, 7));
   return 0;
 }

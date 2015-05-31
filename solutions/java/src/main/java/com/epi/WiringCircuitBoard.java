@@ -110,7 +110,7 @@ public class WiringCircuitBoard {
 
       boolean res = isAnyPlacementFeasible(G);
       System.out.println(res);
-      assert (res == isTwoColorable(G));
+      assert(res == isTwoColorable(G));
     }
   }
 }

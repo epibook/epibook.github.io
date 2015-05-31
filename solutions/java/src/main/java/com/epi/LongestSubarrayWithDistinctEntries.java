@@ -57,7 +57,7 @@ public class LongestSubarrayWithDistinctEntries {
       int ans = longestSubarrayWithDistinctEntries(A);
       int goldenAns = checkAns(A);
       System.out.println(ans + " " + goldenAns);
-      assert (ans == goldenAns);
+      assert(ans == goldenAns);
     }
   }
 }

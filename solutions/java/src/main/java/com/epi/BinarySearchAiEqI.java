@@ -58,12 +58,11 @@ public class BinarySearchAiEqI {
       int ans = searchEntryEqualToItsIndex(A);
       if (ans != -1) {
         System.out.println("A[" + ans + "] = " + A[ans]);
-        assert (A[ans] == ans);
+        assert(A[ans] == ans);
       } else {
         System.out.println("no entry where A[k] = k");
-        assert (checkAns(A) == -1);
+        assert(checkAns(A) == -1);
       }
     }
   }
-
 }

@@ -22,7 +22,13 @@ vector<int> ReservoirSampling(istringstream* sin, int k) {
   int x;
   vector<int> sampling_results;
   // Stores the first k elements.
+  // @exclude
+  // clang-format off
+  // @include
   for (int i = 0; i < k && *sin >> x; ++i) {
+    // @exclude
+    // clang-format on
+    // @include
     sampling_results.emplace_back(x);
   }
 

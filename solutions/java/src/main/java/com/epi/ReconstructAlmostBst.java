@@ -14,8 +14,7 @@ public class ReconstructAlmostBst {
     public BinaryTreeNode<Integer> prev;
     public BinaryTreeNode<Integer> curr;
 
-    public Inversion(BinaryTreeNode<Integer> prev,
-                     BinaryTreeNode<Integer> curr) {
+    public Inversion(BinaryTreeNode<Integer> prev, BinaryTreeNode<Integer> curr) {
       this.prev = prev;
       this.curr = curr;
     }
@@ -74,7 +73,7 @@ public class ReconstructAlmostBst {
     List<Integer> result = generateInOrder(tree);
     System.out.println(result);
     for (int i = 1; i < result.size(); i++) {
-      assert (result.get(i - 1) < result.get(i));
+      assert(result.get(i - 1) < result.get(i));
     }
   }
 }

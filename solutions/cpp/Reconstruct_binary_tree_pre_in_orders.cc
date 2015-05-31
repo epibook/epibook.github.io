@@ -31,9 +31,8 @@ unique_ptr<BinaryTreeNode<int>> BinaryTreeFromPreorderInorder(
   for (size_t i = 0; i < inorder.size(); ++i) {
     node_to_inorder_idx.emplace(inorder[i], i);
   }
-  return BinaryTreeFromPreorderInorderHelper(preorder, 0, preorder.size(),
-                                             0, inorder.size(),
-                                             node_to_inorder_idx);
+  return BinaryTreeFromPreorderInorderHelper(
+      preorder, 0, preorder.size(), 0, inorder.size(), node_to_inorder_idx);
 }
 
 // Builds the subtree with preorder[preorder_start : preorder_end - 1] and
@@ -52,9 +51,8 @@ unique_ptr<BinaryTreeNode<int>> BinaryTreeFromPreorderInorderHelper(
       preorder[preorder_start],
       // Recursively builds the left subtree.
       BinaryTreeFromPreorderInorderHelper(
-          preorder, preorder_start + 1,
-          preorder_start + 1 + left_subtree_size, inorder_start,
-          root_inorder_idx, node_to_inorder_idx),
+          preorder, preorder_start + 1, preorder_start + 1 + left_subtree_size,
+          inorder_start, root_inorder_idx, node_to_inorder_idx),
       // Recursively builds the right subtree.
       BinaryTreeFromPreorderInorderHelper(
           preorder, preorder_start + 1 + left_subtree_size, preorder_end,
@@ -62,7 +60,7 @@ unique_ptr<BinaryTreeNode<int>> BinaryTreeFromPreorderInorderHelper(
 }
 // @exclude
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     cout << times << endl;

@@ -86,8 +86,8 @@ public class NextPermutation {
         }
       } else {
         Random gen = new Random();
-        int n = (args.length == 1 ? Integer.valueOf(args[0]) : (gen
-            .nextInt(100) + 1));
+        int n = (args.length == 1 ? Integer.valueOf(args[0])
+                                  : (gen.nextInt(100) + 1));
         for (int i = 0; i < n; ++i) {
           p.add(gen.nextInt(n));
         }

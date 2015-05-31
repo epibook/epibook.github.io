@@ -18,8 +18,8 @@ public class SpiralMatrix {
       result.add(A[x][y]);
       A[x][y] = 0;
       int nextX = x + shift[dir][0], nextY = y + shift[dir][1];
-      if (nextX < 0 || nextX >= A.length || nextY < 0 || nextY >= A.length
-          || A[nextX][nextY] == 0) {
+      if (nextX < 0 || nextX >= A.length || nextY < 0 || nextY >= A.length ||
+          A[nextX][nextY] == 0) {
         dir = (dir + 1) & 3;
         nextX = x + shift[dir][0];
         nextY = y + shift[dir][1];
@@ -32,10 +32,10 @@ public class SpiralMatrix {
   // @exclude
 
   private static void simpleTest() {
-    int[][] A = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    int[][] A = new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
     List<Integer> goldenResult = Arrays.asList(1, 2, 3, 6, 9, 8, 7, 4, 5);
     List<Integer> result = MatrixInSpiralOrder(A);
-    assert (result.equals(goldenResult));
+    assert(result.equals(goldenResult));
   }
 
   public static void main(String[] args) {

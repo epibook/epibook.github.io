@@ -29,8 +29,8 @@ public class RoadNetwork {
   }
 
   public static HighwaySection findBestProposals(List<HighwaySection> H,
-                                                 List<HighwaySection> P,
-                                                 int a, int b, int n) {
+                                                 List<HighwaySection> P, int a,
+                                                 int b, int n) {
     // G stores the shortest path distances between all pairs of vertices.
     double[][] G = new double[n][n];
     for (double[] g : G) {
@@ -52,14 +52,14 @@ public class RoadNetwork {
     HighwaySection bestProposal = new HighwaySection(-1, -1, 0.0); // default
     for (HighwaySection p : P) {
       // Checks the path of a => p.x => p.y => b.
-      if (G[a][p.x] != Double.MAX_VALUE && G[p.y][b] != Double.MAX_VALUE
-          && minDisAB > G[a][p.x] + p.distance + G[p.y][b]) {
+      if (G[a][p.x] != Double.MAX_VALUE && G[p.y][b] != Double.MAX_VALUE &&
+          minDisAB > G[a][p.x] + p.distance + G[p.y][b]) {
         minDisAB = G[a][p.x] + p.distance + G[p.y][b];
         bestProposal = p;
       }
       // Checks the path of a => p.y => p.x => b.
-      if (G[a][p.y] != Double.MAX_VALUE && G[p.x][b] != Double.MAX_VALUE
-          && minDisAB > G[a][p.y] + p.distance + G[p.x][b]) {
+      if (G[a][p.y] != Double.MAX_VALUE && G[p.x][b] != Double.MAX_VALUE &&
+          minDisAB > G[a][p.y] + p.distance + G[p.x][b]) {
         minDisAB = G[a][p.y] + p.distance + G[p.x][b];
         bestProposal = p;
       }
@@ -71,8 +71,8 @@ public class RoadNetwork {
     for (int k = 0; k < G.length; ++k) {
       for (int i = 0; i < G.length; ++i) {
         for (int j = 0; j < G.length; ++j) {
-          if (G[i][k] != Double.MAX_VALUE && G[k][j] != Double.MAX_VALUE
-              && G[i][j] > G[i][k] + G[k][j]) {
+          if (G[i][k] != Double.MAX_VALUE && G[k][j] != Double.MAX_VALUE &&
+              G[i][j] > G[i][k] + G[k][j]) {
             G[i][j] = G[i][k] + G[k][j];
           }
         }
@@ -81,9 +81,11 @@ public class RoadNetwork {
   }
   // @exclude
 
-  // Tries to add each proposal and use Floyd Warshall to solve, O(n^4) algorithm.
+  // Tries to add each proposal and use Floyd Warshall to solve, O(n^4)
+  // algorithm.
   private static HighwaySection checkAns(List<HighwaySection> H,
-                                         List<HighwaySection> P, int a, int b, int n) {
+                                         List<HighwaySection> P, int a, int b,
+                                         int n) {
     // G stores the shortest path distances between all pairs of vertices.
     double[][] G = new double[n][n];
     for (double[] g : G) {
@@ -184,6 +186,5 @@ public class RoadNetwork {
       // TODO(THL): follow assert may fail sometime due to epsilon problem.
       // assert(t.x == ans.x && t.y == ans.y && t.distance == ans.distance);
     }
-
   }
 }

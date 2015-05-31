@@ -21,11 +21,11 @@ public class Permutations {
   private static void smallTest() {
     List<Integer> A = Arrays.asList(0, 1, 2);
     List<List<Integer>> result = permutations(A);
-    assert (result.size() == 6);
-    List<List<Integer>> goldenResult = Arrays.asList(Arrays.asList(0, 1, 2),
-        Arrays.asList(0, 2, 1), Arrays.asList(1, 0, 2), Arrays.asList(1, 2, 0),
-        Arrays.asList(2, 0, 1), Arrays.asList(2, 1, 0));
-    assert (result.equals(goldenResult));
+    assert(result.size() == 6);
+    List<List<Integer>> goldenResult = Arrays.asList(
+        Arrays.asList(0, 1, 2), Arrays.asList(0, 2, 1), Arrays.asList(1, 0, 2),
+        Arrays.asList(1, 2, 0), Arrays.asList(2, 0, 1), Arrays.asList(2, 1, 0));
+    assert(result.equals(goldenResult));
   }
 
   public static void main(String[] args) {

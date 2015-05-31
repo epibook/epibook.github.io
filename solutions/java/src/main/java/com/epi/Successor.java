@@ -45,11 +45,11 @@ public class Successor {
     root.getRight().getRight().setParent(root.getRight());
     // should output 6
     BinaryTree<Integer> node = findSuccessor(root.getRight());
-    assert (node.getData().equals(6));
+    assert(node.getData().equals(6));
     System.out.println(node.getData());
     // should output "null"
     node = findSuccessor(root.getRight().getRight());
-    assert (node == null);
+    assert(node == null);
     if (node != null) {
       System.out.println(node.getData());
     } else {

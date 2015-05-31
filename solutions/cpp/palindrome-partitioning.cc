@@ -16,7 +16,8 @@ using std::uniform_int_distribution;
 using std::vector;
 
 bool IsPalindrome(const string&);
-void DirectedPalindromePartitioning(const string&, int, vector<string>*, vector<vector<string>>*);
+void DirectedPalindromePartitioning(const string&, int, vector<string>*,
+                                    vector<vector<string>>*);
 
 // @include
 vector<vector<string>> PalindromePartitioning(const string& input) {
@@ -54,7 +55,7 @@ bool IsPalindrome(const string& prefix) {
 }
 // @exclude
 
-void CheckAns(const vector<vector<string>> &vecs, const string& input) {
+void CheckAns(const vector<vector<string>>& vecs, const string& input) {
   for (const auto& vec : vecs) {
     string temp;
     for (const auto& s : vec) {

@@ -39,13 +39,15 @@ public class PlusOne {
   private static void smallTest() {
     int[] input = {9, 9};
     int[] result = plusOne(input);
-    assert (result.length == 3 && result[0] == 1 && result[1] == 0 && result[2] == 0);
+    assert(result.length == 3 && result[0] == 1 && result[1] == 0 &&
+           result[2] == 0);
     input = new int[3];
     input[0] = 3;
     input[1] = 1;
     input[2] = 4;
     result = plusOne(input);
-    assert (result.length == 3 && result[0] == 3 && result[1] == 1 && result[2] == 5);
+    assert(result.length == 3 && result[0] == 3 && result[1] == 1 &&
+           result[2] == 5);
   }
 
   public static void main(String[] args) {

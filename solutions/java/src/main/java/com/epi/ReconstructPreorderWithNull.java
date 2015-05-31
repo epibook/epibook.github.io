@@ -10,8 +10,7 @@ public class ReconstructPreorderWithNull {
   // @include
   private static Integer idx;
 
-  public static BinaryTreeNode<Integer> reconstructPreorder(
-      Integer[] preorder) {
+  public static BinaryTreeNode<Integer> reconstructPreorder(Integer[] preorder) {
     idx = 0;
     return reconstructPreorderHelper(preorder);
   }
@@ -31,8 +30,7 @@ public class ReconstructPreorderWithNull {
   }
   // @exclude
 
-  private static <T> void genPreorderWithNull(BinaryTreeNode<T> n,
-                                              List<T> p) {
+  private static <T> void genPreorderWithNull(BinaryTreeNode<T> n, List<T> p) {
     if (n == null) {
       p.add(null);
       return;
@@ -62,7 +60,7 @@ public class ReconstructPreorderWithNull {
       }
       idx = 0;
       BinaryTreeNode<Integer> x = reconstructPreorder(preOrder);
-      assert (root.equals(x));
+      assert(root.equals(x));
     }
   }
 }

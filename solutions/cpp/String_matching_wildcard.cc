@@ -15,7 +15,8 @@ bool is_match(const string &s, const string &m) {
   }
 
   if (m[1] == '*') {
-    for (int i = 0; i < s.size() && (s[i] == m.front() || m.front() == '.'); ++i) {
+    for (int i = 0; i < s.size() && (s[i] == m.front() || m.front() == '.');
+         ++i) {
       if (is_match(s.substr(i + 1), m.substr(2))) {
         return true;
       }
@@ -24,7 +25,7 @@ bool is_match(const string &s, const string &m) {
   }
 
   return !s.empty() && (s.front() == m.front() || m.front() == '.') &&
-    is_match(s.substr(1), m.substr(1));
+         is_match(s.substr(1), m.substr(1));
 }
 // @exclude
 

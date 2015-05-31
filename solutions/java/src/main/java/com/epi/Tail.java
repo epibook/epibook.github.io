@@ -6,8 +6,7 @@ import static com.epi.utils.Utils.close;
 
 public class Tail {
   // @include
-  public static String
-  tail(String fileName, int N) throws IOException {
+  public static String tail(String fileName, int N) throws IOException {
     RandomAccessFile filePtr = new RandomAccessFile(fileName, "r");
 
     filePtr.seek(filePtr.length() - 1);
@@ -17,7 +16,7 @@ public class Tail {
     for (long i = fileSize - 1; i != -1; i--) {
       filePtr.seek(i);
       int readByte = filePtr.readByte();
-      char c = (char) readByte;
+      char c = (char)readByte;
       if (c == '\n') {
         ++newLineCount;
         if (newLineCount > N) {
@@ -52,8 +51,8 @@ public class Tail {
     System.out.println(output);
 
     System.out.println();
-    System.out.println(String.format("Show last %d lines from file %s",
-        tailCount, fileName));
+    System.out.println(
+        String.format("Show last %d lines from file %s", tailCount, fileName));
     System.out.println();
 
     show(fileName, tailCount);
@@ -61,7 +60,7 @@ public class Tail {
 
   /*
    * Show a number of last lines from a file.
-   * 
+   *
    * This is a naive implementation. It first counts the total number of
    * new lines, then reads the file again, this time reading last X lines.
    */

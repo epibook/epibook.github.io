@@ -10,7 +10,7 @@ public class SwapBits {
   public static long swapBits(long x, int i, int j) {
     // Extract the i-th and j-th bits, and see if they differ.
     if (((x >> i) & 1) != ((x >> j) & 1)) {
-      // Swap i-th and j-th bits by flipping them. 
+      // Swap i-th and j-th bits by flipping them.
       // Select and flip bits by using a bit mask and XOR.
       x ^= (1L << i) | (1L << j);
     }
@@ -19,8 +19,8 @@ public class SwapBits {
   // @exclude
 
   private static void simpleTest() {
-    assert (swapBits(47, 1, 4) == 61);
-    assert (swapBits(28, 0, 2) == 25);
+    assert(swapBits(47, 1, 4) == 61);
+    assert(swapBits(28, 0, 2) == 25);
   }
 
   public static void main(String[] args) {

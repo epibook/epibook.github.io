@@ -18,7 +18,7 @@ public class MergeTwoSortedArraysInPlace {
 
   private static void checkAns(int[] A) {
     for (int i = 1; i < A.length; ++i) {
-      assert (A[i - 1] <= A[i]);
+      assert(A[i - 1] <= A[i]);
     }
   }
 

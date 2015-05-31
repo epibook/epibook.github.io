@@ -25,18 +25,19 @@ public class NearestRestaurant {
   }
 
   // @include
-  public static List<BinaryTree<Integer>> rangeQueryOnBST(
-      BinaryTree<Integer> n, Integer L, Integer U) {
+  public static List<BinaryTree<Integer>> rangeQueryOnBST(BinaryTree<Integer> n,
+                                                          Integer L, Integer U) {
     List<BinaryTree<Integer>> res = new ArrayList<>();
-    for (BinaryTree<Integer> it = findFirstLargerEqualK(n, L); it != null
-         && it.getData().compareTo(U) <= 0; it = findSuccessorBST(it)) {
+    for (BinaryTree<Integer> it = findFirstLargerEqualK(n, L);
+         it != null && it.getData().compareTo(U) <= 0;
+         it = findSuccessorBST(it)) {
       res.add(it);
     }
     return res;
   }
 
-  private static BinaryTree<Integer> findFirstLargerEqualK(
-      BinaryTree<Integer> r, Integer k) {
+  private static BinaryTree<Integer> findFirstLargerEqualK(BinaryTree<Integer> r,
+                                                           Integer k) {
     if (r == null) {
       return null;
     } else if (r.getData().compareTo(k) < 0) {
@@ -64,18 +65,18 @@ public class NearestRestaurant {
     root.getRight().setRight(new BinaryTree<>(6, null, null));
     root.getRight().getRight().setParent(root.getRight());
     List<BinaryTree<Integer>> res = rangeQueryOnBST(root, 2, 5);
-    assert (res.size() == 4);
+    assert(res.size() == 4);
     for (BinaryTree<Integer> l : res) {
-      assert (l.getData() >= 2 && l.getData() <= 5);
+      assert(l.getData() >= 2 && l.getData() <= 5);
     }
     res = rangeQueryOnBST(root, -1, 0);
-    assert (res.isEmpty());
+    assert(res.isEmpty());
     res = rangeQueryOnBST(root, 10, 25);
-    assert (res.isEmpty());
+    assert(res.isEmpty());
     res = rangeQueryOnBST(root, -10, 30);
-    assert (res.size() == 6);
+    assert(res.size() == 6);
     for (BinaryTree<Integer> l : res) {
-      assert (l.getData() >= 1 && l.getData() <= 6);
+      assert(l.getData() >= 1 && l.getData() <= 6);
     }
   }
 }

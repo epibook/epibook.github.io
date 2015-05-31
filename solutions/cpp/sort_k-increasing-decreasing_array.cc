@@ -19,7 +19,7 @@ using std::vector;
 vector<int> SortKIncreasingDecreasingArray(const vector<int>& A) {
   // Decomposes A into a set of sorted arrays.
   vector<vector<int>> sorted_subarrays;
-  typedef enum {INCREASING, DECREASING} SubarrayType;
+  typedef enum { INCREASING, DECREASING } SubarrayType;
   SubarrayType subarray_type = INCREASING;
   int start_idx = 0;
   for (int i = 1; i <= A.size(); ++i) {
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
     vector<int> A;
     cout << "n = " << n << endl;
     uniform_int_distribution<int> dis(-999999, 999999);
-    generate_n(back_inserter(A), n, [&] { return dis(gen); } );
+    generate_n(back_inserter(A), n, [&] { return dis(gen); });
     vector<int> ans = SortKIncreasingDecreasingArray(A);
     /*
     copy(A.begin(), A.end(), ostream_iterator<int>(cout, " "));

@@ -73,8 +73,7 @@ int main(int argc, char* argv[]) {
   s.Pop();
   try {
     s.Pop();
-  }
-  catch (const exception& e) {
+  } catch (const exception& e) {
     cout << "empty stack" << endl;
     cout << e.what() << endl;
   }
@@ -88,8 +87,7 @@ int main(int argc, char* argv[]) {
   q.Dequeue();
   try {
     q.Dequeue();
-  }
-  catch (const exception& e) {
+  } catch (const exception& e) {
     cout << "empty queue" << endl;
     cout << e.what() << endl;
   }

@@ -28,14 +28,14 @@ public class DrawingSkylines {
       return new ArrayList<>(buildings.subList(leftEndpoint, rightEndpoint));
     }
     int mid = leftEndpoint + ((rightEndpoint - leftEndpoint) / 2);
-    List<Rectangle> leftSkyline 
-        = computeSkylineInInterval(buildings, leftEndpoint, mid);
-    List<Rectangle> rightSkyline 
-        = computeSkylineInInterval(buildings, mid, rightEndpoint);
+    List<Rectangle> leftSkyline =
+        computeSkylineInInterval(buildings, leftEndpoint, mid);
+    List<Rectangle> rightSkyline =
+        computeSkylineInInterval(buildings, mid, rightEndpoint);
     return mergeSkylines(leftSkyline, rightSkyline);
   }
 
-  private static List<Rectangle> mergeSkylines(List<Rectangle> leftSkyline, 
+  private static List<Rectangle> mergeSkylines(List<Rectangle> leftSkyline,
                                                List<Rectangle> rightSkyline) {
     int i = 0, j = 0;
     List<Rectangle> merged = new ArrayList<>();
@@ -48,13 +48,15 @@ public class DrawingSkylines {
       } else if (leftSkyline.get(i).left <= rightSkyline.get(j).left) {
         Ref<Integer> iWrapper = new Ref<>(i);
         Ref<Integer> jWrapper = new Ref<>(j);
-        mergeIntersectSkylines(merged, leftSkyline.get(i), iWrapper, rightSkyline.get(j), jWrapper);
+        mergeIntersectSkylines(merged, leftSkyline.get(i), iWrapper,
+                               rightSkyline.get(j), jWrapper);
         i = iWrapper.value;
         j = jWrapper.value;
       } else { // leftSkyline.get(i).left > rightSkyline.get(j).left.
         Ref<Integer> iWrapper = new Ref<>(i);
         Ref<Integer> jWrapper = new Ref<>(j);
-        mergeIntersectSkylines(merged, rightSkyline.get(j), jWrapper, leftSkyline.get(i), iWrapper);
+        mergeIntersectSkylines(merged, rightSkyline.get(j), jWrapper,
+                               leftSkyline.get(i), iWrapper);
         i = iWrapper.value;
         j = jWrapper.value;
       }
@@ -120,11 +122,11 @@ public class DrawingSkylines {
       System.out.println("n = " + n);
       // Just check there is no overlap.
       for (int i = 0; i < ans.size(); ++i) {
-        assert (ans.get(i).left <= ans.get(i).right);
+        assert(ans.get(i).left <= ans.get(i).right);
         if (i > 0) {
-          assert (ans.get(i - 1).right <= ans.get(i).left);
-          assert (ans.get(i - 1).right != ans.get(i).left || ans.get(i - 1).height != ans
-              .get(i).height);
+          assert(ans.get(i - 1).right <= ans.get(i).left);
+          assert(ans.get(i - 1).right != ans.get(i).left ||
+                 ans.get(i - 1).height != ans.get(i).height);
         }
       }
     }

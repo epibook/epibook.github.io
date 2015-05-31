@@ -55,10 +55,8 @@ public class StableAssignment {
   }
   // @exclude
 
-  static void
-  checkAns(int[][] professor_preference,
-           int[][] student_preference, Pair<Integer, Integer>[] matchResult) {
-
+  static void checkAns(int[][] professor_preference, int[][] student_preference,
+                       Pair<Integer, Integer>[] matchResult) {
     assert matchResult.length == professor_preference.length;
 
     boolean[] professor = new boolean[professor_preference.length];
@@ -97,8 +95,8 @@ public class StableAssignment {
       } else {
         n = gen.nextInt(300) + 1;
       }
-      int[][] professorPreference
-          = new int[n][n], studentPreference = new int[n][n];
+      int[][] professorPreference = new int[n][n], studentPreference =
+                                                       new int[n][n];
       for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
           professorPreference[i][j] = j;
@@ -116,8 +114,8 @@ public class StableAssignment {
        * System.out.println(studentPreference[i][j] + " "); }
        * System.out.println(); }
        */
-      Pair<Integer, Integer>[] res = findStableAssignment(professorPreference,
-          studentPreference);
+      Pair<Integer, Integer>[] res =
+          findStableAssignment(professorPreference, studentPreference);
 
       /*
        * for (int i = 0; i < res.size(); ++i) {

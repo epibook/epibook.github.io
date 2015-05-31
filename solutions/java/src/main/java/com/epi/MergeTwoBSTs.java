@@ -5,8 +5,8 @@ import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 public class MergeTwoBSTs {
   private static BSTNode<Integer> head;
 
-  private static BSTNode<Integer> buildSortedDoublyLinkedList(
-      BSTNode<Integer> L, int n) {
+  private static BSTNode<Integer> buildSortedDoublyLinkedList(BSTNode<Integer> L,
+                                                              int n) {
     head = L;
     return buildSortedDoublyLinkedListHelper(0, n);
   }
@@ -92,8 +92,8 @@ public class MergeTwoBSTs {
   // @exclude
 
   // Merge two sorted linked lists, return the head of list.
-  private static BSTNode<Integer> mergeTwoSortedLinkedLists(
-      BSTNode<Integer> A, BSTNode<Integer> B) {
+  private static BSTNode<Integer> mergeTwoSortedLinkedLists(BSTNode<Integer> A,
+                                                            BSTNode<Integer> B) {
     BSTNode<Integer> dummyHead = new BSTNode<>();
     BSTNode<Integer> current = dummyHead;
     BSTNode<Integer> p1 = A;
@@ -119,11 +119,11 @@ public class MergeTwoBSTs {
     return dummyHead.getRight();
   }
 
-  private static <T extends Comparable<T>> void printBstInOrder(
-      BSTNode<T> n, T pre) {
+  private static <T extends Comparable<T>> void printBstInOrder(BSTNode<T> n,
+                                                                T pre) {
     if (n != null) {
       printBstInOrder(n.getLeft(), pre);
-      assert (pre.compareTo(n.getData()) <= 0);
+      assert(pre.compareTo(n.getData()) <= 0);
       System.out.print(n.getData() + " ");
       printBstInOrder(n.getRight(), n.getData());
     }

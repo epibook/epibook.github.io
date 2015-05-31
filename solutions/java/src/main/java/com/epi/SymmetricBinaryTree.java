@@ -13,9 +13,9 @@ public class SymmetricBinaryTree {
     if (subtree0 == null && subtree1 == null) {
       return true;
     } else if (subtree0 != null && subtree1 != null) {
-      return subtree0.getData() == subtree1.getData()
-             && checkSymmetric(subtree0.getLeft(), subtree1.getRight())
-             && checkSymmetric(subtree0.getRight(), subtree1.getLeft());
+      return subtree0.getData() == subtree1.getData() &&
+          checkSymmetric(subtree0.getLeft(), subtree1.getRight()) &&
+          checkSymmetric(subtree0.getRight(), subtree1.getLeft());
     }
     // One subtree is empty, and the other is not.
     return false;
@@ -33,13 +33,13 @@ public class SymmetricBinaryTree {
     nonSymmTree.setRight(new BinaryTreeNode<Integer>());
     nonSymmTree.getRight().setLeft(new BinaryTreeNode<Integer>());
     nonSymmTree.getRight().setRight(new BinaryTreeNode<Integer>());
-    assert (!isSymmetric(nonSymmTree));
+    assert(!isSymmetric(nonSymmTree));
     System.out.println(isSymmetric(nonSymmTree));
     // symmetric tree test
     BinaryTreeNode<Integer> symmTree = new BinaryTreeNode<>();
     symmTree.setLeft(new BinaryTreeNode<Integer>());
     symmTree.setRight(new BinaryTreeNode<Integer>());
-    assert (isSymmetric(symmTree));
+    assert(isSymmetric(symmTree));
     System.out.println(isSymmetric(symmTree));
   }
 }

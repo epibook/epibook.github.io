@@ -32,7 +32,7 @@ public class RebuildBSTPostorder {
   private static <T extends Comparable<T>> void checkAns(BSTNode<T> n, T pre) {
     if (n != null) {
       checkAns(n.getLeft(), pre);
-      assert (pre.compareTo(n.getData()) <= 0);
+      assert(pre.compareTo(n.getData()) <= 0);
       System.out.println(n.getData());
       checkAns(n.getRight(), n.getData());
     }

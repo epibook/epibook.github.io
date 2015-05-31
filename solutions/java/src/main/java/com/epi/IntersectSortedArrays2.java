@@ -17,5 +17,5 @@ public class IntersectSortedArrays2 {
     }
     return intersectionAB;
   }
-// @exclude
+  // @exclude
 }

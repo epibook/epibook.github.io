@@ -16,7 +16,8 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-void DirectedPowerSet(const vector<int>&, int, vector<int>*, vector<vector<int>>*);
+void DirectedPowerSet(const vector<int>&, int, vector<int>*,
+                      vector<vector<int>>*);
 
 // @include
 vector<vector<int>> GeneratePowerSet(const vector<int>& input_set) {
@@ -26,10 +27,10 @@ vector<vector<int>> GeneratePowerSet(const vector<int>& input_set) {
   return power_set;
 }
 
-// Generate all subsets whose intersection with input_set[0], ..., 
+// Generate all subsets whose intersection with input_set[0], ...,
 // input_set[to_be_selected - 1] is exactly selected_so_far.
-void DirectedPowerSet(const vector<int>& input_set, int to_be_selected, 
-                      vector<int>* selected_so_far, 
+void DirectedPowerSet(const vector<int>& input_set, int to_be_selected,
+                      vector<int>* selected_so_far,
                       vector<vector<int>>* power_set) {
   if (to_be_selected == input_set.size()) {
     power_set->emplace_back(*selected_so_far);

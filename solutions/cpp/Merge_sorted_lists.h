@@ -13,7 +13,7 @@ shared_ptr<ListNode<int>> MergeTwoSortedLists(shared_ptr<ListNode<int>> F,
   auto tail = dummy_head;
 
   while (F && L) {
-    AppendNode(F->data < L->data ? &F : &L, &tail);
+    AppendNode(F->data <= L->data ? &F : &L, &tail);
   }
 
   // Appends the remaining nodes of F or L.

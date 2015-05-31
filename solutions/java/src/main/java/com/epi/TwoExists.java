@@ -7,9 +7,7 @@ import java.util.Random;
 public class TwoExists {
   // @include
   public static class GraphVertex {
-    public enum Color {
-      WHITE, GRAY, BLACK
-    }
+    public enum Color { WHITE, GRAY, BLACK }
 
     public Color color;
     public List<GraphVertex> edges;
@@ -54,12 +52,12 @@ public class TwoExists {
   }
   // @exclude
 
-  private static void
-  dfsExclusion(GraphVertex cur, GraphVertex a, GraphVertex b) {
+  private static void dfsExclusion(GraphVertex cur, GraphVertex a,
+                                   GraphVertex b) {
     cur.color = GraphVertex.Color.BLACK;
     for (GraphVertex next : cur.edges) {
-      if (next.color == GraphVertex.Color.WHITE
-          && ((cur != a && cur != b) || (next != a && next != b))) {
+      if (next.color == GraphVertex.Color.WHITE &&
+          ((cur != a && cur != b) || (next != a && next != b))) {
         dfsExclusion(next, a, b);
       }
     }
@@ -126,7 +124,7 @@ public class TwoExists {
       // System.out.println(G);
       boolean res = isGraphTwoExist(G);
       System.out.println(res);
-      assert (checkAnswer(G) == res);
+      assert(checkAnswer(G) == res);
     }
   }
 }

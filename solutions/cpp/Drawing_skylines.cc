@@ -29,16 +29,15 @@ Skyline ComputeSkyline(const vector<Rectangle>& buildings) {
   return ComputeSkylineInInterval(buildings, 0, buildings.size());
 }
 
-Skyline ComputeSkylineInInterval(const vector<Rectangle>& buildings, 
+Skyline ComputeSkylineInInterval(const vector<Rectangle>& buildings,
                                  int left_endpoint, int right_endpoint) {
   if (right_endpoint - left_endpoint <= 1) {  // 0 or 1 skyline, just copy it.
-    return {buildings.cbegin() + left_endpoint, 
+    return {buildings.cbegin() + left_endpoint,
             buildings.cbegin() + right_endpoint};
   }
   int mid = left_endpoint + ((right_endpoint - left_endpoint) / 2);
   auto left_skyline = ComputeSkylineInInterval(buildings, left_endpoint, mid);
-  auto right_skyline = ComputeSkylineInInterval(buildings, mid, 
-                                                right_endpoint);
+  auto right_skyline = ComputeSkylineInInterval(buildings, mid, right_endpoint);
   return MergeSkylines(&left_skyline, &right_skyline);
 }
 
@@ -55,14 +54,13 @@ Skyline MergeSkylines(Skyline* left_skyline, Skyline* right_skyline) {
       MergeIntersectSkylines(&merged, &(*left_skyline)[i], &i,
                              &(*right_skyline)[j], &j);
     } else {  // left_skyline[i].left > right_skyline[j].left.
-      MergeIntersectSkylines(&merged, &(*right_skyline)[j], &j, 
+      MergeIntersectSkylines(&merged, &(*right_skyline)[j], &j,
                              &(*left_skyline)[i], &i);
     }
   }
 
   merged.insert(merged.end(), left_skyline->begin() + i, left_skyline->end());
-  merged.insert(merged.end(), right_skyline->begin() + j, 
-                right_skyline->end());
+  merged.insert(merged.end(), right_skyline->begin() + j, right_skyline->end());
   return merged;
 }
 

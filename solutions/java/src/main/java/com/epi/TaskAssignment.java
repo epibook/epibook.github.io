@@ -12,8 +12,7 @@ import java.util.Random;
 
 class TaskAssignment {
   // @include
-  public static List<Pair<Integer, Integer>> taskAssignment(
-      int[] taskDurations) {
+  public static List<Pair<Integer, Integer>> taskAssignment(int[] taskDurations) {
     Arrays.sort(taskDurations);
     List<Pair<Integer, Integer>> taskPairings = new ArrayList<>();
     for (int i = 0, j = taskDurations.length - 1; i < j; ++i, --j) {

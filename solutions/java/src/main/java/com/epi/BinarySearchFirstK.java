@@ -52,7 +52,7 @@ public class BinarySearchFirstK {
       if (ans != -1) {
         System.out.println("A[k] = " + A[ans]);
       }
-      assert (checkAns(A, k) == ans);
+      assert(checkAns(A, k) == ans);
     }
   }
 }

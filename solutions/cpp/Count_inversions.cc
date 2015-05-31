@@ -29,14 +29,14 @@ int CountSubarrayInversions(vector<int>* A, int start, int end) {
 
   int mid = start + ((end - start) / 2);
   return CountSubarrayInversions(A, start, mid) +
-         CountSubarrayInversions(A, mid, end) + 
+         CountSubarrayInversions(A, mid, end) +
          MergeSortAndCountInversionsAcrossSubarrays(A, start, mid, end);
 }
 
-// Merge two sorted subarrays (*A)[start : mid - 1] and (*A)[mid : end - 1] 
-// into (*A)[start : end - 1] and return the number of inversions across 
+// Merge two sorted subarrays (*A)[start : mid - 1] and (*A)[mid : end - 1]
+// into (*A)[start : end - 1] and return the number of inversions across
 // (*A)[start : mid - 1] and (*A)[mid : end - 1].
-int MergeSortAndCountInversionsAcrossSubarrays(vector<int>* A, int start, 
+int MergeSortAndCountInversionsAcrossSubarrays(vector<int>* A, int start,
                                                int mid, int end) {
   vector<int> sorted_A;
   int left_start = start, right_start = mid, inversion_count = 0;

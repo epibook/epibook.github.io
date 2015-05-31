@@ -8,10 +8,10 @@ import java.util.PriorityQueue;
 import java.util.Random;
 
 public class HuffmanEncoding {
-  private static final double[] ENGLISH_FREQ = {8.167, 1.492, 2.782, 4.253,
-      12.702, 2.228, 2.015, 6.094, 6.966, 0.153, 0.772, 4.025, 2.406, 6.749,
-      7.507, 1.929, 0.095, 5.987, 6.327, 9.056, 2.758, 0.978, 2.360, 0.150,
-      1.974, 0.074};
+  private static final double[] ENGLISH_FREQ = {
+      8.167, 1.492, 2.782, 4.253, 12.702, 2.228, 2.015, 6.094, 6.966,
+      0.153, 0.772, 4.025, 2.406, 6.749,  7.507, 1.929, 0.095, 5.987,
+      6.327, 9.056, 2.758, 0.978, 2.360,  0.150, 1.974, 0.074};
 
   // @include
   public static class Symbol {
@@ -88,7 +88,7 @@ public class HuffmanEncoding {
     if (args.length == 0 || (!"huffman".equals(args[0]))) {
       for (int i = 0; i < n; ++i) {
         Symbol t = new Symbol();
-        t.c = (char) i;
+        t.c = (char)i;
         t.prob = r.nextInt(100001);
         sum += t.prob;
         symbols.add(new Ref<>(t));
@@ -99,7 +99,7 @@ public class HuffmanEncoding {
     } else {
       for (int i = 0; i < n; ++i) {
         Symbol t = new Symbol();
-        t.c = (char) ('a' + i);
+        t.c = (char)('a' + i);
         t.prob = ENGLISH_FREQ[i];
         symbols.add(new Ref<>(t));
       }
@@ -108,8 +108,7 @@ public class HuffmanEncoding {
     double avg = 0.0;
     for (Ref<Symbol> symbol : symbols) {
       System.out.println(symbol.value.c);
-      avg += symbol.value.prob / 100
-          * symbol.value.code.length();
+      avg += symbol.value.prob / 100 * symbol.value.code.length();
     }
     System.out.println("average huffman code length = " + avg);
   }

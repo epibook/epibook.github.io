@@ -12,7 +12,6 @@ class SmallestSubarrayCoveringSetStream {
   // @include
   public static Pair<Integer, Integer> findSmallestSubarrayCoveringSubset(
       String[] A, String[] Q) {
-
     // Tracks the last occurrence (index) of each string in Q.
     LinkedList<Integer> loc = new LinkedList<>();
 
@@ -37,8 +36,8 @@ class SmallestSubarrayCoveringSetStream {
       }
 
       if (loc.size() == Q.length && // Found |Q| keywords.
-          ((res.getFirst() == -1 && res.getSecond() == -1)
-           || idx - loc.front().item < res.getSecond() - res.getFirst())) {
+          ((res.getFirst() == -1 && res.getSecond() == -1) ||
+           idx - loc.front().item < res.getSecond() - res.getFirst())) {
         res.setFirst(loc.front().item);
         res.setSecond(idx);
       }

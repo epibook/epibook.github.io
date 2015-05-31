@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
     }
     vector<int> A;
     uniform_int_distribution<int> dis(-10000, 10000);
-    generate_n(back_inserter(A), n, [&] { return dis(gen); } );
+    generate_n(back_inserter(A), n, [&] { return dis(gen); });
     sort(A.begin(), A.end(), [](int x, int y) { return abs(x) < abs(y); });
     int k = dis(gen);
     /*

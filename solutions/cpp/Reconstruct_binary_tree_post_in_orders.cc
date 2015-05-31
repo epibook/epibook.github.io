@@ -21,13 +21,12 @@ using std::unordered_map;
 using std::vector;
 
 unique_ptr<BinaryTreeNode<int>> ReconstructPostInOrdersHelper(
-    const vector<int>& post, size_t post_s, size_t post_e,
-    size_t in_s, size_t in_e,
-    const unordered_map<int, size_t>& in_entry_idx_map);
+    const vector<int>& post, size_t post_s, size_t post_e, size_t in_s,
+    size_t in_e, const unordered_map<int, size_t>& in_entry_idx_map);
 
 // @include
-unique_ptr<BinaryTreeNode<int>> ReconstructPostInOrders(
-    const vector<int>& post, const vector<int>& in) {
+unique_ptr<BinaryTreeNode<int>> ReconstructPostInOrders(const vector<int>& post,
+                                                        const vector<int>& in) {
   unordered_map<int, size_t> in_entry_idx_map;
   for (size_t i = 0; i < in.size(); ++i) {
     in_entry_idx_map.emplace(in[i], i);
@@ -37,9 +36,8 @@ unique_ptr<BinaryTreeNode<int>> ReconstructPostInOrders(
 }
 
 unique_ptr<BinaryTreeNode<int>> ReconstructPostInOrdersHelper(
-    const vector<int>& post, size_t post_s, size_t post_e,
-    size_t in_s, size_t in_e,
-    const unordered_map<int, size_t>& in_entry_idx_map) {
+    const vector<int>& post, size_t post_s, size_t post_e, size_t in_s,
+    size_t in_e, const unordered_map<int, size_t>& in_entry_idx_map) {
   if (post_e > post_s && in_e > in_s) {
     auto idx = in_entry_idx_map.at(post[post_e - 1]);
     auto left_tree_size = idx - in_s;
@@ -47,19 +45,17 @@ unique_ptr<BinaryTreeNode<int>> ReconstructPostInOrdersHelper(
     return unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{
         post[post_e - 1],
         // Recursively builds the left subtree.
-        ReconstructPostInOrdersHelper(
-            post, post_s, post_s + left_tree_size,
-            in_s, idx, in_entry_idx_map),
+        ReconstructPostInOrdersHelper(post, post_s, post_s + left_tree_size,
+                                      in_s, idx, in_entry_idx_map),
         // Recursively builds the right subtree.
-        ReconstructPostInOrdersHelper(
-            post, post_s + left_tree_size, post_e - 1,
-            idx + 1, in_e, in_entry_idx_map)});
+        ReconstructPostInOrdersHelper(post, post_s + left_tree_size, post_e - 1,
+                                      idx + 1, in_e, in_entry_idx_map)});
   }
   return nullptr;
 }
 // @exclude
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     cout << times << endl;

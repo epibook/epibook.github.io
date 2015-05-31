@@ -43,28 +43,25 @@ public class LowestCommonAncestor {
     // 1 4 6
     BinaryTree<Integer> root = new BinaryTree<>(3, null, null, null);
     root.setLeft(new BinaryTree<>(2, null, null, root));
-    root.getLeft().setLeft(
-        new BinaryTree<>(1, null, null, root.getLeft()));
+    root.getLeft().setLeft(new BinaryTree<>(1, null, null, root.getLeft()));
     root.setRight(new BinaryTree<>(5, null, null, root));
-    root.getRight().setLeft(
-        new BinaryTree<>(4, null, null, root.getRight()));
-    root.getRight().setRight(
-        new BinaryTree<>(6, null, null, root.getRight()));
+    root.getRight().setLeft(new BinaryTree<>(4, null, null, root.getRight()));
+    root.getRight().setRight(new BinaryTree<>(6, null, null, root.getRight()));
 
     // should output 3
-    assert (LCA(root.getLeft(), root.getRight()).getData().equals(3));
+    assert(LCA(root.getLeft(), root.getRight()).getData().equals(3));
     System.out.println(LCA(root.getLeft(), root.getRight()).getData());
     // should output 5
-    assert (LCA(root.getRight().getLeft(), root.getRight().getRight())
-        .getData().equals(5));
-    System.out.println(LCA(root.getRight().getLeft(),
-        root.getRight().getRight()).getData());
+    assert(LCA(root.getRight().getLeft(), root.getRight().getRight())
+               .getData()
+               .equals(5));
+    System.out.println(
+        LCA(root.getRight().getLeft(), root.getRight().getRight()).getData());
     // should output 3
-    assert (LCA(root.getLeft(), root.getRight().getLeft()).getData().equals(3));
-    System.out
-        .println(LCA(root.getLeft(), root.getRight().getLeft()).getData());
+    assert(LCA(root.getLeft(), root.getRight().getLeft()).getData().equals(3));
+    System.out.println(LCA(root.getLeft(), root.getRight().getLeft()).getData());
     // should output 2
-    assert (LCA(root.getLeft(), root.getLeft().getLeft()).getData().equals(2));
+    assert(LCA(root.getLeft(), root.getLeft().getLeft()).getData().equals(2));
     System.out.println(LCA(root.getLeft(), root.getLeft().getLeft()).getData());
   }
 }

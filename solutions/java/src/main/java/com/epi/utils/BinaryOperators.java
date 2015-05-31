@@ -9,11 +9,12 @@ public class BinaryOperators {
     }
   };
 
-  public static BinaryOperator<Integer> MULTIPLIES = new BinaryOperator<Integer>() {
+  public static BinaryOperator<Integer> MULTIPLIES =
+      new BinaryOperator<Integer>() {
 
-    @Override
-    public Integer apply(Integer arg1, Integer arg2) {
-      return (arg1 == null ? 1 : arg1) * (arg2 == null ? 1 : arg2);
-    }
-  };
+        @Override
+        public Integer apply(Integer arg1, Integer arg2) {
+          return (arg1 == null ? 1 : arg1) * (arg2 == null ? 1 : arg2);
+        }
+      };
 }

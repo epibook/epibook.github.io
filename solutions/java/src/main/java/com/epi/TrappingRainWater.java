@@ -72,7 +72,7 @@ public class TrappingRainWater {
 
   private static void smallTest() {
     List<Integer> A = Arrays.asList(1, 0, 3, 2, 5, 0, 1);
-    assert (calculateTrappingWater(A) == 3);
+    assert(calculateTrappingWater(A) == 3);
   }
 
   public static void main(String[] args) {
@@ -91,7 +91,7 @@ public class TrappingRainWater {
       }
       System.out.println(A);
       System.out.println(checkAnswer(A) + " " + calculateTrappingWater(A));
-      assert (checkAnswer(A) == calculateTrappingWater(A));
+      assert(checkAnswer(A) == calculateTrappingWater(A));
     }
   }
 }

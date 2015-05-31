@@ -13,10 +13,10 @@ public class KBalancedBinaryTree {
   // If there is any k-unbalanced node in tree, the first value of the return
   // value is a k-unbalanced node; otherwise, null.  If the first is not null,
   // the second value of the return value is the number of nodes in tree.
-  private static Pair<BinaryTreeNode<Integer>, Integer>
-      findKUnBalancedNodeHelper(BinaryTreeNode<Integer> tree, int k) {
+  private static Pair<BinaryTreeNode<Integer>, Integer> findKUnBalancedNodeHelper(
+      BinaryTreeNode<Integer> tree, int k) {
     if (tree == null) {
-      return new Pair<>(null, 0);  // Base case.
+      return new Pair<>(null, 0); // Base case.
     }
 
     // Early return if left subtree is not k-balanced.
@@ -53,7 +53,7 @@ public class KBalancedBinaryTree {
     root.getRight().setRight(new BinaryTreeNode<>(6));
     int k = 0;
     BinaryTreeNode<Integer> ans = findKUnBalancedNode(root, k);
-    assert (ans.getData().equals(2));
+    assert(ans.getData().equals(2));
     System.out.println(ans.getData());
   }
 }

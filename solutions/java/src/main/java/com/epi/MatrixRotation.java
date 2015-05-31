@@ -18,7 +18,7 @@ public class MatrixRotation {
     int k = 1;
     for (int j = A.length - 1; j >= 0; --j) {
       for (int[] element : A) {
-        assert (k++ == element[j]);
+        assert(k++ == element[j]);
       }
     }
   }
@@ -88,5 +88,4 @@ public class MatrixRotation {
       }
     }
   }
-
 }

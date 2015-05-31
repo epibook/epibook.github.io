@@ -14,19 +14,18 @@ using std::numeric_limits;
 using std::unique_ptr;
 using std::vector;
 
-BSTNode<int>* rebuild_BST_from_postorder_helper(
-    const vector<int>& postorder, int* idx, int min, int max);
+BSTNode<int>* rebuild_BST_from_postorder_helper(const vector<int>& postorder,
+                                                int* idx, int min, int max);
 
 // @include
 BSTNode<int>* rebuild_BST_from_postorder(const vector<int>& postorder) {
   int idx = postorder.size() - 1;
   return rebuild_BST_from_postorder_helper(
-      postorder, &idx, numeric_limits<int>::min(),
-      numeric_limits<int>::max());
+      postorder, &idx, numeric_limits<int>::min(), numeric_limits<int>::max());
 }
 
-BSTNode<int>* rebuild_BST_from_postorder_helper(
-    const vector<int>& postorder, int* idx, int min, int max) {
+BSTNode<int>* rebuild_BST_from_postorder_helper(const vector<int>& postorder,
+                                                int* idx, int min, int max) {
   if (*idx < 0) {
     return nullptr;
   }
@@ -55,7 +54,7 @@ void check_ans(const unique_ptr<BSTNode<T>>& n, int pre) {
   }
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   //      1
   //        2
   //          3

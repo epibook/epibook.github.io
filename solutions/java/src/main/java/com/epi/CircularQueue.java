@@ -10,9 +10,7 @@ public class CircularQueue {
     private final int SCALE_FACTOR = 2;
     private Integer[] data;
 
-    public Queue(int cap) {
-      data = new Integer[cap];
-    }
+    public Queue(int cap) { data = new Integer[cap]; }
 
     public void enqueue(Integer x) {
       if (numQueueElements == data.length) { // Needs to resize.
@@ -39,9 +37,7 @@ public class CircularQueue {
       throw new RuntimeException("empty queue");
     }
 
-    public int size() {
-      return numQueueElements;
-    }
+    public int size() { return numQueueElements; }
   }
   // @exclude
 
@@ -88,7 +84,7 @@ public class CircularQueue {
 
   private static void assertDequeue(Queue q, Integer t) {
     Integer dequeue = q.dequeue();
-    assert (t.equals(dequeue));
+    assert(t.equals(dequeue));
   }
 
   public static void main(String[] args) {
@@ -117,6 +113,6 @@ public class CircularQueue {
     q.enqueue(4);
     q.enqueue(4);
     q.enqueue(4);
-    assert (q.size() == 9);
+    assert(q.size() == 9);
   }
 }

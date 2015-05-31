@@ -32,8 +32,8 @@ unique_ptr<BSTNode<int>> BuildMinHeightBSTFromSortedArrayHelper(
     return nullptr;
   }
   int mid = start + ((end - start) / 2);
-  return unique_ptr<BSTNode<int>>(new BSTNode<int>{A[mid],
-      BuildMinHeightBSTFromSortedArrayHelper(A, start, mid),
+  return unique_ptr<BSTNode<int>>(new BSTNode<int>{
+      A[mid], BuildMinHeightBSTFromSortedArrayHelper(A, start, mid),
       BuildMinHeightBSTFromSortedArrayHelper(A, mid + 1, end)});
 }
 // @exclude

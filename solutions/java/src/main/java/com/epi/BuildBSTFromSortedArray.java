@@ -18,15 +18,15 @@ public class BuildBSTFromSortedArray {
     }
     int mid = start + ((end - start) / 2);
     return new BSTNode<>(A[mid],
-        buildMinHeightBSTFromSortedArrayHelper(A, start, mid),
-        buildMinHeightBSTFromSortedArrayHelper(A, mid + 1, end));
+                         buildMinHeightBSTFromSortedArrayHelper(A, start, mid),
+                         buildMinHeightBSTFromSortedArrayHelper(A, mid + 1, end));
   }
   // @exclude
 
   private static int traversalCheck(BSTNode<Integer> tree, Integer target) {
     if (tree != null) {
       target = traversalCheck(tree.getLeft(), target);
-      assert (target.equals(tree.getData()));
+      assert(target.equals(tree.getData()));
       ++target;
       target = traversalCheck(tree.getRight(), target);
     }

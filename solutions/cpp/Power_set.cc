@@ -19,7 +19,7 @@ using std::vector;
 // @include
 vector<vector<int>> GeneratePowerSet(const vector<int>& input_set) {
   vector<vector<int>> power_set;
-  for (int int_for_subset = 0; int_for_subset < (1 << input_set.size()); 
+  for (int int_for_subset = 0; int_for_subset < (1 << input_set.size());
        ++int_for_subset) {
     int bit_array = int_for_subset;
     vector<int> subset;

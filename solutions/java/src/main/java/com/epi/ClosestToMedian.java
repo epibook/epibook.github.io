@@ -45,16 +45,17 @@ public class ClosestToMedian {
 
   private static void checkAns(List<Integer> answer, List<Integer> res, int k) {
     Collections.sort(answer);
-    double median = ((answer.size() & 1) != 0) ? answer.get(answer.size() / 2)
-        : 0.5 * (answer.get((answer.size() / 2) - 1) + answer.get(answer
-        .size() / 2));
+    double median = ((answer.size() & 1) != 0)
+                        ? answer.get(answer.size() / 2)
+                        : 0.5 * (answer.get((answer.size() / 2) - 1) +
+                                 answer.get(answer.size() / 2));
     List<Double> temp = new ArrayList<>();
     for (int a : answer) {
       temp.add(Math.abs(median - a));
     }
     Collections.sort(temp);
     for (int r : res) {
-      assert (Math.abs(r - median) <= temp.get(k - 1));
+      assert(Math.abs(r - median) <= temp.get(k - 1));
     }
   }
 
@@ -89,7 +90,7 @@ public class ClosestToMedian {
       }
       // System.out.println(a);
       List<Integer> res = findKClosestToMedian(a, k);
-      assert (res.size() == k);
+      assert(res.size() == k);
       System.out.println("n = " + n + ", k = " + k);
       checkAns(a, res, k);
     }

@@ -41,7 +41,8 @@ int main(int argc, char** argv) {
       2, make_shared<ListNode<int>>(ListNode<int>{
              2, make_shared<ListNode<int>>(ListNode<int>{
                     3, make_shared<ListNode<int>>(ListNode<int>{
-                           3, make_shared<ListNode<int>>(ListNode<int>{5, nullptr})})})})});
+                           3, make_shared<ListNode<int>>(
+                                  ListNode<int>{5, nullptr})})})})});
   shared_ptr<ListNode<int>> pre = nullptr;
   auto result = distinct_list(&L);
   while (result) {

@@ -20,5 +20,5 @@ public class IntersectSortedArrays1 {
     }
     return intersectionAB;
   }
-// @exclude
+  // @exclude
 }

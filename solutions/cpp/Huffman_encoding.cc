@@ -47,8 +47,7 @@ struct Compare {
 
 void HuffmanEncoding(vector<Symbol>* symbols) {
   // Initially assigns each symbol into min_heap.
-  priority_queue<shared_ptr<BinaryTreeNode>,
-                 vector<shared_ptr<BinaryTreeNode>>,
+  priority_queue<shared_ptr<BinaryTreeNode>, vector<shared_ptr<BinaryTreeNode>>,
                  Compare> min_heap;
   for (auto& s : *symbols) {
     min_heap.emplace(new BinaryTreeNode{s.prob, &s, nullptr, nullptr});

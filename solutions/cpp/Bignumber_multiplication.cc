@@ -24,8 +24,8 @@ class BigInt {
  public:
   explicit BigInt(int capacity) : sign_(1), digits_(capacity) {}
 
-  explicit BigInt(const string &s) : sign_(s[0] == '-' ? -1 : 1),
-                                     digits_(s.size() - (s[0] == '-')) {
+  explicit BigInt(const string &s)
+      : sign_(s[0] == '-' ? -1 : 1), digits_(s.size() - (s[0] == '-')) {
     for (int i = s.size() - 1, j = 0; i >= (s[0] == '-'); --i, ++j) {
       if (isdigit(s[i])) {
         digits_[j] = s[i] - '0';
@@ -70,6 +70,7 @@ class BigInt {
     }
     return s;
   }
+
  private:
   int sign_;  // -1 or 1;
   vector<char> digits_;
@@ -156,7 +157,7 @@ int main(int argc, char *argv[]) {
     }
     string res = Multiply(s1, s2);
     cout << s1 << " * " << s2 << " = " << res << endl;
-    string command = "bash -c 'bc <<<" + s1 + "*" + s2 +"'";
+    string command = "bash -c 'bc <<<" + s1 + "*" + s2 + "'";
     string result = execute_shell(command);
     cout << "answer = " << result;
     assert(res.compare(result.substr(0, result.size() - 1)) == 0);

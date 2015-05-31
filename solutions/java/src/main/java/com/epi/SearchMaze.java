@@ -24,7 +24,7 @@ public class SearchMaze {
         return false;
       }
 
-      Coordinate that = (Coordinate) o;
+      Coordinate that = (Coordinate)o;
 
       if (x != that.x) {
         return false;
@@ -62,8 +62,9 @@ public class SearchMaze {
       return true;
     }
 
-    List<? extends List<Integer>> shift = Arrays.asList(Arrays.asList(0, 1),
-        Arrays.asList(0, -1), Arrays.asList(1, 0), Arrays.asList(-1, 0));
+    List<? extends List<Integer>> shift =
+        Arrays.asList(Arrays.asList(0, 1), Arrays.asList(0, -1),
+                      Arrays.asList(1, 0), Arrays.asList(-1, 0));
 
     for (List<Integer> s : shift) {
       Coordinate next = new Coordinate(cur.x + s.get(0), cur.y + s.get(1));
@@ -81,8 +82,8 @@ public class SearchMaze {
 
   // Checks cur is within maze and is a white pixel.
   private static boolean isFeasible(Coordinate cur, int[][] maze) {
-    return cur.x >= 0 && cur.x < maze.length && cur.y >= 0
-        && cur.y < maze[cur.x].length && maze[cur.x][cur.y] == 0;
+    return cur.x >= 0 && cur.x < maze.length && cur.y >= 0 &&
+        cur.y < maze[cur.x].length && maze[cur.x][cur.y] == 0;
   }
   // @exclude
 
@@ -119,16 +120,16 @@ public class SearchMaze {
         int end = r.nextInt(white.size());
         System.out.println(white.get(start));
         System.out.println(white.get(end));
-        LinkedList<Coordinate> path = searchMaze(maze, white.get(start),
-            white.get(end));
+        LinkedList<Coordinate> path =
+            searchMaze(maze, white.get(start), white.get(end));
         if (!path.isEmpty()) {
-          assert (white.get(start).equals(path.peekFirst()) && white.get(end)
-              .equals(path.peekLast()));
+          assert(white.get(start).equals(path.peekFirst()) &&
+                 white.get(end).equals(path.peekLast()));
         }
         Coordinate prev = null;
         for (Coordinate curr : path) {
           if (prev != null) {
-            assert (Math.abs(prev.x - curr.x) + Math.abs(prev.y - curr.y) == 1);
+            assert(Math.abs(prev.x - curr.x) + Math.abs(prev.y - curr.y) == 1);
           }
           prev = curr;
           System.out.println("(" + curr.x + "," + curr.y + ")");

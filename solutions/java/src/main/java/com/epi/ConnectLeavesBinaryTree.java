@@ -38,7 +38,8 @@ public class ConnectLeavesBinaryTree {
     for (BinaryTreeNode<Integer> l : L) {
       System.out.println(l.getData());
     }
-    assert (L.size() == 3);
-    assert (L.get(0).getData().equals(1) && L.get(1).getData().equals(4) && L.get(2).getData().equals(6));
+    assert(L.size() == 3);
+    assert(L.get(0).getData().equals(1) && L.get(1).getData().equals(4) &&
+           L.get(2).getData().equals(6));
   }
 }

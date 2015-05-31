@@ -47,6 +47,6 @@ public class BSTSortedOrder {
     tree.getRight().setRight(new BSTNode<>(53));
     List<Integer> result = BSTInSortedOrder(tree);
     List<Integer> goldenResult = Arrays.asList(23, 29, 31, 37, 41, 43, 47, 53);
-    assert (result.equals(goldenResult));
+    assert(result.equals(goldenResult));
   }
 }

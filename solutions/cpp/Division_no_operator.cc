@@ -11,7 +11,7 @@ int division_no_operator(int x, int y) {
   int left = 0, right = x;
   while (left <= right) {
     int mid = left + ((right - left) / 2);
-    if (mid * y  < x) {
+    if (mid * y < x) {
       left = mid + 1;
     } else if (mid * y == x) {
       return mid;
