@@ -19,13 +19,8 @@ using std::vector;
 
 void CheckAns(const vector<int> &a, const vector<int> &b,
               const vector<int> &c) {
-  cout << a.size() << ' ' << b.size() << ' ' << c.size() << endl;
-  assert(a.size() == b.size());
-  assert(b.size() == c.size());
-  for (int i = 0; i < a.size(); ++i) {
-    assert(a[i] == b[i]);
-    assert(b[i] == c[i]);
-  }
+  assert(a.size() == b.size() && equal(a.begin(), a.end(), b.begin()));
+  assert(b.size() == c.size() && equal(b.begin(), b.end(), c.begin()));
 }
 
 int main(int argc, char *argv[]) {

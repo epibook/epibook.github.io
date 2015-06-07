@@ -17,55 +17,32 @@ using std::vector;
 
 // @include
 int FindBiggestNMinusOneProduct(const vector<int>& A) {
-  int zero_count = 0, zero_idx = -1;
-  int positive_count = 0, smallest_positive_idx = -1;
+  int smallest_positive_idx = -1;
   int negative_count = 0, smallest_negative_idx = -1, biggest_negative_idx = -1;
 
   for (int i = 0; i < A.size(); ++i) {
     if (A[i] < 0) {
       ++negative_count;
-      if (smallest_negative_idx == -1 || A[i] < A[smallest_negative_idx]) {
-        smallest_negative_idx = i;
-      }
       if (biggest_negative_idx == -1 || A[biggest_negative_idx] < A[i]) {
         biggest_negative_idx = i;
       }
-    } else if (A[i] == 0) {
-      zero_idx = i, ++zero_count;
-    } else {  // A[i] > 0.
-      ++positive_count;
+      if (smallest_negative_idx == -1 || A[i] < A[smallest_negative_idx]) {
+        smallest_negative_idx = i;
+      }
+    } else {  // A[i] >= 0.
       if (smallest_positive_idx == -1 || A[i] < A[smallest_positive_idx]) {
         smallest_positive_idx = i;
       }
     }
   }
 
-  // Try to find a number whose elimination could maximize the product of
-  // the remaining (n - 1) numbers.
-  int x;  // Stores the idx of eliminated one.
-  if (zero_count >= 2) {
-    return 0;
-  } else if (zero_count == 1) {
-    if (negative_count & 1) {  // Odd number of negatives.
-      return 0;
-    } else {
-      x = zero_idx;
-    }
-  } else {  // No zero in A.
-    if (negative_count & 1) {  // Odd number of negatives.
-      x = biggest_negative_idx;
-    } else {  // Even number of negatives.
-      if (positive_count > 0) {
-        x = smallest_positive_idx;
-      } else {
-        x = smallest_negative_idx;
-      }
-    }
-  }
-
   int product = 1;
+  int target_idx = negative_count & 1
+                       ? biggest_negative_idx
+                       : (smallest_positive_idx != -1 ? smallest_positive_idx
+                                                      : smallest_negative_idx);
   for (int i = 0; i < A.size(); ++i) {
-    if (i != x) {
+    if (i != target_idx) {
       product *= A[i];
     }
   }

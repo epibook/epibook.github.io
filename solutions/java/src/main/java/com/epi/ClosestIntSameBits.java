@@ -39,7 +39,7 @@ public class ClosestIntSameBits {
    */
 
   // @include
-  public static long closestIntegerSameBits(long x) {
+  public static long closestIntSameBitCount(long x) {
     for (int i = 0; i < 63; ++i) {
       if ((((x >> i) & 1) ^ ((x >> (i + 1)) & 1)) != 0) {
         x ^= (1L << i) | (1L << (i + 1)); // swaps bit-i and bit-(i + 1).
@@ -62,17 +62,17 @@ public class ClosestIntSameBits {
   }
 
   public static void main(String[] args) {
-    long r1 = closestIntegerSameBits(1L);
+    long r1 = closestIntSameBitCount(1L);
     assert(r1 == 2L);
 
     long r2 = 0;
     try {
-      r2 = closestIntegerSameBits(Long.MAX_VALUE);
+      r2 = closestIntSameBitCount(Long.MAX_VALUE);
     } catch (Exception e) {
       System.out.println(r2 + " " + e.getMessage());
     }
 
-    long r3 = closestIntegerSameBits(Long.MAX_VALUE - 1);
+    long r3 = closestIntSameBitCount(Long.MAX_VALUE - 1);
     assert(r3 == Long.MAX_VALUE - 2);
 
     Random r = new Random();
@@ -83,7 +83,7 @@ public class ClosestIntSameBits {
       x = r.nextInt(Integer.MAX_VALUE);
     }
     try {
-      long res = closestIntegerSameBits(x);
+      long res = closestIntSameBitCount(x);
       System.out.println(x + " " + res);
       assert(countBitsSetTo1((int)x) == countBitsSetTo1((int)res));
     } catch (Exception e) {

@@ -13,7 +13,7 @@ short Parity(unsigned long x) {
   x ^= x >> 16;
   x ^= x >> 8;
   x ^= x >> 4;
-  x &= 0xf;  // Only wants the last 4 bits of x.
+  x &= 0xf;  // Get the last 4 bits of x, use 0xf = 0b1111 as mask.
   // Return the LSB, which is the parity.
   return FourBitParityLookup(x);
 }

@@ -5,9 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class PickingUpCoins {
   // @include
   public static int pickUpCoins(List<Integer> C) {

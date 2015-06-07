@@ -2,17 +2,15 @@ package com.epi;
 
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class SwapBits {
   // @include
   public static long swapBits(long x, int i, int j) {
     // Extract the i-th and j-th bits, and see if they differ.
     if (((x >> i) & 1) != ((x >> j) & 1)) {
-      // Swap i-th and j-th bits by flipping them.
-      // Select and flip bits by using a bit mask and XOR.
-      x ^= (1L << i) | (1L << j);
+      // i-th and j-th bits diff. We will swap them by flipping their values.
+      // Select the bits to flip with bitmask; flip them using an XOR.
+      long bitMask = (1L << i) | (1L << j);
+      x ^= bitMask;
     }
     return x;
   }

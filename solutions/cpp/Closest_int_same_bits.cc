@@ -53,7 +53,7 @@ int ClosestIntSameBits(int x) {
 */
 
 // @include
-unsigned long ClosestIntSameBits(unsigned long x) {
+unsigned long ClosestIntSameBitCount(unsigned long x) {
   for (int i = 0; i < 63; ++i) {
     if (((x >> i) & 1) ^ ((x >> (i + 1)) & 1)) {
       x ^= (1UL << i) | (1UL << (i + 1));  // swaps bit-i and bit-(i + 1).
@@ -85,7 +85,7 @@ int main(int argc, char* argv[]) {
     x = dis(gen);
   }
   try {
-    unsigned long res = ClosestIntSameBits(x);
+    unsigned long res = ClosestIntSameBitCount(x);
     cout << x << ' ' << res << endl;
     assert(CountBitsSetTo1(x) == CountBitsSetTo1(res));
   } catch (const exception& e) {

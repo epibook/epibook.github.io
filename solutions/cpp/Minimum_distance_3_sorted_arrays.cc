@@ -25,16 +25,6 @@ using std::set;
 using std::uniform_int_distribution;
 using std::vector;
 
-int Distance(const vector<vector<int>>& sorted_arrays, const vector<int>& idx) {
-  int max_val = numeric_limits<int>::min(),
-      min_val = numeric_limits<int>::max();
-  for (int i = 0; i < idx.size(); ++i) {
-    max_val = max(max_val, sorted_arrays[i][idx[i]]);
-    min_val = min(min_val, sorted_arrays[i][idx[i]]);
-  }
-  return max_val - min_val;
-}
-
 // @include
 int FindClosestElementsInSortedArrays(
     const vector<vector<int>>& sorted_arrays) {
@@ -42,7 +32,6 @@ int FindClosestElementsInSortedArrays(
   multimap<int, pair<vector<int>::const_iterator, vector<int>::const_iterator>>
       current_heads;
 
-  // Adds the minimum element of each array in to current_heads.
   for (const auto& sorted_array : sorted_arrays) {
     current_heads.emplace(sorted_array.front(), make_pair(sorted_array.cbegin(),
                                                           sorted_array.cend()));
@@ -63,6 +52,16 @@ int FindClosestElementsInSortedArrays(
   }
 }
 // @exclude
+
+int Distance(const vector<vector<int>>& sorted_arrays, const vector<int>& idx) {
+  int max_val = numeric_limits<int>::min(),
+      min_val = numeric_limits<int>::max();
+  for (int i = 0; i < idx.size(); ++i) {
+    max_val = max(max_val, sorted_arrays[i][idx[i]]);
+    min_val = min(min_val, sorted_arrays[i][idx[i]]);
+  }
+  return max_val - min_val;
+}
 
 void RecGenAnswer(const vector<vector<int>>& sorted_arrays, vector<int>& idx,
                   int level, int* ans) {

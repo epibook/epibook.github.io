@@ -4,47 +4,43 @@
 #define SOLUTIONS_MERGE_SORTED_ARRAYS_H_
 
 #include <algorithm>
+#include <iterator>
 #include <queue>
 #include <utility>
 #include <vector>
 
+using std::next;
 using std::pair;
 using std::priority_queue;
 using std::vector;
 
 // @include
-struct Compare {
-  bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) {
-    return lhs.first > rhs.first;
+struct IteratorCurrentAndEnd {
+  bool operator<(const IteratorCurrentAndEnd& that) const {
+    return *current > *that.current;
   }
+
+  vector<int>::const_iterator current;
+  vector<int>::const_iterator end;
 };
 
 vector<int> MergeSortedArrays(const vector<vector<int>>& sorted_arrays) {
-  priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> min_heap;
-  // For each array in sorted_arrays, keeps index of next unprocessed element.
-  vector<int> heads(sorted_arrays.size(), 0);
+  priority_queue<IteratorCurrentAndEnd, vector<IteratorCurrentAndEnd>> min_heap;
 
-  // Puts each sorted_arrays' first element in min_heap.
-  for (int i = 0; i < sorted_arrays.size(); ++i) {
-    if (!sorted_arrays[i].empty()) {
-      min_heap.emplace(sorted_arrays[i][0], i);
-      heads[i] = 1;
-    }
+  for (const auto& sorted_array : sorted_arrays) {
+    min_heap.emplace(
+        IteratorCurrentAndEnd{sorted_array.cbegin(), sorted_array.cend()});
   }
 
   vector<int> result;
   while (!min_heap.empty()) {
-    int smallest_entry = min_heap.top().first;
-    auto& smallest_array = sorted_arrays[min_heap.top().second];
-    auto& smallest_array_head = heads[min_heap.top().second];
-    result.emplace_back(smallest_entry);
-    if (smallest_array_head < smallest_array.size()) {
-      // Add the next entry of smallest_array into min_heap.
-      min_heap.emplace(smallest_array[smallest_array_head],
-                       min_heap.top().second);
-      ++smallest_array_head;
-    }
+    auto smallest_array = min_heap.top();
     min_heap.pop();
+    if (smallest_array.current != smallest_array.end) {
+      result.emplace_back(*smallest_array.current);
+      min_heap.emplace(IteratorCurrentAndEnd{next(smallest_array.current),
+                                             smallest_array.end});
+    }
   }
   return result;
 }
