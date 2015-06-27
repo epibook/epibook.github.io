@@ -1,10 +1,9 @@
-# power-x-y.cc
+# power-x-y.cc c49e1253eabe0a3ae66bcdfda69fd5c045b18077
 import sys
 import random
-import numpy
 
 
-def compare(a, b): #TODO: work on the test.
+def compare(a, b):
     return abs((a - b) / b) < 0.00001
 
 
@@ -12,7 +11,6 @@ def compare(a, b): #TODO: work on the test.
 def power_x_y(x, y):
     result = 1
     power = y
-    #power = numpy.int64(y) # no need to explicitly use 64 bit int.
     if y < 0:
         power, x = -power, 1/x
     while power:

@@ -49,7 +49,7 @@ def main():
     for _ in range(num_cases):
         n = random.randint(1, 1000)
         A = [random.randint(-10000, 10000) for __ in range(n)]
-        assert(n_2_check(A) == count_inversions(A))
+        assert n_2_check(A) == count_inversions(A)
 
 if __name__ == '__main__':
     main()

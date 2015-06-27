@@ -1,6 +1,5 @@
 # Offline_sampling.cc
 import random
-import sys
 import numpy
 import count_inversions
 
@@ -43,8 +42,8 @@ def main():
         test_sampling(A, k, duplicate_counts)
         test_permutation(A, inversion_counts)
 
-    assert(numpy.mean(inversion_counts) / len(A) > 1)
-    assert(numpy.mean(duplicate_counts) < 0.3)
+    assert numpy.mean(inversion_counts) / len(A) > 1
+    assert numpy.mean(duplicate_counts) < 0.3
 
 if __name__ == '__main__':
     main()
