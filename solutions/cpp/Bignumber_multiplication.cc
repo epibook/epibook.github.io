@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cassert>
 #include <iostream>
+#include <iterator>
 #include <random>
 #include <sstream>
 #include <string>
@@ -14,79 +15,18 @@ using std::cout;
 using std::default_random_engine;
 using std::endl;
 using std::max;
+using std::ostream_iterator;
 using std::random_device;
 using std::string;
 using std::stringstream;
 using std::uniform_int_distribution;
 using std::vector;
 
-class BigInt {
- public:
-  explicit BigInt(int capacity) : sign_(1), digits_(capacity) {}
-
-  explicit BigInt(const string &s)
-      : sign_(s[0] == '-' ? -1 : 1), digits_(s.size() - (s[0] == '-')) {
-    for (int i = s.size() - 1, j = 0; i >= (s[0] == '-'); --i, ++j) {
-      if (isdigit(s[i])) {
-        digits_[j] = s[i] - '0';
-      }
-    }
-  }
-
-  BigInt operator*(const BigInt &n) const {
-    BigInt result(digits_.size() + n.digits_.size());
-    result.sign_ = sign_ * n.sign_;
-    int i, j;
-    for (i = 0; i < n.digits_.size(); ++i) {
-      if (n.digits_[i]) {
-        int carry = 0;
-        for (j = 0; j < digits_.size() || carry; ++j) {
-          int n_digit = result.digits_[i + j] +
-                        (j < digits_.size() ? n.digits_[i] * digits_[j] : 0) +
-                        carry;
-          result.digits_[i + j] = n_digit % 10;
-          carry = n_digit / 10;
-        }
-      }
-    }
-
-    // If one number is 0, the result size should be 0.
-    if ((digits_.size() == 1 && digits_.front() == 0) ||
-        (n.digits_.size() == 1 && n.digits_.front() == 0)) {
-      result.sign_ = 1, result.digits_.resize(1);
-    } else {
-      result.digits_.resize(i + j - 1);
-    }
-    return result;
-  }
-
-  string toString() const {
-    string s = (sign_ > 0 ? "" : "-");
-    for (int i = digits_.size() - 1; i >= 0; --i) {
-      s += digits_[i] + '0';
-    }
-    if (digits_.empty() == true) {
-      s += '0';
-    }
-    return s;
-  }
-
- private:
-  int sign_;  // -1 or 1;
-  vector<char> digits_;
-};
-
 // @include
-string Multiply(string num1, string num2) {
-  bool is_positive = true;
-  if (num1.front() == '-') {
-    is_positive = !is_positive;
-    num1 = num1.substr(1);
-  }
-  if (num2.front() == '-') {
-    is_positive = !is_positive;
-    num2 = num2.substr(1);
-  }
+vector<int> Multiply(vector<int> num1, vector<int> num2) {
+  bool is_negative = (num1.front() < 0 && num2.front() >= 0) ||
+                     (num1.front() >= 0 && num2.front() < 0);
+  num1.front() = abs(num1.front()), num2.front() = abs(num2.front());
 
   // Reverses num1 and num2 to make multiplication easier.
   reverse(num1.begin(), num1.end());
@@ -94,73 +34,79 @@ string Multiply(string num1, string num2) {
   vector<int> result(num1.size() + num2.size(), 0);
   for (int i = 0; i < num1.size(); ++i) {
     for (int j = 0; j < num2.size(); ++j) {
-      result[i + j] += (num1[i] - '0') * (num2[j] - '0');
+      result[i + j] += num1[i] * num2[j];
       result[i + j + 1] += result[i + j] / 10;
       result[i + j] %= 10;
     }
   }
 
-  // Converts result to string in reverse order, and skips the first 0s and
-  // keeps one 0 if all are 0s.
-  int i = num1.size() + num2.size() - 1;
-  while (result[i] == 0 && i != 0) {
-    --i;
+  // Skips the leading 0s and keeps one 0 if all are 0s.
+  while (result.size() != 1 && result.back() == 0) {
+    result.pop_back();
   }
-  stringstream ss;
-  if (!is_positive && result[i] != 0) {  // It won't print "-0".
-    ss << '-';
+  // Reverses result to get the most significant digit as the start of array.
+  reverse(result.begin(), result.end());
+  if (is_negative) {
+    result.front() *= -1;
   }
-  while (i >= 0) {
-    ss << result[i--];
-  }
-  return ss.str();
+  return result;
 }
 // @exclude
 
-string RandString(int len) {
-  string ret;
-  if (!len) {
-    ret += '0';
-  } else {
-    default_random_engine gen((random_device())());
-    uniform_int_distribution<int> positive_or_negative(0, 1);
-    if (positive_or_negative(gen)) {
-      ret += '-';
-    }
-    uniform_int_distribution<int> dis(1, 9);
-    ret += dis(gen) + '0';
-    --len;
-    while (len--) {
-      uniform_int_distribution<int> dis(0, 9);
-      ret += dis(gen) + '0';
-    }
+vector<int> RandVector(int len) {
+  if (!len) return {0};
+
+  default_random_engine gen((random_device())());
+  uniform_int_distribution<int> dis(1, 9);
+  vector<int> ret;
+  ret.emplace_back(dis(gen));
+  --len;
+  while (len--) {
+    uniform_int_distribution<int> dis(0, 9);
+    ret.emplace_back(dis(gen));
+  }
+
+  uniform_int_distribution<int> positive_or_negative(0, 1);
+  if (positive_or_negative(gen)) {
+    ret.front() *= -1;
   }
   return ret;
 }
 
-void SimpleTest() {
-  assert(Multiply("0", "1000") == "0");
-  cout << Multiply("131412", "-1313332") << endl;
-  assert(Multiply("131412", "-1313332") == "-172587584784");
+bool EqualVector(const vector<int>& A, const vector<int>& B) {
+  return A.size() == B.size() && equal(A.begin(), A.end(), B.begin());
 }
 
-int main(int argc, char *argv[]) {
+void SimpleTest() {
+  assert(EqualVector(Multiply({0}, {-1, 0, 0, 0}), {0}));
+  assert(EqualVector(Multiply({0}, {1, 0, 0, 0}), {0}));
+  assert(EqualVector(Multiply({9}, {9}), {8, 1}));
+  assert(EqualVector(Multiply({9}, {9, 9, 9, 9}), {8, 9, 9, 9, 1}));
+  assert(EqualVector(Multiply({1, 3, 1, 4, 1, 2}, {-1, 3, 1, 3, 3, 3, 2}),
+                     {-1, 7, 2, 5, 8, 7, 5, 8, 4, 7, 8, 4}));
+  assert(EqualVector(Multiply({7, 3}, {-3}), {-2, 1, 9}));
+}
+
+string VectorToString(const vector<int>& A) {
+  stringstream converter;
+  copy(A.begin(), A.end(), ostream_iterator<int>(converter, ""));
+  return converter.str();
+}
+
+int main(int argc, char* argv[]) {
   SimpleTest();
   for (int times = 0; times < 1000; ++times) {
-    string s1, s2;
-    if (argc == 3) {
-      s1 = argv[1], s2 = argv[2];
-    } else {
-      default_random_engine gen((random_device())());
-      uniform_int_distribution<int> dis(0, 19);
-      s1 = RandString(dis(gen)), s2 = RandString(dis(gen));
-    }
-    string res = Multiply(s1, s2);
-    cout << s1 << " * " << s2 << " = " << res << endl;
-    string command = "bash -c 'bc <<<" + s1 + "*" + s2 + "'";
+    default_random_engine gen((random_device())());
+    uniform_int_distribution<int> dis(0, 19);
+    vector<int> num1 = RandVector(dis(gen)), num2 = RandVector(dis(gen));
+    auto res = Multiply(num1, num2);
+    cout << VectorToString(num1) << " * " << VectorToString(num2) << " = "
+         << VectorToString(res) << endl;
+    string command = "bash -c 'bc <<<" + VectorToString(num1) + "*" +
+                     VectorToString(num2) + "'";
     string result = execute_shell(command);
     cout << "answer = " << result;
-    assert(res.compare(result.substr(0, result.size() - 1)) == 0);
+    assert(result.substr(0, result.size() - 1) == VectorToString(res));
   }
   return 0;
 }

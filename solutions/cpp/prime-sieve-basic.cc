@@ -16,12 +16,13 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-// Given n, return the primes from 1 to n.
-vector<int> GeneratePrimesFrom1ToNBasic(int n) {
+// Given n, return all primes up to and including n.
+vector<int> GeneratePrimes(int n) {
   vector<int> primes;
   // is_prime[p] represents whether p is prime or not.
-  // Initially, set each to true, using sieving to eliminate.
+  // Initially, set each to true. Then use sieving to eliminate non primes.
   deque<bool> is_prime(n + 1, true);
+  is_prime[0] = is_prime[1] = false;
   for (int p = 2; p < n; ++p) {
     if (is_prime[p]) {
       primes.emplace_back(p);
@@ -41,7 +42,7 @@ int main(int argc, char* argv[]) {
   if (argc == 2) {
     int n = atoi(argv[1]);
     cout << "n = " << n << endl;
-    vector<int> primes = GeneratePrimesFrom1ToNBasic(n);
+    vector<int> primes = GeneratePrimes(n);
     for (int p : primes) {
       cout << p << endl;
     }
@@ -56,7 +57,7 @@ int main(int argc, char* argv[]) {
       uniform_int_distribution<int> dis(2, 100000);
       int n = dis(gen);
       cout << "n = " << n << endl;
-      vector<int> primes = GeneratePrimesFrom1ToNBasic(n);
+      vector<int> primes = GeneratePrimes(n);
       for (size_t i = 0; i < primes.size(); ++i) {
         for (int j = 2; j < primes[i]; ++j) {
           assert(primes[i] % j);

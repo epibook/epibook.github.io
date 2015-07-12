@@ -23,32 +23,32 @@ using std::vector;
 
 struct GraphVertex;
 
-bool DFS(GraphVertex* cur, GraphVertex* pre, int time);
+bool HasBridge(GraphVertex*, GraphVertex*, int);
 
 // @include
 struct GraphVertex {
-  int d, l;  // discovery and leaving time.
+  int d, l;  // Discovery and leaving time.
   vector<GraphVertex*> edges;
   // @exclude
   GraphVertex() : d(0), l(numeric_limits<int>::max()) {}
   // @include
 };
 
-bool IsGraphTwoForAll(vector<GraphVertex>* G) {
+bool IsGraphFaultTolerant(vector<GraphVertex>* G) {
   if (!G->empty()) {
-    return DFS(&G->front(), nullptr, 0);
+    return HasBridge(&G->front(), nullptr, 0);
   }
   return true;
 }
 
-bool DFS(GraphVertex* cur, GraphVertex* pre, int time) {
+bool HasBridge(GraphVertex* cur, GraphVertex* pre, int time) {
   cur->d = ++time, cur->l = numeric_limits<int>::max();
   for (GraphVertex*& next : cur->edges) {
     if (next != pre) {
-      if (next->d != 0) {  // back edge.
+      if (next->d != 0) {  // Back edge.
         cur->l = min(cur->l, next->d);
-      } else {  // forward edge.
-        if (!DFS(next, cur, time)) {
+      } else {  // Forward edge.
+        if (!HasBridge(next, cur, time)) {
           return false;
         }
         cur->l = min(cur->l, next->l);
@@ -93,7 +93,72 @@ bool CheckAnswer(vector<GraphVertex>* G) {
   return true;
 }
 
+void TestTriangle() {
+  vector<GraphVertex> G(3);
+  G[0].edges.emplace_back(&G[1]);
+  G[1].edges.emplace_back(&G[0]);
+  G[1].edges.emplace_back(&G[2]);
+  G[2].edges.emplace_back(&G[1]);
+  G[2].edges.emplace_back(&G[0]);
+  G[0].edges.emplace_back(&G[2]);
+  bool result = IsGraphFaultTolerant(&G);
+  assert(true == result);
+}
+
+void TestTwoTriangles() {
+  vector<GraphVertex> G(6);
+  G[0].edges.emplace_back(&G[1]);
+  G[1].edges.emplace_back(&G[0]);
+  G[1].edges.emplace_back(&G[2]);
+  G[2].edges.emplace_back(&G[1]);
+  G[2].edges.emplace_back(&G[0]);
+  G[0].edges.emplace_back(&G[2]);
+
+  G[3].edges.emplace_back(&G[4]);
+  G[4].edges.emplace_back(&G[3]);
+  G[4].edges.emplace_back(&G[5]);
+  G[5].edges.emplace_back(&G[4]);
+  G[5].edges.emplace_back(&G[3]);
+  G[3].edges.emplace_back(&G[5]);
+
+  // bridge edge
+  G[0].edges.emplace_back(&G[3]);
+  G[3].edges.emplace_back(&G[0]);
+
+  bool result = IsGraphFaultTolerant(&G);
+  assert(false == result);
+}
+
+void TestTwoTrianglesBridged() {
+  vector<GraphVertex> G(6);
+  G[0].edges.emplace_back(&G[1]);
+  G[1].edges.emplace_back(&G[0]);
+  G[1].edges.emplace_back(&G[2]);
+  G[2].edges.emplace_back(&G[1]);
+  G[2].edges.emplace_back(&G[0]);
+  G[0].edges.emplace_back(&G[2]);
+
+  G[3].edges.emplace_back(&G[4]);
+  G[4].edges.emplace_back(&G[3]);
+  G[4].edges.emplace_back(&G[5]);
+  G[5].edges.emplace_back(&G[4]);
+  G[5].edges.emplace_back(&G[3]);
+  G[3].edges.emplace_back(&G[5]);
+
+  G[0].edges.emplace_back(&G[3]);
+  G[3].edges.emplace_back(&G[0]);
+
+  G[0].edges.emplace_back(&G[4]);
+  G[4].edges.emplace_back(&G[0]);
+
+  bool result = IsGraphFaultTolerant(&G);
+  assert(true == result);
+}
+
 int main(int argc, char* argv[]) {
+  TestTriangle();
+  TestTwoTriangles();
+  TestTwoTrianglesBridged();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     vector<GraphVertex> G;
@@ -140,7 +205,7 @@ int main(int argc, char* argv[]) {
     }
     */
 
-    bool res = IsGraphTwoForAll(&G);
+    bool res = IsGraphFaultTolerant(&G);
     cout << boolalpha << res << endl;
     assert(CheckAnswer(&G) == res);
   }

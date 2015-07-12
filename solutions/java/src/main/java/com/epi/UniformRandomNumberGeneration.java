@@ -9,16 +9,16 @@ public class UniformRandomNumberGeneration {
   }
 
   // @include
-  public static int uniformRandom(int a, int b) {
-    int t = b - a + 1, result;
+  public static int uniformRandom(int lowerBound, int upperBound) {
+    int numberOfOutcomes = upperBound - lowerBound + 1, result;
     do {
       result = 0;
-      for (int i = 0; (1 << i) < t; ++i) {
-        // zeroOneRandom() is the system-provided random number generator.
+      for (int i = 0; (1 << i) < numberOfOutcomes; ++i) {
+        // zeroOneRandom() is the provided random number generator.
         result = (result * 2) | zeroOneRandom();
       }
-    } while (result >= t);
-    return result + a;
+    } while (result >= numberOfOutcomes);
+    return result + lowerBound;
   }
   // @exclude
 

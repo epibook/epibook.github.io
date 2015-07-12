@@ -22,7 +22,7 @@ public class CollatzConjecture {
           return false;
         }
 
-        if ((testI & 1) != 0) { // Odd number
+        if ((testI % 2) != 0) { // Odd number
           if (!verifiedNumbers.add(testI)) {
             break; // testI has already been verified to converge to 1.
           }
@@ -45,7 +45,7 @@ public class CollatzConjecture {
     for (int i = 2; i <= n; ++i) {
       int testI = i;
       while (testI != 1 && testI >= i) {
-        if ((testI & 1) != 0) {
+        if ((testI % 2) != 0) {
           testI = testI * 3 + 1;
         } else {
           testI >>= 1;

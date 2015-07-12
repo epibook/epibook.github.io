@@ -55,8 +55,8 @@ int ClosestIntSameBits(int x) {
 // @include
 unsigned long ClosestIntSameBitCount(unsigned long x) {
   for (int i = 0; i < 63; ++i) {
-    if (((x >> i) & 1) ^ ((x >> (i + 1)) & 1)) {
-      x ^= (1UL << i) | (1UL << (i + 1));  // swaps bit-i and bit-(i + 1).
+    if (((x >> i) & 1) != ((x >> (i + 1)) & 1)) {
+      x ^= (1UL << i) | (1UL << (i + 1));  // Swaps bit-i and bit-(i + 1).
       return x;
     }
   }

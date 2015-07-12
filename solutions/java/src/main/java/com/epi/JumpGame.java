@@ -4,26 +4,28 @@ import java.util.Random;
 
 public class JumpGame {
   // @include
-  public static boolean canReach(int[] A) {
-    int furthestReach = 0;
-    for (int i = 0; i <= furthestReach && furthestReach < A.length - 1; ++i) {
-      furthestReach = Math.max(furthestReach, i + A[i]);
+  public static boolean canReachEnd(int[] maxAdvanceSteps) {
+    int furthestReachSoFar = 0;
+    for (int i = 0; i <= furthestReachSoFar &&
+                    furthestReachSoFar < maxAdvanceSteps.length - 1;
+         ++i) {
+      furthestReachSoFar = Math.max(furthestReachSoFar, i + maxAdvanceSteps[i]);
     }
-    return furthestReach >= A.length - 1;
+    return furthestReachSoFar >= maxAdvanceSteps.length - 1;
   }
   // @exclude
 
   private static void smallTest() {
     int[] A = {2, 3, 1, 1, 4};
-    assert(canReach(A));
+    assert(canReachEnd(A));
     int[] B = {3, 2, 1, 0, 4};
-    assert(!canReach(B));
+    assert(!canReachEnd(B));
     int[] C = {3, 2, 1, -10, 4};
-    assert(!canReach(C));
+    assert(!canReachEnd(C));
     int[] D = {2, 3, -1, -1, 4};
-    assert(canReach(D));
+    assert(canReachEnd(D));
     int[] E = {2, 2, -1, -1, 100};
-    assert(!canReach(E));
+    assert(!canReachEnd(E));
   }
 
   public static void main(String[] args) {
@@ -35,10 +37,10 @@ public class JumpGame {
     } else {
       n = r.nextInt(1000) + 1;
     }
-    int[] A = new int[n];
+    int[] maxAdvanceSteps = new int[n];
     for (int i = 0; i < n; i++) {
-      A[i] = r.nextInt(10) + 1;
+      maxAdvanceSteps[i] = r.nextInt(10) + 1;
     }
-    System.out.println(canReach(A));
+    System.out.println(canReachEnd(maxAdvanceSteps));
   }
 }

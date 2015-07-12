@@ -17,26 +17,29 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-bool CanReach(const vector<int>& A) {
-  int furthest_reach = 0;
-  for (int i = 0; i <= furthest_reach && furthest_reach < A.size() - 1; ++i) {
-    furthest_reach = max(furthest_reach, A[i] + i);
+bool CanReachEnd(const vector<int>& max_advance_steps) {
+  int furthest_reach_so_far = 0;
+  for (int i = 0; i <= furthest_reach_so_far &&
+                  furthest_reach_so_far < max_advance_steps.size() - 1;
+       ++i) {
+    furthest_reach_so_far =
+        max(furthest_reach_so_far, max_advance_steps[i] + i);
   }
-  return furthest_reach >= A.size() - 1;
+  return furthest_reach_so_far >= max_advance_steps.size() - 1;
 }
 // @exclude
 
 void SmallTest() {
-  vector<int> A = {2, 3, 1, 1, 4};
-  assert(CanReach(A));
-  A = {3, 2, 1, 0, 4};
-  assert(!CanReach(A));
-  A = {3, 2, 1, -10, 4};
-  assert(!CanReach(A));
-  A = {2, 3, -1, -1, 4};
-  assert(CanReach(A));
-  A = {2, 2, -1, -1, 100};
-  assert(!CanReach(A));
+  vector<int> max_advance_steps = {2, 3, 1, 1, 4};
+  assert(CanReachEnd(max_advance_steps));
+  max_advance_steps = {3, 2, 1, 0, 4};
+  assert(!CanReachEnd(max_advance_steps));
+  max_advance_steps = {3, 2, 1, -10, 4};
+  assert(!CanReachEnd(max_advance_steps));
+  max_advance_steps = {2, 3, -1, -1, 4};
+  assert(CanReachEnd(max_advance_steps));
+  max_advance_steps = {2, 2, -1, -1, 100};
+  assert(!CanReachEnd(max_advance_steps));
 }
 
 int main(int argc, char** argv) {
@@ -51,8 +54,8 @@ int main(int argc, char** argv) {
     n = dis(gen);
   }
   uniform_int_distribution<int> A_dis(1, 10);
-  vector<int> A;
-  generate_n(back_inserter(A), n, [&] { return A_dis(gen); });
-  cout << std::boolalpha << CanReach(A) << endl;
+  vector<int> max_advance_steps;
+  generate_n(back_inserter(max_advance_steps), n, [&] { return A_dis(gen); });
+  cout << std::boolalpha << CanReachEnd(max_advance_steps) << endl;
   return 0;
 }

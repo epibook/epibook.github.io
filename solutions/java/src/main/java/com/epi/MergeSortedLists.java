@@ -6,12 +6,12 @@ import java.util.Random;
 
 public class MergeSortedLists {
   //@include
-  public static ListNode<Integer> mergeTwoSortedLinkedLists(ListNode<Integer> F,
-                                                            ListNode<Integer> L) {
+  public static ListNode<Integer> mergeTwoSortedLinkedLists(
+      ListNode<Integer> L1, ListNode<Integer> L2) {
     // Creates a placeholder for the result.
     ListNode<Integer> dummyHead = new ListNode<>(0, null);
     ListNode<Integer> current = dummyHead;
-    ListNode<Integer> p1 = F, p2 = L;
+    ListNode<Integer> p1 = L1, p2 = L2;
 
     while (p1 != null && p2 != null) {
       if (p1.data <= p2.data) {
@@ -33,8 +33,8 @@ public class MergeSortedLists {
   public static void main(String[] args) {
     Random rnd = new Random();
     for (int times = 0; times < 10000; ++times) {
-      ListNode<Integer> F = null;
-      ListNode<Integer> L = null;
+      ListNode<Integer> L1 = null;
+      ListNode<Integer> L2 = null;
       int n, m;
       if (args.length == 2) {
         n = Integer.parseInt(args[0]);
@@ -48,16 +48,16 @@ public class MergeSortedLists {
       }
       for (int i = n; i > 0; --i) {
         ListNode<Integer> temp = new ListNode<>(i, null);
-        temp.next = F;
-        F = temp;
+        temp.next = L1;
+        L1 = temp;
       }
       for (int j = m; j > 0; --j) {
         ListNode<Integer> temp = new ListNode<>(j, null);
-        temp.next = L;
-        L = temp;
+        temp.next = L2;
+        L2 = temp;
       }
 
-      ListNode<Integer> sortedHead = mergeTwoSortedLinkedLists(F, L);
+      ListNode<Integer> sortedHead = mergeTwoSortedLinkedLists(L1, L2);
       int count = 0;
       int pre = Integer.MIN_VALUE;
       while (sortedHead != null) {
@@ -66,7 +66,7 @@ public class MergeSortedLists {
         sortedHead = sortedHead.next;
         ++count;
       }
-      // Make sure the merged list have the same number of nodes as F and L.
+      // Make sure the merged list have the same number of nodes as L1 and L2.
       assert(count == n + m);
     }
   }

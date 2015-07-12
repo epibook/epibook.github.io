@@ -33,7 +33,7 @@ public class ClosestToMedian {
   public static double findMedian(List<Integer> A) {
     int half = A.size() / 2;
     nthElement(A, half);
-    if ((A.size() & 1) != 0) { // A has odd number elements.
+    if ((A.size() % 2) != 0) { // A has odd number elements.
       return A.get(half);
     } else { // A has even number elements.
       int x = A.get(half);

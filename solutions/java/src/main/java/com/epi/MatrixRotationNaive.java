@@ -1,37 +1,36 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class MatrixRotationNaive {
-  private static void printMatrix(int[][] A) {
-    for (int i = 0; i < A.length; ++i) {
-      // simplePrint(A[i]);
-      for (int j = 0; j < A.length; ++j) {
-        System.out.print(String.format("A[%d, %d] = %d ", i, j, A[i][j]));
-      }
-      System.out.println();
-    }
-  }
-
-  private static void checkAnswer(int[][] A) {
+  private static void checkAnswer(List<List<Integer>> A) {
     int k = 1;
-    for (int j = A.length - 1; j >= 0; --j) {
-      for (int[] element : A) {
-        assert(k++ == element[j]);
+    for (int j = A.size() - 1; j >= 0; --j) {
+      for (List<Integer> element : A) {
+        assert(k++ == element.get(j));
       }
     }
   }
 
   // @include
-  public static void rotateMatrix(int[][] A) {
-    for (int i = 0; i < (A.length / 2); ++i) {
-      for (int j = i; j < A.length - i - 1; ++j) {
-        int temp = A[i][j];
-        A[i][j] = A[A.length - 1 - j][i];
-        A[A.length - 1 - j][i] = A[A.length - 1 - i][A.length - 1 - j];
-        A[A.length - 1 - i][A.length - 1 - j] = A[j][A.length - 1 - i];
-        A[j][A.length - 1 - i] = temp;
+  public static void rotateMatrix(List<List<Integer>> squareMatrix) {
+    for (int i = 0; i < (squareMatrix.size() / 2); ++i) {
+      for (int j = i; j < squareMatrix.size() - i - 1; ++j) {
+        // Perform a 4-way exchange.
+        int temp = squareMatrix.get(i).get(j);
+        squareMatrix.get(i)
+            .set(j, squareMatrix.get(squareMatrix.size() - 1 - j).get(i));
+        squareMatrix.get(squareMatrix.size() - 1 - j)
+            .set(i, squareMatrix.get(squareMatrix.size() - 1 - i)
+                        .get(squareMatrix.size() - 1 - j));
+        squareMatrix.get(squareMatrix.size() - 1 - i)
+            .set(squareMatrix.size() - 1 - j,
+                 squareMatrix.get(j).get(squareMatrix.size() - 1 - i));
+        squareMatrix.get(j).set(squareMatrix.size() - 1 - i, temp);
       }
     }
   }
@@ -41,26 +40,28 @@ public class MatrixRotationNaive {
     int n;
     if (args.length == 1) {
       n = Integer.valueOf(args[0]);
-      int[][] A = new int[1 << n][1 << n];
+      List<List<Integer>> A = new ArrayList<>();
       int k = 1;
-      for (int i = 0; i < A.length; ++i) {
-        for (int j = 0; j < A[i].length; ++j) {
-          A[i][j] = k++;
+      for (int i = 0; i < (1 << n); ++i) {
+        A.add(new ArrayList());
+        for (int j = 0; j < (1 << n); ++j) {
+          A.get(i).add(k++);
         }
       }
-      printMatrix(A);
+      System.out.println(A);
       rotateMatrix(A);
       checkAnswer(A);
-      printMatrix(A);
+      System.out.println(A);
     } else {
       Random gen = new Random();
       for (int times = 0; times < 100; ++times) {
         n = gen.nextInt(10) + 1;
-        int[][] A = new int[1 << n][1 << n];
+        List<List<Integer>> A = new ArrayList<>();
         int k = 1;
-        for (int i = 0; i < A.length; ++i) {
-          for (int j = 0; j < A[i].length; ++j) {
-            A[i][j] = k++;
+        for (int i = 0; i < (1 << n); ++i) {
+          A.add(new ArrayList());
+          for (int j = 0; j < (1 << n); ++j) {
+            A.get(i).add(k++);
           }
         }
         rotateMatrix(A);

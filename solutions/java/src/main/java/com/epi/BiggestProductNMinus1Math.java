@@ -7,32 +7,35 @@ import java.util.Random;
 public class BiggestProductNMinus1Math {
   // @include
   public static int findBiggestNMinusOneProduct(List<Integer> A) {
-    int smallestPositiveIdx = -1;
-    int negativeCount = 0, smallestNegativeIdx = -1, biggestNegativeIdx = -1;
+    int leastNonnegativeIdx = -1;
+    int numberOfNegatives = 0, greatestNegativeIdx = -1, leastNegativeIdx = -1;
 
+    // Identify the least negative, greatest negative, and least nonnegative
+    // entries.
     for (int i = 0; i < A.size(); ++i) {
       if (A.get(i) < 0) {
-        ++negativeCount;
-        if (biggestNegativeIdx == -1 || A.get(biggestNegativeIdx) < A.get(i)) {
-          biggestNegativeIdx = i;
+        ++numberOfNegatives;
+        if (leastNegativeIdx == -1 || A.get(leastNegativeIdx) < A.get(i)) {
+          leastNegativeIdx = i;
         }
-        if (smallestNegativeIdx == -1 || A.get(i) < A.get(smallestNegativeIdx)) {
-          smallestNegativeIdx = i;
+        if (greatestNegativeIdx == -1 || A.get(i) < A.get(greatestNegativeIdx)) {
+          greatestNegativeIdx = i;
         }
       } else if (A.get(i) >= 0) {
-        if (smallestPositiveIdx == -1 || A.get(i) < A.get(smallestPositiveIdx)) {
-          smallestPositiveIdx = i;
+        if (leastNonnegativeIdx == -1 || A.get(i) < A.get(leastNonnegativeIdx)) {
+          leastNonnegativeIdx = i;
         }
       }
     }
 
     int product = 1;
-    int targetIdx = (negativeCount & 1) == 1
-                        ? biggestNegativeIdx
-                        : (smallestPositiveIdx != -1 ? smallestPositiveIdx
-                                                     : smallestNegativeIdx);
+    int IdxToSkip = (numberOfNegatives % 2) == 1
+                        ? leastNegativeIdx
+                        // Check if there are any nonnegative entry.
+                        : (leastNonnegativeIdx != -1 ? leastNonnegativeIdx
+                                                     : greatestNegativeIdx);
     for (int i = 0; i < A.size(); ++i) {
-      if (i != targetIdx) {
+      if (i != IdxToSkip) {
         product *= A.get(i);
       }
     }

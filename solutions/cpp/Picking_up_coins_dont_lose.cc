@@ -19,7 +19,7 @@ using std::vector;
 int pick_up_coins(const vector<int>& C) {
   int even_sum = 0, odd_sum = 0;
   for (int i = 0; i < C.size(); ++i) {
-    if (i & 1) {  // odd.
+    if (i % 2) {  // odd.
       odd_sum += C[i];
     } else {  // even.
       even_sum += C[i];
@@ -32,7 +32,7 @@ int pick_up_coins(const vector<int>& C) {
 void check(const vector<int>& C, int choose) {
   int even = 0, odd = 0;
   for (int i = 0; i < C.size(); ++i) {
-    if (i & 1) {
+    if (i % 2) {
       odd += C[i];
     } else {
       even += C[i];

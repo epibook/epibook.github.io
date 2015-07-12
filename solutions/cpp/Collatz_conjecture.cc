@@ -34,7 +34,7 @@ bool TestCollatzConjecture(int n) {
         return false;
       }
 
-      if (test_i & 1) {  // Odd number.
+      if (test_i % 2) {  // Odd number.
         if (!verified_numbers.emplace(test_i).second) {
           break;  // test_i has already been verified to converge to 1.
         }
@@ -57,7 +57,7 @@ bool Check(int n) {
   for (int i = 2; i <= n; ++i) {
     int test_i = i;
     while (test_i != 1 && test_i >= i) {
-      if (test_i & 1) {
+      if (test_i % 2) {
         test_i = test_i * 3 + 1;
       } else {
         test_i >>= 1;

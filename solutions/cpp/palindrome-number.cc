@@ -25,13 +25,14 @@ bool IsPalindrome(int x) {
   }
 
   const int kNumDigits = static_cast<int>(floor(log10(x))) + 1;
-  int x_remaining = x, msd_shift = static_cast<int>(pow(10, kNumDigits - 1));
+  int msd_mask = static_cast<int>(pow(10, kNumDigits - 1));
   for (int i = 0; i < (kNumDigits / 2); ++i) {
-    if (x / msd_shift != x_remaining % 10) {
+    if (x / msd_mask != x % 10) {
       return false;
     }
-    x %= msd_shift;
-    msd_shift /= 10, x_remaining /= 10;
+    x %= msd_mask;  // Remove the most significant digit of x.
+    x /= 10;  // Remove the least significant digit of x.
+    msd_mask /= 100;
   }
   return true;
 }

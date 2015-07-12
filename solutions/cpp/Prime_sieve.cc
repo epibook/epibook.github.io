@@ -16,13 +16,13 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-// Given n, return the primes from 1 to n.
-vector<int> GeneratePrimesFrom1ToN(int n) {
+// Given n, return all primes up to and including n.
+vector<int> GeneratePrimes(int n) {
   const int kSize = floor(0.5 * (n - 3)) + 1;
-  vector<int> primes;  // Stores the primes from 1 to n.
+  vector<int> primes;
   primes.emplace_back(2);
-  // is_prime[i] represents (2i + 3) is prime or not. Initially assuming
-  // everyone is prime (by setting as true).
+  // is_prime[i] represents (2i + 3) is prime or not.
+  // Initially, set each to true. Then use sieving to eliminate non primes.
   deque<bool> is_prime(kSize, true);
   for (long i = 0; i < kSize; ++i) {
     if (is_prime[i]) {
@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
   if (argc == 2) {
     int n = atoi(argv[1]);
     cout << "n = " << n << endl;
-    vector<int> primes = GeneratePrimesFrom1ToN(n);
+    vector<int> primes = GeneratePrimes(n);
     for (int p : primes) {
       cout << p << endl;
     }
@@ -58,7 +58,7 @@ int main(int argc, char* argv[]) {
       uniform_int_distribution<int> dis(2, 100000);
       int n = dis(gen);
       cout << "n = " << n << endl;
-      vector<int> primes = GeneratePrimesFrom1ToN(n);
+      vector<int> primes = GeneratePrimes(n);
       for (size_t i = 0; i < primes.size(); ++i) {
         for (int j = 2; j < primes[i]; ++j) {
           assert(primes[i] % j);

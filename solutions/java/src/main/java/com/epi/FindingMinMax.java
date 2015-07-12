@@ -23,7 +23,7 @@ public class FindingMinMax {
     }
     // If there is odd number of elements in the array, we still
     // need to compare the last element with the existing answer.
-    if ((A.length & 1) != 0) {
+    if ((A.length % 2) != 0) {
       globalMinMax =
           new Pair<>(Math.min(globalMinMax.getFirst(), A[A.length - 1]),
                      Math.max(globalMinMax.getSecond(), A[A.length - 1]));

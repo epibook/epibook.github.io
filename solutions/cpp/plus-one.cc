@@ -22,6 +22,8 @@ vector<int> PlusOne(vector<int> A) {
     A[i] = 0, ++A[i - 1];
   }
   if (A[0] == 10) {
+    // Need additional digit as the most significant digit (i.e., A[0]) has a
+    // carry-out.
     A[0] = 0;
     A.insert(A.begin(), 1);
   }

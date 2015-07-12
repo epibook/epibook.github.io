@@ -15,36 +15,39 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-void MatrixClockwise(const vector<vector<int>> &, int, vector<int> *);
+void MatrixLayerInClockwise(const vector<vector<int>> &, int, vector<int> *);
 
 // @include
-vector<int> MatrixInSpiralOrder(const vector<vector<int>> &A) {
-  vector<int> result;
-  for (int offset = 0; offset < ceil(0.5 * A.size()); ++offset) {
-    MatrixClockwise(A, offset, &result);
+vector<int> MatrixInSpiralOrder(const vector<vector<int>> &square_matrix) {
+  vector<int> spiral_ordering;
+  for (int offset = 0; offset < ceil(0.5 * square_matrix.size()); ++offset) {
+    MatrixLayerInClockwise(square_matrix, offset, &spiral_ordering);
   }
-  return result;
+  return spiral_ordering;
 }
 
-void MatrixClockwise(const vector<vector<int>> &A, int offset,
-                     vector<int> *result) {
-  if (offset == A.size() - offset - 1) {
-    // A has odd dimension, and we are at the center of the matrix A.
-    result->emplace_back(A[offset][offset]);
+void MatrixLayerInClockwise(const vector<vector<int>> &square_matrix,
+                            int offset, vector<int> *spiral_ordering) {
+  if (offset == square_matrix.size() - offset - 1) {
+    // square_matrix has odd dimension, and we are at the center of
+    // square_matrix.
+    spiral_ordering->emplace_back(square_matrix[offset][offset]);
     return;
   }
 
-  for (int j = offset; j < A.size() - offset - 1; ++j) {
-    result->emplace_back(A[offset][j]);
+  for (int j = offset; j < square_matrix.size() - offset - 1; ++j) {
+    spiral_ordering->emplace_back(square_matrix[offset][j]);
   }
-  for (int i = offset; i < A.size() - offset - 1; ++i) {
-    result->emplace_back(A[i][A.size() - offset - 1]);
+  for (int i = offset; i < square_matrix.size() - offset - 1; ++i) {
+    spiral_ordering->emplace_back(
+        square_matrix[i][square_matrix.size() - offset - 1]);
   }
-  for (int j = A.size() - offset - 1; j > offset; --j) {
-    result->emplace_back(A[A.size() - offset - 1][j]);
+  for (int j = square_matrix.size() - offset - 1; j > offset; --j) {
+    spiral_ordering->emplace_back(
+        square_matrix[square_matrix.size() - offset - 1][j]);
   }
-  for (int i = A.size() - offset - 1; i > offset; --i) {
-    result->emplace_back(A[i][offset]);
+  for (int i = square_matrix.size() - offset - 1; i > offset; --i) {
+    spiral_ordering->emplace_back(square_matrix[i][offset]);
   }
 }
 // @exclude

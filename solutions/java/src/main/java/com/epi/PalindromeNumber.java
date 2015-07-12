@@ -12,14 +12,14 @@ public class PalindromeNumber {
     }
 
     final int NUM_DIGITS = (int)(Math.floor(Math.log10(x))) + 1;
-    int xRemaining = x, msdShift = (int)Math.pow(10, NUM_DIGITS - 1);
+    int msdMask = (int)Math.pow(10, NUM_DIGITS - 1);
     for (int i = 0; i < (NUM_DIGITS / 2); ++i) {
-      if (x / msdShift != xRemaining % 10) {
+      if (x / msdMask != x % 10) {
         return false;
       }
-      x %= msdShift;
-      msdShift /= 10;
-      xRemaining /= 10;
+      x %= msdMask; // Remove the most significant digit of x.
+      x /= 10; // Remove the least significant digit of x.
+      msdMask /= 100;
     }
     return true;
   }

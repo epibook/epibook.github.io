@@ -1,4 +1,5 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
 import java.util.Random;
@@ -62,12 +63,18 @@ public class MatrixRotationConstant {
 
 // @include
 class RotatedMatrix {
-  private int[][] a;
+  private int[][] wrappedSquareMatrix;
 
-  public RotatedMatrix(int[][] A) { this.a = A; }
+  public RotatedMatrix(int[][] squareMatrix) {
+    this.wrappedSquareMatrix = squareMatrix;
+  }
 
-  public int readEntry(int i, int j) { return a[a.length - 1 - j][i]; }
+  public int readEntry(int i, int j) {
+    return wrappedSquareMatrix[wrappedSquareMatrix.length - 1 - j][i];
+  }
 
-  public void writeEntry(int i, int j, int v) { a[a.length - 1 - j][i] = v; }
+  public void writeEntry(int i, int j, int v) {
+    wrappedSquareMatrix[wrappedSquareMatrix.length - 1 - j][i] = v;
+  }
 }
 // @exclude

@@ -25,7 +25,7 @@ public class EliasCoding {
   private static String transIntToBinary(int decimal) {
     StringBuilder ret = new StringBuilder();
     while (decimal != 0) {
-      ret.append((char)('0' + (decimal & 1)));
+      ret.append((char)('0' + (decimal % 2)));
       decimal >>= 1;
     }
     ret.reverse();

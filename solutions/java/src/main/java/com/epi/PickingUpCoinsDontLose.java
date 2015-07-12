@@ -11,7 +11,7 @@ public class PickingUpCoinsDontLose {
   static int pickUpCoins(int[] C) {
     int evenSum = 0, oddSum = 0;
     for (int i = 0; i < C.length; ++i) {
-      if ((i & 1) == 1) { // odd.
+      if ((i % 2) == 1) { // odd.
         oddSum += C[i];
       } else { // even.
         evenSum += C[i];
@@ -24,7 +24,7 @@ public class PickingUpCoinsDontLose {
   static void check(int[] C, int choose) {
     int even = 0, odd = 0;
     for (int i = 0; i < C.length; ++i) {
-      if ((i & 1) == 1) {
+      if ((i % 2) == 1) {
         odd += C[i];
       } else {
         even += C[i];

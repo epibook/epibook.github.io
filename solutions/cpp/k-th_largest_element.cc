@@ -16,7 +16,7 @@ using std::swap;
 using std::uniform_int_distribution;
 using std::vector;
 
-int PartitionAroundPivot(int left, int right, int pivot, vector<int>* A);
+int PartitionAroundPivot(int, int, int, vector<int>*);
 
 // @include
 int FindKthLargest(vector<int> A, int k) {
@@ -45,17 +45,18 @@ int FindKthLargest(vector<int> A, int k) {
 // A[left : new_pivot_idx - 1] contains elements that are greater than the
 // pivot, and A[new_pivot_idx + 1 : right] contains elements that are less
 // than the pivot.
-int PartitionAroundPivot(int left, int right, int pivot_idx, vector<int>* A) {
-  auto& A_ref = *A;
-  int pivot_value = A_ref[pivot_idx];
+int PartitionAroundPivot(int left, int right, int pivot_idx,
+                         vector<int>* A_ptr) {
+  auto& A = *A_ptr;
+  int pivot_value = A[pivot_idx];
   int new_pivot_idx = left;
-  swap(A_ref[pivot_idx], A_ref[right]);
+  swap(A[pivot_idx], A[right]);
   for (int i = left; i < right; ++i) {
-    if (A_ref[i] > pivot_value) {
-      swap(A_ref[i], A_ref[new_pivot_idx++]);
+    if (A[i] > pivot_value) {
+      swap(A[i], A[new_pivot_idx++]);
     }
   }
-  swap(A_ref[right], A_ref[new_pivot_idx]);
+  swap(A[right], A[new_pivot_idx]);
   return new_pivot_idx;
 }
 // @exclude

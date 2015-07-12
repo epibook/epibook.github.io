@@ -63,13 +63,7 @@ int main(int argc, char* argv[]) {
   //  1    4  6
   // should output 1, 2, 3, 4, 5, 6
   // preorder [3, 2, 1, 5, 4, 6]
-  vector<int> preorder;
-  preorder.emplace_back(3);
-  preorder.emplace_back(2);
-  preorder.emplace_back(1);
-  preorder.emplace_back(5);
-  preorder.emplace_back(4);
-  preorder.emplace_back(6);
+  vector<int> preorder = {3, 2, 1, 5, 4, 6};
   unique_ptr<BSTNode<int>> tree(RebuildBSTFromPreorder(preorder));
   CheckAns<int>(tree, numeric_limits<int>::min());
   return 0;

@@ -1,4 +1,5 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
 import java.util.Random;
@@ -18,7 +19,7 @@ public class DutchNationalFlag {
      * top group: A[larger + 1, A.length - 1].
      */
     int smaller = 0, equal = 0, larger = A.length - 1;
-    // When there is any unclassified element.
+    // Keep iterating as long as there is an unclassified element.
     while (equal <= larger) {
       // A[equal] is the incoming unclassified element.
       if (A[equal] < pivot) {

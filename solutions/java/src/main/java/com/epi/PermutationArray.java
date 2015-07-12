@@ -3,8 +3,7 @@ package com.epi;
 import java.util.Arrays;
 import java.util.Random;
 
-import static com.epi.PermutationArray1.applyPermutation1;
-import static com.epi.PermutationArray2.applyPermutation2;
+import static com.epi.PermutationArray2.applyPermutation;
 import static com.epi.utils.Utils.shuffle;
 import static com.epi.utils.Utils.simplePrint;
 
@@ -30,12 +29,12 @@ public class PermutationArray {
       System.out.println();
 
       int[] B = Arrays.copyOf(A, A.length);
-      applyPermutation1(perm, B);
+      PermutationArray1.applyPermutation(perm, B);
       simplePrint(B);
       System.out.println();
 
       int[] C = Arrays.copyOf(A, A.length);
-      applyPermutation2(perm, C);
+      PermutationArray2.applyPermutation(perm, C);
       simplePrint(C);
       System.out.println();
 

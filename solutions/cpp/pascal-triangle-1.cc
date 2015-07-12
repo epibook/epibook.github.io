@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -18,17 +18,21 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-vector<vector<int>> GeneratePascalTriangle(int n) {
-  vector<vector<int>> result;
-  for (int i = 0; i < n; ++i) {
-    vector<int> curr_row(i + 1, 1);
-    for (int j = 1; j < i; ++j) {
-      // Sets this entry to the sum of the two above adjacent entries.
-      curr_row[j] = result.back()[j - 1] + result.back()[j];
+vector<vector<int>> GeneratePascalTriangle(int num_rows) {
+  vector<vector<int>> pascal_triangle;
+  for (int i = 0; i < num_rows; ++i) {
+    vector<int> curr_row;
+    for (int j = 0; j <= i; ++j) {
+      // Sets this entry to the sum of the two above adjacent entries if they
+      // exist.
+      curr_row.emplace_back((0 < j && j < i)
+                                ? pascal_triangle.back()[j - 1] +
+                                      pascal_triangle.back()[j]
+                                : 1);
     }
-    result.emplace_back(curr_row);
+    pascal_triangle.emplace_back(curr_row);
   }
-  return result;
+  return pascal_triangle;
 }
 // @exclude
 

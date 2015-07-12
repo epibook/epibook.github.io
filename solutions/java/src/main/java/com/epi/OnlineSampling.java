@@ -8,33 +8,34 @@ import static com.epi.utils.Utils.simplePrint;
 
 public class OnlineSampling {
   // @include
-  public static int[] onlineSampling(int n, int k) {
-    Map<Integer, Integer> H = new HashMap<>();
-    Random gen = new Random();
+  // Returns a random k-sized subset of {0, 1, ..., n - 1}.
+  public static int[] randomSubset(int n, int k) {
+    Map<Integer, Integer> changedElements = new HashMap<>();
+    Random randIdxGen = new Random();
     for (int i = 0; i < k; ++i) {
-      // Generate random int in [0, n - 1 - i].
-      int r = gen.nextInt(n - i);
-      Integer ptr1 = H.get(r), ptr2 = H.get(n - 1 - i);
+      // Generate random int in [i, n - 1].
+      int randIdx = i + randIdxGen.nextInt(n - i - 1);
+      Integer ptr1 = changedElements.get(randIdx), ptr2 = changedElements.get(i);
       if (ptr1 == null && ptr2 == null) {
-        H.put(r, n - 1 - i);
-        H.put(n - 1 - i, r);
+        changedElements.put(randIdx, i);
+        changedElements.put(i, randIdx);
       } else if (ptr1 == null && ptr2 != null) {
-        H.put(r, ptr2);
-        H.put(n - 1 - i, r);
+        changedElements.put(randIdx, ptr2);
+        changedElements.put(i, randIdx);
       } else if (ptr1 != null && ptr2 == null) {
-        H.put(n - 1 - i, ptr1);
-        H.put(r, n - 1 - i);
+        changedElements.put(i, ptr1);
+        changedElements.put(randIdx, i);
       } else {
-        H.put(n - 1 - i, ptr1);
-        H.put(r, ptr2);
+        changedElements.put(i, ptr1);
+        changedElements.put(randIdx, ptr2);
       }
     }
 
-    int[] res = new int[k];
+    int[] result = new int[k];
     for (int i = 0; i < k; ++i) {
-      res[i] = H.get(n - 1 - i);
+      result[i] = changedElements.get(i);
     }
-    return res;
+    return result;
   }
   // @exclude
 
@@ -54,7 +55,7 @@ public class OnlineSampling {
 
     System.out.println(String.format("n = %d k = %d", n, k));
     for (int i = 0; i < 6; ++i) {
-      int[] res = onlineSampling(n, k);
+      int[] res = randomSubset(n, k);
       System.out.print("result = ");
       simplePrint(res);
       System.out.println();

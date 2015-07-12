@@ -4,40 +4,38 @@ package com.epi;
 
 import java.util.*;
 
-// @include
-class Person implements Comparable<Person> {
-  public Integer age;
-  public String name;
-
-  public Person(Integer k, String n) {
-    age = k;
-    name = n;
-  }
-
-  // Hash function for Person.
-  @Override
-  public int hashCode() {
-    return age.hashCode() ^ name.hashCode();
-  }
-
-  @Override
-  public int compareTo(Person p) {
-    return age.compareTo(p.age);
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (o instanceof Person && ((Person)o).age.equals(age)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-}
-// @exclude
-
 class PartitionArray {
   // @include
+  private static class Person implements Comparable<Person> {
+    public Integer age;
+    public String name;
+
+    public Person(Integer k, String n) {
+      age = k;
+      name = n;
+    }
+
+    // Hash function for Person.
+    @Override
+    public int hashCode() {
+      return age.hashCode() ^ name.hashCode();
+    }
+
+    @Override
+    public int compareTo(Person p) {
+      return age.compareTo(p.age);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (o instanceof Person && ((Person)o).age.equals(age)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
   public static void groupByAge(Person[] people) {
     Map<Integer, Integer> ageToCount = new HashMap<>();
     for (Person p : people) {

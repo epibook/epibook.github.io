@@ -35,12 +35,12 @@ void check_answer(const vector<vector<int>> &A) {
 }
 
 // @include
-void rotate_matrix(vector<vector<int>> *A) {
-  auto &A_ref = *A;
-  reverse(A_ref.begin(), A_ref.end());
-  for (size_t i = 0; i < A_ref.size(); ++i) {
-    for (size_t j = i + 1; j < A_ref.size(); ++j) {
-      swap(A_ref[i][j], A_ref[j][i]);
+void rotate_matrix(vector<vector<int>> *A_ptr) {
+  auto &A = *A_ptr;
+  reverse(A.begin(), A.end());
+  for (size_t i = 0; i < A.size(); ++i) {
+    for (size_t j = i + 1; j < A.size(); ++j) {
+      swap(A[i][j], A[j][i]);
     }
   }
 }

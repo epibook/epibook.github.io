@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -15,26 +15,26 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-void DutchFlagPartition(int pivot_index, vector<int>* A) {
-  auto& A_ref = *A;
-  int pivot = A_ref[pivot_index];
+void DutchFlagPartition(int pivot_index, vector<int>* A_ptr) {
+  vector<int>& A = *A_ptr;
+  int pivot = A[pivot_index];
   /**
    * Keep the following invariants during partitioning:
-   * bottom group: A_ref[0 : smaller - 1].
-   * middle group: A_ref[smaller : equal - 1].
-   * unclassified group: A_ref[equal : larger].
-   * top group: A_ref[larger + 1 : A_ref.size() - 1].
+   * bottom group: A[0 : smaller - 1].
+   * middle group: A[smaller : equal - 1].
+   * unclassified group: A[equal : larger].
+   * top group: A[larger + 1 : A.size() - 1].
    */
-  int smaller = 0, equal = 0, larger = A_ref.size() - 1;
-  // When there is any unclassified element.
+  int smaller = 0, equal = 0, larger = A.size() - 1;
+  // Keep iterating as long as there is an unclassified element.
   while (equal <= larger) {
-    // A_ref[equal] is the incoming unclassified element.
-    if (A_ref[equal] < pivot) {
-      swap(A_ref[smaller++], A_ref[equal++]);
-    } else if (A_ref[equal] == pivot) {
+    // A[equal] is the incoming unclassified element.
+    if (A[equal] < pivot) {
+      swap(A[smaller++], A[equal++]);
+    } else if (A[equal] == pivot) {
       ++equal;
-    } else {  // A_ref[equal] > pivot.
-      swap(A_ref[equal], A_ref[larger--]);
+    } else {  // A[equal] > pivot.
+      swap(A[equal], A[larger--]);
     }
   }
 }
@@ -70,11 +70,11 @@ int main(int argc, char* argv[]) {
       cout << A[i] << ' ';
       ++i;
     }
-    while (i < A.size() && A[i] < pivot) {
+    while (i < A.size() && A[i] == pivot) {
       cout << A[i] << ' ';
       ++i;
     }
-    while (i < A.size() && A[i] < pivot) {
+    while (i < A.size() && A[i] > pivot) {
       cout << A[i] << ' ';
       ++i;
     }

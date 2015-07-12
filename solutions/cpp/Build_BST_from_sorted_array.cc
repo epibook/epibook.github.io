@@ -51,7 +51,6 @@ void TraversalCheck(const unique_ptr<BSTNode<T>>& tree, T* target) {
 int main(int argc, char* argv[]) {
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
-    vector<int> A;
     int n;
     if (argc == 2) {
       n = atoi(argv[1]);
@@ -59,9 +58,8 @@ int main(int argc, char* argv[]) {
       uniform_int_distribution<int> dis(1, 1000);
       n = dis(gen);
     }
-    for (int i = 0; i < n; ++i) {
-      A.emplace_back(i);
-    }
+    vector<int> A(n);
+    iota(A.begin(), A.end(), 0);
     unique_ptr<BSTNode<int>> tree = BuildMinHeightBSTFromSortedArray(A);
     int target = 0;
     TraversalCheck<int>(tree, &target);

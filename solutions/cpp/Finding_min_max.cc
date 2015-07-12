@@ -35,7 +35,7 @@ pair<int, int> FindMinMax(const vector<int>& A) {
   }
   // If there is odd number of elements in the array, we still
   // need to compare the last element with the existing answer.
-  if (A.size() & 1) {
+  if (A.size() % 2) {
     global_min_max = {min(global_min_max.first, A.back()),
                       max(global_min_max.second, A.back())};
   }

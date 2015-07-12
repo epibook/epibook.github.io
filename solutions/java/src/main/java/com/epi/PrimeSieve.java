@@ -7,13 +7,13 @@ import java.util.Random;
 
 public class PrimeSieve {
   // @include
-  // Given n, return the primes from 1 to n.
-  public static List<Integer> generatePrimesFrom1toN(int n) {
+  // Given n, return all primes up to and including n.
+  public static List<Integer> generatePrimes(int n) {
     int size = (int)Math.floor(0.5 * (n - 3)) + 1;
-    List<Integer> primes = new ArrayList<>(); // Stores the primes from 1 to n.
+    List<Integer> primes = new ArrayList<>();
     primes.add(2);
-    // isPrime[i] represents (2i + 3) is prime or not. Initially assuming
-    // everyone is prime (by setting as true).
+    // isPrime[i] represents (2i + 3) is prime or not.
+    // Initially, set each to true. Then use sieving to eliminate non primes.
     boolean[] isPrime = new boolean[size];
     Arrays.fill(isPrime, true);
     for (int i = 0; i < size; ++i) {
@@ -35,7 +35,7 @@ public class PrimeSieve {
     if (args.length == 1) {
       int n = Integer.parseInt(args[0]);
       System.out.println("n = " + n);
-      List<Integer> primes = generatePrimesFrom1toN(n);
+      List<Integer> primes = generatePrimes(n);
       for (Integer prime : primes) {
         for (int j = 2; j < prime; ++j) {
           assert(prime % j != 0);
@@ -46,7 +46,7 @@ public class PrimeSieve {
       for (int times = 0; times < 100; ++times) {
         int n = r.nextInt(999999) + 2;
         System.out.println("n = " + n);
-        List<Integer> primes = generatePrimesFrom1toN(n);
+        List<Integer> primes = generatePrimes(n);
         for (Integer prime : primes) {
           for (int j = 2; j < prime; ++j) {
             assert(prime % j != 0);

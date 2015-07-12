@@ -38,11 +38,9 @@ int main(int argc, char *argv[]) {
       uniform_int_distribution<int> dis(1, 100);
       n = dis(gen);
     }
-    vector<int> A, perm;
-    for (int i = 0; i < n; ++i) {
-      A.emplace_back(i);
-      perm.emplace_back(i);
-    }
+    vector<int> A(n), perm(n);
+    iota(A.begin(), A.end(), 0);
+    iota(perm.begin(), perm.end(), 0);
 
     // Knuth shuffle
     random_shuffle(perm.begin(), perm.end());
@@ -54,7 +52,7 @@ int main(int argc, char *argv[]) {
     copy(B.begin(), B.end(), ostream_iterator<int>(cout, " "));
     cout << endl;
     vector<int> C(A);
-    ApplyPermutation2::ApplyPermutation(&perm, &C);
+    ApplyPermutation2::ApplyPermutation(perm, &C);
     copy(C.begin(), C.end(), ostream_iterator<int>(cout, " "));
     cout << endl;
     vector<int> D(A);

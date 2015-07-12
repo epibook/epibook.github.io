@@ -3,20 +3,21 @@
 #ifndef SOLUTIONS_PARITY3_H_
 #define SOLUTIONS_PARITY3_H_
 
-static bool is_initialized = false;
+#include <array>
+
+using std::array;
 
 namespace Parity3 {
 
-short precomputed_parity[1 << 16];
-
-void BuildTable() {
-  if (!is_initialized) {
-    for (int i = 0; i < (1 << 16); ++i) {
-      precomputed_parity[i] = Parity1::Parity(i);
-    }
-    is_initialized = true;
+array<short, 1 << 16> BuildTable() {
+  array<short, 1 << 16> result;
+  for (int i = 0; i < (1 << 16); ++i) {
+    result[i] = Parity1::Parity(i);
   }
+  return result;
 }
+
+static array<short, 1 << 16> precomputed_parity = BuildTable();
 
 // @include
 short Parity(unsigned long x) {

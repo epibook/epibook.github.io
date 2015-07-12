@@ -16,7 +16,7 @@ using std::uniform_int_distribution;
 using std::vector;
 
 struct GraphVertex;
-bool DFS(GraphVertex* cur, const GraphVertex* pre);
+bool HasCycle(GraphVertex* cur, const GraphVertex* pre);
 
 // @include
 struct GraphVertex {
@@ -27,14 +27,14 @@ struct GraphVertex {
   // @include
 };
 
-bool IsGraphTwoExist(vector<GraphVertex>* G) {
+bool IsGraphMinimallyConnected(vector<GraphVertex>* G) {
   if (!G->empty()) {
-    return DFS(&G->front(), nullptr);
+    return !HasCycle(&G->front(), nullptr);
   }
-  return false;
+  return true;
 }
 
-bool DFS(GraphVertex* cur, const GraphVertex* pre) {
+bool HasCycle(GraphVertex* cur, const GraphVertex* pre) {
   // Visiting a gray vertex means a cycle.
   if (cur->color == GraphVertex::gray) {
     return true;
@@ -44,7 +44,7 @@ bool DFS(GraphVertex* cur, const GraphVertex* pre) {
   // Traverse the neighbor vertices.
   for (GraphVertex*& next : cur->edges) {
     if (next != pre && next->color != GraphVertex::black) {
-      if (DFS(next, cur)) {
+      if (HasCycle(next, cur)) {
         return true;
       }
     }
@@ -54,12 +54,12 @@ bool DFS(GraphVertex* cur, const GraphVertex* pre) {
 }
 // @exclude
 
-void DFSExclusion(GraphVertex* cur, GraphVertex* a, GraphVertex* b) {
+void HasCycleExclusion(GraphVertex* cur, GraphVertex* a, GraphVertex* b) {
   cur->color = GraphVertex::black;
   for (GraphVertex*& next : cur->edges) {
     if (next->color == GraphVertex::white &&
         ((cur != a && cur != b) || (next != a && next != b))) {
-      DFSExclusion(next, a, b);
+      HasCycleExclusion(next, a, b);
     }
   }
 }
@@ -73,7 +73,7 @@ bool CheckAnswer(vector<GraphVertex>* G) {
 
   for (GraphVertex& g : *G) {
     for (GraphVertex*& t : g.edges) {
-      DFSExclusion(&g, &g, t);
+      HasCycleExclusion(&g, &g, t);
       int count = 0;
       for (GraphVertex& n : *G) {
         if (n.color == GraphVertex::black) {
@@ -82,14 +82,108 @@ bool CheckAnswer(vector<GraphVertex>* G) {
         }
       }
       if (count == G->size()) {
-        return true;
+        return false;
       }
     }
   }
-  return false;
+  return true;
+}
+
+void TestUndirectedCycle() {
+  vector<GraphVertex> G(3);
+  G[0].edges.emplace_back(&G[2]);
+  G[1].edges.emplace_back(&G[0]);
+  G[2].edges.emplace_back(&G[1]);
+  G[2].edges.emplace_back(&G[0]);
+  G[0].edges.emplace_back(&G[1]);
+  G[1].edges.emplace_back(&G[2]);
+  bool result = IsGraphMinimallyConnected(&G);
+  cout << boolalpha << result << endl;
+  assert(CheckAnswer(&G) == result);
+}
+
+void TestUndirectedStarTree() {
+  vector<GraphVertex> G(4);
+  G[0].edges.emplace_back(&G[1]);
+  G[1].edges.emplace_back(&G[0]);
+  G[0].edges.emplace_back(&G[2]);
+  G[2].edges.emplace_back(&G[0]);
+  G[0].edges.emplace_back(&G[3]);
+  G[3].edges.emplace_back(&G[0]);
+  bool result = IsGraphMinimallyConnected(&G);
+  cout << boolalpha << result << endl;
+  assert(CheckAnswer(&G) == result);
+  assert(true == result);
+}
+
+void TestUndirectedLineTree() {
+  vector<GraphVertex> G(4);
+  G[0].edges.emplace_back(&G[1]);
+  G[1].edges.emplace_back(&G[0]);
+  G[1].edges.emplace_back(&G[2]);
+  G[2].edges.emplace_back(&G[1]);
+  G[2].edges.emplace_back(&G[3]);
+  G[3].edges.emplace_back(&G[2]);
+  bool result = IsGraphMinimallyConnected(&G);
+  cout << boolalpha << result << endl;
+  assert(CheckAnswer(&G) == result);
+  assert(true == result);
+  G[1].edges.emplace_back(&G[3]);
+  G[3].edges.emplace_back(&G[1]);
+  result = IsGraphMinimallyConnected(&G);
+  assert(false == result);
+}
+
+void TestUndirectedBinaryTree() {
+  vector<GraphVertex> G(7);
+  G[0].edges.emplace_back(&G[1]);
+  G[1].edges.emplace_back(&G[0]);
+  G[0].edges.emplace_back(&G[2]);
+  G[2].edges.emplace_back(&G[0]);
+  G[1].edges.emplace_back(&G[3]);
+  G[3].edges.emplace_back(&G[1]);
+  G[1].edges.emplace_back(&G[4]);
+  G[4].edges.emplace_back(&G[1]);
+  G[2].edges.emplace_back(&G[5]);
+  G[5].edges.emplace_back(&G[2]);
+  G[2].edges.emplace_back(&G[6]);
+  G[6].edges.emplace_back(&G[2]);
+  bool result = IsGraphMinimallyConnected(&G);
+  cout << boolalpha << result << endl;
+  assert(CheckAnswer(&G) == result);
+  assert(true == result);
+  G[4].edges.emplace_back(&G[6]);
+  G[6].edges.emplace_back(&G[4]);
+  result = IsGraphMinimallyConnected(&G);
+  assert(false == result);
+}
+
+void TestUndirectedTwoSeparateCycles() {
+  vector<GraphVertex> G(6);
+  G[0].edges.emplace_back(&G[1]);
+  G[1].edges.emplace_back(&G[0]);
+  G[1].edges.emplace_back(&G[2]);
+  G[2].edges.emplace_back(&G[1]);
+  G[2].edges.emplace_back(&G[0]);
+  G[0].edges.emplace_back(&G[2]);
+  G[3].edges.emplace_back(&G[4]);
+  G[4].edges.emplace_back(&G[3]);
+  G[4].edges.emplace_back(&G[5]);
+  G[5].edges.emplace_back(&G[4]);
+  G[5].edges.emplace_back(&G[3]);
+  G[3].edges.emplace_back(&G[5]);
+  bool result = IsGraphMinimallyConnected(&G);
+  // since we just check for a cycle, result is false.
+  // this is ok, because we assume input is connected.
+  assert(false == result);
 }
 
 int main(int argc, char* argv[]) {
+  TestUndirectedCycle();
+  TestUndirectedStarTree();
+  TestUndirectedLineTree();
+  TestUndirectedBinaryTree();
+  TestUndirectedTwoSeparateCycles();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 100; ++times) {
     int n;
@@ -131,7 +225,7 @@ int main(int argc, char* argv[]) {
       cout << endl;
     }
     */
-    bool result = IsGraphTwoExist(&G);
+    bool result = IsGraphMinimallyConnected(&G);
     cout << boolalpha << result << endl;
     assert(CheckAnswer(&G) == result);
   }

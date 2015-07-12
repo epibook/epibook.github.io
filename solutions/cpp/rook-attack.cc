@@ -16,19 +16,19 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-void RookAttack(vector<vector<int>>* A) {
-  auto& A_ref = *A;
-  auto m = A_ref.size(), n = A_ref[0].size();
+void RookAttack(vector<vector<int>>* A_ptr) {
+  auto& A = *A_ptr;
+  size_t m = A.size(), n = A[0].size();
   bool has_first_row_zero = false;
   for (size_t j = 0; j < n; ++j) {
-    if (!A_ref[0][j]) {
+    if (!A[0][j]) {
       has_first_row_zero = true;
       break;
     }
   }
   bool has_first_column_zero = false;
   for (size_t i = 0; i < m; ++i) {
-    if (!A_ref[i][0]) {
+    if (!A[i][0]) {
       has_first_column_zero = true;
       break;
     }
@@ -36,36 +36,36 @@ void RookAttack(vector<vector<int>>* A) {
 
   for (size_t i = 1; i < m; ++i) {
     for (size_t j = 1; j < n; ++j) {
-      if (!A_ref[i][j]) {
-        A_ref[i][0] = A_ref[0][j] = 0;
+      if (!A[i][j]) {
+        A[i][0] = A[0][j] = 0;
       }
     }
   }
 
   for (size_t i = 1; i < m; ++i) {
-    if (!A_ref[i][0]) {
+    if (!A[i][0]) {
       for (size_t j = 1; j < n; ++j) {
-        A_ref[i][j] = 0;
+        A[i][j] = 0;
       }
     }
   }
 
   for (size_t j = 1; j < n; ++j) {
-    if (!A_ref[0][j]) {
+    if (!A[0][j]) {
       for (size_t i = 1; i < m; ++i) {
-        A_ref[i][j] = 0;
+        A[i][j] = 0;
       }
     }
   }
 
   if (has_first_row_zero) {
     for (size_t j = 0; j < n; ++j) {
-      A_ref[0][j] = 0;
+      A[0][j] = 0;
     }
   }
   if (has_first_column_zero) {
     for (size_t i = 0; i < m; ++i) {
-      A_ref[i][0] = 0;
+      A[i][0] = 0;
     }
   }
 }

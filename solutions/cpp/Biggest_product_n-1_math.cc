@@ -17,32 +17,36 @@ using std::vector;
 
 // @include
 int FindBiggestNMinusOneProduct(const vector<int>& A) {
-  int smallest_positive_idx = -1;
-  int negative_count = 0, smallest_negative_idx = -1, biggest_negative_idx = -1;
+  int least_nonnegative_idx = -1;
+  int number_of_negatives = 0, greatest_negative_idx = -1,
+      least_negative_idx = -1;
 
+  // Identify the least negative, greatest negative, and least nonnegative
+  // entries.
   for (int i = 0; i < A.size(); ++i) {
     if (A[i] < 0) {
-      ++negative_count;
-      if (biggest_negative_idx == -1 || A[biggest_negative_idx] < A[i]) {
-        biggest_negative_idx = i;
+      ++number_of_negatives;
+      if (least_negative_idx == -1 || A[least_negative_idx] < A[i]) {
+        least_negative_idx = i;
       }
-      if (smallest_negative_idx == -1 || A[i] < A[smallest_negative_idx]) {
-        smallest_negative_idx = i;
+      if (greatest_negative_idx == -1 || A[i] < A[greatest_negative_idx]) {
+        greatest_negative_idx = i;
       }
     } else {  // A[i] >= 0.
-      if (smallest_positive_idx == -1 || A[i] < A[smallest_positive_idx]) {
-        smallest_positive_idx = i;
+      if (least_nonnegative_idx == -1 || A[i] < A[least_nonnegative_idx]) {
+        least_nonnegative_idx = i;
       }
     }
   }
 
   int product = 1;
-  int target_idx = negative_count & 1
-                       ? biggest_negative_idx
-                       : (smallest_positive_idx != -1 ? smallest_positive_idx
-                                                      : smallest_negative_idx);
+  int idx_to_skip = number_of_negatives % 2
+                        ? least_negative_idx
+                        // Check if there are any nonnegative entry.
+                        : (least_nonnegative_idx != -1 ? least_nonnegative_idx
+                                                       : greatest_negative_idx);
   for (int i = 0; i < A.size(); ++i) {
-    if (i != target_idx) {
+    if (i != idx_to_skip) {
       product *= A[i];
     }
   }

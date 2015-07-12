@@ -17,7 +17,7 @@ bool CanStringBeAPalindrome(string* s) {
 
   for (int i = 1; i < s->size() && odd_count <= 1; ++i) {
     if ((*s)[i] != (*s)[i - 1]) {
-      if (num_curr_char & 1) {
+      if (num_curr_char % 2) {
         ++odd_count;
       }
       num_curr_char = 1;
@@ -25,7 +25,7 @@ bool CanStringBeAPalindrome(string* s) {
       ++num_curr_char;
     }
   }
-  if (num_curr_char & 1) {
+  if (num_curr_char % 2) {
     ++odd_count;
   }
 

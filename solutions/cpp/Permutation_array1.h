@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #ifndef SOLUTIONS_PERMUTATION_ARRAY1_H_
 #define SOLUTIONS_PERMUTATION_ARRAY1_H_
@@ -10,28 +10,36 @@ using std::vector;
 
 namespace ApplyPermutation1 {
 
+void CyclicPermutation(int, vector<int>*, vector<int>*);
+
 // @include
-void ApplyPermutation(vector<int>* perm, vector<int>* A) {
-  for (int i = 0; i < A->size(); ++i) {
-    // Check if the element at index i has already been moved
-    // by seeing if (*perm)[i] is negative.
-    if ((*perm)[i] >= 0) {
-      int a = i;
-      int temp = (*A)[i];
-      do {
-        int next_a = (*perm)[a];
-        int next_temp = (*A)[next_a];
-        (*A)[next_a] = temp;
-        // Mark a as visited by using the sign bit. Specifically,
-        // we subtract perm->size() from each entry in perm.
-        (*perm)[a] -= perm->size();
-        a = next_a, temp = next_temp;
-      } while (a != i);
+void ApplyPermutation(vector<int>* perm_ptr, vector<int>* A_ptr) {
+  vector<int> &perm = *perm_ptr, &A = *A_ptr;
+  for (int i = 0; i < A.size(); ++i) {
+    // Check if the element at index i has not been permutated
+    // by seeing if perm[i] is nonnegative.
+    if (perm[i] >= 0) {
+      CyclicPermutation(i, &perm, &A);
     }
   }
 
-  // Restore perm back.
-  for_each(perm->begin(), perm->end(), [&](int& x) { x += perm->size(); });
+  // Restore perm.
+  for_each(perm.begin(), perm.end(), [&](int& x) { x += perm.size(); });
+}
+
+void CyclicPermutation(int start, vector<int>* perm_ptr, vector<int>* A_ptr) {
+  vector<int> &perm = *perm_ptr, &A = *A_ptr;
+  int i = start;
+  int temp = A[start];
+  do {
+    int next_i = perm[i];
+    int next_temp = A[next_i];
+    A[next_i] = temp;
+    // Subtracts perm.size() from an entry in perm to make it negative, which
+    // indicates the corresponding assignment has been performed.
+    perm[i] -= perm.size();
+    i = next_i, temp = next_temp;
+  } while (i != start);
 }
 // @exclude
 

@@ -65,7 +65,7 @@ class ZippingList {
     int idx = 0, pre = 0;
     while (curr != null) {
       if (args.length <= 1) {
-        if ((idx & 1) != 0) {
+        if ((idx % 2) != 0) {
           assert(pre + curr.data == n);
         }
       }

@@ -6,20 +6,21 @@ import java.util.Random;
 
 public class PascalTriangle1 {
   // @include
-  public static List<List<Integer>> generatePascalTriangle(int n) {
-    List<List<Integer>> result = new ArrayList<>();
-    for (int i = 0; i < n; ++i) {
+  public static List<List<Integer>> generatePascalTriangle(int numRows) {
+    List<List<Integer>> pascalTriangle = new ArrayList<>();
+    for (int i = 0; i < numRows; ++i) {
       List<Integer> currRow = new ArrayList<>();
-      for (int j = 0; j < i + 1; ++j) {
-        currRow.add(1);
+      for (int j = 0; j <= i; ++j) {
+        // Set this entry to the sum of the two above adjacent entries if they
+        // exit.
+        currRow.add((0 < j && j < i)
+                        ? pascalTriangle.get(i - 1).get(j - 1) +
+                              pascalTriangle.get(i - 1).get(j)
+                        : 1);
       }
-      for (int j = 1; j < i; ++j) {
-        // Set this entry to the sum of the two above adjacent entries.
-        currRow.set(j, result.get(i - 1).get(j - 1) + result.get(i - 1).get(j));
-      }
-      result.add(currRow);
+      pascalTriangle.add(currRow);
     }
-    return result;
+    return pascalTriangle;
   }
   // @exclude
 

@@ -3,6 +3,7 @@ package com.epi;
 import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RebuildBSTPreorder {
@@ -48,13 +49,7 @@ public class RebuildBSTPreorder {
     // 1 4 6
     // should output 1, 2, 3, 4, 5, 6
     // preorder [3, 2, 1, 5, 4, 6]
-    List<Integer> preorder = new ArrayList<>();
-    preorder.add(3);
-    preorder.add(2);
-    preorder.add(1);
-    preorder.add(5);
-    preorder.add(4);
-    preorder.add(6);
+    List<Integer> preorder = Arrays.asList(3, 2, 1, 5, 4, 6);
     BSTNode<Integer> tree = rebuildBSTFromPreorder(preorder);
     checkAns(tree, Integer.MIN_VALUE);
   }

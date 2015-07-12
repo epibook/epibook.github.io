@@ -9,7 +9,7 @@ public class S2 extends SpellCheckService {
     String [] result  = null;
     synchronized (S2.class) {
       if (w.equals(wLast)) {
-        result = Arrays.copyOf(closestToLastWord, closestToLastWord.length);
+        result = closestToLastWord;
       }
     }
     if (result == null) {

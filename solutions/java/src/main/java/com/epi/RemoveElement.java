@@ -6,20 +6,21 @@ import java.util.Random;
 
 public class RemoveElement {
   // @include
-  public static int removeElement(int k, int[] A) {
+  // Returns the number of valid entries after deletion.
+  public static int deleteKey(int key, List<Integer> A) {
     int writeIdx = 0;
-    for (int i = 0; i < A.length; ++i) {
-      if (A[i] != k) {
-        A[writeIdx++] = A[i];
+    for (int i = 0; i < A.size(); ++i) {
+      if (A.get(i) != key) {
+        A.set(writeIdx++, A.get(i));
       }
     }
     return writeIdx;
   }
   // @exclude
 
-  private static void checkAns(int[] A, int n, int k) {
+  private static void checkAns(List<Integer> A, int n, int key) {
     for (int i = 0; i < n; ++i) {
-      assert(A[i] != k);
+      assert(A.get(i) != key);
     }
   }
 
@@ -32,20 +33,17 @@ public class RemoveElement {
       n = r.nextInt(10001);
     }
     for (int times = 0; times < 1000; ++times) {
-      int[] A = new int[n];
+      List<Integer> A = new ArrayList<>();
       for (int i = 0; i < n; i++) {
-        A[i] = r.nextInt(2001) - 1000;
+        A.add(r.nextInt(2001) - 1000);
       }
-      List<Integer> copyA = new ArrayList<>();
-      for (int a : A) {
-        copyA.add(a);
-      }
+      List<Integer> copyA = new ArrayList<>(A);
       int target = r.nextInt(2001) - 1000;
-      int size = removeElement(target, A);
-      System.out.println("size = " + size + " k = " + target);
+      int size = deleteKey(target, A);
+      System.out.println("size = " + size + " key = " + target);
       checkAns(A, size, target);
-      while (copyA.remove((Integer)target))
-        ;
+      while (copyA.remove((Integer)target)) {
+      }
       System.out.println(copyA.size());
       assert(size == copyA.size());
     }

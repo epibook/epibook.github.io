@@ -6,8 +6,8 @@ public class Rearrange {
   // @include
   public static void rearrange(int[] A) {
     for (int i = 1; i < A.length; ++i) {
-      if (((i & 1) == 0 && A[i - 1] < A[i]) ||
-          ((i & 1) == 1 && A[i - 1] > A[i])) {
+      if (((i % 2) == 0 && A[i - 1] < A[i]) ||
+          ((i % 2) == 1 && A[i - 1] > A[i])) {
         Integer temp = A[i - 1];
         A[i - 1] = A[i];
         A[i] = temp;
@@ -18,7 +18,7 @@ public class Rearrange {
 
   private static void checkAnswer(int[] A) {
     for (int i = 0; i < A.length; ++i) {
-      if ((i & 1) != 0) {
+      if ((i % 2) != 0) {
         assert(A[i] >= A[i - 1]);
         if (i < A.length - 1) {
           assert(A[i] >= A[i + 1]);

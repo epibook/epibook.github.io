@@ -71,10 +71,8 @@ int main(int argc, char* argv[]) {
       uniform_int_distribution<int> n_dis(2, 10000);
       n = n_dis(gen);
     }
-    vector<int> A;
-    for (int i = 0; i < n; ++i) {
-      A.emplace_back(i);
-    }
+    vector<int> A(n);
+    iota(A.begin(), A.end(), 0);
     uniform_int_distribution<int> dis(0, n - 1);
     int missing_idx = dis(gen);
     int missing = A[missing_idx];

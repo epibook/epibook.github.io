@@ -16,7 +16,7 @@ long TiesElection(const vector<int>& V) {
   int total_votes = accumulate(V.cbegin(), V.cend(), 0);
 
   // No way to tie if the total number of votes is odd.
-  if (total_votes & 1) {
+  if (total_votes % 2) {
     return 0;
   }
 

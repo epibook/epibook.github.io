@@ -1,28 +1,25 @@
 package com.epi;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
-
-import static com.epi.utils.Utils.swap;
 
 public class OfflineSampling {
   // @include
-  public static int[] offlineSampling(int[] A, int k) {
+  public static void randomSampling(int k, List<Integer> A) {
     Random gen = new Random();
     for (int i = 0; i < k; ++i) {
-      // Generate a random int in [i, A.length - 1].
-      swap(A, i, gen.nextInt(A.length - 1));
+      // Generate a random int in [i, A.size() - 1].
+      Collections.swap(A, i, i + gen.nextInt(A.size() - i - 1));
     }
-    int[] ans = Arrays.copyOf(A, k);
-    return ans;
   }
   // @exclude
 
   public static void main(String[] args) {
     int n, k;
     Random gen = new Random();
-    int[] A;
-
     if (args.length == 1) {
       n = Integer.valueOf(args[0]);
       k = gen.nextInt(n) + 1;
@@ -34,18 +31,12 @@ public class OfflineSampling {
       k = gen.nextInt(n) + 1;
     }
 
-    A = new int[n];
+    List<Integer> A = new ArrayList<>();
     for (int i = 0; i < n; ++i) {
-      A[i] = i;
+      A.add(i);
     }
     System.out.println(n + " " + k);
 
-    int[] ans = offlineSampling(A, k);
-
-    assert ans.length == k;
-    for (int a : ans) {
-      System.out.print(a + " ");
-    }
-    System.out.println();
+    randomSampling(k, A);
   }
 }

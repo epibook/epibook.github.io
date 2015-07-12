@@ -113,32 +113,6 @@ public class Utils {
     }
   }
 
-  /**
-   * Returns index of the first element in <code>list</code> which compares
-   * greater than <code>d</code>. Index is based on the order given by
-   * list.iterator().
-   *
-   * @param list
-   * @param d
-   * @return
-   */
-  public static <T> int upperBound(Collection<? extends Comparable<T>> list,
-                                   T d) {
-    if (list == null || list.isEmpty()) {
-      return -1;
-    }
-
-    int index = 0;
-    for (Comparable<T> elem : list) {
-      if (elem.compareTo(d) > 0) {
-        return index;
-      }
-      index++;
-    }
-
-    return -1;
-  }
-
   public static <T> void partialSum(Iterator<T> listIter,
                                     ListIterator<T> targetIter,
                                     BinaryOperator<T> op) {

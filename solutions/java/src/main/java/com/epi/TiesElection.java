@@ -14,7 +14,7 @@ public class TiesElection {
     }
 
     // No way to tie if the total number of votes is odd.
-    if ((totalVotes & 1) != 0) {
+    if ((totalVotes % 2) != 0) {
       return 0;
     }
 

@@ -64,7 +64,7 @@ public class WordBreaking {
     dictionary.add("hand");
     dictionary.add("beyond");
     List<String> ans = wordBreaking("bedbathandbeyond", dictionary);
-    List<Integer> goldenAns = Arrays.asList("bed", "bath", "and", "beyond");
+    List<String> goldenAns = Arrays.asList("bed", "bath", "and", "beyond");
     assert(ans.equals(goldenAns));
   }
 

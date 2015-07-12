@@ -1,32 +1,38 @@
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
-import com.epi.utils.BinaryOperators;
-import com.epi.utils.Utils;
-
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Random;
 
-import static com.epi.utils.Utils.*;
-
 public class NonUniformRandomNumberGeneration {
   // @include
-  public static double nonuniformRandomNumberGeneration(List<Double> T,
-                                                        List<Double> P) {
-    List<Double> prefixP = new ArrayList<>();
-    Utils.fill(prefixP, P.size() + 1, 0D);
-    ListIterator<Double> iter = prefixP.listIterator();
-    iter.next();
-    partialSum(P.iterator(), iter, BinaryOperators.ADD);
-    Random gen = new Random();
+  public static int nonuniformRandomNumberGeneration(List<Integer> values,
+                                                     List<Double> probabilities) {
+    List<Double> prefixSumOfProbabilities = new ArrayList<>();
+    prefixSumOfProbabilities.add(0.0);
+    // Creating the endpoints for the intervals corresponding to the
+    // probabilities.
+    for (double p : probabilities) {
+      prefixSumOfProbabilities.add(
+          prefixSumOfProbabilities.get(prefixSumOfProbabilities.size() - 1) + p);
+    }
 
-    // upperBound returns an iterator pointing to the first element in
-    // (prefixP.cbegin(),prefixP.cend()) which compares greater than
-    // gen.nextDouble()
-    // which is a uniform random number in [0.0,1.0).
-    int it = upperBound(prefixP, gen.nextDouble());
-    return T.get(it - 1);
+    Random uniform01 = new Random();
+    // Find the index of the interval that uniform01 lies in.
+    int intervalIdx =
+        Math.abs(Collections.binarySearch(
+            prefixSumOfProbabilities, uniform01.nextDouble(), new Compare())) -
+        2;
+    return values.get(intervalIdx);
+  }
+
+  private static class Compare implements Comparator<Double> {
+    public int compare(Double x, Double y) { return x > y ? 1 : -1; }
   }
   // @exclude
 
@@ -38,8 +44,10 @@ public class NonUniformRandomNumberGeneration {
     } else {
       n = gen.nextInt(50) + 1;
     }
-    List<Double> T = new ArrayList<>(n);
-    iota(T, n, 0);
+    List<Integer> T = new ArrayList<>(n);
+    for (int i = 0; i < n; ++i) {
+      T.add(i);
+    }
     List<Double> P = new ArrayList<>();
     double fullProb = 1.0;
     for (int i = 0; i < n - 1; ++i) {
@@ -49,11 +57,9 @@ public class NonUniformRandomNumberGeneration {
     }
     P.add(fullProb);
 
-    simplePrint(T);
-    System.out.println();
+    System.out.println(T);
 
-    simplePrint(P);
-    System.out.println();
+    System.out.println(P);
 
     System.out.println(nonuniformRandomNumberGeneration(T, P));
     // Test. Perform the nonuniform random number generation for n * kTimes
@@ -62,8 +68,8 @@ public class NonUniformRandomNumberGeneration {
     int kTimes = 100000;
     int[] counts = new int[n];
     for (int i = 0; i < n * kTimes; ++i) {
-      double t = nonuniformRandomNumberGeneration(T, P);
-      ++counts[(int)t];
+      int t = nonuniformRandomNumberGeneration(T, P);
+      ++counts[t];
     }
     for (int i = 0; i < n; ++i) {
       System.out.println((double)(counts[i]) / (n * kTimes) + " " + P.get(i));

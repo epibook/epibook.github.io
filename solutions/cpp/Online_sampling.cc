@@ -16,39 +16,43 @@ using std::unordered_map;
 using std::vector;
 
 // @include
-vector<int> OnlineSampling(int n, int k) {
-  unordered_map<int, int> H;
-  default_random_engine gen((random_device())());  // Random num generator.
+// Returns a random k-sized subset of {0, 1, ..., n - 1}.
+vector<int> RandomSubset(int n, int k) {
+  unordered_map<int, int> changed_elements;
+  default_random_engine seed((random_device())());  // Random num generator.
   for (int i = 0; i < k; ++i) {
-    // Generate a random int in [0, n - 1 - i].
-    uniform_int_distribution<int> dis(0, n - 1 - i);
-    int r = dis(gen);
-    auto ptr1 = H.find(r), ptr2 = H.find(n - 1 - i);
-    if (ptr1 == H.end() && ptr2 == H.end()) {
-      H[r] = n - 1 - i;
-      H[n - 1 - i] = r;
-    } else if (ptr1 == H.end() && ptr2 != H.end()) {
-      H[r] = ptr2->second;
-      ptr2->second = r;
-    } else if (ptr1 != H.end() && ptr2 == H.end()) {
-      H[n - 1 - i] = ptr1->second;
-      ptr1->second = n - 1 - i;
+    // Generate a random index in [i, n - 1].
+    uniform_int_distribution<int> rand_idx_gen(i, n - 1);
+    int rand_idx = rand_idx_gen(seed);
+    auto ptr1 = changed_elements.find(rand_idx),
+         ptr2 = changed_elements.find(i);
+    if (ptr1 == changed_elements.end() && ptr2 == changed_elements.end()) {
+      changed_elements[rand_idx] = i;
+      changed_elements[i] = rand_idx;
+    } else if (ptr1 == changed_elements.end() &&
+               ptr2 != changed_elements.end()) {
+      changed_elements[rand_idx] = ptr2->second;
+      ptr2->second = rand_idx;
+    } else if (ptr1 != changed_elements.end() &&
+               ptr2 == changed_elements.end()) {
+      changed_elements[i] = ptr1->second;
+      ptr1->second = i;
     } else {
       int temp = ptr2->second;
-      H[n - 1 - i] = ptr1->second;
-      H[r] = temp;
+      changed_elements[i] = ptr1->second;
+      changed_elements[rand_idx] = temp;
     }
   }
 
-  vector<int> res;
+  vector<int> result;
   for (int i = 0; i < k; ++i) {
-    res.emplace_back(H[n - 1 - i]);
+    result.emplace_back(changed_elements[i]);
   }
-  return res;
+  return result;
 }
 // @exclude
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   default_random_engine gen((random_device())());
   int n, k;
   if (argc == 2) {
@@ -65,8 +69,8 @@ int main(int argc, char* argv[]) {
     k = k_dis(gen);
   }
   cout << "n = " << n << " k = " << k << endl;
-  for (int i = 0; i < 6; ++i) {
-    vector<int> res = OnlineSampling(n, k);
+  for (int i = 0; i < 100; ++i) {
+    vector<int> res = RandomSubset(n, k);
     cout << "result = ";
     copy(res.begin(), res.end(), ostream_iterator<int>(cout, " "));
     cout << endl;
