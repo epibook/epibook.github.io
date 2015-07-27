@@ -18,19 +18,17 @@ public class MatrixRotationNaive {
 
   // @include
   public static void rotateMatrix(List<List<Integer>> squareMatrix) {
+    final int MATRIX_SIZE = squareMatrix.size() - 1;
     for (int i = 0; i < (squareMatrix.size() / 2); ++i) {
-      for (int j = i; j < squareMatrix.size() - i - 1; ++j) {
+      for (int j = i; j < MATRIX_SIZE - i; ++j) {
         // Perform a 4-way exchange.
         int temp = squareMatrix.get(i).get(j);
-        squareMatrix.get(i)
-            .set(j, squareMatrix.get(squareMatrix.size() - 1 - j).get(i));
-        squareMatrix.get(squareMatrix.size() - 1 - j)
-            .set(i, squareMatrix.get(squareMatrix.size() - 1 - i)
-                        .get(squareMatrix.size() - 1 - j));
-        squareMatrix.get(squareMatrix.size() - 1 - i)
-            .set(squareMatrix.size() - 1 - j,
-                 squareMatrix.get(j).get(squareMatrix.size() - 1 - i));
-        squareMatrix.get(j).set(squareMatrix.size() - 1 - i, temp);
+        squareMatrix.get(i).set(j, squareMatrix.get(MATRIX_SIZE - j).get(i));
+        squareMatrix.get(MATRIX_SIZE - j)
+            .set(i, squareMatrix.get(MATRIX_SIZE - i).get(MATRIX_SIZE - j));
+        squareMatrix.get(MATRIX_SIZE - i)
+            .set(MATRIX_SIZE - j, squareMatrix.get(j).get(MATRIX_SIZE - i));
+        squareMatrix.get(j).set(MATRIX_SIZE - i, temp);
       }
     }
   }

@@ -16,18 +16,19 @@ class BinaryTreeNode {
   bool IsLocked() const { return locked_; }
 
   bool Lock() {
+    // We cannot lock if any of this node's descendents are locked.
     if (numLockedDescendants_ > 0 || locked_) {
       return false;
     }
 
-    // Tests if any of ancestors are not locked.
+    // We cannot lock if any of this node's ancestors are locked.
     for (auto iter = parent_; iter != nullptr; iter = iter->parent_) {
       if (iter->locked_) {
         return false;
       }
     }
 
-    // Locks itself and increments its ancestors's lock counts.
+    // Lock this node and increments all its ancestors's descendent lock counts.
     locked_ = true;
     for (auto iter = parent_; iter != nullptr; iter = iter->parent_) {
       ++iter->numLockedDescendants_;
@@ -37,7 +38,7 @@ class BinaryTreeNode {
 
   void Unlock() {
     if (locked_) {
-      // Unlocks itself and decrements its ancestors's lock counts.
+      // Unlocks itself and decrements its ancestors's descendent lock counts.
       locked_ = false;
       for (auto iter = parent_; iter != nullptr; iter = iter->parent_) {
         --iter->numLockedDescendants_;
@@ -70,21 +71,30 @@ int main(int argc, char* argv[]) {
   root->left()->left()->parent() = root->left();
   root->left()->right() = make_shared<BinaryTreeNode>(BinaryTreeNode());
   root->left()->right()->parent() = root->left();
-  // Should output false.
+
   assert(!root->IsLocked());
   cout << boolalpha << root->IsLocked() << endl;
+
   assert(root->Lock());
-  // Should output true.
   assert(root->IsLocked());
   cout << boolalpha << root->IsLocked() << endl;
+  assert(!root->left()->Lock());
+  assert(!root->left()->IsLocked());
+  assert(!root->right()->Lock());
+  assert(!root->right()->IsLocked());
+  assert(!root->left()->left()->Lock());
+  assert(!root->left()->left()->IsLocked());
+  assert(!root->left()->right()->Lock());
+  assert(!root->left()->right()->IsLocked());
+
   root->Unlock();
   assert(root->left()->Lock());
   assert(!root->Lock());
-  // Should output false.
+  assert(!root->left()->left()->Lock());
   assert(!root->IsLocked());
+
   cout << boolalpha << root->IsLocked() << endl;
   assert(root->right()->Lock());
-  // Should output true.
   assert(root->right()->IsLocked());
   cout << boolalpha << root->right()->IsLocked() << endl;
   return 0;

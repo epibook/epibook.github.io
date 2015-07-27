@@ -8,6 +8,7 @@
 using std::unique_ptr;
 
 // @include
+// Input nodes are not nonempty and the key at s is less than or equal to that at b.
 BSTNode<int>* FindLCA(const unique_ptr<BSTNode<int>>& tree,
                       const unique_ptr<BSTNode<int>>& s,
                       const unique_ptr<BSTNode<int>>& b) {
@@ -40,5 +41,6 @@ int main(int argc, char* argv[]) {
   assert(3 == FindLCA(tree, tree->left->left, tree->right->left)->data);
   assert(5 == FindLCA(tree, tree->right->left, tree->right->right)->data);
   assert(2 == FindLCA(tree, tree->left->left, tree->left)->data);
+  assert(3 == FindLCA(tree, tree->left->left, tree->right)->data);
   return 0;
 }

@@ -24,9 +24,14 @@ public class SquareRootInt {
   public static void main(String[] args) {
     assert(squareRoot(0) == 0);
     assert(squareRoot(1) == 1);
+    assert(squareRoot(2) == 1);
+    assert(squareRoot(3) == 1);
+    assert(squareRoot(4) == 2);
+    assert(squareRoot(7) == 2);
     assert(squareRoot(121) == 11);
     assert(squareRoot(64) == 8);
     assert(squareRoot(300) == 17);
+    assert(squareRoot(Integer.MAX_VALUE) == 46340);
     int x;
     if (args.length == 1) {
       x = Integer.parseInt(args[0]);

@@ -23,6 +23,7 @@ double BuyAndSellStockTwice(const vector<double>& prices) {
   double max_total_profit = 0;
   vector<double> first_buy_sell_profits(prices.size(), 0);
   double min_price_so_far = numeric_limits<double>::max();
+
   // Forward phase. For each day, we record maximum profit if we
   // sell on that day.
   for (int i = 0; i < prices.size(); ++i) {
@@ -30,6 +31,7 @@ double BuyAndSellStockTwice(const vector<double>& prices) {
     max_total_profit = max(max_total_profit, prices[i] - min_price_so_far);
     first_buy_sell_profits[i] = max_total_profit;
   }
+
   // Backward phase. For each day, find the maximum profit if we make
   // the second buy on that day.
   double max_price_so_far = numeric_limits<double>::min();

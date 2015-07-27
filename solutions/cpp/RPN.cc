@@ -53,5 +53,6 @@ int main(int argc, char* argv[]) {
   assert(12 == Eval("10,2,+"));
   assert(15 == Eval("1,2,+,3,4,*,+"));
   assert(42 == Eval("1,2,3,4,5,+,*,+,+,3,4,*,+"));
+  assert(-6 == Eval("1,2,3,4,5,+,*,+,+,3,4,*,+,-7,/"));
   return 0;
 }

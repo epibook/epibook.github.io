@@ -1,11 +1,11 @@
 package com.epi;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class SearchMaze {
   public static class Coordinate {
     public int x, y;
@@ -43,20 +43,20 @@ public class SearchMaze {
   }
 
   // @include
-  public static LinkedList<Coordinate> searchMaze(int[][] maze, Coordinate s,
-                                                  Coordinate e) {
+  public static LinkedList<Coordinate> searchMaze(List<List<Integer>> maze,
+                                                  Coordinate s, Coordinate e) {
     LinkedList<Coordinate> path = new LinkedList<>();
-    maze[s.x][s.y] = 1;
+    maze.get(s.x).set(s.y, 1);
     path.addFirst(s);
     if (!searchMazeHelper(maze, s, e, path)) {
       path.removeLast();
     }
-    return path; // empty path means no path between s and e.
+    return path; // Empty path means no path between s and e.
   }
 
   // Performs DFS to find a feasible path.
-  private static boolean searchMazeHelper(int[][] maze, Coordinate cur,
-                                          Coordinate e,
+  private static boolean searchMazeHelper(List<List<Integer>> maze,
+                                          Coordinate cur, Coordinate e,
                                           LinkedList<Coordinate> path) {
     if (cur.equals(e)) {
       return true;
@@ -69,7 +69,7 @@ public class SearchMaze {
     for (List<Integer> s : shift) {
       Coordinate next = new Coordinate(cur.x + s.get(0), cur.y + s.get(1));
       if (isFeasible(next, maze)) {
-        maze[next.x][next.y] = 1;
+        maze.get(next.x).set(next.y, 1);
         path.addLast(next);
         if (searchMazeHelper(maze, next, e, path)) {
           return true;
@@ -81,9 +81,9 @@ public class SearchMaze {
   }
 
   // Checks cur is within maze and is a white pixel.
-  private static boolean isFeasible(Coordinate cur, int[][] maze) {
-    return cur.x >= 0 && cur.x < maze.length && cur.y >= 0 &&
-        cur.y < maze[cur.x].length && maze[cur.x][cur.y] == 0;
+  private static boolean isFeasible(Coordinate cur, List<List<Integer>> maze) {
+    return cur.x >= 0 && cur.x < maze.size() && cur.y >= 0 &&
+        cur.y < maze.get(cur.x).size() && maze.get(cur.x).get(cur.y) == 0;
   }
   // @exclude
 
@@ -98,19 +98,20 @@ public class SearchMaze {
         n = r.nextInt(30) + 1;
         m = r.nextInt(30) + 1;
       }
-      int[][] maze = new int[n][m];
+      List<List<Integer>> maze = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
+        maze.add(new ArrayList(m));
         for (int j = 0; j < m; ++j) {
-          maze[i][j] = r.nextInt(2);
+          maze.get(i).add(r.nextInt(2));
         }
       }
       List<Coordinate> white = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
-          if (maze[i][j] == 0) {
+          if (maze.get(i).get(j) == 0) {
             white.add(new Coordinate(i, j));
           }
-          System.out.print(maze[i][j] + " ");
+          System.out.print(maze.get(i).get(j) + " ");
         }
         System.out.println();
       }

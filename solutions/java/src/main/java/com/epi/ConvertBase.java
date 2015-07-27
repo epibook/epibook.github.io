@@ -15,9 +15,9 @@ public class ConvertBase {
 
     StringBuilder result = new StringBuilder();
     do {
-      int reminder = x % b2;
+      int remainder = x % b2;
       result.append(
-          (char)(reminder >= 10 ? 'A' + reminder - 10 : '0' + reminder));
+          (char)(remainder >= 10 ? 'A' + remainder - 10 : '0' + remainder));
       x /= b2;
     } while (x != 0);
 

@@ -1,10 +1,10 @@
 package com.epi;
 
-import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
+import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 public class SearchMinFirstBST {
   // @include
-  public static boolean searchMinFirstBST(BSTNode<Integer> minFirstBST,
+  public static boolean searchMinFirstBST(BinaryTreeNode<Integer> minFirstBST,
                                           Integer k) {
     // First handle the base cases.
     if (minFirstBST == null || minFirstBST.getData().compareTo(k) > 0) {
@@ -28,12 +28,12 @@ public class SearchMinFirstBST {
     // 1
     // 2 4
     // 3 5 7
-    BSTNode<Integer> tree = new BSTNode<>(1);
-    tree.setLeft(new BSTNode<>(2));
-    tree.getLeft().setLeft(new BSTNode<>(3));
-    tree.setRight(new BSTNode<>(4));
-    tree.getRight().setLeft(new BSTNode<>(5));
-    tree.getRight().setRight(new BSTNode<>(7));
+    BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(1);
+    tree.setLeft(new BinaryTreeNode<>(2));
+    tree.getLeft().setLeft(new BinaryTreeNode<>(3));
+    tree.setRight(new BinaryTreeNode<>(4));
+    tree.getRight().setLeft(new BinaryTreeNode<>(5));
+    tree.getRight().setRight(new BinaryTreeNode<>(7));
     assert(searchMinFirstBST(tree, 1));
     assert(searchMinFirstBST(tree, 3));
     assert(searchMinFirstBST(tree, 5));

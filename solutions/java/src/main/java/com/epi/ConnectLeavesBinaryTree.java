@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ConnectLeavesBinaryTree {
   // @include
-  public static List<BinaryTreeNode<Integer>> connectLeaves(
+  public static List<BinaryTreeNode<Integer>> createListOfLeaves(
       BinaryTreeNode<Integer> tree) {
     List<BinaryTreeNode<Integer>> leaves = new LinkedList<>();
     if (tree != null) {
@@ -15,8 +15,8 @@ public class ConnectLeavesBinaryTree {
         leaves.add(tree);
       } else {
         // First do the left subtree, and then do the right subtree.
-        leaves.addAll(connectLeaves(tree.getLeft()));
-        leaves.addAll(connectLeaves(tree.getRight()));
+        leaves.addAll(createListOfLeaves(tree.getLeft()));
+        leaves.addAll(createListOfLeaves(tree.getRight()));
       }
     }
     return leaves;
@@ -29,12 +29,16 @@ public class ConnectLeavesBinaryTree {
     // 1 4 6
     BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(3, null, null);
     tree.setLeft(new BinaryTreeNode<>(2, null, null));
+    List<BinaryTreeNode<Integer>> L = createListOfLeaves(tree);
+    assert(L.size() == 1);
+    assert(L.get(0).getData().equals(2));
+
     tree.getLeft().setLeft(new BinaryTreeNode<>(1, null, null));
     tree.setRight(new BinaryTreeNode<>(5, null, null));
     tree.getRight().setLeft(new BinaryTreeNode<>(4, null, null));
     tree.getRight().setRight(new BinaryTreeNode<>(6, null, null));
     // should output 1, 4, 6
-    List<BinaryTreeNode<Integer>> L = connectLeaves(tree);
+    L = createListOfLeaves(tree);
     for (BinaryTreeNode<Integer> l : L) {
       System.out.println(l.getData());
     }

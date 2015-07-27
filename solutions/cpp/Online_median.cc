@@ -43,9 +43,9 @@ void OnlineMedian(istringstream* sequence) {
         max_heap.emplace(x);
       }
     }
-    // Ensure min_heap and max_heap should have equal number of elements
-    // if even number of elements are read, otherwise, min_heap should have
-    // one more element.
+    // Ensure min_heap and max_heap have equal number of elements if
+    // an even number of elements is read; otherwise, min_heap must have
+    // one more element than max_heap.
     if (min_heap.size() > max_heap.size() + 1) {
       max_heap.emplace(min_heap.top());
       min_heap.pop();
@@ -84,6 +84,13 @@ void SmallTest() {
   istringstream sequence2("1 0 3 5 2 0 1");
   OnlineMedian(&sequence2);
   golden = {1, 0.5, 1, 2, 2, 1.5, 1};
+  assert(golden.size() == global_result.size() &&
+         equal(golden.begin(), golden.end(), global_result.begin()));
+
+  global_result.clear();
+  istringstream sequence3("-1");
+  OnlineMedian(&sequence3);
+  golden = {-1.0};
   assert(golden.size() == global_result.size() &&
          equal(golden.begin(), golden.end(), global_result.begin()));
 }

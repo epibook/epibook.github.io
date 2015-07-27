@@ -36,7 +36,15 @@ vector<vector<int>> GeneratePascalTriangle(int num_rows) {
 }
 // @exclude
 
+void SmallTest() {
+  auto result = GeneratePascalTriangle(3);
+  vector<vector<int>> golden_result = {{1}, {1, 1}, {1, 2, 1}};
+  assert(result.size() == golden_result.size() &&
+         equal(result.begin(), result.end(), golden_result.begin()));
+}
+
 int main(int argc, char** argv) {
+  SmallTest();
   default_random_engine gen((random_device())());
   int n;
   if (argc == 2) {

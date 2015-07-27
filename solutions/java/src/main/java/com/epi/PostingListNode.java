@@ -1,8 +1,5 @@
 package com.epi;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class PostingListNode {
   private int order;
   private PostingListNode next, jump;

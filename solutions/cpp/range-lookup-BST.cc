@@ -77,5 +77,18 @@ int main(int argc, char* argv[]) {
   sort(result.begin(), result.end());
   vector<int> golden_result = {17, 19, 23, 29, 31};
   assert(EqualVector(result, golden_result));
+
+  result = RangeLookupInBST(tree, {38, 39});
+  assert (0 == result.size());
+
+  result = RangeLookupInBST(tree, {38,42});
+  assert((1 == result.size()) && (41 == result[0]));
+    
+  result = RangeLookupInBST(tree, {-1,1});
+  assert(0 == result.size());                  
+                                                 
+  result = RangeLookupInBST(tree, {INT_MAX-1, INT_MAX});
+  assert(0 == result.size()); 
+
   return 0;
 }

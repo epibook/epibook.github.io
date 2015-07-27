@@ -7,11 +7,11 @@ public class MultiplyShiftAdd {
   public static long multiply(long x, long y) {
     long sum = 0;
     while (x != 0) {
-      // Examines the lg(k)-th bit of x.
-      if (x % 2 != 0) {
+      // Examines each bit of x.
+      if ((x & 1) != 0) {
         sum = add(sum, y);
       }
-      x >>= 1;
+      x >>>= 1;
       y <<= 1;
     }
     return sum;
@@ -25,8 +25,8 @@ public class MultiplyShiftAdd {
       sum |= (ak ^ bk ^ carryin);
       carryin = carryout << 1;
       k <<= 1;
-      tempA >>= 1;
-      tempB >>= 1;
+      tempA >>>= 1;
+      tempB >>>= 1;
     }
     return sum | carryin;
   }

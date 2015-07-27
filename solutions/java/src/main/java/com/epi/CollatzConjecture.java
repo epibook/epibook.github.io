@@ -28,7 +28,7 @@ public class CollatzConjecture {
           }
           long nextTestI = 3 * testI + 1; // Multiply by 3 and add 1.
           if (nextTestI <= testI) {
-            throw new RuntimeException("Collatz sequence overflow for " + i);
+            throw new ArithmeticException("Collatz sequence overflow for " + i);
           }
           testI = nextTestI;
         } else {

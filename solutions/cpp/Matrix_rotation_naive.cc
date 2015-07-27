@@ -36,18 +36,17 @@ void CheckAnswer(const vector<vector<int>>& A) {
 // @include
 void RotateMatrix(vector<vector<int>>* square_matrix_ptr) {
   vector<vector<int>>& square_matrix = *square_matrix_ptr;
+  const int kMatrixSize = square_matrix.size() - 1;
   for (int i = 0; i < (square_matrix.size() / 2); ++i) {
-    for (int j = i; j < square_matrix.size() - 1 - i; ++j) {
+    for (int j = i; j < kMatrixSize - i; ++j) {
       // Perform a 4-way exchange.
       int temp = square_matrix[i][j];
-      square_matrix[i][j] = square_matrix[square_matrix.size() - 1 - j][i];
-      square_matrix[square_matrix.size() - 1 - j][i] =
-          square_matrix[square_matrix.size() - 1 - i][square_matrix.size() - 1 -
-                                                      j];
-      square_matrix[square_matrix.size() - 1 - i][square_matrix.size() - 1 -
-                                                  j] =
-          square_matrix[j][square_matrix.size() - 1 - i];
-      square_matrix[j][square_matrix.size() - 1 - i] = temp;
+      square_matrix[i][j] = square_matrix[kMatrixSize - j][i];
+      square_matrix[kMatrixSize - j][i] =
+          square_matrix[kMatrixSize - i][kMatrixSize - j];
+      square_matrix[kMatrixSize - i][kMatrixSize - j] =
+          square_matrix[j][kMatrixSize - i];
+      square_matrix[j][kMatrixSize - i] = temp;
     }
   }
 }

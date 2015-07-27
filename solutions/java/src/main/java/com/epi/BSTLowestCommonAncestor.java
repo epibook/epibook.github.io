@@ -4,6 +4,7 @@ import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
 public class BSTLowestCommonAncestor {
   // @include
+  // Input nodes are not null and the key at s is less than or equal to that at b.
   public static BSTNode<Integer> findLCA(BSTNode<Integer> tree,
                                          BSTNode<Integer> s, BSTNode<Integer> b) {
     BSTNode<Integer> p = tree;
@@ -17,7 +18,7 @@ public class BSTLowestCommonAncestor {
       }
     }
 
-    // s.getData() >= p.getData() && p.getData() <= b.getData().
+    // Now, s.getData() >= p.getData() && p.getData() <= b.getData().
     return p;
   }
   // @exclude
@@ -40,5 +41,8 @@ public class BSTLowestCommonAncestor {
                .getData());
     assert(2 ==
            findLCA(tree, tree.getLeft().getLeft(), tree.getLeft()).getData());
+    assert(3 ==
+           findLCA(tree, tree.getLeft().getLeft(), tree.getRight()).getData());
   }
+
 }

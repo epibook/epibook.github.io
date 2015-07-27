@@ -1,43 +1,51 @@
 package com.epi;
 
 import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
-import com.epi.utils.Pair;
 
 public class KBalancedBinaryTree {
   // @include
-  public static BinaryTreeNode<Integer> findKUnBalancedNode(
-      BinaryTreeNode<Integer> tree, int k) {
-    return findKUnBalancedNodeHelper(tree, k).getFirst();
+
+  private static class TreeWithSize {
+    public BinaryTreeNode<Integer> root;
+    public Integer size;
+
+    public TreeWithSize(BinaryTreeNode<Integer> root, Integer size) {
+      this.root = root;
+      this.size = size;
+    }
   }
 
-  // If there is any k-unbalanced node in tree, the first value of the return
-  // value is a k-unbalanced node; otherwise, null.  If the first is not null,
-  // the second value of the return value is the number of nodes in tree.
-  private static Pair<BinaryTreeNode<Integer>, Integer> findKUnBalancedNodeHelper(
+  public static BinaryTreeNode<Integer> findKUnBalancedNode(
+      BinaryTreeNode<Integer> tree, int k) {
+    return findKUnBalancedNodeHelper(tree, k).root;
+  }
+
+  // If there is any k-unbalanced node in tree, the root field is
+  // a k-unbalanced node; otherwise, it is null.  If the root is
+  // not null, the size field is the number of nodes in tree.
+  private static TreeWithSize findKUnBalancedNodeHelper(
       BinaryTreeNode<Integer> tree, int k) {
     if (tree == null) {
-      return new Pair<>(null, 0); // Base case.
+      return new TreeWithSize(null, 0); // Base case.
     }
 
     // Early return if left subtree is not k-balanced.
-    Pair<BinaryTreeNode<Integer>, Integer> leftResult =
-        findKUnBalancedNodeHelper(tree.getLeft(), k);
-    if (leftResult.getFirst() != null) {
-      return new Pair<>(leftResult.getFirst(), 0);
+    TreeWithSize leftResult = findKUnBalancedNodeHelper(tree.getLeft(), k);
+    if (leftResult.root != null) {
+      return new TreeWithSize(leftResult.root, 0);
     }
     // Early return if right subtree is not k-balanced.
-    Pair<BinaryTreeNode<Integer>, Integer> rightResult =
-        findKUnBalancedNodeHelper(tree.getRight(), k);
-    if (rightResult.getFirst() != null) {
-      return new Pair<>(rightResult.getFirst(), 0);
+    TreeWithSize rightResult = findKUnBalancedNodeHelper(tree.getRight(), k);
+    if (rightResult.root != null) {
+      return new TreeWithSize(rightResult.root, 0);
     }
 
-    int nodeNum = leftResult.getSecond() + rightResult.getSecond() + 1;
-    if (Math.abs(leftResult.getSecond() - rightResult.getSecond()) > k) {
+    int nodeNum = leftResult.size + rightResult.size + 1;
+    if (Math.abs(leftResult.size - rightResult.size) > k) {
       // tree is not k-balanced but its children are k-balanced.
-      return new Pair<>(tree, nodeNum);
+      return new TreeWithSize(tree, nodeNum);
     }
-    return new Pair<>(null, nodeNum);
+    return new TreeWithSize(null, nodeNum);
   }
   // @exclude
 

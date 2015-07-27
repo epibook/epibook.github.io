@@ -1,7 +1,5 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,7 +55,30 @@ public class SortKIncreasingDecreasingArray {
     return true;
   }
 
+  private static void simpleTest() {
+    List<Integer> A = Arrays.asList(1, 2, 3, 2, 1, 4, 5, 10, 9, 4, 4, 1, -1);
+    List<Integer> Adup = new ArrayList<>(A);
+    List<Integer> ans = sortKIncreasingDecreasingArray(A);
+    assert(Adup.size() == ans.size());
+    Collections.sort(Adup);
+    assert(Adup.equals(ans));
+
+    A = Arrays.asList(Integer.MIN_VALUE, -1, 0, 1, 2, 4, 8, Integer.MAX_VALUE);
+    Adup = new ArrayList<>(A);
+    ans = sortKIncreasingDecreasingArray(A);
+    assert(Adup.size() == ans.size());
+    assert(Adup.equals(ans));
+
+    A = Arrays.asList(Integer.MIN_VALUE, -1, 0, 1, 2, 4, 8, Integer.MAX_VALUE);
+    Adup = new ArrayList<>(A);
+    Collections.reverse(A);
+    ans = sortKIncreasingDecreasingArray(A);
+    assert(Adup.size() == ans.size());
+    assert(Adup.equals(ans));
+  }
+
   public static void main(String[] args) {
+    simpleTest();
     Random rnd = new Random();
     for (int times = 0; times < 100; ++times) {
       int n;

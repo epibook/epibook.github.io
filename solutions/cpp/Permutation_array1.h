@@ -16,8 +16,8 @@ void CyclicPermutation(int, vector<int>*, vector<int>*);
 void ApplyPermutation(vector<int>* perm_ptr, vector<int>* A_ptr) {
   vector<int> &perm = *perm_ptr, &A = *A_ptr;
   for (int i = 0; i < A.size(); ++i) {
-    // Check if the element at index i has not been permutated
-    // by seeing if perm[i] is nonnegative.
+    // Check if the element at index i has not been moved by seeing if perm[i]
+    // is nonnegative.
     if (perm[i] >= 0) {
       CyclicPermutation(i, &perm, &A);
     }
@@ -36,7 +36,7 @@ void CyclicPermutation(int start, vector<int>* perm_ptr, vector<int>* A_ptr) {
     int next_temp = A[next_i];
     A[next_i] = temp;
     // Subtracts perm.size() from an entry in perm to make it negative, which
-    // indicates the corresponding assignment has been performed.
+    // indicates the corresponding move has been performed.
     perm[i] -= perm.size();
     i = next_i, temp = next_temp;
   } while (i != start);

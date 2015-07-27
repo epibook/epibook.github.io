@@ -18,7 +18,7 @@ using std::unique_ptr;
 pair<bool, int> CheckBalanced(const unique_ptr<BinaryTreeNode<int>>&);
 
 // @include
-bool IsBalancedBinaryTree(const unique_ptr<BinaryTreeNode<int>>& tree) {
+bool IsBalanced(const unique_ptr<BinaryTreeNode<int>>& tree) {
   return CheckBalanced(tree).first;
 }
 
@@ -58,13 +58,13 @@ int main(int argc, char* argv[]) {
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
   tree->right->right =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
-  assert(IsBalancedBinaryTree(tree) == true);
-  cout << boolalpha << IsBalancedBinaryTree(tree) << endl;
+  assert(IsBalanced(tree) == true);
+  cout << boolalpha << IsBalanced(tree) << endl;
   // Non-balanced binary tree test.
   tree = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
   tree->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
   tree->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
-  assert(IsBalancedBinaryTree(tree) == false);
-  cout << boolalpha << IsBalancedBinaryTree(tree) << endl;
+  assert(IsBalanced(tree) == false);
+  cout << boolalpha << IsBalanced(tree) << endl;
   return 0;
 }

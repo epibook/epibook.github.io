@@ -1,7 +1,5 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,9 +7,25 @@ import java.util.Random;
 
 public class MaxSumSubarray {
   // @include
-  public static Pair<Integer, Integer> findMaximumSubarray(List<Integer> A) {
-    // A[range.first : range.second - 1] will be the maximum subarray.
-    Pair<Integer, Integer> range = new Pair<>(0, 0);
+  // Used to represent subarry consisting of elements from index
+  // start (inclusive) to index end (exclusive)
+  private static class Subarray {
+    public Integer start;
+    public Integer end;
+
+    public Subarray(Integer start, Integer end) {
+      this.start = start;
+      this.end = end;
+    }
+
+    @Override
+    public String toString() {
+      return "[" + start + "," + end + "]";
+    }
+  }
+  public static Subarray findMaximumSubarray(List<Integer> A) {
+    // A[range.start : range.end - 1] will be the maximum subarray.
+    Subarray range = new Subarray(0, 0);
     int minIdx = -1, minSum = 0, sum = 0, maxSum = 0;
     for (int i = 0; i < A.size(); ++i) {
       sum += A.get(i);
@@ -21,7 +35,7 @@ public class MaxSumSubarray {
       }
       if (sum - minSum > maxSum) {
         maxSum = sum - minSum;
-        range = new Pair<>(minIdx + 1, i + 1);
+        range = new Subarray(minIdx + 1, i + 1);
       }
     }
     return range;
@@ -37,9 +51,9 @@ public class MaxSumSubarray {
     return ret;
   }
 
-  private static void checkMaxSum(List<Integer> A, Pair<Integer, Integer> range) {
+  private static void checkMaxSum(List<Integer> A, Subarray range) {
     int maxSum = 0;
-    for (int i = range.getFirst(); i < range.getSecond(); ++i) {
+    for (int i = range.start; i < range.end; ++i) {
       maxSum += A.get(i);
     }
     for (int i = 0; i < A.size(); ++i) {
@@ -53,7 +67,7 @@ public class MaxSumSubarray {
 
   private static void simpleTest() {
     List<Integer> B = Arrays.asList(1);
-    Pair<Integer, Integer> range = findMaximumSubarray(B);
+    Subarray range = findMaximumSubarray(B);
     System.out.println(range);
     checkMaxSum(B, range);
     B = Arrays.asList(-5);
@@ -89,7 +103,7 @@ public class MaxSumSubarray {
           A.add(Integer.parseInt(arg));
         }
       }
-      Pair<Integer, Integer> range = findMaximumSubarray(A);
+      Subarray range = findMaximumSubarray(A);
       System.out.println(range);
       checkMaxSum(A, range);
     }

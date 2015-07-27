@@ -19,7 +19,7 @@ struct BinaryTreeNode {
   BinaryTreeNode<T>* next;  // Populates this field.
 };
 
-void PopulateChildrenNextField(BinaryTreeNode<int>* start_node);
+void PopulateChildrenNextField(BinaryTreeNode<int>*);
 
 // @include
 void ConstructRightSibling(BinaryTreeNode<int>* tree) {
@@ -42,7 +42,23 @@ void PopulateChildrenNextField(BinaryTreeNode<int>* start_node) {
 }
 // @exclude
 
+void SimpleTest() {
+  //      3
+  //    2   5
+  unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{3, nullptr, nullptr, nullptr});
+  root->left = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{2, nullptr, nullptr, nullptr});
+  root->right = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{5, nullptr, nullptr, nullptr});
+  ConstructRightSibling(root.get());
+  assert(root->next == nullptr);
+  assert(root->left->next == root->right.get());
+  assert(root->right->next == nullptr);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   //      3
   //    2   5
   //  1  7 4 6

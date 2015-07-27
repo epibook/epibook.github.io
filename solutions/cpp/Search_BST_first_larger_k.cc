@@ -15,7 +15,7 @@ BSTNode<int>* FindFirstGreaterThanK(const unique_ptr<BSTNode<int>>& tree,
     if (subtree->data > k) {
       first_so_far = subtree;
       subtree = subtree->left.get();
-    } else {  // subtree->data <= k.
+    } else {  // Root and all keys in left subtree are <= k, so skip them.
       subtree = subtree->right.get();
     }
   }

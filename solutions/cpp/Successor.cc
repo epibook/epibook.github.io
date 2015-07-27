@@ -39,11 +39,17 @@ int main(int argc, char* argv[]) {
   //  1    4  6
   auto root = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3});
   root->parent = nullptr;
+  assert(FindSuccessor(root) == nullptr);
   root->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
   root->left->parent = root.get();
+  assert(FindSuccessor(root->left)->data == 3);
+
   root->left->left =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
   root->left->left->parent = root->left.get();
+  assert(FindSuccessor(root->left)->data == 3);
+  assert(FindSuccessor(root->left->left)->data == 2);
+
   root->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
   root->right->parent = root.get();
   root->right->left =

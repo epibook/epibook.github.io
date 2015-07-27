@@ -64,10 +64,12 @@ bool SearchTarget(const unique_ptr<BSTNode<int>>& from,
 
 void SmallTest() {
   auto root = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
+  assert(!PairIncludesAncestorAndDescendantOfM(root, root, root));
   root->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
   root->left->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
   assert(!PairIncludesAncestorAndDescendantOfM(root, root->left,
                                                root->left->right));
+  assert(PairIncludesAncestorAndDescendantOfM(root, root->left->right, root->left));
 
   // Example of the first figure of BST chapter.
   root = unique_ptr<BSTNode<int>>(new BSTNode<int>{19});

@@ -23,7 +23,7 @@ int FindKthLargest(vector<int> A, int k) {
   int left = 0, right = A.size() - 1;
   default_random_engine gen((random_device())());
   while (left <= right) {
-    // Generates a random int in [left, right].
+    // Generates a random integer in [left, right].
     uniform_int_distribution<int> dis(left, right);
     int pivot_idx = dis(gen);
     int new_pivot_idx = PartitionAroundPivot(left, right, pivot_idx, &A);
@@ -60,6 +60,21 @@ int PartitionAroundPivot(int left, int right, int pivot_idx,
   return new_pivot_idx;
 }
 // @exclude
+
+static void SimpleTest() {
+  vector<int> A = {3,1,2,0,4,6,5};
+  assert(6==FindKthLargest(A,1));
+  assert(5==FindKthLargest(A,2));
+  assert(4==FindKthLargest(A,3));
+  assert(3==FindKthLargest(A,4));
+  assert(2==FindKthLargest(A,5));
+  assert(1==FindKthLargest(A,6));
+  assert(0==FindKthLargest(A,7));
+  A[2] = 6;
+  assert(6==FindKthLargest(A,1));
+  assert(6==FindKthLargest(A,2));
+  assert(5==FindKthLargest(A,3));
+}
 
 int main(int argc, char* argv[]) {
   default_random_engine gen((random_device())());

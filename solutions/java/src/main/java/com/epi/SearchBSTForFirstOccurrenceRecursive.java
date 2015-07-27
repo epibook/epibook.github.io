@@ -12,7 +12,7 @@ public class SearchBSTForFirstOccurrenceRecursive {
       BSTNode<Integer> node = findFirstEqualK(tree.getLeft(), k);
       return node != null ? node : tree;
     }
-    // Search the left or right tree based on tree.getData() and k.
+    // Search the left or right subtree based on relative values of tree.getData() and k.
     return findFirstEqualK(tree.getData() < k ? tree.getRight() : tree.getLeft(),
                            k);
   }
@@ -31,5 +31,16 @@ public class SearchBSTForFirstOccurrenceRecursive {
     assert(findFirstEqualK(root, 7) == null);
     assert(findFirstEqualK(root, 6).getData().equals(6) &&
            findFirstEqualK(root, 6).getRight().getData().equals(6));
+
+    root = new BSTNode<>(3);
+    root.setLeft(new BSTNode<>(3));
+    root.getLeft().setLeft(new BSTNode<>(1));
+    root.setRight(new BSTNode<>(5));
+    root.getRight().setLeft(new BSTNode<>(5));            
+    root.getRight().setRight(new BSTNode<>(5));           
+    assert(findFirstEqualK(root, 3) == root.getLeft());   
+    assert(findFirstEqualK(root, 5).equals(root.getRight().getLeft()));
+    assert(findFirstEqualK(root, 5).getData().equals(5));
+
   }
 }

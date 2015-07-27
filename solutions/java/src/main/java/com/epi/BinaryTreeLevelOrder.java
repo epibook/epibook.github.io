@@ -13,13 +13,13 @@ public class BinaryTreeLevelOrder {
       BinaryTreeNode<Integer> tree) {
     LinkedList<BinaryTreeNode<Integer>> processingNodes = new LinkedList<>();
     processingNodes.push(tree);
-    int numNodesCurrentLevel = processingNodes.size();
+    int numNodesToProcessAtCurrentLevel = processingNodes.size();
     List<List<Integer>> result = new ArrayList<>();
     List<Integer> oneLevel = new ArrayList<>();
 
     while (!processingNodes.isEmpty()) {
       BinaryTreeNode<Integer> curr = processingNodes.pollLast();
-      --numNodesCurrentLevel;
+      --numNodesToProcessAtCurrentLevel;
       if (curr != null) {
         oneLevel.add(curr.getData());
 
@@ -27,9 +27,9 @@ public class BinaryTreeLevelOrder {
         processingNodes.push(curr.getLeft());
         processingNodes.push(curr.getRight());
       }
-      // Done with the nodes at the current depth.
-      if (numNodesCurrentLevel == 0) {
-        numNodesCurrentLevel = processingNodes.size();
+      // Are we done with the nodes at the current depth?
+      if (numNodesToProcessAtCurrentLevel == 0) {
+        numNodesToProcessAtCurrentLevel = processingNodes.size();
         result.add(new ArrayList(oneLevel));
         oneLevel.clear();
       }

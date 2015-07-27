@@ -24,8 +24,8 @@ string ConvertBase(const string& s, int b1, int b2) {
 
   string result;
   do {
-    int reminder = x % b2;
-    result.push_back(reminder >= 10 ? 'A' + reminder - 10 : '0' + reminder);
+    int remainder = x % b2;
+    result.push_back(remainder >= 10 ? 'A' + remainder - 10 : '0' + remainder);
     x /= b2;
   } while (x);
 

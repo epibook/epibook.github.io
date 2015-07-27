@@ -41,7 +41,20 @@ shared_ptr<ListNode<int>> CyclicallyRightShiftList(shared_ptr<ListNode<int>> L,
 }
 // @exclude
 
+void SimpleTest() {
+  shared_ptr<ListNode<int>> L;
+  L = make_shared<ListNode<int>>(ListNode<int>{1, nullptr});
+  auto result = CyclicallyRightShiftList(L, 2);
+  assert(result == L);
+  L->next = make_shared<ListNode<int>>(ListNode<int>{2, nullptr});
+  result = CyclicallyRightShiftList(L, 2);
+  assert(result == L);
+  result = CyclicallyRightShiftList(L, 3);
+  assert(result->next == L);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   shared_ptr<ListNode<int>> L;
   L = make_shared<ListNode<int>>(ListNode<int>{
       1, make_shared<ListNode<int>>(ListNode<int>{
@@ -49,9 +62,5 @@ int main(int argc, char* argv[]) {
   auto result = CyclicallyRightShiftList(L, 2);
   assert(result->data == 2 && result->next->data == 3 &&
          result->next->next->data == 1 && !result->next->next->next);
-  while (result) {
-    cout << result->data << endl;
-    result = result->next;
-  }
   return 0;
 }

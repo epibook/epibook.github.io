@@ -15,43 +15,6 @@ using std::numeric_limits;
 using std::random_device;
 using std::uniform_int_distribution;
 
-int SetBit(int x, int bit, int set_value) {
-  return set_value ? x | (1 << bit) : x & ~(1 << bit);
-}
-
-int Search(int x, int set_value, int default_value) {
-  int index = 0, num = 0;
-  while (((x >> index) & 1) != set_value) {
-    ++index;
-  }
-  while (((x >> index) & 1) == set_value) {
-    ++index;
-    ++num;
-  }
-  if (index == 32) {
-    return default_value;
-  } else {
-    x ^= (1 << index);
-    --index;
-    --num;
-    for (int i = index; i >= num; --i) {
-      x = SetBit(x, i, !set_value);
-    }
-    for (int i = num - 1; i >= 0; --i) {
-      x = SetBit(x, i, set_value);
-    }
-    return x;
-  }
-}
-
-/*
-int ClosestIntSameBits(int x) {
-  int prev = Search(x, 0, INT_MIN);
-  int next = Search(x, 1, numeric_limits<int>::max());
-  return abs(x - prev) < abs(x - next) ? prev : next;
-}
-*/
-
 // @include
 unsigned long ClosestIntSameBitCount(unsigned long x) {
   for (int i = 0; i < 63; ++i) {
@@ -75,7 +38,15 @@ int CountBitsSetTo1(int x) {
   return count;
 }
 
+void SmallTest() {
+  assert(ClosestIntSameBitCount(6) == 5);
+  assert(ClosestIntSameBitCount(7) == 11);
+  assert(ClosestIntSameBitCount(2) == 1);
+  assert(ClosestIntSameBitCount(32) == 16);
+}
+
 int main(int argc, char* argv[]) {
+  SmallTest();
   default_random_engine gen((random_device())());
   unsigned long x;
   if (argc == 2) {

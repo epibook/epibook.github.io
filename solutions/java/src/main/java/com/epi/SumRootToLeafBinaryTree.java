@@ -29,12 +29,22 @@ public class SumRootToLeafBinaryTree {
     // 1 0
     // 0 1 0
     BinaryTreeNode<Integer> root = new BinaryTreeNode<>(1);
-    root.setLeft(new BinaryTreeNode<>(1));
-    root.getLeft().setLeft(new BinaryTreeNode<>(0));
-    root.setRight(new BinaryTreeNode<>(0));
-    root.getRight().setLeft(new BinaryTreeNode<>(1));
-    root.getRight().setRight(new BinaryTreeNode<>(0));
     int result = sumRootToLeaf(root);
+    assert(result == 1);
+    root.setLeft(new BinaryTreeNode<>(1));
+    result = sumRootToLeaf(root);
+    assert(result == 3);
+    root.getLeft().setLeft(new BinaryTreeNode<>(0));
+    result = sumRootToLeaf(root);
+    assert(result == 6);
+    root.setRight(new BinaryTreeNode<>(0));
+    result = sumRootToLeaf(root);
+    assert(result == 8);
+    root.getRight().setLeft(new BinaryTreeNode<>(1));
+    result = sumRootToLeaf(root);
+    assert(result == 11);
+    root.getRight().setRight(new BinaryTreeNode<>(0));
+    result = sumRootToLeaf(root);
     assert(result == 15);
   }
 }

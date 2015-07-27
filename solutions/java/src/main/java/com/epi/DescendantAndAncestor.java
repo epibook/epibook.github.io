@@ -51,11 +51,13 @@ public class DescendantAndAncestor {
 
   private static void smallTest() {
     BSTNode<Integer> root = new BSTNode<>(5);
+    assert(!pairIncludesAncestorAndDescendantOfM(root, root, root));
     root.setLeft(new BSTNode<>(2));
     root.getLeft().setRight(new BSTNode<>(4));
-    assert(!pairIncludesAncestorAndDescendantOfM(root, root.getLeft(),
+    assert(!pairIncludesAncestorAndDescendantOfM(root.getLeft(), root,
                                                  root.getLeft().getRight()));
-
+    assert(pairIncludesAncestorAndDescendantOfM(root, root.getLeft().getRight(), root.getLeft()));
+    
     // Example of the first figure of BST chapter.
     root = new BSTNode<>(19);
     root.setLeft(new BSTNode<>(7));

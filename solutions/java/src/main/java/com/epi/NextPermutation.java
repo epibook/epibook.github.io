@@ -7,10 +7,21 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import static com.epi.utils.Utils.equal;
-import static com.epi.utils.Utils.swap;
-
 public class NextPermutation {
+  public static <T> boolean equal(List<T> list1, List<T> list2) {
+    if (list1.size() != list2.size()) {
+      return false;
+    }
+
+    for (int i = 0; i < list1.size(); i++) {
+      if (!list1.get(i).equals(list2.get(i))) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   // @include
   public static List<Integer> nextPermutation(List<Integer> perm) {
     int k = perm.size() - 2;
@@ -27,7 +38,7 @@ public class NextPermutation {
     // the smallest such entry.
     for (int i = perm.size() - 1; i > k; --i) {
       if (perm.get(i) > perm.get(k)) {
-        swap(perm, k, i);
+        Collections.swap(perm, k, i);
         break;
       }
     }
@@ -55,12 +66,12 @@ public class NextPermutation {
     }
 
     // 3. swap elements with indexes first and last
-    swap(result, first++, toSwap);
+    Collections.swap(result, first++, toSwap);
 
     // 4. reverse sequence from k+1 to n (inclusive)
     toSwap = c.size() - 1;
     while (first < toSwap) {
-      swap(result, first++, toSwap--);
+      Collections.swap(result, first++, toSwap--);
     }
 
     return result;
@@ -92,22 +103,12 @@ public class NextPermutation {
           perm.add(gen.nextInt(n));
         }
       }
-      // System.out.print("perm = ");
-      // simplePrint(perm);
-      // System.out.println();
-
       // goldenNextPermutation does not change does not change perm
       List<Integer> gold = goldenNextPermutation(perm);
-      // System.out.print("gold = ");
-      // simplePrint(gold);
-      // System.out.println();
 
       List<Integer> ans = nextPermutation(perm);
-      // System.out.print("ans = ");
-      // simplePrint(ans);
-      // System.out.println();
 
-      assert equal(gold, ans);
+      assert gold.equals(ans);
     }
   }
 }

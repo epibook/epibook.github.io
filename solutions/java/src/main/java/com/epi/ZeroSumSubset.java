@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import static com.epi.utils.Utils.fill;
 import static com.epi.utils.Utils.iota;
 
 public class ZeroSumSubset {
@@ -19,12 +18,17 @@ public class ZeroSumSubset {
     }
 
     List<Integer> table = new ArrayList<>(A.size());
-    fill(table, A.size(), -1);
+    for (int i = 1; i <= A.size(); ++i) {
+      table.add(-1);
+    }
 
     for (int i = 0; i < A.size(); ++i) {
       if (prefixSum.get(i) == 0) {
         List<Integer> ans = new ArrayList<>(i + 1);
-        iota(ans, i + 1, 0);
+        int val = 0;
+        for (int j = 1; j <= i + 1; j++) {
+          ans.add(val++);
+        }
         return ans;
       } else if (table.get(prefixSum.get(i)) != -1) {
         List<Integer> ans = new ArrayList<>(i - table.get(prefixSum.get(i)));

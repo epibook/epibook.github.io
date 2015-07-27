@@ -20,8 +20,8 @@ public class SortList {
 
     preSlow.next = null; // Splits the list into two equal-sized lists.
 
-    return MergeSortedLists.mergeTwoSortedLinkedLists(stableSortList(L),
-                                                      stableSortList(slow));
+    return MergeSortedLists.mergeTwoSortedLists(stableSortList(L),
+                                                stableSortList(slow));
   }
   // @exclude
 

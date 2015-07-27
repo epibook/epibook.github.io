@@ -16,31 +16,57 @@ using std::stack;
 using std::uniform_int_distribution;
 using std::vector;
 
-void Insert(int e, stack<int>* S);
+void Insert(int, stack<int>*);
 
 // @include
 void Sort(stack<int>* S) {
   if (!S->empty()) {
-    int e = S->top();
+    int val = S->top();
     S->pop();
     Sort(S);
-    Insert(e, S);
+    Insert(val, S);
   }
 }
 
-void Insert(int e, stack<int>* S) {
-  if (S->empty() || S->top() <= e) {
-    S->push(e);
+void Insert(int val, stack<int>* S) {
+  if (S->empty() || S->top() <= val) {
+    S->push(val);
   } else {
     int f = S->top();
     S->pop();
-    Insert(e, S);
+    Insert(val, S);
     S->push(f);
   }
 }
 // @exclude
 
+void SimpleTest() {
+  stack<int> S;
+  S.push(1);
+  Sort(&S);
+  assert(S.top() == 1);
+  S.push(0);
+  Sort(&S);
+  assert(S.top() == 1);
+  S.pop();
+  assert(S.top() == 0);
+  S.pop();
+  assert(S.empty());
+  S.push(-1);
+  S.push(1);
+  S.push(0);
+  Sort(&S);
+  assert(S.top() == 1);
+  S.pop();
+  assert(S.top() == 0);
+  S.pop();
+  assert(S.top() == -1);
+  S.pop();
+  assert(S.empty());
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int n;

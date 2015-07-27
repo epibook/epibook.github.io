@@ -129,5 +129,11 @@ int main(int argc, char *argv[]) {
   assert(BST.Delete(2) == true);
   assert(BST.Delete(1) == false);
   assert(BST.Empty() == true);
+  BST.Insert(7);
+  assert(BST.GetRootVal() == 7);
+  BST.Insert(9);
+  assert(BST.GetRootVal() == 7);
+  BST.Delete(7);
+  assert(BST.GetRootVal() == 9);
   return 0;
 }

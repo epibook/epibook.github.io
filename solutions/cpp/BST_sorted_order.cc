@@ -38,7 +38,22 @@ vector<int> BSTInSortedOrder(const unique_ptr<BSTNode<int>>& tree) {
 }
 // @exclude
 
+void SimpleTest() {
+  unique_ptr<BSTNode<int>> tree =
+      unique_ptr<BSTNode<int>>(new BSTNode<int>{43, nullptr});
+  auto result = BSTInSortedOrder(tree);
+  vector<int> golden_result = {43};
+  assert(golden_result.size() == result.size() &&
+         equal(golden_result.begin(), golden_result.end(), result.begin()));
+  tree->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{23, nullptr});
+  result = BSTInSortedOrder(tree);
+  golden_result = {23, 43};
+  assert(golden_result.size() == result.size() &&
+         equal(golden_result.begin(), golden_result.end(), result.begin()));
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   //        43
   //    23     47
   //      37      53

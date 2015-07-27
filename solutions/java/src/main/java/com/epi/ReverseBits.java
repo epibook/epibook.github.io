@@ -23,11 +23,11 @@ public class ReverseBits {
     final int WORD_SIZE = 16;
     final int BIT_MASK = 0xFFFF;
     return precomputedReverse[(int)(x & BIT_MASK)] << (3 * WORD_SIZE) |
-        precomputedReverse[(int)((x >> WORD_SIZE) & BIT_MASK)]
+        precomputedReverse[(int)((x >>> WORD_SIZE) & BIT_MASK)]
             << (2 * WORD_SIZE) |
-        precomputedReverse[(int)((x >> (2 * WORD_SIZE)) & BIT_MASK)]
+        precomputedReverse[(int)((x >>> (2 * WORD_SIZE)) & BIT_MASK)]
             << WORD_SIZE |
-        precomputedReverse[(int)((x >> (3 * WORD_SIZE)) & BIT_MASK)];
+        precomputedReverse[(int)((x >>> (3 * WORD_SIZE)) & BIT_MASK)];
   }
   // @exclude
 

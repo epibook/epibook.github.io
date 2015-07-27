@@ -1,23 +1,30 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 
 public class StackWithMax {
   // @include
+  private static class ElementWithCachedMax {
+    public Integer element;
+    public Integer max;
+
+    public ElementWithCachedMax(Integer element, Integer max) {
+      this.element = element;
+      this.max = max;
+    }
+  }
   public static class Stack {
     // Stores (element, cached maximum) pair.
-    private LinkedList<Pair<Integer, Integer>> elementWithCachedMax =
+    private LinkedList<ElementWithCachedMax> elementWithCachedMax =
         new LinkedList<>();
 
     public boolean empty() { return elementWithCachedMax.isEmpty(); }
 
     public Integer max() {
       if (!empty()) {
-        return elementWithCachedMax.peek().getSecond();
+        return elementWithCachedMax.peek().max;
       }
       throw new RuntimeException("max(): empty stack");
     }
@@ -26,12 +33,12 @@ public class StackWithMax {
       if (empty()) {
         throw new RuntimeException("pop(): empty stack");
       }
-      return elementWithCachedMax.pop().getFirst();
+      return elementWithCachedMax.pop().element;
     }
 
     public void push(Integer x) {
-      elementWithCachedMax.push(
-          new Pair<>(x, Collections.max(Arrays.asList(x, empty() ? x : max()))));
+      elementWithCachedMax.push(new ElementWithCachedMax(
+          x, Collections.max(Arrays.asList(x, empty() ? x : max()))));
     }
   }
   // @exclude

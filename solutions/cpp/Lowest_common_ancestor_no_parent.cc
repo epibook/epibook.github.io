@@ -78,12 +78,12 @@ int main(int argc, char* argv[]) {
   assert(x->data == 5);
   cout << x->data << endl;
   // should output 3
-  x = LCA(tree, tree, tree->left->left);
+  x = LCA(tree, tree->left->left, tree->right->right);
   assert(x->data == 3);
   cout << x->data << endl;
-  // should output 2
-  x = LCA(tree, tree->left, tree->left->left);
-  assert(x->data == 2);
+  // should output 3
+  x = LCA(tree, tree->left->left, tree);
+  assert(x->data == 3);
   cout << x->data << endl;
   return 0;
 }

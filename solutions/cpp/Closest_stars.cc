@@ -71,16 +71,60 @@ vector<Star> FindClosestKStars(int k, istringstream* stars) {
 
   // Iteratively extract from the max-heap, which yields the stars
   // sorted according from furthest to closest.
-  vector<Star> closest_stars(max_heap);
+  vector<Star> closest_stars;
   while (!max_heap.empty()) {
     closest_stars.emplace_back(max_heap.top());
     max_heap.pop();
   }
+  reverse(closest_stars.begin(), closest_stars.end());
   return closest_stars;
 }
 // @exclude
 
+string CreateStreamingString(const vector<Star>& stars) {
+  string s;
+  for (int i = 0; i < stars.size(); ++i) {
+    stringstream ss;
+    ss << stars[i].x << ',' << stars[i].y << ',' << stars[i].z << endl;
+    s += ss.str();
+  }
+  return s;
+}
+
+void SimpleTest() {
+  vector<Star> stars;
+  stars.emplace_back((Star{1, 2, 3}));
+  stars.emplace_back((Star{5, 5, 5}));
+  stars.emplace_back((Star{0, 2, 1}));
+  stars.emplace_back((Star{9, 2, 1}));
+  stars.emplace_back((Star{1, 2, 1}));
+  stars.emplace_back((Star{2, 2, 1}));
+  istringstream sin(CreateStreamingString(stars));
+  vector<Star> closest_stars = FindClosestKStars(3, &sin);
+  assert(3 == closest_stars.size());
+  assert(closest_stars[0] == (Star{0, 2, 1}));
+  assert(closest_stars[0] == (Star{2, 0, 1}));
+  assert(closest_stars[1] == (Star{1, 2, 1}));
+  assert(closest_stars[1] == (Star{1, 1, 2}));
+
+  stars.clear();
+  stars.emplace_back((Star{1, 2, 3}));
+  stars.emplace_back((Star{5, 5, 5}));
+  stars.emplace_back((Star{4, 4, 4}));
+  stars.emplace_back((Star{3, 2, 1}));
+  stars.emplace_back((Star{5, 5, 5}));
+  stars.emplace_back((Star{3, 2, 3}));
+  stars.emplace_back((Star{3, 2, 3}));
+  stars.emplace_back((Star{3, 2, 1}));
+  istringstream sin2(CreateStreamingString(stars));
+  closest_stars = FindClosestKStars(2, &sin2);
+  assert(2 == closest_stars.size());
+  assert(closest_stars[0] == (Star{1, 2, 3}));
+  assert(closest_stars[1] == (Star{3, 2, 1}));
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int num, k;
@@ -103,13 +147,7 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < num; ++i) {
       stars.emplace_back(Star{dis(gen), dis(gen), dis(gen)});
     }
-    string s;
-    for (int i = 0; i < num; ++i) {
-      stringstream ss;
-      ss << stars[i].x << ',' << stars[i].y << ',' << stars[i].z << endl;
-      s += ss.str();
-    }
-    istringstream sin(s);
+    istringstream sin(CreateStreamingString(stars));
     vector<Star> closest_stars(FindClosestKStars(k, &sin));
     sort(closest_stars.begin(), closest_stars.end());
     sort(stars.begin(), stars.end());

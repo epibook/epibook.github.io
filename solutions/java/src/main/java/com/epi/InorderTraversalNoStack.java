@@ -54,7 +54,7 @@ public class InorderTraversalNoStack {
     tree.getRight().setRight(new BinaryTreeNode<>(6));
     // should output 1 2 3 4 5 6
     inOrderTraversal(tree);
-    List<Integer> golden_res = new ArrayList<Integer>() {
+    List<Integer> goldenRes = new ArrayList<Integer>() {
       {
         add(1);
         add(2);
@@ -64,6 +64,6 @@ public class InorderTraversalNoStack {
         add(6);
       }
     };
-    assert(golden_res.equals(result));
+    assert(goldenRes.equals(result));
   }
 }

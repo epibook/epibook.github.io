@@ -20,7 +20,8 @@ using std::vector;
 vector<int> GeneratePrimes(int n) {
   vector<int> primes;
   // is_prime[p] represents whether p is prime or not.
-  // Initially, set each to true. Then use sieving to eliminate non primes.
+  // Initially, set each to true, excepting 0 and 1. Then use sieving to
+  // eliminate nonprimes.
   deque<bool> is_prime(n + 1, true);
   is_prime[0] = is_prime[1] = false;
   for (int p = 2; p < n; ++p) {

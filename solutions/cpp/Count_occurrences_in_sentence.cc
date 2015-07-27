@@ -4,6 +4,8 @@
 #include <iostream>
 #include <random>
 #include <string>
+#include <unordered_map>
+#include <cassert>
 
 using std::cout;
 using std::default_random_engine;
@@ -11,6 +13,9 @@ using std::endl;
 using std::random_device;
 using std::string;
 using std::uniform_int_distribution;
+using std::unordered_map;
+
+static unordered_map<char, int> charToCount;
 
 // @include
 void CountOccurrences(string S) {
@@ -22,6 +27,9 @@ void CountOccurrences(string S) {
       ++current_character_count;
     } else {
       cout << '(' << S[i - 1] << ',' << current_character_count << "),";
+      // @exclude
+      charToCount[S[i-1]] = current_character_count;
+      // @include
       current_character_count = 1;
     }
   }
@@ -37,6 +45,18 @@ string RandString(int len) {
     ret += dis(gen);
   }
   return ret;
+}
+
+static void SimpleTest() {
+  CountOccurrences("foo bar! ABA A");
+  assert(charToCount['f'] == 1);
+  assert(charToCount.count('F') == 0);
+  assert(charToCount['o'] == 2);
+  assert(charToCount.count('x') == 0);
+  assert(charToCount[' '] == 3);
+  assert(charToCount['!'] == 1);
+  assert(charToCount['A'] == 3);
+  assert(charToCount['B'] == 1);
 }
 
 int main(int argc, char* argv[]) {

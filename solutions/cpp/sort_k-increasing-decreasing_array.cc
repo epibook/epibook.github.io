@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <limits>
 #include <random>
 #include <vector>
 
@@ -10,6 +11,7 @@
 using std::cout;
 using std::default_random_engine;
 using std::endl;
+using std::numeric_limits;
 using std::ostream_iterator;
 using std::random_device;
 using std::uniform_int_distribution;
@@ -41,7 +43,23 @@ vector<int> SortKIncreasingDecreasingArray(const vector<int>& A) {
 }
 // @exclude
 
+void SimpleTest() {
+  vector<int> A = {1, 2, 3, 2, 1, 4, 5, 10, 9, 4, 4, 1, -1};
+  auto ans = SortKIncreasingDecreasingArray(A);
+  assert(ans.size() == A.size() && is_sorted(ans.cbegin(), ans.cend()));
+
+  A = {numeric_limits<int>::min(), -1, 0, 1, 2, 4, 8,
+       numeric_limits<int>::max()};
+  ans = SortKIncreasingDecreasingArray(A);
+  assert(ans.size() == A.size() && is_sorted(ans.cbegin(), ans.cend()));
+
+  reverse(A.begin(), A.end());
+  ans = SortKIncreasingDecreasingArray(A);
+  assert(ans.size() == A.size() && is_sorted(ans.cbegin(), ans.cend()));
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int n;

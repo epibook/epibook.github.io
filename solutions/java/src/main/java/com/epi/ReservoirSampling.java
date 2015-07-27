@@ -6,19 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static com.epi.utils.Utils.close;
-
 public class ReservoirSampling {
   // @include
-  public static int[] onlineRandomSample(InputStream sin, int k)
+  public static List<Integer> onlineRandomSample(InputStream sin, int k)
       throws IOException, ClassNotFoundException {
-    int[] runningSample = new int[k];
+    List<Integer> runningSample = new ArrayList<>(k);
 
     ObjectInputStream osin = new ObjectInputStream(sin);
     // Stores the first k elements.
     Integer x = (Integer)readObjectSilently(osin);
     for (int i = 0; i < k && x != null; ++i) {
-      runningSample[i] = x;
+      runningSample.add(x);
       x = (Integer)readObjectSilently(osin);
     }
 
@@ -27,18 +25,17 @@ public class ReservoirSampling {
     x = (Integer)readObjectSilently(osin);
     while (x != null) {
       Random randIdxGen = new Random();
-      // Generate a random number in [0, num_seen_so_far], and if this number is
+      // Generate a random number in [0, numSeenSoFar], and if this number is
       // in [0, k - 1], we replace that element from the sample with x.
       int idxToReplace = randIdxGen.nextInt(++numSeenSoFar);
       if (idxToReplace < k) {
-        runningSample[idxToReplace] = x;
+        runningSample.set(idxToReplace, x);
       }
 
       x = (Integer)readObjectSilently(osin);
     }
 
-    // Close "osin" silently
-    close(osin);
+    osin.close();
     return runningSample;
   }
 
@@ -85,12 +82,12 @@ public class ReservoirSampling {
     System.out.println(n + " " + k);
 
     ByteArrayInputStream sin = new ByteArrayInputStream(baos.toByteArray());
-    int[] ans = onlineRandomSample(sin, k);
+    List<Integer> ans = onlineRandomSample(sin, k);
 
-    assert ans.length == k;
+    assert ans.size() == k;
 
-    close(baos);
-    close(oos);
+    baos.close();
+    oos.close();
     // simplePrint(ans);
   }
 }

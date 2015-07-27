@@ -23,7 +23,7 @@ using std::vector;
 
 // @include
 int LongestSubarrayWithDistinctEntries(const vector<int>& A) {
-  // Records the last occurrence of each entry in A.
+  // Records the most recent occurrences of each entry.
   unordered_map<int, size_t> most_recent_occurrence;
   size_t longest_dup_free_subarray_start_idx = 0, result = 0;
   for (size_t i = 0; i < A.size(); ++i) {

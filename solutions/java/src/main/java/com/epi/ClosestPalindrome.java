@@ -2,7 +2,6 @@ package com.epi;
 
 import java.util.Random;
 
-import static com.epi.utils.Utils.fill;
 import static java.lang.Math.abs;
 
 public class ClosestPalindrome {
@@ -28,7 +27,9 @@ public class ClosestPalindrome {
       // Special case, make the entire string "99...9".
       if (str.charAt(0) == '0') {
         str.deleteCharAt(0); // Removes the leading 0.
-        fill(str, '9');
+        for (int i = 0; i < str.length(); i++) {
+          str.setCharAt(i, '9');
+        }
       }
     } else { // mirrorLeft < x.
       // Add one to the left half.

@@ -24,15 +24,23 @@ public class NonUniformRandomNumberGeneration {
 
     Random uniform01 = new Random();
     // Find the index of the interval that uniform01 lies in.
-    int intervalIdx =
-        Math.abs(Collections.binarySearch(
-            prefixSumOfProbabilities, uniform01.nextDouble(), new Compare())) -
-        2;
+    int it = Collections.binarySearch(prefixSumOfProbabilities,
+                                      uniform01.nextDouble());
+    if (it >= 0) {
+      // Because we are dealing with random double, the probability of hitting an
+      // endpoint in prefixSumOfProbabilities is pretty low. However, it is not 0
+      // because finite precision.
+      return values.get(it);
+    }
+    // When a key is not present in the array, Collections.binarySearch()
+    // returns the negative of 1 plus the smallest index whose entry
+    // is greater than the key.
+    //
+    // Therefore, if the return value is negative, by taking its absolute
+    // value and adding 1, we get the index of the first element in the
+    // array which is greater than the key.
+    int intervalIdx = (Math.abs(it) - 1) - 1;
     return values.get(intervalIdx);
-  }
-
-  private static class Compare implements Comparator<Double> {
-    public int compare(Double x, Double y) { return x > y ? 1 : -1; }
   }
   // @exclude
 

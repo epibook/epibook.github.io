@@ -1,5 +1,6 @@
 package com.epi;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,7 +13,7 @@ public class PascalTriangle1 {
       List<Integer> currRow = new ArrayList<>();
       for (int j = 0; j <= i; ++j) {
         // Set this entry to the sum of the two above adjacent entries if they
-        // exit.
+        // exist.
         currRow.add((0 < j && j < i)
                         ? pascalTriangle.get(i - 1).get(j - 1) +
                               pascalTriangle.get(i - 1).get(j)
@@ -24,7 +25,15 @@ public class PascalTriangle1 {
   }
   // @exclude
 
+  private static void smallTest() {
+    List<List<Integer>> result = generatePascalTriangle(3);
+    List<List<Integer>> goldenResult = Arrays.asList(
+        Arrays.asList(1), Arrays.asList(1, 1), Arrays.asList(1, 2, 1));
+    result.equals(goldenResult);
+  }
+
   public static void main(String[] args) {
+    smallTest();
     Random r = new Random();
     int n = r.nextInt(11);
     System.out.println("n = " + n);

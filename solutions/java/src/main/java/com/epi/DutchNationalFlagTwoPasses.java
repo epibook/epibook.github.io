@@ -2,39 +2,39 @@
 
 package com.epi;
 
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
-
-import static com.epi.utils.Utils.swap;
 
 public class DutchNationalFlagTwoPasses {
   // @include
-  public static void dutchFlagPartition(int pivotIndex, int[] A) {
-    int pivot = A[pivotIndex];
+  public static void dutchFlagPartition(int pivotIndex, List<Integer> A) {
+    int pivot = A.get(pivotIndex);
     // First pass: group elements smaller than pivot.
     int smaller = 0;
-    for (int i = 0; i < A.length; ++i) {
-      if (A[i] < pivot) {
-        swap(A, smaller++, i);
+    for (int i = 0; i < A.size(); ++i) {
+      if (A.get(i) < pivot) {
+        Collections.swap(A, smaller++, i);
       }
     }
     // Second pass: group elements larger than pivot.
-    int larger = A.length - 1;
-    for (int i = A.length - 1; i >= 0 && A[i] >= pivot; --i) {
-      if (A[i] > pivot) {
-        swap(A, larger--, i);
+    int larger = A.size() - 1;
+    for (int i = A.size() - 1; i >= 0 && A.get(i) >= pivot; --i) {
+      if (A.get(i) > pivot) {
+        Collections.swap(A, larger--, i);
       }
     }
   }
   // @exclude
 
-  private static int[] randVector(int len) {
-    Random gen = new Random();
-    int[] ret = new int[len];
-
+  private static List<Integer> randArray(int len) {
+    Random r = new Random();
+    List<Integer> ret = new ArrayList<>(len);
     for (int i = 0; i < len; ++i) {
-      ret[i] = gen.nextInt(3);
+      ret.add(r.nextInt(3));
     }
-
     return ret;
   }
 
@@ -49,24 +49,24 @@ public class DutchNationalFlagTwoPasses {
         n = gen.nextInt(100) + 1;
       }
 
-      int[] A = randVector(n);
+      List<Integer> A = randArray(n);
 
       int pivotIndex = gen.nextInt(n);
-      int pivot = A[pivotIndex];
+      int pivot = A.get(pivotIndex);
 
       dutchFlagPartition(pivotIndex, A);
 
       int i = 0;
-      while (i < n && A[i] < pivot) {
-        System.out.print(A[i] + " ");
+      while (i < n && A.get(i) < pivot) {
+        System.out.print(A.get(i) + " ");
         ++i;
       }
-      while (i < n && A[i] == pivot) {
-        System.out.print(A[i] + " ");
+      while (i < n && A.get(i) == pivot) {
+        System.out.print(A.get(i) + " ");
         ++i;
       }
-      while (i < n && A[i] > pivot) {
-        System.out.print(A[i] + " ");
+      while (i < n && A.get(i) > pivot) {
+        System.out.print(A.get(i) + " ");
         ++i;
       }
       System.out.println();

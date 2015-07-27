@@ -15,7 +15,7 @@ struct ListNode {
 };
 
 // @include
-void SearchPostingsList(const shared_ptr<ListNode<int>>& L) {
+void SetJumpOrder(const shared_ptr<ListNode<int>>& L) {
   stack<shared_ptr<ListNode<int>>> s;
   int order = 0;
   s.emplace(L);
@@ -24,6 +24,8 @@ void SearchPostingsList(const shared_ptr<ListNode<int>>& L) {
     s.pop();
     if (curr && curr->order == -1) {
       curr->order = order++;
+      // Stack is last-in, first-out, and we want to process
+      // the jump node first, so push next, then push jump.
       s.emplace(curr->next);
       s.emplace(curr->jump);
     }
@@ -52,7 +54,7 @@ int main(int argc, char* argv[]) {
   L->next->next->next->next->jump =
       L->next->next->next->next;  // 5's jump points to 5
   shared_ptr<ListNode<int>> temp = L;
-  SearchPostingsList(L);
+  SetJumpOrder(L);
   // output the jump-first order, it should be 0, 1, 4, 2, 3
   assert(temp->order == 0);
   temp = temp->next;

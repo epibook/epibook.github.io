@@ -72,7 +72,7 @@ public class TransitiveClosure {
 
     /*
      * for (int i = 0; i < G.size(); ++i) { System.out.print(i + "\n\t");
-     * System.out.println(G.get(i).extended_contacts); } for (int i = 0; i <
+     * System.out.println(G.get(i).extendedContacts); } for (int i = 0; i <
      * G.size(); ++i) { System.out.println(i);
      * System.out.println(G.get(i).edges); }
      */

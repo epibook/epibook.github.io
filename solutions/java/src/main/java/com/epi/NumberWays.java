@@ -18,10 +18,10 @@ public class NumberWays {
       A[j] = 1;
     }
     for (int i = 1; i < n; ++i) {
-      int prev_res = 0;
+      int prevRes = 0;
       for (int j = 0; j < m; ++j) {
-        A[j] = A[j] + prev_res;
-        prev_res = A[j];
+        A[j] = A[j] + prevRes;
+        prevRes = A[j];
       }
     }
     return A[m - 1];

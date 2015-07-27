@@ -33,8 +33,8 @@ int BinarySearchUnknownLength(const vector<int>& A, int k) {
     ++p;
   }
 
-  // Binary search between indices 2^(p - 1) and 2^p - 2.
-  int left = 1 << (p - 1), right = (1 << p) - 2;
+  // Binary search between indices 2^(p - 1) and 2^p - 2, inclusive.
+  int left = max(0, 1 << (p - 1)), right = (1 << p) - 2;
   while (left <= right) {
     int mid = left + ((right - left) / 2);
     try {

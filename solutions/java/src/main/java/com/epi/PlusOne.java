@@ -1,6 +1,9 @@
 package com.epi;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class PlusOne {
   // @include
@@ -21,7 +24,7 @@ public class PlusOne {
   }
   // @exclude
 
-  private static List<Integer> randVector(int len) {
+  private static List<Integer> randArray(int len) {
     if (len == 0) {
       return Arrays.asList(0);
     }
@@ -65,7 +68,7 @@ public class PlusOne {
     } else {
       n = r.nextInt(1001);
     }
-    List<Integer> A = randVector(n);
+    List<Integer> A = randArray(n);
     System.out.println(A);
     List<Integer> result = plusOne(A);
     System.out.println(result);

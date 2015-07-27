@@ -1,6 +1,8 @@
 package com.epi;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -9,12 +11,12 @@ import static com.epi.utils.Utils.simplePrint;
 public class OnlineSampling {
   // @include
   // Returns a random k-sized subset of {0, 1, ..., n - 1}.
-  public static int[] randomSubset(int n, int k) {
+  public static List<Integer> randomSubset(int n, int k) {
     Map<Integer, Integer> changedElements = new HashMap<>();
     Random randIdxGen = new Random();
     for (int i = 0; i < k; ++i) {
       // Generate random int in [i, n - 1].
-      int randIdx = i + randIdxGen.nextInt(n - i - 1);
+      int randIdx = i + randIdxGen.nextInt(n - i);
       Integer ptr1 = changedElements.get(randIdx), ptr2 = changedElements.get(i);
       if (ptr1 == null && ptr2 == null) {
         changedElements.put(randIdx, i);
@@ -31,9 +33,9 @@ public class OnlineSampling {
       }
     }
 
-    int[] result = new int[k];
+    List<Integer> result = new ArrayList<>(k);
     for (int i = 0; i < k; ++i) {
-      result[i] = changedElements.get(i);
+      result.add(changedElements.get(i));
     }
     return result;
   }
@@ -54,8 +56,8 @@ public class OnlineSampling {
     }
 
     System.out.println(String.format("n = %d k = %d", n, k));
-    for (int i = 0; i < 6; ++i) {
-      int[] res = randomSubset(n, k);
+    for (int i = 0; i < 100; ++i) {
+      List<Integer> res = randomSubset(n, k);
       System.out.print("result = ");
       simplePrint(res);
       System.out.println();

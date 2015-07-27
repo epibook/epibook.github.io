@@ -2,15 +2,22 @@
 
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.*;
 
 public class SearchAPairSortedArray {
   // @include
-  public static Pair<Integer, Integer> findPairSumK(List<Integer> A, int k) {
-    Pair<Integer, Integer> result = findPosNegPair(A, k);
-    if (result.getFirst() == -1 && result.getSecond() == -1) {
+  private static class IndexPair {
+    public Integer index1;
+    public Integer index2;
+
+    public IndexPair(Integer index1, Integer index2) {
+      this.index1 = index1;
+      this.index2 = index2;
+    }
+  }
+  public static IndexPair findPairSumK(List<Integer> A, int k) {
+    IndexPair result = findPosNegPair(A, k);
+    if (result.index1 == -1 && result.index2 == -1) {
       return k >= 0
           ? findPairUsingComp(A, k,
                               new Comparator<Integer>() {
@@ -35,65 +42,64 @@ public class SearchAPairSortedArray {
     return result;
   }
 
-  private static Pair<Integer, Integer> findPairUsingComp(
-      List<Integer> A, int k, Comparator<Integer> comp) {
-    Pair<Integer, Integer> result = new Pair<>(0, A.size() - 1);
-    while (result.getFirst() < result.getSecond() &&
-           comp.compare(A.get(result.getFirst()), 0) == 0) {
-      result.setFirst(result.getFirst() + 1);
+  private static IndexPair findPairUsingComp(List<Integer> A, int k,
+                                             Comparator<Integer> comp) {
+    IndexPair result = new IndexPair(0, A.size() - 1);
+    while (result.index1 < result.index2 &&
+           comp.compare(A.get(result.index1), 0) == 0) {
+      result.index1 = result.index1 + 1;
     }
-    while (result.getFirst() < result.getSecond() &&
-           comp.compare(A.get(result.getSecond()), 0) == 0) {
-      result.setSecond(result.getSecond() - 1);
+    while (result.index1 < result.index2 &&
+           comp.compare(A.get(result.index2), 0) == 0) {
+      result.index2 = result.index2 - 1;
     }
 
-    while (result.getFirst() < result.getSecond()) {
-      if (A.get(result.getFirst()) + A.get(result.getSecond()) == k) {
+    while (result.index1 < result.index2) {
+      if (A.get(result.index1) + A.get(result.index2) == k) {
         return result;
-      } else if (comp.compare(
-                     A.get(result.getFirst()) + A.get(result.getSecond()), k) ==
+      } else if (comp.compare(A.get(result.index1) + A.get(result.index2), k) ==
                  0) {
         do {
-          result.setFirst(result.getFirst() + 1);
-        } while (result.getFirst() < result.getSecond() &&
-                 comp.compare(A.get(result.getFirst()), 0) == 0);
+          result.index1 = result.index1 + 1;
+        } while (result.index1 < result.index2 &&
+                 comp.compare(A.get(result.index1), 0) == 0);
       } else {
         do {
-          result.setSecond(result.getSecond() - 1);
-        } while (result.getFirst() < result.getSecond() &&
-                 comp.compare(A.get(result.getSecond()), 0) == 0);
+          result.index2 = result.index2 - 1;
+        } while (result.index1 < result.index2 &&
+                 comp.compare(A.get(result.index2), 0) == 0);
       }
     }
-    return new Pair<>(-1, -1); // No answer.
+    return new IndexPair(-1, -1); // No answer.
   }
 
-  private static Pair<Integer, Integer> findPosNegPair(List<Integer> A, int k) {
+  private static IndexPair findPosNegPair(List<Integer> A, int k) {
     // result.first for positive, and result.second for negative.
-    Pair<Integer, Integer> result = new Pair<>(A.size() - 1, A.size() - 1);
+    IndexPair result = new IndexPair(A.size() - 1, A.size() - 1);
     // Find the last positive or zero.
-    while (result.getFirst() >= 0 && A.get(result.getFirst()) < 0) {
-      result.setFirst(result.getFirst() - 1);
+    while (result.index1 >= 0 && A.get(result.index1) < 0) {
+      result.index1 = result.index1 - 1;
     }
 
     // Find the last negative.
-    while (result.getSecond() >= 0 && A.get(result.getSecond()) >= 0) {
-      result.setSecond(result.getSecond() - 1);
+    while (result.index2 >= 0 && A.get(result.index2) >= 0) {
+      result.index2 = result.index2 - 1;
     }
 
-    while (result.getFirst() >= 0 && result.getSecond() >= 0) {
-      if (A.get(result.getFirst()) + A.get(result.getSecond()) == k) {
+    while (result.index1 >= 0 && result.index2 >= 0) {
+      if (A.get(result.index1) + A.get(result.index2) == k) {
         return result;
-      } else if (A.get(result.getFirst()) + A.get(result.getSecond()) > k) {
+      } else if (A.get(result.index1) + A.get(result.index2) > k) {
         do {
-          result.setFirst(result.getFirst() - 1);
-        } while (result.getFirst() >= 0 && A.get(result.getFirst()) < 0);
+          result.index1 = result.index1 - 1;
+        } while (result.index1 >= 0 && A.get(result.index1) < 0);
       } else { // A[result.first] + A[result.second] < k.
         do {
-          result.setSecond(result.getSecond() - 1);
-        } while (result.getSecond() >= 0 && A.get(result.getSecond()) >= 0);
+          result.index2 = result.index2 - 1;
+        } while (result.index2 >= 0 && A.get(result.index2) >= 0);
       }
     }
-    return new Pair<>(-1, -1); // No answer.
+    return new IndexPair(-1, -1); // No answer.
   }
   // @exclude
 
@@ -119,11 +125,10 @@ public class SearchAPairSortedArray {
       int k = rand.nextInt(19999) - 9999;
       // System.out.println(A);
       // System.out.println(k);
-      Pair<Integer, Integer> ans = findPairSumK(A, k);
-      if (ans.getFirst() != -1 && ans.getSecond() != -1) {
-        assert(A.get(ans.getFirst()) + A.get(ans.getSecond()) == k);
-        System.out.println(A.get(ans.getFirst()) + "+" + A.get(ans.getSecond()) +
-                           "=" + k);
+      IndexPair ans = findPairSumK(A, k);
+      if (ans.index1 != -1 && ans.index2 != -1) {
+        assert(A.get(ans.index1) + A.get(ans.index2) == k);
+        System.out.println(A.get(ans.index1) + "+" + A.get(ans.index2) + "=" + k);
       } else {
         Collections.sort(A);
         int l = 0, r = A.size() - 1;

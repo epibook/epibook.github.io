@@ -33,10 +33,23 @@ public class PopulatingNextRightPointers {
   }
   // @exclude
 
+  private static void simpleTest() {
+    //     3
+    //  2     5
+    BinaryTreeNode<Integer> root = new BinaryTreeNode<>(3);
+    root.left = new BinaryTreeNode<>(2);
+    root.right = new BinaryTreeNode<>(5);
+    populateNextPointer(root);
+    assert(root.next == null);
+    assert(root.left.next == root.right);
+    assert(root.right.next == null);
+  }
+
   public static void main(String[] args) {
-    // 3
-    // 2 5
-    // 1 7 4 6
+    simpleTest();
+    //     3
+    //  2     5
+    // 1 7   4 6
     BinaryTreeNode<Integer> root = new BinaryTreeNode<>(3);
     root.left = new BinaryTreeNode<>(2);
     root.left.right = new BinaryTreeNode<>(7);

@@ -7,7 +7,7 @@ public class PowerXY {
   private static int compare(double a, double b) {
     // Uses normalization for precision problem.
     double diff = (a - b) / b;
-    return diff < -0.0001 ? -1 : diff > 0.0001 ? 1 : 0;
+    return diff < -1.0e-9 ? -1 : diff > 1.0e-9 ? 1 : 0;
   }
 
   // @include
@@ -23,7 +23,7 @@ public class PowerXY {
         result *= x;
       }
       x *= x;
-      power >>= 1;
+      power >>>= 1;
     }
     return result;
   }

@@ -11,7 +11,28 @@ using std::cout;
 using std::endl;
 using std::make_shared;
 
+void SimpleTest() {
+  shared_ptr<ListNode<int>> L0 =
+      make_shared<ListNode<int>>(ListNode<int>{42, nullptr});
+  L0->next = L0;
+  assert(HasCycle(L0));
+
+  shared_ptr<ListNode<int>> L1 =
+      make_shared<ListNode<int>>(ListNode<int>{42, nullptr});
+  shared_ptr<ListNode<int>> L2 =
+      make_shared<ListNode<int>>(ListNode<int>{42, nullptr});
+  L1->next = L2;
+  L2->next = L1;
+  assert(HasCycle(L1) == L1);
+  assert(HasCycle(L2) == L2);
+
+  L2->next = nullptr;
+  assert(HasCycle(L1) == nullptr);
+  assert(HasCycle(L2) == nullptr);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   shared_ptr<ListNode<int>> L3 =
       make_shared<ListNode<int>>(ListNode<int>{3, nullptr});
   shared_ptr<ListNode<int>> L2 =

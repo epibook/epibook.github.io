@@ -45,7 +45,23 @@ bool IsIntersect(const Rectangle& R1, const Rectangle& R2) {
 }
 // @exclude
 
+void SmallTest() {
+  Rectangle R1 = {0, 0, 2, 2}, R2 = {1, 1, 3, 3};
+  auto result = IntersectRectangle(R1, R2);
+  assert(result.x == 1 && result.y == 1 && result.width == 1 &&
+         result.height == 1);
+  R1 = {0, 0, 1, 1}, R2 = {1, 1, 3, 3};
+  result = IntersectRectangle(R1, R2);
+  assert(result.x == 1 && result.y == 1 && result.width == 0 &&
+         result.height == 0);
+  R1 = {0, 0, 1, 1}, R2 = {2, 2, 3, 3};
+  result = IntersectRectangle(R1, R2);
+  assert(result.x == 0 && result.y == 0 && result.width == -1 &&
+         result.height == -1);
+}
+
 int main(int argc, char* argv[]) {
+  SmallTest();
   for (int times = 0; times < 10000; ++times) {
     Rectangle R1, R2;
     if (argc == 9) {

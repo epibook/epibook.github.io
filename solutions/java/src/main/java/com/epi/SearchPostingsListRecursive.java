@@ -1,19 +1,14 @@
 package com.epi;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class SearchPostingsListRecursive {
   // @include
-  public static void searchPostingsList(PostingListNode L) {
-    searchPostingsListHelper(L, 0);
-  }
+  public static void setJumpOrder(PostingListNode L) { setJumpOrderHelper(L, 0); }
 
-  private static int searchPostingsListHelper(PostingListNode L, int order) {
+  private static int setJumpOrderHelper(PostingListNode L, int order) {
     if (L != null && L.getOrder() == -1) {
       L.setOrder(order++);
-      order = searchPostingsListHelper(L.getJump(), order);
-      order = searchPostingsListHelper(L.getNext(), order);
+      order = setJumpOrderHelper(L.getJump(), order);
+      order = setJumpOrderHelper(L.getNext(), order);
     }
     return order;
   }
@@ -41,7 +36,7 @@ public class SearchPostingsListRecursive {
         L.getNext().getNext().getNext().getNext()); // 5's jump points
     // to 5
     PostingListNode temp = L;
-    searchPostingsList(L);
+    setJumpOrder(L);
     // output the jump-first order, it should be 0, 1, 4, 2, 3
     assert(temp.getOrder() == 0);
     temp = temp.getNext();

@@ -17,14 +17,11 @@ class Event {
 }
 
 class Endpoint implements Comparable<Endpoint> {
-  // If times are equal, times corresponding to start come first.
   public int compareTo(Endpoint e) {
-    if (time < e.time) {
-      return -1;
+    if (time != e.time) {
+      return Integer.compare(time, e.time);
     }
-    if (time > e.time) {
-      return 1;
-    }
+    // If times are equal, times corresponding to start come first.
     if (isStart && !e.isStart) {
       return -1;
     }
@@ -48,9 +45,9 @@ class RenderingCalendar {
   public static int findMaxSimultaneousEvents(Event[] A) {
     // Builds an array of all endpoints.
     List<Endpoint> E = new ArrayList<>();
-    for (Event i : A) {
-      E.add(new Endpoint(i.start, true));
-      E.add(new Endpoint(i.finish, false));
+    for (Event event : A) {
+      E.add(new Endpoint(event.start, true));
+      E.add(new Endpoint(event.finish, false));
     }
     // Sorts the endpoint array according to the time, breaking ties
     // by putting start times before end times.
@@ -59,8 +56,8 @@ class RenderingCalendar {
     // Track the number of simultaneous events, and record the maximum
     // number of simultaneous events.
     int maxNumSimultaneousEvents = 0, numSimultaneousEvents = 0;
-    for (Endpoint e : E) {
-      if (e.isStart) {
+    for (Endpoint endpoint : E) {
+      if (endpoint.isStart) {
         ++numSimultaneousEvents;
         maxNumSimultaneousEvents =
             Math.max(numSimultaneousEvents, maxNumSimultaneousEvents);

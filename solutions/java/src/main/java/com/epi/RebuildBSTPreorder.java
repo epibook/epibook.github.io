@@ -52,5 +52,11 @@ public class RebuildBSTPreorder {
     List<Integer> preorder = Arrays.asList(3, 2, 1, 5, 4, 6);
     BSTNode<Integer> tree = rebuildBSTFromPreorder(preorder);
     checkAns(tree, Integer.MIN_VALUE);
+    assert(3 == tree.getData());
+    assert(2 == tree.getLeft().getData());
+    assert(1 == tree.getLeft().getLeft().getData());
+    assert(5 == tree.getRight().getData());
+    assert(4 == tree.getRight().getLeft().getData());
+    assert(6 == tree.getRight().getRight().getData());
   }
 }

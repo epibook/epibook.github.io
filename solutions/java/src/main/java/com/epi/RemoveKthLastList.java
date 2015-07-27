@@ -30,5 +30,7 @@ class RemoveKthLastList {
     assert(L.data == 1 && L.next.data == 3);
     L = removeKthLast(L, 2);
     assert(L.data == 3 && L.next == null);
+    L = removeKthLast(L, 1);
+    assert(L == null);
   }
 }

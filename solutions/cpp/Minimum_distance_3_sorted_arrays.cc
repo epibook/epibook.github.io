@@ -45,7 +45,7 @@ int FindClosestElementsInSortedArrays(
     min_distance_so_far = min(max_value - min_value, min_distance_so_far);
     const auto next_min = next(iter_and_tail.cbegin()->second.first),
                next_end = iter_and_tail.cbegin()->second.second;
-    // Returns if there is no remaining element in one array.
+    // Return if some array has no remaining elements.
     if (next_min == next_end) {
       return min_distance_so_far;
     }

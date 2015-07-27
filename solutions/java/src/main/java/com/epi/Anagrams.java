@@ -10,7 +10,7 @@ class Anagrams {
     Map<String, List<String>> sortedStringToAnagrams = new HashMap<>();
     for (String s : dictionary) {
       // Sorts the string, uses it as a key, and then appends
-      // the original string as another value into hash table.
+      // the original string as another value in the hash table.
       char[] sortedCharArray = s.toCharArray();
       Arrays.sort(sortedCharArray);
       String sortedStr = new String(sortedCharArray);

@@ -48,7 +48,18 @@ void TraversalCheck(const unique_ptr<BSTNode<T>>& tree, T* target) {
   }
 }
 
+static void SimpleTest() {
+  vector<int> A = {1,2,3,4};
+  unique_ptr<BSTNode<int>> result = BuildMinHeightBSTFromSortedArray(A);
+  assert(3 == result->data);
+  assert(2 == result->left->data);
+  assert(1 == result->left->left->data);
+  assert(4 == result->right->data);
+}
+
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int n;

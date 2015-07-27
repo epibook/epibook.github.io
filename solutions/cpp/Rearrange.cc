@@ -59,12 +59,6 @@ int main(int argc, char* argv[]) {
       A.emplace_back(dis(gen));
     }
     Rearrange(&A);
-    /*
-    for (const int &a : A) {
-      cout << a << ' ';
-    }
-    cout << endl;
-    */
     CheckAnswer(A);
   }
   return 0;

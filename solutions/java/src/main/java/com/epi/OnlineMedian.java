@@ -27,9 +27,9 @@ public class OnlineMedian {
           maxHeap.add(x);
         }
       }
-      // Ensure minHeap and maxHeap should have equal number of elements
-      // if even number of elements are read, otherwise, minHeap should have
-      // one more element.
+      // Ensure minHeap and maxHeap have equal number of elements if
+      // an even number of elements is read; otherwise, minHeap must have
+      // one more element than maxHeap.
       if (minHeap.size() > maxHeap.size() + 1) {
         maxHeap.add(minHeap.remove());
       } else if (maxHeap.size() > minHeap.size()) {
@@ -78,6 +78,12 @@ public class OnlineMedian {
     stream = Arrays.asList(1, 0, 3, 5, 2, 0, 1);
     onlineMedian(generateStream(stream));
     golden = Arrays.asList(1.0, 0.5, 1.0, 2.0, 2.0, 1.5, 1.0);
+    assert golden.equals(globalResult);
+
+    globalResult.clear();
+    stream = Arrays.asList(-1);
+    onlineMedian(generateStream(stream));
+    golden = Arrays.asList(-1.0);
     assert golden.equals(globalResult);
   }
 

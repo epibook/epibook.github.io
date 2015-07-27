@@ -2,9 +2,6 @@ package com.epi;
 
 import com.epi.BinaryTreeWithParentPrototype.BinaryTree;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class Successor {
   // @include
   public static BinaryTree<Integer> findSuccessor(BinaryTree<Integer> node) {
@@ -29,14 +26,20 @@ public class Successor {
   // @exclude
 
   public static void main(String[] args) {
-    // 3
-    // 2 5
-    // 1 4 6
+    //    3
+    //  2   5
+    // 1   4 6
     BinaryTree<Integer> root = new BinaryTree<>(3, null, null);
+    assert(findSuccessor(root) == null);
     root.setLeft(new BinaryTree<>(2, null, null));
     root.getLeft().setParent(root);
+    assert(findSuccessor(root.getLeft()).getData() == 3);
+
     root.getLeft().setLeft(new BinaryTree<>(1, null, null));
     root.getLeft().getLeft().setParent(root.getLeft());
+    assert(findSuccessor(root.getLeft()).getData() == 3);
+    assert(findSuccessor(root.getLeft().getLeft()).getData() == 2);
+
     root.setRight(new BinaryTree<>(5, null, null));
     root.getRight().setParent(root);
     root.getRight().setLeft(new BinaryTree<>(4, null, null));

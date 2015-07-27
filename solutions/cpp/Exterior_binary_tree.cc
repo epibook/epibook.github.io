@@ -71,6 +71,15 @@ bool IsLeaf(const unique_ptr<BinaryTreeNode<int>>& node) {
 }
 // @exclude
 
+list<int> CreateOutputList(
+    const list<const unique_ptr<BinaryTreeNode<int>>*>& L) {
+  list<int> output;
+  for (const auto* l : L) {
+    output.push_back((*l)->data);
+  }
+  return output;
+}
+
 int main(int argc, char* argv[]) {
   //        3
   //    2      5
@@ -78,8 +87,20 @@ int main(int argc, char* argv[]) {
   //   -1 -2
   unique_ptr<BinaryTreeNode<int>> tree = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{3, nullptr, nullptr});
+  auto L = ExteriorBinaryTree(tree);
+  list<int> result = CreateOutputList(L);
+  list<int> golden_result = {3};
+  assert(result.size() == golden_result.size() &&
+         equal(result.begin(), result.end(), golden_result.begin()));
+
   tree->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{2, nullptr, nullptr});
+  L = ExteriorBinaryTree(tree);
+  result = CreateOutputList(L);
+  golden_result = {3, 2};
+  assert(result.size() == golden_result.size() &&
+         equal(result.begin(), result.end(), golden_result.begin()));
+
   tree->left->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{0, nullptr, nullptr});
   tree->left->right->left = unique_ptr<BinaryTreeNode<int>>(
@@ -94,15 +115,10 @@ int main(int argc, char* argv[]) {
       new BinaryTreeNode<int>{4, nullptr, nullptr});
   tree->right->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{6, nullptr, nullptr});
-  list<int> golden_res = {3, 2, 1, -1, -2, 4, 6, 5};
-  auto L = ExteriorBinaryTree(tree);
-  list<int> output;
-  // should output 3 2 1 -1 -2 4 6 5
-  for (const auto* l : L) {
-    output.push_back((*l)->data);
-    cout << (*l)->data << endl;
-  }
-  assert(output.size() == golden_res.size());
-  assert(equal(output.begin(), output.end(), golden_res.begin()));
+  L = ExteriorBinaryTree(tree);
+  result = CreateOutputList(L);
+  golden_result = {3, 2, 1, -1, -2, 4, 6, 5};
+  assert(result.size() == golden_result.size() &&
+         equal(result.begin(), result.end(), golden_result.begin()));
   return 0;
 }

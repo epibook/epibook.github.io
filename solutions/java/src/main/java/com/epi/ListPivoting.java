@@ -38,7 +38,32 @@ public class ListPivoting {
   }
   // @exclude
 
+  private static void simpleTest() {
+    ListNode<Integer> L;
+    L = new ListNode<>(0, null);
+    ListNode<Integer> result = listPivoting(L, 0);
+    assert(result == L);
+    result = listPivoting(L, 1);
+    assert(result == L);
+    result = listPivoting(L, -1);
+    assert(result == L);
+
+    L = new ListNode<Integer>(2, new ListNode<>(0, null));
+    result = listPivoting(L, -1);
+    assert(result == L);
+
+    L = new ListNode<Integer>(2, new ListNode<>(0, null));
+    result = listPivoting(L, 1);
+    assert(result.data == 0 && result.next.data == 2);
+
+    L = new ListNode<Integer>(2, new ListNode<>(0, new ListNode<>(-2, null)));
+    result = listPivoting(L, 1);
+    assert(result.data == 0 && result.next.data == -2 &&
+           result.next.next.data == 2);
+  }
+
   public static void main(String[] args) {
+    simpleTest();
     ListNode<Integer> L;
     L = new ListNode<>(
         1, new ListNode<>(

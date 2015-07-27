@@ -27,7 +27,7 @@ pair<int, int> FindMinMax(const vector<int>& A) {
   }
 
   pair<int, int> global_min_max = minmax(A[0], A[1]);
-  // Process elements one pair at a time.
+  // Process two elements at a time.
   for (int i = 2; i + 1 < A.size(); i += 2) {
     pair<int, int> local_min_max = minmax(A[i], A[i + 1]);
     global_min_max = {min(global_min_max.first, local_min_max.first),
@@ -43,7 +43,21 @@ pair<int, int> FindMinMax(const vector<int>& A) {
 }
 // @exclude
 
+static void SimpleTest() {
+  vector<int> A = {-1,3,-4,6,4,10,4,4,9};
+  auto res = FindMinMax(A);
+  assert(-4 == res.first && 10 == res.second);
+  A[5] = -12;
+  res = FindMinMax(A);
+  assert(-12 == res.first && 9 == res.second);
+
+  A = {-1,3,-4};
+  res = FindMinMax(A);
+  assert(-4 == res.first && 3 == res.second);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 10000; ++times) {
     int n;

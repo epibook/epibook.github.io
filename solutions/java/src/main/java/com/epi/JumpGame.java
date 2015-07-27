@@ -1,31 +1,29 @@
 package com.epi;
 
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class JumpGame {
   // @include
-  public static boolean canReachEnd(int[] maxAdvanceSteps) {
-    int furthestReachSoFar = 0;
-    for (int i = 0; i <= furthestReachSoFar &&
-                    furthestReachSoFar < maxAdvanceSteps.length - 1;
+  public static boolean canReachEnd(List<Integer> maxAdvanceSteps) {
+    int furthestReachSoFar = 0, lastIndex = maxAdvanceSteps.size() - 1;
+    for (int i = 0; i <= furthestReachSoFar && furthestReachSoFar < lastIndex;
          ++i) {
-      furthestReachSoFar = Math.max(furthestReachSoFar, i + maxAdvanceSteps[i]);
+      furthestReachSoFar =
+          Math.max(furthestReachSoFar, i + maxAdvanceSteps.get(i));
     }
-    return furthestReachSoFar >= maxAdvanceSteps.length - 1;
+    return furthestReachSoFar >= lastIndex;
   }
   // @exclude
 
   private static void smallTest() {
-    int[] A = {2, 3, 1, 1, 4};
-    assert(canReachEnd(A));
-    int[] B = {3, 2, 1, 0, 4};
-    assert(!canReachEnd(B));
-    int[] C = {3, 2, 1, -10, 4};
-    assert(!canReachEnd(C));
-    int[] D = {2, 3, -1, -1, 4};
-    assert(canReachEnd(D));
-    int[] E = {2, 2, -1, -1, 100};
-    assert(!canReachEnd(E));
+    assert(canReachEnd(Arrays.asList(2, 3, 1, 1, 4)));
+    assert(!canReachEnd(Arrays.asList(3, 2, 1, 0, 4)));
+    assert(!canReachEnd(Arrays.asList(3, 2, 1, -10, 4)));
+    assert(canReachEnd(Arrays.asList(2, 3, -1, -1, 4)));
+    assert(!canReachEnd(Arrays.asList(2, 2, -1, -1, 100)));
   }
 
   public static void main(String[] args) {
@@ -37,9 +35,9 @@ public class JumpGame {
     } else {
       n = r.nextInt(1000) + 1;
     }
-    int[] maxAdvanceSteps = new int[n];
+    List<Integer> maxAdvanceSteps = new ArrayList<>(n);
     for (int i = 0; i < n; i++) {
-      maxAdvanceSteps[i] = r.nextInt(10) + 1;
+      maxAdvanceSteps.add(r.nextInt(10) + 1);
     }
     System.out.println(canReachEnd(maxAdvanceSteps));
   }

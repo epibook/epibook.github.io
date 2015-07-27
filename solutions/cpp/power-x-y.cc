@@ -22,9 +22,7 @@ using std::uniform_real_distribution;
 int Compare(double a, double b) {
   // Uses normalization for precision problem.
   double diff = (a - b) / b;
-  return diff < -numeric_limits<double>::epsilon()
-             ? -1
-             : diff > numeric_limits<double>::epsilon();
+  return diff < -1.0e-9 ? -1 : diff > 1.0e-9;
 }
 
 // @include
@@ -61,7 +59,7 @@ int main(int argc, char** argv) {
       y = dis_y(gen);
       cout << x << "^" << y << ": " << Power(x, y) << " " << std::pow(x, y)
            << endl;
-      // assert(!Compare(Power(x, y), std::pow(x, y)));
+      assert(!Compare(Power(x, y), std::pow(x, y)));
     }
   }
   return 0;

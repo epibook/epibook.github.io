@@ -1,13 +1,21 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
 import java.util.TreeSet;
 
 public class Bonus {
+  private static class EmployeeData {
+    public Integer productivity;
+    public Integer index;
+
+    public EmployeeData(Integer productivity, Integer index) {
+      this.productivity = productivity;
+      this.index = index;
+    }
+  }
+
   private static void checkAns(int[] ratings, int[] C) {
     for (int i = 0; i < ratings.length; ++i) {
       if (i > 0) {
@@ -27,20 +35,18 @@ public class Bonus {
   public static int[] calculateBonus(int[] productivity) {
     // Stores (index, productivity)-pair in minHeap where ordered by
     // productivity.
-    TreeSet<Pair<Integer, Integer>> minHeap =
-        new TreeSet<>(new Comparator<Pair<Integer, Integer>>() {
-          @Override
-          public int compare(Pair<Integer, Integer> o1,
-                             Pair<Integer, Integer> o2) {
-            int result = o1.getFirst().compareTo(o2.getFirst());
-            if (result == 0) {
-              result = o1.getSecond().compareTo(o2.getSecond());
-            }
-            return result;
-          }
-        });
+    TreeSet<EmployeeData> minHeap = new TreeSet<>(new Comparator<EmployeeData>() {
+      @Override
+      public int compare(EmployeeData o1, EmployeeData o2) {
+        int result = o1.productivity.compareTo(o2.productivity);
+        if (result == 0) {
+          result = o1.index.compareTo(o2.index);
+        }
+        return result;
+      }
+    });
     for (int i = 0; i < productivity.length; ++i) {
-      minHeap.add(new Pair<>(productivity[i], i));
+      minHeap.add(new EmployeeData(productivity[i], i));
     }
 
     // Initially assigns one ticket to everyone.
@@ -48,8 +54,8 @@ public class Bonus {
     Arrays.fill(tickets, 1);
     // Fills tickets from lowest rating one to toppmost rating.
     while (!minHeap.isEmpty()) {
-      int nextDev = minHeap.first().getSecond();
-      Pair<Integer, Integer> p = minHeap.first();
+      int nextDev = minHeap.first().index;
+      EmployeeData p = minHeap.first();
       // Handles the left neighbor.
       if (nextDev > 0) {
         if (productivity[nextDev] > productivity[nextDev - 1]) {

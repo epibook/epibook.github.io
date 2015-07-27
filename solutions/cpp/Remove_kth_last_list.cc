@@ -40,5 +40,7 @@ int main(int argc, char* argv[]) {
   assert(L->data == 1 && L->next->data == 3);
   L = RemoveKthLast(L, 2);
   assert(L->data == 3 && L->next == nullptr);
+  L = RemoveKthLast(L, 1);
+  assert(L == nullptr);
   return 0;
 }

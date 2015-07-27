@@ -1,6 +1,12 @@
 package com.epi;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 public class RemoveDuplicatesFromSortedArray {
   // @include
@@ -27,8 +33,7 @@ public class RemoveDuplicatesFromSortedArray {
   }
 
   private static void smallTest() {
-    List<Integer> A = Arrays.asList(2, 3, 5, 5, 7, 11, 11, 11, 13);
-    assert(6 == deleteDuplicates(A));
+    assert(6 == deleteDuplicates(Arrays.asList(2, 3, 5, 5, 7, 11, 11, 11, 13)));
   }
 
   public static void main(String[] args) {

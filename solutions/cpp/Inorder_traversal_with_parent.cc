@@ -52,12 +52,22 @@ int main(int argc, char* argv[]) {
   unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{3, nullptr, nullptr});
   root->parent = nullptr;
+  auto result = InorderTraversal(root);
+  vector<int> golden_res = {3};
+  assert(golden_res.size() == result.size() &&
+         equal(golden_res.begin(), golden_res.end(), result.begin()));
+
   root->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{2, nullptr, nullptr});
   root->left->parent = root.get();
   root->left->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{1, nullptr, nullptr});
   root->left->left->parent = root->left.get();
+  result = InorderTraversal(root);
+  golden_res = {1, 2, 3};
+  assert(golden_res.size() == result.size() &&
+         equal(golden_res.begin(), golden_res.end(), result.begin()));
+
   root->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{5, nullptr, nullptr});
   root->right->parent = root.get();
@@ -68,8 +78,8 @@ int main(int argc, char* argv[]) {
       new BinaryTreeNode<int>{6, nullptr, nullptr});
   root->right->right->parent = root->right.get();
 
-  auto result = InorderTraversal(root);
-  vector<int> golden_res = {1, 2, 3, 4, 5, 6};
+  result = InorderTraversal(root);
+  golden_res = {1, 2, 3, 4, 5, 6};
   assert(golden_res.size() == result.size() &&
          equal(golden_res.begin(), golden_res.end(), result.begin()));
   return 0;

@@ -10,9 +10,9 @@ public class SearchBSTFirstLargerK {
 
     while (subtree != null) {
       if (subtree.getData() > k) {
-        firstSoFar = subtree;
+        firstSoFar = subtree; 
         subtree = subtree.getLeft();
-      } else { // subtree.getData() <= k
+      } else { // Root and all keys in left-subtree are <= k, so skip them.
         subtree = subtree.getRight();
       }
     }
@@ -25,6 +25,8 @@ public class SearchBSTFirstLargerK {
     // 2 5
     // 1 4 7
     BSTNode<Integer> tree = new BSTNode<>(3);
+    assert(findFirstGreaterThanK(tree, 1) == tree);
+    assert(findFirstGreaterThanK(tree, 7) == null);
     tree.setLeft(new BSTNode<>(2));
     tree.getLeft().setLeft(new BSTNode<>(1));
     tree.setRight(new BSTNode<>(5));

@@ -11,7 +11,8 @@ public class PrimeSieveBasic {
   public static List<Integer> generatePrimes(int n) {
     List<Integer> primes = new ArrayList<>();
     // isPrime[p] represents wheather p is prime or not.
-    // Initially, set each to true. Then use sieving to eliminate non primes.
+    // Initially, set each to true, excepting 0 and 1. Then use sieving to
+    // eliminate nonprimes.
     boolean[] isPrime = new boolean[n + 1];
     Arrays.fill(isPrime, true);
     isPrime[0] = isPrime[1] = false;

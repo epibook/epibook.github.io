@@ -21,7 +21,7 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-void SortApproximatelySortedArray(istringstream* sequence, int k) {
+void SortApproximatelySortedData(istringstream* sequence, int k) {
   priority_queue<int, vector<int>, greater<int>> min_heap;
   // Adds the first k elements into min_heap. Stop if there are fewer than k
   // elements.
@@ -59,7 +59,7 @@ void SimpleTest() {
     ss << a << ' ';
   }
   istringstream sequence(ss.str());
-  SortApproximatelySortedArray(&sequence, 3);
+  SortApproximatelySortedData(&sequence, 3);
 }
 
 int main(int argc, char* argv[]) {
@@ -83,6 +83,6 @@ int main(int argc, char* argv[]) {
     ss << a << ' ';
   }
   istringstream sequence(ss.str());
-  SortApproximatelySortedArray(&sequence, n - 1);
+  SortApproximatelySortedData(&sequence, n - 1);
   return 0;
 }

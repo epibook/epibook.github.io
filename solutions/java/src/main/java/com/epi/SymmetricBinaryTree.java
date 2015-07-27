@@ -22,11 +22,23 @@ public class SymmetricBinaryTree {
   }
   // @exclude
 
+  private static void simpleTest() {
+    BinaryTreeNode<Integer> symmTree = new BinaryTreeNode<>();
+    assert(isSymmetric(symmTree));
+    symmTree.setLeft(new BinaryTreeNode<Integer>());
+    assert(!isSymmetric(symmTree));
+    symmTree.setRight(new BinaryTreeNode<Integer>());
+    assert(isSymmetric(symmTree));
+    symmTree.getRight().setRight(new BinaryTreeNode<Integer>());
+    assert(!isSymmetric(symmTree));
+  }
+
   public static void main(String[] args) {
-    // non symmetric tree test
-    // 3
-    // 2 5
-    // 1 4 6
+    simpleTest();
+    // Non symmetric tree test
+    //    x
+    //  x   x
+    // x   x x
     BinaryTreeNode<Integer> nonSymmTree = new BinaryTreeNode<>();
     nonSymmTree.setLeft(new BinaryTreeNode<Integer>());
     nonSymmTree.getLeft().setLeft(new BinaryTreeNode<Integer>());
@@ -35,7 +47,7 @@ public class SymmetricBinaryTree {
     nonSymmTree.getRight().setRight(new BinaryTreeNode<Integer>());
     assert(!isSymmetric(nonSymmTree));
     System.out.println(isSymmetric(nonSymmTree));
-    // symmetric tree test
+    // Symmetric tree test
     BinaryTreeNode<Integer> symmTree = new BinaryTreeNode<>();
     symmTree.setLeft(new BinaryTreeNode<Integer>());
     symmTree.setRight(new BinaryTreeNode<Integer>());

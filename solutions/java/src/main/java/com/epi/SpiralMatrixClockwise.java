@@ -11,38 +11,44 @@ import static java.lang.Math.ceil;
 
 public class SpiralMatrixClockwise {
   // @include
-  public static List<Integer> matrixInSpiralOrder(int[][] squareMatrix) {
+  public static List<Integer> matrixInSpiralOrder(
+      List<List<Integer>> squareMatrix) {
     List<Integer> spiralOrdering = new ArrayList<>();
-    for (int offset = 0; offset < ceil(0.5 * squareMatrix.length); ++offset) {
+    for (int offset = 0; offset < ceil(0.5 * squareMatrix.size()); ++offset) {
       matrixLayerInClockwise(squareMatrix, offset, spiralOrdering);
     }
     return spiralOrdering;
   }
 
-  private static void matrixLayerInClockwise(int[][] squareMatrix, int offset,
+  private static void matrixLayerInClockwise(List<List<Integer>> squareMatrix,
+                                             int offset,
                                              List<Integer> spiralOrdering) {
-    if (offset == squareMatrix.length - offset - 1) {
-      // squareMatrix has odd diemnsion, and we are at the center of squareMatrix.
-      spiralOrdering.add(squareMatrix[offset][offset]);
+    if (offset == squareMatrix.size() - offset - 1) {
+      // squareMatrix has odd dimension, and we are at its center.
+      spiralOrdering.add(squareMatrix.get(offset).get(offset));
+      return;
     }
 
-    for (int j = offset; j < squareMatrix.length - offset - 1; ++j) {
-      spiralOrdering.add(squareMatrix[offset][j]);
+    for (int j = offset; j < squareMatrix.size() - offset - 1; ++j) {
+      spiralOrdering.add(squareMatrix.get(offset).get(j));
     }
-    for (int i = offset; i < squareMatrix.length - offset - 1; ++i) {
-      spiralOrdering.add(squareMatrix[i][squareMatrix.length - offset - 1]);
+    for (int i = offset; i < squareMatrix.size() - offset - 1; ++i) {
+      spiralOrdering.add(
+          squareMatrix.get(i).get(squareMatrix.size() - offset - 1));
     }
-    for (int j = squareMatrix.length - offset - 1; j > offset; --j) {
-      spiralOrdering.add(squareMatrix[squareMatrix.length - offset - 1][j]);
+    for (int j = squareMatrix.size() - offset - 1; j > offset; --j) {
+      spiralOrdering.add(
+          squareMatrix.get(squareMatrix.size() - offset - 1).get(j));
     }
-    for (int i = squareMatrix.length - offset - 1; i > offset; --i) {
-      spiralOrdering.add(squareMatrix[i][offset]);
+    for (int i = squareMatrix.size() - offset - 1; i > offset; --i) {
+      spiralOrdering.add(squareMatrix.get(i).get(offset));
     }
   }
   // @exclude
 
   private static void simpleTest() {
-    int[][] A = new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    List<List<Integer>> A = Arrays.asList(
+        Arrays.asList(1, 2, 3), Arrays.asList(4, 5, 6), Arrays.asList(7, 8, 9));
     List<Integer> goldenResult = Arrays.asList(1, 2, 3, 6, 9, 8, 7, 4, 5);
     List<Integer> result = matrixInSpiralOrder(A);
     assert(result.equals(goldenResult));
@@ -57,11 +63,12 @@ public class SpiralMatrixClockwise {
     } else {
       N = gen.nextInt(50) + 1;
     }
-    int[][] A = new int[N][N];
+    List<List<Integer>> A = new ArrayList<>(N);
     int x = 1;
     for (int i = 0; i < N; ++i) {
+      A.add(new ArrayList(N));
       for (int j = 0; j < N; ++j) {
-        A[i][j] = x++;
+        A.get(i).add(x++);
       }
     }
     List<Integer> result = matrixInSpiralOrder(A);

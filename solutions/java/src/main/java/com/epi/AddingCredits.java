@@ -21,11 +21,11 @@ public class AddingCredits {
     }
 
     public boolean remove(String clientID) {
-      Integer clientIter = clientToCredit.get(clientID);
-      if (clientIter != null) {
-        creditToClients.get(clientIter).remove(clientID);
-        if (creditToClients.get(clientIter).isEmpty()) {
-          creditToClients.remove(clientIter);
+      Integer clientCredit = clientToCredit.get(clientID);
+      if (clientCredit != null) {
+        creditToClients.get(clientCredit).remove(clientID);
+        if (creditToClients.get(clientCredit).isEmpty()) {
+          creditToClients.remove(clientCredit);
         }
         clientToCredit.remove(clientID);
         return true;
@@ -34,8 +34,8 @@ public class AddingCredits {
     }
 
     public int lookup(String clientID) {
-      Integer iter = clientToCredit.get(clientID);
-      return iter == null ? -1 : iter + offset;
+      Integer clientCredit = clientToCredit.get(clientID);
+      return clientCredit == null ? -1 : clientCredit + offset;
     }
 
     public void addAll(int C) { offset += C; }

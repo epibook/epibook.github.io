@@ -1,34 +1,36 @@
 package com.epi;
 
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class Rearrange {
   // @include
-  public static void rearrange(int[] A) {
-    for (int i = 1; i < A.length; ++i) {
-      if (((i % 2) == 0 && A[i - 1] < A[i]) ||
-          ((i % 2) == 1 && A[i - 1] > A[i])) {
-        Integer temp = A[i - 1];
-        A[i - 1] = A[i];
-        A[i] = temp;
+  public static void rearrange(List<Integer> A) {
+    for (int i = 1; i < A.size(); ++i) {
+      if (((i % 2) == 0 && A.get(i - 1) < A.get(i)) ||
+          ((i % 2) == 1 && A.get(i - 1) > A.get(i))) {
+        Collections.swap(A, i - 1, i);
       }
     }
   }
   // @exclude
 
-  private static void checkAnswer(int[] A) {
-    for (int i = 0; i < A.length; ++i) {
+  private static void checkAnswer(List<Integer> A) {
+    for (int i = 0; i < A.size(); ++i) {
       if ((i % 2) != 0) {
-        assert(A[i] >= A[i - 1]);
-        if (i < A.length - 1) {
-          assert(A[i] >= A[i + 1]);
+        assert(A.get(i) >= A.get(i - 1));
+        if (i < A.size() - 1) {
+          assert(A.get(i) >= A.get(i + 1));
         }
       } else {
         if (i > 0) {
-          assert(A[i - 1] >= A[i]);
+          assert(A.get(i - 1) >= A.get(i));
         }
-        if (i < A.length - 1) {
-          assert(A[i + 1] >= A[i]);
+        if (i < A.size() - 1) {
+          assert(A.get(i + 1) >= A.get(i));
         }
       }
     }
@@ -43,14 +45,11 @@ public class Rearrange {
       } else {
         n = r.nextInt(10000) + 1;
       }
-      int[] A = new int[n];
+      List<Integer> A = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
-        A[i] = r.nextInt(2 * n + 1) - n;
+        A.add(r.nextInt(2 * n + 1) - n);
       }
       rearrange(A);
-      /*
-       * System.out.println(A);
-       */
       checkAnswer(A);
     }
   }

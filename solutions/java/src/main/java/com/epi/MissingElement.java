@@ -14,7 +14,7 @@ public class MissingElement {
     }
 
     for (int i = 0; i < counter.length; ++i) {
-      // Finds one bucket contains less than (1 << 16) elements.
+      // Look for a bucket that contains less than (1 << 16) elements.
       if (counter[i] < (1 << 16)) {
         BitSet bitVec = new BitSet(1 << 16);
         ifs.reset();
@@ -35,7 +35,7 @@ public class MissingElement {
       }
     }
     // @exclude
-    throw new RuntimeException("no missing element");
+    throw new IllegalArgumentException("no missing element");
     // @include
   }
   // @exclude

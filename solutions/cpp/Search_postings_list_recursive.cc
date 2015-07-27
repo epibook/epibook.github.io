@@ -12,19 +12,19 @@ struct ListNode {
   shared_ptr<ListNode<T>> next, jump;
 };
 
-void SearchPostingsListHelper(const shared_ptr<ListNode<int>>& L, int* order);
+void SetJumpOrderHelper(const shared_ptr<ListNode<int>>& L, int* order);
 
 // @include
-void SearchPostingsList(const shared_ptr<ListNode<int>>& L) {
+void SetJumpOrder(const shared_ptr<ListNode<int>>& L) {
   int order = 0;
-  SearchPostingsListHelper(L, &order);
+  SetJumpOrderHelper(L, &order);
 }
 
-void SearchPostingsListHelper(const shared_ptr<ListNode<int>>& L, int* order) {
+void SetJumpOrderHelper(const shared_ptr<ListNode<int>>& L, int* order) {
   if (L && L->order == -1) {
     L->order = (*order)++;
-    SearchPostingsListHelper(L->jump, order);
-    SearchPostingsListHelper(L->next, order);
+    SetJumpOrderHelper(L->jump, order);
+    SetJumpOrderHelper(L->next, order);
   }
 }
 // @exclude
@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
   L->next->next->next->next->jump =
       L->next->next->next->next;  // 5's jump points to 5
   shared_ptr<ListNode<int>> temp = L;
-  SearchPostingsList(L);
+  SetJumpOrder(L);
   // output the jump-first order, it should be 0, 1, 4, 2, 3
   assert(temp->order == 0);
   temp = temp->next;

@@ -33,11 +33,24 @@ bool CheckSymmetric(const unique_ptr<BinaryTreeNode<int>>& subtree_0,
 }
 // @exclude
 
+void SimpleTest() {
+  auto symm_tree = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  assert(IsSymmetric(symm_tree));
+  symm_tree->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  assert(!IsSymmetric(symm_tree));
+  symm_tree->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  assert(IsSymmetric(symm_tree));
+  symm_tree->right->right =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  assert(!IsSymmetric(symm_tree));
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   // Non symmetric tree test.
-  //      3
-  //    2   5
-  //  1    4 6
+  //      x
+  //    x   x
+  //  x    x x
   auto non_symm_tree =
       unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
   non_symm_tree->left =

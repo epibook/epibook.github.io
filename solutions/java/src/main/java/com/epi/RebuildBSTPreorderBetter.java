@@ -17,7 +17,7 @@ public class RebuildBSTPreorderBetter {
                                        Integer.MAX_VALUE);
   }
 
-  // Builds a BST from preorderSequence on keys in (lowerBound : upperBound).
+  // Builds a BST from preorderSequence on keys in (lowerBound, upperBound).
   private static BSTNode<Integer> rebuildBSFromPreorderHelper(
       List<Integer> preorderSequence, Integer lowerBound, Integer upperBound) {
     if (rootIdx == preorderSequence.size()) {
@@ -53,5 +53,11 @@ public class RebuildBSTPreorderBetter {
     List<Integer> preorder = Arrays.asList(3, 2, 1, 5, 4, 6);
     BSTNode<Integer> tree = rebuildBSTFromPreorder(preorder);
     checkAns(tree, Integer.MIN_VALUE);
+    assert(3 == tree.getData());
+    assert(2 == tree.getLeft().getData());
+    assert(1 == tree.getLeft().getLeft().getData());
+    assert(5 == tree.getRight().getData());
+    assert(4 == tree.getRight().getLeft().getData());
+    assert(6 == tree.getRight().getRight().getData());
   }
 }

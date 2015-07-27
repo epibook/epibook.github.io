@@ -43,7 +43,35 @@ shared_ptr<ListNode<int>> ListPivoting(const shared_ptr<ListNode<int>>& L,
 }
 // @exclude
 
+void SimpleTest() {
+  shared_ptr<ListNode<int>> L =
+      make_shared<ListNode<int>>(ListNode<int>{0, nullptr});
+  auto result = ListPivoting(L, 0);
+  assert(result == L);
+  result = ListPivoting(L, 1);
+  assert(result == L);
+  result = ListPivoting(L, -1);
+  assert(result == L);
+
+  L = make_shared<ListNode<int>>(
+      ListNode<int>{2, make_shared<ListNode<int>>(ListNode<int>{0, nullptr})});
+  result = ListPivoting(L, -1);
+
+  L = make_shared<ListNode<int>>(
+      ListNode<int>{2, make_shared<ListNode<int>>(ListNode<int>{0, nullptr})});
+  result = ListPivoting(L, 1);
+  assert(result->data == 0 && result->next->data == 2);
+
+  L = make_shared<ListNode<int>>(ListNode<int>{
+      2, make_shared<ListNode<int>>(ListNode<int>{
+             0, make_shared<ListNode<int>>(ListNode<int>{-2, nullptr})})});
+  result = ListPivoting(L, 1);
+  assert(result->data == 0 && result->next->data == -2 &&
+         result->next->next->data == 2);
+}
+
 int main(int argc, char** argv) {
+  SimpleTest();
   shared_ptr<ListNode<int>> L;
   L = make_shared<ListNode<int>>(ListNode<int>{
       1, make_shared<ListNode<int>>(ListNode<int>{

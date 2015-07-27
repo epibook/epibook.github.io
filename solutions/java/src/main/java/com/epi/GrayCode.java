@@ -15,14 +15,14 @@ public class GrayCode {
       return Arrays.asList(0, 1);
     }
 
-    // These implicitly begin with 0.
+    // These implicitly begin with 0 at bit-index (num_bits - 1).
     List<Integer> grayCodeNumBitsMinus1 = grayCode(numBits - 1);
-    // Prepend 1 to entries in grayCodeNumBitsMinus1.
+    // Now, add a 1 at bit-index (numBits - 1) to all entries in grayCodeNumBitsMinus1.
     int leadingBitOne = 1 << (numBits - 1);
     List<Integer> reflection = new ArrayList<>();
     // Process in reverse order to achieve reflection of grayCodeNumBitsMinus1.
     for (int i = grayCodeNumBitsMinus1.size() - 1; i >= 0; --i) {
-      reflection.add(leadingBitOne + grayCodeNumBitsMinus1.get(i));
+      reflection.add(leadingBitOne | grayCodeNumBitsMinus1.get(i));
     }
     List<Integer> result = new ArrayList<>(grayCodeNumBitsMinus1);
     result.addAll(reflection);

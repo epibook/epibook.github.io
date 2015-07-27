@@ -16,12 +16,12 @@ public class MinimumDistance3SortedArrays {
 
   // @include
   public static class ArrayData implements Comparable<ArrayData> {
-    public int idx;
     public int val;
+    public int idx;
 
     public ArrayData(int idx, int val) {
-      this.idx = idx;
       this.val = val;
+      this.idx = idx;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class MinimumDistance3SortedArrays {
       result =
           Math.min(result, currentHeads.last().val - currentHeads.first().val);
       int idxNextMin = currentHeads.first().idx;
-      // Return if there is no remaining element in one array.
+      // Return if some array has no remaining elements.
       heads.set(idxNextMin, heads.get(idxNextMin) + 1);
       if (heads.get(idxNextMin) >= sortedArrays.get(idxNextMin).size()) {
         return result;

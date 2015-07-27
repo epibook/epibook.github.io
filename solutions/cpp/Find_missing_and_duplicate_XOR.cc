@@ -42,13 +42,13 @@ pair<int, int> FindDuplicateMissing(const vector<int>& A) {
     }
   }
 
-  // miss_or_dup is either the missing entry or the duplicated entry.
+  // miss_or_dup is either the missing value or the duplicated entry.
   for (int A_i : A) {
     if (A_i == miss_or_dup) {  // miss_or_dup is the duplicate.
       return {miss_or_dup, miss_or_dup ^ miss_XOR_dup};
     }
   }
-  // miss_or_dup is the missing.
+  // miss_or_dup is the missing value.
   return {miss_or_dup ^ miss_XOR_dup, miss_or_dup};
 }
 // @exclude
@@ -58,6 +58,14 @@ void SmallTest() {
   auto ans = FindDuplicateMissing(A);
   cout << ans.first << " " << ans.second << endl;
   assert(ans.first == 6 && ans.second == 3);
+
+  A = {0,0,1};
+  ans = FindDuplicateMissing(A);
+  assert(ans.first == 0 && ans.second == 2);
+  
+  A = {1,3,2,5,3,4};
+  ans = FindDuplicateMissing(A);
+  assert(ans.first == 3 && ans.second == 0);
 }
 
 int main(int argc, char* argv[]) {

@@ -63,5 +63,11 @@ int main(int argc, char* argv[]) {
   vector<int> preorder = {3, 2, 1, 5, 4, 6};
   unique_ptr<BSTNode<int>> tree(RebuildBSTFromPreorder(preorder));
   CheckAns(tree, numeric_limits<int>::min());
+  assert(3 == tree->data);
+  assert(2 == tree->left->data);
+  assert(1 == tree->left->left->data);
+  assert(5 == tree->right->data);
+  assert(4 == tree->right->left->data);
+  assert(6 == tree->right->right->data);
   return 0;
 }

@@ -1,6 +1,7 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -61,7 +62,20 @@ public class PalindromePartitioning {
     return ret.toString();
   }
 
+  private static void SimpleTest() {
+    List<List<String>> result = palindromePartitioning("abbbac");
+    List<List<String>> golden = Arrays.asList(
+        Arrays.asList("a", "b", "b", "b", "a", "c"),
+        Arrays.asList("a", "b", "bb", "a", "c"),
+        Arrays.asList("a", "bb", "b", "a", "c"),
+        Arrays.asList("a", "bbb", "a", "c"),
+        Arrays.asList("abbba", "c")); 
+    System.out.println(result);
+    assert(result.equals(golden));
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     if (args.length == 1) {
       String s = args[0];
       List<List<String>> result = palindromePartitioning(s);

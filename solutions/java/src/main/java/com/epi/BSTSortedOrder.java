@@ -31,7 +31,19 @@ public class BSTSortedOrder {
   }
   // @exclude
 
+  private static void simpleTest() {
+    BSTNode<Integer> tree = new BSTNode<>(43);
+    List<Integer> result = BSTInSortedOrder(tree);
+    List<Integer> goldenResult = Arrays.asList(43);
+    assert(result.equals(goldenResult));
+    tree.setLeft(new BSTNode<>(23));
+    result = BSTInSortedOrder(tree);
+    goldenResult = Arrays.asList(23, 43);
+    assert(result.equals(goldenResult));
+  }
+
   public static void main(String[] args) {
+    simpleTest();
     //        43
     //    23     47
     //      37      53

@@ -2,39 +2,40 @@ package com.epi;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.NoSuchElementException;
 
 public class CircularQueue {
   // @include
   public static class Queue {
     private int head = 0, tail = 0, numQueueElements = 0;
     private final int SCALE_FACTOR = 2;
-    private Integer[] data;
+    private Integer[] entries;
 
-    public Queue(int cap) { data = new Integer[cap]; }
+    public Queue(int capacity) { entries = new Integer[capacity]; }
 
     public void enqueue(Integer x) {
-      if (numQueueElements == data.length) { // Needs to resize.
+      if (numQueueElements == entries.length) { // Need to resize.
         // Makes the queue elements appear consecutively.
-        Collections.rotate(Arrays.asList(data), -head);
+        Collections.rotate(Arrays.asList(entries), -head);
         // Resets head and tail.
         head = 0;
         tail = numQueueElements;
-        data = Arrays.copyOf(data, numQueueElements * SCALE_FACTOR);
+        entries = Arrays.copyOf(entries, numQueueElements * SCALE_FACTOR);
       }
 
-      data[tail] = x;
-      tail = (tail + 1) % data.length;
+      entries[tail] = x;
+      tail = (tail + 1) % entries.length;
       ++numQueueElements;
     }
 
     public Integer dequeue() {
       if (numQueueElements != 0) {
         --numQueueElements;
-        Integer ret = data[head];
-        head = (head + 1) % data.length;
+        Integer ret = entries[head];
+        head = (head + 1) % entries.length;
         return ret;
       }
-      throw new RuntimeException("empty queue");
+      throw new NoSuchElementException("Dequeue called on an empty queue.");
     }
 
     public int size() { return numQueueElements; }
@@ -64,7 +65,7 @@ public class CircularQueue {
     // Ok till here. Now head = 3 and tail = 3
 
     q.enqueue(14);
-    // Now the vector (data) is resized; but the head and tail.
+    // Now the vector (entries) is resized; but the head and tail.
     // (or elements) does not change accordingly.
 
     q.enqueue(15);
@@ -100,7 +101,7 @@ public class CircularQueue {
     assertDequeue(q, 4);
     try {
       q.dequeue();
-    } catch (RuntimeException e) {
+    } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());
     }
     // test resize()

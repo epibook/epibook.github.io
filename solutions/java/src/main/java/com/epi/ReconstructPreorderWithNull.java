@@ -41,7 +41,30 @@ public class ReconstructPreorderWithNull {
     genPreorderWithNull(n.getRight(), p);
   }
 
+  private static void simpleTest() {
+    Integer[] preOrder = new Integer[] {1, null, null};
+    BinaryTreeNode<Integer> result = reconstructPreorder(preOrder);
+    assert(result.getData() == 1);
+    assert(result.getLeft() == null);
+    assert(result.getRight() == null);
+
+    preOrder = new Integer[] {1, null, 2, null, null};
+    result = reconstructPreorder(preOrder);
+    assert(result.getData() == 1);
+    assert(result.getLeft() == null);
+    assert(result.getRight().getData() == 2);
+
+    preOrder = new Integer[] {1, null, 2, 3, null, null, null};
+    result = reconstructPreorder(preOrder);
+    assert(result.getData() == 1);
+    assert(result.getLeft() == null);
+    assert(result.getRight().getData() == 2);
+    assert(result.getRight().getLeft().getData() == 3);
+    assert(result.getRight().getRight() == null);
+  }
+
   public static void main(String[] args) {
+    simpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       System.out.println(times);

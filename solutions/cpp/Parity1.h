@@ -9,10 +9,10 @@ namespace Parity1 {
 short Parity(unsigned long x) {
   short result = 0;
   while (x) {
-    result ^= (x & 1);
+    result += (x & 1);
     x >>= 1;
   }
-  return result;
+  return result % 2;
 }
 // @exclude
 

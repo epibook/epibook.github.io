@@ -3,6 +3,7 @@ package com.epi;
 import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -56,13 +57,31 @@ public class ExteriorBinaryTree {
   }
   // @exclude
 
+  private static List<Integer> createOutputList(List<BinaryTreeNode<Integer>> L) {
+    List<Integer> result = new ArrayList<Integer>();
+    for (BinaryTreeNode<Integer> l : L) {
+      result.add(l.getData());
+    }
+    return result;
+  }
+
   public static void main(String[] args) {
     //       3
     //    2      5
     //  1   0   4 6
     //    -1 -2
     BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(3, null, null);
+    List<BinaryTreeNode<Integer>> L = exteriorBinaryTree(tree);
+    List<Integer> result = createOutputList(L);
+    List<Integer> goldenResult = Arrays.asList(3);
+    assert(goldenResult.equals(result));
+
     tree.setLeft(new BinaryTreeNode<>(2, null, null));
+    L = exteriorBinaryTree(tree);
+    result = createOutputList(L);
+    goldenResult = Arrays.asList(3, 2);
+    assert(goldenResult.equals(result));
+
     tree.getLeft().setRight(new BinaryTreeNode<>(0, null, null));
     tree.getLeft().getRight().setLeft(new BinaryTreeNode<>(-1, null, null));
     tree.getLeft().getRight().setRight(new BinaryTreeNode<>(-2, null, null));
@@ -70,25 +89,9 @@ public class ExteriorBinaryTree {
     tree.setRight(new BinaryTreeNode<>(5, null, null));
     tree.getRight().setLeft(new BinaryTreeNode<>(4, null, null));
     tree.getRight().setRight(new BinaryTreeNode<>(6, null, null));
-    // should output 3 2 1 -1 -2 4 6 5
-    List<BinaryTreeNode<Integer>> L = exteriorBinaryTree(tree);
-    List<Integer> result = new ArrayList<Integer>();
-    for (BinaryTreeNode<Integer> l : L) {
-      result.add(l.getData());
-      System.out.println(l.getData());
-    }
-    List<Integer> goldenResult = new ArrayList<Integer>() {
-      {
-        add(3);
-        add(2);
-        add(1);
-        add(-1);
-        add(-2);
-        add(4);
-        add(6);
-        add(5);
-      }
-    };
+    L = exteriorBinaryTree(tree);
+    result = createOutputList(L);
+    goldenResult = Arrays.asList(3, 2, 1, -1, -2, 4, 6, 5);
     assert(goldenResult.equals(result));
   }
 }

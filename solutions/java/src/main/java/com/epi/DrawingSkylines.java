@@ -1,7 +1,5 @@
 package com.epi;
 
-import com.epi.utils.Ref;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -46,19 +44,22 @@ public class DrawingSkylines {
       } else if (rightSkyline.get(j).right < leftSkyline.get(i).left) {
         merged.add(rightSkyline.get(j++));
       } else if (leftSkyline.get(i).left <= rightSkyline.get(j).left) {
-        Ref<Integer> iWrapper = new Ref<>(i);
-        Ref<Integer> jWrapper = new Ref<>(j);
-        mergeIntersectSkylines(merged, leftSkyline.get(i), iWrapper,
-                               rightSkyline.get(j), jWrapper);
-        i = iWrapper.value;
-        j = jWrapper.value;
+        boolean advanceFirst = mergeIntersectSkylines(merged, leftSkyline.get(i),
+                                                      rightSkyline.get(j));
+        if (advanceFirst) {
+          i++;
+        } else {
+          j++;
+        }
+
       } else { // leftSkyline.get(i).left > rightSkyline.get(j).left.
-        Ref<Integer> iWrapper = new Ref<>(i);
-        Ref<Integer> jWrapper = new Ref<>(j);
-        mergeIntersectSkylines(merged, rightSkyline.get(j), jWrapper,
-                               leftSkyline.get(i), iWrapper);
-        i = iWrapper.value;
-        j = jWrapper.value;
+        boolean advanceFirst = mergeIntersectSkylines(merged, rightSkyline.get(j),
+                                                      leftSkyline.get(i));
+        if (advanceFirst) {
+          j++;
+        } else {
+          i++;
+        }
       }
     }
     merged.addAll(leftSkyline.subList(i, leftSkyline.size()));
@@ -66,39 +67,40 @@ public class DrawingSkylines {
     return merged;
   }
 
-  private static void mergeIntersectSkylines(List<Rectangle> merged, Rectangle a,
-                                             Ref<Integer> aIdx, Rectangle b,
-                                             Ref<Integer> bIdx) {
+  private static boolean mergeIntersectSkylines(List<Rectangle> merged,
+                                                Rectangle a, Rectangle b) {
+    boolean advanceFirst;
     if (a.right <= b.right) {
       if (a.height > b.height) {
         if (b.right != a.right) {
           merged.add(a);
-          aIdx.value = aIdx.value + 1;
+          advanceFirst = true;
           b.left = a.right;
         } else {
-          bIdx.value = bIdx.value + 1;
+          advanceFirst = false;
         }
       } else if (a.height == b.height) {
         b.left = a.left;
-        aIdx.value = aIdx.value + 1;
+        advanceFirst = true;
       } else { // a->height < b->height.
         if (a.left != b.left) {
           merged.add(new Rectangle(a.left, b.left, a.height));
         }
-        aIdx.value = aIdx.value + 1;
+        advanceFirst = true;
       }
     } else { // a.right > b.right.
       if (a.height >= b.height) {
-        bIdx.value = bIdx.value + 1;
+        advanceFirst = false;
       } else {
         if (a.left != b.left) {
           merged.add(new Rectangle(a.left, b.left, a.height));
         }
         a.left = b.right;
         merged.add(b);
-        bIdx.value = bIdx.value + 1;
+        advanceFirst = false;
       }
     }
+    return advanceFirst;
   }
   // @exclude
 

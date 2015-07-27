@@ -3,6 +3,7 @@ package com.epi;
 import java.util.Random;
 
 public class Division {
+  // Alternative solution.
   public static long divideBinSearch(long x, long y) {
     if (x < y) {
       return 0;
@@ -42,7 +43,7 @@ public class Division {
     long yPower = y << power;
     while (x >= y) {
       while (yPower > x) {
-        yPower >>= 1;
+        yPower >>>= 1;
         --power;
       }
 

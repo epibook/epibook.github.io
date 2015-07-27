@@ -12,8 +12,8 @@ public class IsBinaryTreeABST {
                                         Integer lower, Integer upper) {
     if (tree == null) {
       return true;
-    } else if (tree.getData().compareTo(lower) < 0 ||
-               tree.getData().compareTo(upper) > 0) {
+    } else if (Integer.compare(tree.getData(), lower) < 0 ||
+               Integer.compare(tree.getData(), upper) > 0) {
       return false;
     }
 

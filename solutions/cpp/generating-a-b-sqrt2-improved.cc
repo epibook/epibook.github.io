@@ -44,7 +44,8 @@ struct HashABSqrt2 {
 // @include
 
 vector<ABSqrt2> GenerateFirstKABSqrt2(int k) {
-  vector<ABSqrt2> result;  // Stores the first-k ABSqrt2.
+  // Will store the first k numbers of the form a + b sqrt(2).
+  vector<ABSqrt2> result;  
   result.emplace_back(0, 0);
   int i = 0, j = 0;
   for (int n = 1; n < k; ++n) {
@@ -92,8 +93,21 @@ vector<ABSqrt2> Golden(int k) {
   return smallest;
 }
 
+static void SimpleTest() {
+  vector<ABSqrt2> ans = GenerateFirstKABSqrt2(8);
+  assert(0.0 == ans[0].val);
+  assert(1.0 == ans[1].val);
+  assert(sqrt(2.0) == ans[2].val);
+  assert(2.0 == ans[3].val);
+  assert(1.0 + sqrt(2.0) == ans[4].val);
+  assert(2.0*sqrt(2.0) == ans[5].val);
+  assert(3.0 == ans[6].val);
+  assert(2.0 + sqrt(2.0) == ans[7].val);
+}
+
 int main(int argc, char* argv[]) {
   default_random_engine gen((random_device())());
+  SimpleTest();
   for (int times = 0; times < 1000; ++times) {
     int k;
     if (argc == 2) {

@@ -2,8 +2,6 @@
 
 package com.epi;
 
-import com.epi.utils.Utils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,6 +12,7 @@ public class BuyAndSellStockTwice {
     double maxTotalProfit = 0.0;
     List<Double> firstBuySellProfits = new ArrayList<>();
     double minPriceSoFar = Double.MAX_VALUE;
+
     // Forward phase. For each day, we record maximum profit if we
     // sell on that day.
     for (int i = 0; i < prices.size(); ++i) {
@@ -21,6 +20,7 @@ public class BuyAndSellStockTwice {
       maxTotalProfit = Math.max(maxTotalProfit, prices.get(i) - minPriceSoFar);
       firstBuySellProfits.add(maxTotalProfit);
     }
+
     // Backward phase. For each day, find the maximum profit if we make
     // the second buy on that day.
     double maxPriceSoFar = Double.MIN_VALUE;

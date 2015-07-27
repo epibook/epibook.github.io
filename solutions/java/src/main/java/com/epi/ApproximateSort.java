@@ -5,7 +5,7 @@ import java.util.*;
 
 public class ApproximateSort {
   // @include
-  public static void sortApproximatelySortedArray(InputStream sequence, int k) {
+  public static void sortApproximatelySortedData(InputStream sequence, int k) {
     PriorityQueue<Integer> minHeap = new PriorityQueue<>();
     try {
       ObjectInputStream osin = new ObjectInputStream(sequence);
@@ -44,7 +44,7 @@ public class ApproximateSort {
       }
       ByteArrayInputStream sequence =
           new ByteArrayInputStream(baos.toByteArray());
-      sortApproximatelySortedArray(sequence, 3);
+      sortApproximatelySortedData(sequence, 3);
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
     }
@@ -72,7 +72,7 @@ public class ApproximateSort {
       }
       ByteArrayInputStream sequence =
           new ByteArrayInputStream(baos.toByteArray());
-      sortApproximatelySortedArray(sequence, n - 1);
+      sortApproximatelySortedData(sequence, n - 1);
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
     }

@@ -29,7 +29,17 @@ public class BinarySearchCircularArray {
     }
   }
 
+  private static void SimpleTest() {
+    int[] A = new int[] {3, 1, 2};
+    assert(1 == searchSmallest(A));
+    A = new int[] {0, 2, 4, 8};
+    assert(0 == searchSmallest(A));
+    A[0] = 16;
+    assert(1 == searchSmallest(A));
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;

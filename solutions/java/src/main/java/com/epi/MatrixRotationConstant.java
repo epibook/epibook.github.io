@@ -2,28 +2,36 @@
 
 package com.epi;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static com.epi.utils.Utils.copy;
 
 public class MatrixRotationConstant {
-  private static void rotateMatrix(int[][] A) {
-    for (int i = 0; i < (A.length / 2); ++i) {
-      for (int j = i; j < A.length - i - 1; ++j) {
-        int temp = A[i][j];
-        A[i][j] = A[A.length - 1 - j][i];
-        A[A.length - 1 - j][i] = A[A.length - 1 - i][A.length - 1 - j];
-        A[A.length - 1 - i][A.length - 1 - j] = A[j][A.length - 1 - i];
-        A[j][A.length - 1 - i] = temp;
+  private static void rotateMatrix(List<List<Integer>> squareMatrix) {
+    for (int i = 0; i < (squareMatrix.size() / 2); ++i) {
+      for (int j = i; j < squareMatrix.size() - i - 1; ++j) {
+        // Perform a 4-way exchange.
+        int temp = squareMatrix.get(i).get(j);
+        squareMatrix.get(i)
+            .set(j, squareMatrix.get(squareMatrix.size() - 1 - j).get(i));
+        squareMatrix.get(squareMatrix.size() - 1 - j)
+            .set(i, squareMatrix.get(squareMatrix.size() - 1 - i)
+                        .get(squareMatrix.size() - 1 - j));
+        squareMatrix.get(squareMatrix.size() - 1 - i)
+            .set(squareMatrix.size() - 1 - j,
+                 squareMatrix.get(j).get(squareMatrix.size() - 1 - i));
+        squareMatrix.get(j).set(squareMatrix.size() - 1 - i, temp);
       }
     }
   }
 
-  private static void checkAnswer(int[][] A, int[][] B) {
+  private static void checkAnswer(List<List<Integer>> A, List<List<Integer>> B) {
     RotatedMatrix rA = new RotatedMatrix(A);
-    for (int i = 0; i < A.length; ++i) {
-      for (int j = 0; j < A.length; ++j) {
-        assert(rA.readEntry(i, j) == B[i][j]);
+    for (int i = 0; i < A.size(); ++i) {
+      for (int j = 0; j < A.size(); ++j) {
+        assert(rA.readEntry(i, j) == B.get(i).get(j));
       }
     }
   }
@@ -32,28 +40,30 @@ public class MatrixRotationConstant {
     int n;
     if (args.length == 1) {
       n = Integer.valueOf(args[0]);
-      int[][] A = new int[1 << n][1 << n];
+      List<List<Integer>> A = new ArrayList<>(1 << n);
       int k = 1;
-      for (int i = 0; i < A.length; ++i) {
-        for (int j = 0; j < A[i].length; ++j) {
-          A[i][j] = k++;
+      for (int i = 0; i < (1 << n); ++i) {
+        A.add(new ArrayList(1 << n));
+        for (int j = 0; j < (1 << n); ++j) {
+          A.get(i).add(k++);
         }
       }
-      int[][] B = copy(A);
+      List<List<Integer>> B = copy(A);
       rotateMatrix(B);
       checkAnswer(A, B);
     } else {
       Random gen = new Random();
       for (int times = 0; times < 100; ++times) {
-        n = gen.nextInt(10) + 1;
-        int[][] A = new int[1 << n][1 << n];
+        n = gen.nextInt(2) + 1;
+        List<List<Integer>> A = new ArrayList<>(1 << n);
         int k = 1;
-        for (int i = 0; i < A.length; ++i) {
-          for (int j = 0; j < A[i].length; ++j) {
-            A[i][j] = k++;
+        for (int i = 0; i < (1 << n); ++i) {
+          A.add(new ArrayList(1 << n));
+          for (int j = 0; j < (1 << n); ++j) {
+            A.get(i).add(k++);
           }
         }
-        int[][] B = copy(A);
+        List<List<Integer>> B = copy(A);
         rotateMatrix(B);
         checkAnswer(A, B);
       }
@@ -63,18 +73,18 @@ public class MatrixRotationConstant {
 
 // @include
 class RotatedMatrix {
-  private int[][] wrappedSquareMatrix;
+  private List<List<Integer>> wrappedSquareMatrix;
 
-  public RotatedMatrix(int[][] squareMatrix) {
+  public RotatedMatrix(List<List<Integer>> squareMatrix) {
     this.wrappedSquareMatrix = squareMatrix;
   }
 
   public int readEntry(int i, int j) {
-    return wrappedSquareMatrix[wrappedSquareMatrix.length - 1 - j][i];
+    return wrappedSquareMatrix.get(wrappedSquareMatrix.size() - 1 - j).get(i);
   }
 
   public void writeEntry(int i, int j, int v) {
-    wrappedSquareMatrix[wrappedSquareMatrix.length - 1 - j][i] = v;
+    wrappedSquareMatrix.get(wrappedSquareMatrix.size() - 1 - j).set(i, v);
   }
 }
 // @exclude

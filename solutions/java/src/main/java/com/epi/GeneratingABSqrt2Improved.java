@@ -39,13 +39,14 @@ public class GeneratingABSqrt2Improved {
 
     @Override
     public int compareTo(ABSqrt2 o) {
-      return Double.valueOf(val).compareTo(o.val);
+      return Double.compare(val, o.val);
     }
     // @include
   }
 
   public static List<ABSqrt2> generateFirstKABSqrt2(int k) {
-    List<ABSqrt2> result = new ArrayList<>(); // Stores the first-k ABSqrt2.
+   // Will store the first k numbers of the form a + b sqrt(2).
+    List<ABSqrt2> result = new ArrayList<>(); 
     result.add(new ABSqrt2(0, 0));
     int i = 0, j = 0;
     for (int n = 1; n < k; ++n) {
@@ -96,7 +97,20 @@ public class GeneratingABSqrt2Improved {
     return smallest;
   }
 
+  private static void SimpleTest() {
+    List<ABSqrt2> ans = generateFirstKABSqrt2(8);
+    assert(0.0 == ans.get(0).val);
+    assert(1.0 == ans.get(1).val);
+    assert(Math.sqrt(2.0) == ans.get(2).val);
+    assert(2.0 == ans.get(3).val);
+    assert(1.0 + Math.sqrt(2.0) == ans.get(4).val);
+    assert(2.0*Math.sqrt(2.0) == ans.get(5).val);
+    assert(3.0 == ans.get(6).val);
+    assert(2.0 + Math.sqrt(2.0) == ans.get(7).val);
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int k;

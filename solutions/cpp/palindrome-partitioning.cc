@@ -77,7 +77,19 @@ string RandString(size_t len) {
   return ret;
 }
 
+static void SimpleTest() {
+  auto result = PalindromePartitioning("abbbac");
+  vector<string> v0 = {"a", "b", "b", "b", "a", "c"};
+  vector<string> v1 = {"a", "b", "bb", "a", "c"};
+  vector<string> v2 = {"a", "bb", "b", "a", "c"};
+  vector<string> v3 = {"a", "bbb", "a", "c"};
+  vector<string> v4 = {"abbba", "c"};
+  vector<vector<string>> golden = {v0, v1, v2, v3, v4};
+  assert(result == golden);
+}
+
 int main(int argc, char** argv) {
+  SimpleTest();
   if (argc == 2) {
     string s = argv[1];
     auto result = PalindromePartitioning(s);

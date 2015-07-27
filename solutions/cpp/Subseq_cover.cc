@@ -124,8 +124,9 @@ int main(int argc, char* argv[]) {
     pair<int, int> res(FindSmallestSequentiallyCoveringSubset(A, Q));
     cout << res.first << ", " << res.second << endl;
     if (res.first != -1 && res.second != Q.size()) {
-      if (res.first != res.second)
+      if (res.first != res.second) {
         cout << res.first << ", " << res.second << endl;
+      }
       dict.clear();
       copy(Q.begin(), Q.end(), inserter(dict, dict.end()));
       for (int i = res.first; i <= res.second; ++i) {

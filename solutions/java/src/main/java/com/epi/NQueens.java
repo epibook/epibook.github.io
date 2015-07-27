@@ -30,7 +30,7 @@ public class NQueens {
     }
   }
 
-  // Test if a newly placed queen on rowID will conflict any earlier queens
+  // Test if a newly placed queen will conflict any earlier queens
   // placed before.
   private static boolean isValid(List<Integer> colPlacement) {
     int rowID = colPlacement.size() - 1;
@@ -55,7 +55,22 @@ public class NQueens {
     return sol;
   }
 
+  private static void SimpleTest() {
+    List<List<Integer>> result = nQueens(2);
+    assert(0 == result.size());
+
+    result = nQueens(3);
+    assert(0 == result.size());
+
+    result = nQueens(4);
+    assert(2 == result.size());
+    assert(result.get(0).equals(Arrays.asList(1,3,0,2)) || result.get(0).equals(Arrays.asList(2,0,3,1)));
+    assert(result.get(1).equals(Arrays.asList(1,3,0,2)) || result.get(1).equals(Arrays.asList(2,0,3,1)));
+    assert(!result.get(0).equals(result.get(1)));
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     Random r = new Random();
     int n;
     if (args.length == 1) {

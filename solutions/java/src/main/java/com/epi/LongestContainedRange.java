@@ -1,10 +1,25 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.*;
 
 public class LongestContainedRange {
+
+  // Represents the set of numbers from begin to end, inclusive, i.e., [begin,end].
+  private static class Range {
+    public Integer begin;
+    public Integer end;
+
+    public Range(Integer begin, Integer end) {
+      this.begin = begin;
+      this.end = end;
+    }
+
+    @Override
+    public String toString() {
+      return "[" + begin + "," + end + "]";
+    }
+  }
+
   private static int checkAns(int[] A) {
     Arrays.sort(A);
     int result = 1;
@@ -66,7 +81,7 @@ public class LongestContainedRange {
     return m.getValue() - m.getKey() + 1;
   }
 
-  public static Pair<Integer, Integer> findLongestContainedRange(int[] A) {
+  public static Range findLongestContainedRange(int[] A) {
     // S records the existence of each entry in A.
     Set<Integer> S = new HashSet<>();
     for (int a : A) {
@@ -74,14 +89,14 @@ public class LongestContainedRange {
     }
 
     int maxLen = 0;
-    Pair<Integer, Integer> maxRange = new Pair<>(0, -1);
+    Range maxRange = new Range(0, -1);
     // L stores the longest length ending at each A[i].
     Map<Integer, Integer> L = new HashMap<>();
     for (int a : A) {
       int len = longestRangeLen(a, S, L);
       if (len > maxLen) {
         maxLen = len;
-        maxRange = new Pair<>(a - len + 1, a);
+        maxRange = new Range(a - len + 1, a);
       }
     }
     return maxRange;
@@ -148,12 +163,10 @@ public class LongestContainedRange {
       }
 
       assert(findLongestContainedRangeInt(A) == checkAns(A));
-      Pair<Integer, Integer> result = findLongestContainedRange(A);
+      Range result = findLongestContainedRange(A);
       System.out.println(result);
-      assert(result.getSecond() - result.getFirst() + 1 ==
-             findLongestContainedRangeInt(A));
-      assert(result.getSecond() - result.getFirst() + 1 ==
-             longestContainedRange(A));
+      assert(result.end - result.begin + 1 == findLongestContainedRangeInt(A));
+      assert(result.end - result.begin + 1 == longestContainedRange(A));
     }
   }
 }

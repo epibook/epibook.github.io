@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class MergeSortedLists {
   //@include
-  public static ListNode<Integer> mergeTwoSortedLinkedLists(
-      ListNode<Integer> L1, ListNode<Integer> L2) {
+  public static ListNode<Integer> mergeTwoSortedLists(ListNode<Integer> L1,
+                                                      ListNode<Integer> L2) {
     // Creates a placeholder for the result.
     ListNode<Integer> dummyHead = new ListNode<>(0, null);
     ListNode<Integer> current = dummyHead;
@@ -30,7 +30,30 @@ public class MergeSortedLists {
   }
   // @exclude
 
+  private static void simpleTest() {
+    ListNode<Integer> L1 = null;
+    ListNode<Integer> L2 = null;
+    ListNode<Integer> result = mergeTwoSortedLists(L1, L2);
+    assert(result == null);
+
+    L1 = new ListNode(123, null);
+    result = mergeTwoSortedLists(L1, L2);
+    assert(result.data == 123);
+
+    L2 = L1;
+    L1 = null;
+    result = mergeTwoSortedLists(L1, L2);
+    assert(result.data == 123);
+
+    L1 = new ListNode(-123, null);
+    L2 = new ListNode(123, null);
+    result = mergeTwoSortedLists(L1, L2);
+    assert(result.data == -123 && result.next.data == 123 &&
+           result.next.next == null);
+  }
+
   public static void main(String[] args) {
+    simpleTest();
     Random rnd = new Random();
     for (int times = 0; times < 10000; ++times) {
       ListNode<Integer> L1 = null;
@@ -57,7 +80,7 @@ public class MergeSortedLists {
         L2 = temp;
       }
 
-      ListNode<Integer> sortedHead = mergeTwoSortedLinkedLists(L1, L2);
+      ListNode<Integer> sortedHead = mergeTwoSortedLists(L1, L2);
       int count = 0;
       int pre = Integer.MIN_VALUE;
       while (sortedHead != null) {

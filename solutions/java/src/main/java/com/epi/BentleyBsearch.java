@@ -1,10 +1,8 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BentleyBsearch {
   // @include
   public static int bsearch(int t, ArrayList<Integer> A) {
@@ -23,7 +21,19 @@ public class BentleyBsearch {
   }
   // @exclude
 
+  private static void SimpleTest() {
+    ArrayList<Integer> A = new ArrayList<>(Arrays.asList(1, 2, 3));
+    assert(0 == bsearch(1, A));
+    assert(1 == bsearch(2, A));
+    assert(2 == bsearch(3, A));
+    A = new ArrayList<Integer>(Arrays.asList(2, 2, 2));
+    assert(0 <= bsearch(2, A) && bsearch(2, A) <= 2);
+    assert(-1 == bsearch(3, A));
+    assert(-1 == bsearch(0, A));
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     ArrayList<Integer> A = new ArrayList<>();
     A.add(1);
     A.add(2);

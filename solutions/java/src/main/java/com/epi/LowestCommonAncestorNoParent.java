@@ -20,10 +20,11 @@ public class LowestCommonAncestorNoParent {
     return LCAHelper(tree, node0, node1).ancestor;
   }
 
-  // Returns an object of int and node; int field is 0, 1, or 2 depending on
-  // how many of node0 and node1 are present in tree. If both are present in
-  // tree, the node pointer is a common ancestor. It may not be the LCA
-  // initially, but it will be LCA when the algorithm terminates.
+  // Returns an object consisting of an int and a node. The int field is
+  // 0, 1, or 2 depending on how many of {node0, node1} are present in
+  // the tree. If both are present in tree, the node field is a
+  // common ancestor. It may not be the LCA initially, but it will
+  // be LCA when the algorithm terminates.
   private static Status LCAHelper(BinaryTreeNode<Integer> tree,
                                   BinaryTreeNode<Integer> node0,
                                   BinaryTreeNode<Integer> node1) {
@@ -68,6 +69,14 @@ public class LowestCommonAncestorNoParent {
     // should output 5
     x = LCA(tree, tree.getRight(), tree.getRight().getRight());
     assert(x.getData().equals(5));
+    System.out.println(x.getData());
+    // should output 3
+    x = LCA(tree, tree.getLeft().getLeft(), tree.getRight().getRight());
+    assert(x.getData().equals(3));
+    System.out.println(x.getData());
+    // should output 3
+    x = LCA(tree, tree.getLeft().getLeft(), tree);
+    assert(x.getData().equals(3));
     System.out.println(x.getData());
   }
 }

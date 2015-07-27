@@ -35,7 +35,25 @@ class EvenOddMergeLinkedList {
   }
   // @exclude
 
+  public static void SimpleTest() {
+    ListNode<Integer> L = new ListNode<>(0, null);
+    ListNode<Integer> result = evenOddMerge(L);
+    assert(result.data == 0);
+
+    L.next = new ListNode<Integer>(1, null);
+    result = evenOddMerge(L);
+    assert(result.data == 0);
+    assert(result.next.data == 1);
+    L.next.next = new ListNode<Integer>(2, null);
+
+    result = evenOddMerge(L);
+    assert(result.data == 0);
+    assert(result.next.data == 2);
+    assert(result.next.next.data == 1);
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     Random gen = new Random();
     ListNode<Integer> head = null;
     int n = 0;

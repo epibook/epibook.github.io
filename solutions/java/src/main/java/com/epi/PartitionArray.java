@@ -85,7 +85,23 @@ class PartitionArray {
     return ret.toString();
   }
 
+  private static void SimpleTest() {
+    Person[] people = new Person[4];
+    people[0] = new Person(20, "foo");
+    people[1] = new Person(10, "bar");
+    people[2] = new Person(20, "widget");
+    people[3] = new Person(20, "something");
+
+    groupByAge(people);
+    if (people[0].age == 10) {
+        assert(people[1].age == 20 && people[2].age == 20 && people[3].age == 20);
+    } else {
+        assert(people[1].age == 20 && people[2].age == 20 && people[3].age == 10);
+    }
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     Random rnd = new Random();
     for (int times = 0; times < 1000; ++times) {
       int size = 0;

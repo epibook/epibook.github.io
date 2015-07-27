@@ -16,29 +16,29 @@ class NearestRepetition {
   // @include
   public static int findNearestRepetition(String[] paragraph) {
     Map<String, Integer> wordToLatestIndex = new HashMap<>();
-    int closestDis = Integer.MAX_VALUE;
+    int nearestRepeatedDistance = Integer.MAX_VALUE;
     for (int i = 0; i < paragraph.length; ++i) {
       if (wordToLatestIndex.containsKey(paragraph[i])) {
-        closestDis =
-            Math.min(closestDis, i - wordToLatestIndex.get(paragraph[i]));
+        nearestRepeatedDistance =
+            Math.min(nearestRepeatedDistance, i - wordToLatestIndex.get(paragraph[i]));
       }
       wordToLatestIndex.put(paragraph[i], i);
     }
-    return closestDis;
+    return nearestRepeatedDistance;
   }
   // @exclude
 
   // O(n^2) checking
   private static int checkAnswer(String[] s) {
-    int closestDis = Integer.MAX_VALUE;
+    int nearestRepeatedDistance = Integer.MAX_VALUE;
     for (int i = 0; i < s.length; ++i) {
       for (int j = i + 1; j < s.length; ++j) {
         if (s[i].equals(s[j])) {
-          closestDis = Math.min(closestDis, j - i);
+          nearestRepeatedDistance = Math.min(nearestRepeatedDistance, j - i);
         }
       }
     }
-    return closestDis;
+    return nearestRepeatedDistance;
   }
 
   public static void main(String[] args) {

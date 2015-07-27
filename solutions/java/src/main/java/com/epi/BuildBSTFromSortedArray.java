@@ -33,7 +33,17 @@ public class BuildBSTFromSortedArray {
     return target;
   }
 
+  private static void SimpleTest() {
+     BSTNode<Integer> result = buildMinHeightBSTFromSortedArray(new int[]{1,2,3,4});
+     assert(3 == result.getData());
+     assert(2 == result.getLeft().getData());
+     assert(1 == result.getLeft().getLeft().getData());
+     assert(4 == result.getRight().getData());
+  }
+
+
   public static void main(String[] args) {
+    SimpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;

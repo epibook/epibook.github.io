@@ -5,7 +5,7 @@ import java.util.Random;
 public class ReverseInteger {
   // @include
   public static long reverse(int x) {
-    boolean isNegative = (x < 0);
+    boolean isNegative = x < 0;
     long result = 0;
     long xRemaining = Math.abs(x);
     while (xRemaining != 0) {

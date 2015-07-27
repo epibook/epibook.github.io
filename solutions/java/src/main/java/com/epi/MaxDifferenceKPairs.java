@@ -57,9 +57,9 @@ public class MaxDifferenceKPairs {
   public static void main(String[] args) {
     Random gen = new Random();
 
-    int n = 40, k = 4;
-    // random tests for n = 40, k = 4 for 300 times/
-    for (int times = 0; times < 300; ++times) {
+    int n = 30, k = 4;
+    // random tests for n = 30, k = 4 for 100 times/
+    for (int times = 0; times < 100; ++times) {
       List<Double> A = new ArrayList<>();
       for (int i = 0; i < n; ++i) {
         A.add(gen.nextDouble() * 100.0);

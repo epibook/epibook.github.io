@@ -1,19 +1,27 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.Random;
 
 public class FindMissingAndDuplicate {
   // @include
-  // Returns Pair<int, int>(duplicate, missing).
-  public static Pair<Integer, Integer> findDuplicateMissing(int[] A) {
+  private static class DuplicateAndMissing {
+    public Integer duplicate;
+    public Integer missing;
+
+    public DuplicateAndMissing(Integer duplicate, Integer missing) {
+      this.duplicate = duplicate;
+      this.missing = missing;
+    }
+  }
+
+  public static DuplicateAndMissing findDuplicateMissing(int[] A) {
     int sum = 0, squareSum = 0;
     for (int i = 0; i < A.length; ++i) {
       sum += i - A[i];
       squareSum += i * i - A[i] * A[i];
     }
-    return new Pair<>((squareSum / sum - sum) / 2, (squareSum / sum + sum) / 2);
+    return new DuplicateAndMissing((squareSum / sum - sum) / 2,
+                                   (squareSum / sum + sum) / 2);
   }
   // @exclude
 
@@ -38,11 +46,11 @@ public class FindMissingAndDuplicate {
       }
       int dup = A[dupIdx];
       A[missingIdx] = dup;
-      Pair<Integer, Integer> ans = findDuplicateMissing(A);
+      DuplicateAndMissing ans = findDuplicateMissing(A);
       System.out.println("times = " + times);
       System.out.println(dup + " " + missing);
-      System.out.println(ans.getFirst() + " " + ans.getSecond());
-      assert(ans.getFirst().equals(dup) && ans.getSecond().equals(missing));
+      System.out.println(ans.duplicate + " " + ans.missing);
+      assert(ans.duplicate.equals(dup) && ans.missing.equals(missing));
     }
   }
 }

@@ -2,8 +2,6 @@ package com.epi;
 
 import java.io.*;
 
-import static com.epi.utils.Utils.close;
-
 public class Tail {
   // @include
   public static String tail(String fileName, int N) throws IOException {
@@ -26,7 +24,7 @@ public class Tail {
       lastNLines.append(c);
     }
 
-    close(filePtr);
+    filePtr.close();
 
     lastNLines.reverse();
     return lastNLines.toString();
@@ -52,9 +50,10 @@ public class Tail {
 
     System.out.println();
     System.out.println(
-        String.format("Show last %d lines from file %s", tailCount, fileName));
+        String.format("Last %d lines from file %s", tailCount, fileName));
     System.out.println();
 
+    System.out.println("Brute force solution:");
     show(fileName, tailCount);
   }
 
@@ -79,7 +78,7 @@ public class Tail {
       }
     }
 
-    close(br);
+    br.close();
   }
 
   // A slightly modified version of answer given here:
@@ -100,7 +99,7 @@ public class Tail {
       }
     }
 
-    close(is);
+    is.close();
     return (count == 0 && !empty) ? 1 : count;
   }
 }

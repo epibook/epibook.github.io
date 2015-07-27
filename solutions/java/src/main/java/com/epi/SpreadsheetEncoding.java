@@ -24,6 +24,8 @@ public class SpreadsheetEncoding {
 
   private static void simpleTest() {
     assert(1 == ssDecodeColID("A"));
+    assert(2 == ssDecodeColID("B"));
+    assert(26 == ssDecodeColID("Z"));
     assert(27 == ssDecodeColID("AA"));
   }
 

@@ -43,7 +43,7 @@ void SolveNQueens(int n, int row, vector<int>* col_placement,
   }
 }
 
-// Test if a newly placed queen on row_id will conflict any earlier queens
+// Test if a newly placed queen will conflict any earlier queens
 // placed before.
 bool IsValid(const vector<int>& col_placement) {
   int row_id = col_placement.size() - 1;
@@ -68,7 +68,25 @@ vector<string> ToTextRepresentation(const vector<int>& col_placement) {
   return sol;
 }
 
+static void SimpleTest() {
+  auto result = NQueens(2);
+  assert(0 == result.size());
+
+  result = NQueens(3);
+  assert(0 == result.size());
+
+  result = NQueens(4);
+  assert(2 == result.size());
+
+  vector<int> place1 = {1,3,0,2};
+  vector<int> place2 = {2,0,3,1};
+  assert(result[0] == place1 || result[0] == place2);
+  assert(result[1] == place1 || result[1] == place2);
+  assert(result[0] != result[1]);
+}
+
 int main(int argc, char** argv) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   int n;
   if (argc == 2) {

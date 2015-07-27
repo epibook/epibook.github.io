@@ -1,42 +1,58 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.NoSuchElementException;
 
 public class StackQueueUsingHeap {
+  private static final int DEFAULT_INITIAL_CAPACITY = 16;
   // @include
-  private static class Compare implements Comparator<Pair<Integer, Integer>> {
-    @Override
-    public int compare(Pair<Integer, Integer> o1, Pair<Integer, Integer> o2) {
-      return o2.getFirst().compareTo(o1.getFirst());
+  private static class ValueWithRank {
+    public Integer value;
+    public Integer rank;
+
+    public ValueWithRank(Integer value, Integer rank) {
+      this.value = value;
+      this.rank = rank;
     }
+  }
+
+  private static class Compare implements Comparator<ValueWithRank> {
+    @Override
+    public int compare(ValueWithRank o1, ValueWithRank o2) {
+      return o2.value.compareTo(o1.value);
+    }
+
+    public static final Compare COMPARE_VALUEWITHRANK = new Compare();
   }
 
   public static class Stack {
     private int order = 0;
-    private PriorityQueue<Pair<Integer, Integer>> maxHeap =
-        new PriorityQueue<>(11, new Compare());
+    private PriorityQueue<ValueWithRank> maxHeap = new PriorityQueue<>(
+        DEFAULT_INITIAL_CAPACITY, Compare.COMPARE_VALUEWITHRANK);
 
-    public void push(Integer x) { maxHeap.add(new Pair<>(order++, x)); }
+    public void push(Integer x) { maxHeap.add(new ValueWithRank(order++, x)); }
 
-    public Integer pop() { return maxHeap.remove().getSecond(); }
+    public Integer pop() throws NoSuchElementException {
+      return maxHeap.remove().rank;
+    }
 
-    public Integer peek() { return maxHeap.peek().getSecond(); }
+    public Integer peek() { return maxHeap.peek().rank; }
   }
   // @exclude
 
   public static class Queue {
     private int order = 0;
-    private PriorityQueue<Pair<Integer, Integer>> H =
+    private PriorityQueue<ValueWithRank> H =
         new PriorityQueue<>(11, new Compare());
 
-    public void enqueue(Integer x) { H.add(new Pair<>(order--, x)); }
+    public void enqueue(Integer x) { H.add(new ValueWithRank(order--, x)); }
 
-    public Integer dequeue() { return H.remove().getSecond(); }
+    public Integer dequeue() throws NoSuchElementException {
+      return H.remove().rank;
+    }
 
-    public Integer head() { return H.peek().getSecond(); }
+    public Integer head() { return H.peek().rank; }
   }
 
   public static void main(String[] args) {
@@ -54,10 +70,30 @@ public class StackQueueUsingHeap {
     s.pop();
     try {
       s.pop();
-    } catch (Exception e) {
+      assert(false);
+    } catch (NoSuchElementException e) {
       System.out.println("empty stack");
       System.out.println(e.getMessage());
     }
+
+    s.push(0);
+    s.push(-1);
+    s.push(Integer.MAX_VALUE);
+    assert(s.peek().equals(Integer.MAX_VALUE));
+    s.pop();
+    assert(s.peek().equals(-1));
+    s.pop();
+    assert(s.peek().equals(0));
+    s.pop();
+    try {
+      s.pop();
+      assert(false);
+    } catch (NoSuchElementException e) {
+      System.out.println("empty stack");
+      System.out.println(e.getMessage());
+    }
+    s.push(0);
+    assert(s.peek().equals(0));
 
     Queue q = new Queue();
     q.enqueue(1);
@@ -68,7 +104,8 @@ public class StackQueueUsingHeap {
     q.dequeue();
     try {
       q.dequeue();
-    } catch (Exception e) {
+      assert(false);
+    } catch (NoSuchElementException e) {
       System.out.println("empty queue");
       System.out.println(e.getMessage());
     }

@@ -14,6 +14,7 @@ using std::random_device;
 using std::stoul;
 using std::uniform_int_distribution;
 
+// Alternative solution.
 unsigned DivideBsearch(unsigned x, unsigned y) {
   if (x < y) {
     return 0;

@@ -133,5 +133,11 @@ public class InsertionDeletionBST {
     assert(bst.delete(2));
     assert(!bst.delete(1));
     assert(bst.empty());
+    assert(bst.insert(7));
+    assert(bst.getRootVal() == 7);
+    assert(bst.insert(9));
+    assert(bst.getRootVal() == 7);
+    assert(bst.delete(7));
+    assert(bst.getRootVal() == 9);
   }
 }

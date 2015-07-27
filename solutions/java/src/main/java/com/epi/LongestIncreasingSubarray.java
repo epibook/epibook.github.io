@@ -1,8 +1,6 @@
 // Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,10 +8,19 @@ import java.util.Random;
 
 public class LongestIncreasingSubarray {
   // @include
-  public static Pair<Integer, Integer> findLongestIncreasingSubarray(
-      List<Integer> A) {
+  // Represent subarray by starting and ending indices, inclusive.
+  private static class Subarray {
+    public Integer start;
+    public Integer end;
+
+    public Subarray(Integer start, Integer end) {
+      this.start = start;
+      this.end = end;
+    }
+  }
+  public static Subarray findLongestIncreasingSubarray(List<Integer> A) {
     int maxLength = 1;
-    Pair<Integer, Integer> ans = new Pair<>(0, 0);
+    Subarray ans = new Subarray(0, 0);
     int i = 0;
     while (i < A.size() - maxLength) {
       // Backward check and skip if A[j - 1] >= A[j].
@@ -33,7 +40,7 @@ public class LongestIncreasingSubarray {
           ++i;
           ++maxLength;
         }
-        ans = new Pair<>(i - maxLength, i - 1);
+        ans = new Subarray(i - maxLength, i - 1);
       }
     }
     return ans;
@@ -41,11 +48,10 @@ public class LongestIncreasingSubarray {
   // @exclude
 
   private static void simpleTest() {
-    Pair<Integer, Integer> ans =
-        findLongestIncreasingSubarray(Arrays.asList(-1, -1));
-    assert(ans.getFirst() == 0 && ans.getSecond() == 0);
+    Subarray ans = findLongestIncreasingSubarray(Arrays.asList(-1, -1));
+    assert(ans.start == 0 && ans.end == 0);
     ans = findLongestIncreasingSubarray(Arrays.asList(1, 2));
-    assert(ans.getFirst() == 0 && ans.getSecond() == 1);
+    assert(ans.start == 0 && ans.end == 1);
   }
 
   public static void main(String[] args) {
@@ -69,8 +75,8 @@ public class LongestIncreasingSubarray {
           A.add((gen.nextBoolean() ? -1 : 1) * gen.nextInt(n));
         }
       }
-      Pair<Integer, Integer> result = findLongestIncreasingSubarray(A);
-      System.out.println(result.getFirst() + " " + result.getSecond());
+      Subarray result = findLongestIncreasingSubarray(A);
+      System.out.println(result.start + " " + result.end);
       int len = 1;
       for (int i = 1; i < A.size(); ++i) {
         if (A.get(i) > A.get(i - 1)) {
@@ -78,7 +84,7 @@ public class LongestIncreasingSubarray {
         } else {
           len = 1;
         }
-        assert(len <= result.getSecond() - result.getFirst() + 1);
+        assert(len <= result.end - result.start + 1);
       }
     }
   }

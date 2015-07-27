@@ -70,7 +70,20 @@ vector<ABSqrt2> Golden(int k) {
   return smallest;
 }
 
+static void SimpleTest() {
+  vector<ABSqrt2> ans = GenerateFirstKABSqrt2(8);
+  assert(0.0 == ans[0].val);
+  assert(1.0 == ans[1].val);
+  assert(sqrt(2.0) == ans[2].val);
+  assert(2.0 == ans[3].val);
+  assert(1.0 + sqrt(2.0) == ans[4].val);
+  assert(2.0*sqrt(2.0) == ans[5].val);
+  assert(3.0 == ans[6].val);
+  assert(2.0 + sqrt(2.0) == ans[7].val);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int k;

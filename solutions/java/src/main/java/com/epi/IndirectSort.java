@@ -6,8 +6,6 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.*;
 
-import static com.epi.utils.Utils.close;
-
 class IndirectSort {
   // @include
   public static void indirectSort(String fileName) throws Exception {
@@ -20,7 +18,7 @@ class IndirectSort {
         A.add(ifs.nextInt());
       }
     } finally {
-      close(ifs);
+      ifs.close();
     }
 
     // Indirectly sorts file.
@@ -34,7 +32,7 @@ class IndirectSort {
         ofs.println(a);
       }
     } finally {
-      close(ofs);
+      ofs.close();
     }
   }
   // @exclude
@@ -77,7 +75,7 @@ class IndirectSort {
           ofs.println(a);
         }
       } finally {
-        close(ofs);
+        ofs.close();
       }
       indirectSort("input.txt");
 
@@ -90,7 +88,7 @@ class IndirectSort {
           A.add(ifs.nextInt());
         }
       } finally {
-        close(ifs);
+        ifs.close();
       }
 
       assert(isSorted(A));

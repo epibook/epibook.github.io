@@ -14,12 +14,11 @@ class Interval implements Comparable<Interval> {
   }
 
   public int compareTo(Interval i) {
-    if (left.val < i.left.val) {
-      return -1;
+    if (Integer.compare(left.val, i.left.val) != 0) {
+      return left.val - i.left.val;
     }
-    if (left.val > i.left.val) {
-      return 1;
-    }
+    // Left endpoints are equal, so now see if one is closed and the
+    // other open - closed intervals should appear first.
     if (left.isClosed && !i.left.isClosed) {
       return -1;
     }

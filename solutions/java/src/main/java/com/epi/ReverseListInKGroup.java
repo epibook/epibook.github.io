@@ -8,16 +8,16 @@ public class ReverseListInKGroup {
                       sublistHead = dummyHead.next, sublistSuccessor = dummyHead,
                       sublistTail = dummyHead.next;
     while (sublistHead != null) {
-      int num_remaining = k;
-      while (num_remaining > 0) {
+      int numRemaining = k;
+      while (numRemaining > 0) {
         sublistSuccessor = sublistTail;
         sublistTail = sublistTail.next;
-        --num_remaining;
+        --numRemaining;
         if (sublistTail == null) {
           break;
         }
       }
-      if (num_remaining > 0) {
+      if (numRemaining > 0) {
         return dummyHead.next;
       }
 

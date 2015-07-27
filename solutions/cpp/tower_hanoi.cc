@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random>
 #include <stack>
+#include <cassert>
 
 using std::array;
 using std::cout;
@@ -14,6 +15,8 @@ using std::stack;
 using std::uniform_int_distribution;
 
 void ComputeTowerHanoiSteps(int, array<stack<int>, 3>&, int, int, int);
+
+static int num_steps = 0;
 
 // @include
 const int kNumPegs = 3;
@@ -37,6 +40,9 @@ void ComputeTowerHanoiSteps(int num_rings_to_move,
     pegs[to_peg].push(pegs[from_peg].top());
     pegs[from_peg].pop();
     cout << "Move from peg " << from_peg << " to peg " << to_peg << endl;
+    // @exclude
+    num_steps++;
+    // @include
     ComputeTowerHanoiSteps(num_rings_to_move - 1, pegs, use_peg, to_peg,
                            from_peg);
   }
@@ -54,5 +60,22 @@ int main(int argc, char* argv[]) {
   }
   cout << "n = " << n << endl;
   ComputeTowerHanoi(n);
+
+  num_steps = 0;
+  ComputeTowerHanoi(4);
+  assert(15 == num_steps);
+
+  num_steps = 0;
+  ComputeTowerHanoi(1);
+  assert(1 == num_steps);
+
+  num_steps = 0;
+  ComputeTowerHanoi(0);
+  assert(0 == num_steps);
+
+  num_steps = 0;
+  ComputeTowerHanoi(10);
+  assert(1023 == num_steps);
+
   return 0;
 }

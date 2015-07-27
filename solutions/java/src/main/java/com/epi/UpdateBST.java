@@ -102,7 +102,7 @@ public class UpdateBST {
       return true;
     }
 
-    // Replace the link between parent and child by new_link.
+    // Replace the link between parent and child by newLink.
     private void replaceParentChildLink(TreeNode parent, TreeNode child,
                                         TreeNode newLink) {
       if (parent == null) {

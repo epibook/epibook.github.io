@@ -60,7 +60,27 @@ unique_ptr<BinaryTreeNode<int>> BinaryTreeFromPreorderInorderHelper(
 }
 // @exclude
 
+void SimpleTest() {
+  auto res = BinaryTreeFromPreorderInorder({1}, {1});
+  assert(res->data == 1);
+
+  res = BinaryTreeFromPreorderInorder({2, 1}, {1, 2});
+  assert(res->data == 2 && res->left->data == 1 && res->right == nullptr);
+
+  int N = 100;
+  vector<int> inorder, preorder;
+  for (int i = 0; i < N; ++i) {
+    inorder.emplace_back(i);
+    preorder.emplace_back((N - 1) - i);
+  }
+
+  res = BinaryTreeFromPreorderInorder(preorder, inorder);
+  assert(res->data == N - 1 && res->left->data == N - 2 &&
+         res->right == nullptr);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     cout << times << endl;

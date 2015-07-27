@@ -63,6 +63,7 @@ int main(int argc, char* argv[]) {
   assert(ShortestEquivalentPath("./../") == string(".."));
   assert(ShortestEquivalentPath("../../local") == string("../../local"));
   assert(ShortestEquivalentPath("./.././../local") == string("../../local"));
+  assert(ShortestEquivalentPath("/foo/../foo/./../") == string("/"));
   try {
     ShortestEquivalentPath("/foo.txt");
   } catch (const exception& e) {

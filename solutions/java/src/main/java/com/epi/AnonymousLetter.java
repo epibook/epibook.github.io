@@ -30,8 +30,8 @@ class AnonymousLetter {
       }
     }
 
-    // Checks characters in magazineText can cover characters in
-    // magazineText.
+    // Check if the characters in magazineText can cover characters in
+    // letterText.
     for (char c : magazineText.toCharArray()) {
       if (charFrequencyForLetter.containsKey(c)) {
         charFrequencyForLetter.put(c, charFrequencyForLetter.get(c) - 1);
@@ -49,7 +49,17 @@ class AnonymousLetter {
   }
   // @exclude
 
+  private static void SimpleTest() {
+    assert(!isLetterConstructibleFromMagazine("123", "456"));
+    assert(!isLetterConstructibleFromMagazine("123", "12222222"));
+    assert(isLetterConstructibleFromMagazine("123", "1123"));
+    assert(isLetterConstructibleFromMagazine("123", "123"));
+    assert(!isLetterConstructibleFromMagazine("12323", "123"));
+    assert(isLetterConstructibleFromMagazine("GATTACA", "A AD FS GA T ACA TTT"));
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     String L = null;
     String M = null;
     if (args.length == 2) {
@@ -62,10 +72,6 @@ class AnonymousLetter {
     }
     System.out.println(L);
     System.out.println(M);
-    assert(!isLetterConstructibleFromMagazine("123", "456"));
-    assert(!isLetterConstructibleFromMagazine("123", "12222222"));
-    assert(isLetterConstructibleFromMagazine("123", "1123"));
-    assert(isLetterConstructibleFromMagazine("123", "123"));
     System.out.println(isLetterConstructibleFromMagazine(L, M) ? "true"
                                                                : "false");
   }

@@ -46,12 +46,22 @@ void ReverseWords(string* s) {
 }
 // @exclude
 
-void check_answer(const string& ori, string* str) {
+void CheckAnswer(const string& ori, string* str) {
   ReverseWords(str);
   assert(ori.compare(*str) == 0);
 }
 
+void SimpleTest() {
+  string input = "a cat and dog";
+  ReverseWords(&input);
+  assert(input.compare("dog and cat a") == 0);
+  input = "dog";
+  ReverseWords(&input);
+  assert(input.compare("dog") == 0);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     string str;
@@ -69,7 +79,7 @@ int main(int argc, char* argv[]) {
     cout << str << endl;
     ReverseWords(&str);
     cout << str << endl;
-    check_answer(original_str, &str);
+    CheckAnswer(original_str, &str);
   }
   return 0;
 }

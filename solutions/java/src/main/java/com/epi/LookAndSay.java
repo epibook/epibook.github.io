@@ -38,6 +38,12 @@ public class LookAndSay {
     assert(lookAndSay(1).equals("1"));
     assert(lookAndSay(2).equals("11"));
     assert(lookAndSay(3).equals("21"));
+    assert(lookAndSay(4).equals("1211"));
+    assert(lookAndSay(5).equals("111221"));
+    assert(lookAndSay(6).equals("312211"));
+    assert(lookAndSay(7).equals("13112221"));
+    assert(lookAndSay(8).equals("1113213211"));
+
     System.out.println("n = " + n);
     System.out.println(lookAndSay(n));
   }

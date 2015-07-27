@@ -3,41 +3,6 @@ package com.epi;
 import java.util.Random;
 
 public class ClosestIntSameBits {
-  public static int setBit(int x, int bit, boolean setValue) {
-    return setValue ? x | (1 << bit) : x & ~(1 << bit);
-  }
-
-  public static int search(int x, int setValue, int defaultValue) {
-    int index = 0, num = 0;
-    while (((x >> index) & 1) != setValue) {
-      ++index;
-    }
-    while (((x >> index) & 1) == setValue) {
-      ++index;
-      ++num;
-    }
-    if (index == 32) {
-      return defaultValue;
-    } else {
-      x ^= (1 << index);
-      --index;
-      --num;
-      for (int i = index; i >= num; --i) {
-        x = setBit(x, i, setValue != 0);
-      }
-      for (int i = num - 1; i >= 0; --i) {
-        x = setBit(x, i, setValue == 0);
-      }
-      return x;
-    }
-  }
-
-  /*
-   * public static int closest_int_same_bits(int x) { int prev = search(x, 0,
-   * Integer.MIN_VALUE); int next = search(x, 1, Integer.MAX_VALUE); return
-   * Math.abs(x - prev) < Math.abs(x - next) ? prev : next; }
-   */
-
   // @include
   public static long closestIntSameBitCount(long x) {
     for (int i = 0; i < 63; ++i) {
@@ -48,7 +13,7 @@ public class ClosestIntSameBits {
     }
 
     // Throw error if all bits of x are 0 or 1.
-    throw new RuntimeException("all bits are 0 or 1");
+    throw new IllegalArgumentException("all bits are 0 or 1");
   }
   // @exclude
 
@@ -61,7 +26,15 @@ public class ClosestIntSameBits {
     return count;
   }
 
+  private static void smallTest() {
+    assert(closestIntSameBitCount(6) == 5);
+    assert(closestIntSameBitCount(7) == 11);
+    assert(closestIntSameBitCount(2) == 1);
+    assert(closestIntSameBitCount(32) == 16);
+  }
+
   public static void main(String[] args) {
+    smallTest();
     long r1 = closestIntSameBitCount(1L);
     assert(r1 == 2L);
 

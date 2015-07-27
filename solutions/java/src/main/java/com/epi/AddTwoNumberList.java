@@ -21,7 +21,7 @@ public class AddTwoNumberList {
       carry = sum / 10;
       placeIter = placeIter.next;
     }
-    // carry cannot exceed 1, so we at most need to add one more node.
+    // carry cannot exceed 1, so we never need to add more than one node.
     if (carry > 0) {
       placeIter.next = new ListNode<>(carry, null);
     }
@@ -29,7 +29,34 @@ public class AddTwoNumberList {
   }
   // @exclude
 
+  private static void simpleTest() {
+    ListNode<Integer> L;
+    L = new ListNode<>(2, new ListNode<>(4, new ListNode<>(3, null)));
+    ListNode<Integer> R;
+    R = new ListNode<>(0, null);
+    ListNode<Integer> S = addTwoNumbers(L, R);
+    assert(S.data.equals(2) && S.next.data.equals(4) &&
+           S.next.next.data.equals(3));
+
+    L = new ListNode<>(3, new ListNode<>(4, new ListNode<>(2, null)));
+    R = new ListNode<>(7, new ListNode<>(5, new ListNode<>(7, null)));
+    S = addTwoNumbers(L, R);
+    assert(S.data.equals(0) && S.next.data.equals(0) &&
+           S.next.next.data.equals(0) && S.next.next.next.data.equals(1));
+
+    L = new ListNode<>(1, null);
+    R = new ListNode<>(1, null);
+    S = addTwoNumbers(L, R);
+    assert(S.data.equals(2) && S.next == null);
+
+    L = new ListNode<>(5, null);
+    R = new ListNode<>(5, null);
+    S = addTwoNumbers(L, R);
+    assert(S.data.equals(0) && S.next.data == 1 && S.next.next == null);
+  }
+
   public static void main(String[] args) {
+    simpleTest();
     ListNode<Integer> L;
     L = new ListNode<>(2, new ListNode<>(4, new ListNode<>(3, null)));
     ListNode<Integer> R;

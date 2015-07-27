@@ -44,7 +44,7 @@ public class JustifyText {
     return result;
   }
 
-  // Joins strings in words[start : end] with num_spaces spaces spread evenly.
+  // Joins strings in words[start : end] with numSpaces spaces spread evenly.
   private static String joinALineWithSpace(String[] words, int start, int end,
                                            int numSpaces) {
     int numWordsCurrLine = end - start + 1;

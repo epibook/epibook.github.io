@@ -1,13 +1,20 @@
 package com.epi;
 
-import com.epi.utils.Interval;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class InsertInterval {
   // @include
+  private static class Interval {
+    public int left, right;
+
+    public Interval(int l, int r) {
+      this.left = l;
+      this.right = r;
+    }
+  }
+
   public static List<Interval> AddInterval(List<Interval> disjointIntervals,
                                            Interval newInterval) {
     int i = 0;
@@ -70,15 +77,15 @@ public class InsertInterval {
       List<Interval> A = new ArrayList<>();
       int pre = 0;
       for (int i = 0; i < n; ++i) {
-        Interval temp = new Interval();
-        temp.left = pre + r.nextInt(10) + 1;
-        temp.right = temp.left + r.nextInt(10) + 1;
+        int left = pre + r.nextInt(10) + 1;
+        int right = left + r.nextInt(10) + 1;
+        Interval temp = new Interval(left, right);
         pre = temp.right;
         A.add(temp);
       }
-      Interval target = new Interval();
-      target.left = r.nextInt(101);
-      target.right = target.left + r.nextInt(101);
+      int left = r.nextInt(101);
+      int right = left + r.nextInt(101);
+      Interval target = new Interval(left, right);
       List<Interval> result = AddInterval(A, target);
       checkIntervals(result);
     }

@@ -5,7 +5,7 @@ import java.util.*;
 public class LongestSubarrayWithDistinctEntries {
   // @include
   public static int longestSubarrayWithDistinctEntries(int[] A) {
-    // Records the last occurrences of each entry.
+    // Records the most recent occurrences of each entry.
     Map<Integer, Integer> mostRecentOccurrence = new HashMap<>();
     int longestDupFreeSubarrayStartIdx = 0, result = 0;
     for (int i = 0; i < A.length; ++i) {
@@ -39,7 +39,15 @@ public class LongestSubarrayWithDistinctEntries {
     return len;
   }
 
+  private static void SimpleTest() {
+    assert(1 == longestSubarrayWithDistinctEntries(new int[]{1,1,1}));
+    assert(2 == longestSubarrayWithDistinctEntries(new int[]{1,2,1}));
+    assert(3 == longestSubarrayWithDistinctEntries(new int[]{1,2,1,3,1,2,1}));
+    assert(2 == longestSubarrayWithDistinctEntries(new int[]{1,2,2,3,3,1,1,2,1}));
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     Random r = new Random();
     int n;
     if (args.length == 1) {

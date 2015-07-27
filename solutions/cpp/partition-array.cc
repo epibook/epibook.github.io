@@ -66,7 +66,19 @@ string RandString(int len) {
   return ret;
 }
 
+static void SimpleTest() {
+  vector<Person> people = {Person({20, "foo"}), Person({10, "bar"}), Person({20, "widget"}), Person({20, "something"})};
+
+  GroupByAge(&people);
+  if (people[0].age == 10) {
+      assert(people[1].age == 20 && people[2].age == 20 && people[3].age == 20);
+  } else {  
+      assert(people[1].age == 20 && people[2].age == 20 && people[3].age == 10);
+  }
+} 
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int size;

@@ -18,8 +18,8 @@ public class TournamentTree {
     public TreeNode(double cap) { this.cap = cap; }
   }
 
-  // Stores the complete binary tree. For tree_[i],
-  // left subtree is tree_[2i + 1], and right subtree is tree_[2i + 2].
+  // Stores the complete binary tree. For tree[i],
+  // left subtree is tree[2i + 1], and right subtree is tree[2i + 2].
   private List<TreeNode> tree;
 
   // Recursively inserts item in tournament tree.

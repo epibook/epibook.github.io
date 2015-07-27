@@ -2,8 +2,6 @@
 
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,11 +10,22 @@ import java.util.Random;
 
 class TaskAssignment {
   // @include
-  public static List<Pair<Integer, Integer>> taskAssignment(int[] taskDurations) {
-    Arrays.sort(taskDurations);
-    List<Pair<Integer, Integer>> taskPairings = new ArrayList<>();
-    for (int i = 0, j = taskDurations.length - 1; i < j; ++i, --j) {
-      taskPairings.add(new Pair<>(taskDurations[i], taskDurations[j]));
+  private static class PairedTasks {
+    public Integer task1;
+    public Integer task2;
+
+    public PairedTasks(Integer task1, Integer task2) {
+      this.task1 = task1;
+      this.task2 = task2;
+    }
+  }
+
+  public static List<PairedTasks> taskAssignment(List<Integer> taskDurations) {
+    Collections.sort(taskDurations);
+    List<PairedTasks> taskPairings = new ArrayList<>();
+    for (int i = 0, j = taskDurations.size() - 1; i < j; ++i, --j) {
+      taskPairings.add(
+          new PairedTasks(taskDurations.get(i), taskDurations.get(j)));
     }
     return taskPairings;
   }
@@ -30,15 +39,15 @@ class TaskAssignment {
     } else {
       n = gen.nextInt(10000) + 1;
     }
-    int[] A = new int[n];
+    List<Integer> A = new ArrayList<>(n);
     for (int i = 0; i < n; ++i) {
-      A[i] = gen.nextInt(999);
+      A.add(gen.nextInt(999));
     }
-    List<Pair<Integer, Integer>> P = taskAssignment(A);
+    List<PairedTasks> P = taskAssignment(A);
     int max = Integer.MIN_VALUE;
-    for (Pair<Integer, Integer> aP : P) {
-      if (aP.getFirst() + aP.getSecond() > max) {
-        max = aP.getFirst() + aP.getSecond();
+    for (PairedTasks aP : P) {
+      if (aP.task1 + aP.task2 > max) {
+        max = aP.task1 + aP.task2;
       }
     }
     System.out.println(max);
