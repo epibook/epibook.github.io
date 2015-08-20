@@ -2,7 +2,7 @@
 layout: post
 title:  EPI Java 
 description:
-     EPI Java
+     EPI 2.0
 css:
     - /lib/lightbox/css/lightbox.css
 js:
@@ -23,10 +23,10 @@ feedback on 1-2 chapters on the Java draft.
 
 By acting as a reviewer, you will get 
 <ol>
-<li>a chance to perfect your interviewing skills,
+<li>A chance to perfect your interviewing skills,
 <li> an early look at the book, 
 <li> our undying gratitude, and, 
-<li> a <font color="red"><b>free hardcopy</b></font> of the book, <em>if</em> you are one of the first 25 reviewers.
+<li> a <font color="red"><b>free hardcopy</b></font> of the book, <em>if</em> you are one of the first 25 reviewers or make great contributions to this review.
 </ol>
 
 If you are interested, please sign up via this <a href="http://goo.gl/forms/a9CsMJFXbn">Google form</a>.
