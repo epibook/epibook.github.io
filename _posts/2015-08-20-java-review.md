@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  EPI Java 
+title:  EPI 2.0 
 description:
      EPI 2.0
 css:
