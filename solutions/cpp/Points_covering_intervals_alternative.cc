@@ -20,7 +20,7 @@ using std::unordered_set;
 using std::vector;
 
 struct EndPoint;
-vector<int> FindMinimumVisitsHelper(const vector<EndPoint>& endpoints);
+vector<int> FindMinimumVisitsHelper(const vector<EndPoint>&);
 
 // @include
 struct Interval {
@@ -31,7 +31,7 @@ struct EndPoint {
   bool operator<(const EndPoint& that) const {
     const int a = is_left ? ptr->left : ptr->right,
               b = that.is_left ? that.ptr->left : that.ptr->right;
-    return a < b;
+    return a < b || (a == b && is_left && !that.is_left);
   }
 
   const Interval* ptr;
@@ -93,7 +93,19 @@ void SimpleTest() {
   I.emplace_back(Interval{7, 10});
   I.emplace_back(Interval{9, 11});
   vector<int> ans = FindMinimumVisits(I);
-  assert(ans.size() == 2 && ans[0] == 4 && ans[1] == 10);
+  vector<int> golden = {4, 10};
+  assert(ans.size() && golden.size() && equal(ans.begin(), ans.end(), golden.begin()));
+
+  I.clear();
+  I.emplace_back(Interval{1, 2});
+  I.emplace_back(Interval{2, 3});
+  I.emplace_back(Interval{3, 4});
+  I.emplace_back(Interval{4, 5});
+  I.emplace_back(Interval{5, 6});
+  I.emplace_back(Interval{6, 7});
+  ans = FindMinimumVisits(I);
+  golden = {2, 4, 6};
+  assert(ans.size() && golden.size() && equal(ans.begin(), ans.end(), golden.begin()));
 }
 
 int main(int argc, char* argv[]) {

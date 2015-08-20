@@ -19,7 +19,7 @@ vector<vector<int>> zigzag_level_order(
     const unique_ptr<BinaryTreeNode<int>>& root) {
   vector<vector<int>> res;
   vector<int> one_level;
-  queue<BinaryTreeNode<int>*> curr_level, next_level;
+  queue<BinaryTreeNode<int> *> curr_level, next_level;
   curr_level.emplace(root.get());
   while (!curr_level.empty()) {
     auto curr_node = curr_level.front();
@@ -43,18 +43,18 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BinaryTreeNode<int>> root =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3, nullptr, nullptr});
-  root->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2, nullptr, nullptr});
-  root->left->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1, nullptr, nullptr});
-  root->right =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5, nullptr, nullptr});
-  root->right->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4, nullptr, nullptr});
-  root->right->right =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6, nullptr, nullptr});
+  unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{3, nullptr, nullptr});
+  root->left = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{2, nullptr, nullptr});
+  root->left->left = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{1, nullptr, nullptr});
+  root->right = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{5, nullptr, nullptr});
+  root->right->left = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{4, nullptr, nullptr});
+  root->right->right = unique_ptr<BinaryTreeNode<int>>(
+      new BinaryTreeNode<int>{6, nullptr, nullptr});
   auto res = zigzag_level_order(root);
   vector<vector<int>> golden_res = {{1, 4, 6}, {2, 5}, {3}};
   assert(golden_res.size() == res.size());

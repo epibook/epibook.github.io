@@ -1,20 +1,14 @@
 package com.epi;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class BinaryTreeWithParentPrototype {
   public static class BinaryTree<T> {
     private T data;
     private BinaryTree<T> left, right;
     private BinaryTree<T> parent;
 
-    public BinaryTree() {
-    }
+    public BinaryTree() {}
 
-    public BinaryTree(T data) {
-      this.data = data;
-    }
+    public BinaryTree(T data) { this.data = data; }
 
     public BinaryTree(T data, BinaryTree<T> left, BinaryTree<T> right) {
       this.data = data;
@@ -28,36 +22,20 @@ public class BinaryTreeWithParentPrototype {
       this.parent = parent;
     }
 
-    public T getData() {
-      return data;
-    }
+    public T getData() { return data; }
 
-    public void setData(T data) {
-      this.data = data;
-    }
+    public void setData(T data) { this.data = data; }
 
-    public BinaryTree<T> getLeft() {
-      return left;
-    }
+    public BinaryTree<T> getLeft() { return left; }
 
-    public void setLeft(BinaryTree<T> left) {
-      this.left = left;
-    }
+    public void setLeft(BinaryTree<T> left) { this.left = left; }
 
-    public BinaryTree<T> getRight() {
-      return right;
-    }
+    public BinaryTree<T> getRight() { return right; }
 
-    public void setRight(BinaryTree<T> right) {
-      this.right = right;
-    }
+    public void setRight(BinaryTree<T> right) { this.right = right; }
 
-    public BinaryTree<T> getParent() {
-      return parent;
-    }
+    public BinaryTree<T> getParent() { return parent; }
 
-    public void setParent(BinaryTree<T> parent) {
-      this.parent = parent;
-    }
+    public void setParent(BinaryTree<T> parent) { this.parent = parent; }
   }
 }

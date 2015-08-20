@@ -14,21 +14,21 @@ using std::numeric_limits;
 using std::unique_ptr;
 using std::vector;
 
-unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
-    const vector<int>&, int, int, int*);
+unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(const vector<int>&, int,
+                                                      int, int*);
 
 // @include
 unique_ptr<BSTNode<int>> RebuildBSTFromPreorder(
     const vector<int>& preorder_sequence) {
   int root_idx = 0;
-  return RebuildBSTFromPreorderHelper(
-      preorder_sequence, numeric_limits<int>::min(),
-      numeric_limits<int>::max(), &root_idx);
+  return RebuildBSTFromPreorderHelper(preorder_sequence,
+                                      numeric_limits<int>::min(),
+                                      numeric_limits<int>::max(), &root_idx);
 }
 
-// Builds a BST from preorder_sequence on keys in [lower_bound : upper_bound].
+// Builds a BST from preorder_sequence on keys in (lowerBound, upperBound).
 unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
-    const vector<int>& preorder_sequence, int lower_bound, int upper_bound, 
+    const vector<int>& preorder_sequence, int lower_bound, int upper_bound,
     int* root_idx) {
   if (*root_idx == preorder_sequence.size()) {
     return nullptr;
@@ -40,10 +40,9 @@ unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
   }
   ++*root_idx;
   return unique_ptr<BSTNode<int>>(new BSTNode<int>{
-      root, 
-      RebuildBSTFromPreorderHelper(preorder_sequence, lower_bound, root, 
-                                   root_idx),
-      RebuildBSTFromPreorderHelper(preorder_sequence, root, upper_bound, 
+      root, RebuildBSTFromPreorderHelper(preorder_sequence, lower_bound, root,
+                                         root_idx),
+      RebuildBSTFromPreorderHelper(preorder_sequence, root, upper_bound,
                                    root_idx)});
 }
 // @exclude
@@ -64,14 +63,14 @@ int main(int argc, char* argv[]) {
   //  1    4  6
   // should output 1, 2, 3, 4, 5, 6
   // preorder [3, 2, 1, 5, 4, 6]
-  vector<int> preorder;
-  preorder.emplace_back(3);
-  preorder.emplace_back(2);
-  preorder.emplace_back(1);
-  preorder.emplace_back(5);
-  preorder.emplace_back(4);
-  preorder.emplace_back(6);
+  vector<int> preorder = {3, 2, 1, 5, 4, 6};
   unique_ptr<BSTNode<int>> tree(RebuildBSTFromPreorder(preorder));
   CheckAns<int>(tree, numeric_limits<int>::min());
+  assert(3 == tree->data);
+  assert(2 == tree->left->data);
+  assert(1 == tree->left->left->data);
+  assert(5 == tree->right->data);
+  assert(4 == tree->right->left->data);
+  assert(6 == tree->right->right->data);
   return 0;
 }

@@ -20,9 +20,7 @@ string rand_string(int len) {
 }
 
 // @include
-bool comp(const string &a, const string &b) {
-  return a + b > b + a;
-}
+bool comp(const string &a, const string &b) { return a + b > b + a; }
 
 string max_concatenation(vector<string> &A) {
   sort(A.begin(), A.end(), comp);

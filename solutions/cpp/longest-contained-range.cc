@@ -72,13 +72,14 @@ int FindLongestContainedRange(const vector<int>& A) {
 
   auto m = max_element(L.cbegin(), L.cend(),
                        [](const pair<int, int>& a, const pair<int, int>& b) {
-    return a.second - a.first < b.second - b.first;
-  });
+                         return a.second - a.first < b.second - b.first;
+                       });
   return m->second - m->first + 1;
 }
 
 /*
-int LongestRangeLength(int a, const unordered_set<int>& S, unordered_map<int, int>* L);
+int LongestRangeLength(int a, const unordered_set<int>& S, unordered_map<int,
+int>* L);
 
 pair<int, int> FindLongestContainedRange(const vector<int>& A) {
   // S records the existence of each entry in A.
@@ -141,14 +142,13 @@ int LongestContainedRange(const vector<int>& A) {
       ++upper_bound;
     }
 
-    max_interval_size =
-        max(max_interval_size, upper_bound - lower_bound - 1);
+    max_interval_size = max(max_interval_size, upper_bound - lower_bound - 1);
   }
   return max_interval_size;
 }
 // @exclude
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     size_t n;
@@ -172,8 +172,10 @@ int main(int argc, char *argv[]) {
     assert(FindLongestContainedRange(A) == CheckAns(A));
     /*
     auto max_interval_size = FindLongestContainedRange(A);
-    cout << "max_interval_size = " << max_interval_size.first << ", " << max_interval_size.second << endl;
-    assert(max_interval_size.second - max_interval_size.first + 1 == FindLongestContainedRange(A));
+    cout << "max_interval_size = " << max_interval_size.first << ", " <<
+    max_interval_size.second << endl;
+    assert(max_interval_size.second - max_interval_size.first + 1 ==
+    FindLongestContainedRange(A));
     */
     assert(LongestContainedRange(A) == CheckAns(A));
   }

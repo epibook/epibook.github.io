@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 package com.epi;
 
@@ -25,8 +25,8 @@ class ZippingList {
     secondHalfHead = reverseLinkedList(secondHalfHead);
 
     // Interleave the first half and the reversed of the second half.
-    ListNode<Integer> firstHalfIter = firstHalfHead,
-                      secondHalfIter = secondHalfHead;
+    ListNode<Integer> firstHalfIter = firstHalfHead, secondHalfIter =
+                                                         secondHalfHead;
     while (secondHalfIter != null) {
       ListNode<Integer> temp = secondHalfIter.next;
       secondHalfIter.next = firstHalfIter.next;
@@ -65,8 +65,8 @@ class ZippingList {
     int idx = 0, pre = 0;
     while (curr != null) {
       if (args.length <= 1) {
-        if ((idx & 1) != 0) {
-          assert (pre + curr.data == n);
+        if ((idx % 2) != 0) {
+          assert(pre + curr.data == n);
         }
       }
       ++idx;

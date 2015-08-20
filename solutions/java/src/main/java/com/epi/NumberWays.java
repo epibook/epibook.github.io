@@ -18,10 +18,10 @@ public class NumberWays {
       A[j] = 1;
     }
     for (int i = 1; i < n; ++i) {
-      int prev_res = 0;
+      int prevRes = 0;
       for (int j = 0; j < m; ++j) {
-        A[j] = A[j] + prev_res;
-        prev_res = A[j];
+        A[j] = A[j] + prevRes;
+        prevRes = A[j];
       }
     }
     return A[m - 1];
@@ -58,9 +58,9 @@ public class NumberWays {
         n = r.nextInt(10) + 1;
         m = r.nextInt(10) + 1;
       }
-      System.out.println("n = " + n + ", m = " + m + ", number of ways = "
-          + numberOfWays(n, m));
-      assert (checkAns(n + m - 2, m - 1) == numberOfWays(n, m));
+      System.out.println("n = " + n + ", m = " + m + ", number of ways = " +
+                         numberOfWays(n, m));
+      assert(checkAns(n + m - 2, m - 1) == numberOfWays(n, m));
       if (args.length == 2) {
         break;
       }

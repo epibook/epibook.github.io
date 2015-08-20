@@ -8,52 +8,55 @@ using std::cout;
 using std::endl;
 using std::string;
 
-bool IsMatchHere(const string &r, int r_idx, const string &s, int s_idx);
+bool IsMatchHere(const string &, int, const string &, int);
 
 // @include
-bool IsMatch(const string &r, const string &s) {
-  // Case (2.): r starts with '^'.
-  if (r.front() == '^') {
-    return IsMatchHere(r, 1, s, 0);
+bool IsMatch(const string &regex, const string &s) {
+  // Case (2.): regex starts with '^'.
+  if (regex.front() == '^') {
+    return IsMatchHere(regex, 1, s, 0);
   }
 
   for (int i = 0; i <= s.size(); ++i) {
-    if (IsMatchHere(r, 0, s, i)) {
+    if (IsMatchHere(regex, 0, s, i)) {
       return true;
     }
   }
   return false;
 }
 
-bool IsMatchHere(const string &r, int r_idx, const string &s, int s_idx) {
-  // Case (1.).
-  if (r_idx == r.size()) {
+bool IsMatchHere(const string &regex, int regex_offset, const string &s,
+                 int s_offset) {
+  if (regex_offset == regex.size()) {
+    // Case (1.): Empty regex matches all strings.
     return true;
   }
 
-  // Case (2): r ends with '$'.
-  if (r_idx == r.size() - 1 && r[r_idx] == '$') {
-    return s_idx == s.size();
+  if (regex_offset == regex.size() - 1 && regex[regex_offset] == '$') {
+    // Case (2.): Reach the end of regex, and last char is '$'.
+    return s_offset == s.size();
   }
 
-  // Case (4.).
-  if (r.size() - r_idx >= 2 && r[r_idx + 1] == '*') {
-    // Don't use any character of r[r_idx].
-    if (IsMatchHere(r, r_idx + 2, s, s_idx)) {
-      return true;
-    }
-
-    // Tries all possible number of r[r_idx].
-    while (s_idx < s.size() && (r[r_idx] == '.' || r[r_idx] == s[s_idx])) {
-      if (IsMatchHere(r, r_idx + 2, s, ++s_idx)) {
+  if (regex.size() - regex_offset >= 2 && regex[regex_offset + 1] == '*') {
+    // Case (3.): A '*' match.
+    // Iterate through s, checking '*' condition, if '*' condition holds,
+    // performs the remaining checks.
+    for (int i = s_offset + 1;
+         i < s.size() &&
+         (regex[regex_offset] == '.' || regex[regex_offset] == s[i - 1]);
+         ++i) {
+      if (IsMatchHere(regex, regex_offset + 2, s, i)) {
         return true;
       }
     }
+    // See '*' matches zero character in s[s_offset : s.size() - 1].
+    return IsMatchHere(regex, regex_offset + 2, s, s_offset);
   }
 
-  // Case (3.).
-  return s_idx < s.size() && (r[r_idx] == '.' || r[r_idx] == s[s_idx]) &&
-         IsMatchHere(r, r_idx + 1, s, s_idx + 1);
+  // Case (4.): regex begins with single character match.
+  return s_offset < s.size() &&
+         (regex[regex_offset] == '.' || regex[regex_offset] == s[s_offset]) &&
+         IsMatchHere(regex, regex_offset + 1, s, s_offset + 1);
 }
 // @exclude
 
@@ -70,8 +73,8 @@ int main(int argc, char *argv[]) {
   assert(IsMatch("c*", "c"));
   assert(!IsMatch("aa*", "c"));
   assert(IsMatch("ca*", "c"));
-  assert(IsMatch(".*",  "asdsdsa"));
-  assert(IsMatch("9$" , "xxxxW19"));
+  assert(IsMatch(".*", "asdsdsa"));
+  assert(IsMatch("9$", "xxxxW19"));
 
   assert(IsMatch(".*a", "ba"));
 

@@ -2,7 +2,6 @@ package com.epi;
 
 import java.util.Random;
 
-import static com.epi.utils.Utils.fill;
 import static java.lang.Math.abs;
 
 public class ClosestPalindrome {
@@ -21,14 +20,16 @@ public class ClosestPalindrome {
           str.setCharAt(idx--, '9');
         } else {
           char c = str.charAt(idx);
-          str.setCharAt(idx, (char) (c - 1));
+          str.setCharAt(idx, (char)(c - 1));
           break;
         }
       }
       // Special case, make the entire string "99...9".
       if (str.charAt(0) == '0') {
         str.deleteCharAt(0); // Removes the leading 0.
-        fill(str, '9');
+        for (int i = 0; i < str.length(); i++) {
+          str.setCharAt(i, '9');
+        }
       }
     } else { // mirrorLeft < x.
       // Add one to the left half.
@@ -37,7 +38,7 @@ public class ClosestPalindrome {
           str.setCharAt(idx--, '0');
         } else {
           char c = str.charAt(idx);
-          str.setCharAt(idx, (char) (c + 1));
+          str.setCharAt(idx, (char)(c + 1));
           break;
         }
       }
@@ -45,7 +46,8 @@ public class ClosestPalindrome {
 
     // Make str a palindrome again by mirroring the left half to the right half.
     mirrored = mirrorLeftHalf(str.toString());
-    return abs(x - mirrorLeft) < abs(x - Long.valueOf(mirrored)) ? mirrorLeft
+    return abs(x - mirrorLeft) < abs(x - Long.valueOf(mirrored))
+        ? mirrorLeft
         : Long.valueOf(mirrored);
   }
   // @exclude
@@ -104,5 +106,4 @@ public class ClosestPalindrome {
       checkAnswer(x, ret);
     }
   }
-
 }

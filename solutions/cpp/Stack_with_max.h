@@ -9,6 +9,7 @@
 #include <utility>
 
 using std::length_error;
+using std::max;
 using std::pair;
 using std::stack;
 
@@ -34,7 +35,7 @@ class Stack {
   }
 
   void Push(int x) {
-    element_with_cached_max_.emplace(x, std::max(x, Empty() ? x : Max()));
+    element_with_cached_max_.emplace(x, max(x, Empty() ? x : Max()));
   }
 
  private:

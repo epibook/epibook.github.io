@@ -31,7 +31,8 @@ void CheckAnswer(const vector<vector<int>>& A) {
   }
 }
 
-void RotateMatrixHelper(int x_s, int x_e, int y_s, int y_e, vector<vector<int>>* A);
+void RotateMatrixHelper(int x_s, int x_e, int y_s, int y_e,
+                        vector<vector<int>>* A);
 void CopyMatrix(int A_x_s, int A_x_e, int A_y_s, int A_y_e,
                 const vector<vector<int>>& S, int S_x, int S_y,
                 vector<vector<int>>* A);

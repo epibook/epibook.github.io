@@ -15,20 +15,19 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-void Rearrange(vector<int>* A) {
-  auto& A_ref = *A;
-  for (size_t i = 1; i < A_ref.size(); ++i) {
-    if ((!(i & 1) && A_ref[i - 1] < A_ref[i]) ||
-        ((i & 1) && A_ref[i - 1] > A_ref[i])) {
-      swap(A_ref[i - 1], A_ref[i]);
+void Rearrange(vector<int>* A_ptr) {
+  auto& A = *A_ptr;
+  for (size_t i = 1; i < A.size(); ++i) {
+    if ((!(i % 2) && A[i - 1] < A[i]) || ((i % 2) && A[i - 1] > A[i])) {
+      swap(A[i - 1], A[i]);
     }
   }
 }
 // @exclude
 
-void check_answer(const vector<int>& A) {
+void CheckAnswer(const vector<int>& A) {
   for (size_t i = 0; i < A.size(); ++i) {
-    if (i & 1) {
+    if (i % 2) {
       assert(A[i] >= A[i - 1]);
       if (i + 1 < A.size()) {
         assert(A[i] >= A[i + 1]);
@@ -60,13 +59,7 @@ int main(int argc, char* argv[]) {
       A.emplace_back(dis(gen));
     }
     Rearrange(&A);
-    /*
-    for (const int &a : A) {
-      cout << a << ' ';
-    }
-    cout << endl;
-    */
-    check_answer(A);
+    CheckAnswer(A);
   }
   return 0;
 }

@@ -61,7 +61,7 @@ public class IsBinaryTreeABSTConstSpace {
     // 1 4 6
     tree.setData(10);
     // should output false.
-    assert (!isBST(tree));
+    assert(!isBST(tree));
     System.out.println(isBST(tree));
     // should output true.
     assert isBST(null);

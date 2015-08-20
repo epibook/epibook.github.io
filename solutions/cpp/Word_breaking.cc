@@ -72,6 +72,14 @@ void CheckAns(const string& s, vector<string>& ans) {
   assert(!ans.size() || !s.compare(temp));
 }
 
+void SmallCase() {
+  unordered_set<string> dictionary = {"bed", "bath", "and", "hand", "beyond"};
+  auto ans = WordBreaking("bedbathandbeyond", dictionary);
+  vector<string> golden_ans = {"bed", "bath", "and", "beyond"};
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+}
+
 int main(int argc, char* argv[]) {
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {

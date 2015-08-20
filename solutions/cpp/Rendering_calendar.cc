@@ -32,9 +32,9 @@ struct Endpoint {
 int FindMaxSimultaneousEvents(const vector<Event>& A) {
   // Builds an array of all endpoints.
   vector<Endpoint> E;
-  for (const Event& i : A) {
-    E.emplace_back(Endpoint{i.start, true});
-    E.emplace_back(Endpoint{i.finish, false});
+  for (const Event& event : A) {
+    E.emplace_back(Endpoint{event.start, true});
+    E.emplace_back(Endpoint{event.finish, false});
   }
   // Sorts the endpoint array according to the time, breaking ties
   // by putting start times before end times.
@@ -43,8 +43,8 @@ int FindMaxSimultaneousEvents(const vector<Event>& A) {
   // Track the number of simultaneous events, and record the maximum
   // number of simultaneous events.
   int max_num_simultaneous_events = 0, num_simultaneous_events = 0;
-  for (const Endpoint& e : E) {
-    if (e.isStart) {
+  for (const Endpoint& endpoint : E) {
+    if (endpoint.isStart) {
       ++num_simultaneous_events;
       max_num_simultaneous_events =
           max(num_simultaneous_events, max_num_simultaneous_events);
@@ -57,7 +57,15 @@ int FindMaxSimultaneousEvents(const vector<Event>& A) {
 // @exclude
 
 void SimpleTest() {
-  vector<Event> A = {{1, 5}, {2, 7}, {4, 5}, {6, 10}, {8, 9}, {9, 17}, {11, 13}, {12, 15}, {14, 15}};
+  vector<Event> A = {{1, 5},
+                     {2, 7},
+                     {4, 5},
+                     {6, 10},
+                     {8, 9},
+                     {9, 17},
+                     {11, 13},
+                     {12, 15},
+                     {14, 15}};
   assert(FindMaxSimultaneousEvents(A) == 3);
 }
 

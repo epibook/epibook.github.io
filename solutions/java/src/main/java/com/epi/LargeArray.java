@@ -100,7 +100,7 @@ public class LargeArray {
     // @exclude
     if (result != -1) {
       System.out.println("B[" + result + "] = " + A_LARGE[offset + result]);
-      assert (A_LARGE[offset + result] == key);
+      assert(A_LARGE[offset + result] == key);
     }
   }
 }

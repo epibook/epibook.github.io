@@ -3,9 +3,6 @@ package com.epi;
 
 import java.util.Random;
 
-import static com.epi.utils.Utils.find;
-import static com.epi.utils.Utils.reverse;
-
 public class ReverseWords {
   static String randString(int len) {
     Random gen = new Random();
@@ -40,14 +37,43 @@ public class ReverseWords {
 
     return new String(reversed);
   }
+
+  public static void reverse(char[] array, int start, int stopIndex) {
+    if (start >= stopIndex) {
+      return;
+    }
+
+    int last = stopIndex - 1;
+    for (int i = start; i <= start + (last - start) / 2; i++) {
+      char tmp = array[i];
+      array[i] = array[last - i + start];
+      array[last - i + start] = tmp;
+    }
+  }
+
+  public static int find(char[] array, char c, int start) {
+    for (int i = start; i < array.length; i++) {
+      if (array[i] == c) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
   // @exclude
 
-  static void checkAnswer(String ori, String str) {
+  private static void checkAnswer(String ori, String str) {
     String reversed = reverseWords(str);
     assert ori.equals(reversed);
   }
 
+  private static void simpleTest() {
+    assert reverseWords("a cat and dog").equals("dog and cat a");
+    assert reverseWords("dog").equals("dog");
+  }
+
   public static void main(String[] args) {
+    simpleTest();
     Random gen = new Random();
     for (int times = 0; times < 1000; ++times) {
       String str = "";

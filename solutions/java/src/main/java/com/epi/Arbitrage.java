@@ -1,3 +1,5 @@
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
 import java.util.ArrayList;
@@ -5,9 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class Arbitrage {
   // @include
   public static boolean isArbitrageExist(List<? extends List<Double>> G) {
@@ -22,8 +21,7 @@ public class Arbitrage {
     return bellmanFord(G, 0);
   }
 
-  private static boolean bellmanFord(List<? extends List<Double>> G,
-                                     int source) {
+  private static boolean bellmanFord(List<? extends List<Double>> G, int source) {
     double[] disToSource = new double[G.size()];
     Arrays.fill(disToSource, Double.MAX_VALUE);
     disToSource[source] = 0;
@@ -32,8 +30,8 @@ public class Arbitrage {
       boolean haveUpdate = false;
       for (int i = 0; i < G.size(); ++i) {
         for (int j = 0; j < G.get(i).size(); ++j) {
-          if (disToSource[i] != Double.MAX_VALUE
-              && disToSource[j] > disToSource[i] + G.get(i).get(j)) {
+          if (disToSource[i] != Double.MAX_VALUE &&
+              disToSource[j] > disToSource[i] + G.get(i).get(j)) {
             haveUpdate = true;
             disToSource[j] = disToSource[i] + G.get(i).get(j);
           }
@@ -49,8 +47,8 @@ public class Arbitrage {
     // Detects cycle if there is any further update.
     for (int i = 0; i < G.size(); ++i) {
       for (int j = 0; j < G.get(i).size(); ++j) {
-        if (disToSource[i] != Double.MAX_VALUE
-            && disToSource[j] > disToSource[i] + G.get(i).get(j)) {
+        if (disToSource[i] != Double.MAX_VALUE &&
+            disToSource[j] > disToSource[i] + G.get(i).get(j)) {
           return true;
         }
       }

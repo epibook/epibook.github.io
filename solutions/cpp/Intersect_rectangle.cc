@@ -17,7 +17,7 @@ using std::string;
 using std::uniform_int_distribution;
 
 struct Rectangle;
-bool IsIntersect(const Rectangle& R, const Rectangle& S);
+bool IsIntersect(const Rectangle&, const Rectangle&);
 
 // @include
 struct Rectangle {
@@ -30,40 +30,57 @@ struct Rectangle {
   // @include
 };
 
-Rectangle IntersectRectangle(const Rectangle& R, const Rectangle& S) {
-  if (IsIntersect(R, S)) {
-    return {max(R.x, S.x), max(R.y, S.y),
-            min(R.x + R.width, S.x + S.width) - max(R.x, S.x),
-            min(R.y + R.height, S.y + S.height) - max(R.y, S.y)};
-  } else {
-    return {0, 0, -1, -1};  // No intersection.
+Rectangle IntersectRectangle(const Rectangle& R1, const Rectangle& R2) {
+  if (IsIntersect(R1, R2)) {
+    return {max(R1.x, R2.x), max(R1.y, R2.y),
+            min(R1.x + R1.width, R2.x + R2.width) - max(R1.x, R2.x),
+            min(R1.y + R1.height, R2.y + R2.height) - max(R1.y, R2.y)};
   }
+  return {0, 0, -1, -1};  // No intersection.
 }
 
-bool IsIntersect(const Rectangle& R, const Rectangle& S) {
-  return R.x <= S.x + S.width && R.x + R.width >= S.x &&
-         R.y <= S.y + S.height && R.y + R.height >= S.y;
+bool IsIntersect(const Rectangle& R1, const Rectangle& R2) {
+  return R1.x <= R2.x + R2.width && R1.x + R1.width >= R2.x &&
+         R1.y <= R2.y + R2.height && R1.y + R1.height >= R2.y;
 }
 // @exclude
 
+void SmallTest() {
+  Rectangle R1 = {0, 0, 2, 2}, R2 = {1, 1, 3, 3};
+  auto result = IntersectRectangle(R1, R2);
+  assert(result.x == 1 && result.y == 1 && result.width == 1 &&
+         result.height == 1);
+  R1 = {0, 0, 1, 1}, R2 = {1, 1, 3, 3};
+  result = IntersectRectangle(R1, R2);
+  assert(result.x == 1 && result.y == 1 && result.width == 0 &&
+         result.height == 0);
+  R1 = {0, 0, 1, 1}, R2 = {2, 2, 3, 3};
+  result = IntersectRectangle(R1, R2);
+  assert(result.x == 0 && result.y == 0 && result.width == -1 &&
+         result.height == -1);
+}
+
 int main(int argc, char* argv[]) {
+  SmallTest();
   for (int times = 0; times < 10000; ++times) {
-    Rectangle R, S;
+    Rectangle R1, R2;
     if (argc == 9) {
-      R.x = atoi(argv[1]), R.y = atoi(argv[2]), R.width = atoi(argv[3]),
-      R.height = atoi(argv[4]);
-      S.x = atoi(argv[5]), S.y = atoi(argv[6]), S.width = atoi(argv[7]),
-      S.height = atoi(argv[8]);
+      R1.x = atoi(argv[1]), R1.y = atoi(argv[2]), R1.width = atoi(argv[3]),
+      R1.height = atoi(argv[4]);
+      R2.x = atoi(argv[5]), R2.y = atoi(argv[6]), R2.width = atoi(argv[7]),
+      R2.height = atoi(argv[8]);
     } else {
       default_random_engine gen((random_device())());
       uniform_int_distribution<int> dis(1, 100);
-      R.x = dis(gen), R.y = dis(gen), R.width = dis(gen), R.height = dis(gen);
-      S.x = dis(gen), S.y = dis(gen), S.width = dis(gen), S.height = dis(gen);
+      R1.x = dis(gen), R1.y = dis(gen), R1.width = dis(gen),
+      R1.height = dis(gen);
+      R2.x = dis(gen), R2.y = dis(gen), R2.width = dis(gen),
+      R2.height = dis(gen);
     }
     // Intersect rectangle.
-    bool res = IsIntersect(R, S);
-    cout << boolalpha << IsIntersect(R, S) << endl;
-    Rectangle ans = IntersectRectangle(R, S);
+    bool res = IsIntersect(R1, R2);
+    cout << boolalpha << IsIntersect(R1, R2) << endl;
+    Rectangle ans = IntersectRectangle(R1, R2);
     ans.print("ans: ");
     assert(res == false || (ans.width >= 0 && ans.height >= 0));
   }

@@ -36,6 +36,6 @@ public class TailCoin {
     }
     int fails = simulateBiasedCoin(n, trails);
     System.out.println("fails = " + fails);
-    System.out.println("ratio = " + ((double) fails) / trails);
+    System.out.println("ratio = " + ((double)fails) / trails);
   }
 }

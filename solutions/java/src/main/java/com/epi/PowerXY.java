@@ -7,11 +7,11 @@ public class PowerXY {
   private static int compare(double a, double b) {
     // Uses normalization for precision problem.
     double diff = (a - b) / b;
-    return diff < -0.0001 ? -1 : diff > 0.0001 ? 1 : 0;
+    return diff < -1.0e-9 ? -1 : diff > 1.0e-9 ? 1 : 0;
   }
 
   // @include
-  public static double powerXY(double x, int y) {
+  public static double power(double x, int y) {
     double result = 1.0;
     long power = y;
     if (y < 0) {
@@ -23,7 +23,7 @@ public class PowerXY {
         result *= x;
       }
       x *= x;
-      power >>= 1;
+      power >>>= 1;
     }
     return result;
   }
@@ -36,16 +36,16 @@ public class PowerXY {
     if (args.length == 2) {
       x = Double.parseDouble(args[0]);
       y = Integer.parseInt(args[1]);
-      System.out
-          .println(x + "^" + y + ": " + powerXY(x, y) + ", " + Math.pow(x, y));
-      assert (compare(powerXY(x, y), Math.pow(x, y)) == 0);
+      System.out.println(x + "^" + y + ": " + power(x, y) + ", " +
+                         Math.pow(x, y));
+      assert(compare(power(x, y), Math.pow(x, y)) == 0);
     } else {
       for (int times = 0; times < 10000; ++times) {
         x = r.nextDouble() * 10;
         y = r.nextInt(257) - 128;
-        System.out.println(x + "^" + y + ": " + powerXY(x, y) + ", "
-            + Math.pow(x, y));
-        assert (compare(powerXY(x, y), Math.pow(x, y)) == 0);
+        System.out.println(x + "^" + y + ": " + power(x, y) + ", " +
+                           Math.pow(x, y));
+        assert(compare(power(x, y), Math.pow(x, y)) == 0);
       }
     }
   }

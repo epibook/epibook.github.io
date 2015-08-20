@@ -6,34 +6,34 @@ import java.util.LinkedList;
 
 public class IsBinaryTreeABSTBFS {
   // @include
-  public static class QNode {
-    public BinaryTreeNode<Integer> node;
-    public Integer lower, upper;
+  public static class QueueEntry {
+    public BinaryTreeNode<Integer> treeNode;
+    public Integer lowerBound, upperBound;
 
-    public QNode(BinaryTreeNode<Integer> node, Integer lower, Integer upper) {
-      this.node = node;
-      this.lower = lower;
-      this.upper = upper;
+    public QueueEntry(BinaryTreeNode<Integer> treeNode, Integer lowerBound, Integer upperBound) {
+      this.treeNode = treeNode;
+      this.lowerBound = lowerBound;
+      this.upperBound = upperBound;
     }
   }
 
   public static boolean isBinaryTreeBST(BinaryTreeNode<Integer> tree) {
-    LinkedList<QNode> BFSQueue = new LinkedList<>();
-    BFSQueue.addLast(new QNode(tree, Integer.MIN_VALUE, Integer.MAX_VALUE));
+    LinkedList<QueueEntry> BFSQueue = new LinkedList<>();
+    BFSQueue.addLast(new QueueEntry(tree, Integer.MIN_VALUE, Integer.MAX_VALUE));
 
     while (!BFSQueue.isEmpty()) {
-      if (BFSQueue.getFirst().node != null) {
-        if (BFSQueue.getFirst().node.getData() < BFSQueue.getFirst().lower
-            || BFSQueue.getFirst().node.getData() < BFSQueue.getFirst().upper) {
+      if (BFSQueue.getFirst().treeNode != null) {
+        if (BFSQueue.getFirst().treeNode.getData() < BFSQueue.getFirst().lowerBound ||
+            BFSQueue.getFirst().treeNode.getData() > BFSQueue.getFirst().upperBound) {
           return false;
         }
 
-        BFSQueue.addLast(new QNode(BFSQueue.getFirst().node.getLeft(),
-                                   BFSQueue.getFirst().lower,
-                                   BFSQueue.getFirst().node.getData()));
-        BFSQueue.addLast(new QNode(BFSQueue.getFirst().node.getRight(),
-                                   BFSQueue.getFirst().node .getData(),
-                                   BFSQueue.getFirst().upper));
+        BFSQueue.addLast(new QueueEntry(BFSQueue.getFirst().treeNode.getLeft(),
+                                   BFSQueue.getFirst().lowerBound,
+                                   BFSQueue.getFirst().treeNode.getData()));
+        BFSQueue.addLast(new QueueEntry(BFSQueue.getFirst().treeNode.getRight(),
+                                   BFSQueue.getFirst().treeNode.getData(),
+                                   BFSQueue.getFirst().upperBound));
       }
       BFSQueue.removeFirst();
     }

@@ -1,10 +1,25 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.*;
 
 public class LongestContainedRange {
+
+  // Represents the set of numbers from begin to end, inclusive, i.e., [begin,end].
+  private static class Range {
+    public Integer begin;
+    public Integer end;
+
+    public Range(Integer begin, Integer end) {
+      this.begin = begin;
+      this.end = end;
+    }
+
+    @Override
+    public String toString() {
+      return "[" + begin + "," + end + "]";
+    }
+  }
+
   private static int checkAns(int[] A) {
     Arrays.sort(A);
     int result = 1;
@@ -54,21 +69,19 @@ public class LongestContainedRange {
       }
     }
 
-    Map.Entry<Integer, Integer> m = Collections.max(L.entrySet(),
-        new Comparator<Map.Entry<Integer, Integer>>() {
+    Map.Entry<Integer, Integer> m = Collections.max(
+        L.entrySet(), new Comparator<Map.Entry<Integer, Integer>>() {
           @Override
           public int compare(Map.Entry<Integer, Integer> o1,
                              Map.Entry<Integer, Integer> o2) {
-            return Integer.valueOf(o1.getValue() - o1.getKey()).compareTo(
-                o2.getValue() - o2.getKey());
+            return Integer.valueOf(o1.getValue() - o1.getKey())
+                .compareTo(o2.getValue() - o2.getKey());
           }
-        }
-    );
+        });
     return m.getValue() - m.getKey() + 1;
   }
 
-  public static Pair<Integer, Integer>
-  findLongestContainedRange(int[] A) {
+  public static Range findLongestContainedRange(int[] A) {
     // S records the existence of each entry in A.
     Set<Integer> S = new HashSet<>();
     for (int a : A) {
@@ -76,14 +89,14 @@ public class LongestContainedRange {
     }
 
     int maxLen = 0;
-    Pair<Integer, Integer> maxRange = new Pair<>(0, -1);
+    Range maxRange = new Range(0, -1);
     // L stores the longest length ending at each A[i].
     Map<Integer, Integer> L = new HashMap<>();
     for (int a : A) {
       int len = longestRangeLen(a, S, L);
       if (len > maxLen) {
         maxLen = len;
-        maxRange = new Pair<>(a - len + 1, a);
+        maxRange = new Range(a - len + 1, a);
       }
     }
     return maxRange;
@@ -106,7 +119,7 @@ public class LongestContainedRange {
   public static int longestContainedRange(int[] A) {
     // unprocessedEntries records the existence of each entry in A.
     Set<Integer> unprocessedEntries = new HashSet<>();
-    for (int i = 0 ; i < A.length; i++) {
+    for (int i = 0; i < A.length; i++) {
       unprocessedEntries.add(A[i]);
     }
 
@@ -129,8 +142,7 @@ public class LongestContainedRange {
         ++upperBound;
       }
 
-      maxIntervalSize = 
-          Math.max(upperBound - lowerBound - 1, maxIntervalSize);
+      maxIntervalSize = Math.max(upperBound - lowerBound - 1, maxIntervalSize);
     }
     return maxIntervalSize;
   }
@@ -150,11 +162,11 @@ public class LongestContainedRange {
         A[i] = r.nextInt(n + 1);
       }
 
-      assert (findLongestContainedRangeInt(A) == checkAns(A));
-      Pair<Integer, Integer> result = findLongestContainedRange(A);
+      assert(findLongestContainedRangeInt(A) == checkAns(A));
+      Range result = findLongestContainedRange(A);
       System.out.println(result);
-      assert (result.getSecond() - result.getFirst() + 1 == findLongestContainedRangeInt(A));
-      assert (result.getSecond() - result.getFirst() + 1 == longestContainedRange(A));
+      assert(result.end - result.begin + 1 == findLongestContainedRangeInt(A));
+      assert(result.end - result.begin + 1 == longestContainedRange(A));
     }
   }
 }

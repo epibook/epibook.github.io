@@ -9,13 +9,13 @@ using std::unique_ptr;
 // @include
 BSTNode<int>* FindFirstGreaterThanK(const unique_ptr<BSTNode<int>>& tree,
                                     int k) {
-  BSTNode<int>* subtree = tree.get(), *first_so_far = nullptr;
+  BSTNode<int> *subtree = tree.get(), *first_so_far = nullptr;
 
   while (subtree) {
     if (subtree->data > k) {
       first_so_far = subtree;
       subtree = subtree->left.get();
-    } else {  // subtree->data <= k.
+    } else {  // Root and all keys in left subtree are <= k, so skip them.
       subtree = subtree->right.get();
     }
   }

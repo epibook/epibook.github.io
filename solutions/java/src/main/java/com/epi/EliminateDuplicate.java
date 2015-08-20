@@ -23,7 +23,7 @@ class EliminateDuplicate {
 
   public static void checkAnswer(ArrayList<Integer> a) {
     for (int i = 1; i < a.size(); ++i) {
-      assert (!a.get(i).equals(a.get(i - 1)));
+      assert(!a.get(i).equals(a.get(i - 1)));
     }
   }
 

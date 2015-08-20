@@ -5,6 +5,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <limits>
 
 using std::cout;
 using std::default_random_engine;
@@ -16,8 +17,8 @@ using std::vector;
 
 // @include
 bool MatrixSearch(const vector<vector<int>>& A, int x) {
-  int row = 0, col = A[0].size() - 1;  // Starting from the top right corner.
-  // Keeps searching if there are unclassified rows and columns.
+  int row = 0, col = A[0].size() - 1;  // Start from the top-right corner.
+  // Keeps searching while there are unclassified rows and columns.
   while (row < A.size() && col >= 0) {
     if (A[row][col] == x) {
       return true;
@@ -30,6 +31,47 @@ bool MatrixSearch(const vector<vector<int>>& A, int x) {
   return false;
 }
 // @exclude
+
+static void SimpleTest() {
+  vector<int> A0 = {1};
+  vector<vector<int>> A; 
+  A[0] = A0;
+  assert(!MatrixSearch(A, 0));
+  assert(MatrixSearch(A, 1));
+
+  A0 = {1,5};
+  vector<int> A1 = {2,6};
+  A[0] = A0;
+  A[1] = A1;
+  assert(!MatrixSearch(A, 0));
+  assert(MatrixSearch(A, 1));
+  assert(MatrixSearch(A, 2));
+  assert(MatrixSearch(A, 5));
+  assert(MatrixSearch(A, 6));
+  assert(!MatrixSearch(A, 3));
+  assert(!MatrixSearch(A, INT_MAX));
+
+  A0[0] = 2;
+  assert(!MatrixSearch(A, 1));
+  assert(MatrixSearch(A, 2));
+
+  A0 = {1,5,7};
+  A1 = {3,10,100};
+  vector<int> A2 = {3,12,INT_MAX};
+  A[0] = A0;
+  A[1] = A1;
+  A[2] = A2;
+  assert(MatrixSearch(A, 1));
+  assert(!MatrixSearch(A, 2));
+  assert(!MatrixSearch(A, 4));
+  assert(MatrixSearch(A, 3));
+  assert(MatrixSearch(A, 10));
+  assert(MatrixSearch(A, INT_MAX));
+  assert(!MatrixSearch(A, INT_MAX-1));
+  assert(MatrixSearch(A, 12));
+}
+
+
 
 // O(n^2) solution for verifying answer.
 bool BruteForceSearch(const vector<vector<int>>& A, int x) {

@@ -16,21 +16,22 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-size_t RemoveElement(int k, vector<int>* A) {
-  auto& A_ref = *A;
+// Returns the number of valid entries after deletion.
+size_t DeleteKey(int key, vector<int>* A_ptr) {
+  auto& A = *A_ptr;
   size_t write_idx = 0;
-  for (size_t i = 0; i < A_ref.size(); ++i) {
-    if (A_ref[i] != k) {
-      A_ref[write_idx++] = A_ref[i];
+  for (size_t i = 0; i < A.size(); ++i) {
+    if (A[i] != key) {
+      A[write_idx++] = A[i];
     }
   }
   return write_idx;
 }
 // @exclude
 
-void CheckAns(const vector<int>& A, size_t n, int k) {
+void CheckAns(const vector<int>& A, size_t n, int key) {
   for (size_t i = 0; i < n; ++i) {
-    assert(A[i] != k);
+    assert(A[i] != key);
   }
 }
 
@@ -49,10 +50,11 @@ int main(int argc, char** argv) {
     generate_n(back_inserter(A), n, [&] { return A_dis(gen); });
     auto copy_A(A);
     int target = A_dis(gen);
-    auto size = RemoveElement(target, &A);
-    cout << "size = " << size << " k = " << target << endl;
+    auto size = DeleteKey(target, &A);
+    cout << "size = " << size << " key = " << target << endl;
     CheckAns(A, size, target);
-    auto it = remove_if(copy_A.begin(), copy_A.end(), [&target](int a) { return a == target; });
+    auto it = remove_if(copy_A.begin(), copy_A.end(),
+                        [&target](int a) { return a == target; });
     cout << distance(copy_A.begin(), it) << endl;
     assert(size == distance(copy_A.begin(), it));
   }

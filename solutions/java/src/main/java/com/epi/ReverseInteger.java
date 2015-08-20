@@ -5,7 +5,7 @@ import java.util.Random;
 public class ReverseInteger {
   // @include
   public static long reverse(int x) {
-    boolean isNegative = (x < 0);
+    boolean isNegative = x < 0;
     long result = 0;
     long xRemaining = Math.abs(x);
     while (xRemaining != 0) {
@@ -37,12 +37,12 @@ public class ReverseInteger {
     if (args.length == 1) {
       n = Integer.parseInt(args[0]);
       System.out.println("n = " + n + ", reversed n = " + reverse(n));
-      assert (checkAns(n) == reverse(n));
+      assert(checkAns(n) == reverse(n));
     } else {
       for (int times = 0; times < 1000; ++times) {
         n = r.nextInt();
         System.out.println("n = " + n + ", reversed n = " + reverse(n));
-        assert (checkAns(n) == reverse(n));
+        assert(checkAns(n) == reverse(n));
       }
     }
   }

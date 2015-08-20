@@ -1,23 +1,31 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.Random;
 
-//import static com.epi.utils.Utils.simplePrint;
+// import static com.epi.utils.Utils.simplePrint;
 
 public class GassingUp {
   // @include
+  private static class CityAndRemainingGas {
+    public Integer city;
+    public Integer remainingGas;
+
+    public CityAndRemainingGas(Integer city, Integer remainingGas) {
+      this.city = city;
+      this.remainingGas = remainingGas;
+    }
+  }
+
   static int findStartCity(int[] G, int[] D) {
     int carry = 0;
-    Pair<Integer, Integer> min = new Pair<>(0, 0);
+    CityAndRemainingGas min = new CityAndRemainingGas(0, 0);
     for (int i = 1; i < G.length; ++i) {
       carry += G[i - 1] - D[i - 1];
-      if (carry < min.getSecond()) {
-        min = new Pair<>(i, carry);
+      if (carry < min.remainingGas) {
+        min = new CityAndRemainingGas(i, carry);
       }
     }
-    return min.getFirst();
+    return min.city;
   }
   // @exclude
 
@@ -26,7 +34,7 @@ public class GassingUp {
     int gas = 0;
     do {
       gas += G[s] - D[s];
-      assert (gas >= 0);
+      assert(gas >= 0);
       s = (s + 1) % G.length;
     } while (s != c);
   }
@@ -60,7 +68,7 @@ public class GassingUp {
 
       /*
        * simplePrint(G); System.out.println();
-       * 
+       *
        * simplePrint(D); System.out.println();
        */
       int c = findStartCity(G, D);

@@ -9,16 +9,16 @@ public class UniformRandomNumberGeneration {
   }
 
   // @include
-  public static int uniformRandom(int a, int b) {
-    int l = b - a + 1, res;
+  public static int uniformRandom(int lowerBound, int upperBound) {
+    int numberOfOutcomes = upperBound - lowerBound + 1, result;
     do {
-      res = 0;
-      for (int i = 0; (1 << i) < l; ++i) {
-        // zero_one_random() is the system-provided random number generator.
-        res = (res * 2) | zeroOneRandom();
+      result = 0;
+      for (int i = 0; (1 << i) < numberOfOutcomes; ++i) {
+        // zeroOneRandom() is the provided random number generator.
+        result = (result << 1) | zeroOneRandom();
       }
-    } while (res >= l);
-    return res + a;
+    } while (result >= numberOfOutcomes);
+    return result + lowerBound;
   }
   // @exclude
 
@@ -36,7 +36,7 @@ public class UniformRandomNumberGeneration {
       int x = uniformRandom(a, b);
       System.out.println(String.format("a = %d, b = %d", a, b));
       System.out.println(String.format("random result = %d", x));
-      assert x >= a && x <= b;
+      assert x >= a&& x <= b;
     }
   }
 }

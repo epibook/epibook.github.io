@@ -5,6 +5,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
+#include <limits>
 
 using std::cout;
 using std::default_random_engine;
@@ -39,7 +40,29 @@ int CheckAns(const vector<int>& A, int k) {
   return -1;
 }
 
+static void SimpleTest() {
+  vector<int> A = {0,1,2,3,4,5,6,7};
+  int k = 4;
+  assert(1 == SearchFirstLargerOfK(A, 0));
+  assert(2 == SearchFirstLargerOfK(A, 1));
+  assert(5 == SearchFirstLargerOfK(A, 4));
+  assert(7 == SearchFirstLargerOfK(A, 6));
+  assert(-1 == SearchFirstLargerOfK(A, 7));
+  assert(0 == SearchFirstLargerOfK(A, -1));
+  assert(0 == SearchFirstLargerOfK(A, INT_MIN));
+  assert(-1 == SearchFirstLargerOfK(A, INT_MAX));
+  A[0] = 1;
+  assert(2 == SearchFirstLargerOfK(A, 1));
+  A[5] = 4;
+  A[6] = 4;
+  assert(7 == SearchFirstLargerOfK(A, 4));
+  A = {1,1,1,1,1,2};
+  assert(5 == SearchFirstLargerOfK(A, 1));
+  assert(-1 == SearchFirstLargerOfK(A, 5));
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int n;

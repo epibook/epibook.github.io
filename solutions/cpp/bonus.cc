@@ -83,7 +83,7 @@ void SmallTest() {
   vector<int> A = {1, 2, 2};
   vector<int> golden_A = {1, 2, 1};
   assert(EqualVector(CalculateBonus(A), golden_A));
-  A = {1,2,3,2,1};
+  A = {1, 2, 3, 2, 1};
   golden_A = {1, 2, 3, 2, 1};
   assert(EqualVector(CalculateBonus(A), golden_A));
   A = {300, 400, 500, 200};

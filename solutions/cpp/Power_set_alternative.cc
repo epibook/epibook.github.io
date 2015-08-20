@@ -16,32 +16,38 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-void GeneratePowerSetHelper(const vector<int>&, int, vector<int>*,
-                            vector<vector<int>>*);
+void DirectedPowerSet(const vector<int>&, int, vector<int>*,
+                      vector<vector<int>>*);
 
 // @include
-vector<vector<int>> GeneratePowerSet(const vector<int>& S) {
+vector<vector<int>> GeneratePowerSet(const vector<int>& input_set) {
   vector<vector<int>> power_set;
-  vector<int> one_set;
-  GeneratePowerSetHelper(S, 0, &one_set, &power_set);
+  vector<int> selected_so_far;
+  DirectedPowerSet(input_set, 0, &selected_so_far, &power_set);
   return power_set;
 }
 
-void GeneratePowerSetHelper(const vector<int>& S, int m,
-                            vector<int>* one_set, 
-                            vector<vector<int>>* power_set) {
-  power_set->emplace_back(*one_set);
-  for (int i = m; i < S.size(); ++i) {
-    one_set->emplace_back(S[i]);
-    GeneratePowerSetHelper(S, i + 1, one_set, power_set);
-    one_set->pop_back();
+// Generate all subsets whose intersection with input_set[0], ...,
+// input_set[to_be_selected - 1] is exactly selected_so_far.
+void DirectedPowerSet(const vector<int>& input_set, int to_be_selected,
+                      vector<int>* selected_so_far,
+                      vector<vector<int>>* power_set) {
+  if (to_be_selected == input_set.size()) {
+    power_set->emplace_back(*selected_so_far);
+    return;
   }
+  // Generate all subsets that contain input_set[to_be_selected].
+  selected_so_far->emplace_back(input_set[to_be_selected]);
+  DirectedPowerSet(input_set, to_be_selected + 1, selected_so_far, power_set);
+  // Generate all subsets that do not contain input_set[to_be_selected].
+  selected_so_far->pop_back();
+  DirectedPowerSet(input_set, to_be_selected + 1, selected_so_far, power_set);
 }
 // @exclude
 
 void SimpleTest() {
   vector<vector<int>> golden_result = {
-      {}, {0}, {0, 1}, {0, 1, 2}, {0, 2}, {1}, {1, 2}, {2}};
+      {0, 1, 2}, {0, 1}, {0, 2}, {0}, {1, 2}, {1}, {2}, {}};
   auto result = GeneratePowerSet({0, 1, 2});
   assert(result.size() == golden_result.size() &&
          equal(result.begin(), result.end(), golden_result.begin()));

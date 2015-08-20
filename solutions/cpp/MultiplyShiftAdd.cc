@@ -12,22 +12,22 @@ using std::random_device;
 using std::string;
 using std::uniform_int_distribution;
 
-unsigned AddNoOperator(unsigned a, unsigned b);
+unsigned Add(unsigned a, unsigned b);
 
 // @include
-unsigned MultiplyNoOperator(unsigned x, unsigned y) {
+unsigned Multiply(unsigned x, unsigned y) {
   unsigned sum = 0;
   while (x) {
     // Examines each bit of x.
     if (x & 1) {
-      sum = AddNoOperator(sum, y);
+      sum = Add(sum, y);
     }
     x >>= 1, y <<= 1;
   }
   return sum;
 }
 
-unsigned AddNoOperator(unsigned a, unsigned b) {
+unsigned Add(unsigned a, unsigned b) {
   unsigned sum = 0, carryin = 0, k = 1, temp_a = a, temp_b = b;
   while (temp_a || temp_b) {
     unsigned ak = a & k, bk = b & k;
@@ -42,7 +42,7 @@ unsigned AddNoOperator(unsigned a, unsigned b) {
 int main(int argc, char* argv[]) {
   if (argc == 3) {
     unsigned int x = atoi(argv[1]), y = atoi(argv[2]);
-    unsigned int res = MultiplyNoOperator(x, y);
+    unsigned int res = Multiply(x, y);
     assert(res == x * y);
     cout << "PASS: x = " << x << ", y = " << y << "; prod = " << res << endl;
   } else {
@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < 100000; ++i) {
       uniform_int_distribution<int> dis(0, 65534);
       unsigned int x = dis(gen), y = dis(gen);
-      unsigned int prod = MultiplyNoOperator(x, y);
+      unsigned int prod = Multiply(x, y);
       assert(prod == x * y);
       cout << "PASS: x = " << x << ", y = " << y << "; prod = " << prod << endl;
     }

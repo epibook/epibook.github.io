@@ -27,8 +27,9 @@ class MedianSortedCircularLinkedList {
     for (int i = 0; i < ((n - 1) / 2); ++i) {
       firstSmallestNode = firstSmallestNode.next;
     }
-    return (n % 2) != 0 ? firstSmallestNode.data 
-           : 0.5 * (firstSmallestNode.data + firstSmallestNode.next.data);
+    return (n % 2) != 0
+        ? firstSmallestNode.data
+        : 0.5 * (firstSmallestNode.data + firstSmallestNode.next.data);
   }
   // @exclude
 
@@ -56,7 +57,7 @@ class MedianSortedCircularLinkedList {
       }
       double res = findMedianSortedCircularLinkedList(head.next);
       System.out.println(res);
-      assert (res == 0.5 * n);
+      assert(res == 0.5 * n);
     }
 
     // Test identical list.
@@ -73,6 +74,6 @@ class MedianSortedCircularLinkedList {
       }
       curr.next = head; // make the list as a circular list.
     }
-    assert (5 == findMedianSortedCircularLinkedList(head));
+    assert(5 == findMedianSortedCircularLinkedList(head));
   }
 }

@@ -63,7 +63,7 @@ public class FirstMissingPositive {
       }
       System.out.println("n = " + n);
       findFirstMissingPositive(A);
-      assert (findFirstMissingPositive(A) == checkAns(A));
+      assert(findFirstMissingPositive(A) == checkAns(A));
     }
   }
 }

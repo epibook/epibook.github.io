@@ -11,7 +11,7 @@ public class BinarySearchAiEqI {
     while (left <= right) {
       int mid = left + ((right - left) / 2);
       int difference = A[mid] - mid;
-      // A[mid] == mid iff difference equals to 0.
+      // A[mid] == mid if and only if difference == 0.
       if (difference == 0) {
         return mid;
       } else if (difference > 0) {
@@ -35,7 +35,23 @@ public class BinarySearchAiEqI {
     return ret;
   }
 
+  private static void SimpleTest() {
+    int[] A = new int[] {0, 1, 2, 3};
+    assert(-1 != searchEntryEqualToItsIndex(A));
+    assert(0 <= searchEntryEqualToItsIndex(A) &&
+           searchEntryEqualToItsIndex(A) <= 3);
+    A[0] = -1;
+    A[2] = 4;
+    A[3] = 5;
+    assert(1 == searchEntryEqualToItsIndex(A));
+    A = new int[] {0};
+    assert(-1 != searchEntryEqualToItsIndex(A));
+    A[0] = -1;
+    assert(-1 == searchEntryEqualToItsIndex(A));
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
@@ -58,12 +74,11 @@ public class BinarySearchAiEqI {
       int ans = searchEntryEqualToItsIndex(A);
       if (ans != -1) {
         System.out.println("A[" + ans + "] = " + A[ans]);
-        assert (A[ans] == ans);
+        assert(A[ans] == ans);
       } else {
         System.out.println("no entry where A[k] = k");
-        assert (checkAns(A) == -1);
+        assert(checkAns(A) == -1);
       }
     }
   }
-
 }

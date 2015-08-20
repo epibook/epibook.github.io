@@ -32,18 +32,18 @@ public class GCD {
 
   public static void main(String[] args) {
     long x = 18, y = 12;
-    assert (elementaryGCD(x, y) == 6);
+    assert(elementaryGCD(x, y) == 6);
     if (args.length == 2) {
       x = Integer.parseInt(args[0]);
       y = Integer.parseInt(args[1]);
       System.out.println(elementaryGCD(x, y));
-      assert (elementaryGCD(x, y) == anotherGCD(x, y));
+      assert(elementaryGCD(x, y) == anotherGCD(x, y));
     } else {
       Random r = new Random();
       for (int times = 0; times < 1000; ++times) {
         x = r.nextInt(Integer.MAX_VALUE);
         y = r.nextInt(Integer.MAX_VALUE);
-        assert (elementaryGCD(x, y) == anotherGCD(x, y));
+        assert(elementaryGCD(x, y) == anotherGCD(x, y));
       }
     }
   }

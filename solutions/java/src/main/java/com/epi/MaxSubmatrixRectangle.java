@@ -27,10 +27,11 @@ public class MaxSubmatrixRectangle {
       for (int j = A.get(i).size() - 1; j >= 0; --j) {
         // Find the largest h such that (i, j) to (i + h - 1, j) are feasible.
         // Find the largest w such that (i, j) to (i, j + w - 1) are feasible.
-        table[i][j] = A.get(i).get(j) ?
-            new MaxHW(i + 1 < A.size() ? table[i + 1][j].h + 1 : 1,
-                      j + 1 < A.get(i).size() ? table[i][j + 1].w + 1 : 1) :
-            new MaxHW(0, 0);
+        table[i][j] =
+            A.get(i).get(j)
+                ? new MaxHW(i + 1 < A.size() ? table[i + 1][j].h + 1 : 1,
+                            j + 1 < A.get(i).size() ? table[i][j + 1].w + 1 : 1)
+                : new MaxHW(0, 0);
       }
     }
 
@@ -80,7 +81,7 @@ public class MaxSubmatrixRectangle {
       System.out.println(maxRectangleSubmatrix(A));
       int testArea = maxRectangleSubmatrixBruteForce(A);
       System.out.println(testArea);
-      assert (testArea == maxRectangleSubmatrix(A));
+      assert(testArea == maxRectangleSubmatrix(A));
     }
   }
 }

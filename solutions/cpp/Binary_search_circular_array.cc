@@ -36,6 +36,12 @@ int SearchSmallest(const vector<int>& A) {
 void SmallTest() {
   vector<int> A = {631, 203};
   assert(1 == SearchSmallest(A));
+  A = {3,1,2};
+  assert(1 == SearchSmallest(A));
+  A = {0,2,4,8};
+  assert(0 == SearchSmallest(A));
+  A[0] = 16;
+  assert(1 == SearchSmallest(A));
 }
 
 int main(int argc, char* argv[]) {

@@ -32,8 +32,8 @@ void PrintMatrix(const vector<deque<bool>> &A) {
 
 // @include
 void FilpColor(int x, int y, vector<deque<bool>> *A) {
-  const array<array<int, 2>, 4> dir = {{{{0, 1}}, {{0, -1}},
-                                        {{1, 0}}, {{-1, 0}}}};
+  const array<array<int, 2>, 4> dir = {
+      {{{0, 1}}, {{0, -1}}, {{1, 0}}, {{-1, 0}}}};
   const bool color = (*A)[x][y];
 
   queue<pair<int, int>> q;
@@ -41,10 +41,10 @@ void FilpColor(int x, int y, vector<deque<bool>> *A) {
   q.emplace(x, y);
   while (!q.empty()) {
     auto curr(q.front());
-    for (const auto& d : dir) {
+    for (const auto &d : dir) {
       const pair<int, int> next(curr.first + d[0], curr.second + d[1]);
-      if (next.first >= 0 && next.first < A->size() &&
-          next.second >= 0 && next.second < (*A)[next.first].size() &&
+      if (next.first >= 0 && next.first < A->size() && next.second >= 0 &&
+          next.second < (*A)[next.first].size() &&
           (*A)[next.first][next.second] == color) {
         // Flips the color.
         (*A)[next.first][next.second] = !(*A)[next.first][next.second];

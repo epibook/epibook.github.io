@@ -29,7 +29,7 @@ public class RunLengthCompression {
         ss.append(count);
         ss.append(s.charAt(i - 1));
         count = 1;
-      } else {  // s.charAt(i) == s.charAt(i - 1).
+      } else { // s.charAt(i) == s.charAt(i - 1).
         ++count;
       }
     }
@@ -42,8 +42,8 @@ public class RunLengthCompression {
       System.out.println(encoding(args[0]) + ' ' + decoding(args[1]));
     }
 
-    assert ("4a1b3c2a".equals(encoding("aaaabcccaa")));
-    assert ("eeeffffee".equals(decoding("3e4f2e")));
-    assert ("aaaaaaaaaaffffee".equals(decoding("10a4f2e")));
+    assert("4a1b3c2a".equals(encoding("aaaabcccaa")));
+    assert("eeeffffee".equals(decoding("3e4f2e")));
+    assert("aaaaaaaaaaffffee".equals(decoding("10a4f2e")));
   }
 }

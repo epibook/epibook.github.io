@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <bitset>
@@ -19,23 +19,27 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-vector<int> GrayCode(int n) {
-  if (n == 0) {
+vector<int> GrayCode(int num_bits) {
+  if (num_bits == 0) {
     return {0};
   }
-  if (n == 1) {
+  if (num_bits == 1) {
     return {0, 1};
   }
 
-  auto prev_res = GrayCode(n - 1);  // Result prepends 0.
-  // Creates result prepending 1.
-  int leading_bit_one = 1 << (n - 1);
-  vector<int> result;
-  for (int i = prev_res.size() - 1; i >= 0; --i) {
-    result.emplace_back(leading_bit_one + prev_res[i]);
+  // These implicitly begin with 0 at bit-index (num_bits - 1).
+  auto gray_code_num_bits_minus_1 = GrayCode(num_bits - 1);
+  // Now, add a 1 at bit-index (num_bits - 1) to all entries in grayCodeNumBitsMinus1.
+  int leading_bit_one = 1 << (num_bits - 1);
+  vector<int> reflection;
+  // Process in reverse order to achieve reflection of
+  // gray_code_num_bits_minus_1.
+  for (int i = gray_code_num_bits_minus_1.size() - 1; i >= 0; --i) {
+    reflection.emplace_back(leading_bit_one | gray_code_num_bits_minus_1[i]);
   }
-  prev_res.insert(prev_res.end(), result.begin(), result.end());
-  return prev_res;
+  vector<int> result = gray_code_num_bits_minus_1;
+  result.insert(result.end(), reflection.begin(), reflection.end());
+  return result;
 }
 // @exclude
 
@@ -47,9 +51,9 @@ void SmallTest() {
 }
 
 void CheckAns(const vector<int>& A) {
-  for (size_t i = 1; i < A.size(); ++i) {
+  for (size_t i = 0; i < A.size(); ++i) {
     int num_differ_bits = 0;
-    bitset<10> prev(A[i - 1]), now(A[i]);
+    bitset<10> prev(A[i]), now(A[(i + 1) % A.size()]);
     string prev_s = prev.to_string(), now_s = now.to_string();
     for (size_t i = 0; i < 10; ++i) {
       if (prev_s[i] != now_s[i]) {

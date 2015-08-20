@@ -19,13 +19,8 @@ using std::vector;
 
 void CheckAns(const vector<int> &a, const vector<int> &b,
               const vector<int> &c) {
-  cout << a.size() << ' ' << b.size() << ' ' << c.size() << endl;
-  assert(a.size() == b.size());
-  assert(b.size() == c.size());
-  for (int i = 0; i < a.size(); ++i) {
-    assert(a[i] == b[i]);
-    assert(b[i] == c[i]);
-  }
+  assert(a.size() == b.size() && equal(a.begin(), a.end(), b.begin()));
+  assert(b.size() == c.size() && equal(b.begin(), b.end(), c.begin()));
 }
 
 int main(int argc, char *argv[]) {
@@ -49,9 +44,12 @@ int main(int argc, char *argv[]) {
     }
     sort(A.begin(), A.end());
     sort(B.begin(), B.end());
-    vector<int> res1 = IntersectTwoSortedArrays1::IntersectTwoSortedArrays(A, B);
-    vector<int> res2 = IntersectTwoSortedArrays2::IntersectTwoSortedArrays(A, B);
-    vector<int> res3 = IntersectTwoSortedArrays3::IntersectTwoSortedArrays(A, B);
+    vector<int> res1 =
+        IntersectTwoSortedArrays1::IntersectTwoSortedArrays(A, B);
+    vector<int> res2 =
+        IntersectTwoSortedArrays2::IntersectTwoSortedArrays(A, B);
+    vector<int> res3 =
+        IntersectTwoSortedArrays3::IntersectTwoSortedArrays(A, B);
     CheckAns(res1, res2, res3);
   }
   return 0;

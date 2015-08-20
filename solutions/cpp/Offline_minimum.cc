@@ -22,8 +22,8 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-int find_set(int x, vector<int>* set);
-void union_set(vector<int>* set, int x, int y);
+int find_set(int x, vector<int> *set);
+void union_set(vector<int> *set, int x, int y);
 
 // @include
 vector<int> offline_minimum(const vector<int> &A, const vector<int> &E) {
@@ -50,14 +50,14 @@ vector<int> offline_minimum(const vector<int> &A, const vector<int> &E) {
   return ret;
 }
 
-int find_set(int x, vector<int>* set) {
+int find_set(int x, vector<int> *set) {
   if ((*set)[x] != x) {
     (*set)[x] = find_set((*set)[x], set);  // path compression.
   }
   return (*set)[x];
 }
 
-void union_set(vector<int>* set, int x, int y) {
+void union_set(vector<int> *set, int x, int y) {
   int x_root = find_set(x, set), y_root = find_set(y, set);
   (*set)[min(x_root, y_root)] = max(x_root, y_root);
 }
@@ -93,7 +93,8 @@ void small_test() {
   copy(ans.begin(), ans.end(), ostream_iterator<int>(cout, " "));
   cout << endl;
   vector<int> expected_ans = {0, 2, 3, 6, 1};
-  assert(ans.size() == expected_ans.size() && equal(ans.begin(), ans.end(), expected_ans.begin()));
+  assert(ans.size() == expected_ans.size() &&
+         equal(ans.begin(), ans.end(), expected_ans.begin()));
 }
 
 int main(int argc, char *argv[]) {
@@ -143,7 +144,8 @@ int main(int argc, char *argv[]) {
     cout << endl;
     //*/
     vector<int> tmp = check_answer(A, E);
-    assert(ans.size() == tmp.size() && equal(ans.begin(), ans.end(), tmp.begin()));
+    assert(ans.size() == tmp.size() &&
+           equal(ans.begin(), ans.end(), tmp.begin()));
   }
   return 0;
 }

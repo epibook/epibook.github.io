@@ -1,18 +1,32 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class JobAssignment {
-  private static <T> void nthElement(List<T> A, int n, Comparator<T> c) {
+  private static void nthElement(List<Task> A, int n, CompTask c) {
     Collections.sort(A, c);
   }
 
   // @include
+  private static class Task {
+    public Integer taskId;
+    public Integer load;
+
+    public Task(Integer taskId, Integer load) {
+      this.taskId = taskId;
+      this.load = load;
+    }
+  }
+
+  private static class Server {
+    public Integer serverId;
+    public Integer capacity;
+
+    public Server(Integer serverId, Integer capacity) {
+      this.serverId = serverId;
+      this.capacity = capacity;
+    }
+  }
   public static boolean[][] findFeasibleJobAssignment(List<Integer> T,
                                                       List<Integer> S) {
     int tTotal = 0;
@@ -30,28 +44,28 @@ public class JobAssignment {
       return new boolean[0][0];
     }
 
-    List<Pair<Integer, Integer>> tIdxData = new ArrayList<>();
-    List<Pair<Integer, Integer>> sIdxData = new ArrayList<>();
+    List<Task> tIdxData = new ArrayList<>();
+    List<Server> sIdxData = new ArrayList<>();
     for (int i = 0; i < T.size(); ++i) {
-      tIdxData.add(new Pair<>(i, T.get(i)));
+      tIdxData.add(new Task(i, T.get(i)));
     }
     for (int j = 0; j < S.size(); ++j) {
-      sIdxData.add(new Pair<>(j, S.get(j)));
+      sIdxData.add(new Server(j, S.get(j)));
     }
 
-    Collections.sort(sIdxData, new Comp());
+    Collections.sort(sIdxData, new CompServer());
     boolean[][] X = new boolean[T.size()][S.size()];
-    for (Pair<Integer, Integer> aSIdxData : sIdxData) {
-      if (aSIdxData.getSecond() < tIdxData.size()) {
-        nthElement(tIdxData, aSIdxData.getSecond(), new Comp());
+    for (Server aSIdxData : sIdxData) {
+      if (aSIdxData.capacity < tIdxData.size()) {
+        nthElement(tIdxData, aSIdxData.capacity, new CompTask());
       }
 
       // Greedily assign jobs.
-      int size = Math.min(tIdxData.size(), aSIdxData.getSecond());
+      int size = Math.min(tIdxData.size(), aSIdxData.capacity);
       for (int i = 0; i < size; ++i) {
-        if (tIdxData.get(i).getSecond() != 0) {
-          X[tIdxData.get(i).getFirst()][aSIdxData.getFirst()] = true;
-          tIdxData.get(i).setSecond(tIdxData.get(i).getSecond() - 1);
+        if (tIdxData.get(i).load != 0) {
+          X[tIdxData.get(i).taskId][aSIdxData.serverId] = true;
+          tIdxData.get(i).load = (tIdxData.get(i).load - 1);
           --tTotal;
         }
       }
@@ -63,10 +77,17 @@ public class JobAssignment {
     return X;
   }
 
-  private static class Comp implements Comparator<Pair<Integer, Integer>> {
+  private static class CompTask implements Comparator<Task> {
     @Override
-    public int compare(Pair<Integer, Integer> o1, Pair<Integer, Integer> o2) {
-      return o1.getSecond().compareTo(o2.getSecond());
+    public int compare(Task o1, Task o2) {
+      return o1.load.compareTo(o2.load);
+    }
+  }
+
+  private static class CompServer implements Comparator<Server> {
+    @Override
+    public int compare(Server o1, Server o2) {
+      return o1.capacity.compareTo(o2.capacity);
     }
   }
   // @exclude
@@ -79,7 +100,7 @@ public class JobAssignment {
       for (int j = 0; j < S.size(); ++j) {
         sum += result[i][j] ? 1 : 0;
       }
-      assert (sum == T.get(i));
+      assert(sum == T.get(i));
     }
 
     // Check column constraints.
@@ -88,7 +109,7 @@ public class JobAssignment {
       for (int i = 0; i < T.size(); ++i) {
         sum += result[i][j] ? 1 : 0;
       }
-      assert (sum <= S.get(j));
+      assert(sum <= S.get(j));
     }
   }
 

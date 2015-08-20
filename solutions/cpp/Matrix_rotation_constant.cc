@@ -12,15 +12,15 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-void RotateMatrix(vector<vector<int>>* A) {
-  auto& A_ref = *A;
-  for (int i = 0; i < (A_ref.size() / 2); ++i) {
-    for (int j = i; j < A_ref.size() - i - 1; ++j) {
-      int temp = A_ref[i][j];
-      A_ref[i][j] = A_ref[A_ref.size() - 1 - j][i];
-      A_ref[A_ref.size() - 1 - j][i] = A_ref[A_ref.size() - 1 - i][A_ref.size() - 1 - j];
-      A_ref[A_ref.size() - 1 - i][A_ref.size() - 1 - j] = A_ref[j][A_ref.size() - 1 - i];
-      A_ref[j][A_ref.size() - 1 - i] = temp;
+void RotateMatrix(vector<vector<int>>* A_ptr) {
+  auto& A = *A_ptr;
+  for (int i = 0; i < (A.size() / 2); ++i) {
+    for (int j = i; j < A.size() - i - 1; ++j) {
+      int temp = A[i][j];
+      A[i][j] = A[A.size() - 1 - j][i];
+      A[A.size() - 1 - j][i] = A[A.size() - 1 - i][A.size() - 1 - j];
+      A[A.size() - 1 - i][A.size() - 1 - j] = A[j][A.size() - 1 - i];
+      A[j][A.size() - 1 - i] = temp;
     }
   }
 }
@@ -28,19 +28,24 @@ void RotateMatrix(vector<vector<int>>* A) {
 // @include
 class RotatedMatrix {
  public:
-  explicit RotatedMatrix(const vector<vector<int>>& A) : A_(A) {}
+  explicit RotatedMatrix(vector<vector<int>>* square_matrix)
+      : square_matrix_(*square_matrix) {}
 
-  int ReadEntry(int i, int j) const { return A_[A_.size() - 1 - j][i]; }
+  int ReadEntry(int i, int j) const {
+    return square_matrix_[square_matrix_.size() - 1 - j][i];
+  }
 
-  void WriteEntry(int i, int j, int v) { A_[A_.size() - 1 - j][i] = v; }
+  void WriteEntry(int i, int j, int v) {
+    square_matrix_[square_matrix_.size() - 1 - j][i] = v;
+  }
 
  private:
-  vector<vector<int>> A_;
+  vector<vector<int>>& square_matrix_;
 };
 // @exclude
 
-void CheckAnswer(const vector<vector<int>>& A, const vector<vector<int>>& B) {
-  RotatedMatrix rA(A);
+void CheckAnswer(vector<vector<int>> A, const vector<vector<int>>& B) {
+  RotatedMatrix rA(&A);
   for (int i = 0; i < A.size(); ++i) {
     for (int j = 0; j < A.size(); ++j) {
       assert(rA.ReadEntry(i, j) == B[i][j]);

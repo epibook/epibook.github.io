@@ -15,18 +15,18 @@ using std::vector;
 // @include
 class Queue {
  public:
-  explicit Queue(size_t cap) : data_(cap) {}
+  explicit Queue(size_t capacity) : entries_(capacity) {}
 
   void Enqueue(int x) {
-    if (num_queue_elements == data_.size()) {  // Needs to resize.
+    if (num_queue_elements == entries_.size()) {  // Needs to resize.
       // Makes the queue elements appear consecutively.
-      rotate(data_.begin(), data_.begin() + head_, data_.end());
+      rotate(entries_.begin(), entries_.begin() + head_, entries_.end());
       head_ = 0, tail_ = num_queue_elements;  // Resets head and tail.
-      data_.resize(data_.size() * kScaleFactor);
+      entries_.resize(entries_.size() * kScaleFactor);
     }
 
-    data_[tail_] = x;
-    tail_ = (tail_ + 1) % data_.size(), ++num_queue_elements;
+    entries_[tail_] = x;
+    tail_ = (tail_ + 1) % entries_.size(), ++num_queue_elements;
   }
 
   int Dequeue() {
@@ -34,8 +34,8 @@ class Queue {
       throw length_error("empty queue");
     }
     --num_queue_elements;
-    int ret = data_[head_];
-    head_ = (head_ + 1) % data_.size();
+    int ret = entries_[head_];
+    head_ = (head_ + 1) % entries_.size();
     return ret;
   }
 
@@ -44,7 +44,7 @@ class Queue {
  private:
   const int kScaleFactor = 2;
   size_t head_ = 0, tail_ = 0, num_queue_elements = 0;
-  vector<int> data_;
+  vector<int> entries_;
 };
 // @exclude
 
@@ -71,7 +71,7 @@ void Test() {
   // Ok till here. Now head = 3 and tail = 3
 
   q.Enqueue(14);  // now the vector (data) is resized; but the head and tail.
-                  // (or elements) does not change accordingly.
+  // (or elements) does not change accordingly.
   q.Enqueue(15);
   q.Enqueue(16);
   q.Enqueue(17);
@@ -100,8 +100,7 @@ int main(int argc, char* argv[]) {
   assert(4 == q.Dequeue());
   try {
     q.Dequeue();
-  }
-  catch (const exception& e) {
+  } catch (const exception& e) {
     cout << e.what() << endl;
   }
   // test resize().

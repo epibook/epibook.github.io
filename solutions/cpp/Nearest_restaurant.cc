@@ -27,13 +27,11 @@ BSTNode<int>* FindSuccessorBST(BSTNode<int>* n) {
   return n->parent ? n->parent : nullptr;
 }
 
-BSTNode<int>* FindFirstLargerEqualK(
-    const unique_ptr<BSTNode<int>>& r,
-    int k);
+BSTNode<int>* FindFirstLargerEqualK(const unique_ptr<BSTNode<int>>& r, int k);
 
 // @include
-vector<BSTNode<int>*> RangeQueryOnBST(
-    const unique_ptr<BSTNode<int>>& n, int L, int U) {
+vector<BSTNode<int>*> RangeQueryOnBST(const unique_ptr<BSTNode<int>>& n, int L,
+                                      int U) {
   vector<BSTNode<int>*> res;
   for (auto* it = FindFirstLargerEqualK(n, L); it && it->data <= U;
        it = FindSuccessorBST(it)) {
@@ -42,8 +40,7 @@ vector<BSTNode<int>*> RangeQueryOnBST(
   return res;
 }
 
-BSTNode<int>* FindFirstLargerEqualK(
-    const unique_ptr<BSTNode<int>>& r, int k) {
+BSTNode<int>* FindFirstLargerEqualK(const unique_ptr<BSTNode<int>>& r, int k) {
   if (!r) {
     return nullptr;
   } else if (r->data < k) {
@@ -64,17 +61,13 @@ int main(int argc, char* argv[]) {
   root->parent = nullptr;
   root->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
   root->left->parent = root.get();
-  root->left->left =
-      unique_ptr<BSTNode<int>>(new BSTNode<int>{1});
+  root->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{1});
   root->left->left->parent = root->left.get();
-  root->right =
-      unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
+  root->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
   root->right->parent = root.get();
-  root->right->left =
-      unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
+  root->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
   root->right->left->parent = root->right.get();
-  root->right->right =
-      unique_ptr<BSTNode<int>>(new BSTNode<int>{6});
+  root->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{6});
   root->right->right->parent = root->right.get();
   vector<BSTNode<int>*> res = RangeQueryOnBST(root, 2, 5);
   assert(res.size() == 4);

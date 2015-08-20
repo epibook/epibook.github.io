@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -17,51 +17,6 @@ using std::pair;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
-
-
-pair<int, int> FindLongestSubarrayLessEqualKAnother(const vector<int> &A,
-                                                          int k) {
-  // Builds the prefix sum according to A.
-  vector<int> prefix_sum;
-  partial_sum(A.cbegin(), A.cend(), back_inserter(prefix_sum));
-
-  if (prefix_sum.back() <= k) {
-    return {0, A.size() - 1};
-  }
-
-  // Finds all possible ending points by scanning from right to left.
-  pair<int, int> res_idx(0, -1);
-  vector<int> potential_ends;
-  potential_ends.emplace_back(A.size() - 1);
-  for (int i = A.size() - 2; i >= 0; --i) {
-    if (prefix_sum[i] < prefix_sum[potential_ends.back()]) {
-      potential_ends.emplace_back(i);
-    }
-
-    // Gets the longest subarray whose sum <= k and starts from A[0].
-    if (res_idx.second == -1 && prefix_sum[i] <= k) {
-      res_idx = {0, i};
-    }
-  }
-
-  // Scans prefix_sum from left to right. Tries each element as the starting
-  // point, finds the rightmost ending point where the subarray sum <= k.
-  int start_idx = 0;
-  while (start_idx < A.size() && !potential_ends.empty()) {
-    int end_idx = potential_ends.back();
-    if (start_idx >= end_idx) {
-      potential_ends.pop_back();
-    } else if (prefix_sum[end_idx] - prefix_sum[start_idx] <= k) {
-      if (end_idx - start_idx > res_idx.second - res_idx.first + 1) {
-        res_idx = {start_idx + 1, end_idx};
-      }
-      potential_ends.pop_back();
-    } else {
-      ++start_idx;
-    }
-  }
-  return res_idx;
-}
 
 // @include
 pair<int, int> FindLongestSubarrayLessEqualK(const vector<int> &A, int k) {
@@ -135,11 +90,9 @@ void SmallTest() {
   vector<int> A = {1, 1};
   int k = 0;
   auto res = FindLongestSubarrayLessEqualK(A, k);
-  cout << "res = " << res.first << ", " << res.second << endl;
   assert(res.first == -1 && res.second == -1);
   k = -100;
   res = FindLongestSubarrayLessEqualK(A, k);
-  cout << "res = " << res.first << ", " << res.second << endl;
   assert(res.first == -1 && res.second == -1);
 }
 
@@ -165,13 +118,7 @@ int main(int argc, char *argv[]) {
       uniform_int_distribution<int> dis(-1000, 1000);
       A.emplace_back(dis(gen));
     }
-    /*
-    copy(A.begin(), A.end(), ostream_iterator<int>(cout, " "));
-    cout << endl;
-    //*/
     auto ans = FindLongestSubarrayLessEqualK(A, k);
-    auto another_ans = FindLongestSubarrayLessEqualKAnother(A, k);
-    assert(ans.second - ans.first == another_ans.second - another_ans.first);
     cout << k << ' ' << ans.first << ' ' << ans.second << endl;
     CheckAnswer(A, ans, k);
   }

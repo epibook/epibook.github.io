@@ -17,7 +17,7 @@ using std::unordered_set;
 // @include
 BinaryTreeNode<int>* LCA(const unique_ptr<BinaryTreeNode<int>>& node_0,
                          const unique_ptr<BinaryTreeNode<int>>& node_1) {
-  auto* iter_0 = node_0.get(), *iter_1 = node_1.get();
+  auto *iter_0 = node_0.get(), *iter_1 = node_1.get();
   unordered_set<const BinaryTreeNode<int>*> nodes_on_path_to_root;
   while (iter_0 || iter_1) {
     // Ascend in tandem for iter_0 and iter_1.

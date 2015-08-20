@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Random;
 
 class ThreeSum {
-
   // @include
   public static boolean hasThreeSum(List<Integer> A, int t) {
     Collections.sort(A);
@@ -68,7 +67,7 @@ class ThreeSum {
         A.add(gen.nextInt(200000) - 100000);
       }
       System.out.println(hasThreeSum(A, T) ? "true" : "false");
-      assert (checkAns(A, T) == hasThreeSum(A, T));
+      assert(checkAns(A, T) == hasThreeSum(A, T));
     }
   }
 }

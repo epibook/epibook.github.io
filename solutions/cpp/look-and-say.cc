@@ -53,7 +53,12 @@ int main(int argc, char** argv) {
   assert(!LookAndSay(1).compare("1"));
   assert(!LookAndSay(2).compare("11"));
   assert(!LookAndSay(3).compare("21"));
+  assert(!LookAndSay(4).compare("1211"));
   assert(!LookAndSay(5).compare("111221"));
+  assert(!LookAndSay(6).compare("312211"));
+  assert(!LookAndSay(7).compare("13112221"));
+  assert(!LookAndSay(8).compare("1113213211"));
+
   cout << "n = " << n << endl;
   cout << LookAndSay(n) << endl;
   return 0;

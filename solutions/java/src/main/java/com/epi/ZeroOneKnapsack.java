@@ -1,14 +1,9 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ZeroOneKnapsack {
   private static List<Integer> randVector(int len) {
     List<Integer> ret = new ArrayList<>();
@@ -20,11 +15,21 @@ public class ZeroOneKnapsack {
   }
 
   // @include
-  public static int knapsack(int w, List<Pair<Integer, Integer>> items) {
+  private static class Item {
+    public Integer weight;
+    public Integer value;
+
+    public Item(Integer weight, Integer value) {
+      this.weight = weight;
+      this.value = value;
+    }
+  }
+
+  public static int knapsack(int w, List<Item> items) {
     int[] V = new int[w + 1];
-    for (Pair<Integer, Integer> item : items) {
-      for (int j = w; j >= item.getFirst(); --j) {
-        V[j] = Math.max(V[j], V[j - item.getFirst()] + item.getSecond());
+    for (Item item : items) {
+      for (int j = w; j >= item.weight; --j) {
+        V[j] = Math.max(V[j], V[j - item.weight] + item.value);
       }
     }
     return V[w];
@@ -58,9 +63,9 @@ public class ZeroOneKnapsack {
     }
     System.out.println("Weight: " + weight);
     System.out.println("Value: " + value);
-    List<Pair<Integer, Integer>> items = new ArrayList<>();
+    List<Item> items = new ArrayList<>();
     for (int i = 0; i < weight.size(); ++i) {
-      items.add(new Pair<>(weight.get(i), value.get(i)));
+      items.add(new Item(weight.get(i), value.get(i)));
     }
     System.out.println("knapsack size = " + W);
     System.out.println("all value = " + knapsack(W, items));

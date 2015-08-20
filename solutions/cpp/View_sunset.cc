@@ -25,8 +25,7 @@ vector<int> ExamineBuildingsWithSunset(istringstream* sin) {
   // Stores (building_idx, building_height) pair with sunset views.
   stack<pair<int, int>> candidates;
   while (*sin >> building_height) {
-    while (!candidates.empty() &&
-           building_height >= candidates.top().second) {
+    while (!candidates.empty() && building_height >= candidates.top().second) {
       candidates.pop();
     }
     candidates.emplace(building_idx++, building_height);

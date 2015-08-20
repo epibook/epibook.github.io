@@ -15,9 +15,7 @@ public class TheoryOfEquality {
       this.b = b;
     }
 
-    public String toString() {
-      return a + " " + b;
-    }
+    public String toString() { return a + " " + b; }
   }
 
   public static class GraphVertex {
@@ -60,8 +58,8 @@ public class TheoryOfEquality {
       if (!G.containsKey(i.b)) {
         G.put(i.b, new GraphVertex());
       }
-      if (G.get(i.a).group != -1 && G.get(i.b).group != -1
-          && G.get(i.a).group == G.get(i.b).group) {
+      if (G.get(i.a).group != -1 && G.get(i.b).group != -1 &&
+          G.get(i.a).group == G.get(i.b).group) {
         return false;
       }
     }
@@ -83,7 +81,7 @@ public class TheoryOfEquality {
     List<Constraint> I = new ArrayList<>();
     E.add(new Constraint(0, 1));
     I.add(new Constraint(2, 3));
-    assert (areConstraintsSatisfied(E, I));
+    assert(areConstraintsSatisfied(E, I));
     E.clear();
     I.clear();
     // Example on the book.
@@ -91,7 +89,7 @@ public class TheoryOfEquality {
     E.add(new Constraint(2, 3));
     E.add(new Constraint(3, 4));
     I.add(new Constraint(1, 4));
-    assert (!areConstraintsSatisfied(E, I));
+    assert(!areConstraintsSatisfied(E, I));
   }
 
   public static void main(String[] args) {

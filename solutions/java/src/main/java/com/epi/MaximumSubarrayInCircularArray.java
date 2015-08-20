@@ -31,8 +31,7 @@ public class MaximumSubarrayInCircularArray {
     maximumBegin.add(sum);
     for (int i = 1; i < A.size(); ++i) {
       sum += A.get(i);
-      maximumBegin
-          .add(Math.max(maximumBegin.get(maximumBegin.size() - 1), sum));
+      maximumBegin.add(Math.max(maximumBegin.get(maximumBegin.size() - 1), sum));
     }
 
     // Maximum subarray sum starts at index i + 1 and ends at the last element.
@@ -89,7 +88,7 @@ public class MaximumSubarrayInCircularArray {
       int ans = maxSubarraySumInCircular(A);
       // System.out.println(A);
       System.out.println("maximum sum = " + ans);
-      assert (ans == checkAns(A));
+      assert(ans == checkAns(A));
     }
   }
 }

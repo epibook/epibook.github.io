@@ -1,7 +1,6 @@
 package com.epi;
 
 import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
-import com.epi.utils.Interval;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,14 +9,23 @@ import java.util.List;
 
 public class RangeLookupBST {
   // @include
-  public static List<Integer> RangeLookupBST(BSTNode<Integer> tree,
+  private static class Interval {
+    public int left, right;
+
+    public Interval(int left, int right) {
+      this.left = left;
+      this.right = right;
+    }
+  }
+
+  public static List<Integer> rangeLookupInBST(BSTNode<Integer> tree,
                                              Interval interval) {
     List<Integer> result = new ArrayList<>();
-    RangeLookupBSTHelper(tree, interval, result);
+    rangeLookupInBSTHelper(tree, interval, result);
     return result;
   }
 
-  public static void RangeLookupBSTHelper(BSTNode<Integer> tree,
+  public static void rangeLookupInBSTHelper(BSTNode<Integer> tree,
                                           Interval interval,
                                           List<Integer> result) {
     if (tree == null) {
@@ -25,13 +33,13 @@ public class RangeLookupBST {
     }
     if (interval.left <= tree.getData() && tree.getData() <= interval.right) {
       // tree.getData() lies in the interval.
-      RangeLookupBSTHelper(tree.getLeft(), interval, result);
+      rangeLookupInBSTHelper(tree.getLeft(), interval, result);
       result.add(tree.getData());
-      RangeLookupBSTHelper(tree.getRight(), interval, result);
+      rangeLookupInBSTHelper(tree.getRight(), interval, result);
     } else if (interval.left > tree.getData()) {
-      RangeLookupBSTHelper(tree.getRight(), interval, result);
+      rangeLookupInBSTHelper(tree.getRight(), interval, result);
     } else { // interval.right >= tree.getData()
-      RangeLookupBSTHelper(tree.getLeft(), interval, result);
+      rangeLookupInBSTHelper(tree.getLeft(), interval, result);
     }
   }
   // @exclude
@@ -60,10 +68,25 @@ public class RangeLookupBST {
     tree.getRight().setRight(new BSTNode<>(47));
     tree.getRight().getRight().setRight(new BSTNode<>(53));
     Interval interval = new Interval(16, 31);
-    List<Integer> result = RangeLookupBST(tree, interval);
+    List<Integer> result = rangeLookupInBST(tree, interval);
     Collections.sort(result);
     List<Integer> goldenResult = Arrays.asList(17, 19, 23, 29, 31);
     assert result.equals(goldenResult);
+
+    interval = new Interval(38, 39);
+    result = rangeLookupInBST(tree, interval);
+    assert (0 == result.size());
+
+    interval = new Interval(38, 42);
+    result = rangeLookupInBST(tree, interval);
+    assert((1 == result.size()) && (41 == result.get(0)));
+
+    interval = new Interval(-1, 1);
+    result = rangeLookupInBST(tree, interval);
+    assert(0 == result.size());
+
+    interval = new Interval(Integer.MAX_VALUE-1, Integer.MAX_VALUE);
+    result = rangeLookupInBST(tree, interval);
+    assert(0 == result.size());
   }
 }
-

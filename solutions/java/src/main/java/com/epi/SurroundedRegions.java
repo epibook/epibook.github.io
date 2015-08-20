@@ -1,13 +1,21 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class SurroundedRegions {
   // @include
+  private static class Coordinate {
+    public Integer x;
+    public Integer y;
+
+    public Coordinate(Integer x, Integer y) {
+      this.x = x;
+      this.y = y;
+    }
+  }
+
   public static void fillSurroundedRegions(List<List<Character>> board) {
     if (board.isEmpty()) {
       return;
@@ -23,31 +31,28 @@ public class SurroundedRegions {
     }
   }
 
-  private static void
-  markRegionIfSurrounded(int i, int j,
-                         List<List<Character>> board, boolean[][] visited) {
-    int dir[][] = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+  private static void markRegionIfSurrounded(int i, int j,
+                                             List<List<Character>> board,
+                                             boolean[][] visited) {
+    int dir[][] = new int[][] {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
     // Uses q as a queue.
-    List<Pair<Integer, Integer>> q = new ArrayList<>();
-    q.add(new Pair<>(i, j));
+    List<Coordinate> q = new ArrayList<>();
+    q.add(new Coordinate(i, j));
     visited[i][j] = true;
     boolean isSurrounded = true;
     int idx = 0;
     // Uses BFS to traverse this region.
     while (idx < q.size()) {
-      Pair<Integer, Integer> curr = q.get(idx++);
+      Coordinate curr = q.get(idx++);
       // A 'W' on the border means this region is not surrounded.
-      if (curr.getFirst() == 0 || curr.getFirst() == board.size() - 1
-          || curr.getSecond() == 0
-          || curr.getSecond() == board.get(curr.getFirst()).size() - 1) {
+      if (curr.x == 0 || curr.x == board.size() - 1 || curr.y == 0 ||
+          curr.y == board.get(curr.x).size() - 1) {
         isSurrounded = false;
       } else {
         for (int[] d : dir) {
-          Pair<Integer, Integer> next = new Pair<>(
-              curr.getFirst() + d[0], curr.getSecond() + d[1]);
-          if (board.get(next.getFirst()).get(next.getSecond()) == 'W'
-              && !visited[next.getFirst()][next.getSecond()]) {
-            visited[next.getFirst()][next.getSecond()] = true;
+          Coordinate next = new Coordinate(curr.x + d[0], curr.y + d[1]);
+          if (board.get(next.x).get(next.y) == 'W' && !visited[next.x][next.y]) {
+            visited[next.x][next.y] = true;
             q.add(next);
           }
         }
@@ -56,8 +61,8 @@ public class SurroundedRegions {
 
     if (isSurrounded) {
       // Marks surrounded regions in q.
-      for (Pair<Integer, Integer> p : q) {
-        board.get(p.getFirst()).set(p.getSecond(), 'B');
+      for (Coordinate p : q) {
+        board.get(p.x).set(p.y, 'B');
       }
     }
   }

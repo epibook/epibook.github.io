@@ -1,87 +1,102 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
-// @author Andrey Pavlov
 
 package com.epi;
 
-import com.epi.utils.Pair;
-
-import java.util.HashMap;
 import java.util.Map;
+import java.util.LinkedHashMap;
 
 // @include
-public class LRUCache {
+class LRUCache<K,V> extends LinkedHashMap<K,V> {
+  LRUCache(int capacity) {
+      super();
+      this.capacity = capacity;
+  }
+  int capacity;
 
-  public LRUCache(int c) {
-    capacity = c;
+  @Override
+  protected boolean removeEldestEntry(Map.Entry<K,V> e) {
+      return this.size() > capacity;
   }
 
-  public boolean lookup(int isbn) {
-    Pair<LinkedList<Integer>.Node, Integer> it = isbnPriceTable.get(isbn);
-    if (it == null) {
-      return false;
+  @Override 
+  public V get(Object key) {
+    if (!super.containsKey(key)) {
+        return null;
     }
-
-    lookupVal = it.getSecond();
-    moveToFront(isbn, it); // Since isbn is the most recently used ISBN.
-    return true;
+    V value = super.get(key);
+    // Since key has just been accessed, move it to the front.
+    moveToFront((K) key, value); 
+    return value;
   }
 
-  public void insert(int isbn, int price) {
-    Pair<LinkedList<Integer>.Node, Integer> it = isbnPriceTable.get(isbn);
-    if (it != null) {
-      // Entry is already present, moves it to the front.
-      moveToFront(isbn, it);
-    } else {
-      if (isbnPriceTable.size() == capacity) {
-        // Removes the least recently used ISBN to get space.
-        isbnPriceTable.remove(lruQueue.back());
-      }
-
-      // Adds the new entry into the front.
-      isbnPriceTable.put(
-          isbn, new Pair<>(lruQueue.pushFront(isbn), price));
-    }
+  @Override
+  public V put(K key, V value) {
+    V result = super.get(key);
+    super.put(key,value);
+    // The call to super.put(key, value) will not move  key to the front
+    // if it was already present, so we explicitly move it to the front.
+    moveToFront(key, value); 
+    return result;
   }
 
-  public boolean erase(int isbn) {
-    Pair<LinkedList<Integer>.Node, Integer> it = isbnPriceTable.get(isbn);
-    if (it == null) {
-      return false;
-    }
-
-    lruQueue.erase(it.getFirst());
-    isbnPriceTable.remove(isbn);
-    return true;
+  // Forces this key-value pair to move to the front.
+  private void moveToFront(K key, V value) {
+    super.remove(key);
+    super.put(key,value);
   }
+// @exclude
 
-  // Moves isbn to the front of the LRU cache.
-  private void moveToFront(int isbn,
-                           Pair<LinkedList<Integer>.Node, Integer> it) {
-    lruQueue.erase(it.getFirst());
-    lruQueue.pushBack(isbn);
-    it.setFirst(lruQueue.front());
-  }
 
-  public int lookupVal = 0;
-  private int capacity;
-  private Map<Integer, Pair<LinkedList<Integer>.Node, Integer>>
-      isbnPriceTable = new HashMap<>();
-  private LinkedList<Integer> lruQueue = new LinkedList<>();
-  // @exclude
+  private static final int CAPACITY = 2;
 
   public static void main(String[] args) {
-    LRUCache c = new LRUCache(3);
-    System.out.println("c.insert(1, 1)");
-    c.insert(1, 1);
-    System.out.println("c.insert(1, 10)");
-    c.insert(1, 10);
-    System.out.println("c.lookup(2, val)");
-    assert (!c.lookup(2));
-    System.out.println("c.lookup(1, val)");
-    assert (c.lookup(1));
-    assert (c.lookupVal == 1);
-    c.erase(1);
-    assert (!c.lookup(1));
+    LRUCache<Integer, Integer> c = new LRUCache<>(CAPACITY);
+    System.out.println("c.put(1, 1)");
+    c.put(1, 1);
+    System.out.println("c.put(1, 10)");
+    c.put(1, 10);
+    System.out.println("c.get(2, val)");
+    assert(null == c.get(2));
+    System.out.println("c.get(1, val)");
+    assert(c.get(1) == 10);
+    c.remove(1);
+    assert(null == c.get(1));
+
+    // test capacity contraints honored, also FIFO ordering
+    c = new LRUCache<>(CAPACITY);
+    c.put(1,1);
+    c.put(2,1);
+    c.put(3,1);
+    c.put(4,1);
+    assert(null == c.get(1));
+    assert(null == c.get(2));
+    assert(1 == c.get(3));
+    assert(1 == c.get(4));
+
+    // test retrieval moves to front
+    c = new LRUCache<>(CAPACITY);
+    c.put(1,1);
+    c.put(2,1);
+    c.put(3,1);
+    c.get(2);
+    c.put(4,1);
+    assert(null == c.get(1));
+    assert(1 == c.get(2));
+    assert(null == c.get(3));
+    assert(1 == c.get(4));
+
+    // test update moves to front
+    c = new LRUCache<>(CAPACITY);
+    c.put(1,1);
+    c.put(2,1);
+    c.put(3,1);
+    c.put(2,2);
+    c.put(4,1);
+    assert(null == c.get(1));
+    assert(2 == c.get(2));
+    assert(null == c.get(3));
+    assert(1 == c.get(4));
+
   }
   // @include
 }

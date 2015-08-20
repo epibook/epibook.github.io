@@ -4,17 +4,17 @@ import java.util.*;
 
 public class GeneratingABSqrt2Improved {
   // @include
-  public static class Num implements Comparable<Num> {
+  public static class ABSqrt2 implements Comparable<ABSqrt2> {
     public int a, b;
     public double val;
 
-    public Num(int a, int b) {
+    public ABSqrt2(int a, int b) {
       this.a = a;
       this.b = b;
       val = a + b * Math.sqrt(2);
     }
-
     // @exclude
+
     // Equal function for hash.
     @Override
     public boolean equals(Object o) {
@@ -25,11 +25,11 @@ public class GeneratingABSqrt2Improved {
         return false;
       }
 
-      Num that = (Num) o;
+      ABSqrt2 that = (ABSqrt2)o;
       return a == that.a && b == that.b;
     }
 
-    // Hash function for Num.
+    // Hash function for ABSqrt2.
     @Override
     public int hashCode() {
       int result = a;
@@ -38,53 +38,55 @@ public class GeneratingABSqrt2Improved {
     }
 
     @Override
-    public int compareTo(Num o) {
-      return Double.valueOf(val).compareTo(o.val);
+    public int compareTo(ABSqrt2 o) {
+      return Double.compare(val, o.val);
     }
     // @include
   }
 
-  public static List<Num> generateFirstK(int k) {
-    List<Num> result = new ArrayList<>(); // Stores the first-k Num.
-    result.add(new Num(0, 0));
+  public static List<ABSqrt2> generateFirstKABSqrt2(int k) {
+   // Will store the first k numbers of the form a + b sqrt(2).
+    List<ABSqrt2> result = new ArrayList<>(); 
+    result.add(new ABSqrt2(0, 0));
     int i = 0, j = 0;
-    for (int n = 0; n < k; ++n) {
-      Num x = new Num(result.get(i).a + 1, result.get(i).b);
-      Num y = new Num(result.get(j).a, result.get(j).b + 1);
-      if (x.val < y.val) {
+    for (int n = 1; n < k; ++n) {
+      ABSqrt2 resultIPlus1 = new ABSqrt2(result.get(i).a + 1, result.get(i).b);
+      ABSqrt2 resultJPlusSqrt2 =
+          new ABSqrt2(result.get(j).a, result.get(j).b + 1);
+      if (resultIPlus1.val < resultJPlusSqrt2.val) {
         ++i;
-        result.add(x);
-      } else if (x.val > y.val) {
+        result.add(resultIPlus1);
+      } else if (resultIPlus1.val > resultJPlusSqrt2.val) {
         ++j;
-        result.add(y);
-      } else { // x == y.
+        result.add(resultJPlusSqrt2);
+      } else { // resultIPlus1 == resultJPlusSqrt2.
         ++i;
         ++j;
-        result.add(x);
+        result.add(resultIPlus1);
       }
     }
     return result;
   }
   // @exclude
 
-  public static List<Num> golden(int k) {
-    SortedSet<Num> minHeap = new TreeSet<>();
-    List<Num> smallest = new ArrayList<>();
-    Set<Num> hash = new HashSet<>();
+  public static List<ABSqrt2> golden(int k) {
+    SortedSet<ABSqrt2> minHeap = new TreeSet<>();
+    List<ABSqrt2> smallest = new ArrayList<>();
+    Set<ABSqrt2> hash = new HashSet<>();
 
     // Initial for 0 + 0 * sqrt(2).
-    minHeap.add(new Num(0, 0));
-    hash.add(new Num(0, 0));
+    minHeap.add(new ABSqrt2(0, 0));
+    hash.add(new ABSqrt2(0, 0));
 
     while (smallest.size() < k) {
-      Num s = minHeap.first();
+      ABSqrt2 s = minHeap.first();
       smallest.add(s);
       hash.remove(s);
       minHeap.remove(s);
 
       // Add the next two numbers derived from s.
-      Num c1 = new Num(s.a + 1, s.b);
-      Num c2 = new Num(s.a, s.b + 1);
+      ABSqrt2 c1 = new ABSqrt2(s.a + 1, s.b);
+      ABSqrt2 c2 = new ABSqrt2(s.a, s.b + 1);
       if (hash.add(c1)) {
         minHeap.add(c1);
       }
@@ -95,7 +97,20 @@ public class GeneratingABSqrt2Improved {
     return smallest;
   }
 
+  private static void SimpleTest() {
+    List<ABSqrt2> ans = generateFirstKABSqrt2(8);
+    assert(0.0 == ans.get(0).val);
+    assert(1.0 == ans.get(1).val);
+    assert(Math.sqrt(2.0) == ans.get(2).val);
+    assert(2.0 == ans.get(3).val);
+    assert(1.0 + Math.sqrt(2.0) == ans.get(4).val);
+    assert(2.0*Math.sqrt(2.0) == ans.get(5).val);
+    assert(3.0 == ans.get(6).val);
+    assert(2.0 + Math.sqrt(2.0) == ans.get(7).val);
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int k;
@@ -104,18 +119,22 @@ public class GeneratingABSqrt2Improved {
       } else {
         k = r.nextInt(10000) + 1;
       }
-      List<Num> ans = generateFirstK(k);
+      List<ABSqrt2> ans = generateFirstKABSqrt2(k);
+      assert(ans.size() == k);
       for (int i = 0; i < ans.size(); ++i) {
-        System.out.println(ans.get(i).a + " " + ans.get(i).b + " "
-            + ans.get(i).val);
+        System.out.println(ans.get(i).a + " " + ans.get(i).b + " " +
+                           ans.get(i).val);
         if (i > 0) {
-          assert (ans.get(i).val >= ans.get(i - 1).val);
+          assert(ans.get(i).val >= ans.get(i - 1).val);
         }
       }
-      List<Num> goldRes = golden(k);
+      List<ABSqrt2> goldRes = golden(k);
+      ans.equals(goldRes);
+      /*
       for (int i = 0; i < k; ++i) {
         assert (ans.get(i).equals(goldRes.get(i)));
       }
+      */
     }
   }
 }

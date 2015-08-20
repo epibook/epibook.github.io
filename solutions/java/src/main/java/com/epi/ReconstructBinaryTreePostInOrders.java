@@ -17,8 +17,8 @@ public class ReconstructBinaryTreePostInOrders {
     for (int i = 0; i < in.length; ++i) {
       inEntryIdxMap.put(in[i], i);
     }
-    return reconstructPostInOrdersHelper(post, 0, post.length, 0,
-                                         in.length, inEntryIdxMap);
+    return reconstructPostInOrdersHelper(post, 0, post.length, 0, in.length,
+                                         inEntryIdxMap);
   }
 
   private static BinaryTreeNode<Integer> reconstructPostInOrdersHelper(
@@ -30,10 +30,11 @@ public class ReconstructBinaryTreePostInOrders {
     int idx = inEntryIdxMap.get(post[postE - 1]);
     int leftTreeSize = idx - inS;
 
-    return new BinaryTreeNode<>(post[postE - 1],
+    return new BinaryTreeNode<>(
+        post[postE - 1],
         // Recursively build the left subtree.
-        reconstructPostInOrdersHelper(post, postS, postS + leftTreeSize,
-                                      inS, idx, inEntryIdxMap),
+        reconstructPostInOrdersHelper(post, postS, postS + leftTreeSize, inS, idx,
+                                      inEntryIdxMap),
         // Recursively build the right subtree.
         reconstructPostInOrdersHelper(post, postS + leftTreeSize, postE - 1,
                                       idx + 1, inE, inEntryIdxMap));
@@ -62,7 +63,7 @@ public class ReconstructBinaryTreePostInOrders {
         inOrder[i] = in.get(i);
       }
       BinaryTreeNode<Integer> res = reconstructPostInOrders(postOrder, inOrder);
-      assert (root.equals(res));
+      assert(root.equals(res));
     }
   }
 }

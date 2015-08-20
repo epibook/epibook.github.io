@@ -17,16 +17,17 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-vector<vector<int>> GeneratePowerSet(const vector<int>& S) {
+vector<vector<int>> GeneratePowerSet(const vector<int>& input_set) {
   vector<vector<int>> power_set;
-  for (int i = 0; i < (1 << S.size()); ++i) {
-    int x = i;
-    vector<int> one_set;
-    while (x) {
-      one_set.emplace_back(S[log2(x & ~(x - 1))]);
-      x &= x - 1;
+  for (int int_for_subset = 0; int_for_subset < (1 << input_set.size());
+       ++int_for_subset) {
+    int bit_array = int_for_subset;
+    vector<int> subset;
+    while (bit_array) {
+      subset.emplace_back(input_set[log2(bit_array & ~(bit_array - 1))]);
+      bit_array &= bit_array - 1;
     }
-    power_set.emplace_back(one_set);
+    power_set.emplace_back(subset);
   }
   return power_set;
 }

@@ -18,16 +18,16 @@ int ZeroOneRandom() {
 }
 
 // @include
-int UniformRandom(int a, int b) {
-  int t = b - a + 1, res;
+int UniformRandom(int lower_bound, int upper_bound) {
+  int number_of_outcomes = upper_bound - lower_bound + 1, result;
   do {
-    res = 0;
-    for (int i = 0; (1 << i) < t; ++i) {
-      // ZeroOneRandom() is the system-provided random number generator.
-      res = (res * 2) | ZeroOneRandom();
+    result = 0;
+    for (int i = 0; (1 << i) < number_of_outcomes; ++i) {
+      // ZeroOneRandom() is the provided random number generator.
+      result = (result << 1) | ZeroOneRandom();
     }
-  } while (res >= t);
-  return res + a;
+  } while (result >= number_of_outcomes);
+  return result + lower_bound;
 }
 // @exclude
 

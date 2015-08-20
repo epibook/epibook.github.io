@@ -13,7 +13,8 @@ using std::vector;
 
 namespace rotate_array1 {
 
-void ApplyCyclicPermutation(int rotate_amount, int offset, int cycle_length, vector<int>* A);
+void ApplyCyclicPermutation(int rotate_amount, int offset, int cycle_length,
+                            vector<int>* A);
 
 // @include
 void RotateArray(int rotate_amount, vector<int>* A) {

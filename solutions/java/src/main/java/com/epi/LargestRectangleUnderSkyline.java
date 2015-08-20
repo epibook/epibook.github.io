@@ -51,8 +51,8 @@ public class LargestRectangleUnderSkyline {
       while (!s.isEmpty() && (i == A.size() || A.get(i) < A.get(s.peek()))) {
         int height = A.get(s.peek());
         s.pop();
-        maxArea = Math.max(maxArea,
-                           height * (s.isEmpty() ? i : i - s.peek() - 1));
+        maxArea =
+            Math.max(maxArea, height * (s.isEmpty() ? i : i - s.peek() - 1));
       }
       s.push(i);
     }
@@ -84,12 +84,12 @@ public class LargestRectangleUnderSkyline {
     List<Integer> A = Arrays.asList(2, 3, 4, 1, 2);
     int area = calculateLargestRectangle(A);
     int alterArea = calculateLargestRectangleAlternative(A);
-    assert (area == alterArea);
-    assert (checkAnswer(A) == area);
-    assert (6 == area);
+    assert(area == alterArea);
+    assert(checkAnswer(A) == area);
+    assert(6 == area);
     A = Arrays.asList(2, 2, 2);
     System.out.println(calculateLargestRectangle(A));
-    assert (6 == calculateLargestRectangle(A));
+    assert(6 == calculateLargestRectangle(A));
   }
 
   public static void main(String[] args) {
@@ -109,8 +109,8 @@ public class LargestRectangleUnderSkyline {
       int area = calculateLargestRectangle(A);
       int alterArea = calculateLargestRectangleAlternative(A);
       System.out.println(area + " " + alterArea);
-      assert (area == alterArea);
-      assert (checkAnswer(A) == area);
+      assert(area == alterArea);
+      assert(checkAnswer(A) == area);
     }
   }
 }

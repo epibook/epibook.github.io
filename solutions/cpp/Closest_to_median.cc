@@ -20,7 +20,7 @@ double Median(vector<int>* A);
 // @include
 class Comp {
  public:
-  explicit Comp(double median) : median_(median) {};
+  explicit Comp(double median) : median_(median){};
 
   bool operator()(int a, int b) const {
     return fabs(a - median_) < fabs(b - median_);
@@ -53,7 +53,7 @@ double Median(vector<int>* A) {
 
 void CheckAns(vector<int>& A, const vector<int>& res, int k) {
   sort(A.begin(), A.end());
-  double median = (A.size() & 1)
+  double median = (A.size() % 2)
                       ? A[A.size() / 2]
                       : 0.5 * (A[(A.size() / 2) - 1] + A[A.size() / 2]);
   vector<double> temp;

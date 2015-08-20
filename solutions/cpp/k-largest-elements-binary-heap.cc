@@ -25,7 +25,7 @@ vector<int> KLargestInBinaryHeap(const vector<int>& A, int k) {
   }
 
   // Stores the (index, value)-pair in candidate_max_heap. This heap is
-  // ordered by value field.
+  // ordered by the value field.
   priority_queue<pair<size_t, int>, vector<pair<size_t, int>>, Compare>
       candidate_max_heap;
   // The largest element in A is at index 0.
@@ -64,6 +64,12 @@ int main(int argc, char* argv[]) {
   result = KLargestInBinaryHeap(max_heap, 3);
   expected_result = {97, 93, 90};
   assert(result.size() == 3 &&
+         equal(result.begin(), result.end(), expected_result.begin()));
+
+  max_heap = {100, 1, 5, 0, 0};
+  result = KLargestInBinaryHeap(max_heap, 1);
+  expected_result = {100};
+  assert(result.size() == 1 &&
          equal(result.begin(), result.end(), expected_result.begin()));
   return 0;
 }

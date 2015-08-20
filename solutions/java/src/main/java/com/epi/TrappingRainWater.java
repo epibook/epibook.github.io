@@ -2,8 +2,6 @@
 
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.*;
 import java.util.LinkedList;
 
@@ -53,26 +51,35 @@ public class TrappingRainWater {
   // @exclude
 
   // Stack approach, O(n) time, O(n) space
+  private static class HeightBound {
+    public Integer leftBound;
+    public Integer rightBound;
+
+    public HeightBound(Integer leftBound, Integer rightBound) {
+      this.leftBound = leftBound;
+      this.rightBound = rightBound;
+    }
+  }
   private static int checkAnswer(List<Integer> A) {
-    LinkedList<Pair<Integer, Integer>> s = new LinkedList<>();
+    LinkedList<HeightBound> s = new LinkedList<>();
     int sum = 0;
     for (int i = 0; i < A.size(); ++i) {
-      while (!s.isEmpty() && s.peek().getSecond() <= A.get(i)) {
-        int bottom = s.pop().getSecond();
+      while (!s.isEmpty() && s.peek().rightBound <= A.get(i)) {
+        int bottom = s.pop().rightBound;
         if (s.isEmpty()) {
           break;
         }
-        int top = Math.min(s.peek().getSecond(), A.get(i));
-        sum += (top - bottom) * (i - s.peek().getFirst() - 1);
+        int top = Math.min(s.peek().rightBound, A.get(i));
+        sum += (top - bottom) * (i - s.peek().leftBound - 1);
       }
-      s.push(new Pair<>(i, A.get(i)));
+      s.push(new HeightBound(i, A.get(i)));
     }
     return sum;
   }
 
   private static void smallTest() {
     List<Integer> A = Arrays.asList(1, 0, 3, 2, 5, 0, 1);
-    assert (calculateTrappingWater(A) == 3);
+    assert(calculateTrappingWater(A) == 3);
   }
 
   public static void main(String[] args) {
@@ -91,7 +98,7 @@ public class TrappingRainWater {
       }
       System.out.println(A);
       System.out.println(checkAnswer(A) + " " + calculateTrappingWater(A));
-      assert (checkAnswer(A) == calculateTrappingWater(A));
+      assert(checkAnswer(A) == calculateTrappingWater(A));
     }
   }
 }

@@ -2,14 +2,46 @@
 
 package com.epi;
 
-import com.epi.utils.EndPoint;
-import com.epi.utils.Interval;
-
 import java.util.*;
 
 class PointsCoveringIntervalsAlternative {
-
   // @include
+
+  private static class Interval {
+    public int left, right;
+
+    public Interval(int l, int r) {
+      this.left = l;
+      this.right = r;
+    }
+  }
+
+  public static class EndPoint implements Comparable<EndPoint> {
+    public Interval ptr;
+    public boolean isLeft;
+
+    public EndPoint(Interval i, boolean il) {
+      ptr = i;
+      isLeft = il;
+    }
+
+    public int compareTo(EndPoint that) {
+      int a = isLeft ? ptr.left : ptr.right, b = that.isLeft ? that.ptr.left
+                                                             : that.ptr.right;
+      if (a != b) {
+        return a - b;
+      } 
+      // Give preference to left endpoint.
+      if (isLeft && !that.isLeft) {
+          return -1;
+      } else if (!isLeft && that.isLeft) {
+          return 1;
+      } else {
+          return 0;
+      }
+    }
+  }
+
   public static List<Integer> findMinimumVisits(Interval[] intervals) {
     List<EndPoint> endpoints = new ArrayList<>();
     for (Interval aI : intervals) {
@@ -21,8 +53,7 @@ class PointsCoveringIntervalsAlternative {
     return findMinimumVisitsHelper(endpoints);
   }
 
-  private static List<Integer> findMinimumVisitsHelper(
-      List<EndPoint> endpoints) {
+  private static List<Integer> findMinimumVisitsHelper(List<EndPoint> endpoints) {
     List<Integer> S = new ArrayList<>(); // A minimum set of visit times.
     Set<Interval> covered = new HashSet<>();
     List<Interval> covering = new ArrayList<>();
@@ -42,8 +73,7 @@ class PointsCoveringIntervalsAlternative {
   // @exclude
 
   // O(n^2) checking solution
-  private static void checkAnswer(Interval[] intervals,
-                                  List<Integer> answer) {
+  private static void checkAnswer(Interval[] intervals, List<Integer> answer) {
     boolean[] isVisited = new boolean[intervals.length];
     for (Integer a : answer) {
       for (int i = 0; i < intervals.length; ++i) {
@@ -54,7 +84,7 @@ class PointsCoveringIntervalsAlternative {
     }
 
     for (boolean b : isVisited) {
-      assert (b);
+      assert(b);
     }
   }
 
@@ -67,7 +97,19 @@ class PointsCoveringIntervalsAlternative {
     intervals[4] = new Interval(7, 10);
     intervals[5] = new Interval(9, 11);
     List<Integer> ans = findMinimumVisits(intervals);
-    assert (ans.size() == 2 && ans.get(0) == 4 && ans.get(1) == 10);
+    List<Integer> golden = Arrays.asList(4, 10);
+    assert(ans.equals(golden));
+
+    intervals = new Interval[6];
+    intervals[0] = new Interval(1, 2);
+    intervals[1] = new Interval(2, 3);
+    intervals[2] = new Interval(3, 4);
+    intervals[3] = new Interval(4, 5);
+    intervals[4] = new Interval(5, 6);
+    intervals[5] = new Interval(6, 7);
+    ans = findMinimumVisits(intervals);
+    golden = Arrays.asList(2, 4, 6);
+    assert(ans.equals(golden));
   }
 
   public static void main(String[] args) {

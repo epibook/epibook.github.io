@@ -19,7 +19,8 @@ public class NormalizedPathnames {
           pathNames.push(token);
         } else {
           if (pathNames.peek().equals("/")) {
-            throw new RuntimeException("Path error");
+            throw new IllegalArgumentException(
+                "Path error, trying to go up root " + path);
           }
           pathNames.pop();
         }
@@ -46,24 +47,26 @@ public class NormalizedPathnames {
   // @exclude
 
   public static void main(String[] args) {
-    assert (ShortestEquivalentPath("123/456").equals("123/456"));
-    assert (ShortestEquivalentPath("/123/456").equals("/123/456"));
-    assert (ShortestEquivalentPath("usr/lib/../bin/gcc").equals("usr/bin/gcc"));
-    assert (ShortestEquivalentPath("./../").equals(".."));
-    assert (ShortestEquivalentPath("../../local").equals("../../local"));
-    assert (ShortestEquivalentPath("./.././../local").equals("../../local"));
+    assert(ShortestEquivalentPath("123/456").equals("123/456"));
+    assert(ShortestEquivalentPath("/123/456").equals("/123/456"));
+    assert(ShortestEquivalentPath("usr/lib/../bin/gcc").equals("usr/bin/gcc"));
+    assert(ShortestEquivalentPath("./../").equals(".."));
+    assert(ShortestEquivalentPath("../../local").equals("../../local"));
+    assert(ShortestEquivalentPath("./.././../local").equals("../../local"));
+    assert(ShortestEquivalentPath("/foo/../foo/./../").equals("/"));
     try {
       ShortestEquivalentPath("/..");
-    } catch (Exception e) {
+    } catch (IllegalArgumentException e) {
       System.out.println(e.getMessage());
     }
     try {
       ShortestEquivalentPath("/cpp_name/bin/");
     } catch (Exception e) {
       System.out.println(e.getMessage());
+      assert(false);
     }
-    assert (ShortestEquivalentPath("scripts//./../scripts/awkscripts/././")
-        .equals("scripts/awkscripts"));
+    assert(ShortestEquivalentPath("scripts//./../scripts/awkscripts/././")
+               .equals("scripts/awkscripts"));
     if (args.length == 1) {
       System.out.println(ShortestEquivalentPath(args[0]));
     }

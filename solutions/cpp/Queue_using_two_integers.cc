@@ -57,8 +57,7 @@ int main(int argc, char* argv[]) {
   // Empty queue, it should throw.
   try {
     q.dequeue();
-  }
-  catch (const exception& e) {
+  } catch (const exception& e) {
     cout << e.what() << endl;
   }
   q.enqueue(0);
@@ -73,8 +72,7 @@ int main(int argc, char* argv[]) {
   // Queue overflow, it should throw.
   try {
     q.enqueue(2);
-  }
-  catch (const exception& e) {
+  } catch (const exception& e) {
     cout << e.what() << endl;
   }
   return 0;

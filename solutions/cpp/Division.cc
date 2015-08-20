@@ -14,7 +14,8 @@ using std::random_device;
 using std::stoul;
 using std::uniform_int_distribution;
 
-unsigned DivideXYBsearch(unsigned x, unsigned y) {
+// Alternative solution.
+unsigned DivideBsearch(unsigned x, unsigned y) {
   if (x < y) {
     return 0;
   }
@@ -43,11 +44,11 @@ unsigned DivideXYBsearch(unsigned x, unsigned y) {
     }
   }
   unsigned part = 1U << power_left;
-  return part | DivideXYBsearch(x - (y << power_left), y);
+  return part | DivideBsearch(x - (y << power_left), y);
 }
 
 // @include
-unsigned DivideXY(unsigned x, unsigned y) {
+unsigned Divide(unsigned x, unsigned y) {
   unsigned result = 0;
   int power = 32;
   unsigned long long y_power = static_cast<unsigned long long>(y) << power;
@@ -65,23 +66,23 @@ unsigned DivideXY(unsigned x, unsigned y) {
 // @exclude
 
 void SimpleTest() {
-  assert(DivideXY(64, 1) == 64);
-  assert(DivideXY(64, 2) == 32);
-  assert(DivideXY(64, 3) == 21);
-  assert(DivideXY(64, 4) == 16);
-  assert(DivideXY(64, 5) == 12);
-  assert(DivideXY(65, 2) == 32);
-  assert(DivideXY(2600540749, 2590366779) == 1);
-  assert(DivideXYBsearch(4u, 2u));
-  assert(DivideXYBsearch(64, 1) == 64);
-  assert(DivideXYBsearch(64, 2) == 32);
-  assert(DivideXYBsearch(64, 3) == 21);
-  assert(DivideXYBsearch(64, 4) == 16);
-  assert(DivideXYBsearch(64, 5) == 12);
-  assert(DivideXYBsearch(65, 2) == 32);
-  assert(DivideXYBsearch(9444, 4714) == 2);
-  assert(DivideXYBsearch(8186, 19) == 430);
-  assert(DivideXYBsearch(8186, 19) == 430);
+  assert(Divide(64, 1) == 64);
+  assert(Divide(64, 2) == 32);
+  assert(Divide(64, 3) == 21);
+  assert(Divide(64, 4) == 16);
+  assert(Divide(64, 5) == 12);
+  assert(Divide(65, 2) == 32);
+  assert(Divide(2600540749, 2590366779) == 1);
+  assert(DivideBsearch(4u, 2u));
+  assert(DivideBsearch(64, 1) == 64);
+  assert(DivideBsearch(64, 2) == 32);
+  assert(DivideBsearch(64, 3) == 21);
+  assert(DivideBsearch(64, 4) == 16);
+  assert(DivideBsearch(64, 5) == 12);
+  assert(DivideBsearch(65, 2) == 32);
+  assert(DivideBsearch(9444, 4714) == 2);
+  assert(DivideBsearch(8186, 19) == 430);
+  assert(DivideBsearch(8186, 19) == 430);
 }
 
 int main(int argc, char* argv[]) {
@@ -89,8 +90,8 @@ int main(int argc, char* argv[]) {
   if (argc == 3) {
     unsigned x = static_cast<size_t>(stoul(argv[1]));
     unsigned y = static_cast<size_t>(stoul(argv[2]));
-    assert(x / y == DivideXY(x, y));
-    assert(x / y == DivideXYBsearch(x, y));
+    assert(x / y == Divide(x, y));
+    assert(x / y == DivideBsearch(x, y));
   } else {
     default_random_engine gen((random_device())());
     uniform_int_distribution<size_t> dis(0, numeric_limits<size_t>::max());
@@ -98,9 +99,9 @@ int main(int argc, char* argv[]) {
       unsigned x = dis(gen), y = dis(gen);
       y = (y == 0) ? 1 : y;  // ensure no divide by 0.
       cout << "times = " << times << ", x = " << x << ", y = " << y << endl;
-      cout << "first = " << x / y << ", second = " << DivideXY(x, y) << endl;
-      assert(x / y == DivideXY(x, y));
-      assert(x / y == DivideXYBsearch(x, y));
+      cout << "first = " << x / y << ", second = " << Divide(x, y) << endl;
+      assert(x / y == Divide(x, y));
+      assert(x / y == DivideBsearch(x, y));
     }
   }
   return 0;

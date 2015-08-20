@@ -22,6 +22,8 @@ vector<int> PlusOne(vector<int> A) {
     A[i] = 0, ++A[i - 1];
   }
   if (A[0] == 10) {
+    // Need additional digit as the most significant digit (i.e., A[0]) has a
+    // carry-out.
     A[0] = 0;
     A.insert(A.begin(), 1);
   }
@@ -49,9 +51,11 @@ vector<int> RandVector(size_t len) {
 
 void SmallTest() {
   auto result = PlusOne({9, 9});
-  assert(result.size() == 3 && result[0] == 1 && result[1] == 0 && result[2] == 0);
+  assert(result.size() == 3 && result[0] == 1 && result[1] == 0 &&
+         result[2] == 0);
   result = PlusOne({3, 1, 4});
-  assert(result.size() == 3 && result[0] == 3 && result[1] == 1 && result[2] == 5);
+  assert(result.size() == 3 && result[0] == 3 && result[1] == 1 &&
+         result[2] == 5);
 }
 
 int main(int argc, char** argv) {

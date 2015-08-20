@@ -55,9 +55,10 @@ pair<int, int> FindSmallestSequentiallyCoveringSubset(
   vector<int> shortest_subarray_length(keywords.size(),
                                        numeric_limits<int>::max());
 
+  int shortest_distance = numeric_limits<int>::max();
   pair<int, int> result(-1, -1);
   for (int i = 0; i < paragraph.size(); ++i) {
-    if (keyword_to_idx.find(paragraph[i]) != keyword_to_idx.cend()) {
+    if (keyword_to_idx.count(paragraph[i])) {
       int keyword_idx = keyword_to_idx.find(paragraph[i])->second;
       if (keyword_idx == 0) {  // First keyword.
         shortest_subarray_length[keyword_idx] = 1;
@@ -73,8 +74,8 @@ pair<int, int> FindSmallestSequentiallyCoveringSubset(
 
       // Last keyword, look for improved subarray.
       if (keyword_idx == keywords.size() - 1 &&
-          shortest_subarray_length.back() <
-              result.second - result.first + 1) {
+          shortest_subarray_length.back() < shortest_distance) {
+        shortest_distance = shortest_subarray_length.back();
         result = {i - shortest_subarray_length.back() + 1, i};
       }
     }
@@ -83,7 +84,7 @@ pair<int, int> FindSmallestSequentiallyCoveringSubset(
 }
 // @exclude
 
-void small_test() {
+void SmallTest() {
   vector<string> A3 = {"0", "1", "2", "3",  "4",  "5",  "6", "7", "8", "9",
                        "2", "4", "6", "10", "10", "10", "3", "2", "1", "0"};
   vector<string> subseq4 = {"0", "2", "9", "4", "6"};
@@ -92,7 +93,7 @@ void small_test() {
 }
 
 int main(int argc, char* argv[]) {
-  small_test();
+  SmallTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int n;
@@ -123,8 +124,9 @@ int main(int argc, char* argv[]) {
     pair<int, int> res(FindSmallestSequentiallyCoveringSubset(A, Q));
     cout << res.first << ", " << res.second << endl;
     if (res.first != -1 && res.second != Q.size()) {
-      if (res.first != res.second)
+      if (res.first != res.second) {
         cout << res.first << ", " << res.second << endl;
+      }
       dict.clear();
       copy(Q.begin(), Q.end(), inserter(dict, dict.end()));
       for (int i = res.first; i <= res.second; ++i) {

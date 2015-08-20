@@ -56,8 +56,8 @@ vector<string> JustifyText(const vector<string>& words, size_t L) {
 }
 
 // Joins strings in words[start : end] with num_spaces spaces spread evenly.
-string JoinALineWithSpace(const vector<string>& words, size_t start,
-                          size_t end, size_t num_spaces) {
+string JoinALineWithSpace(const vector<string>& words, size_t start, size_t end,
+                          size_t num_spaces) {
   size_t num_words_curr_line = end - start + 1;
   string line;
   for (size_t i = start; i < end; ++i) {
@@ -74,19 +74,22 @@ string JoinALineWithSpace(const vector<string>& words, size_t start,
 }
 // @exclude
 
-void TestCase(const vector<string>& words, size_t L, const vector<string>& golden) {
+void TestCase(const vector<string>& words, size_t L,
+              const vector<string>& golden) {
   auto result = JustifyText(words, L);
   for (const auto& s : result) {
     cout << "\"" << s << "\"" << endl;
   }
   cout << endl;
-  assert(result.size() == golden.size() && equal(result.begin(), result.end(), golden.begin()));
+  assert(result.size() == golden.size() &&
+         equal(result.begin(), result.end(), golden.begin()));
 }
 
 int main(int argc, char** argv) {
-  vector<string> words = {"Text", "justification", "is",    "trickier",
-                          "than", "it",            "seems!"};
-  vector<string> golden = {"Text          ", "justification ", "is    trickier", "than it seems!"};
+  vector<string> words = {"Text", "justification", "is", "trickier", "than",
+                          "it", "seems!"};
+  vector<string> golden = {"Text          ", "justification ", "is    trickier",
+                           "than it seems!"};
   size_t L = 14;
   cout << "L = " << L << endl;
   TestCase(words, L, golden);
@@ -97,7 +100,8 @@ int main(int argc, char** argv) {
   TestCase(words, L, golden);
   words = {"The",  "quick", "brown", "fox",  "jumped",
            "over", "the",   "lazy",  "dogs."};
-  golden = {"The   quick", "brown   fox", "jumped over", "the    lazy", "dogs.      "};
+  golden = {"The   quick", "brown   fox", "jumped over", "the    lazy",
+            "dogs.      "};
   L = 11;
   cout << "L = " << L << endl;
   TestCase(words, L, golden);

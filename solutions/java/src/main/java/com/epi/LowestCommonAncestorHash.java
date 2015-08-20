@@ -11,7 +11,7 @@ public class LowestCommonAncestorHash {
                                         BinaryTree<Integer> node1) {
     Set<BinaryTree<Integer>> hash = new HashSet<>();
     while (node0 != null || node1 != null) {
-      // Ascend in tandem for iter_0 and iter_1.
+      // Ascend tree in tandem from these two nodes.
       if (node0 != null) {
         if (!hash.add(node0)) {
           return node0;
@@ -25,7 +25,7 @@ public class LowestCommonAncestorHash {
         node1 = node1.getParent();
       }
     }
-    throw new RuntimeException("node0 and node1 are not in the same tree");
+    throw new IllegalArgumentException("node0 and node1 are not in the same tree");
   }
   // @exclude
 
@@ -46,12 +46,13 @@ public class LowestCommonAncestorHash {
     root.getRight().getRight().setParent(root.getRight());
 
     // should output 3
-    assert (LCA(root.getLeft(), root.getRight()).getData().equals(3));
+    assert(LCA(root.getLeft(), root.getRight()).getData().equals(3));
     System.out.println(LCA(root.getLeft(), root.getRight()).getData());
     // should output 5
-    assert (LCA(root.getRight().getLeft(), root.getRight().getRight())
-        .getData().equals(5));
-    System.out.println(LCA(root.getRight().getLeft(),
-        root.getRight().getRight()).getData());
+    assert(LCA(root.getRight().getLeft(), root.getRight().getRight())
+               .getData()
+               .equals(5));
+    System.out.println(
+        LCA(root.getRight().getLeft(), root.getRight().getRight()).getData());
   }
 }

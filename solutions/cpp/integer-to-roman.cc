@@ -49,7 +49,7 @@ void append_roman_chars(int digit, size_t idx, const array<char, 9>& symbols,
   } else if (digit <= 8) {
     ret->push_back(symbols[idx - 1]);
     ret->append(digit - 5, symbols[idx]);
-  } else { // digit == 9.
+  } else {  // digit == 9.
     ret->push_back(symbols[idx]);
     ret->push_back(symbols[idx - 2]);
   }

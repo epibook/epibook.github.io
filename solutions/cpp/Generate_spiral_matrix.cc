@@ -14,7 +14,7 @@ vector<vector<int>> generate_spiral_matrix(int n) {
     A[x][y] = i;
     int nx = x + shift[dir][0], ny = y + shift[dir][1];
     if (nx < 0 || nx >= n || ny < 0 || ny >= n || A[nx][ny]) {
-      dir = (dir + 1) & 3;
+      dir = (dir + 1) % 4;
       nx = x + shift[dir][0], ny = y + shift[dir][1];
     }
     x = nx, y = ny;

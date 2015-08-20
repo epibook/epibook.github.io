@@ -9,33 +9,36 @@ import java.util.Random;
 
 public class SpiralMatrix {
   // @include
-  public static List<Integer> MatrixInSpiralOrder(int[][] A) {
+  public static List<Integer> matrixInSpiralOrder(
+      List<List<Integer>> squareMatrix) {
     int[][] shift = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
     int dir = 0, x = 0, y = 0;
-    List<Integer> result = new ArrayList<>();
+    List<Integer> spiralOrdering = new ArrayList<>();
 
-    for (int i = 0; i < A.length * A.length; ++i) {
-      result.add(A[x][y]);
-      A[x][y] = 0;
+    for (int i = 0; i < squareMatrix.size() * squareMatrix.size(); ++i) {
+      spiralOrdering.add(squareMatrix.get(x).get(y));
+      squareMatrix.get(x).set(y, 0);
       int nextX = x + shift[dir][0], nextY = y + shift[dir][1];
-      if (nextX < 0 || nextX >= A.length || nextY < 0 || nextY >= A.length
-          || A[nextX][nextY] == 0) {
-        dir = (dir + 1) & 3;
+      if (nextX < 0 || nextX >= squareMatrix.size() || nextY < 0 ||
+          nextY >= squareMatrix.size() ||
+          squareMatrix.get(nextX).get(nextY) == 0) {
+        dir = (dir + 1) % 4;
         nextX = x + shift[dir][0];
         nextY = y + shift[dir][1];
       }
       x = nextX;
       y = nextY;
     }
-    return result;
+    return spiralOrdering;
   }
   // @exclude
 
   private static void simpleTest() {
-    int[][] A = new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    List<List<Integer>> A = Arrays.asList(
+        Arrays.asList(1, 2, 3), Arrays.asList(4, 5, 6), Arrays.asList(7, 8, 9));
     List<Integer> goldenResult = Arrays.asList(1, 2, 3, 6, 9, 8, 7, 4, 5);
-    List<Integer> result = MatrixInSpiralOrder(A);
-    assert (result.equals(goldenResult));
+    List<Integer> result = matrixInSpiralOrder(A);
+    assert(result.equals(goldenResult));
   }
 
   public static void main(String[] args) {
@@ -46,14 +49,15 @@ public class SpiralMatrix {
     } else {
       N = gen.nextInt(50) + 1;
     }
-    int[][] A = new int[N][N];
+    List<List<Integer>> A = new ArrayList<>(N);
     int x = 1;
     for (int i = 0; i < N; ++i) {
+      A.add(new ArrayList(N));
       for (int j = 0; j < N; ++j) {
-        A[i][j] = x++;
+        A.get(i).add(x++);
       }
     }
-    List<Integer> result = MatrixInSpiralOrder(A);
+    List<Integer> result = matrixInSpiralOrder(A);
     for (Integer a : result) {
       System.out.print(a + " ");
     }

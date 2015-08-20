@@ -21,7 +21,7 @@ bool EqualVector(const vector<T>& A, const vector<T>& B) {
 
 // @include
 struct TrafficElement {
-  // Following operators are needed for Queue with maximum.
+  // Following operators are needed for QueueWithMax with maximum.
   bool operator<(const TrafficElement& that) const {
     return volume < that.volume;
   }
@@ -34,9 +34,9 @@ struct TrafficElement {
   double volume;
 };
 
-vector<TrafficElement> CalculateTrafficVolumes(
-    const vector<TrafficElement>& A, int w) {
-  Queue<TrafficElement> sliding_window;
+vector<TrafficElement> CalculateTrafficVolumes(const vector<TrafficElement>& A,
+                                               int w) {
+  QueueWithMax<TrafficElement> sliding_window;
   vector<TrafficElement> maximum_volumes;
   for (const auto traffic_info : A) {
     sliding_window.Enqueue(traffic_info);
@@ -57,10 +57,10 @@ int main(int argc, char* argv[]) {
                               TrafficElement{6, 2.6}, TrafficElement{8, 2.2},
                               TrafficElement{9, 1.7}, TrafficElement{14, 1.1}};
   auto result = CalculateTrafficVolumes(A, w);
-  vector<TrafficElement> golden = {TrafficElement{0, 1.3}, TrafficElement{2, 2.5},
-                              TrafficElement{3, 3.7}, TrafficElement{5, 3.7},
-                              TrafficElement{6, 3.7}, TrafficElement{8, 2.6},
-                              TrafficElement{9, 2.6}, TrafficElement{14, 1.1}};
+  vector<TrafficElement> golden = {
+      TrafficElement{0, 1.3}, TrafficElement{2, 2.5}, TrafficElement{3, 3.7},
+      TrafficElement{5, 3.7}, TrafficElement{6, 3.7}, TrafficElement{8, 2.6},
+      TrafficElement{9, 2.6}, TrafficElement{14, 1.1}};
   assert(EqualVector(golden, result));
   return 0;
 }

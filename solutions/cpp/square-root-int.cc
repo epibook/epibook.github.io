@@ -34,11 +34,20 @@ int SquareRoot(int k) {
 }
 // @exclude
 
-int main(int argc, char** argv) {
-  assert(SquareRoot(0) == 0);
+static void SimpleTest() {
   assert(SquareRoot(1) == 1);
+  assert(SquareRoot(2) == 1);
+  assert(SquareRoot(3) == 1);
+  assert(SquareRoot(4) == 2);
+  assert(SquareRoot(7) == 2);
   assert(SquareRoot(121) == 11);
   assert(SquareRoot(64) == 8);
+  assert(SquareRoot(300) == 17);
+  assert(SquareRoot(INT_MAX) == 46340);
+}
+
+int main(int argc, char** argv) {
+  SimpleTest();
   int x;
   if (argc == 2) {
     x = stoi(argv[1]);

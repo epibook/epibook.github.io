@@ -1,19 +1,13 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ThreeJugs {
   // @include
   public static class Jug {
     public int low, high;
 
-    public Jug() {
-    }
+    public Jug() {}
 
     public Jug(int low, int high) {
       this.low = low;
@@ -21,15 +15,38 @@ public class ThreeJugs {
     }
   }
 
+  private static class VolumeRange {
+    public Integer low;
+    public Integer high;
+
+    public VolumeRange(Integer low, Integer high) {
+      this.low = low;
+      this.high = high;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (obj == null || !(obj instanceof VolumeRange)) {
+        return false;
+      }
+      VolumeRange vr = (VolumeRange)obj;
+      return (this.low == vr.low && this.high == vr.high);
+    }
+
+    @Override
+    public int hashCode() {
+      return low.hashCode() ^ high.hashCode();
+    }
+  }
+
   public static boolean checkFeasible(List<Jug> jugs, int L, int H) {
-    Set<Pair<Integer, Integer>> cache = new HashSet<>();
+    Set<VolumeRange> cache = new HashSet<>();
     return checkFeasibleHelper(jugs, L, H, cache);
   }
 
   private static boolean checkFeasibleHelper(List<Jug> jugs, int L, int H,
-                                             Set<Pair<Integer, Integer>> c) {
-    if (L > H || c.contains(new Pair<>(L, H))
-        || (L < 0 && H < 0)) {
+                                             Set<VolumeRange> c) {
+    if (L > H || c.contains(new VolumeRange(L, H)) || (L < 0 && H < 0)) {
       return false;
     }
 
@@ -40,7 +57,7 @@ public class ThreeJugs {
         return true;
       }
     }
-    c.add(new Pair<>(L, H)); // Marks this as impossible.
+    c.add(new VolumeRange(L, H)); // Marks this as impossible.
     return false;
   }
   // @exclude
@@ -51,7 +68,7 @@ public class ThreeJugs {
     jugs.add(new Jug(230, 240));
     jugs.add(new Jug(290, 310));
     jugs.add(new Jug(500, 515));
-    assert (checkFeasible(jugs, 2100, 2300));
+    assert(checkFeasible(jugs, 2100, 2300));
     jugs.clear();
     Random r = new Random();
     if (args.length == 1) {

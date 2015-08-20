@@ -8,88 +8,75 @@
 #include <iterator>
 #include <vector>
 
-#include "./Sudoku_check.h"
-
 using std::cout;
 using std::deque;
 using std::endl;
 using std::ostream_iterator;
 using std::vector;
 
-bool SolveSudokuHelper(int i, int j, vector<vector<int>>* A);
-bool ValidToAdd(const vector<vector<int>>& A, int i, int j, int val);
+bool SolvePartialSudoku(int, int, vector<vector<int>>*);
+bool ValidToAddVal(const vector<vector<int>>&, int, int, int);
 
 // @include
-bool SolveSudoku(vector<vector<int>>* A) {
-  if (!IsValidSudoku(*A)) {
-    cout << "Initial configuration violates constraints." << endl;
-    return false;
-  }
+const int kEmptyEntry = 0;
 
-  if (SolveSudokuHelper(0, 0, A)) {
-    for (int i = 0; i < A->size(); ++i) {
-      copy((*A)[i].begin(), (*A)[i].end(), ostream_iterator<int>(cout, " "));
-      cout << endl;
-    }
-    return true;
-  } else {
-    cout << "No solution exists." << endl;
-    return false;
-  }
+bool SolveSudoku(vector<vector<int>>* partial_assignment) {
+  return SolvePartialSudoku(0, 0, partial_assignment);
 }
 
-bool SolveSudokuHelper(int i, int j, vector<vector<int>>* A) {
-  if (i == A->size()) {
+bool SolvePartialSudoku(int i, int j, vector<vector<int>>* partial_assignment) {
+  if (i == partial_assignment->size()) {
     i = 0;  // Starts a new row.
-    if (++j == (*A)[i].size()) {
+    if (++j == (*partial_assignment)[i].size()) {
       return true;  // Entire matrix has been filled without conflict.
     }
   }
 
   // Skips nonempty entries.
-  if ((*A)[i][j] != 0) {
-    return SolveSudokuHelper(i + 1, j, A);
+  if ((*partial_assignment)[i][j] != kEmptyEntry) {
+    return SolvePartialSudoku(i + 1, j, partial_assignment);
   }
 
-  for (int val = 1; val <= A->size(); ++val) {
-    // Note: practically, it's substantially quicker to check if entry val
-    // conflicts with any of the constraints if we add it at (i,j) before
-    // adding it, rather than adding it and then calling is_valid_Sudoku.
+  for (int val = 1; val <= partial_assignment->size(); ++val) {
+    // It's substantially quicker to check if entry val conflicts
+    // with any of the constraints if we add it at (i,j) before
+    // adding it, rather than adding it and then checking all constraints.
     // The reason is that we know we are starting with a valid configuration,
     // and the only entry which can cause a problem is entryval at (i,j).
-    if (ValidToAdd(*A, i, j, val)) {
-      (*A)[i][j] = val;
-      if (SolveSudokuHelper(i + 1, j, A)) {
+    if (ValidToAddVal(*partial_assignment, i, j, val)) {
+      (*partial_assignment)[i][j] = val;
+      if (SolvePartialSudoku(i + 1, j, partial_assignment)) {
         return true;
       }
     }
   }
 
-  (*A)[i][j] = 0;  // Undo assignment.
+  (*partial_assignment)[i][j] = kEmptyEntry;  // Undo assignment.
   return false;
 }
 
-bool ValidToAdd(const vector<vector<int>>& A, int i, int j, int val) {
+bool ValidToAddVal(const vector<vector<int>>& partial_assignment, int i, int j,
+                   int val) {
   // Check row constraints.
-  for (int k = 0; k < A.size(); ++k) {
-    if (val == A[k][j]) {
+  for (int k = 0; k < partial_assignment.size(); ++k) {
+    if (val == partial_assignment[k][j]) {
       return false;
     }
   }
 
   // Check column constraints.
-  for (int k = 0; k < A.size(); ++k) {
-    if (val == A[i][k]) {
+  for (int k = 0; k < partial_assignment.size(); ++k) {
+    if (val == partial_assignment[i][k]) {
       return false;
     }
   }
 
   // Check region constraints.
-  int region_size = sqrt(A.size());
+  int region_size = sqrt(partial_assignment.size());
   int I = i / region_size, J = j / region_size;
   for (int a = 0; a < region_size; ++a) {
     for (int b = 0; b < region_size; ++b) {
-      if (val == A[region_size * I + a][region_size * J + b]) {
+      if (val == partial_assignment[region_size * I + a][region_size * J + b]) {
         return false;
       }
     }
@@ -109,7 +96,7 @@ int main(int argc, char* argv[]) {
   A[6] = {1, 0, 0, 0, 3, 0, 0, 0, 2};
   A[7] = {5, 0, 0, 2, 0, 4, 0, 0, 9};
   A[8] = {0, 3, 8, 0, 0, 0, 4, 6, 0};
-  SolveSudoku(&A);
+  assert(SolveSudoku(&A));
   vector<vector<int>> golden_A = {{7, 2, 6, 4, 9, 3, 8, 1, 5},
                                   {3, 1, 5, 7, 2, 8, 9, 4, 6},
                                   {4, 8, 9, 6, 5, 1, 2, 3, 7},

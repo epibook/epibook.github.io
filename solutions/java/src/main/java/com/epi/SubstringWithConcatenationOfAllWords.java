@@ -20,13 +20,13 @@ public class SubstringWithConcatenationOfAllWords {
     return result;
   }
 
-  private static boolean matchAllWordsInDict(
-      String s, Map<String, Integer> dict, int start, int numWords, 
-      int unitSize) {
+  private static boolean matchAllWordsInDict(String s, Map<String, Integer> dict,
+                                             int start, int numWords,
+                                             int unitSize) {
     Map<String, Integer> currDict = new HashMap<>();
     for (int i = 0; i < numWords; ++i) {
-      String currWord = s.substring(start + i * unitSize, start + (i + 1)
-          * unitSize);
+      String currWord =
+          s.substring(start + i * unitSize, start + (i + 1) * unitSize);
       Integer iter = dict.get(currWord);
       if (iter == null) {
         return false;
@@ -51,16 +51,14 @@ public class SubstringWithConcatenationOfAllWords {
 
   private static void smallTest() {
     String s = "barfoothefoobarman";
-    String[] A = new String[]{"foo", "bar"};
+    String[] A = new String[] {"foo", "bar"};
     List<Integer> result = findAllSubstrings(s, A);
-    assert (result.size() == 2 && result.get(0) == 0 && result.get(1) == 9);
+    assert(result.size() == 2 && result.get(0) == 0 && result.get(1) == 9);
     s = "dcacdabcd";
-    A = new String[]{"cd", "ab"};
+    A = new String[] {"cd", "ab"};
     result = findAllSubstrings(s, A);
-    assert (result.size() == 2 && result.get(0) == 3 && result.get(1) == 5);
+    assert(result.size() == 2 && result.get(0) == 3 && result.get(1) == 5);
   }
 
-  public static void main(String[] args) {
-    smallTest();
-  }
+  public static void main(String[] args) { smallTest(); }
 }

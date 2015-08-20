@@ -3,7 +3,7 @@ package com.epi;
 import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 import java.util.*;
-import java.util.LinkedList;
+import java.util.Stack;
 
 import static com.epi.BinaryTreeUtils.generatePostOrder;
 
@@ -15,7 +15,7 @@ public class BinaryTreePostorderTraversalIterative {
       return Collections.emptyList();
     }
 
-    LinkedList<BinaryTreeNode<Integer>> pathStack = new LinkedList<>();
+    Stack<BinaryTreeNode<Integer>> pathStack = new Stack<>();
     BinaryTreeNode<Integer> prev = null;
     pathStack.push(tree);
     List<Integer> postorderSequence = new ArrayList<>();
@@ -62,7 +62,7 @@ public class BinaryTreePostorderTraversalIterative {
     tree.getRight().setRight(new BinaryTreeNode<>(6));
     List<Integer> res = postOrderTraversal(tree);
     List<Integer> goldenRes = generatePostOrder(tree);
-    assert (res.size() == goldenRes.size() && Arrays.deepEquals(res.toArray(),
-        goldenRes.toArray()));
+    assert(res.size() == goldenRes.size() &&
+           Arrays.deepEquals(res.toArray(), goldenRes.toArray()));
   }
 }

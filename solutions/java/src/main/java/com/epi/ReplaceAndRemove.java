@@ -41,7 +41,7 @@ public class ReplaceAndRemove {
     Random gen = new Random();
     StringBuilder ret = new StringBuilder();
     while (len-- > 0) {
-      ret.append((char) (gen.nextInt(4) + 97));
+      ret.append((char)(gen.nextInt(4) + 97));
     }
 
     return ret.toString();
@@ -57,7 +57,7 @@ public class ReplaceAndRemove {
         temp.append(s.charAt(i));
       }
     }
-    assert (ans.equals(temp.toString()));
+    assert(ans.equals(temp.toString()));
   }
 
   public static void main(String[] args) {

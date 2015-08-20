@@ -4,49 +4,51 @@ import java.io.*;
 import java.util.*;
 
 public class KthLargestElementLargeN {
-  private static <T> void nthElement(List<T> a, int n, Comparator<T> c) {
-    Collections.sort(a, c);
-  }
-
-  private static <T extends Comparable<T>> void nthElement(List<T> a, int n) {
-    nthElement(a, n, new Comparator<T>() {
-      @Override
-      public int compare(T o1, T o2) {
-        return o1.compareTo(o2);
-      }
-    });
-  }
-
-  private static class Greater<T extends Comparable<T>> implements
-      Comparator<T> {
-    @Override
-    public int compare(T o1, T o2) {
-      return o2.compareTo(o1);
-    }
-  }
-
   // @include
   public static int findKthLargestUnknownLength(InputStream sin, int k) {
-    List<Integer> candidates = new ArrayList<>();
+    int[] candidates = new int[(k * 2)+1];
     Scanner s = new Scanner(sin);
+    int idx = 0;
     while (s.hasNextInt()) {
       int x = s.nextInt();
-      candidates.add(x);
-      if (candidates.size() == (k * 2) - 1) {
-        // Reorders elements about median with larger elements appearing before 
+      candidates[idx++] = x;
+      if (idx == (k * 2 + 1) ) {
+        // Reorders elements about median with larger elements appearing before
         // the median.
-        nthElement(candidates, k - 1, new Greater<Integer>());
-        // Keeps the k largest elements and discard the small ones.
-        candidates = new ArrayList<>(candidates.subList(0, k));
+        OrderStatistic.findKthLargest(candidates, k);
+        // Reset idx to keep just the k largest elements seen so far.
+        idx = k;
       }
     }
     // Finds the k-th largest element in candidates.
-    nthElement(candidates, k - 1, new Greater<Integer>());
-    return candidates.get(k - 1);
+    OrderStatistic.findKthLargest(candidates, k);
+    return candidates[k - 1];
   }
   // @exclude
 
+  private static void SimpleTest() {
+      int a[] = new int[]{5,6,2,1,3,0,4};
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+      OutputStreamWriter osw = new OutputStreamWriter(baos);
+      try {
+        for (Integer anA : a) {
+          osw.write(anA + " ");
+        }
+        osw.close();
+      } catch (IOException e) {
+        System.out.println("IOException: " + e.getMessage());
+      }
+      ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+
+      for (int i = 0; i < a.length; i++) {
+        System.out.println("i = " + i);
+        int result = findKthLargestUnknownLength(bais, i+1);
+        System.out.println(result);
+      }
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n, k;
@@ -77,10 +79,17 @@ public class KthLargestElementLargeN {
       ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
 
       int result = findKthLargestUnknownLength(bais, k);
-      nthElement(a, a.size() - k);
+
+      int[] array = new int[a.size()];
+      int i = 0;
+      for (int x : a) {
+        array[i++] = x;
+      }
+
+      OrderStatistic.findKthLargest(array, k);
       System.out.println(result);
-      System.out.println(a.get(a.size() - k));
-      assert a.get(a.size() - k).equals(result);
+      System.out.println(array[k-1]);
+      assert (array[k-1] == result);
     }
   }
 }

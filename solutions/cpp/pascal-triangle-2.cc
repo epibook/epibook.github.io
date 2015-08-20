@@ -37,20 +37,21 @@ void small_test() {
   auto res1 = get_kth_Pascal_triangle_row(0);
   auto res2 = {1};
   assert(equal(res1.begin(), res1.end(), res2.begin()) &&
-         res1.size () == res2.size());
+         res1.size() == res2.size());
   res1 = get_kth_Pascal_triangle_row(5);
-  res2 = {1,5,10,10,5,1};
+  res2 = {1, 5, 10, 10, 5, 1};
   assert(equal(res1.begin(), res1.end(), res2.begin()) &&
-         res1.size () == res2.size());
+         res1.size() == res2.size());
   res1 = get_kth_Pascal_triangle_row(10);
-  res2 = {1,10,45,120,210,252,210,120,45,10, 1};
+  res2 = {1, 10, 45, 120, 210, 252, 210, 120, 45, 10, 1};
   assert(equal(res1.begin(), res1.end(), res2.begin()) &&
-         res1.size () == res2.size());
+         res1.size() == res2.size());
   res1 = get_kth_Pascal_triangle_row(20);
-  res2 = {1,20,190,1140,4845,15504,38760,77520,125970,167960,184756,167960,
-          125970,77520,38760,15504,4845,1140,190,20,1};
+  res2 = {1,     20,     190,    1140,   4845,   15504,  38760,
+          77520, 125970, 167960, 184756, 167960, 125970, 77520,
+          38760, 15504,  4845,   1140,   190,    20,     1};
   assert(equal(res1.begin(), res1.end(), res2.begin()) &&
-         res1.size () == res2.size());
+         res1.size() == res2.size());
 }
 
 int main(int argc, char** argv) {

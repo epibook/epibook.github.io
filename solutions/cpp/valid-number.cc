@@ -8,13 +8,14 @@ using std::cout;
 using std::endl;
 using std::string;
 
-bool is_integer(const string& s, int begin, int end, bool allow_sign, bool allow_no_digit);
+bool is_integer(const string& s, int begin, int end, bool allow_sign,
+                bool allow_no_digit);
 string trim_space(const string& s);
 
 // @include
 bool is_valid_number(const string& s) {
   string trim_s = trim_space(s);
-  //cout << "trim_s = " << trim_s << endl;
+  // cout << "trim_s = " << trim_s << endl;
   int e_idx = -1, dot_idx = -1;
   // Checks no illegal chars in s.
   for (size_t i = 0; i < trim_s.size(); ++i) {
@@ -36,25 +37,34 @@ bool is_valid_number(const string& s) {
     }
   }
 
-  //cout << "going to test " << e_idx << " " << dot_idx << endl;
+  // cout << "going to test " << e_idx << " " << dot_idx << endl;
   // '.' must appear before e.
   if (dot_idx != -1 && e_idx != -1 && dot_idx > e_idx) {
     return false;
   }
   bool result = true;
   if (dot_idx != -1) {
-    //cout << "1 " << std::boolalpha << result << endl;
+    // cout << "1 " << std::boolalpha << result << endl;
     if (e_idx != -1) {
-      result &= ((is_integer(trim_s, 0, dot_idx, true, false) && is_integer(trim_s, dot_idx + 1, e_idx, false, true)) || (is_integer(trim_s, 0, dot_idx, true, true) && is_integer(trim_s, dot_idx + 1, e_idx, false, false))) && is_integer(trim_s, e_idx + 1, trim_s.size(), true, false);
-      //cout << "2 " << std::boolalpha << result << endl;
+      result &= ((is_integer(trim_s, 0, dot_idx, true, false) &&
+                  is_integer(trim_s, dot_idx + 1, e_idx, false, true)) ||
+                 (is_integer(trim_s, 0, dot_idx, true, true) &&
+                  is_integer(trim_s, dot_idx + 1, e_idx, false, false))) &&
+                is_integer(trim_s, e_idx + 1, trim_s.size(), true, false);
+      // cout << "2 " << std::boolalpha << result << endl;
     } else {
-      result &= (is_integer(trim_s, 0, dot_idx, true, true) && is_integer(trim_s, dot_idx + 1, trim_s.size(), false, false)) || (is_integer(trim_s, 0, dot_idx, true, false) && is_integer(trim_s, dot_idx + 1, trim_s.size(), false, true));
-      //cout << "3 " << std::boolalpha << result << endl;
+      result &=
+          (is_integer(trim_s, 0, dot_idx, true, true) &&
+           is_integer(trim_s, dot_idx + 1, trim_s.size(), false, false)) ||
+          (is_integer(trim_s, 0, dot_idx, true, false) &&
+           is_integer(trim_s, dot_idx + 1, trim_s.size(), false, true));
+      // cout << "3 " << std::boolalpha << result << endl;
     }
   } else {
     if (e_idx != -1) {
-      result &= is_integer(trim_s, 0, e_idx, true, false) && is_integer(trim_s, e_idx + 1, trim_s.size(), true, false);
-      //cout << "4 " << std::boolalpha << result << endl;
+      result &= is_integer(trim_s, 0, e_idx, true, false) &&
+                is_integer(trim_s, e_idx + 1, trim_s.size(), true, false);
+      // cout << "4 " << std::boolalpha << result << endl;
     } else {
       result &= is_integer(trim_s, 0, trim_s.size(), true, false);
       // cout << "5 " << std::boolalpha << result << endl;
@@ -63,7 +73,8 @@ bool is_valid_number(const string& s) {
   return result;
 }
 
-bool is_integer(const string& s, int begin, int end, bool allow_sign, bool allow_no_digit) {
+bool is_integer(const string& s, int begin, int end, bool allow_sign,
+                bool allow_no_digit) {
   if (begin < end) {
     if (!allow_sign && (s[begin] == '+' || s[begin] == '-')) {
       return false;
@@ -110,10 +121,11 @@ void small_test() {
   assert(!is_valid_number("-."));
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   small_test();
   if (argc == 2) {
-    cout << argv[1] << "is" << (is_valid_number(argv[1]) ? " " : " not") << "a valid number." << endl;
+    cout << argv[1] << "is" << (is_valid_number(argv[1]) ? " " : " not")
+         << "a valid number." << endl;
   }
   return 0;
 }

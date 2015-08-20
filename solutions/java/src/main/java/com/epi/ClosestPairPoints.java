@@ -1,25 +1,27 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ClosestPairPoints {
-  private static class Tuple<A, B, C> {
-    public A a;
-    public B b;
-    public C c;
+  private static class PairOfPoints {
+    public Point p1;
+    public Point p2;
 
-    public Tuple() {
+    public PairOfPoints(Point p1, Point p2) {
+      this.p1 = p1;
+      this.p2 = p2;
     }
+  }
 
-    public Tuple(A aVal, B bVal, C cVal) {
-      this.a = aVal;
-      this.b = bVal;
-      this.c = cVal;
+  private static class PairOfPointsWithDistance {
+    public Point p1;
+    public Point p2;
+    public double distance;
+
+    public PairOfPointsWithDistance(Point p1, Point p2, double distance) {
+      this.p1 = p1;
+      this.p2 = p2;
+      this.distance = distance;
     }
   }
 
@@ -33,62 +35,64 @@ public class ClosestPairPoints {
     }
 
     // @exclude
-    public String toString() {
-      return "(" + x + ", " + y + ")";
-    }
+    public String toString() { return "(" + x + ", " + y + ")"; }
     // @include
   }
 
-  public static Pair<Point, Point> findClosestPairPoints(List<Point> P) {
-    Collections.sort(P, new Comparator<Point>() {
+  public static PairOfPoints findClosestPairPoints(List<Point> points) {
+    Collections.sort(points, new Comparator<Point>() {
       @Override
       public int compare(Point o1, Point o2) {
         return Integer.valueOf(o1.x).compareTo(o2.x);
       }
     });
-    Tuple<Point, Point, Double> ret = findClosestPairPointsHelper(P, 0,
-        P.size());
-    return new Pair<>(ret.a, ret.b);
+    PairOfPointsWithDistance closestTwoPointsWithDistance =
+        findClosestPairPointsHelper(points, 0, points.size());
+    return new PairOfPoints(closestTwoPointsWithDistance.p1,
+                            closestTwoPointsWithDistance.p2);
   }
 
-  // Returns the closest two points and its distance as a tuple.
-  private static Tuple<Point, Point, Double> findClosestPairPointsHelper(
-      List<Point> points, int s, int e) {
-    if (e - s <= 3) { // Brute-force to find answer if there are <= 3 points.
-      return bruteForce(points, s, e);
+  // Returns the closest two points and their distance as a tuple in
+  // points[begin : end - 1].
+  private static PairOfPointsWithDistance findClosestPairPointsHelper(
+      List<Point> points, int begin, int end) {
+    if (end - begin <= 3) { // Switch to brute-force.
+      return solveByEnumerateAllPairs(points, begin, end);
     }
 
-    int mid = (e + s) / 2;
-    Tuple<Point, Point, Double> lRet = findClosestPairPointsHelper(points, s,
-        mid);
-    Tuple<Point, Point, Double> rRet = findClosestPairPointsHelper(points, mid,
-        e);
-    Tuple<Point, Point, Double> minLR = lRet.c < rRet.c ? lRet : rRet;
+    int mid = (end + begin) / 2;
+    PairOfPointsWithDistance result0 =
+        findClosestPairPointsHelper(points, begin, mid);
+    PairOfPointsWithDistance result1 =
+        findClosestPairPointsHelper(points, mid, end);
+    PairOfPointsWithDistance bestResultInSubsets =
+        result0.distance < result1.distance ? result0 : result1;
 
     // Stores the points whose x-dis < min_d.
     List<Point> remain = new ArrayList<>();
 
     for (Point p : points) {
-      if (Math.abs(p.x - points.get(mid).x) < minLR.c) {
+      if (Math.abs(p.x - points.get(mid).x) < bestResultInSubsets.distance) {
         remain.add(p);
       }
     }
 
-    Tuple<Point, Point, Double> midRet = findClosestPairInRemain(remain,
-        minLR.c);
-    return midRet.c < minLR.c ? midRet : minLR;
+    PairOfPointsWithDistance midRet =
+        findClosestPairInRemain(remain, bestResultInSubsets.distance);
+    return midRet.distance < bestResultInSubsets.distance ? midRet
+                                                          : bestResultInSubsets;
   }
 
   // Returns the closest two points and the distance between them.
-  private static Tuple<Point, Point, Double> bruteForce(List<Point> P, int s,
-                                                        int e) {
-    Tuple<Point, Point, Double> ret = new Tuple<>();
-    ret.c = Double.MAX_VALUE;
-    for (int i = s; i < e; ++i) {
-      for (int j = i + 1; j < e; ++j) {
-        double dis = distance(P.get(i), P.get(j));
-        if (dis < ret.c) {
-          ret = new Tuple<>(P.get(i), P.get(j), dis);
+  private static PairOfPointsWithDistance solveByEnumerateAllPairs(
+      List<Point> points, int begin, int end) {
+    PairOfPointsWithDistance ret =
+        new PairOfPointsWithDistance(null, null, Double.MAX_VALUE);
+    for (int i = begin; i < end; ++i) {
+      for (int j = i + 1; j < end; ++j) {
+        double dis = distance(points.get(i), points.get(j));
+        if (dis < ret.distance) {
+          ret = new PairOfPointsWithDistance(points.get(i), points.get(j), dis);
         }
       }
     }
@@ -96,23 +100,24 @@ public class ClosestPairPoints {
   }
 
   // Returns the closest two points and its distance as a tuple.
-  private static Tuple<Point, Point, Double> findClosestPairInRemain(
-      List<Point> P, double d) {
-    Collections.sort(P, new Comparator<Point>() {
+  private static PairOfPointsWithDistance findClosestPairInRemain(
+      List<Point> remain, double d) {
+    Collections.sort(remain, new Comparator<Point>() {
       @Override
       public int compare(Point o1, Point o2) {
         return Integer.valueOf(o1.y).compareTo(o2.y);
       }
     });
 
-    // At most six points in P.
-    Tuple<Point, Point, Double> ret = new Tuple<>();
-    ret.c = Double.MAX_VALUE;
-    for (int i = 0; i < P.size(); ++i) {
-      for (int j = i + 1; j < P.size() && P.get(j).y - P.get(i).y < d; ++j) {
-        double dis = distance(P.get(i), P.get(j));
-        if (dis < ret.c) {
-          ret = new Tuple<>(P.get(i), P.get(j), dis);
+    // At most six points in remain.
+    PairOfPointsWithDistance ret =
+        new PairOfPointsWithDistance(null, null, Double.MAX_VALUE);
+    for (int i = 0; i < remain.size(); ++i) {
+      for (int j = i + 1;
+           j < remain.size() && remain.get(j).y - remain.get(i).y < d; ++j) {
+        double dis = distance(remain.get(i), remain.get(j));
+        if (dis < ret.distance) {
+          ret = new PairOfPointsWithDistance(remain.get(i), remain.get(j), dis);
         }
       }
     }
@@ -138,13 +143,13 @@ public class ClosestPairPoints {
       for (int i = 0; i < n; ++i) {
         points.add(new Point(r.nextInt(10000), r.nextInt(10000)));
       }
-      Pair<Point, Point> p = findClosestPairPoints(points);
-      Tuple<Point, Point, Double> q = bruteForce(points, 0, points.size());
-      System.out.println("p = " + p + ", dis = "
-          + distance(p.getFirst(), p.getSecond()));
-      System.out.println("q = " + q.a + " " + q.b + ", dis = "
-          + distance(q.a, q.b));
-      assert (distance(p.getFirst(), p.getSecond()) == q.c);
+      PairOfPoints p = findClosestPairPoints(points);
+      PairOfPointsWithDistance q =
+          solveByEnumerateAllPairs(points, 0, points.size());
+      System.out.println("p = " + p + ", dis = " + distance(p.p1, p.p2));
+      System.out.println("q = " + q.p1 + " " + q.p2 + ", dis = " +
+                         distance(q.p1, q.p2));
+      assert(distance(p.p1, p.p2) == q.distance);
     }
   }
 }

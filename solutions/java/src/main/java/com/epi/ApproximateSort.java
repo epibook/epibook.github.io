@@ -5,19 +5,19 @@ import java.util.*;
 
 public class ApproximateSort {
   // @include
-  public static void sortApproximatelySortedArray(InputStream sequence, int k) {
+  public static void sortApproximatelySortedData(InputStream sequence, int k) {
     PriorityQueue<Integer> minHeap = new PriorityQueue<>();
     try {
       ObjectInputStream osin = new ObjectInputStream(sequence);
-      // Adds the first k elements into min_heap. Stop if there are fewer than
+      // Adds the first k elements into minHeap. Stop if there are fewer than
       // k elements.
       for (int i = 0; i < k; ++i) {
-        minHeap.add((Integer) osin.readObject());
+        minHeap.add((Integer)osin.readObject());
       }
 
-      // For every new element, add it to min_heap and extract the smallest.
+      // For every new element, add it to minHeap and extract the smallest.
       while (true) {
-        minHeap.add((Integer) osin.readObject());
+        minHeap.add((Integer)osin.readObject());
         System.out.println(minHeap.remove());
       }
     } catch (IOException e) {
@@ -42,8 +42,9 @@ public class ApproximateSort {
       for (Integer a : A) {
         oos.writeObject(a);
       }
-      ByteArrayInputStream sequence = new ByteArrayInputStream(baos.toByteArray());
-      sortApproximatelySortedArray(sequence, 3);
+      ByteArrayInputStream sequence =
+          new ByteArrayInputStream(baos.toByteArray());
+      sortApproximatelySortedData(sequence, 3);
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
     }
@@ -52,18 +53,13 @@ public class ApproximateSort {
   public static void main(String[] args) {
     simpleTest();
     Random r = new Random();
-    int n, k;
+    int n;
     if (args.length == 1) {
       n = Integer.parseInt(args[0]);
-      k = r.nextInt(n) + 1;
-    } else if (args.length == 2) {
-      n = Integer.parseInt(args[0]);
-      k = Integer.parseInt(args[1]);
     } else {
       n = r.nextInt(100000) + 1;
-      k = r.nextInt(n) + 1;
     }
-    System.out.println("n = " + n + " k = " + k);
+    System.out.println("n = " + n);
     List<Integer> A = new ArrayList<>();
     for (int i = 0; i < n; ++i) {
       A.add(r.nextInt(999999) + 1);
@@ -74,8 +70,9 @@ public class ApproximateSort {
       for (Integer a : A) {
         oos.writeObject(a);
       }
-      ByteArrayInputStream sequence = new ByteArrayInputStream(baos.toByteArray());
-      sortApproximatelySortedArray(sequence, n - 1);
+      ByteArrayInputStream sequence =
+          new ByteArrayInputStream(baos.toByteArray());
+      sortApproximatelySortedData(sequence, n - 1);
     } catch (IOException e) {
       System.out.println("IOException: " + e.getMessage());
     }

@@ -3,6 +3,7 @@ package com.epi;
 import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RebuildBSTPreorderBetter {
@@ -12,10 +13,11 @@ public class RebuildBSTPreorderBetter {
   public static BSTNode<Integer> rebuildBSTFromPreorder(
       List<Integer> preorderSequence) {
     rootIdx = 0;
-    return rebuildBSFromPreorderHelper(preorderSequence,
-        Integer.MIN_VALUE, Integer.MAX_VALUE);
+    return rebuildBSFromPreorderHelper(preorderSequence, Integer.MIN_VALUE,
+                                       Integer.MAX_VALUE);
   }
 
+  // Builds a BST from preorderSequence on keys in (lowerBound, upperBound).
   private static BSTNode<Integer> rebuildBSFromPreorderHelper(
       List<Integer> preorderSequence, Integer lowerBound, Integer upperBound) {
     if (rootIdx == preorderSequence.size()) {
@@ -36,26 +38,26 @@ public class RebuildBSTPreorderBetter {
   private static void checkAns(BSTNode<Integer> n, Integer pre) {
     if (n != null) {
       checkAns(n.getLeft(), pre);
-      assert (pre <= n.getData());
+      assert(pre <= n.getData());
       System.out.println(n.getData());
       checkAns(n.getRight(), n.getData());
     }
   }
 
   public static void main(String[] args) {
-    // 3
-    // 2 5
-    // 1 4 6
+    //      3
+    //    2   5
+    //  1    4  6
     // should output 1, 2, 3, 4, 5, 6
     // preorder [3, 2, 1, 5, 4, 6]
-    List<Integer> preorder = new ArrayList<>();
-    preorder.add(3);
-    preorder.add(2);
-    preorder.add(1);
-    preorder.add(5);
-    preorder.add(4);
-    preorder.add(6);
+    List<Integer> preorder = Arrays.asList(3, 2, 1, 5, 4, 6);
     BSTNode<Integer> tree = rebuildBSTFromPreorder(preorder);
     checkAns(tree, Integer.MIN_VALUE);
+    assert(3 == tree.getData());
+    assert(2 == tree.getLeft().getData());
+    assert(1 == tree.getLeft().getLeft().getData());
+    assert(5 == tree.getRight().getData());
+    assert(4 == tree.getRight().getLeft().getData());
+    assert(6 == tree.getRight().getRight().getData());
   }
 }

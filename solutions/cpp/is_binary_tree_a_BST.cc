@@ -13,8 +13,8 @@ using std::endl;
 using std::numeric_limits;
 using std::unique_ptr;
 
-bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& tree,
-                    int low_range, int high_range);
+bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& tree, int low_range,
+                    int high_range);
 
 // @include
 bool IsBinaryTreeBST(const unique_ptr<BinaryTreeNode<int>>& tree) {
@@ -22,8 +22,8 @@ bool IsBinaryTreeBST(const unique_ptr<BinaryTreeNode<int>>& tree) {
                         numeric_limits<int>::max());
 }
 
-bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& tree,
-                    int low_range, int high_range) {
+bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& tree, int low_range,
+                    int high_range) {
   if (tree == nullptr) {
     return true;
   } else if (tree->data < low_range || tree->data > high_range) {

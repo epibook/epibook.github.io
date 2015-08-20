@@ -18,8 +18,9 @@ using namespace std;
 int compare(double a, double b) {
   // Use normalization for precision problem
   double diff = (a - b) / b;
-  return diff < -numeric_limits<double>::epsilon() ?
-      -1 : diff > numeric_limits<double>::epsilon();
+  return diff < -numeric_limits<double>::epsilon()
+             ? -1
+             : diff > numeric_limits<double>::epsilon();
 }
 
 double division_no_operator(double x, double y) {
@@ -30,11 +31,11 @@ double division_no_operator(double x, double y) {
     left = 0, right = x;
   }
 
-  while (compare(left, right) <= 0) {   // left <= right
+  while (compare(left, right) <= 0) {  // left <= right
     double mid = left + 0.5 * (right - left);
-    if (compare(x, mid * y) == 0) {   // x == mid * y, found answer
+    if (compare(x, mid * y) == 0) {  // x == mid * y, found answer
       return mid;
-    } else if (compare(x, mid * y) > 0) {   // x > mid * y
+    } else if (compare(x, mid * y) > 0) {  // x > mid * y
       left = mid;
     } else {  // x < mid * y
       right = mid;
@@ -48,22 +49,24 @@ int main(int argc, char *argv[]) {
   if (argc == 3) {
     double x = atof(argv[1]), y = atof(argv[2]);
     double res = division_no_operator(x, y);
-    printf("x=%lf,\ty = %lf,\tres = %lf,\tabs( y*res - x ) = %lf\n",
-          x, y, res, fabs( y*res - x ) );
-    assert(compare(y * res,  x ) == 0);
+    printf("x=%lf,\ty = %lf,\tres = %lf,\tabs( y*res - x ) = %lf\n", x, y, res,
+           fabs(y * res - x));
+    assert(compare(y * res, x) == 0);
   } else {
     // random test, only works if the product not greater than 2^32 - 1
     srand(time(nullptr));
     int i;
     for (i = 0; i < 100000; ++i) {
       double x = rand() % 65536, y = rand() % 65536;
-      if ( y == 0 ) {
+      if (y == 0) {
         continue;
       }
       double res = division_no_operator(x, y);
-      printf("x=%10.0lf,\ty = %10.0lf,\tres = %10.20lf,\tabs( y*res - x ) = %.20lf\n",
-            x, y, res, fabs( y*res - x ) );
-      assert(compare(y * res,  x ) == 0);
+      printf(
+          "x=%10.0lf,\ty = %10.0lf,\tres = %10.20lf,\tabs( y*res - x ) = "
+          "%.20lf\n",
+          x, y, res, fabs(y * res - x));
+      assert(compare(y * res, x) == 0);
     }
   }
   return 0;

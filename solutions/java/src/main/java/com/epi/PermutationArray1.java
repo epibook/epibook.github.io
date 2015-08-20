@@ -2,32 +2,39 @@
 
 package com.epi;
 
+import java.util.List;
+
 public class PermutationArray1 {
   // @include
-  public static void applyPermutation1(int[] perm, int[] A) {
-    for (int i = 0; i < A.length; ++i) {
-      // Check if the element at index i has already been moved
-      // by seeing if perm[i] is negative.
-      if (perm[i] >= 0) {
-        int a = i;
-        int temp = A[i];
-        do {
-          int nextA = perm[a];
-          int nextTemp = A[nextA];
-          A[nextA] = temp;
-          // Mark a as visited by using the sign bit. Specifically,
-          // we subtract perm.length from each entry in perm.
-          perm[a] -= perm.length;
-          a = nextA;
-          temp = nextTemp;
-        } while (a != i);
+  public static void applyPermutation(List<Integer> perm, List<Integer> A) {
+    for (int i = 0; i < A.size(); ++i) {
+      // Check if the element at index i has not been moved by seeing if
+      // perm.get(i) is nonnegative.
+      if (perm.get(i) >= 0) {
+        cyclicPermutation(i, perm, A);
       }
     }
 
-    // Restore perm back.
-    for (int i = 0; i < perm.length; i++) {
-      perm[i] += perm.length;
+    // Restore perm.
+    for (int i = 0; i < perm.size(); i++) {
+      perm.set(i, perm.get(i) + perm.size());
     }
+  }
+
+  private static void cyclicPermutation(int start, List<Integer> perm,
+                                        List<Integer> A) {
+    int i = start;
+    int temp = A.get(start);
+    do {
+      int nextI = perm.get(i);
+      int nextTemp = A.get(nextI);
+      A.set(nextI, temp);
+      // Subtracts perm.size() from an entry in perm to make it negative, which
+      // indicates the corresponding move has been performed.
+      perm.set(i, perm.get(i) - perm.size());
+      i = nextI;
+      temp = nextTemp;
+    } while (i != start);
   }
   // @exclude
 }

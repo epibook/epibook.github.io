@@ -1,13 +1,20 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.Random;
 
 public class FindMissingAndDuplicateXOR {
   // @include
-  // Returns a Pair of (duplicate, missing)
-  public static Pair<Integer, Integer> findDuplicateMissing(int[] A) {
+
+  private static class DuplicateAndMissing {
+    public Integer duplicate;
+    public Integer missing;
+
+    public DuplicateAndMissing(Integer duplicate, Integer missing) {
+      this.duplicate = duplicate;
+      this.missing = missing;
+    }
+  }
+  public static DuplicateAndMissing findDuplicateMissing(int[] A) {
     // Compute the XOR of all numbers from 0 to |A| - 1 and all entries in A.
     int missXORDup = 0;
     for (int i = 0; i < A.length; ++i) {
@@ -23,7 +30,7 @@ public class FindMissingAndDuplicateXOR {
     int differBit = missXORDup & (~(missXORDup - 1));
     int missOrDup = 0;
     for (int i = 0; i < A.length; ++i) {
-      // Focus on entries and numbers in which the differ_bit-th bit is 1.
+      // Focus on entries and numbers in which the differBit-th bit is 1.
       if ((i & differBit) != 0) {
         missOrDup ^= i;
       }
@@ -32,18 +39,29 @@ public class FindMissingAndDuplicateXOR {
       }
     }
 
-    // missOrDup is either the missing entry or the duplicated entry.
+    // missOrDup is either the missing value or the duplicated entry.
     for (int a : A) {
       if (a == missOrDup) { // missOrDup is the duplicate.
-        return new Pair<>(missOrDup, missOrDup ^ missXORDup);
+        return new DuplicateAndMissing(missOrDup, missOrDup ^ missXORDup);
       }
     }
-    // missOrDup is the missing.
-    return new Pair<>(missOrDup ^ missXORDup, missOrDup);
+    // missOrDup is the missing value.
+    return new DuplicateAndMissing(missOrDup ^ missXORDup, missOrDup);
   }
   // @exclude
 
+  private static void SimpleTest() {
+    int[] A = {0,0,1};
+    DuplicateAndMissing dm = findDuplicateMissing(A);
+    assert(dm.duplicate == 0 && dm.missing == 2);
+
+    A = new int[]{1,3,2,5,3,4};
+    dm = findDuplicateMissing(A);
+    assert(dm.duplicate == 3 && dm.missing == 0);
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
@@ -64,11 +82,11 @@ public class FindMissingAndDuplicateXOR {
       }
       int dup = A[dupIdx];
       A[missingIdx] = dup;
-      Pair<Integer, Integer> ans = findDuplicateMissing(A);
+      DuplicateAndMissing ans = findDuplicateMissing(A);
       System.out.println("times = " + times);
       System.out.println(dup + " " + missing);
-      System.out.println(ans.getFirst() + " " + ans.getSecond());
-      assert (ans.getFirst().equals(dup) && ans.getSecond().equals(missing));
+      System.out.println(ans.duplicate + " " + ans.missing);
+      assert(ans.duplicate.equals(dup) && ans.missing.equals(missing));
     }
   }
 }

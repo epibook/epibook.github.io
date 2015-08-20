@@ -10,7 +10,7 @@ class Anagrams {
     Map<String, List<String>> sortedStringToAnagrams = new HashMap<>();
     for (String s : dictionary) {
       // Sorts the string, uses it as a key, and then appends
-      // the original string as another value into hash table.
+      // the original string as another value in the hash table.
       char[] sortedCharArray = s.toCharArray();
       Arrays.sort(sortedCharArray);
       String sortedStr = new String(sortedCharArray);
@@ -31,7 +31,9 @@ class Anagrams {
   // @exclude
 
   private static void smallTest() {
-    String[] dictionary = new String[]{"debit card", "bad credit", "the morse code", "here come dots", "the eyes", "they see", "THL"};
+    String[] dictionary = new String[] {
+        "debit card", "bad credit", "the morse code", "here come dots",
+        "the eyes",   "they see",   "THL"};
     List<List<String>> result = findAnagrams(dictionary);
     assert result.size() == 3;
   }
@@ -41,7 +43,7 @@ class Anagrams {
     Random rnd = new Random();
 
     while (len-- > 0) {
-      ret.append((char) (rnd.nextInt(26) + 97));
+      ret.append((char)(rnd.nextInt(26) + 97));
     }
     return ret.toString();
   }

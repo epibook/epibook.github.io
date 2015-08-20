@@ -22,7 +22,7 @@ public class NumberSteps {
   // @exclude
 
   public static void main(String[] args) {
-    assert (5 == numberSteps(4, 2));
+    assert(5 == numberSteps(4, 2));
     Random r = new Random();
     int n, k;
     if (args.length == 2) {

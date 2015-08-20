@@ -6,10 +6,8 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.*;
 
-import static com.epi.utils.Utils.close;
-
-// @include
 class IndirectSort {
+  // @include
   public static void indirectSort(String fileName) throws Exception {
     // Stores file records into A.
     Scanner ifs = null;
@@ -20,7 +18,7 @@ class IndirectSort {
         A.add(ifs.nextInt());
       }
     } finally {
-      close(ifs);
+      ifs.close();
     }
 
     // Indirectly sorts file.
@@ -34,12 +32,12 @@ class IndirectSort {
         ofs.println(a);
       }
     } finally {
-      close(ofs);
+      ofs.close();
     }
   }
+  // @exclude
 
-  public static <T extends Comparable<T>> boolean isSorted(
-      Iterable<T> iterable) {
+  public static <T extends Comparable<T>> boolean isSorted(Iterable<T> iterable) {
     Iterator<T> iter = iterable.iterator();
     if (!iter.hasNext()) {
       return true;
@@ -54,7 +52,6 @@ class IndirectSort {
     }
     return true;
   }
-  // @exclude
 
   public static void main(String[] args) throws Exception {
     Random rnd = new Random();
@@ -78,7 +75,7 @@ class IndirectSort {
           ofs.println(a);
         }
       } finally {
-        close(ofs);
+        ofs.close();
       }
       indirectSort("input.txt");
 
@@ -91,12 +88,11 @@ class IndirectSort {
           A.add(ifs.nextInt());
         }
       } finally {
-        close(ifs);
+        ifs.close();
       }
 
-      assert (isSorted(A));
+      assert(isSorted(A));
       input.delete();
     }
   }
-  // @include
 }

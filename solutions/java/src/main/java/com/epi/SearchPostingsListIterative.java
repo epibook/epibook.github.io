@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 public class SearchPostingsListIterative {
   // @include
-  public static void searchPostingsList(PostingListNode L) {
+  public static void setJumpOrder(PostingListNode L) {
     LinkedList<PostingListNode> s = new LinkedList<>();
     int order = 0;
     s.push(L);
@@ -12,6 +12,8 @@ public class SearchPostingsListIterative {
       PostingListNode curr = s.pop();
       if (curr != null && curr.getOrder() == -1) {
         curr.setOrder(order++);
+        // Stack is last-in, first-out, and we want to process
+        // the jump node first, so push next, then push jump.
         s.push(curr.getNext());
         s.push(curr.getJump());
       }
@@ -37,20 +39,20 @@ public class SearchPostingsListIterative {
     // 4
     L.getNext().getNext().setJump(L); // 3's jump points to 1
     L.getNext().getNext().getNext().setJump(null); // no jump from 4
-    L.getNext().getNext().getNext().getNext()
-        .setJump(L.getNext().getNext().getNext().getNext()); // 5's jump points
+    L.getNext().getNext().getNext().getNext().setJump(
+        L.getNext().getNext().getNext().getNext()); // 5's jump points
     // to 5
     PostingListNode temp = L;
-    searchPostingsList(L);
+    setJumpOrder(L);
     // output the jump-first order, it should be 0, 1, 4, 2, 3
-    assert (temp.getOrder() == 0);
+    assert(temp.getOrder() == 0);
     temp = temp.getNext();
-    assert (temp.getOrder() == 1);
+    assert(temp.getOrder() == 1);
     temp = temp.getNext();
-    assert (temp.getOrder() == 4);
+    assert(temp.getOrder() == 4);
     temp = temp.getNext();
-    assert (temp.getOrder() == 2);
+    assert(temp.getOrder() == 2);
     temp = temp.getNext();
-    assert (temp.getOrder() == 3);
+    assert(temp.getOrder() == 3);
   }
 }

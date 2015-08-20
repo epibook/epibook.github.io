@@ -33,12 +33,11 @@ public class SortedListToBST {
   }
   // @exclude
 
-  private static <T extends Comparable<T>>
-  void inOrderTraversal(DoublyListNode<T> node,
-                        T pre, int depth) {
+  private static <T extends Comparable<T>> void inOrderTraversal(
+      DoublyListNode<T> node, T pre, int depth) {
     if (node != null) {
       inOrderTraversal(node.prev, pre, depth + 1);
-      assert (pre.compareTo(node.data) <= 0);
+      assert(pre.compareTo(node.data) <= 0);
       System.out.println(node.data + " ; depth = " + depth);
       inOrderTraversal(node.next, node.data, depth + 1);
     }

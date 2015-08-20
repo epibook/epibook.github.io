@@ -17,39 +17,41 @@ using std::set;
 using std::uniform_int_distribution;
 using std::vector;
 
+// These numbers have very interesting property, and people called it ugly
+// numbers. It is also called Quadratic integer rings.
 // @include
-struct Num {
-  Num(int a, int b) : a(a), b(b), val(a + b * sqrt(2)) {}
+struct ABSqrt2 {
+  ABSqrt2(int a, int b) : a(a), b(b), val(a + b * sqrt(2)) {}
 
-  bool operator<(const Num& that) const {
-    return val < that.val;
-  }
+  bool operator<(const ABSqrt2& that) const { return val < that.val; }
 
   int a, b;
   double val;
 };
 
-vector<Num> GenerateFirstK(int k) {
-  set<Num> T;
-  vector<Num> res;
-  T.emplace(0, 0);
+vector<ABSqrt2> GenerateFirstKABSqrt2(int k) {
+  set<ABSqrt2> candidates;
+  // Initial for 0 + 0 * sqrt(2).
+  candidates.emplace(0, 0);
 
-  while (res.size() < k) {
-    auto it = T.cbegin();
-    res.emplace_back(*it);
+  vector<ABSqrt2> result;
+  while (result.size() < k) {
+    auto next_smallest = candidates.cbegin();
+    result.emplace_back(*next_smallest);
 
-    // Adds the next two numbers derived from s.
-    T.emplace(it->a + 1, it->b), T.emplace(it->a, it->b + 1);
-    T.erase(it);
+    // Adds the next two numbers derived from next_smallest.
+    candidates.emplace(next_smallest->a + 1, next_smallest->b);
+    candidates.emplace(next_smallest->a, next_smallest->b + 1);
+    candidates.erase(next_smallest);
   }
-  return res;
+  return result;
 }
 // @exclude
 
-vector<Num> Golden(int k) {
-  vector<Num> smallest;
+vector<ABSqrt2> Golden(int k) {
+  vector<ABSqrt2> smallest;
   smallest.emplace_back(0, 0);
-  queue<Num> q1, q2;
+  queue<ABSqrt2> q1, q2;
   q1.emplace(1, 0);
   q2.emplace(0, 1);
   for (int i = 1; i < k; ++i) {
@@ -68,7 +70,20 @@ vector<Num> Golden(int k) {
   return smallest;
 }
 
+static void SimpleTest() {
+  vector<ABSqrt2> ans = GenerateFirstKABSqrt2(8);
+  assert(0.0 == ans[0].val);
+  assert(1.0 == ans[1].val);
+  assert(sqrt(2.0) == ans[2].val);
+  assert(2.0 == ans[3].val);
+  assert(1.0 + sqrt(2.0) == ans[4].val);
+  assert(2.0*sqrt(2.0) == ans[5].val);
+  assert(3.0 == ans[6].val);
+  assert(2.0 + sqrt(2.0) == ans[7].val);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int k;
@@ -78,7 +93,7 @@ int main(int argc, char* argv[]) {
       uniform_int_distribution<int> dis(1, 10000);
       k = dis(gen);
     }
-    vector<Num> ans(GenerateFirstK(k));
+    vector<ABSqrt2> ans(GenerateFirstKABSqrt2(k));
     for (size_t i = 0; i < ans.size(); ++i) {
       cout << ans[i].a << ' ' << ans[i].b << ' ' << ans[i].val << endl;
       if (i > 0) {

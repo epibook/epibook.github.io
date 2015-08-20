@@ -6,8 +6,7 @@
 using namespace std;
 
 // @include
-int count_lead_changes(
-    int s, int t, const vector<int> &score_ways) {
+int count_lead_changes(int s, int t, const vector<int> &score_ways) {
   vector<vector<int>> lead_changes(s + 1, vector<int>(t + 1, -1));
   lead_changes[0][0] = 0;
   for (int i = 0; i <= s; ++i) {
@@ -20,14 +19,14 @@ int count_lead_changes(
           }
           if (next_j <= t) {
             lead_changes[i][next_j] +=
-              lead_changes[i][j] + (i > j && i < next_j);
+                lead_changes[i][j] + (i > j && i < next_j);
           }
           if (next_i <= s && lead_changes[next_i][j] == -1) {
             lead_changes[next_i][j] = 0;
           }
           if (next_i <= s) {
             lead_changes[next_i][j] +=
-              lead_changes[i][j] + (i < j && next_i > j);
+                lead_changes[i][j] + (i < j && next_i > j);
           }
         }
       }

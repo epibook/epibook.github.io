@@ -33,7 +33,7 @@ struct GraphVertex {
 };
 
 bool are_constraints_satisfied(
-    const vector<Constraint>& E,    // Equality constraints.
+    const vector<Constraint>& E,  // Equality constraints.
     const vector<Constraint>& I) {  // Inequality constraints.
   unordered_map<int, GraphVertex> G;
   // Build graph G according to E.
@@ -44,7 +44,7 @@ bool are_constraints_satisfied(
   // Assign group index for each connected component.
   int group_count = 0;
   for (pair<int, GraphVertex> vertex : G) {
-    if (vertex.second.group == -1) {        // is a unvisited vertex.
+    if (vertex.second.group == -1) {  // is a unvisited vertex.
       vertex.second.group = group_count++;  // assigns a group index.
       DFS(vertex.second);
     }

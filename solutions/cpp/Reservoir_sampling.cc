@@ -18,26 +18,34 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-vector<int> ReservoirSampling(istringstream* sin, int k) {
+vector<int> OnlineRandomSample(istringstream* sin, int k) {
   int x;
-  vector<int> sampling_results;
+  vector<int> running_sample;
   // Stores the first k elements.
+  // @exclude
+  // clang-format off
+  // @include
   for (int i = 0; i < k && *sin >> x; ++i) {
-    sampling_results.emplace_back(x);
+    // @exclude
+    // clang-format on
+    // @include
+    running_sample.emplace_back(x);
   }
 
   // After the first k elements.
-  int element_num = k;
+  int num_seen_so_far = k;
   while (*sin >> x) {
-    default_random_engine gen((random_device())());  // Random num generator.
-    // Generate a random int in [0, element_num].
-    uniform_int_distribution<int> dis(0, element_num++);
-    int tar = dis(gen);
-    if (tar < k) {
-      sampling_results[tar] = x;
+    default_random_engine seed((random_device())());  // Random num generator.
+    // Generate a random number in [0, num_seen_so_far], and if this number is
+    // in [0, k - 1], we replace that element from the sample with x.
+    uniform_int_distribution<int> rand_idx_gen(0, num_seen_so_far);
+    int idx_to_replace = rand_idx_gen(seed);
+    if (idx_to_replace < k) {
+      running_sample[idx_to_replace] = x;
     }
+    ++num_seen_so_far;
   }
-  return sampling_results;
+  return running_sample;
 }
 // @exclude
 
@@ -57,10 +65,8 @@ int main(int argc, char* argv[]) {
     uniform_int_distribution<int> k_dis(1, n);
     k = k_dis(gen);
   }
-  vector<int> A;
-  for (int i = 0; i < n; ++i) {
-    A.emplace_back(i);
-  }
+  vector<int> A(n);
+  iota(A.begin(), A.end(), 0);
   string s;
   for (int i = 0; i < A.size(); ++i) {
     stringstream ss;
@@ -70,7 +76,7 @@ int main(int argc, char* argv[]) {
   }
   cout << n << ' ' << k << endl;
   istringstream sin(s);
-  vector<int> ans = ReservoirSampling(&sin, k);
+  vector<int> ans = OnlineRandomSample(&sin, k);
   assert(ans.size() == k);
   /*
   copy(ans.begin(), ans.end(), ostream_iterator<int>(cout, " "));

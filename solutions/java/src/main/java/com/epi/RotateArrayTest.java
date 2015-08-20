@@ -16,7 +16,7 @@ public class RotateArrayTest {
   public static void checkAnswer(int[] A, int i, int[] rotated) {
     assert A.length == rotated.length;
     for (int idx = 0; idx < A.length; ++idx) {
-      assert (rotated[(idx + i) % rotated.length] == A[idx]);
+      assert(rotated[(idx + i) % rotated.length] == A[idx]);
     }
   }
 

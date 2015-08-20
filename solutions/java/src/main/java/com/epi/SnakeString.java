@@ -26,13 +26,13 @@ public class SnakeString {
     Random r = new Random();
     StringBuilder ret = new StringBuilder(len);
     while (len-- > 0) {
-      ret.append((char) (r.nextInt(26) + 'A'));
+      ret.append((char)(r.nextInt(26) + 'A'));
     }
     return ret.toString();
   }
 
   private static void smallTest() {
-    assert (snakeString("Hello World!").equals("e lHloWrdlo!"));
+    assert(snakeString("Hello World!").equals("e lHloWrdlo!"));
   }
 
   public static void main(String[] args) {

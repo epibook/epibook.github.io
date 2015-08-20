@@ -24,7 +24,8 @@ long long GCD(long long x, long long y) {
 
 long long AnotherGCD(long long a, long long b) {
   if (b) {
-    while ((a %= b) && (b %= a));
+    while ((a %= b) && (b %= a))
+      ;
   }
   return a + b;
 }

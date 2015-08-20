@@ -14,7 +14,8 @@ public class BinarySearchFirstK {
         right = mid - 1;
       } else if (A[mid] == k) {
         result = mid;
-        right = mid - 1; // Nothing to the right of mid can be solution.
+        // Nothing to the right of mid can be the first occurrence of k.
+        right = mid - 1;
       } else { // A[mid] < k
         left = mid + 1;
       }
@@ -32,7 +33,31 @@ public class BinarySearchFirstK {
     return -1;
   }
 
+  private static void SimpleTest() {
+    int[] A = new int[] {0, 1, 2, 3, 4, 5, 6, 7};
+    int k = 4;
+    assert(0 == searchFirstOfK(A, 0));
+    assert(1 == searchFirstOfK(A, 1));
+    assert(4 == searchFirstOfK(A, 4));
+    assert(6 == searchFirstOfK(A, 6));
+    assert(7 == searchFirstOfK(A, 7));
+    assert(-1 == searchFirstOfK(A, 8));
+    assert(-1 == searchFirstOfK(A, Integer.MIN_VALUE));
+    A[0] = 1;
+    assert(0 == searchFirstOfK(A, 1));
+    A[5] = 4;
+    A[6] = 4;
+    assert(4 == searchFirstOfK(A, 4));
+    A = new int[] {1, 1, 1, 1, 1, 2};
+    assert(-1 == searchFirstOfK(A, 0));
+    assert(0 == searchFirstOfK(A, 1));
+    assert(5 == searchFirstOfK(A, 2));
+    A[4] = 2;
+    assert(4 == searchFirstOfK(A, 2));
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
@@ -52,7 +77,7 @@ public class BinarySearchFirstK {
       if (ans != -1) {
         System.out.println("A[k] = " + A[ans]);
       }
-      assert (checkAns(A, k) == ans);
+      assert(checkAns(A, k) == ans);
     }
   }
 }

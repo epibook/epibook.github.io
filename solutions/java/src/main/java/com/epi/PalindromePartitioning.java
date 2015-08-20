@@ -1,39 +1,40 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class PalindromePartitioning {
   // @include
-  public static List<List<String>> palindromePartitioning(String s) {
+  public static List<List<String>> palindromePartitioning(String input) {
     List<List<String>> result = new ArrayList<>();
-    List<String> partition = new ArrayList<>();
-    palindromePartitioningHelper(s, 0, partition, result);
+    List<String> partialPartition = new ArrayList<>();
+    directedPalindromePartitioning(input, 0, partialPartition, result);
     return result;
   }
 
-  private static void palindromePartitioningHelper(String s, int begin,
-                                                   List<String> partition,
-                                                   List<List<String>> result) {
-    if (begin == s.length()) {
-      result.add(new ArrayList<>(partition));
+  private static void directedPalindromePartitioning(
+      String input, int offset, List<String> partialPartition,
+      List<List<String>> result) {
+    if (offset == input.length()) {
+      result.add(new ArrayList<>(partialPartition));
       return;
     }
 
-    for (int i = begin + 1; i <= s.length(); ++i) {
-      String prefix = s.substring(begin, i);
+    for (int i = offset + 1; i <= input.length(); ++i) {
+      String prefix = input.substring(offset, i);
       if (isPalindrome(prefix)) {
-        partition.add(prefix);
-        palindromePartitioningHelper(s, i, partition, result);
-        partition.remove(partition.size() - 1);
+        partialPartition.add(prefix);
+        directedPalindromePartitioning(input, i, partialPartition, result);
+        partialPartition.remove(partialPartition.size() - 1);
       }
     }
   }
 
-  private static boolean isPalindrome(String s) {
-    for (int i = 0, j = s.length() - 1; i < j; ++i, --j) {
-      if (s.charAt(i) != s.charAt(j)) {
+  private static boolean isPalindrome(String prefix) {
+    for (int i = 0, j = prefix.length() - 1; i < j; ++i, --j) {
+      if (prefix.charAt(i) != prefix.charAt(j)) {
         return false;
       }
     }
@@ -45,10 +46,10 @@ public class PalindromePartitioning {
     for (List<String> vec : vecs) {
       String temp = "";
       for (String s : vec) {
-        assert (isPalindrome(s));
+        assert(isPalindrome(s));
         temp += s;
       }
-      assert (temp.equals(input));
+      assert(temp.equals(input));
     }
   }
 
@@ -56,14 +57,33 @@ public class PalindromePartitioning {
     Random r = new Random();
     StringBuilder ret = new StringBuilder(len);
     while (len-- > 0) {
-      ret.append((char) (r.nextInt(26) + 'a'));
+      ret.append((char)(r.nextInt(26) + 'a'));
     }
     return ret.toString();
   }
 
+  private static void SimpleTest() {
+    List<List<String>> result = palindromePartitioning("abbbac");
+    List<List<String>> golden = Arrays.asList(
+        Arrays.asList("a", "b", "b", "b", "a", "c"),
+        Arrays.asList("a", "b", "bb", "a", "c"),
+        Arrays.asList("a", "bb", "b", "a", "c"),
+        Arrays.asList("a", "bbb", "a", "c"),
+        Arrays.asList("abbba", "c")); 
+    System.out.println(result);
+    assert(result.equals(golden));
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     if (args.length == 1) {
       String s = args[0];
+      List<List<String>> result = palindromePartitioning(s);
+      checkAns(result, s);
+      System.out.println("string s = " + s);
+      for (List<String> vec : result) {
+        System.out.println(vec);
+      }
     } else {
       Random r = new Random();
       for (int times = 0; times < 1000; ++times) {
@@ -76,6 +96,5 @@ public class PalindromePartitioning {
         }
       }
     }
-
   }
 }

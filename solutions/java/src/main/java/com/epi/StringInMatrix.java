@@ -1,32 +1,36 @@
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class StringInMatrix {
-  private static void randMatrix(int[][] matrix) {
+  private static List<List<Integer>> randMatrix(int n) {
     Random r = new Random();
-    for (int i = 0; i < matrix.length; ++i) {
-      for (int j = 0; j < matrix[i].length; ++j) {
-        matrix[i][j] = r.nextInt(matrix.length);
+    List<List<Integer>> matrix = new ArrayList<>(n);
+    for (int i = 0; i < n; ++i) {
+      matrix.add(new ArrayList(n));
+      for (int j = 0; j < n; ++j) {
+        matrix.get(i).add(r.nextInt(n));
       }
     }
+    return matrix;
   }
 
-  private static class Tuple<A, B, C> {
-    public A a;
-    public B b;
-    public C c;
+  private static class CacheEntry {
+    public Integer x;
+    public Integer y;
+    public Integer suffixIndex;
 
-    public Tuple() {
-    }
+    public CacheEntry() {}
 
-    public Tuple(A aVal, B bVal, C cVal) {
-      this.a = aVal;
-      this.b = bVal;
-      this.c = cVal;
+    public CacheEntry(Integer x, Integer y, Integer suffixIndex) {
+      this.x = x;
+      this.y = y;
+      this.suffixIndex = suffixIndex;
     }
 
     @Override
@@ -38,15 +42,16 @@ public class StringInMatrix {
         return false;
       }
 
-      Tuple tuple = (Tuple) o;
+      CacheEntry cacheEntry = (CacheEntry)o;
 
-      if (a != null ? !a.equals(tuple.a) : tuple.a != null) {
+      if (x != null ? !x.equals(cacheEntry.x) : cacheEntry.x != null) {
         return false;
       }
-      if (b != null ? !b.equals(tuple.b) : tuple.b != null) {
+      if (y != null ? !y.equals(cacheEntry.y) : cacheEntry.y != null) {
         return false;
       }
-      if (c != null ? !c.equals(tuple.c) : tuple.c != null) {
+      if (suffixIndex != null ? !suffixIndex.equals(cacheEntry.suffixIndex)
+                              : cacheEntry.suffixIndex != null) {
         return false;
       }
 
@@ -55,19 +60,19 @@ public class StringInMatrix {
 
     @Override
     public int hashCode() {
-      int result = a != null ? a.hashCode() : 0;
-      result = 31 * result + (b != null ? b.hashCode() : 0);
-      result = 31 * result + (c != null ? c.hashCode() : 0);
+      int result = x != null ? x.hashCode() : 0;
+      result = 31 * result + (y != null ? y.hashCode() : 0);
+      result = 31 * result + (suffixIndex != null ? suffixIndex.hashCode() : 0);
       return result;
     }
   }
 
   // @include
-  public static boolean match(int[][] A, List<Integer> S) {
-    Set<Tuple<Integer, Integer, Integer>> cache = new HashSet<>();
-    for (int i = 0; i < A.length; ++i) {
-      for (int j = 0; j < A[i].length; ++j) {
-        if (matchHelper(A, S, cache, i, j, 0)) {
+  public static boolean match(List<List<Integer>> A, List<Integer> S) {
+    Set<CacheEntry> failedAttemptsCache = new HashSet<>();
+    for (int i = 0; i < A.size(); ++i) {
+      for (int j = 0; j < A.get(i).size(); ++j) {
+        if (matchHelper(A, S, failedAttemptsCache, i, j, 0)) {
           return true;
         }
       }
@@ -75,27 +80,26 @@ public class StringInMatrix {
     return false;
   }
 
-  private static boolean
-  matchHelper(int[][] A, List<Integer> S,
-              Set<Tuple<Integer, Integer, Integer>> cache,
-              int i, int j, int len) {
+  private static boolean matchHelper(List<List<Integer>> A, List<Integer> S,
+                                     Set<CacheEntry> failedAttemptsCache, int i,
+                                     int j, int len) {
     if (S.size() == len) {
       return true;
     }
 
-    if (i < 0 || i >= A.length || j < 0 || j >= A[i].length
-        || cache.contains(new Tuple<>(i, j, len))) {
+    if (i < 0 || i >= A.size() || j < 0 || j >= A.get(i).size() ||
+        failedAttemptsCache.contains(new CacheEntry(i, j, len))) {
       return false;
     }
 
-    if (A[i][j] == S.get(len)
-        && (matchHelper(A, S, cache, i - 1, j, len + 1)
-        || matchHelper(A, S, cache, i + 1, j, len + 1)
-        || matchHelper(A, S, cache, i, j - 1, len + 1) || matchHelper(A, S,
-        cache, i, j + 1, len + 1))) {
+    if (A.get(i).get(j) == S.get(len) &&
+        (matchHelper(A, S, failedAttemptsCache, i - 1, j, len + 1) ||
+         matchHelper(A, S, failedAttemptsCache, i + 1, j, len + 1) ||
+         matchHelper(A, S, failedAttemptsCache, i, j - 1, len + 1) ||
+         matchHelper(A, S, failedAttemptsCache, i, j + 1, len + 1))) {
       return true;
     }
-    cache.add(new Tuple<>(i, j, len));
+    failedAttemptsCache.add(new CacheEntry(i, j, len));
     return false;
   }
   // @exclude
@@ -108,21 +112,14 @@ public class StringInMatrix {
     } else {
       n = r.nextInt(9) + 2;
     }
-    int[][] A = new int[n][n];
-    randMatrix(A);
-    for (int[] element : A) {
-      for (int anElement : element) {
-        System.out.print(anElement + " ");
-      }
-      System.out.println();
-    }
-    System.out.println("\nS = ");
+    List<List<Integer>> A = randMatrix(n);
+    System.out.println("A = " + A);
     int size = r.nextInt(n * n / 2) + 1;
     List<Integer> S = new ArrayList<>();
     for (int i = 0; i < size; ++i) {
       S.add(r.nextInt(n));
     }
-    System.out.println(S);
+    System.out.println("S = " + S);
     System.out.println(match(A, S));
   }
 }

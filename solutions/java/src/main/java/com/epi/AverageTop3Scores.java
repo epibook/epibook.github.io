@@ -4,49 +4,33 @@ import java.io.*;
 import java.util.*;
 
 public class AverageTop3Scores {
-  private static class UniqueInteger implements Comparable<UniqueInteger> {
-    public Integer value;
-    public Long sequence;
-
-    public UniqueInteger(Integer value, Long sequence) {
-      this.value = value;
-      this.sequence = sequence;
-    }
-
-    @Override
-    public int compareTo(UniqueInteger o) {
-      int result = value.compareTo(o.value);
-      if (result == 0) {
-        result = sequence.compareTo(o.sequence);
-      }
-      return result;
-    }
-  }
-
   // @include
-  public static String findStudentWithHighestBestOfThreeScores(InputStream ifs) {
-    Map<String, TreeSet<UniqueInteger>> studentScores = new HashMap<>();
+  public static String findStudentWithHighestBestOfThreeScores(ObjectInputStream ois) {
+    Map<String, PriorityQueue<Integer>> studentScores = new HashMap<>();
     try {
-      long sequence = 0;
-      ObjectInputStream ois = new ObjectInputStream(ifs);
       while (true) {
-        String name = ois.readUTF();
-        int score = ois.readInt();
-        TreeSet<UniqueInteger> scores = studentScores.get(name);
+        String name = (String) ois.readObject();
+        Integer score = (Integer) ois.readObject();
+        PriorityQueue<Integer> scores = studentScores.get(name);
         if (scores == null) {
-          scores = new TreeSet<>();
+          scores = new PriorityQueue<>();
+          studentScores.put(name, scores);
         }
-        scores.add(new UniqueInteger(score, sequence++));
-        studentScores.put(name, scores);
+        scores.add(score);
+        if (scores.size() > 3) {
+            scores.poll(); // Only keep the top 3 scores.
+        }
       }
     } catch (IOException e) {
+    } catch (ClassNotFoundException e) {
     }
 
     String topStudent = "no such student";
     int currentTopThreeScoresSum = 0;
-    for (Map.Entry<String, TreeSet<UniqueInteger>> scores : studentScores
-        .entrySet()) {
-      if (scores.getValue().size() >= 3) {
+    for (Map.Entry<String, PriorityQueue<Integer>> scores :
+         studentScores.entrySet()) {
+      System.out.println(scores.getKey());
+      if (scores.getValue().size() == 3) {
         int currentScoresSum = getTopThreeScoresSum(scores.getValue());
         if (currentScoresSum > currentTopThreeScoresSum) {
           currentTopThreeScoresSum = currentScoresSum;
@@ -58,11 +42,11 @@ public class AverageTop3Scores {
   }
 
   // Returns the sum of top three scores.
-  private static int getTopThreeScoresSum(TreeSet<UniqueInteger> scores) {
-    Iterator<UniqueInteger> it = scores.descendingIterator();
+  private static int getTopThreeScoresSum(PriorityQueue<Integer> scores) {
+    Iterator<Integer> it = scores.iterator();
     int result = 0;
-    for (int i = 0; i < 3 && it.hasNext(); i++) {
-      result += it.next().value;
+    while (it.hasNext()) {
+      result += it.next();
     }
     return result;
   }
@@ -72,12 +56,49 @@ public class AverageTop3Scores {
     Random r = new Random();
     StringBuilder ret = new StringBuilder(len);
     while (len-- > 0) {
-      ret.append((char) (r.nextInt(26) + 'A'));
+      ret.append((char)(r.nextInt(26) + 'A'));
     }
     return ret.toString();
   }
 
+  private static void SimpleTest() {
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    ByteArrayInputStream sin = null;
+    ObjectOutputStream oos = null;
+    ObjectInputStream ois = null;
+    try {
+      oos = new ObjectOutputStream(baos);
+      oos.writeObject("adnan");
+      oos.writeObject(100);
+      oos.writeObject("amit");
+      oos.writeObject(99);
+      oos.writeObject("adnan");
+      oos.writeObject(98);
+      oos.writeObject("thl");
+      oos.writeObject(90);
+      oos.writeObject("adnan");
+      oos.writeObject(10);
+      oos.writeObject("amit");
+      oos.writeObject(100);
+      oos.writeObject("thl");
+      oos.writeObject(99);
+      oos.writeObject("thl");
+      oos.writeObject(95);
+      oos.writeObject("adnan");
+      oos.writeObject(99);
+      oos.close();
+      sin = new ByteArrayInputStream(baos.toByteArray());
+      ois = new ObjectInputStream(sin);
+    } catch (IOException e) {
+      System.out.println("IOException: " + e.getMessage());
+    }
+    String result = findStudentWithHighestBestOfThreeScores(ois);
+    System.out.println("result = " + result);
+    assert("adnan".equals(result));
+  }
+
   public static void main(String[] args) {
+    SimpleTest();
     Random r = new Random();
     int n;
     if (args.length == 1) {
@@ -102,7 +123,8 @@ public class AverageTop3Scores {
     }
     try {
       InputStream ifs = new FileInputStream("scores.txt");
-      String name = findStudentWithHighestBestOfThreeScores(ifs);
+      ObjectInputStream ois = new ObjectInputStream(ifs);
+      String name = findStudentWithHighestBestOfThreeScores(ois);
       System.out.println("top student is " + name);
       ifs.close();
     } catch (Exception e) {

@@ -2,63 +2,70 @@
 
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-
-import static com.epi.utils.Utils.getCanonicalFractional;
-import static com.epi.utils.Utils.nullEqual;
+import java.math.BigInteger;
 
 class Line {
+  static class Rational {
+    public Integer numerator;
+    public Integer denominator;
+
+    public Rational(Integer numerator, Integer denominator) {
+      this.numerator = numerator;
+      this.denominator = denominator;
+    }
+  }
+
+  public static Rational getCanonicalFractional(int a, int b) {
+    int gcd = BigInteger.valueOf(a).gcd(BigInteger.valueOf(b)).intValue();
+    a /= gcd;
+    b /= gcd;
+    return b < 0 ? new Rational(-a, -b) : new Rational(a, b);
+  }
+
   // slope is a rational number. Note that if the line is parallel to y-axis
   // that we store 1/0.
-  private Pair<Integer, Integer> slope;
+  private Rational slope;
   // intercept is a rational number for the y-intercept unless
   // the line is parallel to y-axis in which case it is the x-intercept
-  private Pair<Integer, Integer> intercept;
+  private Rational intercept;
 
   Line(Point a, Point b) {
     if (a.x != b.x) {
       slope = getCanonicalFractional(b.y - a.y, b.x - a.x);
     } else {
-      slope = new Pair<>(1, 0);
+      slope = new Rational(1, 0);
     }
     if (a.x != b.x) {
       intercept = getCanonicalFractional(b.x * a.y - a.x * b.y, b.x - a.x);
     } else {
-      intercept = new Pair<>(a.x, 1);
+      intercept = new Rational(a.x, 1);
     }
   }
 
-  public Pair<Integer, Integer> getSlope() {
-    return slope;
-  }
+  public Rational getSlope() { return slope; }
 
-  public Pair<Integer, Integer> getIntercept() {
-    return intercept;
-  }
+  public Rational getIntercept() { return intercept; }
 
   @Override
   public boolean equals(Object o) {
     if (o instanceof Line) {
-      Line l = (Line) o;
-      return nullEqual(slope, l.getSlope())
-             && nullEqual(intercept, l.getIntercept());
+      Line l = (Line)o;
+      return slope.equals(l.getSlope()) && intercept.equals(l.getIntercept());
     }
     return false;
   }
 
   @Override
   public int hashCode() {
-    return slope.getFirst() ^ slope.getSecond() ^ intercept.getFirst()
-           ^ intercept.getSecond();
+    return slope.numerator ^ slope.denominator ^ intercept.numerator ^
+        intercept.denominator;
   }
 }
 
 public class LineMostPoints {
-
   private static int check(Point[] P) {
     int maxCount = 0;
     for (int i = 0; i < P.length; ++i) {
@@ -102,8 +109,8 @@ public class LineMostPoints {
     }
 
     //@exclude
-    Set<Point> lineMaxPoints = Collections.max(table.values(),
-        new Comparator<Set<Point>>() {
+    Set<Point> lineMaxPoints =
+        Collections.max(table.values(), new Comparator<Set<Point>>() {
           @Override
           public int compare(Set<Point> p1, Set<Point> p2) {
             if (p1 != null && p2 != null) {
@@ -114,30 +121,29 @@ public class LineMostPoints {
               return -1;
             }
           }
-        }
-    );
+        });
 
     int res = check(P);
-    assert (res == lineMaxPoints.size());
+    assert(res == lineMaxPoints.size());
     // Return the line with most points have passed.
 
     //@include
     return Collections.max(table.entrySet(),
-        new Comparator<Map.Entry<Line, Set<Point>>>() {
-          @Override
-          public int compare(Map.Entry<Line, Set<Point>> e1,
-                             Map.Entry<Line, Set<Point>> e2) {
-            if (e1 != null && e2 != null) {
-              return new
-                  Integer(e1.getValue().size()).compareTo(e2.getValue().size());
-            } else if (e1 != null) {
-              return 1;
-            } else {
-              return -1;
-            }
-          }
-        }
-    ).getKey();
+                           new Comparator<Map.Entry<Line, Set<Point>>>() {
+                             @Override
+                             public int compare(Map.Entry<Line, Set<Point>> e1,
+                                                Map.Entry<Line, Set<Point>> e2) {
+                               if (e1 != null && e2 != null) {
+                                 return new Integer(e1.getValue().size())
+                                     .compareTo(e2.getValue().size());
+                               } else if (e1 != null) {
+                                 return 1;
+                               } else {
+                                 return -1;
+                               }
+                             }
+                           })
+        .getKey();
   }
   //@exclude
 
@@ -168,9 +174,9 @@ public class LineMostPoints {
        * System.out.println(points.get(i).x + ", " + points.get(i).y); }
        */
       Line l = findLineWithMostPoints(points);
-      System.out.println(l.getSlope().getFirst() + " "
-          + l.getSlope().getSecond() + " " + l.getIntercept().getFirst() + " "
-          + l.getIntercept().getSecond());
+      System.out.println(l.getSlope().numerator + " " + l.getSlope().denominator +
+                         " " + l.getIntercept().numerator + " " +
+                         l.getIntercept().denominator);
     }
   }
 }

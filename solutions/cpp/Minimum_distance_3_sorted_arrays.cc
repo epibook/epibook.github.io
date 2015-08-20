@@ -1,9 +1,11 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
 #include <iostream>
+#include <iterator>
 #include <limits>
+#include <map>
 #include <queue>
 #include <random>
 #include <set>
@@ -14,11 +16,44 @@ using std::default_random_engine;
 using std::endl;
 using std::max;
 using std::min;
+using std::multimap;
+using std::next;
 using std::numeric_limits;
+using std::pair;
 using std::random_device;
 using std::set;
 using std::uniform_int_distribution;
 using std::vector;
+
+// @include
+int FindClosestElementsInSortedArrays(
+    const vector<vector<int>>& sorted_arrays) {
+  int min_distance_so_far = numeric_limits<int>::max();
+
+  // Stores two iterators in each entry. One for traversing, and the other to
+  // check we reach the end.
+  multimap<int, pair<vector<int>::const_iterator, vector<int>::const_iterator>>
+      iter_and_tail;
+  for (const auto& sorted_array : sorted_arrays) {
+    iter_and_tail.emplace(sorted_array.front(), make_pair(sorted_array.cbegin(),
+                                                          sorted_array.cend()));
+  }
+
+  while (true) {
+    int min_value = iter_and_tail.cbegin()->first,
+        max_value = iter_and_tail.crbegin()->first;
+    min_distance_so_far = min(max_value - min_value, min_distance_so_far);
+    const auto next_min = next(iter_and_tail.cbegin()->second.first),
+               next_end = iter_and_tail.cbegin()->second.second;
+    // Return if some array has no remaining elements.
+    if (next_min == next_end) {
+      return min_distance_so_far;
+    }
+    iter_and_tail.emplace(*next_min, make_pair(next_min, next_end));
+    iter_and_tail.erase(iter_and_tail.cbegin());
+  }
+}
+// @exclude
 
 int Distance(const vector<vector<int>>& sorted_arrays, const vector<int>& idx) {
   int max_val = numeric_limits<int>::min(),
@@ -30,50 +65,8 @@ int Distance(const vector<vector<int>>& sorted_arrays, const vector<int>& idx) {
   return max_val - min_val;
 }
 
-// @include
-struct ArrayData {
-  bool operator<(const ArrayData& a) const {
-    if (val != a.val) {
-      return val < a.val;
-    } else {
-      return idx < a.idx;
-    }
-  }
-
-  int idx;
-  int val;
-};
-
-int FindClosestElementsInSortedArrays(
-    const vector<vector<int>>& sorted_arrays) {
-  // Indices into each of the arrays. 
-  vector<int> heads(sorted_arrays.size(), 0);
-  int result = numeric_limits<int>::max();
-  set<ArrayData> current_heads;
-
-  // Adds the minimum element of each array in to current_heads.
-  for (int i = 0; i < sorted_arrays.size(); ++i) {
-    current_heads.emplace(ArrayData{i, sorted_arrays[i][heads[i]]});
-  }
-
-  while (true) {
-    result = min(result,
-                 current_heads.crbegin()->val - current_heads.cbegin()->val);
-    int idx_next_min = current_heads.cbegin()->idx;
-    // Returns if there is no remaining element in one array.
-    if (++heads[idx_next_min] >= sorted_arrays[idx_next_min].size()) {
-      return result;
-    }
-    current_heads.erase(current_heads.begin());
-    current_heads.emplace(
-        ArrayData{idx_next_min, 
-                  sorted_arrays[idx_next_min][heads[idx_next_min]]});
-  }
-}
-// @exclude
-
-void RecGenAnswer(const vector<vector<int>>& sorted_arrays, vector<int>& idx, int level,
-                  int* ans) {
+void RecGenAnswer(const vector<vector<int>>& sorted_arrays, vector<int>& idx,
+                  int level, int* ans) {
   if (level == sorted_arrays.size()) {
     *ans = min(Distance(sorted_arrays, idx), *ans);
     return;

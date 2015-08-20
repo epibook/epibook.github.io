@@ -4,36 +4,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class CountInversions {
   // @include
   public static int countInversions(List<Integer> A) {
-    return countInversionsHelper(A, 0, A.size());
+    return countSubarrayInversions(A, 0, A.size());
   }
 
-  private static int countInversionsHelper(List<Integer> a, int start,
-                                           int end) {
+  // Return the number of inversions in A[start : end - 1].
+  private static int countSubarrayInversions(List<Integer> A, int start,
+                                             int end) {
     if (end - start <= 1) {
       return 0;
     }
 
     int mid = start + ((end - start) / 2);
-    return countInversionsHelper(a, start, mid)
-        + countInversionsHelper(a, mid, end) + merge(a, start, mid, end);
+    return countSubarrayInversions(A, start, mid) +
+        countSubarrayInversions(A, mid, end) +
+        mergeSortAndCountInversionsAcrossSubarrays(A, start, mid, end);
   }
 
-  private static int merge(List<Integer> A, int start, int mid, int end) {
+  // Merge two sorted subarrays A[start : mid - 1] and A[mid : end - 1]
+  // into A[start : end - 1] and return the number of inversions across
+  // A[start : mid - 1] and A[mid : end - 1].
+  private static int mergeSortAndCountInversionsAcrossSubarrays(List<Integer> A,
+                                                                int start,
+                                                                int mid,
+                                                                int end) {
     List<Integer> sortedA = new ArrayList<>();
-    int leftStart = start, rightStart = mid, inverCount = 0;
+    int leftStart = start, rightStart = mid, inversionCount = 0;
 
     while (leftStart < mid && rightStart < end) {
       if (A.get(leftStart).compareTo(A.get(rightStart)) <= 0) {
         sortedA.add(A.get(leftStart++));
       } else {
-        // A[leftStart:mid - 1] will be the inversions.
-        inverCount += mid - leftStart;
+        // A[leftStart : mid - 1] are the inversions of A[rightStart].
+        inversionCount += mid - leftStart;
         sortedA.add(A.get(rightStart++));
       }
     }
@@ -44,7 +49,7 @@ public class CountInversions {
     for (Integer t : sortedA) {
       A.set(start++, t);
     }
-    return inverCount;
+    return inversionCount;
   }
   // @exclude
 
@@ -75,7 +80,7 @@ public class CountInversions {
       for (int i = 0; i < n; ++i) {
         A.add(r.nextInt(2000001) - 1000000);
       }
-      assert (n2Check(A) == countInversions(A));
+      assert(n2Check(A) == countInversions(A));
     }
   }
 }

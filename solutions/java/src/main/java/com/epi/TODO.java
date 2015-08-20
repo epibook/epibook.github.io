@@ -4,7 +4,7 @@ package com.epi;
 public class TODO {
   public static void main(String[] args) {
     System.out.println("Dummy file");
-    assert (false);
+    assert(false);
   }
 }
 //@exclude

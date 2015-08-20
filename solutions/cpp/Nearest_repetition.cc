@@ -34,29 +34,29 @@ string RandString(int len) {
 // @include
 int FindNearestRepetition(const vector<string>& paragraph) {
   unordered_map<string, int> word_to_latest_index;
-  int closest_dis = numeric_limits<int>::max();
+  int nearest_repeated_distance = numeric_limits<int>::max();
   for (int i = 0; i < paragraph.size(); ++i) {
     auto latest_equal_word = word_to_latest_index.find(paragraph[i]);
     if (latest_equal_word != word_to_latest_index.end()) {
-      closest_dis = min(closest_dis, i - latest_equal_word->second);
+      nearest_repeated_distance = min(nearest_repeated_distance, i - latest_equal_word->second);
     }
     word_to_latest_index[paragraph[i]] = i;
   }
-  return closest_dis;
+  return nearest_repeated_distance;
 }
 // @exclude
 
 // O(n^2) checking
 int CheckAnswer(const vector<string>& s) {
-  int closest_dis = numeric_limits<int>::max();
+  int nearest_repeated_distance = numeric_limits<int>::max();
   for (int i = 0; i < s.size(); ++i) {
     for (int j = i + 1; j < s.size(); ++j) {
       if (s[i] == s[j]) {
-        closest_dis = min(closest_dis, j - i);
+        nearest_repeated_distance = min(nearest_repeated_distance, j - i);
       }
     }
   }
-  return closest_dis;
+  return nearest_repeated_distance;
 }
 
 int main(int argc, char* argv[]) {

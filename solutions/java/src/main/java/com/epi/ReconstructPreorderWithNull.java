@@ -10,8 +10,7 @@ public class ReconstructPreorderWithNull {
   // @include
   private static Integer idx;
 
-  public static BinaryTreeNode<Integer> reconstructPreorder(
-      Integer[] preorder) {
+  public static BinaryTreeNode<Integer> reconstructPreorder(Integer[] preorder) {
     idx = 0;
     return reconstructPreorderHelper(preorder);
   }
@@ -31,8 +30,7 @@ public class ReconstructPreorderWithNull {
   }
   // @exclude
 
-  private static <T> void genPreorderWithNull(BinaryTreeNode<T> n,
-                                              List<T> p) {
+  private static <T> void genPreorderWithNull(BinaryTreeNode<T> n, List<T> p) {
     if (n == null) {
       p.add(null);
       return;
@@ -43,7 +41,30 @@ public class ReconstructPreorderWithNull {
     genPreorderWithNull(n.getRight(), p);
   }
 
+  private static void simpleTest() {
+    Integer[] preOrder = new Integer[] {1, null, null};
+    BinaryTreeNode<Integer> result = reconstructPreorder(preOrder);
+    assert(result.getData() == 1);
+    assert(result.getLeft() == null);
+    assert(result.getRight() == null);
+
+    preOrder = new Integer[] {1, null, 2, null, null};
+    result = reconstructPreorder(preOrder);
+    assert(result.getData() == 1);
+    assert(result.getLeft() == null);
+    assert(result.getRight().getData() == 2);
+
+    preOrder = new Integer[] {1, null, 2, 3, null, null, null};
+    result = reconstructPreorder(preOrder);
+    assert(result.getData() == 1);
+    assert(result.getLeft() == null);
+    assert(result.getRight().getData() == 2);
+    assert(result.getRight().getLeft().getData() == 3);
+    assert(result.getRight().getRight() == null);
+  }
+
   public static void main(String[] args) {
+    simpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       System.out.println(times);
@@ -62,7 +83,7 @@ public class ReconstructPreorderWithNull {
       }
       idx = 0;
       BinaryTreeNode<Integer> x = reconstructPreorder(preOrder);
-      assert (root.equals(x));
+      assert(root.equals(x));
     }
   }
 }

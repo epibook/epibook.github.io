@@ -1,7 +1,5 @@
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Random;
@@ -15,34 +13,45 @@ public class TransformStringToOther {
     Random r = new Random();
     StringBuilder ret = new StringBuilder(len);
     while (len-- > 0) {
-      ret.append((char) (r.nextInt(26) + 'a'));
+      ret.append((char)(r.nextInt(26) + 'a'));
     }
     return ret.toString();
   }
 
   // @include
+
+  private static class StringWithDistance {
+    public String string;
+    public Integer distance;
+
+    public StringWithDistance(String string, Integer distance) {
+      this.string = string;
+      this.distance = distance;
+    }
+  }
+
   // Uses BFS to find the least steps of transformation.
   public static int transformString(Set<String> D, String s, String t) {
-    LinkedList<Pair<String, Integer>> q = new LinkedList<>();
+    LinkedList<StringWithDistance> q = new LinkedList<>();
     D.remove(s); // Marks s as visited by erasing it in D.
-    q.push(new Pair<>(s, 0));
+    q.push(new StringWithDistance(s, 0));
 
     while (!q.isEmpty()) {
-      Pair<String, Integer> f = q.peek();
+      StringWithDistance f = q.peek();
       // Returns if we find a match.
-      if (f.getFirst().equals(t)) {
-        return f.getSecond(); // Number of steps reaches t.
+      if (f.string.equals(t)) {
+        return f.distance; // Number of steps reaches t.
       }
 
       // Tries all possible transformations of f.first.
-      String str = f.getFirst();
+      String str = f.string;
       for (int i = 0; i < str.length(); ++i) {
         String strStart = i == 0 ? "" : str.substring(0, i);
         String strEnd = i + 1 < str.length() ? str.substring(i + 1) : "";
         for (int j = 0; j < 26; ++j) { // Iterates through 'a' ~ 'z'.
-          String modStr = strStart + (char) ('a' + j) + strEnd;
+          String modStr = strStart + (char)('a' + j) + strEnd;
           if (D.remove(modStr)) {
-            q.push(new Pair<>(modStr, f.getSecond() + 1));
+            q.push(new StringWithDistance(modStr, f.distance + 1));
           }
         }
       }

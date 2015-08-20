@@ -16,34 +16,49 @@ using std::stoi;
 using std::uniform_int_distribution;
 using std::vector;
 
-void NQueensHelper(int n, int row, vector<int>* col_placement,
-                   vector<vector<string>>* result);
-vector<string> CreateOutput(const vector<int>& col_placement);
-bool IsFeasible(const vector<int>& col_placement, int row);
+void SolveNQueens(int, int, vector<int>*, vector<vector<int>>*);
+bool IsValid(const vector<int>&);
 
 // @include
-vector<vector<string>> NQueens(int n) {
-  vector<int> placement(n);
-  vector<vector<string>> result;
-  NQueensHelper(n, 0, &placement, &result);
+vector<vector<int>> NQueens(int n) {
+  vector<int> placement;
+  vector<vector<int>> result;
+  SolveNQueens(n, 0, &placement, &result);
   return result;
 }
 
-void NQueensHelper(int n, int row, vector<int>* col_placement,
-                   vector<vector<string>>* result) {
+void SolveNQueens(int n, int row, vector<int>* col_placement,
+                  vector<vector<int>>* result) {
   if (row == n) {
-    result->emplace_back(CreateOutput(*col_placement));
+    // All queens are legally placed.
+    result->emplace_back(*col_placement);
   } else {
     for (int col = 0; col < n; ++col) {
-      (*col_placement)[row] = col;
-      if (IsFeasible(*col_placement, row)) {
-        NQueensHelper(n, row + 1, col_placement, result);
+      col_placement->emplace_back(col);
+      if (IsValid(*col_placement)) {
+        SolveNQueens(n, row + 1, col_placement, result);
       }
+      col_placement->pop_back();
     }
   }
 }
 
-vector<string> CreateOutput(const vector<int>& col_placement) {
+// Test if a newly placed queen will conflict any earlier queens
+// placed before.
+bool IsValid(const vector<int>& col_placement) {
+  int row_id = col_placement.size() - 1;
+  for (int i = 0; i < row_id; ++i) {
+    int diff = abs(col_placement[i] - col_placement[row_id]);
+    if (diff == 0 || diff == row_id - i) {
+      // A column or diagonal constraint is violated.
+      return false;
+    }
+  }
+  return true;
+}
+// @exclude
+
+vector<string> ToTextRepresentation(const vector<int>& col_placement) {
   vector<string> sol;
   for (int row : col_placement) {
     string line(col_placement.size(), '.');
@@ -53,18 +68,25 @@ vector<string> CreateOutput(const vector<int>& col_placement) {
   return sol;
 }
 
-bool IsFeasible(const vector<int>& col_placement, int row) {
-  for (int i = 0; i < row; ++i) {
-    int diff = abs(col_placement[i] - col_placement[row]);
-    if (diff == 0 || diff == row - i) {
-      return false;
-    }
-  }
-  return true;
+static void SimpleTest() {
+  auto result = NQueens(2);
+  assert(0 == result.size());
+
+  result = NQueens(3);
+  assert(0 == result.size());
+
+  result = NQueens(4);
+  assert(2 == result.size());
+
+  vector<int> place1 = {1,3,0,2};
+  vector<int> place2 = {2,0,3,1};
+  assert(result[0] == place1 || result[0] == place2);
+  assert(result[1] == place1 || result[1] == place2);
+  assert(result[0] != result[1]);
 }
-// @exclude
 
 int main(int argc, char** argv) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   int n;
   if (argc == 2) {
@@ -76,7 +98,8 @@ int main(int argc, char** argv) {
   cout << "n = " << n << endl;
   auto result = NQueens(n);
   for (const auto& vec : result) {
-    for (const string& s : vec) {
+    vector<string> text_rep = ToTextRepresentation(vec);
+    for (const string& s : text_rep) {
       cout << s << endl;
     }
     cout << endl;

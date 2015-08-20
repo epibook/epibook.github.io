@@ -1,51 +1,62 @@
 package com.epi;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class PlusOne {
   // @include
-  public static int[] plusOne(int[] A) {
-    ++A[A.length - 1];
-    for (int i = A.length - 1; i > 0 && A[i] == 10; --i) {
-      A[i] = 0;
-      ++A[i - 1];
+  public static List<Integer> plusOne(List<Integer> A) {
+    int n = A.size() - 1;
+    A.set(n, A.get(n) + 1);
+    for (int i = n; i > 0 && A.get(i) == 10; --i) {
+      A.set(i, 0);
+      A.set(i - 1, A.get(i - 1) + 1);
     }
-    if (A[0] < 10) {
-      return A;
+    if (A.get(0) == 10) {
+      // Need additional digit as the most significant digit (i.e., A.get(0)) has
+      // a carry-out.
+      A.set(0, 0);
+      A.add(0, 1);
     }
-
-    int[] result = new int[A.length + 1];
-    System.arraycopy(A, 0, result, 1, A.length);
-    result[1] = 0;
-    result[0] = 1;
-    return result;
+    return A;
   }
   // @exclude
 
-  private static int[] randVector(int len) {
+  private static List<Integer> randArray(int len) {
     if (len == 0) {
-      int[] A = {0};
-      return A;
+      return Arrays.asList(0);
     }
     Random r = new Random();
-    int[] A = new int[len];
-    A[0] = r.nextInt(9) + 1;
-    for (int i = 1; i < len; ++i) {
-      A[i] = r.nextInt(10);
+    List<Integer> A = new ArrayList<>();
+    A.add(r.nextInt(9) + 1);
+    --len;
+    while (len != 0) {
+      A.add(r.nextInt(10));
+      --len;
     }
     return A;
   }
 
   private static void smallTest() {
-    int[] input = {9, 9};
-    int[] result = plusOne(input);
-    assert (result.length == 3 && result[0] == 1 && result[1] == 0 && result[2] == 0);
-    input = new int[3];
-    input[0] = 3;
-    input[1] = 1;
-    input[2] = 4;
-    result = plusOne(input);
-    assert (result.length == 3 && result[0] == 3 && result[1] == 1 && result[2] == 5);
+    List<Integer> result = plusOne(new ArrayList<Integer>() {
+      {
+        add(9);
+        add(9);
+      }
+    });
+    assert(result.size() == 3 && result.get(0) == 1 && result.get(1) == 0 &&
+           result.get(2) == 0);
+    result = plusOne(new ArrayList<Integer>() {
+      {
+        add(3);
+        add(1);
+        add(4);
+      }
+    });
+    assert(result.size() == 3 && result.get(0) == 3 && result.get(1) == 1 &&
+           result.get(2) == 5);
   }
 
   public static void main(String[] args) {
@@ -57,15 +68,9 @@ public class PlusOne {
     } else {
       n = r.nextInt(1001);
     }
-    int[] A = randVector(n);
-    for (int a : A) {
-      System.out.print(a);
-    }
-    System.out.println();
-    int[] result = plusOne(A);
-    for (int a : result) {
-      System.out.print(a);
-    }
-    System.out.println();
+    List<Integer> A = randArray(n);
+    System.out.println(A);
+    List<Integer> result = plusOne(A);
+    System.out.println(result);
   }
 }

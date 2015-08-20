@@ -21,12 +21,18 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-void SortApproximatelySortedArray(istringstream* sequence, int k) {
+void SortApproximatelySortedData(istringstream* sequence, int k) {
   priority_queue<int, vector<int>, greater<int>> min_heap;
   // Adds the first k elements into min_heap. Stop if there are fewer than k
   // elements.
   int x;
+  // @exclude
+  // clang-format off
+  // @include
   for (int i = 0; i < k && *sequence >> x; ++i) {
+    // @exclude
+    // clang-format on
+    // @include
     min_heap.push(x);
   }
 
@@ -53,27 +59,20 @@ void SimpleTest() {
     ss << a << ' ';
   }
   istringstream sequence(ss.str());
-  SortApproximatelySortedArray(&sequence, 3);
+  SortApproximatelySortedData(&sequence, 3);
 }
 
 int main(int argc, char* argv[]) {
   SimpleTest();
   default_random_engine gen((random_device())());
-  int n, k;
+  int n;
   if (argc == 2) {
     n = atoi(argv[1]);
-    uniform_int_distribution<int> dis(1, n);
-    k = dis(gen);
-  } else if (argc == 3) {
-    n = atoi(argv[1]);
-    k = atoi(argv[2]);
   } else {
     uniform_int_distribution<int> n_dis(1, 100000);
     n = n_dis(gen);
-    uniform_int_distribution<int> k_dis(1, n);
-    k = k_dis(gen);
   }
-  cout << "n = " << n << " k = " << k << endl;
+  cout << "n = " << n << endl;
   vector<int> A;
   uniform_int_distribution<int> dis(1, 999999);
   for (int i = 0; i < n; ++i) {
@@ -84,6 +83,6 @@ int main(int argc, char* argv[]) {
     ss << a << ' ';
   }
   istringstream sequence(ss.str());
-  SortApproximatelySortedArray(&sequence, n - 1);
+  SortApproximatelySortedData(&sequence, n - 1);
   return 0;
 }

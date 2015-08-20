@@ -37,7 +37,7 @@ public class CloseSearch {
       int ans = closeSearch(a, k);
       System.out.println(ans);
       if (ans != -1) {
-        assert (a.get(ans) == k);
+        assert(a.get(ans) == k);
       } else {
         boolean found = false;
         for (Integer anA : a) {
@@ -46,7 +46,7 @@ public class CloseSearch {
             break;
           }
         }
-        assert (!found);
+        assert(!found);
       }
     }
   }

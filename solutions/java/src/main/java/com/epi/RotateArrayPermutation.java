@@ -5,7 +5,7 @@ public class RotateArrayPermutation {
   // @include
   public static void rotateArray(int rotateAmount, int[] A) {
     rotateAmount %= A.length;
-    int numCycles = (int) GCD.elementaryGCD(A.length, rotateAmount);
+    int numCycles = (int)GCD.elementaryGCD(A.length, rotateAmount);
     int cycleLength = A.length / numCycles;
 
     for (int c = 0; c < numCycles; ++c) {

@@ -1,11 +1,11 @@
 package com.epi;
 
-import java.util.LinkedList;
+import java.util.Stack;
 
 public class RPN {
   // @include
   public static int eval(String RPNExpression) {
-    LinkedList<Integer> intermediateResults = new LinkedList<>();
+    Stack<Integer> intermediateResults = new Stack<>();
     String delimiter = ",";
     String[] symbols = RPNExpression.split(delimiter);
     for (String token : symbols) {
@@ -37,13 +37,14 @@ public class RPN {
   // @exclude
 
   public static void main(String[] args) {
-    assert (0 == eval("2,-10,/"));
-    assert (-5 == eval("-10,2,/"));
-    assert (5 == eval("-10,-2,/"));
-    assert (-5 == eval("5,10,-"));
-    assert (6 == eval("-10,-16,-"));
-    assert (12 == eval("10,2,+"));
-    assert (15 == eval("1,2,+,3,4,*,+"));
-    assert (42 == eval("1,2,3,4,5,+,*,+,+,3,4,*,+"));
+    assert(0 == eval("2,-10,/"));
+    assert(-5 == eval("-10,2,/"));
+    assert(5 == eval("-10,-2,/"));
+    assert(-5 == eval("5,10,-"));
+    assert(6 == eval("-10,-16,-"));
+    assert(12 == eval("10,2,+"));
+    assert(15 == eval("1,2,+,3,4,*,+"));
+    assert(42 == eval("1,2,3,4,5,+,*,+,+,3,4,*,+"));
+    assert(-6 == eval("1,2,3,4,5,+,*,+,+,3,4,*,+,-7,/"));
   }
 }

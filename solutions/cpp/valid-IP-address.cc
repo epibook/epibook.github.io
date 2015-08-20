@@ -25,7 +25,7 @@ vector<string> GetValidIPAddress(const string& s) {
     auto first = s.substr(0, i);
     if (IsValidPart(first)) {
       for (size_t j = 1; i + j < s.size() && j < 4; ++j) {
-        auto second = s.substr(i , j);
+        auto second = s.substr(i, j);
         if (IsValidPart(second)) {
           for (size_t k = 1; i + j + k < s.size() && k < 4; ++k) {
             auto third = s.substr(i + j, k), fourth = s.substr(i + j + k);
@@ -69,5 +69,19 @@ int main(int argc, char** argv) {
   for (const auto& s : res2) {
     cout << s << endl;
   }
+  auto res3 = GetValidIPAddress("1111");
+  for (const auto& s : res3) {
+    cout << s << endl;
+  }
+  assert(res3.size() == 1);
+  assert(res3.front().compare("1.1.1.1") == 0);
+  auto res4 = GetValidIPAddress("11000");
+  for (const auto& s : res4) {
+    cout << s << endl;
+  }
+  assert(res4.size() == 2);
+  sort(res4.begin(), res4.end());
+  assert(res4[0].compare("1.10.0.0") == 0);
+  assert(res4[1].compare("11.0.0.0") == 0);
   return 0;
 }

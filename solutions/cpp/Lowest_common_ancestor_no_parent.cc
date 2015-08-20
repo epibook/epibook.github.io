@@ -43,8 +43,8 @@ pair<int, BinaryTreeNode<int>*> LCAHelper(
   if (right_result.first == 2) {  // Found both nodes in the right subtree.
     return right_result;
   }
-  int num_target_nodes = left_result.first + right_result.first +
-                         (tree == node0 || tree == node1);
+  int num_target_nodes =
+      left_result.first + right_result.first + (tree == node0 || tree == node1);
   return {num_target_nodes, num_target_nodes == 2 ? tree.get() : nullptr};
 }
 // @exclude
@@ -78,12 +78,12 @@ int main(int argc, char* argv[]) {
   assert(x->data == 5);
   cout << x->data << endl;
   // should output 3
-  x = LCA(tree, tree, tree->left->left);
+  x = LCA(tree, tree->left->left, tree->right->right);
   assert(x->data == 3);
   cout << x->data << endl;
-  // should output 2
-  x = LCA(tree, tree->left, tree->left->left);
-  assert(x->data == 2);
+  // should output 3
+  x = LCA(tree, tree->left->left, tree);
+  assert(x->data == 3);
   cout << x->data << endl;
   return 0;
 }

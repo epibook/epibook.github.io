@@ -41,17 +41,21 @@ int main(int argc, char** argv) {
   //  0    1 0
   unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{1, nullptr, nullptr});
+  assert(SumRootToLeaf(root) == 1);
   root->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{1, nullptr, nullptr});
+  assert(SumRootToLeaf(root) == 3);
   root->left->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{0, nullptr, nullptr});
+  assert(SumRootToLeaf(root) == 6);
   root->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{0, nullptr, nullptr});
+  assert(SumRootToLeaf(root) == 8);
   root->right->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{1, nullptr, nullptr});
+  assert(SumRootToLeaf(root) == 11);
   root->right->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{0, nullptr, nullptr});
-  auto result = SumRootToLeaf(root);
-  assert(result == 15);
+  assert(SumRootToLeaf(root) == 15);
   return 0;
 }

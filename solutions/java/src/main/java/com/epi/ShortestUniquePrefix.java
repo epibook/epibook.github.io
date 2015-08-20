@@ -10,7 +10,7 @@ public class ShortestUniquePrefix {
     Random r = new Random();
     StringBuilder ret = new StringBuilder(len);
     while (len-- > 0) {
-      ret.append((char) (r.nextInt(26) + 'a'));
+      ret.append((char)(r.nextInt(26) + 'a'));
     }
     return ret.toString();
   }
@@ -30,17 +30,11 @@ public class ShortestUniquePrefix {
       private boolean isString = false;
       private Map<Character, TrieNode> leaves = new HashMap<>();
 
-      public boolean getIsString() {
-        return isString;
-      }
+      public boolean getIsString() { return isString; }
 
-      public void setIsString(boolean string) {
-        isString = string;
-      }
+      public void setIsString(boolean string) { isString = string; }
 
-      public Map<Character, TrieNode> getLeaves() {
-        return leaves;
-      }
+      public Map<Character, TrieNode> getLeaves() { return leaves; }
     }
 
     private TrieNode root = new TrieNode();
@@ -113,7 +107,7 @@ public class ShortestUniquePrefix {
         D.add(randString(r.nextInt(10) + 1));
       }
       System.out.println(s + " shortest prefix = " + findShortestPrefix(s, D));
-      assert (findShortestPrefix(s, D).equals(checkAns(s, D)));
+      assert(findShortestPrefix(s, D).equals(checkAns(s, D)));
     }
   }
 }

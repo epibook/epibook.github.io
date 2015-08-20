@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <limits>
 #include <queue>
 #include <stdexcept>
 #include <vector>
@@ -10,6 +11,8 @@
 using std::cout;
 using std::endl;
 using std::exception;
+using std::length_error;
+using std::numeric_limits;
 using std::pair;
 using std::priority_queue;
 using std::vector;
@@ -26,6 +29,9 @@ class Stack {
   void Push(int x) { max_heap_.emplace(timestamp_++, x); }
 
   int Pop() {
+    if (max_heap_.empty()) {
+      throw length_error("empty stack");
+    }
     int val = max_heap_.top().second;
     max_heap_.pop();
     return val;
@@ -42,20 +48,23 @@ class Stack {
 
 class Queue {
  public:
-  void Enqueue(int x) { H.emplace(order_--, x); }
+  void Enqueue(int x) { max_heap_.emplace(order_--, x); }
 
   int Dequeue() {
-    int ret = H.top().second;
-    H.pop();
+    if (max_heap_.empty()) {
+      throw length_error("empty queue");
+    }
+    int ret = max_heap_.top().second;
+    max_heap_.pop();
     return ret;
   }
 
-  const int& Head() const { return H.top().second; }
+  const int& Head() const { return max_heap_.top().second; }
 
  private:
   int order_ = 0;
   // Uses a pair where first is the order_ and the second is the element.
-  priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> H;
+  priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> max_heap_;
 };
 
 int main(int argc, char* argv[]) {
@@ -73,11 +82,30 @@ int main(int argc, char* argv[]) {
   s.Pop();
   try {
     s.Pop();
-  }
-  catch (const exception& e) {
+    assert(false);
+  } catch (const exception& e) {
     cout << "empty stack" << endl;
     cout << e.what() << endl;
   }
+
+  s.Push(0);
+  s.Push(-1);
+  s.Push(numeric_limits<int>::max());
+  assert(s.Peek() == numeric_limits<int>::max());
+  s.Pop();
+  assert(s.Peek() == -1);
+  s.Pop();
+  assert(s.Peek() == 0);
+  s.Pop();
+  try {
+    s.Pop();
+    assert(false);
+  } catch (const exception& e) {
+    cout << "empty stack" << endl;
+    cout << e.what() << endl;
+  }
+  s.Push(0);
+  assert(s.Peek() == 0);
 
   Queue q;
   q.Enqueue(1);
@@ -88,8 +116,8 @@ int main(int argc, char* argv[]) {
   q.Dequeue();
   try {
     q.Dequeue();
-  }
-  catch (const exception& e) {
+    assert(false);
+  } catch (const exception& e) {
     cout << "empty queue" << endl;
     cout << e.what() << endl;
   }

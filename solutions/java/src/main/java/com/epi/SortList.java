@@ -20,8 +20,8 @@ public class SortList {
 
     preSlow.next = null; // Splits the list into two equal-sized lists.
 
-    return MergeSortedLists.mergeTwoSortedLinkedLists(stableSortList(L),
-                                                      stableSortList(slow));
+    return MergeSortedLists.mergeTwoSortedLists(stableSortList(L),
+                                                stableSortList(slow));
   }
   // @exclude
 
@@ -45,12 +45,12 @@ public class SortList {
       int count = 0;
       int pre = Integer.MIN_VALUE;
       while (sortedHead != null) {
-        assert (pre <= sortedHead.data);
+        assert(pre <= sortedHead.data);
         pre = sortedHead.data;
         sortedHead = sortedHead.next;
         ++count;
       }
-      assert (count == n);
+      assert(count == n);
     }
   }
 }

@@ -13,7 +13,7 @@ using std::list;
 using std::unique_ptr;
 
 // @include
-list<const unique_ptr<BinaryTreeNode<int>>*> ConnectLeaves(
+list<const unique_ptr<BinaryTreeNode<int>>*> CreateListOfLeaves(
     const unique_ptr<BinaryTreeNode<int>>& tree) {
   list<const unique_ptr<BinaryTreeNode<int>>*> leaves;
   if (tree != nullptr) {
@@ -21,8 +21,8 @@ list<const unique_ptr<BinaryTreeNode<int>>*> ConnectLeaves(
       leaves.emplace_back(&tree);
     } else {
       // First do the left subtree, and then do the right subtree.
-      leaves.splice(leaves.end(), ConnectLeaves(tree->left));
-      leaves.splice(leaves.end(), ConnectLeaves(tree->right));
+      leaves.splice(leaves.end(), CreateListOfLeaves(tree->left));
+      leaves.splice(leaves.end(), CreateListOfLeaves(tree->right));
     }
   }
   return leaves;
@@ -37,6 +37,9 @@ int main(int argc, char* argv[]) {
       new BinaryTreeNode<int>{3, nullptr, nullptr});
   tree->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{2, nullptr, nullptr});
+  auto L = CreateListOfLeaves(tree);
+  assert(L.size() == 1 && (*L.front())->data == 2);
+
   tree->left->left = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{1, nullptr, nullptr});
   tree->right = unique_ptr<BinaryTreeNode<int>>(
@@ -45,7 +48,7 @@ int main(int argc, char* argv[]) {
       new BinaryTreeNode<int>{4, nullptr, nullptr});
   tree->right->right = unique_ptr<BinaryTreeNode<int>>(
       new BinaryTreeNode<int>{6, nullptr, nullptr});
-  auto L = ConnectLeaves(tree);
+  L = CreateListOfLeaves(tree);
   list<int> output;
   // should output 1, 4, 6
   for (const auto* l : L) {

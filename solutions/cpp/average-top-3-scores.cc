@@ -6,6 +6,7 @@
 #include <iostream>
 #include <iterator>
 #include <map>
+#include <queue>
 #include <random>
 #include <set>
 #include <stdexcept>
@@ -18,12 +19,14 @@ using std::bitset;
 using std::cout;
 using std::default_random_engine;
 using std::endl;
+using std::greater;
 using std::ifstream;
 using std::invalid_argument;
 using std::ios;
 using std::map;
 using std::multiset;
 using std::ofstream;
+using std::priority_queue;
 using std::random_device;
 using std::stoi;
 using std::string;
@@ -31,18 +34,20 @@ using std::uniform_int_distribution;
 using std::unordered_map;
 using std::vector;
 
-int GetTopThreeScoresSum(const multiset<int>& scores);
+int GetTopThreeScoresSum(priority_queue<int, vector<int>, greater<int>>);
 
 // @include
 string FindStudentWithHighestBestOfThreeScores(ifstream* ifs) {
-  unordered_map<string, multiset<int>> student_scores;
+  // Use a multset to handle duplicated test scores.
+  unordered_map<string, priority_queue<int, vector<int>, greater<int>>>
+      student_scores;
   string name;
   int score;
   while (*ifs >> name >> score) {
     student_scores[name].emplace(score);
     if (student_scores[name].size() > 3) {
       // Remove the smallest score stored in this student.
-      student_scores[name].erase(student_scores[name].begin());
+      student_scores[name].pop();
     }
   }
 
@@ -61,14 +66,18 @@ string FindStudentWithHighestBestOfThreeScores(ifstream* ifs) {
 }
 
 // Returns the sum of top three scores.
-int GetTopThreeScoresSum(const multiset<int>& scores) {
-  auto it = scores.crbegin();
-  advance(it, 3);
-  return accumulate(scores.crbegin(), it, 0);
+int GetTopThreeScoresSum(
+    priority_queue<int, vector<int>, greater<int>> scores) {
+  int sum = 0;
+  while (!scores.empty()) {
+    sum += scores.top();
+    scores.pop();
+  }
+  return sum;
 }
 // @exclude
 
-string rand_string(int len) {
+string RandString(int len) {
   default_random_engine gen((random_device())());
   uniform_int_distribution<int> dis('a', 'z');
   string ret;
@@ -92,7 +101,7 @@ int main(int argc, char* argv[]) {
     uniform_int_distribution<int> test_num_dis(0, 20);
     int test_num = test_num_dis(gen);
     uniform_int_distribution<int> len_dis(5, 10);
-    string name = rand_string(len_dis(gen));
+    string name = RandString(len_dis(gen));
     while (test_num--) {
       uniform_int_distribution<int> score_dis(0, 100);
       ofs << name << " " << score_dis(gen) << endl;

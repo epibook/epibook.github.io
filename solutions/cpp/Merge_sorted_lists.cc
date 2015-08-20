@@ -19,7 +19,30 @@ using std::random_device;
 using std::stoi;
 using std::uniform_int_distribution;
 
+void SimpleTest() {
+  shared_ptr<ListNode<int>> L1 = nullptr;
+  shared_ptr<ListNode<int>> L2 = nullptr;
+  auto result = MergeTwoSortedLists(L1, L2);
+  assert(result == nullptr);
+
+  L1 = make_shared<ListNode<int>>(ListNode<int>{123, nullptr});
+  result = MergeTwoSortedLists(L1, L2);
+  assert(result->data == 123);
+
+  L2 = L1;
+  L1 = nullptr;
+  result = MergeTwoSortedLists(L1, L2);
+  assert(result->data == 123);
+
+  L1 = make_shared<ListNode<int>>(ListNode<int>{-123, nullptr});
+  L2 = make_shared<ListNode<int>>(ListNode<int>{123, nullptr});
+  result = MergeTwoSortedLists(L1, L2);
+  assert(result->data == -123 && result->next->data == 123 &&
+         result->next->next == nullptr);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 10000; ++times) {
     shared_ptr<ListNode<int>> F = nullptr, L = nullptr;

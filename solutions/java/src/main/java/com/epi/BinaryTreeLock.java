@@ -4,26 +4,25 @@ public class BinaryTreeLock {
   // @include
   public static class BinaryTree {
     private BinaryTree left, right, parent;
-    private boolean locked;
-    private int numLockedDescendants;
+    private boolean locked = false;
+    private int numLockedDescendants = 0;
 
-    public boolean isLock() {
-      return locked;
-    }
+    public boolean isLocked() { return locked; }
 
     public boolean lock() {
+      // We cannot lock if any of this node's descendents are locked.
       if (numLockedDescendants > 0 || locked) {
         return false;
       }
 
-      // Tests if any of ancestors are not locked.
+      // We cannot lock if any of this node's ancestors are locked.
       for (BinaryTree iter = parent; iter != null; iter = iter.parent) {
         if (iter.locked) {
           return false;
         }
       }
 
-      // Locks itself and increments its ancestors's lock counts.
+      // Lock this node and increments all its ancestors's descendent lock counts.
       locked = true;
       for (BinaryTree iter = parent; iter != null; iter = iter.parent) {
         ++iter.numLockedDescendants;
@@ -33,7 +32,7 @@ public class BinaryTreeLock {
 
     public void unlock() {
       if (locked) {
-        // Unlocks itself and decrements its ancestors's lock counts.
+        // Unlocks itself and decrements its ancestors's descendent lock counts.
         locked = false;
         for (BinaryTree iter = parent; iter != null; iter = iter.parent) {
           --iter.numLockedDescendants;
@@ -42,25 +41,15 @@ public class BinaryTreeLock {
     }
     // @exclude
 
-    public BinaryTree getLeft() {
-      return left;
-    }
+    public BinaryTree getLeft() { return left; }
 
-    public void setLeft(BinaryTree left) {
-      this.left = left;
-    }
+    public void setLeft(BinaryTree left) { this.left = left; }
 
-    public BinaryTree getRight() {
-      return right;
-    }
+    public BinaryTree getRight() { return right; }
 
-    public void setRight(BinaryTree right) {
-      this.right = right;
-    }
+    public void setRight(BinaryTree right) { this.right = right; }
 
-    public void setParent(BinaryTree parent) {
-      this.parent = parent;
-    }
+    public void setParent(BinaryTree parent) { this.parent = parent; }
     // @include
   }
   // @exclude
@@ -75,22 +64,31 @@ public class BinaryTreeLock {
     root.getLeft().getLeft().setParent(root.getLeft());
     root.getLeft().setRight(new BinaryTree());
     root.getLeft().getRight().setParent(root.getLeft());
-    // Should output false.
-    assert (!root.isLock());
-    System.out.println(root.isLock());
-    assert (root.lock());
-    // Should output true.
-    assert (root.isLock());
-    System.out.println(root.isLock());
+
+    assert(!root.isLocked());
+    System.out.println(root.isLocked());
+
+    assert(root.lock());
+    assert(root.isLocked());
+    System.out.println(root.isLocked());
+    assert(!root.getLeft().lock());
+    assert(!root.getLeft().isLocked());
+    assert(!root.getRight().lock());
+    assert(!root.getRight().isLocked());
+    assert(!root.getLeft().getLeft().lock());
+    assert(!root.getLeft().getLeft().isLocked());
+    assert(!root.getLeft().getRight().lock());
+    assert(!root.getLeft().getRight().isLocked());
+
     root.unlock();
-    assert (root.getLeft().lock());
-    assert (!root.lock());
-    // Should output false.
-    assert (!root.isLock());
-    System.out.println(root.isLock());
-    assert (root.getRight().lock());
-    // Should output true.
-    assert (root.getRight().isLock());
-    System.out.println(root.isLock());
+    assert(root.getLeft().lock());
+    assert(!root.lock());
+    assert(!root.getLeft().getLeft().lock());
+    assert(!root.isLocked());
+
+    System.out.println(root.isLocked());
+    assert(root.getRight().lock());
+    assert(root.getRight().isLocked());
+    System.out.println(root.isLocked());
   }
 }

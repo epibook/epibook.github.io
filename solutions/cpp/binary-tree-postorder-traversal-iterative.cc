@@ -20,7 +20,7 @@ using std::vector;
 // @include
 // We use stack and previous node pointer to simulate postorder traversal.
 vector<int> PostorderTraversal(const unique_ptr<BinaryTreeNode<int>>& tree) {
-  if (tree != nullptr) {  // Empty tree.
+  if (tree == nullptr) {  // Empty tree.
     return {};
   }
 

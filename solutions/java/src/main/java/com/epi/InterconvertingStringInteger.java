@@ -12,9 +12,9 @@ public class InterconvertingStringInteger {
     if (r.nextBoolean()) {
       ret.append('-');
     }
-    ret.append((char) ('1' + r.nextInt(9)));
+    ret.append((char)('1' + r.nextInt(9)));
     while (--len != 0) {
-      ret.append((char) ('0' + r.nextInt(10)));
+      ret.append((char)('0' + r.nextInt(10)));
     }
     return ret.toString();
   }
@@ -29,12 +29,12 @@ public class InterconvertingStringInteger {
 
     StringBuilder s = new StringBuilder();
     do {
-      s.append((char) ('0' + x % 10));
+      s.append((char)('0' + x % 10));
       x /= 10;
     } while (x != 0);
 
     if (isNegative) {
-      s.append('-');  // Adds the negative sign back.
+      s.append('-'); // Adds the negative sign back.
     }
     s.reverse();
     return s.toString();
@@ -64,11 +64,11 @@ public class InterconvertingStringInteger {
         int x = r.nextInt();
         String str = intToString(x);
         System.out.println(x + " " + str);
-        assert (x == Integer.parseInt(str));
+        assert(x == Integer.parseInt(str));
         str = randIntString(r.nextInt(10));
         x = stringToInt(str);
         System.out.println(str + " " + x);
-        assert (x == Integer.parseInt(str));
+        assert(x == Integer.parseInt(str));
       }
     }
   }

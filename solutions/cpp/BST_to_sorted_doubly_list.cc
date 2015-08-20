@@ -15,7 +15,7 @@ using std::pair;
 using std::shared_ptr;
 
 pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>>
-    BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>&);
+BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>&);
 
 // @include
 shared_ptr<BSTNode<int>> BSTToDoublyLinkedList(
@@ -26,7 +26,7 @@ shared_ptr<BSTNode<int>> BSTToDoublyLinkedList(
 // Transforms a BST into a sorted doubly linked list in-place,
 // and return the head and tail of the list as a pair.
 pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>>
-    BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>& tree) {
+BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>& tree) {
   // Empty subtree.
   if (!tree) {
     return {nullptr, nullptr};

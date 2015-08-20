@@ -43,8 +43,8 @@ void FillSurroundedRegions(vector<vector<char>>* board) {
 
 void MarkRegionIfSurrounded(size_t i, size_t j, vector<vector<char>>* board,
                             vector<deque<bool>>* visited) {
-  const array<array<int, 2>, 4> dir = {{{{0, 1}}, {{0, -1}},
-                                        {{1, 0}}, {{-1, 0}}}};
+  const array<array<int, 2>, 4> dir = {
+      {{{0, 1}}, {{0, -1}}, {{1, 0}}, {{-1, 0}}}};
   vector<pair<size_t, size_t>> q;  // Uses it as an queue.
   q.emplace_back(i, j), (*visited)[i][j] = true;
   bool is_surrounded = true;
@@ -58,8 +58,7 @@ void MarkRegionIfSurrounded(size_t i, size_t j, vector<vector<char>>* board,
       is_surrounded = false;
     } else {
       for (const auto& d : dir) {
-        const pair<size_t, size_t> next(curr.first + d[0],
-                                        curr.second + d[1]);
+        const pair<size_t, size_t> next(curr.first + d[0], curr.second + d[1]);
         if ((*board)[next.first][next.second] == 'W' &&
             !(*visited)[next.first][next.second]) {
           (*visited)[next.first][next.second] = true;

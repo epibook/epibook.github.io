@@ -8,8 +8,8 @@ public class ListPivoting {
     ListNode<Integer> lessHead = new ListNode<>(0, null),
                       equalHead = new ListNode<>(0, null),
                       greaterHead = new ListNode<>(0, null);
-    ListNode<Integer> lessIter = lessHead, equalIter = equalHead,
-                      greaterIter = greaterHead;
+    ListNode<Integer> lessIter = lessHead, equalIter = equalHead, greaterIter =
+                                                                      greaterHead;
     // Populates the three lists.
     ListNode<Integer> iter = L;
     while (iter != null) {
@@ -38,10 +38,36 @@ public class ListPivoting {
   }
   // @exclude
 
-  public static void main(String[] args) {
+  private static void simpleTest() {
     ListNode<Integer> L;
-    L = new ListNode<>(1, new ListNode<>(4, new ListNode<>(3,
-        new ListNode<>(2, new ListNode<>(5, null)))));
+    L = new ListNode<>(0, null);
+    ListNode<Integer> result = listPivoting(L, 0);
+    assert(result == L);
+    result = listPivoting(L, 1);
+    assert(result == L);
+    result = listPivoting(L, -1);
+    assert(result == L);
+
+    L = new ListNode<Integer>(2, new ListNode<>(0, null));
+    result = listPivoting(L, -1);
+    assert(result == L);
+
+    L = new ListNode<Integer>(2, new ListNode<>(0, null));
+    result = listPivoting(L, 1);
+    assert(result.data == 0 && result.next.data == 2);
+
+    L = new ListNode<Integer>(2, new ListNode<>(0, new ListNode<>(-2, null)));
+    result = listPivoting(L, 1);
+    assert(result.data == 0 && result.next.data == -2 &&
+           result.next.next.data == 2);
+  }
+
+  public static void main(String[] args) {
+    simpleTest();
+    ListNode<Integer> L;
+    L = new ListNode<>(
+        1, new ListNode<>(
+               4, new ListNode<>(3, new ListNode<>(2, new ListNode<>(5, null)))));
     int x = 4;
     ListNode<Integer> result = listPivoting(L, x);
     boolean beforeX = true;
@@ -50,9 +76,9 @@ public class ListPivoting {
         beforeX = false;
       }
       if (beforeX) {
-        assert (result.data < x);
+        assert(result.data < x);
       } else {
-        assert (result.data >= x);
+        assert(result.data >= x);
       }
       System.out.println(result.data);
       result = result.next;

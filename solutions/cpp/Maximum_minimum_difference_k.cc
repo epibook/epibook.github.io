@@ -8,7 +8,8 @@
 using namespace std;
 
 // @include
-int DP(const vector<int> &A, int a, int b, int k, vector<vector<vector<int>>> &table) {
+int DP(const vector<int> &A, int a, int b, int k,
+       vector<vector<vector<int>>> &table) {
   cout << a << ' ' << b << ' ' << k << endl;
   if (table[a][b][k] == -1) {
     if (k == 1) {
@@ -31,7 +32,8 @@ int DP(const vector<int> &A, int a, int b, int k, vector<vector<vector<int>>> &t
 
 int max_diff;
 
-void rec(const vector<int> &A, int level, int cur, int k, vector<int> &ans, int min_diff) {
+void rec(const vector<int> &A, int level, int cur, int k, vector<int> &ans,
+         int min_diff) {
   if (level == k) {
     for (int i = 0; i < k; ++i) {
       cout << ans[i] << ' ';
@@ -41,7 +43,8 @@ void rec(const vector<int> &A, int level, int cur, int k, vector<int> &ans, int 
   } else {
     for (int i = cur; i + (k - level) - 1 < A.size(); ++i) {
       ans[level] = A[i];
-      rec(A, level + 1, i + 1, k, ans, min(min_diff, ans[level] - ans[level - 1]));
+      rec(A, level + 1, i + 1, k, ans,
+          min(min_diff, ans[level] - ans[level - 1]));
     }
   }
 }
@@ -63,8 +66,8 @@ int max_min_diff_k(vector<int> &A, int k) {
     cout << A[i] << ' ';
   }
   cout << endl;
-  vector<vector<vector<int>>>
-    table(A.size(), vector<vector<int>>(A.size(), vector<int>(A.size() + 1, -1)));
+  vector<vector<vector<int>>> table(
+      A.size(), vector<vector<int>>(A.size(), vector<int>(A.size() + 1, -1)));
   return DP(A, 0, A.size() - 1, k, table);
 }
 // @exclude

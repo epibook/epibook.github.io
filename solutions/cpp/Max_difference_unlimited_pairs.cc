@@ -15,7 +15,7 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-int MaxProfitUnlimitedPairs(const vector<int>& A) {
+int MaxProfitUnlimitedPairs(const vector<int> &A) {
   int profit = 0;
   for (int i = 1; i < A.size(); ++i) {
     int delta = A[i] - A[i - 1];

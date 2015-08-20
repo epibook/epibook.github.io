@@ -77,7 +77,7 @@ int main(int argc, char* argv[]) {
   int idx = 0, pre;
   while (curr) {
     if (argc <= 2) {
-      if (idx & 1) {
+      if (idx % 2) {
         assert(pre + curr->data == n);
       }
     }

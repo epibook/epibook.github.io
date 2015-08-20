@@ -1,5 +1,4 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
-// @author Ivan Sharov
 
 package com.epi;
 
@@ -15,7 +14,7 @@ class CanStringBePalindromeSorting {
 
     for (int i = 1; i < a.length && oddCount <= 1; ++i) {
       if (a[i] != a[i - 1]) {
-        if ((numCurrChar & 1) != 0) {
+        if ((numCurrChar % 2) != 0) {
           ++oddCount;
         }
         numCurrChar = 1;

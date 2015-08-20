@@ -106,8 +106,7 @@ public class OfflineMinimum {
        * System.out.print("ans1 = "); System.out.println(Arrays.toString(ans));
        */
       int[] tmp = checkAnswer(A, E);
-      assert (Arrays.equals(ans, tmp));
+      assert(Arrays.equals(ans, tmp));
     }
   }
-
 }

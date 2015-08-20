@@ -4,7 +4,7 @@ using namespace std;
 
 struct BinaryTree {
   int data;
-  BinaryTree* left, *right;
+  BinaryTree *left, *right;
   BinaryTree(int val = 0, BinaryTree* l = nullptr, BinaryTree* r = nullptr)
       : data(val), left(l), right(r) {}
 };

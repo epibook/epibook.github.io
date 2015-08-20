@@ -15,16 +15,16 @@ public class PaintingRecursive {
 
   // @include
   public static void flipColor(boolean[][] A, int x, int y) {
-    int[][] dir = new int[][]{new int[]{0, 1}, new int[]{0, -1},
-                              new int[]{1, 0}, new int[]{-1, 0}};
+    int[][] dir = new int[][] {new int[] {0, 1}, new int[] {0, -1},
+                               new int[] {1, 0}, new int[] {-1, 0}};
 
     boolean color = A[x][y];
 
     A[x][y] = !A[x][y]; // Flips.
     for (int[] d : dir) {
       int nx = x + d[0], ny = y + d[1];
-      if (nx >= 0 && nx < A.length && ny >= 0 && ny < A[nx].length
-          && A[nx][ny] == color) {
+      if (nx >= 0 && nx < A.length && ny >= 0 && ny < A[nx].length &&
+          A[nx][ny] == color) {
         flipColor(A, nx, ny);
       }
     }

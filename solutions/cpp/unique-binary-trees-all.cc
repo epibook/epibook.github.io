@@ -20,29 +20,23 @@ using std::stoi;
 using std::uniform_int_distribution;
 using std::vector;
 
-vector<unique_ptr<BinaryTreeNode<int>>> GenerateAllBinaryTreesHelper(int, int);
-
 // @include
-vector<unique_ptr<BinaryTreeNode<int>>> GenerateAllBinaryTrees(int n) {
-  return GenerateAllBinaryTreesHelper(1, n);
-}
-
-vector<unique_ptr<BinaryTreeNode<int>>> GenerateAllBinaryTreesHelper(
-    int start, int end) {
+vector<unique_ptr<BinaryTreeNode<int>>> GenerateAllBinaryTrees(int num_nodes) {
   vector<unique_ptr<BinaryTreeNode<int>>> result;
-  if (start > end) {
+  if (num_nodes == 0) {  // Empty tree, add as an nullptr.
     result.emplace_back(nullptr);
-    return result;
   }
 
-  for (int i = start; i <= end; ++i) {
-    // Tries all possible combinations of left subtrees and right subtrees.
-    auto left_res = GenerateAllBinaryTreesHelper(start, i - 1),
-         right_res = GenerateAllBinaryTreesHelper(i + 1, end);
-    for (auto& left : left_res) {
-      for (auto& right : right_res) {
+  for (int num_left_tree_nodes = 0; num_left_tree_nodes < num_nodes;
+       ++num_left_tree_nodes) {
+    int num_right_tree_nodes = num_nodes - 1 - num_left_tree_nodes;
+    auto left_subtrees = GenerateAllBinaryTrees(num_left_tree_nodes);
+    auto right_subtrees = GenerateAllBinaryTrees(num_right_tree_nodes);
+    // Generates all combinations of left_subtrees and right_subtrees.
+    for (auto& left : left_subtrees) {
+      for (auto& right : right_subtrees) {
         result.emplace_back(
-            new BinaryTreeNode<int>{i, move(left), move(right)});
+            new BinaryTreeNode<int>{0, move(left), move(right)});
       }
     }
   }
@@ -50,7 +44,17 @@ vector<unique_ptr<BinaryTreeNode<int>>> GenerateAllBinaryTreesHelper(
 }
 // @exclude
 
+void SmallTest() {
+  assert(GenerateAllBinaryTrees(1).size() == 1);
+  assert(GenerateAllBinaryTrees(2).size() == 2);
+  assert(GenerateAllBinaryTrees(3).size() == 5);
+  assert(GenerateAllBinaryTrees(4).size() == 14);
+  assert(GenerateAllBinaryTrees(5).size() == 42);
+  assert(GenerateAllBinaryTrees(10).size() == 16796);
+}
+
 int main(int argc, char** argv) {
+  SmallTest();
   default_random_engine gen((random_device())());
   int n;
   if (argc == 2) {
@@ -60,10 +64,6 @@ int main(int argc, char** argv) {
     n = dis(gen);
   }
   cout << "n = " << n << endl;
-  auto result = GenerateAllBinaryTrees(n);
-  for (const auto& tree : result) {
-    auto sequence = generate_inorder(tree);
-    assert(is_sorted(sequence.begin(), sequence.end()));
-  }
+  GenerateAllBinaryTrees(n);
   return 0;
 }

@@ -65,5 +65,23 @@ int main(int argc, char* argv[]) {
   for (int i = 1; i < ans.size(); ++i) {
     assert(ans[i - 1] >= ans[i]);
   }
+  ans = FindKLargestInBST(tree, 2);
+  assert(ans[0] == 6);
+  assert(ans[1] == 5);
+
+  //    3
+  //  3   4
+  // 1   4 6
+  tree = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
+  tree->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
+  tree->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{1});
+  tree->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
+  tree->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
+  tree->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{6});
+  ans = FindKLargestInBST(tree, 3);
+  assert(ans[0] == 6);
+  assert(ans[1] == 4);
+  assert(ans[1] == 4);
+
   return 0;
 }

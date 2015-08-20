@@ -21,14 +21,16 @@ using std::uniform_int_distribution;
 using std::unordered_set;
 using std::vector;
 
-void RandMatrix(vector<vector<int>>* matrix) {
+vector<vector<int>> RandMatrix(int n) {
+  vector<vector<int>> matrix(n, vector<int>(n));
   default_random_engine gen((random_device())());
-  for (int i = 0; i < matrix->size(); ++i) {
-    for (int j = 0; j < (*matrix)[i].size(); ++j) {
-      uniform_int_distribution<int> dis(0, matrix->size() - 1);
-      (*matrix)[i][j] = dis(gen);
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      uniform_int_distribution<int> dis(0, n - 1);
+      matrix[i][j] = dis(gen);
     }
   }
+  return matrix;
 }
 
 struct HashTuple;
@@ -89,8 +91,7 @@ int main(int argc, char* argv[]) {
     uniform_int_distribution<int> dis(2, 10);
     n = dis(gen);
   }
-  vector<vector<int>> A(n, vector<int>(n));
-  RandMatrix(&A);
+  vector<vector<int>> A = RandMatrix(n);
   for (size_t i = 0; i < A.size(); ++i) {
     for (size_t j = 0; j < A[i].size(); ++j) {
       cout << A[i][j] << ' ';

@@ -49,9 +49,13 @@ int main(int argc, char* argv[]) {
   Team t1(height);
   height = {2, 3, 4};
   Team t2(height);
-  assert(!Team::valid_placement_exists(t1, t2) && !Team::valid_placement_exists(t2, t1));
+  assert(!Team::valid_placement_exists(t1, t2) &&
+         !Team::valid_placement_exists(t2, t1));
   height = {0, 3, 2};
   Team t3(height);
-  assert(Team::valid_placement_exists( t3, t1) && !Team::valid_placement_exists(t1, t3) && Team::valid_placement_exists(t3, t2) && !Team::valid_placement_exists(t1, t2));
+  assert(Team::valid_placement_exists(t3, t1) &&
+         !Team::valid_placement_exists(t1, t3) &&
+         Team::valid_placement_exists(t3, t2) &&
+         !Team::valid_placement_exists(t1, t2));
   return 0;
 }

@@ -42,7 +42,28 @@ int SearchSmallestHelper(const vector<int>& A, int left, int right) {
 }
 // @exclude
 
+static void SimpleTest() {
+  vector<int> A = {3,1,2};
+  assert(1 == SearchSmallest(A));
+  A = {0,2,4,8};
+  assert(0 == SearchSmallest(A));
+  A[0] = 16;
+  assert(1 == SearchSmallest(A));
+
+  A = {2, 2, 2};
+  assert(0 == SearchSmallest(A));
+  A = {100, 2, 5, 5};
+  assert(1 == SearchSmallest(A));
+  A = {1, 2, 3, 3, 3};
+  assert(0 == SearchSmallest(A));
+  A = {5, 2, 3, 3, 3};
+  assert(1 == SearchSmallest(A));
+  A = {5, 5, 2, 2, 2, 3, 3, 3};
+  assert(2 == SearchSmallest(A));
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 10000; ++times) {
     int n;

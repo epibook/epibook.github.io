@@ -2,6 +2,7 @@ package com.epi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 public class ValidIPAddress {
   // @include
@@ -49,5 +50,15 @@ public class ValidIPAddress {
     System.out.println(res1);
     List<String> res2 = getValidIpAddress("19216811");
     System.out.println(res2);
+    List<String> res3 = getValidIpAddress("1111");
+    System.out.println(res3);
+    assert(res3.size() == 1);
+    assert(res3.get(0).equals("1.1.1.1"));
+    List<String> res4 = getValidIpAddress("11000");
+    System.out.println(res4);
+    Collections.sort(res4);
+    assert(res4.size() == 2);
+    assert(res4.get(0).equals("1.10.0.0"));
+    assert(res4.get(1).equals("11.0.0.0"));
   }
 }

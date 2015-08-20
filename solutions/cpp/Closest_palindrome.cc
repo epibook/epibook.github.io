@@ -53,8 +53,7 @@ unsigned find_closest_palindrome(unsigned x) {
 
   // Make str a palindrome again by mirroring the left half to the right half.
   copy(str.cbegin(), str.cbegin() + (str.size() / 2), str.rbegin());
-  return diff(x, mirror_left) < diff(x, stoul(str)) ?
-              mirror_left : stoul(str);
+  return diff(x, mirror_left) < diff(x, stoul(str)) ? mirror_left : stoul(str);
 }
 
 unsigned diff(unsigned a, unsigned b) { return a > b ? a - b : b - a; }

@@ -1,5 +1,4 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
-// @author Ivan Sharov
 
 package com.epi;
 
@@ -7,12 +6,12 @@ import java.util.Random;
 
 public class MergeSortedLists {
   //@include
-  public static ListNode<Integer> mergeTwoSortedLinkedLists(
-      ListNode<Integer> F, ListNode<Integer> L) {
+  public static ListNode<Integer> mergeTwoSortedLists(ListNode<Integer> L1,
+                                                      ListNode<Integer> L2) {
     // Creates a placeholder for the result.
     ListNode<Integer> dummyHead = new ListNode<>(0, null);
     ListNode<Integer> current = dummyHead;
-    ListNode<Integer> p1 = F, p2 = L;
+    ListNode<Integer> p1 = L1, p2 = L2;
 
     while (p1 != null && p2 != null) {
       if (p1.data <= p2.data) {
@@ -25,23 +24,40 @@ public class MergeSortedLists {
       current = current.next;
     }
 
-    if (p1 != null) {
-      // Appends the remaining nodes of p1.
-      current.next = p1;
-    }
-    if (p2 != null) {
-      // Appends the remaining nodes of p2.
-      current.next = p2;
-    }
+    // Appends the remaining nodes of p1 or p2.
+    current.next = p1 != null ? p1 : p2;
     return dummyHead.next;
   }
   // @exclude
 
+  private static void simpleTest() {
+    ListNode<Integer> L1 = null;
+    ListNode<Integer> L2 = null;
+    ListNode<Integer> result = mergeTwoSortedLists(L1, L2);
+    assert(result == null);
+
+    L1 = new ListNode(123, null);
+    result = mergeTwoSortedLists(L1, L2);
+    assert(result.data == 123);
+
+    L2 = L1;
+    L1 = null;
+    result = mergeTwoSortedLists(L1, L2);
+    assert(result.data == 123);
+
+    L1 = new ListNode(-123, null);
+    L2 = new ListNode(123, null);
+    result = mergeTwoSortedLists(L1, L2);
+    assert(result.data == -123 && result.next.data == 123 &&
+           result.next.next == null);
+  }
+
   public static void main(String[] args) {
+    simpleTest();
     Random rnd = new Random();
     for (int times = 0; times < 10000; ++times) {
-      ListNode<Integer> F = null;
-      ListNode<Integer> L = null;
+      ListNode<Integer> L1 = null;
+      ListNode<Integer> L2 = null;
       int n, m;
       if (args.length == 2) {
         n = Integer.parseInt(args[0]);
@@ -55,26 +71,26 @@ public class MergeSortedLists {
       }
       for (int i = n; i > 0; --i) {
         ListNode<Integer> temp = new ListNode<>(i, null);
-        temp.next = F;
-        F = temp;
+        temp.next = L1;
+        L1 = temp;
       }
       for (int j = m; j > 0; --j) {
         ListNode<Integer> temp = new ListNode<>(j, null);
-        temp.next = L;
-        L = temp;
+        temp.next = L2;
+        L2 = temp;
       }
 
-      ListNode<Integer> sortedHead = mergeTwoSortedLinkedLists(F, L);
+      ListNode<Integer> sortedHead = mergeTwoSortedLists(L1, L2);
       int count = 0;
       int pre = Integer.MIN_VALUE;
       while (sortedHead != null) {
-        assert (pre <= sortedHead.data);
+        assert(pre <= sortedHead.data);
         pre = sortedHead.data;
         sortedHead = sortedHead.next;
         ++count;
       }
-      // Make sure the merged list have the same number of nodes as F and L.
-      assert (count == n + m);
+      // Make sure the merged list have the same number of nodes as L1 and L2.
+      assert(count == n + m);
     }
   }
 }

@@ -35,7 +35,7 @@ int CheckAnswer(const vector<int>& A) {
 }
 
 void SmallTest() {
-  vector<int> A = {2,3,4,1,2};
+  vector<int> A = {2, 3, 4, 1, 2};
   int area = CalculateLargestRectangle(A);
   int alter_area = CalculateLargestRectangleAlternative(A);
   assert(area == alter_area);

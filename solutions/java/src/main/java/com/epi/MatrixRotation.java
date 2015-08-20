@@ -1,4 +1,5 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
 import java.util.Random;
@@ -18,7 +19,7 @@ public class MatrixRotation {
     int k = 1;
     for (int j = A.length - 1; j >= 0; --j) {
       for (int[] element : A) {
-        assert (k++ == element[j]);
+        assert(k++ == element[j]);
       }
     }
   }
@@ -88,5 +89,4 @@ public class MatrixRotation {
       }
     }
   }
-
 }

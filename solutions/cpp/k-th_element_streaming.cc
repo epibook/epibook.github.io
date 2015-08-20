@@ -24,7 +24,13 @@ void find_kth_largest_stream(istringstream* sin, int k) {
   priority_queue<int, vector<int>, greater<int>> min_heap;
   // The first k elements, output the minimum element.
   int x;
+  // @exclude
+  // clang-format off
+  // @include
   for (int i = 0; i < k && *sin >> x; ++i) {
+    // @exclude
+    // clang-format on
+    // @include
     min_heap.emplace(x);
     cout << min_heap.top() << endl;
   }

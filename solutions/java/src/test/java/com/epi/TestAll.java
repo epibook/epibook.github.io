@@ -10,6 +10,8 @@ import org.junit.rules.Timeout;
 public class TestAll {
 
   static final String[] NO_ARGS = new String[0];
+  static final String[] SMALL_ARGS = {"10", "10"};
+  static final String[] ARGS = NO_ARGS;
 
   static int maxTimePerMethod = 100000;
 
@@ -26,593 +28,594 @@ public class TestAll {
   }
 
   @Test
-  public void testAddOperatorsinString() {
+  public void AddOperatorsinString() {
     // TODO(AA): find implementation
     // AddOperatorsinString.main(noArgs);
   }
 
   @Test
-  public void testAddingCredits() {
-    AddingCredits.main(NO_ARGS);
+  public void AddingCredits() {
+    AddingCredits.main(ARGS);
   }
 
   @Test
-  public void testAnagrams() {
-    Anagrams.main(NO_ARGS);
+  public void Anagrams() {
+    Anagrams.main(ARGS);
   }
 
   @Test
-  public void testAnonymousLetter() {
-    AnonymousLetter.main(NO_ARGS);
+  public void AnonymousLetter() {
+    AnonymousLetter.main(ARGS);
   }
 
   @Test
-  public void testApproximateSort() {
-    ApproximateSort.main(NO_ARGS);
+  public void ApproximateSort() {
+    ApproximateSort.main(ARGS);
   }
 
   @Test
-  public void testArbitrage() {
-    Arbitrage.main(NO_ARGS);
+  public void Arbitrage() {
+    Arbitrage.main(ARGS);
   }
 
   @Test
-  public void testBSTLowestCommonAncestor() {
-    BSTLowestCommonAncestor.main(NO_ARGS);
+  public void BSTLowestCommonAncestor() {
+    BSTLowestCommonAncestor.main(ARGS);
   }
 
   @Test
-  public void testBSTSortedOrderTemplate() {
-    BSTSortedOrderTemplate.main(NO_ARGS);
+  public void BSTSortedOrder() {
+    BSTSortedOrder.main(ARGS);
   }
 
   @Test
-  public void testBSTToSortedDoublyList() {
-    BSTToSortedDoublyList.main(NO_ARGS);
+  public void BSTToSortedDoublyList() {
+    BSTToSortedDoublyList.main(ARGS);
   }
 
   @Test
-  public void testBalancedBinaryTreeTemplate() {
-    BalancedBinaryTreeTemplate.main(NO_ARGS);
+  public void BalancedBinaryTree() {
+    BalancedBinaryTree.main(ARGS);
   }
 
   @Test
-  public void testBentleybsearch() {
-    Bentleybsearch.main(NO_ARGS);
+  public void BentleyBsearch() {
+    BentleyBsearch.main(ARGS);
   }
 
   @Test
-  public void testBigNumberMultiplication() {
-    BigNumberMultiplication.main(NO_ARGS);
+  public void BigNumberMultiplication() {
+    BigNumberMultiplication.main(ARGS);
   }
 
   @Test
-  public void testBiggestProductNMinus1() {
-    BiggestProductNMinus1.main(NO_ARGS);
+  public void BiggestProductNMinus1() {
+    BiggestProductNMinus1.main(ARGS);
   }
 
   @Test
-  public void testBiggestProductNMinus1Math() {
-    BiggestProductNMinus1Math.main(NO_ARGS);
+  public void BiggestProductNMinus1Math() {
+    BiggestProductNMinus1Math.main(ARGS);
   }
 
-  // @Test public void testBinaryOperator() { BinaryOperator.main(noArgs); }
+  // @Test public void BinaryOperator() { BinaryOperator.main(noArgs); }
   @Test
-  public void testBinarySearchAiEqI() {
-    BinarySearchAiEqI.main(NO_ARGS);
-  }
-
-  @Test
-  public void testBinarySearchCircularArrayTemplate() {
-    BinarySearchCircularArrayTemplate.main(NO_ARGS);
+  public void BinarySearchAiEqI() {
+    BinarySearchAiEqI.main(ARGS);
   }
 
   @Test
-  public void testBinarySearchCircularArrayWithDuplicatesTemplate() {
-    BinarySearchCircularArrayWithDuplicatesTemplate.main(NO_ARGS);
+  public void BinarySearchCircularArray() {
+    BinarySearchCircularArray.main(NO_ARGS);
   }
 
   @Test
-  public void testBinarySearchFirstKTemplate() {
-    BinarySearchFirstKTemplate.main(NO_ARGS);
+  public void BinarySearchCircularArrayWithDuplicates() {
+    BinarySearchCircularArrayWithDuplicates.main(NO_ARGS);
   }
 
   @Test
-  public void testBinarySearchLargerKTemplate() {
-    BinarySearchLargerKTemplate.main(NO_ARGS);
+  public void BinarySearchFirstK() {
+    BinarySearchFirstK.main(NO_ARGS);
   }
 
-  // @Test public void testBinarySearchTree() { BinarySearchTree.main(noArgs); }
   @Test
-  public void testBinarySearchUnknownLengthTemplate() {
+  public void BinarySearchLargerK() {
+    BinarySearchLargerK.main(NO_ARGS);
+  }
+
+  // @Test public void BinarySearchTree() { BinarySearchTree.main(noArgs); }
+  @Test
+  public void BinarySearchUnknownLength() {
     String[] args = { "100" };
-    BinarySearchUnknownLengthTemplate.main(args);
+    BinarySearchUnknownLength.main(args);
   }
 
   @Test
-  public void testBinaryTreeLevelOrderTemplate() {
-    BinaryTreeLevelOrderTemplate.main(NO_ARGS);
+  public void BinaryTreeLevelOrder() {
+    BinaryTreeLevelOrder.main(NO_ARGS);
   }
 
   @Test
-  public void testBinaryTreeLockTemplate() {
-    BinaryTreeLockTemplate.main(NO_ARGS);
+  public void BinaryTreeLock() {
+    BinaryTreeLock.main(NO_ARGS);
   }
 
-  // @Test public void testBinaryTreePrototypeTemplate() {
+  // @Test public void BinaryTreePrototypeTemplate() {
   // BinaryTreePrototypeTemplate.main(noArgs); }
-  // @Test public void testBinaryTreeUtils() { BinaryTreeUtils.main(noArgs); }
-  // @Test public void testBinaryTreeWithParentPrototype() {
+  // @Test public void BinaryTreeUtils() { BinaryTreeUtils.main(noArgs); }
+  // @Test public void BinaryTreeWithParentPrototype() {
   // BinaryTreeWithParentPrototype.main(noArgs); }
   @Test
-  public void testBuildBSTFromSortedArray() {
-    BuildBSTFromSortedArray.main(NO_ARGS);
+  public void BuildBSTFromSortedArray() {
+    BuildBSTFromSortedArray.main(ARGS);
   }
 
   @Test
-  public void testCanStringBePalindrome() {
-    CanStringBePalindrome.main(NO_ARGS);
+  public void CanStringBePalindrome() {
+    CanStringBePalindrome.main(ARGS);
   }
 
-  // @Test public void testCanStringBePalindromeHash() {
+  // @Test public void CanStringBePalindromeHash() {
   // CanStringBePalindromeHash.main(noArgs); }
-  // @Test public void testCanStringBePalindromeSorting() {
+  // @Test public void CanStringBePalindromeSorting() {
   // CanStringBePalindromeSorting.main(noArgs); }
   @Test
-  public void testCelebrityFinding() {
-    CelebrityFinding.main(NO_ARGS);
+  public void CelebrityFinding() {
+    CelebrityFinding.main(ARGS);
   }
 
   @Test
-  public void testCheckingCycle() {
-    CheckingCycle.main(NO_ARGS);
+  public void CheckingCycle() {
+    CheckingCycle.main(ARGS);
   }
 
   @Test
-  public void testCheckingCycleAlternative() {
-    CheckingCycleAlternative.main(NO_ARGS);
+  public void CheckingCycleAlternative() {
+    CheckingCycleAlternative.main(ARGS);
   }
 
   @Test
-  public void testCircularQueueTemplate() {
-    CircularQueueTemplate.main(NO_ARGS);
+  public void CircularQueue() {
+    CircularQueue.main(ARGS);
   }
 
   @Test
-  public void testCloseSearch() {
-    CloseSearch.main(NO_ARGS);
+  public void CloseSearch() {
+    CloseSearch.main(ARGS);
   }
 
   @Test
-  public void testClosestIntSameBits() {
-    ClosestIntSameBits.main(NO_ARGS);
+  public void ClosestIntSameBits() {
+    ClosestIntSameBits.main(ARGS);
   }
 
   @Test
-  public void testClosestPairPoints() {
+  public void ClosestPairPoints() {
     String[] args = { "500" };
     ClosestPairPoints.main(args);
   }
 
   @Test
-  public void testClosestPalindrome() {
-    ClosestPalindrome.main(NO_ARGS);
+  public void ClosestPalindrome() {
+    ClosestPalindrome.main(ARGS);
   }
 
   @Test
-  public void testClosestStars() {
-    ClosestStars.main(NO_ARGS);
+  public void ClosestStars() {
+    ClosestStars.main(ARGS);
   }
 
   @Test
-  public void testClosestToMedian() {
+  public void ClosestToMedian() {
     String[] args = { "100", "10" };
     ClosestToMedian.main(args);
   }
 
   @Test
-  public void testCollatzConjecture() {
-    CollatzConjecture.main(NO_ARGS);
+  public void CollatzConjecture() {
+    CollatzConjecture.main(ARGS);
   }
 
   @Test
-  public void testCompareKthLargestInHeap() {
+  public void CompareKthLargestInHeap() {
     String[] args = { "100" };
     CompareKthLargestInHeap.main(args);
   }
 
   @Test
-  public void testCompletionSearch() {
-    CompletionSearch.main(NO_ARGS);
+  public void CompletionSearch() {
+    CompletionSearch.main(ARGS);
   }
 
   @Test
-  public void testComputingBinomialCoefficients() {
-    ComputingBinomialCoefficients.main(NO_ARGS);
+  public void ComputingBinomialCoefficients() {
+    ComputingBinomialCoefficients.main(ARGS);
   }
 
   @Test
-  public void testComputingXPowN() {
-    ComputingXPowN.main(NO_ARGS);
+  public void ComputingXPowN() {
+    ComputingXPowN.main(ARGS);
   }
 
   @Test
-  public void testConnectLeavesBinaryTreeTemplate() {
-    ConnectLeavesBinaryTreeTemplate.main(NO_ARGS);
+  public void ConnectLeavesBinaryTree() {
+    ConnectLeavesBinaryTree.main(ARGS);
   }
 
   @Test
-  public void testConvertBase() {
-    ConvertBase.main(NO_ARGS);
+  public void ConvertBase() {
+    ConvertBase.main(ARGS);
   }
 
   @Test
-  public void testCopyingPostingsList() {
+  public void CopyingPostingsList() {
     // TODO(AA): wait for alex to come back on type definition of NodeT
-    CopyingPostingsList.main(NO_ARGS);
+    CopyingPostingsList.main(ARGS);
   }
 
   @Test
-  public void testCountInversions() {
+  public void CountInversions() {
     String[] args = { "100" };
     CountInversions.main(args);
   }
 
   @Test
-  public void testCount_occurrences_in_sentence() {
-    CountOccurrencesInSentence.main(NO_ARGS);
+  public void CountOccurrencesInSentence() {
+    CountOccurrencesInSentence.main(ARGS);
   }
 
   @Test
-  public void testCounting_sort() {
-    CountingSort.main(NO_ARGS);
+  public void CountingSort() {
+    CountingSort.main(ARGS);
   }
 
   @Test
-  public void testDeletionListTemplate() {
-    DeletionListTemplate.main(NO_ARGS);
+  public void DeletionList() {
+    DeletionList.main(ARGS);
   }
 
   @Test
-  public void testDescendantAndAncestor() {
-    DescendantAndAncestor.main(NO_ARGS);
+  public void DescendantAndAncestor() {
+    DescendantAndAncestor.main(ARGS);
   }
 
   @Test
-  public void testDivision() {
-    Division.main(NO_ARGS);
+  public void Division() {
+    Division.main(ARGS);
   }
 
   @Test
-  public void testDoors() {
-    Doors.main(NO_ARGS);
+  public void Doors() {
+    Doors.main(ARGS);
   }
 
-  // @Test public void testDoublyLinkedListPrototypeTemplate() {
+  // @Test public void DoublyLinkedListPrototypeTemplate() {
   // DoublyLinkedListPrototypeTemplate.main(noArgs); }
   @Test
-  public void testDrawingSkylines() {
-    DrawingSkylines.main(NO_ARGS);
+  public void DrawingSkylines() {
+    DrawingSkylines.main(ARGS);
   }
 
   @Test
-  public void testDutchNationalFlag() {
-    DutchNationalFlag.main(NO_ARGS);
+  public void DutchNationalFlag() {
+    DutchNationalFlag.main(ARGS);
   }
 
   @Test
-  public void testEliasCoding() {
-    EliasCoding.main(NO_ARGS);
+  public void EliasCoding() {
+    EliasCoding.main(ARGS);
   }
 
   @Test
-  public void testEliminate_duplicate() {
-    EliminateDuplicate.main(NO_ARGS);
+  public void EliminateDuplicate() {
+    EliminateDuplicate.main(ARGS);
   }
 
   @Test
-  public void testEquivClasses() {
-    EquivClasses.main(NO_ARGS);
+  public void EquivClasses() {
+    EquivClasses.main(ARGS);
   }
 
   @Test
-  public void testEvenOddMergeLinkedListTemplate() {
-    EvenOddMergeLinkedListTemplate.main(NO_ARGS);
+  public void EvenOddMergeLinkedList() {
+    EvenOddMergeLinkedList.main(ARGS);
   }
 
   @Test
-  public void testExteriorBinaryTreeTemplate() {
-    ExteriorBinaryTreeTemplate.main(NO_ARGS);
+  public void ExteriorBinaryTree() {
+    ExteriorBinaryTree.main(ARGS);
   }
 
   @Test
-  public void testFindElementAppearsOnce() {
-    FindElementAppearsOnce.main(NO_ARGS);
+  public void FindElementAppearsOnce() {
+    FindElementAppearsOnce.main(ARGS);
   }
 
   @Test
-  public void testFindKLargestBST() {
-    FindKLargestBST.main(NO_ARGS);
+  public void FindKLargestBST() {
+    FindKLargestBST.main(ARGS);
   }
 
   @Test
-  public void testFindKthElementInTwoSortedArraysTemplate() {
-    FindKthElementInTwoSortedArraysTemplate.main(NO_ARGS);
+  public void FindKthElementInTwoSortedArrays() {
+    FindKthElementInTwoSortedArrays.main(ARGS);
   }
 
   @Test
-  public void testFindMissingAndDuplicate() {
-    FindMissingAndDuplicate.main(NO_ARGS);
+  public void FindMissingAndDuplicate() {
+    FindMissingAndDuplicate.main(ARGS);
   }
 
   @Test
-  public void testFindMissingAndDuplicateXOR() {
-    FindMissingAndDuplicateXOR.main(NO_ARGS);
+  public void FindMissingAndDuplicateXOR() {
+    FindMissingAndDuplicateXOR.main(ARGS);
   }
 
   @Test
-  public void testFindingMinMax() {
-    FindingMinMax.main(NO_ARGS);
+  public void FindingMinMax() {
+    FindingMinMax.main(ARGS);
   }
 
   @Test
-  public void testGCD() {
-    GCD.main(NO_ARGS);
+  public void GCD() {
+    GCD.main(ARGS);
   }
 
   @Test
-  public void testGassingUp() {
-    GassingUp.main(NO_ARGS);
+  public void GassingUp() {
+    GassingUp.main(ARGS);
   }
 
   @Test
-  public void testGaussianElimination() {
-    GaussianElimination.main(NO_ARGS);
+  public void GaussianElimination() {
+    GaussianElimination.main(ARGS);
   }
 
   @Test
-  public void testGaussianPrimes() {
+  public void GaussianPrimes() {
     String[] args = { "35" };
     GaussianPrimes.main(args);
   }
 
   @Test
-  public void testGeneratingABSqrt2() {
-    GeneratingABSqrt2.main(NO_ARGS);
+  public void GeneratingABSqrt2() {
+    GeneratingABSqrt2.main(ARGS);
   }
 
   @Test
-  public void testHashDictionary() {
-    HashDictionary.main(NO_ARGS);
+  public void HashDictionary() {
+    HashDictionary.main(ARGS);
   }
 
   @Test
-  public void testHeightDetermination() {
-    HeightDetermination.main(NO_ARGS);
+  public void HeightDetermination() {
+    HeightDetermination.main(ARGS);
   }
 
   @Test
-  public void testHouseMajority() {
-    HouseMajority.main(NO_ARGS);
+  public void HouseMajority() {
+    HouseMajority.main(ARGS);
   }
 
   @Test
-  public void testHuffmanEncoding() {
-    HuffmanEncoding.main(NO_ARGS);
+  public void HuffmanEncoding() {
+    HuffmanEncoding.main(ARGS);
   }
 
   @Test
-  public void testImageCompression() {
-    ImageCompression.main(NO_ARGS);
+  public void ImageCompression() {
+    ImageCompression.main(ARGS);
   }
 
   @Test
-  public void testIndirect_sort() {
+  public void IndirectSort() {
     try {
-      IndirectSort.main(NO_ARGS);
+      IndirectSort.main(ARGS);
     } catch (Exception e) {
       fail();
     }
   }
 
   @Test
-  public void testInorderTraversalNoStackTemplate() {
-    InorderTraversalNoStackTemplate.main(NO_ARGS);
+  public void InorderTraversalNoStack() {
+    InorderTraversalNoStack.main(ARGS);
   }
 
   @Test
-  public void testInorderTraversalWithParentTemplate() {
-    InorderTraversalWithParentTemplate.main(NO_ARGS);
+  public void InorderTraversalWithParent() {
+    InorderTraversalWithParent.main(ARGS);
   }
 
   @Test
-  public void testInterconvertingStringInteger() {
-    InterconvertingStringInteger.main(NO_ARGS);
+  public void InterconvertingStringInteger() {
+    InterconvertingStringInteger.main(ARGS);
   }
 
   @Test
-  public void testIntersectRectangle() {
-    IntersectRectangle.main(NO_ARGS);
+  public void IntersectRectangle() {
+    IntersectRectangle.main(ARGS);
   }
 
   @Test
-  public void testIntersect_sorted_arrays() {
-    IntersectSortedArrays.main(NO_ARGS);
-  }
-
-  // @Test public void testIntersect_sorted_arrays1() {
-  // Intersect_sorted_arrays1.main(noArgs); }
-  // @Test public void testIntersect_sorted_arrays2() {
-  // Intersect_sorted_arrays2.main(noArgs); }
-  // @Test public void testIntersect_sorted_arrays3() {
-  // Intersect_sorted_arrays3.main(noArgs); }
-  @Test
-  public void testIsBinaryTreeABST() {
-    IsBinaryTreeABST.main(NO_ARGS);
+  public void IntersectSortedArrays() {
+    IntersectSortedArrays.main(ARGS);
   }
 
   @Test
-  public void testIsBinaryTreeABSTConstSpace() {
-    IsBinaryTreeABSTConstSpace.main(NO_ARGS);
+  public void IsBinaryTreeABST() {
+    IsBinaryTreeABST.main(ARGS);
   }
 
   @Test
-  public void testJobAssignment() {
-    JobAssignment.main(NO_ARGS);
+  public void IsBinaryTreeABSTConstSpace() {
+    IsBinaryTreeABSTConstSpace.main(ARGS);
   }
 
   @Test
-  public void testKBalancedBinaryTreeTemplate() {
-    KBalancedBinaryTreeTemplate.main(NO_ARGS);
+  public void JobAssignment() {
+    JobAssignment.main(ARGS);
   }
 
   @Test
-  public void testKThNodeBinaryTreeTemplate() {
-    KThNodeBinaryTreeTemplate.main(NO_ARGS);
+  public void KBalancedBinaryTree() {
+    KBalancedBinaryTree.main(ARGS);
   }
 
   @Test
-  public void testKthElementStreaming() {
-    KthElementStreaming.main(NO_ARGS);
+  public void KLargestElementsBinaryHeap() {
+    KLargestElementsBinaryHeap.main(ARGS);
   }
 
   @Test
-  public void testKthLargestElementLargeN() {
+  public void KthElementStreaming() {
+    KthElementStreaming.main(ARGS);
+  }
+
+  @Test
+  public void KthLargestElementLargeN() {
     String[] args = { "100", "10" };
     KthLargestElementLargeN.main(args);
   }
 
   @Test
-  public void testKthLargestElementTemplate() {
-    KthLargestElementTemplate.main(NO_ARGS);
+  public void LRUCache() {
+    LRUCache.main(ARGS);
+  }
+
+  // Could get one of two exceptions, so cannot use
+  // the expected=... syntax
+  //@Test(expected = ArrayIndexOutOfBoundsException.class)
+  @Test
+  public void LargeArray() {
+    try {
+      LargeArray.main(ARGS);
+      fail("Expected ArrayIndexOutOfBoundsException");
+    } catch (ArrayIndexOutOfBoundsException e) {
+      // Expected, because of math overflow
+    } catch (OutOfMemoryError e) {
+      // This will be thrown if jvm is run with less than 6GB
+    }
+  }
+
+  @Test public void LargestRectangleUnderSkyline() {
+    LargestRectangleUnderSkyline.main(ARGS);
   }
 
   @Test
-  public void testLRUCache() {
-    LRUCache.main(NO_ARGS);
-  }
-
-  @Test(expected = ArrayIndexOutOfBoundsException.class)
-  public void testLargeArray() {
-    LargeArray.main(NO_ARGS);
-  }
-
-  // @Test public void testLargestRectangleUnderSkyline() {
-  // LargestRectangleUnderSkyline.main(noArgs); }
-  @Test
-  public void testLazyInit() {
-    LazyInit.main(NO_ARGS);
+  public void LazyInit() {
+    LazyInit.main(ARGS);
   }
 
   @Test
-  public void testLevenshteinDistance() {
-    LevenshteinDistance.main(NO_ARGS);
+  public void LevenshteinDistance() {
+    LevenshteinDistance.main(ARGS);
   }
 
   @Test
-  public void testLineMostPoints() {
+  public void LineMostPoints() {
     String[] args = { "50" };
     LineMostPoints.main(args);
   }
 
-  // @Test public void testLinkedListPrototypeTemplate() {
+  // @Test public void LinkedListPrototypeTemplate() {
   // LinkedListPrototypeTemplate.main(noArgs); }
   @Test
-  public void testLinked_list() {
-    LinkedList.main(NO_ARGS);
+  public void Linked_list() {
+    LinkedList.main(ARGS);
   }
 
   @Test
-  public void testLoadBalancing() {
-    LoadBalancing.main(NO_ARGS);
+  public void LoadBalancing() {
+    LoadBalancing.main(ARGS);
   }
 
   @Test
-  public void testLongestIncreasingSubarray() {
-    LongestIncreasingSubarray.main(NO_ARGS);
+  public void LongestIncreasingSubarray() {
+    LongestIncreasingSubarray.main(ARGS);
   }
 
-  // @Test public void testLongestNondecreasingSubsequenceN2() {
+  // @Test public void LongestNondecreasingSubsequenceN2() {
   // LongestNondecreasingSubsequenceN2.main(noArgs); }
-  // @Test public void testLongestNondecreasingSubsequenceNlogn() {
+  // @Test public void LongestNondecreasingSubsequenceNlogn() {
   // LongestNondecreasingSubsequenceNlogn.main(noArgs); }
   @Test
-  public void testLongestSubarrayK() {
+  public void LongestSubarrayK() {
     String[] args = { "100" };
     LongestSubarrayK.main(args);
   }
 
   @Test
-  public void testLowestCommonAncestorHashTemplate() {
-    LowestCommonAncestorHashTemplate.main(NO_ARGS);
+  public void LowestCommonAncestorHash() {
+    LowestCommonAncestorHash.main(ARGS);
   }
 
   @Test
-  public void testLowestCommonAncestorNoParentTemplate() {
-    LowestCommonAncestorNoParentTemplate.main(NO_ARGS);
+  public void LowestCommonAncestorNoParent() {
+    LowestCommonAncestorNoParent.main(ARGS);
   }
 
   @Test
-  public void testLowestCommonAncestorTemplate() {
-    LowestCommonAncestorTemplate.main(NO_ARGS);
+  public void LowestCommonAncestor() {
+    LowestCommonAncestor.main(ARGS);
   }
 
   @Test
-  public void testMatrixRotation() {
-    MatrixRotation.main(NO_ARGS);
+  public void MatrixRotation() {
+    MatrixRotation.main(ARGS);
   }
 
   @Test
-  public void testMatrixRotationConstant() {
-    MatrixRotationConstant.main(NO_ARGS);
+  public void MatrixRotationConstant() {
+    MatrixRotationConstant.main(ARGS);
   }
 
   @Test
-  public void testMatrixRotationNaive() {
-    MatrixRotationNaive.main(NO_ARGS);
+  public void MatrixRotationNaive() {
+    MatrixRotationNaive.main(ARGS);
   }
 
   @Test
-  public void testMatrixSearch() {
-    MatrixSearch.main(NO_ARGS);
+  public void MatrixSearch() {
+    MatrixSearch.main(ARGS);
   }
 
   @Test
-  public void testMaxDifferenceKPairs() {
-    MaxDifferenceKPairs.main(NO_ARGS);
+  public void MaxDifferenceKPairs() {
+    MaxDifferenceKPairs.main(ARGS);
   }
 
   @Test
-  public void testMaxDifferenceUnlimitedPairs() {
-    MaxDifferenceUnlimitedPairs.main(NO_ARGS);
+  public void MaxDifferenceUnlimitedPairs() {
+    MaxDifferenceUnlimitedPairs.main(ARGS);
   }
 
   @Test
-  public void testMaxSubmatrixRectangle() {
-    MaxSubmatrixRectangle.main(NO_ARGS);
+  public void MaxSubmatrixRectangle() {
+    MaxSubmatrixRectangle.main(ARGS);
   }
 
-  // @Test public void testMaxSubmatrixRectangleBruteForce() {
+  // @Test public void MaxSubmatrixRectangleBruteForce() {
   // MaxSubmatrixRectangleBruteForce.main(noArgs); }
   @Test
-  public void testMaxSubmatrixRectangleImproved() {
+  public void MaxSubmatrixRectangleImproved() {
     String[] args = { "16", "32" };
     MaxSubmatrixRectangleImproved.main(args);
   }
 
   @Test
-  public void testMaxSubmatrixSquare() {
-    MaxSubmatrixSquare.main(NO_ARGS);
+  public void MaxSubmatrixSquare() {
+    MaxSubmatrixSquare.main(ARGS);
   }
 
   @Test
-  public void testMaxSumSubarray() {
+  public void MaxSumSubarray() {
     String[] args = { "100" };
     MaxSumSubarray.main(args);
   }
 
   @Test
-  public void testMaximumSubarrayInCircularArray() {
+  public void MaximumSubarrayInCircularArray() {
     String[] args = { "100" };
     // TODO(AA): ArrayIndexOutOfBoundsException: 1
     // com.epi.MaximumSubarrayInCircularArray.main(MaximumSubarrayInCircularArray.java:83)
@@ -620,656 +623,671 @@ public class TestAll {
   }
 
   @Test
-  public void testMaximumSubarrayInCircularArrayConstantSpace() {
+  public void MaximumSubarrayInCircularArrayConstantSpace() {
     String[] args = { "100" };
     MaximumSubarrayInCircularArrayConstantSpace.main(args);
   }
 
   @Test
-  public void testMedianSortedCircularLinkedListTemplate() {
-    MedianSortedCircularLinkedListTemplate.main(NO_ARGS);
+  public void MedianSortedCircularLinkedList() {
+    MedianSortedCircularLinkedList.main(ARGS);
   }
 
-  // @Test public void testMergeSortedArrays() { MergeSortedArrays.main(noArgs);
-  // }
-  @Test
-  public void testMergeSortedListsTemplate() {
-    MergeSortedListsTemplate.main(NO_ARGS);
+  @Test public void MergeSortedArrays() {
+    MergeSortedArrays.main(ARGS);
   }
 
   @Test
-  public void testMergeTwoBSTs() {
-    MergeTwoBSTs.main(NO_ARGS);
+  public void MergeSortedLists() {
+    MergeSortedLists.main(ARGS);
   }
 
   @Test
-  public void testMinimumDistance3SortedArrays() {
+  public void MergeTwoBSTs() {
+    MergeTwoBSTs.main(ARGS);
+  }
+
+  @Test
+  public void MinimumDistance3SortedArrays() {
     String[] args = { "3" };
     MinimumDistance3SortedArrays.main(args);
   }
 
   @Test
-  public void testMinimumSubarrayDifference() {
-    MinimumSubarrayDifference.main(NO_ARGS);
+  public void MinimumSubarrayDifference() {
+    MinimumSubarrayDifference.main(ARGS);
   }
 
   @Test
-  public void testMinimumWaitingTime() {
-    MinimumWaitingTime.main(NO_ARGS);
+  public void MinimumWaitingTime() {
+    MinimumWaitingTime.main(ARGS);
   }
 
   @Test
-  public void testMissingElement() {
-    MissingElement.main(NO_ARGS);
+  public void MissingElement() {
+    MissingElement.main(ARGS);
   }
 
   @Test
-  public void testMultibetCardColorGame() {
-    MultibetCardColorGame.main(NO_ARGS);
+  public void MultibetCardColorGame() {
+    MultibetCardColorGame.main(ARGS);
   }
 
   @Test
-  public void testMultiplyShiftAdd() {
-    MultiplyShiftAdd.main(NO_ARGS);
+  public void MultiplyShiftAdd() {
+    MultiplyShiftAdd.main(ARGS);
   }
 
   @Test
-  public void testNearestRepetition() {
+  public void NearestRepetition() {
     String[] args = { "100" };
     NearestRepetition.main(args);
   }
 
   @Test
-  public void testNearestRestaurant() {
-    NearestRestaurant.main(NO_ARGS);
+  public void NearestRestaurant() {
+    NearestRestaurant.main(ARGS);
   }
 
   @Test
-  public void testNextPermutation() {
-    NextPermutation.main(NO_ARGS);
-  }
-
-  // @Test public void testNodeT() { NodeT.main(noArgs); }
-  @Test
-  public void testNonUniformRandomNumberGeneration() {
-    NonUniformRandomNumberGeneration.main(NO_ARGS);
+  public void NextPermutation() {
+    NextPermutation.main(ARGS);
   }
 
   @Test
-  public void testNormalizedPathnames() {
-    NormalizedPathnames.main(NO_ARGS);
+  public void NonconstructibleChange() {
+    NonconstructibleChange.main(ARGS);
   }
 
   @Test
-  public void testNumberWays() {
-    NumberWays.main(NO_ARGS);
+  public void NonUniformRandomNumberGeneration() {
+    NonUniformRandomNumberGeneration.main(ARGS);
   }
 
   @Test
-  public void testNumberWaysObstacles() {
-    NumberWaysObstacles.main(NO_ARGS);
-  }
-
-  // @Test public void testObjectWrapper() { ObjectWrapper.main(noArgs); }
-  @Test
-  public void testOfflineMinimum() {
-    OfflineMinimum.main(NO_ARGS);
+  public void NormalizedPathnames() {
+    NormalizedPathnames.main(ARGS);
   }
 
   @Test
-  public void testOfflineSampling() {
-    OfflineSampling.main(NO_ARGS);
+  public void NumberWays() {
+    NumberWays.main(ARGS);
   }
 
   @Test
-  public void testOnlineMedian() {
-    OnlineMedian.main(NO_ARGS);
+  public void NumberWaysObstacles() {
+    NumberWaysObstacles.main(ARGS);
   }
 
   @Test
-  public void testOnlineSampling() {
-    OnlineSampling.main(NO_ARGS);
+  public void OfflineMinimum() {
+    OfflineMinimum.main(ARGS);
   }
 
   @Test
-  public void testOverlappingListsNoCycle() {
-    OverlappingListsNoCycle.main(NO_ARGS);
+  public void OfflineSampling() {
+    OfflineSampling.main(ARGS);
   }
 
   @Test
-  public void testOverlappingListsTemplate() {
-    OverlappingListsTemplate.main(NO_ARGS);
+  public void OnlineMedian() {
+    OnlineMedian.main(ARGS);
   }
 
   @Test
-  public void testPaintingIterative() {
-    PaintingIterative.main(NO_ARGS);
+  public void OnlineSampling() {
+    OnlineSampling.main(ARGS);
   }
 
   @Test
-  public void testPaintingRecursive() {
-    PaintingRecursive.main(NO_ARGS);
-  }
-
-  // @Test public void testPair() { Pair.main(noArgs); }
-  @Test
-  public void testPalindromeLinkedListTemplate() {
-    PalindromeLinkedListTemplate.main(NO_ARGS);
+  public void OverlappingListsNoCycle() {
+    OverlappingListsNoCycle.main(ARGS);
   }
 
   @Test
-  public void testParity() {
-    Parity.main(NO_ARGS);
+  public void OverlappingLists() {
+    OverlappingLists.main(ARGS);
   }
 
-  // @Test public void testParity1() { Parity1.main(noArgs); }
-  // @Test public void testParity2() { Parity2.main(noArgs); }
-  // @Test public void testParity3() { Parity3.main(noArgs); }
-  // @Test public void testParity4() { Parity4.main(noArgs); }
   @Test
-  public void testPermutationArray() {
-    PermutationArray.main(NO_ARGS);
+  public void PaintingIterative() {
+    PaintingIterative.main(ARGS);
   }
 
-  // @Test public void testPermutationArray1() { PermutationArray1.main(noArgs);
+  @Test
+  public void PaintingRecursive() {
+    PaintingRecursive.main(ARGS);
+  }
+
+  // @Test public void Pair() { Pair.main(noArgs); }
+  @Test
+  public void PalindromeLinkedList() {
+    PalindromeLinkedList.main(ARGS);
+  }
+
+  @Test
+  public void Parity() {
+    Parity.main(ARGS);
+  }
+
+  // @Test public void Parity1() { Parity1.main(noArgs); }
+  // @Test public void Parity2() { Parity2.main(noArgs); }
+  // @Test public void Parity3() { Parity3.main(noArgs); }
+  // @Test public void Parity4() { Parity4.main(noArgs); }
+  @Test
+  public void PermutationArray() {
+    PermutationArray.main(ARGS);
+  }
+
+  // @Test public void PermutationArray1() { PermutationArray1.main(noArgs);
   // }
-  // @Test public void testPermutationArray2() { PermutationArray2.main(noArgs);
+  // @Test public void PermutationArray2() { PermutationArray2.main(noArgs);
   // }
   @Test
-  public void testPhoneMnemonic() {
-    PhoneMnemonic.main(NO_ARGS);
+  public void PhoneMnemonic() {
+    PhoneMnemonic.main(ARGS);
   }
 
   @Test
-  public void testPickingUpCoins() {
-    PickingUpCoins.main(NO_ARGS);
+  public void PickingUpCoins() {
+    PickingUpCoins.main(ARGS);
   }
 
   @Test
-  public void testPickingUpCoinsDontLose() {
-    PickingUpCoinsDontLose.main(NO_ARGS);
+  public void PickingUpCoinsDontLose() {
+    PickingUpCoinsDontLose.main(ARGS);
   }
 
   @Test
-  public void testPlanningFishing() {
-    PlanningFishing.main(NO_ARGS);
+  public void PlanningFishing() {
+    PlanningFishing.main(ARGS);
   }
 
   @Test
-  public void testPoints_covering_intervals() {
-    PointsCoveringIntervals.main(NO_ARGS);
+  public void PointsCoveringIntervals() {
+    PointsCoveringIntervals.main(ARGS);
   }
 
   @Test
-  public void testPoints_covering_intervals_alternative() {
-    PointsCoveringIntervalsAlternative.main(NO_ARGS);
+  public void PointsCoveringIntervalsAlternative() {
+    PointsCoveringIntervalsAlternative.main(ARGS);
   }
 
-  // @Test public void testPostingsListPrototype() {
+  // @Test public void PostingsListPrototype() {
   // PostingsListPrototype.main(noArgs); }
   @Test
-  public void testPowerSet() {
-    PowerSet.main(NO_ARGS);
+  public void PowerSet() {
+    PowerSet.main(ARGS);
   }
 
   @Test
-  public void testPowerSetAlternative() {
-    PowerSetAlternative.main(NO_ARGS);
+  public void PowerSetAlternative() {
+    PowerSetAlternative.main(ARGS);
   }
 
   @Test
-  public void testPrettyPrinting() {
-    PrettyPrinting.main(NO_ARGS);
+  public void PrettyPrinting() {
+    PrettyPrinting.main(ARGS);
   }
 
   @Test
-  public void testPrimeSieve() {
+  public void PrimeSieve() {
     String[] args = { "1000" };
     PrimeSieve.main(args);
   }
 
   @Test
-  public void testQueueFromStacksTemplate() {
-    QueueFromStacksTemplate.main(NO_ARGS);
+  public void QueueFromStacks() {
+    QueueFromStacks.main(ARGS);
   }
 
   @Test
-  public void testQueueUsingTwoIntegers() {
-    QueueUsingTwoIntegers.main(NO_ARGS);
+  public void QueueUsingTwoIntegers() {
+    QueueUsingTwoIntegers.main(ARGS);
   }
 
   @Test
-  public void testQueueWithMax() {
-    QueueWithMax.main(NO_ARGS);
+  public void QueueWithMax() {
+    QueueWithMax.main(ARGS);
   }
 
   @Test
-  public void testQueueWithMaxUsingDeque() {
-    QueueWithMaxUsingDeque.main(NO_ARGS);
+  public void QueueWithMaxUsingDeque() {
+    QueueWithMaxUsingDeque.main(ARGS);
   }
 
   @Test
-  public void testRPN() {
-    RPN.main(NO_ARGS);
+  public void RPN() {
+    RPN.main(ARGS);
   }
 
   @Test
-  public void testRearrange() {
-    Rearrange.main(NO_ARGS);
+  public void RabinKarp() {
+    RabinKarp.main(ARGS);
   }
 
   @Test
-  public void testRebuildBSTPostorder() {
-    RebuildBSTPostorder.main(NO_ARGS);
+  public void RangeLookupBST() {
+    RangeLookupBST.main(ARGS);
   }
 
   @Test
-  public void testRebuildBSTPreorder() {
-    RebuildBSTPreorder.main(NO_ARGS);
+  public void Rearrange() {
+    Rearrange.main(ARGS);
   }
 
   @Test
-  public void testRebuildBSTPreorderBetter() {
-    RebuildBSTPreorderBetter.main(NO_ARGS);
+  public void RebuildBSTPostorder() {
+    RebuildBSTPostorder.main(ARGS);
   }
 
   @Test
-  public void testReconstructBinaryTreePostInOrdersTemplate() {
-    ReconstructBinaryTreePostInOrdersTemplate.main(NO_ARGS);
+  public void RebuildBSTPreorder() {
+    RebuildBSTPreorder.main(ARGS);
   }
 
   @Test
-  public void testReconstructBinaryTreePreInOrdersTemplate() {
-    ReconstructBinaryTreePreInOrdersTemplate.main(NO_ARGS);
+  public void RebuildBSTPreorderBetter() {
+    RebuildBSTPreorderBetter.main(ARGS);
   }
 
   @Test
-  public void testReconstructPreorderWithNullTemplate() {
-    ReconstructPreorderWithNullTemplate.main(NO_ARGS);
+  public void ReconstructBinaryTreePostInOrders() {
+    ReconstructBinaryTreePostInOrders.main(ARGS);
   }
 
   @Test
-  public void testRegularExpression() {
-    RegularExpression.main(NO_ARGS);
+  public void ReconstructBinaryTreePreInOrders() {
+    ReconstructBinaryTreePreInOrders.main(ARGS);
   }
 
   @Test
-  public void testRemoveKthLastListTemplate() {
-    RemoveKthLastListTemplate.main(NO_ARGS);
+  public void ReconstructPreorderWithNull() {
+    ReconstructPreorderWithNull.main(ARGS);
   }
 
   @Test
-  public void testRendering_calendar() {
-    RenderingCalendar.main(NO_ARGS);
+  public void RegularExpression() {
+    RegularExpression.main(ARGS);
   }
 
   @Test
-  public void testReplaceAndRemove() {
-    ReplaceAndRemove.main(NO_ARGS);
+  public void RemoveKthLastList() {
+    RemoveKthLastList.main(ARGS);
   }
 
   @Test
-  public void testReservoirSampling() {
+  public void RenderingCalendar() {
+    RenderingCalendar.main(ARGS);
+  }
+
+  @Test
+  public void ReplaceAndRemove() {
+    ReplaceAndRemove.main(ARGS);
+  }
+
+  @Test
+  public void ReservoirSampling() {
     try {
-      ReservoirSampling.main(NO_ARGS);
+      ReservoirSampling.main(ARGS);
     } catch (Exception e) {
       fail();
     }
   }
 
   @Test
-  public void testReverseBits() {
-    ReverseBits.main(NO_ARGS);
+  public void ReverseBits() {
+    ReverseBits.main(ARGS);
   }
 
   @Test
-  public void testReverseLinkedListIterativeTemplate() {
-    ReverseLinkedListIterativeTemplate.main(NO_ARGS);
+  public void ReverseLinkedListIterative() {
+    ReverseLinkedListIterative.main(ARGS);
   }
 
   @Test
-  public void testReverseLinkedListRecursiveTemplate() {
-    ReverseLinkedListRecursiveTemplate.main(NO_ARGS);
+  public void ReverseLinkedListRecursive() {
+    ReverseLinkedListRecursive.main(ARGS);
   }
 
   @Test
-  public void testReverseWords() {
-    ReverseWords.main(NO_ARGS);
+  public void ReverseWords() {
+    ReverseWords.main(ARGS);
   }
 
   @Test
-  public void testRoadNetwork() {
+  public void RoadNetwork() {
     String[] args = { "50" };
     RoadNetwork.main(args);
   }
 
   @Test
-  public void testRobotBattery() {
+  public void RobotBattery() {
     String[] args = { "100" };
     RobotBattery.main(args);
   }
 
-  // @Test public void testRotateArray() { RotateArray.main(noArgs); /}
-  // @Test public void testRotateArrayPermutation() {
+  // @Test public void RotateArray() { RotateArray.main(noArgs); /}
+  // @Test public void RotateArrayPermutation() {
   // RotateArrayPermutation.main(noArgs); }
   @Test
-  public void testRotateArrayTest() {
-    RotateArrayTest.main(NO_ARGS);
+  public void RotateArrayTest() {
+    RotateArrayTest.main(ARGS);
   }
 
   @Test
-  public void testRunLengthCompression() {
-    RunLengthCompression.main(NO_ARGS);
+  public void RunLengthCompression() {
+    RunLengthCompression.main(ARGS);
   }
 
   @Test
-  public void testScoreCombination() {
-    ScoreCombination.main(NO_ARGS);
+  public void ScoreCombination() {
+    ScoreCombination.main(ARGS);
   }
 
   @Test
-  public void testScorePermutation() {
-    ScorePermutation.main(NO_ARGS);
+  public void ScorePermutation() {
+    ScorePermutation.main(ARGS);
   }
 
   @Test
-  public void testSearchAPairSortedArrayTemplate() {
-    SearchAPairSortedArrayTemplate.main(NO_ARGS);
+  public void SearchAPairSortedArray() {
+    SearchAPairSortedArray.main(ARGS);
   }
 
   @Test
-  public void testSearchBSTFirstLargerK() {
-    SearchBSTFirstLargerK.main(NO_ARGS);
+  public void SearchBSTFirstLargerK() {
+    SearchBSTFirstLargerK.main(ARGS);
   }
 
   @Test
-  public void testSearchBSTForFirstOccurrenceIterative() {
-    SearchBSTForFirstOccurrenceIterative.main(NO_ARGS);
+  public void SearchBSTForFirstOccurrenceIterative() {
+    SearchBSTForFirstOccurrenceIterative.main(ARGS);
   }
 
   @Test
-  public void testSearchBSTForFirstOccurrenceRecursive() {
-    SearchBSTForFirstOccurrenceRecursive.main(NO_ARGS);
+  public void SearchBSTForFirstOccurrenceRecursive() {
+    SearchBSTForFirstOccurrenceRecursive.main(ARGS);
   }
 
   @Test
-  public void testSearchMajority() {
-    SearchMajority.main(NO_ARGS);
+  public void SearchMajority() {
+    SearchMajority.main(ARGS);
   }
 
   @Test
-  public void testSearchMaze() {
-    SearchMaze.main(NO_ARGS);
+  public void SearchMaze() {
+    SearchMaze.main(ARGS);
   }
 
   @Test
-  public void testSearchMinFirstBST() {
-    SearchMinFirstBST.main(NO_ARGS);
+  public void SearchMinFirstBST() {
+    SearchMinFirstBST.main(ARGS);
   }
 
   @Test
-  public void testSearchPostingsListIterative() {
+  public void SearchPostingsListIterative() {
     // TODO(AA): wit for alex to come back on NodeT
-    SearchPostingsListIterative.main(NO_ARGS);
+    SearchPostingsListIterative.main(ARGS);
   }
 
   @Test
-  public void testSearchPostingsListRecursive() {
+  public void SearchPostingsListRecursive() {
     // TODO(AA): wit for alex to come back on NodeT
-    SearchPostingsListRecursive.main(NO_ARGS);
+    SearchPostingsListRecursive.main(ARGS);
   }
 
   @Test
-  public void testSearch_frequent_items() {
+  public void SearchFrequentItems() {
     String[] args = { "100", "10" };
     SearchFrequentItems.main(args);
   }
 
   @Test
-  public void testShortestPathFewestEdges() {
-    ShortestPathFewestEdges.main(NO_ARGS);
+  public void ShortestPathFewestEdges() {
+    ShortestPathFewestEdges.main(ARGS);
   }
 
   @Test
-  public void testShortestUniquePrefix() {
-    ShortestUniquePrefix.main(NO_ARGS);
+  public void ShortestUniquePrefix() {
+    ShortestUniquePrefix.main(ARGS);
   }
 
   @Test
-  public void testSlidingWindow() {
-    SlidingWindow.main(NO_ARGS);
+  public void SlidingWindow() {
+    SlidingWindow.main(ARGS);
   }
 
   @Test
-  public void testSmallestSubarrayCoveringSet() {
+  public void SmallestSubarrayCoveringSet() {
     String[] args = { "100" };
     SmallestSubarrayCoveringSet.main(args);
   }
 
-  // @Test public void testSmallestSubarrayCoveringSetStream() {
+  // @Test public void SmallestSubarrayCoveringSetStream() {
   // SmallestSubarrayCoveringSetStream.main(noArgs); }
   @Test
-  public void testSortedListToBST() {
-    SortedListToBST.main(NO_ARGS);
+  public void SortedListToBST() {
+    SortedListToBST.main(ARGS);
   }
 
   @Test
-  public void testSpiralMatrix() {
-    SpiralMatrix.main(NO_ARGS);
+  public void SpiralMatrix() {
+    SpiralMatrix.main(ARGS);
   }
 
   @Test
-  public void testSpiralMatrixClockwise() {
-    SpiralMatrixClockwise.main(NO_ARGS);
+  public void SpiralMatrixClockwise() {
+    SpiralMatrixClockwise.main(ARGS);
   }
 
   @Test
-  public void testSpreadsheetEncoding() {
-    SpreadsheetEncoding.main(NO_ARGS);
+  public void SpreadsheetEncoding() {
+    SpreadsheetEncoding.main(ARGS);
   }
 
   @Test
-  public void testSquareRoot() {
-    SquareRoot.main(NO_ARGS);
+  public void SquareRoot() {
+    SquareRoot.main(ARGS);
   }
 
   @Test
-  public void testStableAssignment() {
-    StableAssignment.main(NO_ARGS);
+  public void StableAssignment() {
+    StableAssignment.main(ARGS);
   }
 
   @Test
-  public void testStackQueueUsingHeapTemplate() {
-    StackQueueUsingHeapTemplate.main(NO_ARGS);
+  public void StackQueueUsingHeap() {
+    StackQueueUsingHeap.main(ARGS);
   }
 
   @Test
-  public void testStackSorting() {
+  public void StackSorting() {
     String[] args = { "100" };
     StackSorting.main(args);
   }
 
   @Test
-  public void testStackWithMaxImproved() {
-    StackWithMaxImproved.main(NO_ARGS);
+  public void StackWithMaxImproved() {
+    StackWithMaxImproved.main(ARGS);
   }
 
   @Test
-  public void testStackWithMaxTemplate() {
-    StackWithMaxTemplate.main(NO_ARGS);
+  public void StackWithMax() {
+    StackWithMax.main(ARGS);
   }
 
   @Test
-  public void testStringInMatrix() {
-    StringInMatrix.main(NO_ARGS);
+  public void StringInMatrix() {
+    StringInMatrix.main(ARGS);
   }
 
   @Test
-  public void testSubseqCover() {
-    SubseqCover.main(NO_ARGS);
+  public void SubseqCover() {
+    SubseqCover.main(ARGS);
   }
 
   @Test
-  public void testSuccessor() {
-    Successor.main(NO_ARGS);
+  public void Successor() {
+    Successor.main(ARGS);
   }
 
-  // @Test public void testSudokuCheck() { SudokuCheck.main(noArgs); }
+  // @Test public void SudokuCheck() { SudokuCheck.main(noArgs); }
   @Test
-  public void testSudokuSolve() {
-    SudokuSolve.main(NO_ARGS);
-  }
-
-  @Test
-  public void testSwapBits() {
-    SwapBits.main(NO_ARGS);
+  public void SudokuSolve() {
+    SudokuSolve.main(ARGS);
   }
 
   @Test
-  public void testSymmetricBinaryTreeTemplate() {
-    SymmetricBinaryTreeTemplate.main(NO_ARGS);
+  public void SwapBits() {
+    SwapBits.main(ARGS);
   }
 
   @Test
-  public void testTail() {
+  public void SymmetricBinaryTree() {
+    SymmetricBinaryTree.main(ARGS);
+  }
+
+  @Test
+  public void Tail() {
     try {
-      Tail.main(NO_ARGS);
+      Tail.main(ARGS);
     } catch (Exception e) {
       fail();
     }
   }
 
   @Test
-  public void testTailCoin() {
-    TailCoin.main(NO_ARGS);
+  public void TailCoin() {
+    TailCoin.main(ARGS);
   }
 
   @Test
-  public void testTask_assignment() {
-    TaskAssignment.main(NO_ARGS);
+  public void TaskAssignment() {
+    TaskAssignment.main(ARGS);
   }
 
   @Test
-  public void testTeamPhoto2() {
-    TeamPhoto2.main(NO_ARGS);
+  public void TeamPhoto2() {
+    TeamPhoto2.main(ARGS);
   }
 
   @Test
-  public void testTeam_photo_1() {
-    TeamPhoto1.main(NO_ARGS);
+  public void TeamPhoto1() {
+    TeamPhoto1.main(ARGS);
   }
 
   @Test
-  public void testTheoryOfEquality() {
-    TheoryOfEquality.main(NO_ARGS);
+  public void TheoryOfEquality() {
+    TheoryOfEquality.main(ARGS);
   }
 
   @Test
-  public void testThreeJugs() {
-    ThreeJugs.main(NO_ARGS);
+  public void ThreeJugs() {
+    ThreeJugs.main(ARGS);
   }
 
   @Test
-  public void testTiesElection() {
-    TiesElection.main(NO_ARGS);
+  public void TiesElection() {
+    TiesElection.main(ARGS);
   }
 
   @Test
-  public void testTournamentTree() {
-    TournamentTree.main(NO_ARGS);
+  public void TournamentTree() {
+    TournamentTree.main(ARGS);
   }
 
   @Test
-  public void testTowerHanoi() {
-    TowerHanoi.main(NO_ARGS);
+  public void TowerHanoi() {
+    TowerHanoi.main(ARGS);
   }
 
   @Test
-  public void testTransformStringToOther() {
-    TransformStringToOther.main(NO_ARGS);
+  public void TransformStringToOther() {
+    TransformStringToOther.main(ARGS);
   }
 
   @Test
-  public void testTransitiveClosure() {
-    TransitiveClosure.main(NO_ARGS);
+  public void TransitiveClosure() {
+    TransitiveClosure.main(ARGS);
   }
 
   @Test
-  public void testTreeDiameter() {
-    TreeDiameter.main(NO_ARGS);
+  public void TreeDiameter() {
+    TreeDiameter.main(ARGS);
   }
 
   @Test
-  public void testTwoExists() {
+  public void TwoExists() {
     String[] args = { "50" }; // number of vertices
     TwoExists.main(args);
   }
 
   @Test
-  public void testTwoForAll() {
+  public void TwoForAll() {
     String[] args = { "50" };
     TwoForAll.main(args);
   }
 
   @Test
-  public void testUniformRandomNumberGeneration() {
-    UniformRandomNumberGeneration.main(NO_ARGS);
+  public void UniformRandomNumberGeneration() {
+    UniformRandomNumberGeneration.main(ARGS);
   }
 
   @Test
-  public void testUnion_intervals() {
-    UnionIntervals.main(NO_ARGS);
+  public void UnionIntervals() {
+    UnionIntervals.main(ARGS);
   }
 
   @Test
-  public void testUpdateBST() {
+  public void UpdateBST() {
     // TODO(AA): throws NPE, wrote to Alex about it
-    UpdateBST.main(NO_ARGS);
+    UpdateBST.main(ARGS);
   }
 
-  // @Test public void testUtils() { Utils.main(noArgs); }
+  // @Test public void Utils() { Utils.main(noArgs); }
   @Test
-  public void testViewFromAbove() {
-    ViewFromAbove.main(NO_ARGS);
-  }
-
-  @Test
-  public void testViewSunset() {
-    ViewSunset.main(NO_ARGS);
+  public void ViewFromAbove() {
+    ViewFromAbove.main(ARGS);
   }
 
   @Test
-  public void testWiringCircuitBoard() {
-    WiringCircuitBoard.main(NO_ARGS);
+  public void ViewSunset() {
+    ViewSunset.main(ARGS);
   }
 
   @Test
-  public void testWordBreaking() {
-    WordBreaking.main(NO_ARGS);
+  public void WiringCircuitBoard() {
+    WiringCircuitBoard.main(ARGS);
   }
 
   @Test
-  public void testZeroOneKnapsack() {
-    ZeroOneKnapsack.main(NO_ARGS);
+  public void WordBreaking() {
+    WordBreaking.main(ARGS);
   }
 
   @Test
-  public void testZeroSumSubset() {
-    ZeroSumSubset.main(NO_ARGS);
+  public void ZeroOneKnapsack() {
+    ZeroOneKnapsack.main(ARGS);
   }
 
   @Test
-  public void testZippingListTemplate() {
-    ZippingListTemplate.main(NO_ARGS);
+  public void ZeroSumSubset() {
+    ZeroSumSubset.main(ARGS);
   }
 
   @Test
-  public void testisBinaryTreeABST_BFS() {
-    IsBinaryTreeAbstBfs.main(NO_ARGS);
+  public void ZippingList() {
+    ZippingList.main(ARGS);
   }
 
   @Test
-  public void testthree_sum() {
+  public void IsBinaryTreeABSTBFS() {
+    IsBinaryTreeABSTBFS.main(ARGS);
+  }
+
+  @Test
+  public void ThreeSum() {
     String[] args = { "100" };
     ThreeSum.main(args);
   }
@@ -1278,47 +1296,47 @@ public class TestAll {
 
   @Test
   public void AddTwoNumberList() {
-    AddTwoNumberList.main(NO_ARGS);
+    AddTwoNumberList.main(ARGS);
   }
 
   @Test
   public void AverageTop3Scores() {
-    AverageTop3Scores.main(NO_ARGS);
+    AverageTop3Scores.main(ARGS);
   }
 
   @Test
   public void BinaryTreePostorderTraversalIterative() {
-    BinaryTreePostorderTraversalIterative.main(NO_ARGS);
+    BinaryTreePostorderTraversalIterative.main(ARGS);
   }
 
   @Test
   public void BinaryTreePostorderTraversalIterativeAlternative() {
-    BinaryTreePostorderTraversalIterativeAlternative.main(NO_ARGS);
+    BinaryTreePostorderTraversalIterativeAlternative.main(ARGS);
   }
 
   @Test
   public void BinaryTreePreorderTraversalIterative() {
-    BinaryTreePreorderTraversalIterative.main(NO_ARGS);
+    BinaryTreePreorderTraversalIterative.main(ARGS);
   }
 
   @Test
   public void Bonus() {
-    Bonus.main(NO_ARGS);
+    Bonus.main(ARGS);
   }
 
   @Test
   public void BonusImproved() {
-    BonusImproved.main(NO_ARGS);
+    BonusImproved.main(ARGS);
   }
 
   @Test
   public void CloneGraph() {
-    CloneGraph.main(NO_ARGS);
+    CloneGraph.main(ARGS);
   }
 
   @Test
   public void Combinations() {
-    Combinations.main(NO_ARGS);
+    Combinations.main(ARGS);
   }
 
   @Test
@@ -1329,7 +1347,7 @@ public class TestAll {
 
   @Test
   public void CyclicRightShift() {
-    CyclicRightShift.main(NO_ARGS);
+    CyclicRightShift.main(ARGS);
   }
 
   @Test
@@ -1340,7 +1358,7 @@ public class TestAll {
 
   @Test
   public void GenerateParentheses() {
-    GenerateParentheses.main(NO_ARGS);
+    GenerateParentheses.main(ARGS);
   }
 
   @Test
@@ -1351,52 +1369,52 @@ public class TestAll {
 
   @Test
   public void GrayCode() {
-    GrayCode.main(NO_ARGS);
+    GrayCode.main(ARGS);
   }
 
   @Test
   public void HighestAffinityPairs() {
-    HighestAffinityPairs.main(NO_ARGS);
+    HighestAffinityPairs.main(ARGS);
   }
 
   @Test
   public void InsertInterval() {
-    InsertInterval.main(NO_ARGS);
+    InsertInterval.main(ARGS);
   }
 
   @Test
   public void InsertionSortList() {
-    InsertionSortList.main(NO_ARGS);
+    InsertionSortList.main(ARGS);
   }
 
   @Test
   public void InterleavingString() {
-    InterleavingString.main(NO_ARGS);
+    InterleavingString.main(ARGS);
   }
 
   @Test
   public void JumpGame() {
-    JumpGame.main(NO_ARGS);
+    JumpGame.main(ARGS);
   }
 
   @Test
   public void KThLargestElement() {
-    KThLargestElement.main(NO_ARGS);
+    KThLargestElement.main(ARGS);
   }
 
   @Test
   public void KThNodeBinaryTree() {
-    KThNodeBinaryTree.main(NO_ARGS);
+    KThNodeBinaryTree.main(ARGS);
   }
 
   @Test
-  public void LeftJustifiedText() {
-    LeftJustifiedText.main(NO_ARGS);
+  public void JustifyText() {
+    JustifyText.main(ARGS);
   }
 
   @Test
   public void ListPivoting() {
-    ListPivoting.main(NO_ARGS);
+    ListPivoting.main(ARGS);
   }
 
   @Test
@@ -1407,187 +1425,182 @@ public class TestAll {
 
   @Test
   public void LongestSubarrayWithDistinctEntries() {
-    LongestSubarrayWithDistinctEntries.main(NO_ARGS);
+    LongestSubarrayWithDistinctEntries.main(ARGS);
   }
 
   @Test
   public void LongestValidParentheses() {
-    LongestValidParentheses.main(NO_ARGS);
+    LongestValidParentheses.main(ARGS);
   }
 
   @Test
   public void LookAndSay() {
-    LookAndSay.main(NO_ARGS);
+    LookAndSay.main(ARGS);
   }
 
   @Test
   public void MergeTwoSortedArraysInPlace() {
-    MergeTwoSortedArraysInPlace.main(NO_ARGS);
+    MergeTwoSortedArraysInPlace.main(ARGS);
   }
 
   @Test
   public void NQueens() {
-    NQueens.main(NO_ARGS);
+    NQueens.main(ARGS);
   }
 
   @Test
   public void NumberSteps() {
-    NumberSteps.main(NO_ARGS);
+    NumberSteps.main(ARGS);
   }
 
   @Test
   public void PalindromeNumber() {
-    PalindromeNumber.main(NO_ARGS);
+    PalindromeNumber.main(ARGS);
   }
 
   @Test
   public void PalindromePartitioning() {
-    PalindromePartitioning.main(NO_ARGS);
+    PalindromePartitioning.main(ARGS);
   }
 
   @Test
   public void PalindromePartitioningMinCuts() {
-    PalindromePartitioningMinCuts.main(NO_ARGS);
+    PalindromePartitioningMinCuts.main(ARGS);
   }
 
   @Test
   public void PascalTriangle1() {
-    PascalTriangle1.main(NO_ARGS);
+    PascalTriangle1.main(ARGS);
   }
 
   @Test
   public void PathSumBinaryTree() {
-    PathSumBinaryTree.main(NO_ARGS);
+    PathSumBinaryTree.main(ARGS);
   }
 
   @Test
   public void PermutationsAlternative() {
-    PermutationsAlternative.main(NO_ARGS);
+    PermutationsAlternative.main(ARGS);
   }
 
   @Test
   public void PlusOne() {
-    PlusOne.main(NO_ARGS);
+    PlusOne.main(ARGS);
   }
 
   @Test
   public void PopulatingNextRightPointers() {
-    PopulatingNextRightPointers.main(NO_ARGS);
+    PopulatingNextRightPointers.main(ARGS);
   }
 
   @Test
   public void PowerXY() {
-    PowerXY.main(NO_ARGS);
+    PowerXY.main(ARGS);
   }
 
   @Test
   public void ReconstructAlmostBst() {
-    ReconstructAlmostBst.main(NO_ARGS);
+    ReconstructAlmostBst.main(ARGS);
   }
 
   @Test
   public void RemoveDuplicatesFromSortedArray() {
-    RemoveDuplicatesFromSortedArray.main(NO_ARGS);
+    RemoveDuplicatesFromSortedArray.main(ARGS);
   }
 
   @Test
   public void RemoveDuplicatesSortedList() {
-    RemoveDuplicatesSortedList.main(NO_ARGS);
+    RemoveDuplicatesSortedList.main(ARGS);
   }
 
   @Test
   public void RemoveElement() {
-    RemoveElement.main(NO_ARGS);
+    RemoveElement.main(ARGS);
   }
 
   @Test
   public void ReverseInteger() {
-    ReverseInteger.main(NO_ARGS);
+    ReverseInteger.main(ARGS);
   }
 
   @Test
   public void ReverseLinkListFromSToF() {
-    ReverseLinkListFromSToF.main(NO_ARGS);
+    ReverseLinkListFromSToF.main(ARGS);
   }
 
   @Test
   public void ReverseListInKGroup() {
-    ReverseListInKGroup.main(NO_ARGS);
+    ReverseListInKGroup.main(ARGS);
   }
 
   @Test
   public void RomanToInteger() {
-    RomanToInteger.main(NO_ARGS);
+    RomanToInteger.main(ARGS);
   }
 
   @Test
   public void RookAttack() {
-    RookAttack.main(NO_ARGS);
+    RookAttack.main(ARGS);
   }
 
   @Test
   public void SnakeString() {
-    SnakeString.main(NO_ARGS);
+    SnakeString.main(ARGS);
   }
 
   @Test
   public void SortList() {
-    SortList.main(NO_ARGS);
+    SortList.main(ARGS);
   }
 
   @Test
   public void SquareRootInt() {
-    SquareRootInt.main(NO_ARGS);
+    SquareRootInt.main(ARGS);
   }
 
   @Test
   public void SubstringWithConcatenationOfAllWords() {
-    SubstringWithConcatenationOfAllWords.main(NO_ARGS);
+    SubstringWithConcatenationOfAllWords.main(ARGS);
   }
 
   @Test
   public void SumRootToLeafBinaryTree() {
-    SumRootToLeafBinaryTree.main(NO_ARGS);
+    SumRootToLeafBinaryTree.main(ARGS);
   }
 
   @Test
   public void SurroundedRegions() {
-    SurroundedRegions.main(NO_ARGS);
+    SurroundedRegions.main(ARGS);
   }
 
   @Test
   public void TrappingRainWater() {
-    TrappingRainWater.main(NO_ARGS);
+    TrappingRainWater.main(ARGS);
   }
 
   @Test
   public void Triangle() {
-    Triangle.main(NO_ARGS);
-  }
-
-  @Test
-  public void UnconstructableChange() {
-    UnconstructableChange.main(NO_ARGS);
+    Triangle.main(ARGS);
   }
 
   @Test
   public void UniqueBinaryTreesAll() {
-    UniqueBinaryTreesAll.main(NO_ARGS);
+    UniqueBinaryTreesAll.main(ARGS);
   }
 
   @Test
   public void ValidIPAddress() {
-    ValidIPAddress.main(NO_ARGS);
+    ValidIPAddress.main(ARGS);
   }
 
   @Test
   public void ValidPalindrome() {
-    ValidPalindrome.main(NO_ARGS);
+    ValidPalindrome.main(ARGS);
   }
 
   @Test
   public void ValidParentheses() {
-    ValidParentheses.main(NO_ARGS);
+    ValidParentheses.main(ARGS);
   }
 
 }

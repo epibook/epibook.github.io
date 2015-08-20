@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -13,43 +13,49 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-int CountInversionsHelper(vector<int>& A, int start, int end);
-int Merge(vector<int>& A, int start, int mid, int end);
+int CountSubarrayInversions(vector<int>*, int, int);
+int MergeSortAndCountInversionsAcrossSubarrays(vector<int>*, int, int, int);
 
 // @include
 int CountInversions(vector<int> A) {
-  return CountInversionsHelper(A, 0, A.size());
+  return CountSubarrayInversions(&A, 0, A.size());
 }
 
-int CountInversionsHelper(vector<int>& A, int start, int end) {
+// Return the number of inversions in (*A)[start : end - 1].
+int CountSubarrayInversions(vector<int>* A, int start, int end) {
   if (end - start <= 1) {
     return 0;
   }
 
   int mid = start + ((end - start) / 2);
-  return CountInversionsHelper(A, start, mid) +
-         CountInversionsHelper(A, mid, end) + Merge(A, start, mid, end);
+  return CountSubarrayInversions(A, start, mid) +
+         CountSubarrayInversions(A, mid, end) +
+         MergeSortAndCountInversionsAcrossSubarrays(A, start, mid, end);
 }
 
-int Merge(vector<int>& A, int start, int mid, int end) {
+// Merge two sorted subarrays (*A)[start : mid - 1] and (*A)[mid : end - 1]
+// into (*A)[start : end - 1] and return the number of inversions across
+// (*A)[start : mid - 1] and (*A)[mid : end - 1].
+int MergeSortAndCountInversionsAcrossSubarrays(vector<int>* A, int start,
+                                               int mid, int end) {
   vector<int> sorted_A;
-  int left_start = start, right_start = mid, inver_count = 0;
+  int left_start = start, right_start = mid, inversion_count = 0;
 
   while (left_start < mid && right_start < end) {
-    if (A[left_start] <= A[right_start]) {
-      sorted_A.emplace_back(A[left_start++]);
+    if ((*A)[left_start] <= (*A)[right_start]) {
+      sorted_A.emplace_back((*A)[left_start++]);
     } else {
-      // A[left_start:mid - 1] will be the inversions.
-      inver_count += mid - left_start;
-      sorted_A.emplace_back(A[right_start++]);
+      // (*A)[left_start : mid - 1] are the inversions of (*A)[right_start].
+      inversion_count += mid - left_start;
+      sorted_A.emplace_back((*A)[right_start++]);
     }
   }
-  copy(A.begin() + left_start, A.begin() + mid, back_inserter(sorted_A));
-  copy(A.begin() + right_start, A.begin() + end, back_inserter(sorted_A));
+  copy(A->begin() + left_start, A->begin() + mid, back_inserter(sorted_A));
+  copy(A->begin() + right_start, A->begin() + end, back_inserter(sorted_A));
 
   // Updates A with sorted_A.
-  copy(sorted_A.begin(), sorted_A.end(), A.begin() + start);
-  return inver_count;
+  copy(sorted_A.begin(), sorted_A.end(), A->begin() + start);
+  return inversion_count;
 }
 // @exclude
 

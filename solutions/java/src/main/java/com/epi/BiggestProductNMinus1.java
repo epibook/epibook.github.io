@@ -1,13 +1,10 @@
 package com.epi;
 
-import com.epi.utils.BinaryOperators;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import static com.epi.utils.Utils.*;
-import static java.lang.Math.max;
 
 public class BiggestProductNMinus1 {
   // @include
@@ -31,7 +28,7 @@ public class BiggestProductNMinus1 {
     for (int i = 0; i < A.length; ++i) {
       int forward = i > 0 ? L[i - 1] : 1;
       int backward = i + 1 < A.length ? R[i + 1] : 1;
-      maxProduct = max(maxProduct, forward * backward);
+      maxProduct = Math.max(maxProduct, forward * backward);
     }
     return maxProduct;
   }

@@ -24,16 +24,17 @@ const BinaryTreeNode<int>* FindKthNodeBinaryTree(
   const auto* iter = tree.get();
   while (iter != nullptr) {
     int left_size = iter->left ? iter->left->size : 0;
-    if (left_size + 1 < k) {  // Target node must be in right subtree of iter.
+    if (left_size + 1 < k) {  // k-th node must be in right subtree of iter.
       k -= (left_size + 1);
       iter = iter->right.get();
-    } else if (left_size == k - 1) {  // Target is iter itself.
+    } else if (left_size == k - 1) {  // k-th is iter itself.
       return iter;
-    } else {  // Target node must be in left subtree of iter.
+    } else {  // k-th node must be in left subtree of iter.
       iter = iter->left.get();
     }
   }
-  return nullptr; // If k is between 1 and the tree size, this is unreachable.
+  return nullptr;  // If k is between 1 and the tree size, this line is
+  // unreachable.
 }
 // @exclude
 
@@ -59,12 +60,15 @@ int main(int argc, char* argv[]) {
   root->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
   root->right->size = 3;
   root->right->data = 5;
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  root->right->left =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
   root->right->left->size = 1;
   root->right->left->data = 4;
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  root->right->right =
+      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
   root->right->right->size = 1;
   root->right->right->data = 6;
+  // 0th node does not exist - leftmost node is node 1
   assert(nullptr == FindKthNodeBinaryTree(root, 0));
   // should output 1
   assert(FindKthNodeBinaryTree(root, 1)->data == 1);
@@ -84,6 +88,6 @@ int main(int argc, char* argv[]) {
   // should output 6
   assert(FindKthNodeBinaryTree(root, 6)->data == 6);
   cout << (FindKthNodeBinaryTree(root, 6))->data << endl;
-  assert(nullptr ==  FindKthNodeBinaryTree(root, 7));
+  assert(nullptr == FindKthNodeBinaryTree(root, 7));
   return 0;
 }

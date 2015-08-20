@@ -19,68 +19,70 @@ using std::unordered_set;
 using std::vector;
 
 // @include
-struct Num {
-  Num(int a, int b) : a(a), b(b), val(a + b * sqrt(2)) {}
+struct ABSqrt2 {
+  ABSqrt2(int a, int b) : a(a), b(b), val(a + b * sqrt(2)) {}
 
   // @exclude
   // Equal function for hash.
-  bool operator==(const Num& n) const { return a == n.a && b == n.b; }
+  bool operator==(const ABSqrt2& n) const { return a == n.a && b == n.b; }
 
   // @include
   int a, b;
   double val;
 };
 // @exclude
-struct CompareNum {
-  bool operator()(Num const& a, Num const& b) { return a.val > b.val; }
+struct CompareABSqrt2 {
+  bool operator()(ABSqrt2 const& x, ABSqrt2 const& y) { return x.val > y.val; }
 };
 
-// Hash function for Num.
-struct HashNum {
-  size_t operator()(const Num& n) const {
+// Hash function for ABSqrt2.
+struct HashABSqrt2 {
+  size_t operator()(const ABSqrt2& n) const {
     return hash<int>()(n.a) ^ hash<int>()(n.b);
   }
 };
 // @include
 
-vector<Num> GenerateFirstK(int k) {
-  vector<Num> result;  // Stores the first-k Num.
+vector<ABSqrt2> GenerateFirstKABSqrt2(int k) {
+  // Will store the first k numbers of the form a + b sqrt(2).
+  vector<ABSqrt2> result;  
   result.emplace_back(0, 0);
-  size_t i = 0, j = 0;
-  for (int n = 0; n < k; ++n) {
-    Num x(result[i].a + 1, result[i].b), y(result[j].a, result[j].b + 1);
-    if (x.val < y.val) {
+  int i = 0, j = 0;
+  for (int n = 1; n < k; ++n) {
+    ABSqrt2 result_i_plus_1(result[i].a + 1, result[i].b);
+    ABSqrt2 result_j_plus_sqrt2(result[j].a, result[j].b + 1);
+    if (result_i_plus_1.val < result_j_plus_sqrt2.val) {
       ++i;
-      result.emplace_back(x);
-    } else if (x.val > y.val) {
+      result.emplace_back(result_i_plus_1);
+    } else if (result_i_plus_1.val > result_j_plus_sqrt2.val) {
       ++j;
-      result.emplace_back(y);
-    } else {  // x == y.
+      result.emplace_back(result_j_plus_sqrt2);
+    } else {  // result_i_plus_1 == result_j_plus_sqrt2.
       ++i, ++j;
-      result.emplace_back(x);
+      result.emplace_back(result_i_plus_1);
     }
   }
   return result;
 }
 // @exclude
 
-vector<Num> Golden(int k) {
-  priority_queue<Num, vector<Num>, CompareNum> min_heap;
-  vector<Num> smallest;
-  unordered_set<Num, HashNum> hash;
+vector<ABSqrt2> Golden(int k) {
+  priority_queue<ABSqrt2, vector<ABSqrt2>, CompareABSqrt2> min_heap;
+  vector<ABSqrt2> smallest;
+  unordered_set<ABSqrt2, HashABSqrt2> hash;
 
   // Initial for 0 + 0 * sqrt(2).
   min_heap.emplace(0, 0);
   hash.emplace(0, 0);
 
   while (smallest.size() < k) {
-    Num s(min_heap.top());
+    ABSqrt2 s(min_heap.top());
     smallest.emplace_back(s);
     hash.erase(s);
     min_heap.pop();
 
     // Add the next two numbers derived from s.
-    Num c1(s.a + 1, s.b), c2(s.a, s.b + 1);
+    ABSqrt2 c1(s.a + 1, s.b), c2(s.a, s.b + 1);
     if (hash.emplace(c1).second) {
       min_heap.emplace(c1);
     }
@@ -91,8 +93,21 @@ vector<Num> Golden(int k) {
   return smallest;
 }
 
+static void SimpleTest() {
+  vector<ABSqrt2> ans = GenerateFirstKABSqrt2(8);
+  assert(0.0 == ans[0].val);
+  assert(1.0 == ans[1].val);
+  assert(sqrt(2.0) == ans[2].val);
+  assert(2.0 == ans[3].val);
+  assert(1.0 + sqrt(2.0) == ans[4].val);
+  assert(2.0*sqrt(2.0) == ans[5].val);
+  assert(3.0 == ans[6].val);
+  assert(2.0 + sqrt(2.0) == ans[7].val);
+}
+
 int main(int argc, char* argv[]) {
   default_random_engine gen((random_device())());
+  SimpleTest();
   for (int times = 0; times < 1000; ++times) {
     int k;
     if (argc == 2) {
@@ -101,7 +116,8 @@ int main(int argc, char* argv[]) {
       uniform_int_distribution<int> dis(1, 10000);
       k = dis(gen);
     }
-    vector<Num> ans(GenerateFirstK(k));
+    vector<ABSqrt2> ans(GenerateFirstKABSqrt2(k));
+    assert(ans.size() == k);
     for (size_t i = 0; i < ans.size(); ++i) {
       cout << ans[i].a << ' ' << ans[i].b << ' ' << ans[i].val << endl;
       if (i > 0) {
@@ -109,11 +125,8 @@ int main(int argc, char* argv[]) {
       }
     }
     auto gold_res = Golden(k);
-    for (size_t i = 0; i < k; ++i) {
-      assert(ans[i] == gold_res[i]);
-      //cout << "first " << ans[i].a << " " << ans[i].b << " " << ans[i].val << endl;
-      //cout << "second " << gold_res[i].a << " " << gold_res[i].b << " " << gold_res[i].val << endl;
-    }
+    assert(ans.size() == gold_res.size() &&
+           equal(ans.begin(), ans.end(), gold_res.begin()));
   }
   return 0;
 }

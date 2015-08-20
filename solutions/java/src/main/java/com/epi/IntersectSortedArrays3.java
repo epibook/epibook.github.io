@@ -7,17 +7,18 @@ import java.util.List;
 
 public class IntersectSortedArrays3 {
   // @include
-  public static List<Integer> intersectTwoSortedArrays(int[] A, int[] B) {
+  public static List<Integer> intersectTwoSortedArrays(List<Integer> A,
+                                                       List<Integer> B) {
     List<Integer> intersectionAB = new ArrayList<>();
     int i = 0, j = 0;
-    while (i < A.length && j < B.length) {
-      if (A[i] == B[j] && (i == 0 || A[i] != A[i - 1])) {
-        intersectionAB.add(A[i]);
+    while (i < A.size() && j < B.size()) {
+      if (A.get(i) == B.get(j) && (i == 0 || A.get(i) != A.get(i - 1))) {
+        intersectionAB.add(A.get(i));
         ++i;
         ++j;
-      } else if (A[i] < B[j]) {
+      } else if (A.get(i) < B.get(j)) {
         ++i;
-      } else { // A[i] > B[j].
+      } else { // A.get(i) > B.get(j).
         ++j;
       }
     }

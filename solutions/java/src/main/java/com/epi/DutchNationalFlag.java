@@ -1,46 +1,46 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
-import static com.epi.utils.Utils.swap;
-
 public class DutchNationalFlag {
-
   // @include
-  public static void dutchFlagPartition(int pivotIndex, int[] A) {
-    int pivot = A[pivotIndex];
+  public static void dutchFlagPartition(int pivotIndex, List<Integer> A) {
+    int pivot = A.get(pivotIndex);
 
     /**
      * Keep the following invariants during partitioning:
-     * bottom group: A[0 : smaller - 1].
-     * middle group: A[smaller : equal - 1].
-     * unclassified group: A[equal : larger].
-     * top group: A[larger + 1, A.length - 1].
+     * bottom group: A.subList(0 : smaller).
+     * middle group: A.subList(smaller : equal).
+     * unclassified group: A.subList(equal : larger + 1).
+     * top group: A.subList(larger + 1, A.size()).
      */
-    int smaller = 0, equal = 0, larger = A.length - 1;
-    // When there is any unclassified element.
+    int smaller = 0, equal = 0, larger = A.size() - 1;
+    // Keep iterating as long as there is an unclassified element.
     while (equal <= larger) {
-      // A[equal] is the incoming unclassified element.
-      if (A[equal] < pivot) {
-        swap(A, smaller++, equal++);
-      } else if (A[equal] == pivot) {
+      // A.get(equal) is the incoming unclassified element.
+      if (A.get(equal) < pivot) {
+        Collections.swap(A, smaller++, equal++);
+      } else if (A.get(equal) == pivot) {
         ++equal;
-      } else { // A[equal] > pivot.
-        swap(A, equal, larger--);
+      } else { // A.get(equal) > pivot.
+        Collections.swap(A, equal, larger--);
       }
     }
   }
   // @exclude
 
-  private static int[] randVector(int len) {
-    Random gen = new Random();
-    int[] ret = new int[len];
-
+  private static List<Integer> randArray(int len) {
+    Random r = new Random();
+    List<Integer> ret = new ArrayList<>(len);
     for (int i = 0; i < len; ++i) {
-      ret[i] = gen.nextInt(3);
+      ret.add(r.nextInt(3));
     }
-
     return ret;
   }
 
@@ -55,30 +55,29 @@ public class DutchNationalFlag {
         n = gen.nextInt(100) + 1;
       }
 
-      int[] A = randVector(n);
+      List<Integer> A = randArray(n);
 
       int pivotIndex = gen.nextInt(n);
-      int pivot = A[pivotIndex];
+      int pivot = A.get(pivotIndex);
 
       dutchFlagPartition(pivotIndex, A);
 
       int i = 0;
-      while (i < n && A[i] < pivot) {
-        System.out.print(A[i] + " ");
+      while (i < n && A.get(i) < pivot) {
+        System.out.print(A.get(i) + " ");
         ++i;
       }
-      while (i < n && A[i] == pivot) {
-        System.out.print(A[i] + " ");
+      while (i < n && A.get(i) == pivot) {
+        System.out.print(A.get(i) + " ");
         ++i;
       }
-      while (i < n && A[i] > pivot) {
-        System.out.print(A[i] + " ");
+      while (i < n && A.get(i) > pivot) {
+        System.out.print(A.get(i) + " ");
         ++i;
       }
       System.out.println();
 
-      assert (i == n);
+      assert(i == n);
     }
-
   }
 }

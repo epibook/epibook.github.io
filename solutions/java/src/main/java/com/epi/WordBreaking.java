@@ -2,15 +2,12 @@ package com.epi;
 
 import java.util.*;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class WordBreaking {
   private static String randString(int len) {
     Random r = new Random();
     StringBuilder ret = new StringBuilder(len);
     while (len-- > 0) {
-      ret.append((char) (r.nextInt(26) + 'a'));
+      ret.append((char)(r.nextInt(26) + 'a'));
     }
     return ret.toString();
   }
@@ -27,8 +24,7 @@ public class WordBreaking {
 
       // Set T[i] if T[j] != 0 and s(j + 1, i) is a valid word.
       for (int j = 0; j < i && T[i] == 0; ++j) {
-        if (T[j] != 0 && (j + 1 < i - j)
-            && dict.contains(s.substring(j + 1, i - j))) {
+        if (T[j] != 0 && dict.contains(s.substring(j + 1, i + 1))) {
           T[i] = i - j;
         }
       }
@@ -57,10 +53,23 @@ public class WordBreaking {
       temp += an;
     }
     System.out.println();
-    assert (ans.size() == 0 || s.equals(temp));
+    assert(ans.size() == 0 || s.equals(temp));
+  }
+
+  private static void smallCase() {
+    Set<String> dictionary = new HashSet<>();
+    dictionary.add("bed");
+    dictionary.add("bath");
+    dictionary.add("and");
+    dictionary.add("hand");
+    dictionary.add("beyond");
+    List<String> ans = wordBreaking("bedbathandbeyond", dictionary);
+    List<String> goldenAns = Arrays.asList("bed", "bath", "and", "beyond");
+    assert(ans.equals(goldenAns));
   }
 
   public static void main(String[] args) {
+    smallCase();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       Set<String> dictionary = new HashSet<>();

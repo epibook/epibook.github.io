@@ -63,22 +63,20 @@ int main(int argc, char* argv[]) {
   assert(ShortestEquivalentPath("./../") == string(".."));
   assert(ShortestEquivalentPath("../../local") == string("../../local"));
   assert(ShortestEquivalentPath("./.././../local") == string("../../local"));
+  assert(ShortestEquivalentPath("/foo/../foo/./../") == string("/"));
   try {
     ShortestEquivalentPath("/foo.txt");
-  }
-  catch (const exception& e) {
+  } catch (const exception& e) {
     cout << e.what() << endl;
   }
   try {
     ShortestEquivalentPath("/..");
-  }
-  catch (const exception& e) {
+  } catch (const exception& e) {
     cout << e.what() << endl;
   }
   try {
     ShortestEquivalentPath("/cpp_name/bin/");
-  }
-  catch (const exception& e) {
+  } catch (const exception& e) {
     cout << e.what() << endl;
   }
   assert(ShortestEquivalentPath("scripts//./../scripts/awkscripts/././") ==

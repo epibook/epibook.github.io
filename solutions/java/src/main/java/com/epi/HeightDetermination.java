@@ -20,8 +20,8 @@ public class HeightDetermination {
       return d;
     } else {
       if (F[c][d] == -1) {
-        F[c][d] = getHeightHelper(F, c, d - 1)
-            + getHeightHelper(F, c - 1, d - 1) + 1;
+        F[c][d] =
+            getHeightHelper(F, c, d - 1) + getHeightHelper(F, c - 1, d - 1) + 1;
       }
       return F[c][d];
     }
@@ -29,21 +29,20 @@ public class HeightDetermination {
   // @exclude
 
   public static void main(String[] args) {
-    assert (getHeight(1, 10) == 10);
-    assert (getHeight(2, 1) == 1);
-    assert (getHeight(2, 2) == 3);
-    assert (getHeight(2, 3) == 6);
-    assert (getHeight(2, 4) == 10);
-    assert (getHeight(2, 5) == 15);
-    assert (getHeight(3, 2) == 3);
-    assert (getHeight(100, 2) == 3);
-    assert (getHeight(3, 5) == 25);
-    assert (getHeight(8, 11) == 1980);
-    assert (getHeight(3, 0) == 0);
-    assert (getHeight(3, 1) == 1);
-    assert (getHeight(3, 3) == 7);
-    assert (getHeight(0, 10) == 0);
-    assert (getHeight(0, 0) == 0);
+    assert(getHeight(1, 10) == 10);
+    assert(getHeight(2, 1) == 1);
+    assert(getHeight(2, 2) == 3);
+    assert(getHeight(2, 3) == 6);
+    assert(getHeight(2, 4) == 10);
+    assert(getHeight(2, 5) == 15);
+    assert(getHeight(3, 2) == 3);
+    assert(getHeight(100, 2) == 3);
+    assert(getHeight(3, 5) == 25);
+    assert(getHeight(8, 11) == 1980);
+    assert(getHeight(3, 0) == 0);
+    assert(getHeight(3, 1) == 1);
+    assert(getHeight(3, 3) == 7);
+    assert(getHeight(0, 10) == 0);
+    assert(getHeight(0, 0) == 0);
   }
-
 }

@@ -16,8 +16,7 @@ using std::shared_ptr;
 using std::uniform_int_distribution;
 
 // @include
-shared_ptr<ListNode<int>> CopyPostingsList(
-    const shared_ptr<ListNode<int>>& L) {
+shared_ptr<ListNode<int>> CopyPostingsList(const shared_ptr<ListNode<int>>& L) {
   if (L == nullptr) {
     return nullptr;
   }

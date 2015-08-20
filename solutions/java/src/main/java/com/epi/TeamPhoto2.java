@@ -13,9 +13,7 @@ public class TeamPhoto2 {
       implements Comparable<Player<HeightType>> {
     public HeightType height;
 
-    public Player(HeightType height) {
-      this.height = height;
-    }
+    public Player(HeightType height) { this.height = height; }
 
     @Override
     public int compareTo(Player<HeightType> o) {
@@ -45,8 +43,8 @@ public class TeamPhoto2 {
     }
 
     private List<Player<HeightType>> sortHeightMembers() {
-      List<Player<HeightType>> sortedMembers
-          = (List<Player<HeightType>>) members.clone();
+      List<Player<HeightType>> sortedMembers =
+          (List<Player<HeightType>>)members.clone();
       Collections.sort(sortedMembers);
       return sortedMembers;
     }
@@ -88,8 +86,7 @@ public class TeamPhoto2 {
     return maxDistance;
   }
 
-  private static void
-  DFS(GraphVertex cur, LinkedList<GraphVertex> vertexOrder) {
+  private static void DFS(GraphVertex cur, LinkedList<GraphVertex> vertexOrder) {
     cur.visited = true;
     for (GraphVertex next : cur.edges) {
       if (!next.visited) {
@@ -107,6 +104,6 @@ public class TeamPhoto2 {
     }
     G.get(0).edges.add(G.get(2));
     G.get(1).edges.add(G.get(2));
-    assert (2 == findLargestNumberTeams(G));
+    assert(2 == findLargestNumberTeams(G));
   }
 }

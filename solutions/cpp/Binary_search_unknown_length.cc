@@ -27,15 +27,14 @@ int BinarySearchUnknownLength(const vector<int>& A, int k) {
       } else if (A.at(idx) > k) {
         break;
       }
-    }
-    catch (const exception& e) {
+    } catch (const exception& e) {
       break;
     }
     ++p;
   }
 
-  // Binary search between indices 2^(p - 1) and 2^p - 2.
-  int left = 1 << (p - 1), right = (1 << p) - 2;
+  // Binary search between indices 2^(p - 1) and 2^p - 2, inclusive.
+  int left = max(0, 1 << (p - 1)), right = (1 << p) - 2;
   while (left <= right) {
     int mid = left + ((right - left) / 2);
     try {
@@ -46,8 +45,7 @@ int BinarySearchUnknownLength(const vector<int>& A, int k) {
       } else {  // A.at(mid) < k
         left = mid + 1;
       }
-    }
-    catch (const exception& e) {
+    } catch (const exception& e) {
       right = mid - 1;  // Search the left part if out-of-bound.
     }
   }

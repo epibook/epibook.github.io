@@ -14,7 +14,7 @@ using std::random_device;
 using std::uniform_real_distribution;
 
 // @include
-typedef enum {SMALLER, EQUAL, LARGER} Ordering;
+typedef enum { SMALLER, EQUAL, LARGER } Ordering;
 
 // @exclude
 Ordering Compare(double a, double b);
@@ -28,7 +28,7 @@ double SquareRoot(double x) {
     left = 1.0, right = x;
   }
 
-  // Keeps searching if left < right.
+  // Keeps searching as long as left < right, within tolerance.
   while (Compare(left, right) == SMALLER) {
     double mid = left + 0.5 * (right - left);
     double mid_squared = mid * mid;
@@ -51,6 +51,14 @@ Ordering Compare(double a, double b) {
              : diff > numeric_limits<double>::epsilon() ? LARGER : EQUAL;
 }
 // @exclude
+
+static void SimpleTest() {
+  assert(Compare(SquareRoot(1.0), sqrt(1.0) == EQUAL));
+  assert(Compare(SquareRoot(0.001), sqrt(0.001) == EQUAL));
+  assert(Compare(SquareRoot(100000000.001), sqrt(100000000.001) == EQUAL));
+  assert(Compare(SquareRoot(1024.0), sqrt(1024.0) == EQUAL));
+}
+
 
 int main(int argc, char* argv[]) {
   default_random_engine gen((random_device())());

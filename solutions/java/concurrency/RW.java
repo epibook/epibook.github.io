@@ -2,82 +2,82 @@ import java.util.Date;
 import java.util.Random;
 import java.math.BigInteger;
 
-  class Task {
-    static Random r = new Random();
-    static void doSomeThingElse() {
-      BigInteger b = BigInteger.probablePrime(512, r);
-      System.out.println(" identified a big prime: " + (b.mod(BigInteger.TEN)));
-      try {
-        Thread.sleep(r.nextInt(1000));
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+class Task {
+  static Random r = new Random();
+  static void doSomeThingElse() {
+    BigInteger b = BigInteger.probablePrime(512, r);
+    System.out.println(" identified a big prime: " + (b.mod(BigInteger.TEN)));
+    try {
+      Thread.sleep(r.nextInt(1000));
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
+}
 
 //@include
-  // LR and LW are static members of type Object in the RW class.
-  // They serve as read and write locks. The static integer
-  // field readCount in RW tracks the number of readers.
-  class Reader extends Thread {
-    //@exclude
-    String name;
-    Reader(String name) { this.name = name; }
-    //@include
-    public void run() {
-      while (true) {
-        synchronized (RW.LR) {
-          RW.readCount++;
-        }
-	//@exclude
-	System.out.println("Reader " + name + " is about to read");
-	//@include
-        System.out.println(RW.data);
-        synchronized (RW.LR) {
-          RW.readCount--;
-          RW.LR.notify();
-        }
-        Task.doSomeThingElse();
+// LR and LW are static members of type Object in the RW class.
+// They serve as read and write locks. The static integer
+// field readCount in RW tracks the number of readers.
+class Reader extends Thread {
+  //@exclude
+  String name;
+  Reader(String name) { this.name = name; }
+  //@include
+  public void run() {
+    while (true) {
+      synchronized (RW.LR) {
+        RW.readCount++;
       }
+      //@exclude
+      System.out.println("Reader " + name + " is about to read");
+      //@include
+      System.out.println(RW.data);
+      synchronized (RW.LR) {
+        RW.readCount--;
+        RW.LR.notify();
+      }
+      Task.doSomeThingElse();
     }
   }
+}
 
-  class Writer extends Thread {
-    //@exclude
-    String name;
-    Writer(String name) { this.name = name; }
-    //@include
-    public void run() {
-      while (true) {
-        synchronized (RW.LW) {
-          boolean done = false;
-          while (!done) {
-            synchronized (RW.LR) {
-              if (RW.readCount == 0) {
-        //@exclude
-        System.out.println("Writer " + name + " is about to write");
-        //@include
-                RW.data = new Date().toString();
-                done = true;
-              } else {
-                // use wait/notify to avoid busy waiting 
-                try {
-                  // protect against spurious notify, see
-                  // stackoverflow.com do-spurious-wakeups-actually-happen
-                  while ( RW.readCount != 0 ) {
-                    RW.LR.wait();
-                  }
-                } catch (InterruptedException e) {
-                  System.out.println("InterruptedException in Writer wait");
+class Writer extends Thread {
+  //@exclude
+  String name;
+  Writer(String name) { this.name = name; }
+  //@include
+  public void run() {
+    while (true) {
+      synchronized (RW.LW) {
+        boolean done = false;
+        while (!done) {
+          synchronized (RW.LR) {
+            if (RW.readCount == 0) {
+              //@exclude
+              System.out.println("Writer " + name + " is about to write");
+              //@include
+              RW.data = new Date().toString();
+              done = true;
+            } else {
+              // use wait/notify to avoid busy waiting 
+              try {
+                // protect against spurious notify, see
+                // stackoverflow.com do-spurious-wakeups-actually-happen
+                while ( RW.readCount != 0 ) {
+                  RW.LR.wait();
                 }
+              } catch (InterruptedException e) {
+                System.out.println("InterruptedException in Writer wait");
               }
             }
           }
         }
-        Task.doSomeThingElse();
       }
+      Task.doSomeThingElse();
     }
   }
+}
 // @exclude
 
 public class RW {

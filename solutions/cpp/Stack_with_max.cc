@@ -36,8 +36,7 @@ int main(int argc, char* argv[]) {
     s.Pop();
     s.Pop();
     s.Pop();
-  }
-  catch (const exception& e) {
+  } catch (const exception& e) {
     cout << e.what() << endl;
   }
   return 0;

@@ -19,7 +19,8 @@ string add_binary(string a, string b) {
   reverse(a.begin(), a.end()), reverse(b.begin(), b.end());
   bool have_carry = false;
   for (size_t i = 0; i < a.size() || i < b.size(); ++i) {
-    int val_a = i < a.size() ? a[i] - '0' : 0, val_b = i < b.size() ? b[i] - '0' : 0;
+    int val_a = i < a.size() ? a[i] - '0' : 0,
+        val_b = i < b.size() ? b[i] - '0' : 0;
     int val = val_a + val_b + have_carry;
     have_carry = val >= 2;
     sum += (val == 1 || val == 3) ? '1' : '0';

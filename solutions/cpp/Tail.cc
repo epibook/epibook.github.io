@@ -42,17 +42,32 @@ string tail(const string& file_name, int N) {
 
 void SmallTest() {
   ofstream ofs("test_Tail.txt");
-  ofs << "A free soft copy sample of Elements of Programming Interviews can be found at bit.ly/epi-sample" << endl;
+  ofs << "A free soft copy sample of Elements of Programming Interviews can be "
+         "found at bit.ly/epi-sample" << endl;
   ofs << endl;
-  ofs << "The core of Elements of Programming Interviews (EPI) is a collection of 300 problems with detailed solutions, including over 150 figures and 250 tested programs. The problems are representative of the questions asked at interviews at the most exciting companies. They are well-motivated, thought-provoking and fun to solve!" << endl;
+  ofs << "The core of Elements of Programming Interviews (EPI) is a collection "
+         "of 300 problems with detailed solutions, including over 150 figures "
+         "and 250 tested programs. The problems are representative of the "
+         "questions asked at interviews at the most exciting companies. They "
+         "are well-motivated, thought-provoking and fun to solve!" << endl;
   ofs << endl;
-  ofs << "EPI includes a summary of the nontechnical aspects of interviewing, including common mistakes, strategies for a great interview, the interviewer's perspective, negotiating the best offer, and much more." << endl;
+  ofs << "EPI includes a summary of the nontechnical aspects of interviewing, "
+         "including common mistakes, strategies for a great interview, the "
+         "interviewer's perspective, negotiating the best offer, and much more."
+      << endl;
   ofs << endl;
-  ofs << "Since different candidates have different time constraints, EPI includes a study guide with several study scenarios, ranging from weekend Hackathon to semester long preparation with a recommended a subset of problems for each scenario." << endl;
+  ofs << "Since different candidates have different time constraints, EPI "
+         "includes a study guide with several study scenarios, ranging from "
+         "weekend Hackathon to semester long preparation with a recommended a "
+         "subset of problems for each scenario." << endl;
   ofs << endl;
   ofs.close();
   auto res = tail("test_Tail.txt", 3);
-  assert(!res.compare("\nSince different candidates have different time constraints, EPI includes a study guide with several study scenarios, ranging from weekend Hackathon to semester long preparation with a recommended a subset of problems for each scenario.\n\n"));
+  assert(!res.compare(
+      "\nSince different candidates have different time constraints, EPI "
+      "includes a study guide with several study scenarios, ranging from "
+      "weekend Hackathon to semester long preparation with a recommended a "
+      "subset of problems for each scenario.\n\n"));
   remove("test_Tail.txt");
 }
 

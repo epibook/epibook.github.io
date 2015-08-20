@@ -33,9 +33,9 @@ int RabinKarp(const string &t, const string &s) {
     s_hash = (s_hash * kBase + s[i]) % kMod;
   }
 
-  for(int i = s.size(); i < t.size(); ++i) {
-    // In case of hash collision but two strings are not equal, checks the
-    // two substrings are actually equal or not.
+  for (int i = s.size(); i < t.size(); ++i) {
+    // Checks the two substrings are actually equal or not, to protect
+    // against hash collision.
     if (t_hash == s_hash && !t.compare(i - s.size(), s.size(), s)) {
       return i - s.size();  // Found a match.
     }
@@ -69,7 +69,7 @@ int CheckAnswer(const string &t, const string &s) {
       return i;
     }
   }
-  return -1;  // find no matching.
+  return -1;  // No matching.
 }
 
 string RandString(int len) {
@@ -82,7 +82,28 @@ string RandString(int len) {
   return ret;
 }
 
+void SimpleTest() {
+  assert(RabinKarp("GACGCCA", "CGC") == 2);
+  assert(RabinKarp("GATACCCATCGAGTCGGATCGAGT", "GAG") == 10);
+  assert(RabinKarp("FOOBARWIDGET", "WIDGETS") == -1);
+  assert(RabinKarp("A", "A") == 0);
+  assert(RabinKarp("A", "B") == -1);
+  assert(RabinKarp("A", "") == 0);
+  assert(RabinKarp("ADSADA", "") == 0);
+  assert(RabinKarp("", "A") == -1);
+  assert(RabinKarp("", "AAA") == -1);
+  assert(RabinKarp("A", "AAA") == -1);
+  assert(RabinKarp("AA", "AAA") == -1);
+  assert(RabinKarp("AAA", "AAA") == 0);
+  assert(RabinKarp("BAAAA", "AAA") == 1);
+  assert(RabinKarp("BAAABAAAA", "AAA") == 1);
+  assert(RabinKarp("BAABBAABAAABS", "AAA") == 8);
+  assert(RabinKarp("BAABBAABAAABS", "AAAA") == -1);
+  assert(RabinKarp("FOOBAR", "BAR") > 0);
+}
+
 int main(int argc, char *argv[]) {
+  SimpleTest();
   if (argc == 3) {
     string t = argv[1];
     string s = argv[2];
@@ -98,9 +119,6 @@ int main(int argc, char *argv[]) {
       string s = RandString(s_dis(gen));
       cout << "t = " << t << endl;
       cout << "s = " << s << endl;
-      int ret1 = RabinKarp(t, s);
-      int ret2 = CheckAnswer(t, s);
-      cout << ret1 << " " << ret2 << endl;
       assert(RabinKarp(t, s) == CheckAnswer(t, s));
     }
   }

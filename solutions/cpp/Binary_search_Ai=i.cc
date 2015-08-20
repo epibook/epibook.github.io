@@ -21,7 +21,7 @@ int SearchEntryEqualToItsIndex(const vector<int>& A) {
   while (left <= right) {
     int mid = left + ((right - left) / 2);
     int difference = A[mid] - mid;
-    // A[mid] == mid iff difference equals to 0.
+    // A[mid] == mid if and only if difference == 0.
     if (difference == 0) {
       return mid;
     } else if (difference > 0) {
@@ -44,7 +44,23 @@ int CheckAns(const vector<int>& A) {
   return -1;
 }
 
+static void SimpleTest() {
+  vector<int> A = {0,1,2,3};
+  assert(-1 != SearchEntryEqualToItsIndex(A));
+  assert(0 <= SearchEntryEqualToItsIndex(A) && SearchEntryEqualToItsIndex(A) <= 3);
+  A[0] = -1;
+  A[2] = 4;
+  A[3] = 5;
+  assert(1 == SearchEntryEqualToItsIndex(A));
+  A = {0};
+  assert(-1 != SearchEntryEqualToItsIndex(A));
+  A[0] = -1;
+  assert(-1 == SearchEntryEqualToItsIndex(A));
+
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int n;

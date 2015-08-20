@@ -21,21 +21,21 @@ class ClientsCreditsInfo {
   }
 
   bool Remove(const string& client_id) {
-    auto client_iter = client_to_credit_.find(client_id);
-    if (client_iter != client_to_credit_.end()) {
-      credit_to_clients_[client_iter->second].erase(client_id);
-      if (credit_to_clients_[client_iter->second].empty()) {
-        credit_to_clients_.erase(client_iter->second);
+    auto credit_iter = client_to_credit_.find(client_id);
+    if (credit_iter != client_to_credit_.end()) {
+      credit_to_clients_[credit_iter->second].erase(client_id);
+      if (credit_to_clients_[credit_iter->second].empty()) {
+        credit_to_clients_.erase(credit_iter->second);
       }
-      client_to_credit_.erase(client_iter);
+      client_to_credit_.erase(credit_iter);
       return true;
     }
     return false;
   }
 
   int Lookup(const string& client_id) const {
-    auto iter = client_to_credit_.find(client_id);
-    return iter == client_to_credit_.cend() ? -1 : iter->second + offset_;
+    auto credit_iter = client_to_credit_.find(client_id);
+    return credit_iter == client_to_credit_.cend() ? -1 : credit_iter->second + offset_;
   }
 
   void AddAll(int C) { offset_ += C; }

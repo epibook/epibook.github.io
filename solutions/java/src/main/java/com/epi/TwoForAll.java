@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class TwoForAll {
   // @include
   public static class GraphVertex {
-    public int d, l; // discovery and leaving time.
+    public int d, l; // Discovery and leaving time.
     public List<GraphVertex> edges;
 
     // @exclude
@@ -27,22 +24,22 @@ public class TwoForAll {
     // @include
   }
 
-  public static boolean isGraphTwoForAll(List<GraphVertex> G) {
+  public static boolean isGraphFaultTolerant(List<GraphVertex> G) {
     if (!G.isEmpty()) {
-      return DFS(G.get(0), null, 0);
+      return hasBridge(G.get(0), null, 0);
     }
     return true;
   }
 
-  private static boolean DFS(GraphVertex cur, GraphVertex pre, int time) {
+  private static boolean hasBridge(GraphVertex cur, GraphVertex pre, int time) {
     cur.d = ++time;
     cur.l = Integer.MAX_VALUE;
     for (GraphVertex next : cur.edges) {
       if (next != pre) {
-        if (next.d != 0) { // back edge.
+        if (next.d != 0) { // Back edge.
           cur.l = Math.min(cur.l, next.d);
-        } else { // forward edge.
-          if (!DFS(next, cur, time)) {
+        } else { // Forward edge.
+          if (!hasBridge(next, cur, time)) {
             return false;
           }
           cur.l = Math.min(cur.l, next.l);
@@ -53,12 +50,11 @@ public class TwoForAll {
   }
   // @exclude
 
-  private static void
-  dfsExclusion(GraphVertex cur, GraphVertex a, GraphVertex b) {
+  private static void dfsExclusion(GraphVertex cur, GraphVertex a,
+                                   GraphVertex b) {
     cur.d = 1;
     for (GraphVertex next : cur.edges) {
-      if (next.d == 0
-          && ((cur != a && cur != b) || (next != a && next != b))) {
+      if (next.d == 0 && ((cur != a && cur != b) || (next != a && next != b))) {
         dfsExclusion(next, a, b);
       }
     }
@@ -89,7 +85,84 @@ public class TwoForAll {
     return true;
   }
 
+  private static void testTriangle() {
+    int n = 3;
+    List<GraphVertex> G = new ArrayList<>(n);
+    for (int i = 0; i < n; i++) {
+      G.add(new GraphVertex());
+    }
+    G.get(0).edges.add(G.get(1));
+    G.get(1).edges.add(G.get(0));
+    G.get(1).edges.add(G.get(2));
+    G.get(2).edges.add(G.get(1));
+    G.get(2).edges.add(G.get(0));
+    G.get(0).edges.add(G.get(2));
+    boolean res = isGraphFaultTolerant(G);
+    assert(res);
+  }
+
+  private static void testTwoTriangles() {
+    int n = 6;
+    List<GraphVertex> G = new ArrayList<>(n);
+    for (int i = 0; i < n; i++) {
+      G.add(new GraphVertex());
+    }
+    G.get(0).edges.add(G.get(1));
+    G.get(1).edges.add(G.get(0));
+    G.get(1).edges.add(G.get(2));
+    G.get(2).edges.add(G.get(1));
+    G.get(2).edges.add(G.get(0));
+    G.get(0).edges.add(G.get(2));
+
+    G.get(3).edges.add(G.get(4));
+    G.get(4).edges.add(G.get(3));
+    G.get(4).edges.add(G.get(5));
+    G.get(5).edges.add(G.get(4));
+    G.get(5).edges.add(G.get(3));
+    G.get(3).edges.add(G.get(5));
+
+    // bridge edge
+    G.get(0).edges.add(G.get(3));
+    G.get(3).edges.add(G.get(0));
+
+    boolean res = isGraphFaultTolerant(G);
+    assert(!res);
+  }
+
+  private static void testTwoTrianglesBridged() {
+    int n = 6;
+    List<GraphVertex> G = new ArrayList<>(n);
+    for (int i = 0; i < n; i++) {
+      G.add(new GraphVertex());
+    }
+    G.get(0).edges.add(G.get(1));
+    G.get(1).edges.add(G.get(0));
+    G.get(1).edges.add(G.get(2));
+    G.get(2).edges.add(G.get(1));
+    G.get(2).edges.add(G.get(0));
+    G.get(0).edges.add(G.get(2));
+
+    G.get(3).edges.add(G.get(4));
+    G.get(4).edges.add(G.get(3));
+    G.get(4).edges.add(G.get(5));
+    G.get(5).edges.add(G.get(4));
+    G.get(5).edges.add(G.get(3));
+    G.get(3).edges.add(G.get(5));
+
+    G.get(0).edges.add(G.get(3));
+    G.get(3).edges.add(G.get(0));
+
+    G.get(0).edges.add(G.get(4));
+    G.get(4).edges.add(G.get(0));
+
+    boolean res = isGraphFaultTolerant(G);
+    assert(res);
+  }
+
   public static void main(String[] args) {
+    testTriangle();
+    testTwoTriangles();
+    testTwoTrianglesBridged();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       List<GraphVertex> G = new ArrayList<>();
@@ -125,9 +198,9 @@ public class TwoForAll {
       }
       // System.out.println(G);
 
-      boolean res = isGraphTwoForAll(G);
+      boolean res = isGraphFaultTolerant(G);
       System.out.println(res);
-      assert (checkAnswer(G) == res);
+      assert(checkAnswer(G) == res);
     }
   }
 }

@@ -1,61 +1,42 @@
 package com.epi;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BiggestProductNMinus1Math {
   // @include
-  public static int findBiggestNMinusOneProduct(int[] A) {
-    int zeroCount = 0, zeroIdx = - 1;
-    int positiveCount = 0, smallestPositiveIdx = -1;
-    int negativeCount = 0, smallNegativeIdx = -1, biggestNegativeIdx = -1;
+  public static int findBiggestNMinusOneProduct(List<Integer> A) {
+    int leastNonnegativeIdx = -1;
+    int numberOfNegatives = 0, greatestNegativeIdx = -1, leastNegativeIdx = -1;
 
-    for (int i = 0; i < A.length; ++i) {
-      if (A[i] < 0) {
-        ++negativeCount;
-        if (smallNegativeIdx == -1 || A[i] < A[smallNegativeIdx]) {
-          smallNegativeIdx = i;
+    // Identify the least negative, greatest negative, and least nonnegative
+    // entries.
+    for (int i = 0; i < A.size(); ++i) {
+      if (A.get(i) < 0) {
+        ++numberOfNegatives;
+        if (leastNegativeIdx == -1 || A.get(leastNegativeIdx) < A.get(i)) {
+          leastNegativeIdx = i;
         }
-        if (biggestNegativeIdx == -1 || A[biggestNegativeIdx] < A[i]) {
-          biggestNegativeIdx = i;
+        if (greatestNegativeIdx == -1 || A.get(i) < A.get(greatestNegativeIdx)) {
+          greatestNegativeIdx = i;
         }
-      } else if (A[i] == 0) {
-        zeroIdx = i;
-        ++zeroCount;
-      } else { // A[i] > 0.
-        ++positiveCount;
-        if (smallestPositiveIdx == -1 || A[i] < A[smallestPositiveIdx]) {
-          smallestPositiveIdx = i;
-        }
-      }
-    }
-
-    // Try to find a number whose elimination could maximize the product of
-    // the remaining (n - 1) numbers.
-    int x; // Stores the idx of eliminated one.
-    if (zeroCount >= 2) {
-      return 0;
-    } else if (zeroCount == 1) {
-      if ((negativeCount & 1) > 0) { // Odd number of negatives.
-        return 0;
-      } else {
-        x = zeroIdx;
-      }
-    } else { // No zero in A.
-      if ((negativeCount & 1) > 0) { // Odd number of negatives.
-        x = biggestNegativeIdx;
-      } else { // Even number of negatives.
-        if (positiveCount > 0) {
-          x = smallestPositiveIdx;
-        } else {
-          x = smallNegativeIdx;
+      } else if (A.get(i) >= 0) {
+        if (leastNonnegativeIdx == -1 || A.get(i) < A.get(leastNonnegativeIdx)) {
+          leastNonnegativeIdx = i;
         }
       }
     }
 
     int product = 1;
-    for (int i = 0; i < A.length; ++i) {
-      if (i != x) {
-        product *= A[i];
+    int IdxToSkip = (numberOfNegatives % 2) == 1
+                        ? leastNegativeIdx
+                        // Check if there are any nonnegative entry.
+                        : (leastNonnegativeIdx != -1 ? leastNonnegativeIdx
+                                                     : greatestNegativeIdx);
+    for (int i = 0; i < A.size(); ++i) {
+      if (i != IdxToSkip) {
+        product *= A.get(i);
       }
     }
     return product;
@@ -63,15 +44,15 @@ public class BiggestProductNMinus1Math {
   // @exclude
 
   // n^2 checking
-  private static int checkAns(int[] A) {
+  private static int checkAns(List<Integer> A) {
     int maxProduct = Integer.MIN_VALUE;
-    for (int i = 0; i < A.length; ++i) {
+    for (int i = 0; i < A.size(); ++i) {
       int product = 1;
       for (int j = 0; j < i; ++j) {
-        product *= A[j];
+        product *= A.get(j);
       }
-      for (int j = i + 1; j < A.length; ++j) {
-        product *= A[j];
+      for (int j = i + 1; j < A.size(); ++j) {
+        product *= A.get(j);
       }
       if (product > maxProduct) {
         maxProduct = product;
@@ -85,19 +66,18 @@ public class BiggestProductNMinus1Math {
     Random gen = new Random();
     for (int times = 0; times < 100000; ++times) {
       int n;
-      int[] A;
+      List<Integer> A;
       if (args.length == 1) {
         n = Integer.valueOf(args[0]);
       } else {
         // Get a random number from [2, 11]
         n = gen.nextInt(10) + 2;
       }
-      A = new int[n];
+      A = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
         // Get a random number from [-9, 9]
-        A[i] = gen.nextInt(19) - 9;
-        System.out.print(A[i] + " ");
-
+        A.add(gen.nextInt(19) - 9);
+        System.out.print(A.get(i) + " ");
       }
       System.out.println();
       int res = findBiggestNMinusOneProduct(A);

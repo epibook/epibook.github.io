@@ -14,43 +14,47 @@ using std::queue;
 
 // @include
 template <typename T>
-class Queue {
+class QueueWithMax {
  public:
   void Enqueue(const T& x) {
-    Q_.emplace(x);
-    while (!D_.empty() && D_.back() < x) {
-      D_.pop_back();
+    entries_.emplace(x);
+    // Eliminate dominated elements in candidates_for_max_.
+    while (!candidates_for_max_.empty()) {
+      if (candidates_for_max_.back() >= x) {
+        break;
+      }
+      candidates_for_max_.pop_back();
     }
-    D_.emplace_back(x);
+    candidates_for_max_.emplace_back(x);
   }
 
   T Dequeue() {
-    if (!Q_.empty()) {
-      T ret = Q_.front();
-      if (ret == D_.front()) {
-        D_.pop_front();
+    if (!entries_.empty()) {
+      T result = entries_.front();
+      if (result == candidates_for_max_.front()) {
+        candidates_for_max_.pop_front();
       }
-      Q_.pop();
-      return ret;
+      entries_.pop();
+      return result;
     }
     throw length_error("empty queue");
   }
 
   const T& Max() const {
-    if (!D_.empty()) {
-      return D_.front();
+    if (!candidates_for_max_.empty()) {
+      return candidates_for_max_.front();
     }
     throw length_error("empty queue");
   }
   // @exclude
-  T& Head() { return Q_.front(); }
+  T& Head() { return entries_.front(); }
 
-  const T& Head() const { return Q_.front(); }
+  const T& Head() const { return entries_.front(); }
   // @include
 
  private:
-  queue<T> Q_;
-  deque<T> D_;
+  queue<T> entries_;
+  deque<T> candidates_for_max_;
 };
 // @exclude
 #endif  // SOLUTIONS_QUEUE_WITH_MAX_USING_DEQUE_H_

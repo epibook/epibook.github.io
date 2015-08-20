@@ -37,7 +37,7 @@ int FindMissingElement(ifstream* ifs) {
     ++counter[upper_part_x];
   }
 
-  // Finds one bucket contains less than kBucketCapacity elements.
+  // Look for a bucket that contains less than (1 << 16) elements.
   const int kBucketCapacity = 1 << 16;
   int candidate_bucket;
   for (int i = 0; i < kNumBucket; ++i) {

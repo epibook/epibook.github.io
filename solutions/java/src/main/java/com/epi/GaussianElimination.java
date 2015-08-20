@@ -2,6 +2,7 @@ package com.epi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -24,7 +25,7 @@ public class GaussianElimination {
           break;
         }
       }
-      swap(B, i, idx);
+      Collections.swap(B, i, idx);
 
       // Perform elimination except i-th row.
       if (B.get(i).get(i)) {
@@ -39,7 +40,7 @@ public class GaussianElimination {
           if (B.get(i).get(j)) {
             eliminateRows(B, i, j);
             haveCoefficient = true;
-            swap(B, i, j); // row permutation.
+            Collections.swap(B, i, j); // row permutation.
             break;
           }
         }

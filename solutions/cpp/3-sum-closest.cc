@@ -60,7 +60,7 @@ int check_ans(vector<int> A, int target) {
       for (size_t k = j + 1;
            k < A.size() && A[i] + A[j] + A[k] - target <= abs(res - target);
            ++k) {
-        //cout << i << " " << j << " " << k << endl;
+        // cout << i << " " << j << " " << k << endl;
         int sum = A[i] + A[j] + A[k];
         if (sum == target) {
           return sum;

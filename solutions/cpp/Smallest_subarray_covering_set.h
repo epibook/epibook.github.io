@@ -32,8 +32,7 @@ pair<int, int> FindSmallestSubarrayCoveringSet(
       ++right;
     }
 
-
-    // Found all keywords.
+    // Found all keywords, update the smallest subarray containing all keywords.
     if (keywords_to_count.size() == keywords.size() &&
         ((result.first == -1 && result.second == -1) ||
          right - 1 - left < result.second - result.first)) {

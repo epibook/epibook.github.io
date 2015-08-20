@@ -15,14 +15,14 @@ using std::numeric_limits;
 using std::unique_ptr;
 using std::vector;
 
-unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
-    const vector<int>&, int, int);
+unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(const vector<int>&, int,
+                                                      int);
 
 // @include
 unique_ptr<BSTNode<int>> RebuildBSTFromPreorder(
     const vector<int>& preorder_sequence) {
-  return RebuildBSTFromPreorderHelper(preorder_sequence,
-                                      0, preorder_sequence.size());
+  return RebuildBSTFromPreorderHelper(preorder_sequence, 0,
+                                      preorder_sequence.size());
 }
 
 // Builds a BST from preorder_sequence[start : end - 1].
@@ -40,8 +40,7 @@ unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
       preorder_sequence[start],
       RebuildBSTFromPreorderHelper(preorder_sequence, start + 1,
                                    transition_point),
-      RebuildBSTFromPreorderHelper(preorder_sequence, transition_point,
-                                   end)});
+      RebuildBSTFromPreorderHelper(preorder_sequence, transition_point, end)});
 }
 // @exclude
 
@@ -61,14 +60,14 @@ int main(int argc, char* argv[]) {
   //  1    4  6
   // should output 1, 2, 3, 4, 5, 6
   // preorder [3, 2, 1, 5, 4, 6]
-  vector<int> preorder;
-  preorder.emplace_back(3);
-  preorder.emplace_back(2);
-  preorder.emplace_back(1);
-  preorder.emplace_back(5);
-  preorder.emplace_back(4);
-  preorder.emplace_back(6);
+  vector<int> preorder = {3, 2, 1, 5, 4, 6};
   unique_ptr<BSTNode<int>> tree(RebuildBSTFromPreorder(preorder));
   CheckAns(tree, numeric_limits<int>::min());
+  assert(3 == tree->data);
+  assert(2 == tree->left->data);
+  assert(1 == tree->left->left->data);
+  assert(5 == tree->right->data);
+  assert(4 == tree->right->left->data);
+  assert(6 == tree->right->right->data);
   return 0;
 }

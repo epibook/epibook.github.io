@@ -8,14 +8,12 @@ using namespace std;
 
 // @include
 class Employee {
-  public:
-    int start, end;
+ public:
+  int start, end;
 
-    Employee(int s = -1, int e = -1) : start(s), end(e) {}
+  Employee(int s = -1, int e = -1) : start(s), end(e) {}
 
-    bool operator<(const Employee &e) const {
-      return end < e.end;
-    }
+  bool operator<(const Employee &e) const { return end < e.end; }
 };
 
 vector<int> arrange_events(vector<Employee> &A) {

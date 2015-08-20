@@ -1,8 +1,6 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
-import com.epi.utils.Pair;
-
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -18,26 +16,32 @@ public class PaintingIterative {
   }
 
   // @include
+  private static class Coordinate {
+    public Integer x;
+    public Integer y;
+
+    public Coordinate(Integer x, Integer y) {
+      this.x = x;
+      this.y = y;
+    }
+  }
+
   public static void flipColor(boolean[][] A, int x, int y) {
-    int[][] dir = new int[][]{new int[]{0, 1}, new int[]{0, -1},
-                              new int[]{1, 0}, new int[]{-1, 0}};
+    int[][] dir = new int[][] {new int[] {0, 1}, new int[] {0, -1},
+                               new int[] {1, 0}, new int[] {-1, 0}};
     boolean color = A[x][y];
 
-    Queue<Pair<Integer, Integer>> q = new LinkedList<>();
+    Queue<Coordinate> q = new LinkedList<>();
     A[x][y] = !A[x][y]; // Flips.
-    q.add(new Pair<>(x, y));
+    q.add(new Coordinate(x, y));
     while (!q.isEmpty()) {
-      Pair<Integer, Integer> curr = q.element();
+      Coordinate curr = q.element();
       for (int[] d : dir) {
-        Pair<Integer, Integer> next = new Pair<>(
-            curr.getFirst() + d[0], curr.getSecond() + d[1]);
-        if (next.getFirst() >= 0 && next.getFirst() < A.length
-            && next.getSecond() >= 0
-            && next.getSecond() < A[next.getFirst()].length
-            && A[next.getFirst()][next.getSecond()] == color) {
+        Coordinate next = new Coordinate(curr.x + d[0], curr.y + d[1]);
+        if (next.x >= 0 && next.x < A.length && next.y >= 0 &&
+            next.y < A[next.x].length && A[next.x][next.y] == color) {
           // Flips the color.
-          A[next.getFirst()][next.getSecond()] = !A[next.getFirst()][next
-              .getSecond()];
+          A[next.x][next.y] = !A[next.x][next.y];
           q.add(next);
         }
       }
@@ -68,5 +72,4 @@ public class PaintingIterative {
     System.out.println();
     printMatrix(A);
   }
-
 }

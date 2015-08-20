@@ -16,14 +16,14 @@ using std::swap;
 using std::uniform_int_distribution;
 using std::vector;
 
-int PartitionAroundPivot(int left, int right, int pivot, vector<int>* A);
+int PartitionAroundPivot(int, int, int, vector<int>*);
 
 // @include
 int FindKthLargest(vector<int> A, int k) {
   int left = 0, right = A.size() - 1;
   default_random_engine gen((random_device())());
   while (left <= right) {
-    // Generates a random int in [left, right].
+    // Generates a random integer in [left, right].
     uniform_int_distribution<int> dis(left, right);
     int pivot_idx = dis(gen);
     int new_pivot_idx = PartitionAroundPivot(left, right, pivot_idx, &A);
@@ -40,25 +40,41 @@ int FindKthLargest(vector<int> A, int k) {
   // @include
 }
 
-// Partition A[left : right] around pivot_idx, returns the new index of the 
-// pivot, new_pivot_idx, after partition. After partitioning, 
+// Partition A[left : right] around pivot_idx, returns the new index of the
+// pivot, new_pivot_idx, after partition. After partitioning,
 // A[left : new_pivot_idx - 1] contains elements that are greater than the
-// pivot, and A[new_pivot_idx + 1 : right] contains elements that are less 
+// pivot, and A[new_pivot_idx + 1 : right] contains elements that are less
 // than the pivot.
-int PartitionAroundPivot(int left, int right, int pivot_idx, vector<int>* A) {
-  auto& A_ref = *A;
-  int pivot_value = A_ref[pivot_idx];
+int PartitionAroundPivot(int left, int right, int pivot_idx,
+                         vector<int>* A_ptr) {
+  auto& A = *A_ptr;
+  int pivot_value = A[pivot_idx];
   int new_pivot_idx = left;
-  swap(A_ref[pivot_idx], A_ref[right]);
+  swap(A[pivot_idx], A[right]);
   for (int i = left; i < right; ++i) {
-    if (A_ref[i] > pivot_value) {
-      swap(A_ref[i], A_ref[new_pivot_idx++]);
+    if (A[i] > pivot_value) {
+      swap(A[i], A[new_pivot_idx++]);
     }
   }
-  swap(A_ref[right], A_ref[new_pivot_idx]);
+  swap(A[right], A[new_pivot_idx]);
   return new_pivot_idx;
 }
 // @exclude
+
+static void SimpleTest() {
+  vector<int> A = {3,1,2,0,4,6,5};
+  assert(6==FindKthLargest(A,1));
+  assert(5==FindKthLargest(A,2));
+  assert(4==FindKthLargest(A,3));
+  assert(3==FindKthLargest(A,4));
+  assert(2==FindKthLargest(A,5));
+  assert(1==FindKthLargest(A,6));
+  assert(0==FindKthLargest(A,7));
+  A[2] = 6;
+  assert(6==FindKthLargest(A,1));
+  assert(6==FindKthLargest(A,2));
+  assert(5==FindKthLargest(A,3));
+}
 
 int main(int argc, char* argv[]) {
   default_random_engine gen((random_device())());

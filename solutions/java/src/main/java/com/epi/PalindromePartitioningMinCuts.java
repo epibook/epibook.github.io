@@ -14,8 +14,8 @@ public class PalindromePartitioningMinCuts {
     }
     for (int i = s.length() - 1; i >= 0; --i) {
       for (int j = i; j < s.length(); ++j) {
-        if (s.charAt(i) == s.charAt(j)
-            && (j - i < 2 || isPalindrome[i + 1][j - 1])) {
+        if (s.charAt(i) == s.charAt(j) &&
+            (j - i < 2 || isPalindrome[i + 1][j - 1])) {
           isPalindrome[i][j] = true;
           T[i] = Math.min(T[i], 1 + T[j + 1]);
         }
@@ -29,16 +29,16 @@ public class PalindromePartitioningMinCuts {
     Random r = new Random();
     StringBuilder ret = new StringBuilder(len);
     while (len-- > 0) {
-      ret.append((char) (r.nextInt(26) + 'a'));
+      ret.append((char)(r.nextInt(26) + 'a'));
     }
     return ret.toString();
   }
 
   private static void smallTest() {
-    assert (1 == minCuts("aab"));
-    assert (0 == minCuts("bb"));
-    assert (3 == minCuts("cabababcbc"));
-    assert (42 == minCuts("eegiicgaeadbcfacfhifdbiehbgejcaeggcgbahfcajfhjjdgj"));
+    assert(1 == minCuts("aab"));
+    assert(0 == minCuts("bb"));
+    assert(3 == minCuts("cabababcbc"));
+    assert(42 == minCuts("eegiicgaeadbcfacfhifdbiehbgejcaeggcgbahfcajfhjjdgj"));
   }
 
   public static void main(String[] args) {

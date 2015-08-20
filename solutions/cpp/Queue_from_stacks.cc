@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <iostream>
+#include <limits>
 #include <stack>
 #include <stdexcept>
 
@@ -9,32 +10,33 @@ using std::cout;
 using std::endl;
 using std::exception;
 using std::length_error;
+using std::numeric_limits;
 using std::stack;
 
 // @include
 class Queue {
  public:
-  void Enqueue(int x) { A_.emplace(x); }
+  void Enqueue(int x) { Q1_.emplace(x); }
 
   int Dequeue() {
-    if (B_.empty()) {
-      // Transfers the elements in A_ to B_.
-      while (!A_.empty()) {
-        B_.emplace(A_.top());
-        A_.pop();
+    if (Q2_.empty()) {
+      // Transfers the elements in Q1_ to Q2_.
+      while (!Q1_.empty()) {
+        Q2_.emplace(Q1_.top());
+        Q1_.pop();
       }
     }
 
-    if (B_.empty()) {  // B_ is still empty!
+    if (Q2_.empty()) {  // Q2_ is still empty!
       throw length_error("empty queue");
     }
-    int ret = B_.top();
-    B_.pop();
+    int ret = Q2_.top();
+    Q2_.pop();
     return ret;
   }
 
  private:
-  stack<int> A_, B_;
+  stack<int> Q1_, Q2_;
 };
 // @exclude
 
@@ -42,15 +44,33 @@ int main(int argc, char* argv[]) {
   Queue Q;
   Q.Enqueue(1);
   Q.Enqueue(2);
-  assert(1 == Q.Dequeue());  // 1
-  assert(2 == Q.Dequeue());  // 2
+  assert(1 == Q.Dequeue());
+  assert(2 == Q.Dequeue());
   Q.Enqueue(3);
-  assert(3 == Q.Dequeue());  // 3
+  assert(3 == Q.Dequeue());
   try {
     Q.Dequeue();
+    assert(false);
+  } catch (const exception& e) {
+    cout << e.what() << endl;
   }
-  catch (const exception& e) {
-    cout << e.what() << endl;  // throw
+  Q.Enqueue(-1);
+  Q.Enqueue(123);
+  Q.Enqueue(numeric_limits<int>::max());
+  Q.Enqueue(numeric_limits<int>::min());
+  Q.Enqueue(0);
+  assert(-1 == Q.Dequeue());
+  Q.Enqueue(0);
+  assert(123 == Q.Dequeue());
+  assert(numeric_limits<int>::max() == Q.Dequeue());
+  assert(numeric_limits<int>::min() == Q.Dequeue());
+  assert(0 == Q.Dequeue());
+  assert(0 == Q.Dequeue());
+  try {
+    Q.Dequeue();
+    assert(false);
+  } catch (const exception& e) {
+    cout << e.what() << endl;
   }
   return 0;
 }

@@ -9,7 +9,7 @@
 
 using std::string;
 
-string execute_shell(const string &cmd) {
+string execute_shell(const string& cmd) {
   FILE* pipe = popen(cmd.c_str(), "r");
   if (!pipe) {
     return "ERROR";

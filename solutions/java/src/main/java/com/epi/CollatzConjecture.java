@@ -16,19 +16,19 @@ public class CollatzConjecture {
       long testI = i;
       while (testI >= i) {
         if (!sequence.add(testI)) {
-          // We previously encountered testI, so the Collatz sequence 
+          // We previously encountered testI, so the Collatz sequence
           // has fallen into a loop. This disproves the hypothesis, so
           // we short-circuit, returning false.
           return false;
         }
 
-        if ((testI & 1) != 0) { // Odd number
+        if ((testI % 2) != 0) { // Odd number
           if (!verifiedNumbers.add(testI)) {
             break; // testI has already been verified to converge to 1.
           }
           long nextTestI = 3 * testI + 1; // Multiply by 3 and add 1.
           if (nextTestI <= testI) {
-            throw new RuntimeException("Collatz sequence overflow for " + i);
+            throw new ArithmeticException("Collatz sequence overflow for " + i);
           }
           testI = nextTestI;
         } else {
@@ -45,7 +45,7 @@ public class CollatzConjecture {
     for (int i = 2; i <= n; ++i) {
       int testI = i;
       while (testI != 1 && testI >= i) {
-        if ((testI & 1) != 0) {
+        if ((testI % 2) != 0) {
           testI = testI * 3 + 1;
         } else {
           testI >>= 1;
@@ -67,7 +67,7 @@ public class CollatzConjecture {
       System.out.println("n = " + n);
       boolean res = testCollatzConjecture(n);
       System.out.println(res);
-      assert (res == check(n));
+      assert(res == check(n));
     }
   }
 }

@@ -15,7 +15,7 @@ class TournamentTree {
  public:
   // n items, and each box has unit_cap.
   TournamentTree(int n, double unit_cap)
-      : // Complete binary tree with n leafs has 2n - 1 nodes.
+      :  // Complete binary tree with n leafs has 2n - 1 nodes.
         tree_(vector<TreeNode>((n * 2) - 1, {unit_cap})) {}
 
   void Insert(int item, double item_cap) { InsertHelper(0, item, item_cap); }
@@ -33,8 +33,8 @@ class TournamentTree {
 
  private:
   struct TreeNode {
-    double cap;         // Leaf: remaining capacity in the box.
-                        // Non-leaf: max remaining capacity in the subtree.
+    double cap;  // Leaf: remaining capacity in the box.
+    // Non-leaf: max remaining capacity in the subtree.
     vector<int> items;  // Stores the items in the leaf node.
   };
 

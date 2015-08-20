@@ -2,6 +2,9 @@ package com.epi;
 
 import java.io.*;
 import java.util.*;
+import java.util.LinkedList;
+
+import static com.epi.utils.Utils.objectInputStreamFromList;
 
 public class ClosestStars {
   // @include
@@ -18,7 +21,8 @@ public class ClosestStars {
     public int compareTo(Star rhs) {
       double rhsDistance = rhs.x * rhs.x + rhs.y * rhs.y + rhs.z * rhs.z;
       double distance = x * x + y * y + z * z;
-      return Double.valueOf(distance).compareTo(rhsDistance);
+      int cmp = Double.valueOf(distance).compareTo(rhsDistance);
+      return cmp;
     }
     // @exclude
 
@@ -31,41 +35,85 @@ public class ClosestStars {
         return true;
       }
 
-      Star rhs = (Star) obj;
+      Star rhs = (Star)obj;
       double rhsDistance = rhs.x * rhs.x + rhs.y * rhs.y + rhs.z * rhs.z;
       double distance = x * x + y * y + z * z;
       return distance == rhsDistance;
     }
+
+    @Override
+    public String toString() {
+      return "(" + x + "," + y + "," + z + ")";
+    }
     // @include
   }
 
-  public static List<Star> findClosestKStars(InputStream stars, int k) {
+  public static List<Star> findClosestKStars(int k, ObjectInputStream osin) {
     // maxHeap to store the closest k stars seen so far.
-    PriorityQueue<Star> maxHeap
-        = new PriorityQueue<>(k, Collections.reverseOrder());
+    PriorityQueue<Star> maxHeap =
+        new PriorityQueue<>(k, Collections.reverseOrder());
     try {
-      ObjectInputStream osin = new ObjectInputStream(stars);
-
       while (true) {
         // Add each star to the max-heap. If the max-heap size exceeds k,
         // remove the maximum element from the max-heap.
-        Star star = (Star) osin.readObject();
+        Star star = (Star)osin.readObject();
         maxHeap.add(star);
         if (maxHeap.size() == k + 1) {
           maxHeap.remove();
         }
       }
     } catch (IOException e) {
-      // Do nothing, was read last element in stream.
+      // Do nothing, read last element in stream.
     } catch (ClassNotFoundException e) {
       System.out.println("ClassNotFoundException: " + e.getMessage());
     }
 
-    return new ArrayList<>(maxHeap);
+    // We cannot go directly to an ArrayList from PriorityQueue, since
+    // unlike LinkedList, it does not guarantee ordering of entries.
+    List<Star> orderedStars = new ArrayList<Star>(maxHeap);
+    // We need to reverse the orderedStars list since it goes from
+    // largest to smallest because the PriorityQueue used the
+    // Collections.reverse() comparator.
+    Collections.reverse(orderedStars);
+    return orderedStars;
   }
   // @exclude
 
+  private static void simpleTest() {
+    List<Star> stars = new ArrayList<>();
+    stars.add(new Star(1, 2, 3));
+    stars.add(new Star(5, 5, 5));
+    stars.add(new Star(0, 2, 1));
+    stars.add(new Star(9, 2, 1));
+    stars.add(new Star(1, 2, 1));
+    stars.add(new Star(2, 2, 1));
+    ObjectInputStream ois = objectInputStreamFromList(stars);
+
+    List<Star> closestStars = findClosestKStars(3, ois);
+    assert(3 == closestStars.size());
+    assert(closestStars.get(0).equals(new Star(0, 2, 1)));
+    assert(closestStars.get(0).equals(new Star(2, 0, 1)));
+    assert(closestStars.get(1).equals(new Star(1, 2, 1)));
+    assert(closestStars.get(1).equals(new Star(1, 1, 2)));
+
+    stars = new ArrayList<>();
+    stars.add(new Star(1, 2, 3));
+    stars.add(new Star(5, 5, 5));
+    stars.add(new Star(4, 4, 4));
+    stars.add(new Star(3, 2, 1));
+    stars.add(new Star(5, 5, 5));
+    stars.add(new Star(3, 2, 3));
+    stars.add(new Star(3, 2, 3));
+    stars.add(new Star(3, 2, 1));
+    ois = objectInputStreamFromList(stars);
+    closestStars = findClosestKStars(2, ois);
+    assert(2 == closestStars.size());
+    assert(closestStars.get(0).equals(new Star(1, 2, 3)));
+    assert(closestStars.get(1).equals(new Star(3, 2, 1)));
+  }
+
   public static void main(String[] args) {
+    simpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int num, k;
@@ -82,27 +130,15 @@ public class ClosestStars {
       List<Star> stars = new ArrayList<>();
       // randomly generate num of stars
       for (int i = 0; i < num; ++i) {
-        stars.add(new Star(r.nextInt(100001), r.nextInt(100001), r.nextInt(100001)));
+        stars.add(
+            new Star(r.nextInt(100001), r.nextInt(100001), r.nextInt(100001)));
       }
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      ByteArrayInputStream sin = null;
-      try {
-        ObjectOutputStream oos = new ObjectOutputStream(baos);
-        for (Star s : stars) {
-          oos.writeObject(s);
-          // System.out.println(s.distance());
-        }
-        oos.close();
-        sin = new ByteArrayInputStream(baos.toByteArray());
-      } catch (IOException e) {
-        System.out.println("IOException: " + e.getMessage());
-      }
-      List<Star> closestStars = findClosestKStars(sin, k);
+      ObjectInputStream ois = objectInputStreamFromList(stars);
+      List<Star> closestStars = null;
+      closestStars = findClosestKStars(k, ois);
       Collections.sort(closestStars);
       Collections.sort(stars);
-      System.out.println("k = " + k);
-      assert (stars.get(k - 1).equals(closestStars.get(closestStars.size() - 1)));
+      assert(stars.get(k - 1).equals(closestStars.get(closestStars.size() - 1)));
     }
   }
-
 }

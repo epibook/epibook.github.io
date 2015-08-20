@@ -14,7 +14,7 @@ public class ComputingBinomialCoefficients {
     for (int j = 0; j < k + 1; ++j) {
       table[j] = 0;
     }
-    table[0] = 1;  // C(0, 0).
+    table[0] = 1; // C(0, 0).
     // C(i, j) = C(i - 1, j) + C(i - 1, j - 1).
     for (int i = 1; i <= n; ++i) {
       for (int j = Math.min(i, k); j >= 1; --j) {
@@ -72,7 +72,7 @@ public class ComputingBinomialCoefficients {
       }
 
       int res = computeBinomialCoefficients(n, k);
-      assert (res == checkAns(n, k));
+      assert(res == checkAns(n, k));
       System.out.println(n + " out of " + k + " = " + res);
       if (args.length == 2) {
         break;

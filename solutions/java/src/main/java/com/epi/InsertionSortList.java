@@ -5,7 +5,7 @@ public class InsertionSortList {
   public static ListNode<Integer> insertionSort(final ListNode<Integer> L) {
     ListNode<Integer> dummyHead = new ListNode<>(0, L);
     ListNode<Integer> iter = L;
-    // The sublist consting of nodes upto and including iter is sorted in 
+    // The sublist consting of nodes upto and including iter is sorted in
     // increasing order. We need to ensure that after we move to iter.next
     // this property continues to hold. We do this by swapping iter.next
     // with its predecessors in the list till it's in the right place.
@@ -29,12 +29,13 @@ public class InsertionSortList {
 
   public static void main(String[] args) {
     ListNode<Integer> L;
-    L = new ListNode<>(1, new ListNode<>(4, new ListNode<>(3,
-        new ListNode<>(2, new ListNode<>(5, null)))));
+    L = new ListNode<>(
+        1, new ListNode<>(
+               4, new ListNode<>(3, new ListNode<>(2, new ListNode<>(5, null)))));
     ListNode<Integer> result = insertionSort(L);
     ListNode<Integer> pre = null;
     while (result != null) {
-      assert (pre == null || pre.data <= result.data);
+      assert(pre == null || pre.data <= result.data);
       pre = result;
       System.out.println(result.data);
       result = result.next;

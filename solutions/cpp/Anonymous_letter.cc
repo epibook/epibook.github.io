@@ -32,12 +32,12 @@ string RandString(int len) {
 bool IsLetterConstructibleFromMagazine(const string& letter_text,
                                        const string& magazine_text) {
   unordered_map<char, int> char_frequency_for_letter;
-  // Inserts all chars in letter_text into a hash table.
+  // Compute the frequencies for all chars in letter_text.
   for (const char& c : letter_text) {
     ++char_frequency_for_letter[c];
   }
 
-  // Checks if characters in magazine_text can cover characters
+  // Check if the characters in magazine_text can cover characters
   // in char_frequency_for_letter.
   for (const char& c : magazine_text) {
     auto it = char_frequency_for_letter.find(c);

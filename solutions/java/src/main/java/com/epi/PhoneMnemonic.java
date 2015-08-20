@@ -16,14 +16,14 @@ public class PhoneMnemonic {
   }
 
   // The mapping from digit to corresponding charaters.
-  private static final String[] M = new String[]{"0", "1", "ABC", "DEF", "GHI",
-      "JKL", "MNO", "PQRS", "TUV", "WXYZ"};
+  private static final String[] M = new String[] {
+      "0", "1", "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ"};
 
   private static void phoneMnemonicHelper(String phoneNumber, int digit,
                                           char[] partialMnemonic,
                                           List<String> mnemonics) {
     if (digit == phoneNumber.length()) {
-      // All digits are processed, so add partialMnemonic to mnemonics. 
+      // All digits are processed, so add partialMnemonic to mnemonics.
       // (We add a copy since subsequent calls modify partialMnemonic.)
       mnemonics.add(new String(partialMnemonic));
     } else {

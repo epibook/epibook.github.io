@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -20,24 +20,24 @@ pair<int, int> FindLongestIncreasingSubarray(const vector<int> &A) {
   int max_length = 1;
   pair<int, int> ans(0, 0);
   int i = 0;
-  while (i < A.size()) {
-    // Backward check and skip if A[j] >= A[j + 1].
+  while (i < A.size() - max_length) {
+    // Backward check and skip if A[j - 1] >= A[j].
     bool is_skippable = false;
-    for (int j = i + max_length - 1; j >= i; --j) {
-      if (j + 1 >= A.size() || A[j] >= A[j + 1]) {
-        i = j + 1;
+    for (int j = i + max_length; j > i; --j) {
+      if (A[j - 1] >= A[j]) {
+        i = j;
         is_skippable = true;
         break;
       }
     }
 
     // Forward check if it is not skippable.
-    if (is_skippable == false) {
-      i += max_length - 1;
-      while (i + 1 < A.size() && A[i] < A[i + 1]) {
+    if (!is_skippable) {
+      i += max_length;
+      while (i < A.size() && A[i - 1] < A[i]) {
         ++i, ++max_length;
       }
-      ans = {i - max_length + 1, i};
+      ans = {i - max_length, i - 1};
     }
   }
   return ans;

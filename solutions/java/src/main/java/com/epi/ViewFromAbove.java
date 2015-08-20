@@ -21,8 +21,8 @@ public class ViewFromAbove {
     }
 
     public String toString() {
-      return "[" + left + ", " + right + "], color = " + color + ", height = "
-          + height;
+      return "[" + left + ", " + right + "], color = " + color + ", height = " +
+          height;
     }
   }
 
@@ -35,9 +35,7 @@ public class ViewFromAbove {
       this.line = line;
     }
 
-    public int val() {
-      return isLeft ? line.left : line.right;
-    }
+    public int val() { return isLeft ? line.left : line.right; }
 
     @Override
     public int compareTo(Endpoint o) {
@@ -59,19 +57,21 @@ public class ViewFromAbove {
     for (Endpoint endpoint : sortedEndpoints) {
       if (!activeLineSegments.isEmpty() && prevXAxis != endpoint.val()) {
         if (prev == null) { // Found first segment.
-          prev = new LineSegment(prevXAxis, endpoint.val(),
-              activeLineSegments.lastEntry().getValue().color,
-              activeLineSegments.lastEntry().getValue().height);
+          prev =
+              new LineSegment(prevXAxis, endpoint.val(),
+                              activeLineSegments.lastEntry().getValue().color,
+                              activeLineSegments.lastEntry().getValue().height);
         } else {
-          if (prev.height == activeLineSegments.lastEntry().getValue().height
-              && prev.color == activeLineSegments.lastEntry().getValue().color
-              && prevXAxis == prev.right) {
+          if (prev.height == activeLineSegments.lastEntry().getValue().height &&
+              prev.color == activeLineSegments.lastEntry().getValue().color &&
+              prevXAxis == prev.right) {
             prev.right = endpoint.val();
           } else {
             System.out.println(prev);
-            prev = new LineSegment(prevXAxis, endpoint.val(),
-                activeLineSegments.lastEntry().getValue().color,
-                activeLineSegments.lastEntry().getValue().height);
+            prev =
+                new LineSegment(prevXAxis, endpoint.val(),
+                                activeLineSegments.lastEntry().getValue().color,
+                                activeLineSegments.lastEntry().getValue().height);
           }
         }
       }
@@ -92,33 +92,24 @@ public class ViewFromAbove {
   // @exclude
 
   private static void simpleTest() {
-    List<LineSegment> A = Arrays.asList(
-        new LineSegment(1, 2, 0, 1),
-        new LineSegment(3, 4, 0, 1)
-    );
+    List<LineSegment> A =
+        Arrays.asList(new LineSegment(1, 2, 0, 1), new LineSegment(3, 4, 0, 1));
     calculateViewFromAbove(A);
   }
 
   public static void main(String[] args) {
     simpleTest();
     List<LineSegment> A = Arrays.asList(
-        new LineSegment(0, 4, 0, 0),
-        new LineSegment(1, 3, 1, 2),
-        new LineSegment(2, 7, 2, 1),
-        new LineSegment(4, 5, 3, 3),
-        new LineSegment(5, 7, 3, 0),
-        new LineSegment(6, 10, 0, 2),
-        new LineSegment(8, 9, 0, 1),
-        new LineSegment(9, 18, 4, 0),
-        new LineSegment(11, 13, 3, 2),
-        new LineSegment(12, 15, 4, 1),
-        new LineSegment(14, 15, 2, 2),
-        new LineSegment(16, 17, 3, 2)
-    );
+        new LineSegment(0, 4, 0, 0), new LineSegment(1, 3, 1, 2),
+        new LineSegment(2, 7, 2, 1), new LineSegment(4, 5, 3, 3),
+        new LineSegment(5, 7, 3, 0), new LineSegment(6, 10, 0, 2),
+        new LineSegment(8, 9, 0, 1), new LineSegment(9, 18, 4, 0),
+        new LineSegment(11, 13, 3, 2), new LineSegment(12, 15, 4, 1),
+        new LineSegment(14, 15, 2, 2), new LineSegment(16, 17, 3, 2));
     for (LineSegment s : A) {
-      System.out.println("line segment, left = " + s.left + ", right = "
-                         + s.right + ", color = " + s.color + ", height = " 
-                         + s.height);
+      System.out.println("line segment, left = " + s.left + ", right = " +
+                         s.right + ", color = " + s.color + ", height = " +
+                         s.height);
     }
     calculateViewFromAbove(A);
   }

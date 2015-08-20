@@ -71,10 +71,10 @@ vector<TimeType> find_minimum_visits(const vector<Interval<TimeType>>& I) {
 
 // O(n^2) checking solution
 template <typename TimeType>
-void check_ans(const vector<Interval<TimeType>> &I,
-               const vector<TimeType> &ans) {
+void check_ans(const vector<Interval<TimeType>>& I,
+               const vector<TimeType>& ans) {
   deque<bool> is_visited(I.size(), false);
-  for (const TimeType &a : ans) {
+  for (const TimeType& a : ans) {
     for (int i = 0; i < I.size(); ++i) {
       if (a >= I[i].left && a <= I[i].right) {
         is_visited[i] = true;
@@ -82,7 +82,7 @@ void check_ans(const vector<Interval<TimeType>> &I,
     }
   }
 
-  for (const bool &b : is_visited) {
+  for (const bool& b : is_visited) {
     assert(b == true);
   }
 }
@@ -99,7 +99,7 @@ void simple_test(void) {
   assert(ans.size() == 2 && ans[0] == 4 && ans[1] == 10);
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   simple_test();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
