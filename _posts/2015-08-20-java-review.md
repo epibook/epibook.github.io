@@ -23,13 +23,15 @@ feedback on 1-2 chapters on the Java draft.
 
 By acting as a reviewer, you will get 
 <ol>
-<li>A chance to perfect your interviewing skills,
+<li>a chance to perfect your interviewing skills,
 <li> an early look at the book, 
 <li> our undying gratitude, and, 
-<li> a <font color="red"><b>free hardcopy</b></font> of the book, <em>if</em> you are one of the first 25 reviewers or make great contributions to this review.
+<li> a free hardcopy of the book, <em>if</em> you are one of the first 25 reviewers or make great contributions to this review.
 </ol>
 
-If you are interested, please sign up via this <a href="http://goo.gl/forms/a9CsMJFXbn">Google form</a>.
+<del>If you are interested, please sign up via this <!--<a href="http://goo.gl/forms/a9CsMJFXbn">-->Google form<!--</a>-->.</del>
+<font color="red"><b>Due to enormous interest, we are no longer signing up reviewers. If you are very keen on participating, 
+please write directly to us - you can use adnan.aziz@gmail.com.</b></font>
 
 We expect reviewers to spend one to two afternoons going through
 the chapter, and identify an issue every 1 to 2 pages. The text is very similar to that of
