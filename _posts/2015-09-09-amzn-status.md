@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  EPI not showing at Amazon
+title:  EPI back at Amazon
 description:
-     EPI not showing at Amazon
+     EPI back at Amazon
 css:
     - /lib/lightbox/css/lightbox.css
 js:
@@ -13,9 +13,9 @@ js:
 {{ page.title }}
 ================
 
-<h3>EPI is not currently available from Amazon, we are working on this issue</h3>
+<strike><h3>EPI is not currently available from Amazon, we are working on this issue</h3></strike>
 
-For unknown reasons, EPI is not available from Amazon directly (it is available from resellers, but that can be a hit-or-miss).
+<font color="red"><b>As of 12:43 CDT 9/15/2015, EPI is available again!</b></font>
 
-We have made numerous calls to Amazon and Createspace (the publisher), but have not been able to resolve the issue (or even figure out
-why it is not showing). We are continuing to work on this, hope to resolve it very soon.
+<!-- For unknown reasons, EPI was not available from Amazon directly for over a week.
+We made numerous calls to Amazon and Createspace (the publisher), but were never able to get a clear idea of what happened. -->
