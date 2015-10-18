@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-class AnonymousLetter {
+public class AnonymousLetter {
   private static String randString(int len) {
     StringBuilder ret = new StringBuilder();
     Random rnd = new Random();
@@ -21,8 +21,9 @@ class AnonymousLetter {
   public static boolean isLetterConstructibleFromMagazine(String letterText,
                                                           String magazineText) {
     Map<Character, Integer> charFrequencyForLetter = new HashMap<>();
-    // Inserts all chars in letterText into a hash table.
-    for (char c : letterText.toCharArray()) {
+    // Compute the frequencies for all chars in letterText.
+    for (int i = 0; i < letterText.length(); i++) {
+      char c = letterText.charAt(i);
       if (!charFrequencyForLetter.containsKey(c)) {
         charFrequencyForLetter.put(c, 1);
       } else {
@@ -37,29 +38,30 @@ class AnonymousLetter {
         charFrequencyForLetter.put(c, charFrequencyForLetter.get(c) - 1);
         if (charFrequencyForLetter.get(c) == 0) {
           charFrequencyForLetter.remove(c);
+          // Empty charFrequencyForLetter means every char in letterText
+          // can be covered by a character in magazineText.
           if (charFrequencyForLetter.isEmpty()) {
             return true;
           }
         }
       }
     }
-    // Empty charFrequencyForLetter means every char in letterText can be
-    // covered by a character in magazineText.
-    return charFrequencyForLetter.isEmpty();
+    return false;
   }
   // @exclude
 
-  private static void SimpleTest() {
+  private static void simpleTest() {
     assert(!isLetterConstructibleFromMagazine("123", "456"));
     assert(!isLetterConstructibleFromMagazine("123", "12222222"));
     assert(isLetterConstructibleFromMagazine("123", "1123"));
     assert(isLetterConstructibleFromMagazine("123", "123"));
     assert(!isLetterConstructibleFromMagazine("12323", "123"));
-    assert(isLetterConstructibleFromMagazine("GATTACA", "A AD FS GA T ACA TTT"));
+    assert(
+        isLetterConstructibleFromMagazine("GATTACA", "A AD FS GA T ACA TTT"));
   }
 
   public static void main(String[] args) {
-    SimpleTest();
+    simpleTest();
     String L = null;
     String M = null;
     if (args.length == 2) {

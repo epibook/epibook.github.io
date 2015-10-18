@@ -96,22 +96,7 @@ int main(int argc, char* argv[]) {
     Interval target;
     target.left = tar_dis(gen);
     target.right = target.left + tar_dis(gen);
-    /*
-    cout << "A = ";
-    for (const auto& a : A) {
-      cout << "[" << a.left << ", " << a.right << "] ";
-    }
-    cout << endl;
-    cout << "target = " << target.left << ", " << target.right << endl;
-    //*/
     auto result = AddInterval(A, target);
-    /*
-    cout << "result = ";
-    for (const auto& a : result) {
-      cout << "[" << a.left << ", " << a.right << "] ";
-    }
-    cout << endl;
-    //*/
     CheckIntervals(result);
   }
   return 0;

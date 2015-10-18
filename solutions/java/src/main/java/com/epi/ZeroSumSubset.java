@@ -58,13 +58,13 @@ public class ZeroSumSubset {
       int n;
       List<Integer> A = new ArrayList<>();
       if (args.length == 1) {
-        n = Integer.valueOf(args[0]);
+        n = Integer.parseInt(args[0]);
         for (int i = 0; i < n; ++i) {
           A.add(gen.nextInt(10000));
         }
       } else if (args.length > 1) {
         for (int i = 1; i < args.length; ++i) {
-          A.add(Integer.valueOf(args[i]));
+          A.add(Integer.parseInt(args[i]));
         }
       } else {
         n = gen.nextInt(100) + 1;

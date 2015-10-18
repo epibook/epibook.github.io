@@ -8,28 +8,28 @@ import java.util.List;
 
 public class InorderTraversalWithParent {
   // @include
-  public static List<Integer> inOrderTraversal(BinaryTree<Integer> tree) {
+  public static List<Integer> inorderTraversal(BinaryTree<Integer> tree) {
     BinaryTree<Integer> prev = null, curr = tree;
     List<Integer> result = new ArrayList<>();
 
     while (curr != null) {
       BinaryTree<Integer> next;
-      if (curr.getParent() == prev) {
+      if (curr.parent == prev) {
         // We came down to curr from prev.
-        if (curr.getLeft() != null) { // Keep going left.
-          next = curr.getLeft();
+        if (curr.left != null) { // Keep going left.
+          next = curr.left;
         } else {
-          result.add(curr.getData());
+          result.add(curr.data);
           // Done with left, so go right if right is not empty.
           // Otherwise, go up.
-          next = (curr.getRight() != null) ? curr.getRight() : curr.getParent();
+          next = (curr.right != null) ? curr.right : curr.parent;
         }
-      } else if (curr.getLeft() == prev) {
-        result.add(curr.getData());
+      } else if (curr.left == prev) {
+        result.add(curr.data);
         // Done with left, so go right if right is not empty. Otherwise, go up.
-        next = (curr.getRight() != null) ? curr.getRight() : curr.getParent();
+        next = (curr.right != null) ? curr.right : curr.parent;
       } else { // Done with both children, so move up.
-        next = curr.getParent();
+        next = curr.parent;
       }
 
       prev = curr;
@@ -44,28 +44,28 @@ public class InorderTraversalWithParent {
     //    2   5
     //  1    4 6
     BinaryTree<Integer> root = new BinaryTree<>(3, null, null);
-    root.setParent(null);
-    List<Integer> result = inOrderTraversal(root);
+    root.parent = null;
+    List<Integer> result = inorderTraversal(root);
     List<Integer> goldenRes = Arrays.asList(3);
     assert(goldenRes.equals(result));
 
-    root.setLeft(new BinaryTree<>(2, null, null));
-    root.getLeft().setParent(root);
-    root.getLeft().setLeft(new BinaryTree<>(1, null, null));
-    root.getLeft().getLeft().setParent(root.getLeft());
+    root.left = new BinaryTree<>(2, null, null);
+    root.left.parent = root;
+    root.left.left = new BinaryTree<>(1, null, null);
+    root.left.left.parent = root.left;
 
-    result = inOrderTraversal(root);
+    result = inorderTraversal(root);
     goldenRes = Arrays.asList(1, 2, 3);
     assert(goldenRes.equals(result));
 
-    root.setRight(new BinaryTree<>(5, null, null));
-    root.getRight().setParent(root);
-    root.getRight().setLeft(new BinaryTree<>(4, null, null));
-    root.getRight().getLeft().setParent(root.getRight());
-    root.getRight().setRight(new BinaryTree<>(6, null, null));
-    root.getRight().getRight().setParent(root.getRight());
+    root.right = new BinaryTree<>(5, null, null);
+    root.right.parent = root;
+    root.right.left = new BinaryTree<>(4, null, null);
+    root.right.left.parent = root.right;
+    root.right.right = new BinaryTree<>(6, null, null);
+    root.right.right.parent = root.right;
 
-    result = inOrderTraversal(root);
+    result = inorderTraversal(root);
     goldenRes = Arrays.asList(1, 2, 3, 4, 5, 6);
     assert(goldenRes.equals(result));
   }

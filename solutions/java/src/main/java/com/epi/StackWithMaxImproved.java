@@ -1,5 +1,6 @@
 package com.epi;
 
+import java.util.Deque;
 import java.util.LinkedList;
 
 public class StackWithMaxImproved {
@@ -15,42 +16,44 @@ public class StackWithMaxImproved {
   }
 
   public static class Stack {
-    private LinkedList<Integer> element = new LinkedList<>();
-    private LinkedList<MaxWithCount> cachedMaxWithCount = new LinkedList<>();
+    private Deque<Integer> element = new LinkedList<>();
+    private Deque<MaxWithCount> cachedMaxWithCount = new LinkedList<>();
 
     public boolean empty() { return element.isEmpty(); }
 
     public Integer max() {
       if (!empty()) {
-        return cachedMaxWithCount.peek().max;
+        return cachedMaxWithCount.peekFirst().max;
       }
-      throw new RuntimeException("max(): empty stack");
+      throw new IllegalStateException("max(): empty stack");
     }
 
     public Integer pop() {
       if (empty()) {
-        throw new RuntimeException("pop(): empty stack");
+        throw new IllegalStateException("pop(): empty stack");
       }
-      Integer popElement = element.pop();
-      if (popElement.equals(cachedMaxWithCount.peek().max)) {
-        cachedMaxWithCount.peek().count = cachedMaxWithCount.peek().count - 1;
-        if (cachedMaxWithCount.peek().count.equals(0)) {
-          cachedMaxWithCount.pop();
+      Integer popElement = element.removeFirst();
+      if (popElement.equals(cachedMaxWithCount.peekFirst().max)) {
+        cachedMaxWithCount.peekFirst().count
+            = cachedMaxWithCount.peekFirst().count - 1;
+        if (cachedMaxWithCount.peekFirst().count.equals(0)) {
+          cachedMaxWithCount.removeFirst();
         }
       }
       return popElement;
     }
 
     public void push(Integer x) {
-      element.push(x);
+      element.addFirst(x);
       if (!cachedMaxWithCount.isEmpty()) {
-        if (x.compareTo(cachedMaxWithCount.peek().max) == 0) {
-          cachedMaxWithCount.peek().count = cachedMaxWithCount.peek().count + 1;
-        } else if (x.compareTo(cachedMaxWithCount.peek().max) > 0) {
-          cachedMaxWithCount.push(new MaxWithCount(x, 1));
+        if (Integer.compare(x, cachedMaxWithCount.peekFirst().max) == 0) {
+          cachedMaxWithCount.peekFirst().count
+              = cachedMaxWithCount.peekFirst().count + 1;
+        } else if (Integer.compare(x, cachedMaxWithCount.peekFirst().max) > 0) {
+          cachedMaxWithCount.addFirst(new MaxWithCount(x, 1));
         }
       } else {
-        cachedMaxWithCount.push(new MaxWithCount(x, 1));
+        cachedMaxWithCount.addFirst(new MaxWithCount(x, 1));
       }
     }
   }

@@ -111,8 +111,8 @@ int main(int argc, char* argv[]) {
     cout << "A = ";
     copy(A.begin(), A.end(), ostream_iterator<string>(cout, ","));
     cout << endl;
-    uniform_int_distribution<int> m_dis(1,
-                                        min(static_cast<int>(dict.size()), 10));
+    uniform_int_distribution<int> m_dis(
+        1, min(static_cast<int>(dict.size()), 10));
     int m = m_dis(gen);
     vector<string> Q;
     auto it = dict.begin();

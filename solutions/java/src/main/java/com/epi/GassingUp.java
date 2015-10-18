@@ -1,5 +1,7 @@
 package com.epi;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 // import static com.epi.utils.Utils.simplePrint;
@@ -16,11 +18,11 @@ public class GassingUp {
     }
   }
 
-  static int findStartCity(int[] G, int[] D) {
+  static int findStartCity(List<Integer> G, List<Integer> D) {
     int carry = 0;
     CityAndRemainingGas min = new CityAndRemainingGas(0, 0);
-    for (int i = 1; i < G.length; ++i) {
-      carry += G[i - 1] - D[i - 1];
+    for (int i = 1; i < G.size(); ++i) {
+      carry += G.get(i - 1) - D.get(i - 1);
       if (carry < min.remainingGas) {
         min = new CityAndRemainingGas(i, carry);
       }
@@ -29,13 +31,13 @@ public class GassingUp {
   }
   // @exclude
 
-  static void checkAns(int[] G, int[] D, int c) {
+  static void checkAns(List<Integer> G, List<Integer> D, int c) {
     int s = c;
     int gas = 0;
     do {
-      gas += G[s] - D[s];
+      gas += G.get(s) - D.get(s);
       assert(gas >= 0);
-      s = (s + 1) % G.length;
+      s = (s + 1) % G.size();
     } while (s != c);
   }
 
@@ -44,27 +46,28 @@ public class GassingUp {
     for (int times = 0; times < 1000; ++times) {
       int n;
       if (args.length == 1) {
-        n = Integer.valueOf(args[0]);
+        n = Integer.parseInt(args[0]);
       } else {
         n = gen.nextInt(10000) + 1;
       }
-      int[] G = new int[n], D = new int[n];
+      List<Integer> G = new ArrayList<>(n);
       int sum = 0;
       for (int i = 0; i < n; ++i) {
         int x = gen.nextInt(200) + 1;
         sum += x;
-        G[i] = x;
+        G.add(x);
       }
+      List<Integer> D = new ArrayList<>(n);
       sum -= n;
       for (int i = 0; i < n; ++i) {
         int x = 0;
         if (sum > 0) {
           x = gen.nextInt(sum) + 1;
         }
-        D[i] = x + 1;
+        D.add(x + 1);
         sum -= x;
       }
-      D[D.length - 1] += sum;
+      D.set(D.size() - 1, D.get(D.size() - 1) + sum);
 
       /*
        * simplePrint(G); System.out.println();

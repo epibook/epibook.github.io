@@ -1,11 +1,16 @@
 package com.epi;
 
-import java.io.*;
-import java.util.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class SearchMajority {
   // @include
   public static String majoritySearch(InputStream sin) {
@@ -63,7 +68,7 @@ public class SearchMajority {
     Random r = new Random();
     for (int times = 0; times < 10000; ++times) {
       int n;
-      ArrayList<String> stream = new ArrayList<>();
+      List<String> stream = new ArrayList<>();
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);
       } else {

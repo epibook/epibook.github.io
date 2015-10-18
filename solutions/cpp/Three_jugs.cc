@@ -24,8 +24,9 @@ struct HashPair;
 
 class PairEqual;
 
-bool CheckFeasibleHelper(const vector<Jug>& jugs, int L, int H,
-                         unordered_set<pair<int, int>, HashPair, PairEqual>* c);
+bool CheckFeasibleHelper(
+    const vector<Jug>& jugs, int L, int H,
+    unordered_set<pair<int, int>, HashPair, PairEqual>* c);
 
 // @include
 struct Jug {

@@ -6,15 +6,15 @@ import java.util.List;
 
 public class JustifyText {
   // @include
-  public static List<String> JustifyText(String[] words, int L) {
+  public static List<String> justifyText(String[] words, int L) {
     int currLineStart = 0, numWordsCurrLine = 0, currLineLength = 0;
     List<String> result = new ArrayList<>();
     for (int i = 0; i < words.length; ++i) {
       // currLineStart is the first word in the current line, and i is used to
       // identify the last word.
       ++numWordsCurrLine;
-      int lookaheadLineLength =
-          currLineLength + words[i].length() + (numWordsCurrLine - 1);
+      int lookaheadLineLength = currLineLength + words[i].length()
+                                + (numWordsCurrLine - 1);
       if (lookaheadLineLength == L) {
         result.add(
             joinALineWithSpace(words, currLineStart, i, i - currLineStart));
@@ -22,8 +22,8 @@ public class JustifyText {
         numWordsCurrLine = 0;
         currLineLength = 0;
       } else if (lookaheadLineLength > L) {
-        result.add(
-            joinALineWithSpace(words, currLineStart, i - 1, L - currLineLength));
+        result.add(joinALineWithSpace(words, currLineStart, i - 1,
+                                      L - currLineLength));
         currLineStart = i;
         numWordsCurrLine = 1;
         currLineLength = words[i].length();
@@ -67,7 +67,7 @@ public class JustifyText {
   // @exclude
 
   private static void testCase(String[] words, int L, String[] golden) {
-    List<String> result = JustifyText(words, L);
+    List<String> result = justifyText(words, L);
     for (String s : result) {
       System.out.println("\"" + s + "\"");
     }
@@ -84,8 +84,8 @@ public class JustifyText {
     System.out.println("L = " + L);
     testCase(words, L, golden);
     words = new String[] {"Listen", "to", "many,", "speak", "to", "a", "few."};
-    golden =
-        new String[] {"Listen", "to    ", "many, ", "speak ", "to   a", "few.  "};
+    golden = new String[] {"Listen", "to    ", "many, ",
+                           "speak ", "to   a", "few.  "};
     L = 6;
     System.out.println("L = " + L);
     testCase(words, L, golden);
@@ -96,8 +96,8 @@ public class JustifyText {
     L = 11;
     System.out.println("L = " + L);
     testCase(words, L, golden);
-    golden =
-        new String[] {"The  quick brown", "fox  jumped over", "the lazy dogs.  "};
+    golden = new String[] {"The  quick brown", "fox  jumped over",
+                           "the lazy dogs.  "};
     L = 16;
     System.out.println("L = " + L);
     testCase(words, L, golden);

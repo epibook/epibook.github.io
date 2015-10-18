@@ -1,7 +1,5 @@
 package com.epi;
 
-import static java.lang.Math.*;
-
 public class MultibetCardColorGame {
   // @include
   public static double computeBestPayoff(int cash) {
@@ -20,24 +18,24 @@ public class MultibetCardColorGame {
     }
 
     if (numRed == numCards || numRed == 0) {
-      return cash * pow(2, numCards);
+      return cash * Math.pow(2, numCards);
     }
 
     if (cache[cash][numRed][numCards] == null) {
       double best = Double.MIN_VALUE;
       for (int bet = 0; bet <= cash; ++bet) {
-        double redLowerBound =
-            min(computeBestPayoffHelper(cache, upperBound, cash + bet, numRed - 1,
-                                        numCards - 1),
-                computeBestPayoffHelper(cache, upperBound, cash - bet, numRed,
-                                        numCards - 1));
+        double redLowerBound
+            = Math.min(computeBestPayoffHelper(cache, upperBound, cash + bet,
+                                               numRed - 1, numCards - 1),
+                       computeBestPayoffHelper(cache, upperBound, cash - bet,
+                                               numRed, numCards - 1));
 
-        double blackLowerBound =
-            min(computeBestPayoffHelper(cache, upperBound, cash - bet, numRed - 1,
-                                        numCards - 1),
-                computeBestPayoffHelper(cache, upperBound, cash + bet, numRed,
-                                        numCards - 1));
-        best = max(best, max(redLowerBound, blackLowerBound));
+        double blackLowerBound
+            = Math.min(computeBestPayoffHelper(cache, upperBound, cash - bet,
+                                               numRed - 1, numCards - 1),
+                       computeBestPayoffHelper(cache, upperBound, cash + bet,
+                                               numRed, numCards - 1));
+        best = Math.max(best, Math.max(redLowerBound, blackLowerBound));
       }
 
       cache[cash][numRed][numCards] = best;

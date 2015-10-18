@@ -30,28 +30,37 @@ string RandString(int len) {
 // @include
 vector<string> WordBreaking(const string& s,
                             const unordered_set<string>& dict) {
-  // T[i] is the length of the last string in the decomposition of s(0, i).
-  vector<int> T(s.size(), 0);
+  // When the algorithm finishes, T[i] != -1 indicates s.substring(0,i+1)
+  // has a valid decomposition. Specifically, the length of the last string
+  // in the decomposition will be T[i].
+
+  vector<int> T(s.size(), -1);
   for (int i = 0; i < s.size(); ++i) {
-    // Sets T[i] if s(0, i) is a valid word.
+    // If s.substr(0, i + 1) is a valid word, set T[i] to the length of that
+    // word.
     if (dict.find(s.substr(0, i + 1)) != dict.cend()) {
       T[i] = i + 1;
     }
 
-    // Sets T[i] if T[j] != 0 and s(j + 1, i) is a valid word.
-    for (int j = 0; j < i && T[i] == 0; ++j) {
-      if (T[j] != 0 && dict.find(s.substr(j + 1, i - j)) != dict.cend()) {
-        T[i] = i - j;
+    // If T[i] = -1 look for j < i such that s.substr(0, j + 1)
+    // has a valid decomposition and s.substring(j + 1, i + 1) is a
+    // dictionary word. If so, record the length of that word in T[i].
+    if (T[i] == -1) {
+      for (int j = 0; j < i; ++j) {
+        if (T[j] != -1 && dict.find(s.substr(j + 1, i - j)) != dict.cend()) {
+          T[i] = i - j;
+          break;
+        }
       }
     }
   }
 
   vector<string> ret;
   // s can be assembled by valid words.
-  if (T.back()) {
+  if (T.back() != -1) {
     int idx = s.size() - 1;
     while (idx >= 0) {
-      ret.emplace_back(s.substr(idx - T[idx] + 1, T[idx]));
+      ret.emplace_back(s.substr(idx + 1 - T[idx], T[idx]));
       idx -= T[idx];
     }
     reverse(ret.begin(), ret.end());
@@ -76,11 +85,64 @@ void SmallCase() {
   unordered_set<string> dictionary = {"bed", "bath", "and", "hand", "beyond"};
   auto ans = WordBreaking("bedbathandbeyond", dictionary);
   vector<string> golden_ans = {"bed", "bath", "and", "beyond"};
+  CheckAns("bedbathandbeyond", ans);
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  dictionary = {"aa", "b", "ccc"};
+  ans = WordBreaking("b", dictionary);
+  golden_ans = {"b"};
+  CheckAns("b", ans);
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  ans = WordBreaking("ccc", dictionary);
+  golden_ans = {"ccc"};
+  CheckAns("ccc", ans);
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  ans = WordBreaking("aabccc", dictionary);
+  golden_ans = {"aa", "b", "ccc"};
+  CheckAns("aabccc", ans);
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  ans = WordBreaking("baabccc", dictionary);
+  golden_ans = {"b", "aa", "b", "ccc"};
+  CheckAns("baabccc", ans);
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  dictionary.insert("bb");
+  ans = WordBreaking("bbb", dictionary);
+  // Note: golden_ans relies on how our algorithm is implemented: our
+  // algorithm chooses longest word ending at that index, so the answer
+  // is "b", "bb", not "b", "b", "b" or "bb", "b".
+  golden_ans = {"b", "bb"};
+  CheckAns("bbb", ans);
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  ans = WordBreaking("bbcccb", dictionary);
+  golden_ans = {"bb", "ccc", "b"};
+  CheckAns("bbcccb", ans);
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  ans = WordBreaking("bbcccbabb", dictionary);
+  golden_ans = {};
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  ans = WordBreaking("d", dictionary);
+  golden_ans = {};
   assert(golden_ans.size() == ans.size() &&
          equal(ans.begin(), ans.end(), golden_ans.begin()));
 }
 
 int main(int argc, char* argv[]) {
+  SmallCase();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     unordered_set<string> dictionary;

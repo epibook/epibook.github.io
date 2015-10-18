@@ -13,7 +13,7 @@ public class IntersectSortedArrays1 {
     for (int i = 0; i < A.size(); ++i) {
       if (i == 0 || A.get(i) != A.get(i - 1)) {
         for (Integer b : B) {
-          if (A.get(i) == b) {
+          if (A.get(i).equals(b)) {
             intersectionAB.add(A.get(i));
             break;
           }

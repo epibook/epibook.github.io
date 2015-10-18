@@ -11,6 +11,7 @@
 using std::cout;
 using std::default_random_engine;
 using std::endl;
+using std::make_unique;
 using std::pair;
 using std::random_device;
 using std::unique_ptr;
@@ -37,9 +38,9 @@ class Trie {
   // @include
   bool Insert(const string& s) {
     auto* p = root_.get();
-    for (const char& c : s) {
+    for (char c : s) {
       if (p->leaves.find(c) == p->leaves.cend()) {
-        p->leaves[c] = unique_ptr<TrieNode>(new TrieNode);
+        p->leaves[c] = make_unique<TrieNode>(TrieNode());
       }
       p = p->leaves[c].get();
     }
@@ -56,7 +57,7 @@ class Trie {
   string GetShortestUniquePrefix(const string& s) {
     auto* p = root_.get();
     string prefix;
-    for (const char& c : s) {
+    for (char c : s) {
       prefix += c;
       if (p->leaves.find(c) == p->leaves.cend()) {
         return prefix;
@@ -75,7 +76,7 @@ class Trie {
     unordered_map<char, unique_ptr<TrieNode>> leaves;
   };
 
-  unique_ptr<TrieNode> root_ = unique_ptr<TrieNode>(new TrieNode);
+  unique_ptr<TrieNode> root_ = make_unique<TrieNode>(TrieNode());
   // @exclude
   void Clear(unique_ptr<TrieNode>* p) {
     for (auto& e : (*p)->leaves) {

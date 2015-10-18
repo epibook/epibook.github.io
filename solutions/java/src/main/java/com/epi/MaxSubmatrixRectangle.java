@@ -1,13 +1,11 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static com.epi.MaxSubmatrixRectangleBruteForce.maxRectangleSubmatrixBruteForce;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class MaxSubmatrixRectangle {
   // @include
   private static class MaxHW {
@@ -19,7 +17,7 @@ public class MaxSubmatrixRectangle {
     }
   }
 
-  public static int maxRectangleSubmatrix(ArrayList<ArrayList<Boolean>> A) {
+  public static int maxRectangleSubmatrix(List<List<Boolean>> A) {
     // DP table stores (h, w) for each (i, j).
     MaxHW[][] table = new MaxHW[A.size()][A.get(0).size()];
 
@@ -27,11 +25,12 @@ public class MaxSubmatrixRectangle {
       for (int j = A.get(i).size() - 1; j >= 0; --j) {
         // Find the largest h such that (i, j) to (i + h - 1, j) are feasible.
         // Find the largest w such that (i, j) to (i, j + w - 1) are feasible.
-        table[i][j] =
-            A.get(i).get(j)
-                ? new MaxHW(i + 1 < A.size() ? table[i + 1][j].h + 1 : 1,
-                            j + 1 < A.get(i).size() ? table[i][j + 1].w + 1 : 1)
-                : new MaxHW(0, 0);
+        table[i][j]
+            = A.get(i).get(j)
+                  ? new MaxHW(
+                        i + 1 < A.size() ? table[i + 1][j].h + 1 : 1,
+                        j + 1 < A.get(i).size() ? table[i][j + 1].w + 1 : 1)
+                  : new MaxHW(0, 0);
       }
     }
 
@@ -64,9 +63,9 @@ public class MaxSubmatrixRectangle {
         n = r.nextInt(50) + 1;
         m = r.nextInt(50) + 1;
       }
-      ArrayList<ArrayList<Boolean>> A = new ArrayList<>(n);
+      List<List<Boolean>> A = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
-        ArrayList<Boolean> last = new ArrayList<>(m);
+        List<Boolean> last = new ArrayList<>(m);
         A.add(last);
         for (int j = 0; j < m; ++j) {
           last.add(r.nextBoolean());

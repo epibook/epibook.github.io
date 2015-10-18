@@ -25,7 +25,7 @@ int MaxSubarraySumInCircular(const vector<int>& A) {
 // Calculates the non-circular solution.
 int FindMaxSubarray(const vector<int>& A) {
   int maximum_till = 0, maximum = 0;
-  for (const int& a : A) {
+  for (int a : A) {
     maximum_till = max(a, a + maximum_till);
     maximum = max(maximum, maximum_till);
   }

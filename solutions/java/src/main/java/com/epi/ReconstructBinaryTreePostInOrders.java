@@ -2,41 +2,44 @@ package com.epi;
 
 import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import static com.epi.BinaryTreeUtils.*;
+import static com.epi.BinaryTreeUtils.generateInorder;
+import static com.epi.BinaryTreeUtils.generatePostorder;
+import static com.epi.BinaryTreeUtils.generateRandBinaryTree;
 
-public class ReconstructBinaryTreePostInOrders {
+public class ReconstructBinaryTreePostInorders {
   // @include
-  public static BinaryTreeNode<Integer> reconstructPostInOrders(int[] post,
-                                                                int[] in) {
+  public static BinaryTreeNode<Integer> reconstructPostInorders(
+      List<Integer> post, List<Integer> in) {
     Map<Integer, Integer> inEntryIdxMap = new HashMap<Integer, Integer>();
-    for (int i = 0; i < in.length; ++i) {
-      inEntryIdxMap.put(in[i], i);
+    for (int i = 0; i < in.size(); ++i) {
+      inEntryIdxMap.put(in.get(i), i);
     }
-    return reconstructPostInOrdersHelper(post, 0, post.length, 0, in.length,
+    return reconstructPostInordersHelper(post, 0, post.size(), 0, in.size(),
                                          inEntryIdxMap);
   }
 
-  private static BinaryTreeNode<Integer> reconstructPostInOrdersHelper(
-      int[] post, int postS, int postE, int inS, int inE,
+  private static BinaryTreeNode<Integer> reconstructPostInordersHelper(
+      List<Integer> post, int postS, int postE, int inS, int inE,
       Map<Integer, Integer> inEntryIdxMap) {
     if (postE <= postS || inE <= inS) {
       return null;
     }
-    int idx = inEntryIdxMap.get(post[postE - 1]);
+    int idx = inEntryIdxMap.get(post.get(postE - 1));
     int leftTreeSize = idx - inS;
 
     return new BinaryTreeNode<>(
-        post[postE - 1],
+        post.get(postE - 1),
         // Recursively build the left subtree.
-        reconstructPostInOrdersHelper(post, postS, postS + leftTreeSize, inS, idx,
-                                      inEntryIdxMap),
+        reconstructPostInordersHelper(post, postS, postS + leftTreeSize, inS,
+                                      idx, inEntryIdxMap),
         // Recursively build the right subtree.
-        reconstructPostInOrdersHelper(post, postS + leftTreeSize, postE - 1,
+        reconstructPostInordersHelper(post, postS + leftTreeSize, postE - 1,
                                       idx + 1, inE, inEntryIdxMap));
   }
   // @exclude
@@ -52,17 +55,9 @@ public class ReconstructBinaryTreePostInOrders {
         n = r.nextInt(10000) + 1;
       }
       BinaryTreeNode<Integer> root = generateRandBinaryTree(n, true);
-      List<Integer> post = generatePostOrder(root);
-      int[] postOrder = new int[post.size()];
-      for (int i = 0; i < postOrder.length; ++i) {
-        postOrder[i] = post.get(i);
-      }
-      List<Integer> in = generateInOrder(root);
-      int[] inOrder = new int[in.size()];
-      for (int i = 0; i < inOrder.length; ++i) {
-        inOrder[i] = in.get(i);
-      }
-      BinaryTreeNode<Integer> res = reconstructPostInOrders(postOrder, inOrder);
+      List<Integer> post = generatePostorder(root);
+      List<Integer> in = generateInorder(root);
+      BinaryTreeNode<Integer> res = reconstructPostInorders(post, in);
       assert(root.equals(res));
     }
   }

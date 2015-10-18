@@ -19,7 +19,8 @@ shared_ptr<BSTNode<int>> BSTToDoublyListHelper(
 shared_ptr<BSTNode<int>> MergeTwoSortedLists(shared_ptr<BSTNode<int>> A,
                                              shared_ptr<BSTNode<int>> B);
 
-void AppendNode(shared_ptr<BSTNode<int>>* node, shared_ptr<BSTNode<int>>* tail);
+void AppendNode(shared_ptr<BSTNode<int>>* node,
+                shared_ptr<BSTNode<int>>* tail);
 
 // Build a BST from the (s + 1)-th to the e-th node in L.
 shared_ptr<BSTNode<int>> BuildBSTFromSortedDoublyListHelper(

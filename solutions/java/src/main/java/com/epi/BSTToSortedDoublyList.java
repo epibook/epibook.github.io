@@ -13,15 +13,15 @@ public class BSTToSortedDoublyList {
     }
 
     // Recursively build the list from left and right subtrees.
-    BSTNode<Integer> lHead = bstToDoublyLinkedList(tree.getLeft());
-    BSTNode<Integer> rHead = bstToDoublyLinkedList(tree.getRight());
+    BSTNode<Integer> lHead = bstToDoublyLinkedList(tree.left);
+    BSTNode<Integer> rHead = bstToDoublyLinkedList(tree.right);
 
     // Append tree to the list from left subtree.
     BSTNode<Integer> lTail = null;
     if (lHead != null) {
-      lTail = lHead.getLeft();
-      lTail.setRight(tree);
-      tree.setLeft(lTail);
+      lTail = lHead.left;
+      lTail.right = tree;
+      tree.left = lTail;
       lTail = tree;
     } else {
       lHead = lTail = tree;
@@ -30,14 +30,14 @@ public class BSTToSortedDoublyList {
     // Append the list from right subtree to tree.
     BSTNode<Integer> rTail = null;
     if (rHead != null) {
-      rTail = rHead.getLeft();
-      lTail.setRight(rHead);
-      rHead.setLeft(lTail);
+      rTail = rHead.left;
+      lTail.right = rHead;
+      rHead.left = lTail;
     } else {
       rTail = lTail;
     }
-    rTail.setRight(lHead);
-    lHead.setLeft(rTail);
+    rTail.right = lHead;
+    lHead.left = rTail;
 
     return lHead;
   }
@@ -48,19 +48,19 @@ public class BSTToSortedDoublyList {
     // 2 5
     // 1 4 6
     BSTNode<Integer> tree = new BSTNode<>(3);
-    tree.setLeft(new BSTNode<>(2));
-    tree.getLeft().setLeft(new BSTNode<>(1));
-    tree.setRight(new BSTNode<>(5));
-    tree.getRight().setLeft(new BSTNode<>(4));
-    tree.getRight().setRight(new BSTNode<>(6));
+    tree.left = new BSTNode<>(2);
+    tree.left.left = new BSTNode<>(1);
+    tree.right = new BSTNode<>(5);
+    tree.right.left = new BSTNode<>(4);
+    tree.right.right = new BSTNode<>(6);
     BSTNode<Integer> L = bstToDoublyLinkedList(tree);
     BSTNode<Integer> curr = L;
     int pre = Integer.MIN_VALUE;
     do {
-      assert(pre <= curr.getData());
-      System.out.println(curr.getData());
-      pre = curr.getData();
-      curr = curr.getRight();
+      assert(pre <= curr.data);
+      System.out.println(curr.data);
+      pre = curr.data;
+      curr = curr.right;
     } while (curr != L);
   }
 }

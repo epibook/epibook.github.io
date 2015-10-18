@@ -1,9 +1,9 @@
 package com.epi;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 
@@ -12,7 +12,7 @@ public class StringInMatrix {
     Random r = new Random();
     List<List<Integer>> matrix = new ArrayList<>(n);
     for (int i = 0; i < n; ++i) {
-      matrix.add(new ArrayList(n));
+      matrix.add(new ArrayList<Integer>(n));
       for (int j = 0; j < n; ++j) {
         matrix.get(i).add(r.nextInt(n));
       }
@@ -58,13 +58,10 @@ public class StringInMatrix {
       return true;
     }
 
+    // clang-format off
     @Override
-    public int hashCode() {
-      int result = x != null ? x.hashCode() : 0;
-      result = 31 * result + (y != null ? y.hashCode() : 0);
-      result = 31 * result + (suffixIndex != null ? suffixIndex.hashCode() : 0);
-      return result;
-    }
+    public int hashCode() { return Objects.hash(x, y, suffixIndex); }
+    // clang-format on
   }
 
   // @include
@@ -87,16 +84,16 @@ public class StringInMatrix {
       return true;
     }
 
-    if (i < 0 || i >= A.size() || j < 0 || j >= A.get(i).size() ||
-        failedAttemptsCache.contains(new CacheEntry(i, j, len))) {
+    if (i < 0 || i >= A.size() || j < 0 || j >= A.get(i).size()
+        || failedAttemptsCache.contains(new CacheEntry(i, j, len))) {
       return false;
     }
 
-    if (A.get(i).get(j) == S.get(len) &&
-        (matchHelper(A, S, failedAttemptsCache, i - 1, j, len + 1) ||
-         matchHelper(A, S, failedAttemptsCache, i + 1, j, len + 1) ||
-         matchHelper(A, S, failedAttemptsCache, i, j - 1, len + 1) ||
-         matchHelper(A, S, failedAttemptsCache, i, j + 1, len + 1))) {
+    if (A.get(i).get(j) == S.get(len)
+        && (matchHelper(A, S, failedAttemptsCache, i - 1, j, len + 1)
+            || matchHelper(A, S, failedAttemptsCache, i + 1, j, len + 1)
+            || matchHelper(A, S, failedAttemptsCache, i, j - 1, len + 1)
+            || matchHelper(A, S, failedAttemptsCache, i, j + 1, len + 1))) {
       return true;
     }
     failedAttemptsCache.add(new CacheEntry(i, j, len));

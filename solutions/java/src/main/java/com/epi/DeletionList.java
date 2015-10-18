@@ -3,7 +3,7 @@
 
 package com.epi;
 
-class DeletionList {
+public class DeletionList {
   // @include
   // Assumes nodeToDelete is not tail.
   public static void deletionFromList(ListNode<Integer> nodeToDelete) {
@@ -13,8 +13,8 @@ class DeletionList {
   // @exclude
 
   public static void main(String[] args) {
-    ListNode<Integer> L =
-        new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, null)));
+    ListNode<Integer> L
+        = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, null)));
     deletionFromList(L);
     assert(L.data == 2 && L.next.data == 3);
   }

@@ -34,9 +34,10 @@ int FindClosestElementsInSortedArrays(
   // check we reach the end.
   multimap<int, pair<vector<int>::const_iterator, vector<int>::const_iterator>>
       iter_and_tail;
-  for (const auto& sorted_array : sorted_arrays) {
-    iter_and_tail.emplace(sorted_array.front(), make_pair(sorted_array.cbegin(),
-                                                          sorted_array.cend()));
+  for (const vector<int>& sorted_array : sorted_arrays) {
+    iter_and_tail.emplace(
+        sorted_array.front(),
+        make_pair(sorted_array.cbegin(), sorted_array.cend()));
   }
 
   while (true) {
@@ -55,7 +56,8 @@ int FindClosestElementsInSortedArrays(
 }
 // @exclude
 
-int Distance(const vector<vector<int>>& sorted_arrays, const vector<int>& idx) {
+int Distance(const vector<vector<int>>& sorted_arrays,
+             const vector<int>& idx) {
   int max_val = numeric_limits<int>::min(),
       min_val = numeric_limits<int>::max();
   for (int i = 0; i < idx.size(); ++i) {

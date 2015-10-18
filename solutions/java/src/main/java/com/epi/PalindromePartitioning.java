@@ -44,12 +44,12 @@ public class PalindromePartitioning {
 
   private static void checkAns(List<List<String>> vecs, String input) {
     for (List<String> vec : vecs) {
-      String temp = "";
+      StringBuilder temp = new StringBuilder();
       for (String s : vec) {
         assert(isPalindrome(s));
-        temp += s;
+        temp.append(s);
       }
-      assert(temp.equals(input));
+      assert(temp.toString().equals(input));
     }
   }
 
@@ -62,20 +62,19 @@ public class PalindromePartitioning {
     return ret.toString();
   }
 
-  private static void SimpleTest() {
+  private static void simpleTest() {
     List<List<String>> result = palindromePartitioning("abbbac");
     List<List<String>> golden = Arrays.asList(
         Arrays.asList("a", "b", "b", "b", "a", "c"),
         Arrays.asList("a", "b", "bb", "a", "c"),
         Arrays.asList("a", "bb", "b", "a", "c"),
-        Arrays.asList("a", "bbb", "a", "c"),
-        Arrays.asList("abbba", "c")); 
+        Arrays.asList("a", "bbb", "a", "c"), Arrays.asList("abbba", "c"));
     System.out.println(result);
     assert(result.equals(golden));
   }
 
   public static void main(String[] args) {
-    SimpleTest();
+    simpleTest();
     if (args.length == 1) {
       String s = args[0];
       List<List<String>> result = palindromePartitioning(s);

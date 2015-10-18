@@ -1,6 +1,5 @@
 package com.epi;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +13,7 @@ public class PermutationArray {
     int n;
     for (int times = 0; times < 1000; ++times) {
       if (args.length == 1) {
-        n = Integer.valueOf(args[0]);
+        n = Integer.parseInt(args[0]);
       } else {
         n = gen.nextInt(100) + 1;
       }

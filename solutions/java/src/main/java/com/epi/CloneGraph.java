@@ -1,7 +1,16 @@
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 public class CloneGraph {
   // @include
@@ -21,16 +30,16 @@ public class CloneGraph {
     }
 
     Map<GraphVertex, GraphVertex> vertexMap = new HashMap<>();
-    LinkedList<GraphVertex> q = new LinkedList<>();
-    q.addLast(g);
+    Queue<GraphVertex> q = new LinkedList<>();
+    q.add(g);
     vertexMap.put(g, new GraphVertex(g.label));
     while (!q.isEmpty()) {
-      GraphVertex v = q.removeFirst();
+      GraphVertex v = q.remove();
       for (GraphVertex e : v.edges) {
         // Try to copy vertex e.
         if (!vertexMap.containsKey(e)) {
           vertexMap.put(e, new GraphVertex(e.label));
-          q.addLast(e);
+          q.add(e);
         }
         // Copy edge.
         vertexMap.get(v).edges.add(vertexMap.get(e));
@@ -50,11 +59,11 @@ public class CloneGraph {
 
   private static void checkGraph(GraphVertex node, List<GraphVertex> g) {
     Set<GraphVertex> vertexSet = new HashSet<>();
-    LinkedList<GraphVertex> q = new LinkedList<>();
-    q.addLast(node);
+    Queue<GraphVertex> q = new LinkedList<>();
+    q.add(node);
     vertexSet.add(node);
     while (!q.isEmpty()) {
-      GraphVertex vertex = q.removeFirst();
+      GraphVertex vertex = q.remove();
       assert(vertex.label < g.size());
       List<Integer> label1 = copyLabels(vertex.edges),
                     label2 = copyLabels(g.get(vertex.label).edges);
@@ -65,7 +74,7 @@ public class CloneGraph {
       for (GraphVertex e : vertex.edges) {
         if (!vertexSet.contains(e)) {
           vertexSet.add(e);
-          q.addLast(e);
+          q.add(e);
         }
       }
     }

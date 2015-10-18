@@ -60,7 +60,39 @@ int check_ans(const vector<string>& A, const vector<string>& Q) {
   return ans.second - ans.first;
 }
 
+void SimpleTestCase(const vector<string>& A, const vector<string>& dict,
+                    int start, int finish) {
+  auto res = FindSmallestSubarrayCoveringSet(A, {dict.begin(), dict.end()});
+  cout << "res = " << res.first << " " << res.second << endl;
+  assert(res.first == start && res.second == finish);
+  string s;
+  for (int i = 0; i < A.size(); ++i) {
+    s += A[i];
+    s += ' ';
+  }
+  istringstream sin(s);
+  pair<int, int> res2(FindSmallestSubarrayCoveringSubset(&sin, dict));
+  cout << "res2 = " << res2.first << " " << res2.second << endl;
+  assert(res2.first == start && res2.second == finish);
+}
+
+void SimpleTest() {
+  vector<string> A = {"a", "b", "c", "b", "a", "d", "c",
+                      "a", "e", "a", "a", "b", "e"};
+  vector<string> dict = {"b", "c", "e"};
+  SimpleTestCase(A, dict, 3, 8);
+  dict = {"a", "c"};
+  SimpleTestCase(A, dict, 6, 7);
+  A = {"a", "b"};
+  dict = {"a", "b"};
+  SimpleTestCase(A, dict, 0, 1);
+  A = {"a", "b"};
+  dict = {"b", "a"};
+  SimpleTestCase(A, dict, 0, 1);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int n;

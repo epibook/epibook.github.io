@@ -9,6 +9,7 @@
 
 using std::cout;
 using std::endl;
+using std::make_unique;
 using std::swap;
 using std::unique_ptr;
 
@@ -49,18 +50,18 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  auto root = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{3, nullptr, nullptr, nullptr});
-  root->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{2, nullptr, nullptr, root.get()});
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{1, nullptr, nullptr, root->left.get()});
-  root->right = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{5, nullptr, nullptr, root.get()});
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{4, nullptr, nullptr, root->right.get()});
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{6, nullptr, nullptr, root->right.get()});
+  auto root = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{3, nullptr, nullptr, nullptr});
+  root->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{2, nullptr, nullptr, root.get()});
+  root->left->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{1, nullptr, nullptr, root->left.get()});
+  root->right = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{5, nullptr, nullptr, root.get()});
+  root->right->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{4, nullptr, nullptr, root->right.get()});
+  root->right->right = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{6, nullptr, nullptr, root->right.get()});
 
   // should output 3
   assert(LCA(root->left, root->right)->data == 3);

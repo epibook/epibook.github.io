@@ -1,29 +1,30 @@
 package com.epi;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class HeightDetermination {
   // @include
-  static int getHeight(int c, int d) {
-    int[][] F = new int[c + 1][d + 1];
-    for (int[] element : F) {
-      Arrays.fill(element, -1);
+  public static int getHeight(int c, int d) {
+    List<List<Integer>> F = new ArrayList<>(c + 1);
+    for (int i = 0; i < c + 1; ++i) {
+      F.add(new ArrayList(Collections.nCopies(d + 1, -1)));
     }
-
-    return getHeightHelper(F, c, d);
+    return getHeightHelper(c, d, F);
   }
 
-  static int getHeightHelper(int[][] F, int c, int d) {
+  private static int getHeightHelper(int c, int d, List<List<Integer>> F) {
     if (c == 0 || d == 0) {
       return 0;
     } else if (c == 1) {
       return d;
     } else {
-      if (F[c][d] == -1) {
-        F[c][d] =
-            getHeightHelper(F, c, d - 1) + getHeightHelper(F, c - 1, d - 1) + 1;
+      if (F.get(c).get(d) == -1) {
+        F.get(c).set(d, getHeightHelper(c, d - 1, F)
+                            + getHeightHelper(c - 1, d - 1, F) + 1);
       }
-      return F[c][d];
+      return F.get(c).get(d);
     }
   }
   // @exclude

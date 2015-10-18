@@ -1,10 +1,10 @@
 package com.epi;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class NumberWays {
   // @include
   public static int numberOfWays(int n, int m) {
@@ -13,18 +13,15 @@ public class NumberWays {
       n = m;
       m = temp;
     }
-    int[] A = new int[m];
-    for (int j = 0; j < m; ++j) {
-      A[j] = 1;
-    }
+    List<Integer> A = new ArrayList<>(Collections.nCopies(m, 1));
     for (int i = 1; i < n; ++i) {
       int prevRes = 0;
       for (int j = 0; j < m; ++j) {
-        A[j] = A[j] + prevRes;
-        prevRes = A[j];
+        A.set(j, A.get(j) + prevRes);
+        prevRes = A.get(j);
       }
     }
-    return A[m - 1];
+    return A.get(m - 1);
   }
   // @exclude
 
@@ -58,8 +55,8 @@ public class NumberWays {
         n = r.nextInt(10) + 1;
         m = r.nextInt(10) + 1;
       }
-      System.out.println("n = " + n + ", m = " + m + ", number of ways = " +
-                         numberOfWays(n, m));
+      System.out.println("n = " + n + ", m = " + m + ", number of ways = "
+                         + numberOfWays(n, m));
       assert(checkAns(n + m - 2, m - 1) == numberOfWays(n, m));
       if (args.length == 2) {
         break;

@@ -38,7 +38,7 @@ vector<string> word_breaking(const string& s,
 
   // Gets all possible candidate lengths in sorted manner.
   set<size_t> temp_lengths;
-  for (const auto& x : dict) {
+  for (const string& x : dict) {
     temp_lengths.emplace(x.size());
   }
   vector<size_t> lengths(temp_lengths.cbegin(), temp_lengths.cend());
@@ -48,7 +48,7 @@ vector<string> word_breaking(const string& s,
   table[0] = true;
   for (size_t i = 0; i < s.size(); ++i) {
     if (table[i]) {
-      for (const auto& x : lengths) {
+      for (size_t x : lengths) {
         if (i + x > s.size()) {
           break;
         }
@@ -78,7 +78,7 @@ void generate_results(const string& s, const unordered_set<string>& dict,
 
   // Tries all possible combinations of strings in dict and stores the result
   // into results.
-  for (const auto& x : lengths) {
+  for (size_t x : lengths) {
     if (idx + x > s.size()) {
       break;
     }
@@ -107,7 +107,7 @@ string join_with_space(const vector<string>& str) {
 // Verify the strings in ans can be assembled into s.
 void check_ans(const string& s, const vector<string>& ans) {
   cout << s << endl;
-  for (const auto& x : ans) {
+  for (const string& x : ans) {
     string temp = x;
     temp.erase(remove_if(temp.begin(), temp.end(), isspace), temp.end());
     assert(!s.compare(temp));

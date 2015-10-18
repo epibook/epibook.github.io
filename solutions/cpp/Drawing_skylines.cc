@@ -37,7 +37,8 @@ Skyline ComputeSkylineInInterval(const vector<Rectangle>& buildings,
   }
   int mid = left_endpoint + ((right_endpoint - left_endpoint) / 2);
   auto left_skyline = ComputeSkylineInInterval(buildings, left_endpoint, mid);
-  auto right_skyline = ComputeSkylineInInterval(buildings, mid, right_endpoint);
+  auto right_skyline =
+      ComputeSkylineInInterval(buildings, mid, right_endpoint);
   return MergeSkylines(&left_skyline, &right_skyline);
 }
 
@@ -60,7 +61,8 @@ Skyline MergeSkylines(Skyline* left_skyline, Skyline* right_skyline) {
   }
 
   merged.insert(merged.end(), left_skyline->begin() + i, left_skyline->end());
-  merged.insert(merged.end(), right_skyline->begin() + j, right_skyline->end());
+  merged.insert(merged.end(), right_skyline->begin() + j,
+                right_skyline->end());
   return merged;
 }
 
@@ -96,6 +98,18 @@ void MergeIntersectSkylines(Skyline* merged, Rectangle* a, int* a_idx,
 }
 // @exclude
 
+void CheckAnswer(const Skyline& ans) {
+  // Just check there is no overlap.
+  for (int i = 0; i < ans.size(); ++i) {
+    assert(ans[i].left <= ans[i].right);
+    if (i > 0) {
+      assert(ans[i - 1].right <= ans[i].left);
+      assert(ans[i - 1].right != ans[i].left ||
+             ans[i - 1].height != ans[i].height);
+    }
+  }
+}
+
 int main(int argc, char* argv[]) {
   default_random_engine gen((random_device())());
   for (int times = 0; times < 2000; ++times) {
@@ -118,15 +132,7 @@ int main(int argc, char* argv[]) {
     }
     Skyline ans = ComputeSkyline(A);
     cout << "n = " << n << endl;
-    // Just check there is no overlap.
-    for (int i = 0; i < ans.size(); ++i) {
-      assert(ans[i].left <= ans[i].right);
-      if (i > 0) {
-        assert(ans[i - 1].right <= ans[i].left);
-        assert(ans[i - 1].right != ans[i].left ||
-               ans[i - 1].height != ans[i].height);
-      }
-    }
+    CheckAnswer(ans);
   }
   return 0;
 }

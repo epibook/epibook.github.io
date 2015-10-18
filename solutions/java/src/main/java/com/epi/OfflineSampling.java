@@ -20,11 +20,11 @@ public class OfflineSampling {
     int n, k;
     Random gen = new Random();
     if (args.length == 1) {
-      n = Integer.valueOf(args[0]);
+      n = Integer.parseInt(args[0]);
       k = gen.nextInt(n) + 1;
     } else if (args.length == 2) {
-      n = Integer.valueOf(args[0]);
-      k = Integer.valueOf(args[1]);
+      n = Integer.parseInt(args[0]);
+      k = Integer.parseInt(args[1]);
     } else {
       n = gen.nextInt(1000000) + 1;
       k = gen.nextInt(n) + 1;

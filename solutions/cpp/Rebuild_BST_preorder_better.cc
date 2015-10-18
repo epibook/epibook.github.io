@@ -10,40 +10,46 @@
 
 using std::cout;
 using std::endl;
+using std::make_unique;
 using std::numeric_limits;
 using std::unique_ptr;
 using std::vector;
 
-unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(const vector<int>&, int,
-                                                      int, int*);
+unique_ptr<BSTNode<int>> RebuildBSTFromPreorderOnValueRange(const vector<int>&,
+                                                            int, int, int*);
 
 // @include
 unique_ptr<BSTNode<int>> RebuildBSTFromPreorder(
     const vector<int>& preorder_sequence) {
   int root_idx = 0;
-  return RebuildBSTFromPreorderHelper(preorder_sequence,
-                                      numeric_limits<int>::min(),
-                                      numeric_limits<int>::max(), &root_idx);
+  return RebuildBSTFromPreorderOnValueRange(
+      preorder_sequence, numeric_limits<int>::min(),
+      numeric_limits<int>::max(), &root_idx);
 }
 
-// Builds a BST from preorder_sequence on keys in (lowerBound, upperBound).
-unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
+// Builds a BST on the subtree rooted at root_idx from preorder_sequence on
+// keys in (lower_bound, upper_bound).
+unique_ptr<BSTNode<int>> RebuildBSTFromPreorderOnValueRange(
     const vector<int>& preorder_sequence, int lower_bound, int upper_bound,
-    int* root_idx) {
-  if (*root_idx == preorder_sequence.size()) {
+    int* root_idx_pointer) {
+  int& root_idx = *root_idx_pointer;
+  if (root_idx == preorder_sequence.size()) {
     return nullptr;
   }
 
-  int root = preorder_sequence[*root_idx];
+  int root = preorder_sequence[root_idx];
   if (root < lower_bound || root > upper_bound) {
     return nullptr;
   }
-  ++*root_idx;
-  return unique_ptr<BSTNode<int>>(new BSTNode<int>{
-      root, RebuildBSTFromPreorderHelper(preorder_sequence, lower_bound, root,
-                                         root_idx),
-      RebuildBSTFromPreorderHelper(preorder_sequence, root, upper_bound,
-                                   root_idx)});
+  ++root_idx;
+  // Note that RebuildBSTFromPreorderOnValueRange updates root_idx. So the
+  // order of following two calls are critical.
+  auto left_subtree = RebuildBSTFromPreorderOnValueRange(
+      preorder_sequence, lower_bound, root, root_idx_pointer);
+  auto right_subtree = RebuildBSTFromPreorderOnValueRange(
+      preorder_sequence, root, upper_bound, root_idx_pointer);
+  return make_unique<BSTNode<int>>(
+      BSTNode<int>{root, move(left_subtree), move(right_subtree)});
 }
 // @exclude
 

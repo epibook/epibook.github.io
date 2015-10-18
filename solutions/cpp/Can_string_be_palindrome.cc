@@ -37,8 +37,8 @@ int main(int argc, char *argv[]) {
       s = RandString(dis(gen));
     }
     cout << s << endl;
-    assert(CanStringBeAPalindromeHash::CanStringBeAPalindrome(s) ==
-           CanStringBeAPalindromeSorting::CanStringBeAPalindrome(&s));
+    assert(CanStringBeAPalindromeHash::CanFormPalindrome(s) ==
+           CanStringBeAPalindromeSorting::CanFormPalindrome(&s));
   }
   return 0;
 }

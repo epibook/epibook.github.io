@@ -2,7 +2,6 @@ package com.epi;
 
 import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,16 +13,16 @@ public class RebuildBSTPreorder {
                                         preorderSequence.size());
   }
 
-  // Builds a BST from preorderSequence[start : end - 1].
+  // Builds a BST from preorderSequence.subList(start, end).
   private static BSTNode<Integer> rebuildBSTFromPreorderHelper(
       List<Integer> preorderSequence, int start, int end) {
     if (start >= end) {
       return null;
     }
     int transitionPoint = start + 1;
-    while (transitionPoint < end &&
-           preorderSequence.get(transitionPoint)
-                   .compareTo(preorderSequence.get(start)) < 0) {
+    while (transitionPoint < end
+           && Integer.compare(preorderSequence.get(transitionPoint),
+                              preorderSequence.get(start)) < 0) {
       ++transitionPoint;
     }
     return new BSTNode<>(
@@ -36,10 +35,10 @@ public class RebuildBSTPreorder {
 
   private static void checkAns(BSTNode<Integer> n, Integer pre) {
     if (n != null) {
-      checkAns(n.getLeft(), pre);
-      assert(pre.compareTo(n.getData()) <= 0);
-      System.out.println(n.getData());
-      checkAns(n.getRight(), n.getData());
+      checkAns(n.left, pre);
+      assert(Integer.compare(pre, n.data) <= 0);
+      System.out.println(n.data);
+      checkAns(n.right, n.data);
     }
   }
 
@@ -52,11 +51,11 @@ public class RebuildBSTPreorder {
     List<Integer> preorder = Arrays.asList(3, 2, 1, 5, 4, 6);
     BSTNode<Integer> tree = rebuildBSTFromPreorder(preorder);
     checkAns(tree, Integer.MIN_VALUE);
-    assert(3 == tree.getData());
-    assert(2 == tree.getLeft().getData());
-    assert(1 == tree.getLeft().getLeft().getData());
-    assert(5 == tree.getRight().getData());
-    assert(4 == tree.getRight().getLeft().getData());
-    assert(6 == tree.getRight().getRight().getData());
+    assert(3 == tree.data);
+    assert(2 == tree.left.data);
+    assert(1 == tree.left.left.data);
+    assert(5 == tree.right.data);
+    assert(4 == tree.right.left.data);
+    assert(6 == tree.right.right.data);
   }
 }

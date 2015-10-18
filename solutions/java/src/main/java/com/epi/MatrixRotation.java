@@ -5,16 +5,8 @@ package com.epi;
 import java.util.Random;
 
 import static com.epi.utils.Utils.copy;
-import static com.epi.utils.Utils.simplePrint;
 
 public class MatrixRotation {
-  private static void printMatrix(int[][] A) {
-    for (int[] element : A) {
-      simplePrint(element);
-      System.out.println();
-    }
-  }
-
   private static void checkAnswer(int[][] A) {
     int k = 1;
     for (int j = A.length - 1; j >= 0; --j) {
@@ -60,7 +52,7 @@ public class MatrixRotation {
   public static void main(String[] args) {
     int n;
     if (args.length == 1) {
-      n = Integer.valueOf(args[0]);
+      n = Integer.parseInt(args[0]);
       int[][] A = new int[1 << n][1 << n];
       int k = 1;
       for (int i = 0; i < A.length; ++i) {

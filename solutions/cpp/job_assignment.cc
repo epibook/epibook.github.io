@@ -48,8 +48,9 @@ vector<deque<bool>> find_feasible_job_assignment(const vector<int>& T,
   vector<deque<bool>> X(T.size(), deque<bool>(S.size(), false));
   for (int j = 0; j < S_idx_data.size(); ++j) {
     if (S_idx_data[j].second < T_idx_data.size()) {
-      nth_element(T_idx_data.begin(), T_idx_data.begin() + S_idx_data[j].second,
-                  T_idx_data.end(), comp);
+      nth_element(T_idx_data.begin(),
+                  T_idx_data.begin() + S_idx_data[j].second, T_idx_data.end(),
+                  comp);
     }
 
     // Greedily assign jobs.

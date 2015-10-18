@@ -16,7 +16,7 @@ using std::vector;
 
 // @include
 void Rearrange(vector<int>* A_ptr) {
-  auto& A = *A_ptr;
+  vector<int>& A = *A_ptr;
   for (size_t i = 1; i < A.size(); ++i) {
     if ((!(i % 2) && A[i - 1] < A[i]) || ((i % 2) && A[i - 1] > A[i])) {
       swap(A[i - 1], A[i]);

@@ -1,7 +1,7 @@
 package com.epi;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -15,8 +15,8 @@ public class PlusOne {
       A.set(i - 1, A.get(i - 1) + 1);
     }
     if (A.get(0) == 10) {
-      // Need additional digit as the most significant digit (i.e., A.get(0)) has
-      // a carry-out.
+      // Need additional digit as the most significant digit (i.e., A.get(0))
+      // has a carry-out.
       A.set(0, 0);
       A.add(0, 1);
     }
@@ -46,8 +46,8 @@ public class PlusOne {
         add(9);
       }
     });
-    assert(result.size() == 3 && result.get(0) == 1 && result.get(1) == 0 &&
-           result.get(2) == 0);
+    assert(result.size() == 3 && result.get(0) == 1 && result.get(1) == 0
+           && result.get(2) == 0);
     result = plusOne(new ArrayList<Integer>() {
       {
         add(3);
@@ -55,8 +55,8 @@ public class PlusOne {
         add(4);
       }
     });
-    assert(result.size() == 3 && result.get(0) == 3 && result.get(1) == 1 &&
-           result.get(2) == 5);
+    assert(result.size() == 3 && result.get(0) == 3 && result.get(1) == 1
+           && result.get(2) == 5);
   }
 
   public static void main(String[] args) {

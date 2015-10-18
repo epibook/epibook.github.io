@@ -10,22 +10,23 @@ public class PopulatingNextRightPointers {
   }
 
   // @include
-  public static void populateNextPointer(BinaryTreeNode<Integer> tree) {
+  public static void constructRightSibling(BinaryTreeNode<Integer> tree) {
     BinaryTreeNode<Integer> leftStart = tree;
-    while (leftStart != null) {
-      populateChildrenNextField(leftStart);
+    while (leftStart != null && leftStart.left != null) {
+      populateLowerLevelNextField(leftStart);
       leftStart = leftStart.left;
     }
   }
 
-  private static void populateChildrenNextField(
+  private static void populateLowerLevelNextField(
       BinaryTreeNode<Integer> startNode) {
     BinaryTreeNode<Integer> iter = startNode;
     while (iter != null) {
-      if (iter.left != null) {
-        iter.left.next = iter.right;
-      }
-      if (iter.right != null && iter.next != null) {
+      // Populate left child's next field.
+      iter.left.next = iter.right;
+      // Populate right child's next field if iter is not the last node of this
+      // level.
+      if (iter.next != null) {
         iter.right.next = iter.next.left;
       }
       iter = iter.next;
@@ -39,7 +40,7 @@ public class PopulatingNextRightPointers {
     BinaryTreeNode<Integer> root = new BinaryTreeNode<>(3);
     root.left = new BinaryTreeNode<>(2);
     root.right = new BinaryTreeNode<>(5);
-    populateNextPointer(root);
+    constructRightSibling(root);
     assert(root.next == null);
     assert(root.left.next == root.right);
     assert(root.right.next == null);
@@ -57,7 +58,7 @@ public class PopulatingNextRightPointers {
     root.right = new BinaryTreeNode<>(5);
     root.right.left = new BinaryTreeNode<>(4);
     root.right.right = new BinaryTreeNode<>(6);
-    populateNextPointer(root);
+    constructRightSibling(root);
     assert(root.next == null);
     assert(root.left.next == root.right);
     assert(root.left.left.next == root.left.right);

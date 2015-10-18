@@ -10,6 +10,7 @@
 
 using std::cout;
 using std::endl;
+using std::make_unique;
 using std::numeric_limits;
 using std::unique_ptr;
 
@@ -39,27 +40,27 @@ int main(int argc, char** argv) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BinaryTreeNode<int>> tree = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{3, nullptr, nullptr});
+  unique_ptr<BinaryTreeNode<int>> tree = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{3, nullptr, nullptr});
   assert(HasPathSum(tree, 3));
-  tree->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{2, nullptr, nullptr});
+  tree->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{2, nullptr, nullptr});
   assert(HasPathSum(tree, 5));
-  tree->left->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{1, nullptr, nullptr});
+  tree->left->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{1, nullptr, nullptr});
   assert(HasPathSum(tree, 6));
-  tree->right = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{5, nullptr, nullptr});
+  tree->right = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{5, nullptr, nullptr});
   assert(HasPathSum(tree, 8));
   assert(!HasPathSum(tree, 7));
-  tree->right->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{4, nullptr, nullptr});
+  tree->right->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{4, nullptr, nullptr});
   assert(HasPathSum(tree, 12));
   assert(!HasPathSum(tree, 1));
   assert(!HasPathSum(tree, 3));
   assert(!HasPathSum(tree, 5));
-  tree->right->right = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{6, nullptr, nullptr});
+  tree->right->right = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{6, nullptr, nullptr});
   assert(HasPathSum(tree, 6));
   assert(!HasPathSum(tree, 7));
   assert(HasPathSum(tree, 14));

@@ -1,18 +1,30 @@
 package com.epi;
 
-import java.io.*;
-import java.util.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Random;
+import java.util.Scanner;
 
 public class OnlineMedian {
   private static List<Double> globalResult = new ArrayList<>();
 
   // @include
+  private static final int DEFAULT_INITIAL_CAPACITY = 16;
+
   public static void onlineMedian(InputStream sequence) {
     // minHeap stores the larger half seen so far.
     PriorityQueue<Integer> minHeap = new PriorityQueue<>();
     // maxHeap stores the smaller half seen so far.
-    PriorityQueue<Integer> maxHeap =
-        new PriorityQueue<>(11, Collections.reverseOrder());
+    PriorityQueue<Integer> maxHeap = new PriorityQueue<>(
+        DEFAULT_INITIAL_CAPACITY, Collections.reverseOrder());
 
     Scanner s = new Scanner(sequence);
     while (s.hasNextInt()) {

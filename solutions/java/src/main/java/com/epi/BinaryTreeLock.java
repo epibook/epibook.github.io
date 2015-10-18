@@ -10,7 +10,7 @@ public class BinaryTreeLock {
     public boolean isLocked() { return locked; }
 
     public boolean lock() {
-      // We cannot lock if any of this node's descendents are locked.
+      // We cannot lock if any of this node's descendants are locked.
       if (numLockedDescendants > 0 || locked) {
         return false;
       }
@@ -22,7 +22,8 @@ public class BinaryTreeLock {
         }
       }
 
-      // Lock this node and increments all its ancestors's descendent lock counts.
+      // Lock this node and increments all its ancestors's descendant lock
+      // counts.
       locked = true;
       for (BinaryTree iter = parent; iter != null; iter = iter.parent) {
         ++iter.numLockedDescendants;
@@ -32,7 +33,7 @@ public class BinaryTreeLock {
 
     public void unlock() {
       if (locked) {
-        // Unlocks itself and decrements its ancestors's descendent lock counts.
+        // Unlocks itself and decrements its ancestors's descendant lock counts.
         locked = false;
         for (BinaryTree iter = parent; iter != null; iter = iter.parent) {
           --iter.numLockedDescendants;

@@ -46,10 +46,10 @@ public class LargeArray {
       P[i] = r.nextInt() % N;
     }
     Collections.sort(Arrays.asList(P), new Comparator<Integer>() {
+      // clang-format off
       @Override
-      public int compare(Integer o1, Integer o2) {
-        return comp(A, o1, o2);
-      }
+      public int compare(Integer o1, Integer o2) { return comp(A, o1, o2); }
+      // clang-format on
     });
     int pre = 0;
     char val;

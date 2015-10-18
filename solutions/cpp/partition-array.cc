@@ -15,6 +15,7 @@ using std::default_random_engine;
 using std::endl;
 using std::hash;
 using std::max;
+using std::pair;
 using std::random_device;
 using std::swap;
 using std::string;
@@ -36,7 +37,7 @@ void GroupByAge(vector<Person>* person_array) {
   }
   unordered_map<int, int> age_to_offset;
   int offset = 0;
-  for (const auto& p : age_to_count) {
+  for (const pair<int, int>& p : age_to_count) {
     age_to_offset[p.first] = offset;
     offset += p.second;
   }
@@ -67,15 +68,16 @@ string RandString(int len) {
 }
 
 static void SimpleTest() {
-  vector<Person> people = {Person({20, "foo"}), Person({10, "bar"}), Person({20, "widget"}), Person({20, "something"})};
+  vector<Person> people = {Person({20, "foo"}), Person({10, "bar"}),
+                           Person({20, "widget"}), Person({20, "something"})};
 
   GroupByAge(&people);
   if (people[0].age == 10) {
-      assert(people[1].age == 20 && people[2].age == 20 && people[3].age == 20);
-  } else {  
-      assert(people[1].age == 20 && people[2].age == 20 && people[3].age == 10);
+    assert(people[1].age == 20 && people[2].age == 20 && people[3].age == 20);
+  } else {
+    assert(people[1].age == 20 && people[2].age == 20 && people[3].age == 10);
   }
-} 
+}
 
 int main(int argc, char* argv[]) {
   SimpleTest();

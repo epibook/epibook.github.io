@@ -1,6 +1,13 @@
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class GeneratingABSqrt2Improved {
   // @include
@@ -30,29 +37,27 @@ public class GeneratingABSqrt2Improved {
     }
 
     // Hash function for ABSqrt2.
+    // clang-format off
     @Override
-    public int hashCode() {
-      int result = a;
-      result = 31 * result + b;
-      return result;
-    }
+    public int hashCode() { return Objects.hash(a, b); }
+    // clang-format on
 
+    // clang-format off
     @Override
-    public int compareTo(ABSqrt2 o) {
-      return Double.compare(val, o.val);
-    }
+    public int compareTo(ABSqrt2 o) { return Double.compare(val, o.val); }
+    // clang-format on
     // @include
   }
 
   public static List<ABSqrt2> generateFirstKABSqrt2(int k) {
-   // Will store the first k numbers of the form a + b sqrt(2).
-    List<ABSqrt2> result = new ArrayList<>(); 
+    // Will store the first k numbers of the form a + b sqrt(2).
+    List<ABSqrt2> result = new ArrayList<>();
     result.add(new ABSqrt2(0, 0));
     int i = 0, j = 0;
     for (int n = 1; n < k; ++n) {
       ABSqrt2 resultIPlus1 = new ABSqrt2(result.get(i).a + 1, result.get(i).b);
-      ABSqrt2 resultJPlusSqrt2 =
-          new ABSqrt2(result.get(j).a, result.get(j).b + 1);
+      ABSqrt2 resultJPlusSqrt2
+          = new ABSqrt2(result.get(j).a, result.get(j).b + 1);
       if (resultIPlus1.val < resultJPlusSqrt2.val) {
         ++i;
         result.add(resultIPlus1);
@@ -97,20 +102,20 @@ public class GeneratingABSqrt2Improved {
     return smallest;
   }
 
-  private static void SimpleTest() {
+  private static void simpleTest() {
     List<ABSqrt2> ans = generateFirstKABSqrt2(8);
     assert(0.0 == ans.get(0).val);
     assert(1.0 == ans.get(1).val);
     assert(Math.sqrt(2.0) == ans.get(2).val);
     assert(2.0 == ans.get(3).val);
     assert(1.0 + Math.sqrt(2.0) == ans.get(4).val);
-    assert(2.0*Math.sqrt(2.0) == ans.get(5).val);
+    assert(2.0 * Math.sqrt(2.0) == ans.get(5).val);
     assert(3.0 == ans.get(6).val);
     assert(2.0 + Math.sqrt(2.0) == ans.get(7).val);
   }
 
   public static void main(String[] args) {
-    SimpleTest();
+    simpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int k;
@@ -122,8 +127,8 @@ public class GeneratingABSqrt2Improved {
       List<ABSqrt2> ans = generateFirstKABSqrt2(k);
       assert(ans.size() == k);
       for (int i = 0; i < ans.size(); ++i) {
-        System.out.println(ans.get(i).a + " " + ans.get(i).b + " " +
-                           ans.get(i).val);
+        System.out.println(ans.get(i).a + " " + ans.get(i).b + " "
+                           + ans.get(i).val);
         if (i > 0) {
           assert(ans.get(i).val >= ans.get(i - 1).val);
         }

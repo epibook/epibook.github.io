@@ -5,6 +5,7 @@
 
 #include "./BST_prototype.h"
 
+using std::make_unique;
 using std::unique_ptr;
 
 bool SearchTarget(const unique_ptr<BSTNode<int>>&,
@@ -20,9 +21,10 @@ bool PairIncludesAncestorAndDescendantOfM(
 
   // Perform interleaved searching from possible_anc_or_desc_0 and
   // possible_anc_or_desc_1 for middle.
-  while (search_0 != possible_anc_or_desc_1.get() && search_0 != middle.get() &&
-         search_1 != possible_anc_or_desc_0.get() && search_1 != middle.get() &&
-         (search_0 || search_1)) {
+  while (search_0 != possible_anc_or_desc_1.get() &&
+         search_0 != middle.get() &&
+         search_1 != possible_anc_or_desc_0.get() &&
+         search_1 != middle.get() && (search_0 || search_1)) {
     if (search_0) {
       search_0 = search_0->data > middle->data ? search_0->left.get()
                                                : search_0->right.get();
@@ -63,35 +65,34 @@ bool SearchTarget(const unique_ptr<BSTNode<int>>& from,
 // @exclude
 
 void SmallTest() {
-  auto root = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
+  auto root = make_unique<BSTNode<int>>(BSTNode<int>{5});
   assert(!PairIncludesAncestorAndDescendantOfM(root, root, root));
-  root->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
-  root->left->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
+  root->left = make_unique<BSTNode<int>>(BSTNode<int>{2});
+  root->left->right = make_unique<BSTNode<int>>(BSTNode<int>{4});
   assert(!PairIncludesAncestorAndDescendantOfM(root, root->left,
                                                root->left->right));
-  assert(PairIncludesAncestorAndDescendantOfM(root, root->left->right, root->left));
+  assert(PairIncludesAncestorAndDescendantOfM(root, root->left->right,
+                                              root->left));
 
   // Example of the first figure of BST chapter.
-  root = unique_ptr<BSTNode<int>>(new BSTNode<int>{19});
-  root->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{7});
-  root->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
-  root->left->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
-  root->left->left->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
-  root->left->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{11});
-  root->left->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{17});
-  root->left->right->right->left =
-      unique_ptr<BSTNode<int>>(new BSTNode<int>{13});
-  root->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{43});
-  root->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{23});
-  root->right->left->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{37});
-  root->right->left->right->left =
-      unique_ptr<BSTNode<int>>(new BSTNode<int>{29});
+  root = make_unique<BSTNode<int>>(BSTNode<int>{19});
+  root->left = make_unique<BSTNode<int>>(BSTNode<int>{7});
+  root->left->left = make_unique<BSTNode<int>>(BSTNode<int>{3});
+  root->left->left->left = make_unique<BSTNode<int>>(BSTNode<int>{2});
+  root->left->left->right = make_unique<BSTNode<int>>(BSTNode<int>{5});
+  root->left->right = make_unique<BSTNode<int>>(BSTNode<int>{11});
+  root->left->right->right = make_unique<BSTNode<int>>(BSTNode<int>{17});
+  root->left->right->right->left = make_unique<BSTNode<int>>(BSTNode<int>{13});
+  root->right = make_unique<BSTNode<int>>(BSTNode<int>{43});
+  root->right->left = make_unique<BSTNode<int>>(BSTNode<int>{23});
+  root->right->left->right = make_unique<BSTNode<int>>(BSTNode<int>{37});
+  root->right->left->right->left = make_unique<BSTNode<int>>(BSTNode<int>{29});
   root->right->left->right->left->right =
-      unique_ptr<BSTNode<int>>(new BSTNode<int>{31});
+      make_unique<BSTNode<int>>(BSTNode<int>{31});
   root->right->left->right->right =
-      unique_ptr<BSTNode<int>>(new BSTNode<int>{41});
-  root->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{47});
-  root->right->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{53});
+      make_unique<BSTNode<int>>(BSTNode<int>{41});
+  root->right->right = make_unique<BSTNode<int>>(BSTNode<int>{47});
+  root->right->right->right = make_unique<BSTNode<int>>(BSTNode<int>{53});
 
   assert(!PairIncludesAncestorAndDescendantOfM(root->right, root->left,
                                                root->right->left));
@@ -104,12 +105,12 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  auto root = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
-  root->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
-  root->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{1});
-  root->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
-  root->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
-  root->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{6});
+  auto root = make_unique<BSTNode<int>>(BSTNode<int>{3});
+  root->left = make_unique<BSTNode<int>>(BSTNode<int>{2});
+  root->left->left = make_unique<BSTNode<int>>(BSTNode<int>{1});
+  root->right = make_unique<BSTNode<int>>(BSTNode<int>{5});
+  root->right->left = make_unique<BSTNode<int>>(BSTNode<int>{4});
+  root->right->right = make_unique<BSTNode<int>>(BSTNode<int>{6});
   assert(PairIncludesAncestorAndDescendantOfM(root, root->right->right,
                                               root->right));
   assert(PairIncludesAncestorAndDescendantOfM(root->right->right, root,

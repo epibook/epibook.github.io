@@ -2,7 +2,11 @@
 
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class PermutationsAlternative {
   // @include
@@ -22,7 +26,7 @@ public class PermutationsAlternative {
     // Try every possibility for A[i].
     for (int j = i; j < A.size(); ++j) {
       Collections.swap(A, i, j);
-      // Generate all permutations for A[i + 1 : A.size() - 1].
+      // Generate all permutations for A.subList(i + 1, A.size()).
       directedPermutations(i + 1, A, result);
       Collections.swap(A, i, j);
     }
@@ -46,7 +50,7 @@ public class PermutationsAlternative {
     if (args.length == 1) {
       n = Integer.parseInt(args[0]);
     } else {
-      n = r.nextInt(10) + 1;
+      n = r.nextInt(8) + 1;
     }
     List<Integer> A = new ArrayList<>(n);
     int val = 0;

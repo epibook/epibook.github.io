@@ -9,8 +9,8 @@ public class ConvertBase {
     int x = 0;
     for (int i = (isNegative ? 1 : 0); i < s.length(); ++i) {
       x *= b1;
-      x += Character.isDigit(s.charAt(i)) ? s.charAt(i) - '0'
-                                          : s.charAt(i) - 'A' + 10;
+      x += Character.isDigit(s.charAt(i)) ? s.charAt(i) - '0' : s.charAt(i)
+                                                                    - 'A' + 10;
     }
 
     StringBuilder result = new StringBuilder();
@@ -57,9 +57,10 @@ public class ConvertBase {
       for (int times = 0; times < 100000; ++times) {
         String input = randIntString(r.nextInt(9) + 1);
         int base = r.nextInt(15) + 2;
-        System.out.println("input is " + input + ", base1 = 10, base2 = " + base +
-                           ", result = " + convertBase(input, 10, base));
-        assert(input.equals(convertBase(convertBase(input, 10, base), base, 10)));
+        System.out.println("input is " + input + ", base1 = 10, base2 = " + base
+                           + ", result = " + convertBase(input, 10, base));
+        assert(
+            input.equals(convertBase(convertBase(input, 10, base), base, 10)));
       }
     }
   }

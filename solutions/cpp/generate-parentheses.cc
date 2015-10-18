@@ -55,9 +55,10 @@ void SmallTest() {
   auto result = GenerateBalancedParentheses(1);
   assert(result.size() == 1 && !result.front().compare("()"));
   result = GenerateBalancedParentheses(2);
-  assert(result.size() == 2 &&
-         ((!result.front().compare("(())") && !result.back().compare("()()")) ||
-          (!result.front().compare("()()") && !result.back().compare("(())"))));
+  assert(
+      result.size() == 2 &&
+      ((!result.front().compare("(())") && !result.back().compare("()()")) ||
+       (!result.front().compare("()()") && !result.back().compare("(())"))));
 }
 
 int main(int argc, char** argv) {

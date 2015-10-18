@@ -13,8 +13,8 @@ using std::random_device;
 using std::uniform_real_distribution;
 using std::vector;
 
-double HouseMajorityHelper(const vector<double>& prob, int r, int n,
-                           vector<vector<double>>& P);
+double HouseMajorityHelper(const vector<double>&, int, int,
+                           vector<vector<double>>*);
 
 // @include
 double HouseMajority(const vector<double>& prob, int n) {
@@ -24,7 +24,7 @@ double HouseMajority(const vector<double>& prob, int n) {
   // Accumulates the probabilities of majority cases.
   double prob_sum = 0.0;
   for (int r = ceil(0.5 * n); r <= n; ++r) {
-    prob_sum += HouseMajorityHelper(prob, r, n, P);
+    prob_sum += HouseMajorityHelper(prob, r, n, &P);
   }
   return prob_sum;
 }
@@ -32,7 +32,7 @@ double HouseMajority(const vector<double>& prob, int n) {
 // prob is the probability that each Republican wins.
 // r is the number of Republicans wins, and n is the number of elections.
 double HouseMajorityHelper(const vector<double>& prob, int r, int n,
-                           vector<vector<double>>& P) {
+                           vector<vector<double>>* P_ptr) {
   if (r > n) {
     return 0.0;  // Base case: not enough Republicans.
   } else if (r == 0 && n == 0) {
@@ -41,9 +41,10 @@ double HouseMajorityHelper(const vector<double>& prob, int r, int n,
     return 0.0;
   }
 
+  vector<vector<double>>& P = *P_ptr;
   if (P[r][n] == -1.0) {
-    P[r][n] = HouseMajorityHelper(prob, r - 1, n - 1, P) * prob[n - 1] +
-              HouseMajorityHelper(prob, r, n - 1, P) * (1.0 - prob[n - 1]);
+    P[r][n] = HouseMajorityHelper(prob, r - 1, n - 1, P_ptr) * prob[n - 1] +
+              HouseMajorityHelper(prob, r, n - 1, P_ptr) * (1.0 - prob[n - 1]);
   }
   return P[r][n];
 }

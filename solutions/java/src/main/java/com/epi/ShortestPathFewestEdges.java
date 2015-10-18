@@ -1,10 +1,14 @@
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class ShortestPathFewestEdges {
   // @include
-
   private static class VertexWithDistance {
     public GraphVertex vertex;
     public Integer distance;
@@ -26,25 +30,48 @@ public class ShortestPathFewestEdges {
   }
 
   public static class GraphVertex implements Comparable<GraphVertex> {
-    public DistanceWithFewestEdges distance =
-        new DistanceWithFewestEdges(Integer.MAX_VALUE, 0);
+    public DistanceWithFewestEdges distanceWithFewestEdges
+        = new DistanceWithFewestEdges(Integer.MAX_VALUE, 0);
     public List<VertexWithDistance> edges = new ArrayList<>();
     public int id; // The id of this vertex.
     public GraphVertex pred = null; // The predecessor in the shortest path.
 
     @Override
     public int compareTo(GraphVertex o) {
-      int res = distance.distance.compareTo(o.distance.distance);
+      int res = Integer.compare(distanceWithFewestEdges.distance,
+                                o.distanceWithFewestEdges.distance);
       if (res == 0) {
-        res = distance.minNumEdges.compareTo(o.distance.minNumEdges);
+        res = Integer.compare(distanceWithFewestEdges.minNumEdges,
+                              o.distanceWithFewestEdges.minNumEdges);
       }
       return res;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (!(obj instanceof GraphVertex)) {
+        return false;
+      }
+      if (this == obj) {
+        return true;
+      }
+      GraphVertex that = (GraphVertex)obj;
+      return this.distanceWithFewestEdges.distance.equals(
+                 that.distanceWithFewestEdges.distance)
+          && this.distanceWithFewestEdges.minNumEdges.equals(
+                 that.distanceWithFewestEdges.minNumEdges);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(distanceWithFewestEdges.distance,
+                          distanceWithFewestEdges.minNumEdges);
     }
   }
 
   public static void dijkstraShortestPath(GraphVertex s, GraphVertex t) {
-    // Initialization the distance of starting point.
-    s.distance = new DistanceWithFewestEdges(0, 0);
+    // Initialization of the distance of starting point.
+    s.distanceWithFewestEdges = new DistanceWithFewestEdges(0, 0);
     SortedSet<GraphVertex> nodeSet = new TreeSet<>();
     nodeSet.add(s);
 
@@ -58,14 +85,15 @@ public class ShortestPathFewestEdges {
 
       // Relax neighboring vertices of u.
       for (VertexWithDistance v : u.edges) {
-        int vDistance = u.distance.distance + v.distance;
-        int vNumEdges = u.distance.minNumEdges + 1;
-        if (v.vertex.distance.distance > vDistance ||
-            (v.vertex.distance.distance == vDistance &&
-             v.vertex.distance.minNumEdges > vNumEdges)) {
+        int vDistance = u.distanceWithFewestEdges.distance + v.distance;
+        int vNumEdges = u.distanceWithFewestEdges.minNumEdges + 1;
+        if (v.vertex.distanceWithFewestEdges.distance > vDistance
+            || (v.vertex.distanceWithFewestEdges.distance == vDistance
+                && v.vertex.distanceWithFewestEdges.minNumEdges > vNumEdges)) {
           nodeSet.remove(v.vertex);
           v.vertex.pred = u;
-          v.vertex.distance = new DistanceWithFewestEdges(vDistance, vNumEdges);
+          v.vertex.distanceWithFewestEdges
+              = new DistanceWithFewestEdges(vDistance, vNumEdges);
           nodeSet.add(v.vertex);
         }
       }
@@ -133,11 +161,14 @@ public class ShortestPathFewestEdges {
     // distance is: 13 + 7 + 1 = 21.
 
     dijkstraShortestPath(G.get(s), G.get(t));
-    System.out.println("\nMin distance: " + G.get(t).distance.distance);
-    assert(G.get(t).distance.distance == 21);
-    System.out.println("Number of edges: " + G.get(t).distance.minNumEdges);
-    System.out.println("Number of edges: " + G.get(t).distance.minNumEdges);
-    assert(G.get(t).distance.minNumEdges == 3);
+    System.out.println("\nMin distance: "
+                       + G.get(t).distanceWithFewestEdges.distance);
+    assert(G.get(t).distanceWithFewestEdges.distance == 21);
+    System.out.println("Number of edges: "
+                       + G.get(t).distanceWithFewestEdges.minNumEdges);
+    System.out.println("Number of edges: "
+                       + G.get(t).distanceWithFewestEdges.minNumEdges);
+    assert(G.get(t).distanceWithFewestEdges.minNumEdges == 3);
   }
 
   public static void main(String[] args) {
@@ -180,8 +211,8 @@ public class ShortestPathFewestEdges {
     for (int i = 0; i < G.size(); ++i) {
       G.get(i).id = i;
       for (VertexWithDistance e : G.get(i).edges) {
-        System.out.print(e.vertex.id + "-" + G.get(0).id + " " + e.distance +
-                         ",");
+        System.out.print(e.vertex.id + "-" + G.get(0).id + " " + e.distance
+                         + ",");
       }
       System.out.println();
     }

@@ -1,10 +1,10 @@
 package com.epi;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class LevenshteinDistance {
   // @include
   public static int levenshteinDistance(String A, String B) {
@@ -15,25 +15,26 @@ public class LevenshteinDistance {
       B = temp;
     }
 
-    int[] D = new int[B.length() + 1];
+    List<Integer> D = new ArrayList<>(B.length() + 1);
     // Initialization.
-    for (int i = 0; i < D.length; i++) {
-      D[i] = i;
+    for (int i = 0; i < B.length() + 1; i++) {
+      D.add(i);
     }
 
     for (int i = 1; i <= A.length(); ++i) {
-      int preI1J1 = D[0]; // Stores the value of D[i - 1][j - 1].
-      D[0] = i;
+      int preI1J1 = D.get(0); // Stores the value of D.get(i - 1).get(j - 1).
+      D.set(0, i);
       for (int j = 1; j <= B.length(); ++j) {
-        int preI1J = D[j]; // Stores the value of D[i -1][j].
-        D[j] = A.charAt(i - 1) == B.charAt(j - 1)
-                   ? preI1J1
-                   : 1 + Math.min(preI1J1, Math.min(D[j - 1], D[j]));
-        // Previous D[i - 1][j] will become the next D[i - 1][j - 1].
+        int preI1J = D.get(j); // Stores the value of D.get(i -1).get(j).
+        D.set(j, A.charAt(i - 1) == B.charAt(j - 1)
+                     ? preI1J1
+                     : 1 + Math.min(preI1J1, Math.min(D.get(j - 1), D.get(j))));
+        // Previous D.get(i - 1).get(j) will become the next D.get(i - 1).get(j
+        // - 1).
         preI1J1 = preI1J;
       }
     }
-    return D[D.length - 1];
+    return D.get(D.size() - 1);
   }
   // @exclude
 

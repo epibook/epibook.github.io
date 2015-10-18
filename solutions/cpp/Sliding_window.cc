@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <vector>
 
-#include "./Queue_with_max_using_deque.h"
+#include "./Queue_with_max_alternative.h"
 
 using std::cout;
 using std::endl;
@@ -14,20 +14,19 @@ using std::length_error;
 using std::queue;
 using std::vector;
 
-template <typename T>
-bool EqualVector(const vector<T>& A, const vector<T>& B) {
-  return A.size() == B.size() && equal(A.begin(), A.end(), B.begin());
-}
-
 // @include
 struct TrafficElement {
-  // Following operators are needed for QueueWithMax with maximum.
-  bool operator<(const TrafficElement& that) const {
-    return volume < that.volume;
+  // Following operators are needed for QueueWithMaxAlternative with maximum.
+  bool operator>(const TrafficElement& that) const {
+    return volume > that.volume || (volume == that.volume && time > that.time);
   }
 
   bool operator==(const TrafficElement& that) const {
     return time == that.time && volume == that.volume;
+  }
+
+  bool operator>=(const TrafficElement& that) const {
+    return *this > that || *this == that;
   }
 
   int time;
@@ -36,7 +35,7 @@ struct TrafficElement {
 
 vector<TrafficElement> CalculateTrafficVolumes(const vector<TrafficElement>& A,
                                                int w) {
-  QueueWithMax<TrafficElement> sliding_window;
+  QueueWithMaxAlternative<TrafficElement> sliding_window;
   vector<TrafficElement> maximum_volumes;
   for (const auto traffic_info : A) {
     sliding_window.Enqueue(traffic_info);
@@ -49,6 +48,11 @@ vector<TrafficElement> CalculateTrafficVolumes(const vector<TrafficElement>& A,
   return maximum_volumes;
 }
 // @exclude
+
+template <typename T>
+bool EqualVector(const vector<T>& A, const vector<T>& B) {
+  return A.size() == B.size() && equal(A.begin(), A.end(), B.begin());
+}
 
 int main(int argc, char* argv[]) {
   int w = 3;

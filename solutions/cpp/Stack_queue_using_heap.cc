@@ -11,6 +11,7 @@
 using std::cout;
 using std::endl;
 using std::exception;
+using std::function;
 using std::length_error;
 using std::numeric_limits;
 using std::pair;
@@ -37,7 +38,7 @@ class Stack {
     return val;
   }
 
-  const int& Peek() const { return max_heap_.top().second; }
+  int Peek() const { return max_heap_.top().second; }
 
  private:
   int timestamp_ = 0;
@@ -59,7 +60,7 @@ class Queue {
     return ret;
   }
 
-  const int& Head() const { return max_heap_.top().second; }
+  int Head() const { return max_heap_.top().second; }
 
  private:
   int order_ = 0;

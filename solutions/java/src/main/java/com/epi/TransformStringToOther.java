@@ -2,12 +2,10 @@ package com.epi;
 
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class TransformStringToOther {
   private static String randString(int len) {
     Random r = new Random();
@@ -19,7 +17,6 @@ public class TransformStringToOther {
   }
 
   // @include
-
   private static class StringWithDistance {
     public String string;
     public Integer distance;
@@ -32,12 +29,12 @@ public class TransformStringToOther {
 
   // Uses BFS to find the least steps of transformation.
   public static int transformString(Set<String> D, String s, String t) {
-    LinkedList<StringWithDistance> q = new LinkedList<>();
+    Queue<StringWithDistance> q = new LinkedList<>();
     D.remove(s); // Marks s as visited by erasing it in D.
-    q.push(new StringWithDistance(s, 0));
+    q.add(new StringWithDistance(s, 0));
 
-    while (!q.isEmpty()) {
-      StringWithDistance f = q.peek();
+    StringWithDistance f;
+    while ((f = q.poll()) != null) {
       // Returns if we find a match.
       if (f.string.equals(t)) {
         return f.distance; // Number of steps reaches t.
@@ -51,11 +48,10 @@ public class TransformStringToOther {
         for (int j = 0; j < 26; ++j) { // Iterates through 'a' ~ 'z'.
           String modStr = strStart + (char)('a' + j) + strEnd;
           if (D.remove(modStr)) {
-            q.push(new StringWithDistance(modStr, f.distance + 1));
+            q.add(new StringWithDistance(modStr, f.distance + 1));
           }
         }
       }
-      q.pop();
     }
 
     return -1; // Cannot find a possible transformations.

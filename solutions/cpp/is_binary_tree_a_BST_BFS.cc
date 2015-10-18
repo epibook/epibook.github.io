@@ -11,34 +11,35 @@
 using std::boolalpha;
 using std::cout;
 using std::endl;
+using std::make_unique;
 using std::numeric_limits;
 using std::queue;
 using std::unique_ptr;
 
 // @include
 struct QueueEntry {
-  const unique_ptr<BinaryTreeNode<int>>& treeNode;
-  int lowerBound, upperBound;
+  const unique_ptr<BinaryTreeNode<int>>& tree_node;
+  int lower_bound, upper_bound;
 };
 
 bool IsBinaryTreeBST(const unique_ptr<BinaryTreeNode<int>>& tree) {
   queue<QueueEntry> BFS_queue;
-  BFS_queue.emplace(
-      QueueEntry{tree, numeric_limits<int>::min(), numeric_limits<int>::max()});
+  BFS_queue.emplace(QueueEntry{tree, numeric_limits<int>::min(),
+                               numeric_limits<int>::max()});
 
   while (!BFS_queue.empty()) {
-    if (BFS_queue.front().treeNode.get()) {
-      if (BFS_queue.front().treeNode->data < BFS_queue.front().lowerBound ||
-          BFS_queue.front().treeNode->data > BFS_queue.front().upperBound) {
+    if (BFS_queue.front().tree_node.get()) {
+      if (BFS_queue.front().tree_node->data < BFS_queue.front().lower_bound ||
+          BFS_queue.front().tree_node->data > BFS_queue.front().upper_bound) {
         return false;
       }
 
-      BFS_queue.emplace(QueueEntry{BFS_queue.front().treeNode->left,
-                              BFS_queue.front().lowerBound,
-                              BFS_queue.front().treeNode->data});
-      BFS_queue.emplace(QueueEntry{BFS_queue.front().treeNode->right,
-                              BFS_queue.front().treeNode->data,
-                              BFS_queue.front().upperBound});
+      BFS_queue.emplace(QueueEntry{BFS_queue.front().tree_node->left,
+                                   BFS_queue.front().lower_bound,
+                                   BFS_queue.front().tree_node->data});
+      BFS_queue.emplace(QueueEntry{BFS_queue.front().tree_node->right,
+                                   BFS_queue.front().tree_node->data,
+                                   BFS_queue.front().upper_bound});
     }
     BFS_queue.pop();
   }
@@ -50,15 +51,13 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  auto tree = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3});
-  tree->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
-  tree->left->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
-  tree->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
-  tree->right->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
+  auto tree = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{3});
+  tree->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{2});
+  tree->left->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{1});
+  tree->right = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{5});
+  tree->right->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{4});
   tree->right->right =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
+      make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{6});
   // should output true
   assert(IsBinaryTreeBST(tree) == true);
   cout << boolalpha << IsBinaryTreeBST(tree) << endl;

@@ -2,30 +2,36 @@ package com.epi;
 
 import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import static com.epi.BinaryTreeUtils.generateRandBinaryTree;
 
 public class ReconstructPreorderWithNull {
   // @include
-  private static Integer idx;
+  // Global variable, tracks current subtree.
+  private static Integer subtreeIdx;
 
-  public static BinaryTreeNode<Integer> reconstructPreorder(Integer[] preorder) {
-    idx = 0;
-    return reconstructPreorderHelper(preorder);
+  public static BinaryTreeNode<Integer> reconstructPreorder(
+      List<Integer> preorder) {
+    subtreeIdx = 0;
+    return reconstructPreorderSubtree(preorder);
   }
 
-  private static BinaryTreeNode<Integer> reconstructPreorderHelper(
-      Integer[] preorder) {
-    Integer subtreeKey = preorder[idx];
-    ++idx;
+  // Reconstructs the subtree that is rooted at subtreeIdx.
+  private static BinaryTreeNode<Integer> reconstructPreorderSubtree(
+      List<Integer> preorder) {
+    Integer subtreeKey = preorder.get(subtreeIdx);
+    ++subtreeIdx;
     if (subtreeKey == null) {
       return null;
     }
-    // Note that ReconstructPreorderHelper updates idx. So the order of
+    // Note that reconstructPreorderSubtree updates subtreeIdx. So the order of
     // following two calls are critical.
-    BinaryTreeNode<Integer> leftSubtree = reconstructPreorderHelper(preorder);
-    BinaryTreeNode<Integer> rightSubtree = reconstructPreorderHelper(preorder);
+    BinaryTreeNode<Integer> leftSubtree = reconstructPreorderSubtree(preorder);
+    BinaryTreeNode<Integer> rightSubtree = reconstructPreorderSubtree(preorder);
     return new BinaryTreeNode<>(subtreeKey, leftSubtree, rightSubtree);
   }
   // @exclude
@@ -36,31 +42,31 @@ public class ReconstructPreorderWithNull {
       return;
     }
 
-    p.add(n.getData());
-    genPreorderWithNull(n.getLeft(), p);
-    genPreorderWithNull(n.getRight(), p);
+    p.add(n.data);
+    genPreorderWithNull(n.left, p);
+    genPreorderWithNull(n.right, p);
   }
 
   private static void simpleTest() {
-    Integer[] preOrder = new Integer[] {1, null, null};
-    BinaryTreeNode<Integer> result = reconstructPreorder(preOrder);
-    assert(result.getData() == 1);
-    assert(result.getLeft() == null);
-    assert(result.getRight() == null);
+    List<Integer> preorder = Arrays.asList(1, null, null);
+    BinaryTreeNode<Integer> result = reconstructPreorder(preorder);
+    assert(result.data == 1);
+    assert(result.left == null);
+    assert(result.right == null);
 
-    preOrder = new Integer[] {1, null, 2, null, null};
-    result = reconstructPreorder(preOrder);
-    assert(result.getData() == 1);
-    assert(result.getLeft() == null);
-    assert(result.getRight().getData() == 2);
+    preorder = Arrays.asList(1, null, 2, null, null);
+    result = reconstructPreorder(preorder);
+    assert(result.data == 1);
+    assert(result.left == null);
+    assert(result.right.data == 2);
 
-    preOrder = new Integer[] {1, null, 2, 3, null, null, null};
-    result = reconstructPreorder(preOrder);
-    assert(result.getData() == 1);
-    assert(result.getLeft() == null);
-    assert(result.getRight().getData() == 2);
-    assert(result.getRight().getLeft().getData() == 3);
-    assert(result.getRight().getRight() == null);
+    preorder = Arrays.asList(1, null, 2, 3, null, null, null);
+    result = reconstructPreorder(preorder);
+    assert(result.data == 1);
+    assert(result.left == null);
+    assert(result.right.data == 2);
+    assert(result.right.left.data == 3);
+    assert(result.right.right == null);
   }
 
   public static void main(String[] args) {
@@ -77,12 +83,11 @@ public class ReconstructPreorderWithNull {
       BinaryTreeNode<Integer> root = generateRandBinaryTree(n, false);
       List<Integer> p = new ArrayList<>();
       genPreorderWithNull(root, p);
-      Integer[] preOrder = new Integer[p.size()];
-      for (int i = 0; i < preOrder.length; ++i) {
-        preOrder[i] = p.get(i);
+      List<Integer> preorder = new ArrayList<>(p.size());
+      for (int i = 0; i < p.size(); ++i) {
+        preorder.add(p.get(i));
       }
-      idx = 0;
-      BinaryTreeNode<Integer> x = reconstructPreorder(preOrder);
+      BinaryTreeNode<Integer> x = reconstructPreorder(preorder);
       assert(root.equals(x));
     }
   }

@@ -14,17 +14,17 @@ using std::unordered_map;
 namespace CanStringBeAPalindromeHash {
 
 // @include
-bool CanStringBeAPalindrome(const string& s) {
+bool CanFormPalindrome(const string& s) {
   unordered_map<char, int> char_frequencies;
   // Compute the frequency of each char in s.
-  for (const auto& c : s) {
+  for (char c : s) {
     ++char_frequencies[c];
   }
 
   // A string can be permuted as a palindrome if and only if the number of
   // chars whose frequencies is odd is at most 1.
   int odd_frequency_count = 0;
-  for (const auto& p : char_frequencies) {
+  for (const pair<char, int>& p : char_frequencies) {
     if ((p.second % 2) && ++odd_frequency_count > 1) {
       return false;
     }

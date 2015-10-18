@@ -1,10 +1,19 @@
 package com.epi;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 public class LongestContainedRange {
-
-  // Represents the set of numbers from begin to end, inclusive, i.e., [begin,end].
+  // Represents the set of numbers from begin to end, inclusive, i.e.,
+  // [begin,end].
   private static class Range {
     public Integer begin;
     public Integer end;
@@ -14,32 +23,32 @@ public class LongestContainedRange {
       this.end = end;
     }
 
+    // clang-format off
     @Override
-    public String toString() {
-      return "[" + begin + "," + end + "]";
-    }
+    public String toString() { return "[" + begin + "," + end + "]"; }
+    // clang-format on
   }
 
-  private static int checkAns(int[] A) {
-    Arrays.sort(A);
+  private static int checkAns(List<Integer> A) {
+    Collections.sort(A);
     int result = 1;
-    int pre = A[0], len = 1;
-    for (int i = 1; i < A.length; ++i) {
-      if (A[i] == pre + 1) {
+    int pre = A.get(0), len = 1;
+    for (int i = 1; i < A.size(); ++i) {
+      if (A.get(i) == pre + 1) {
         ++len;
-      } else if (A[i] != pre) {
+      } else if (A.get(i) != pre) {
         result = Math.max(result, len);
         len = 1;
       }
-      pre = A[i];
+      pre = A.get(i);
     }
     result = Math.max(result, len);
     System.out.println(result);
     return result;
   }
 
-  private static int findLongestContainedRangeInt(int[] A) {
-    if (A.length == 0) {
+  private static int findLongestContainedRangeInt(List<Integer> A) {
+    if (A.size() == 0) {
       return 0;
     }
 
@@ -52,14 +61,14 @@ public class LongestContainedRange {
       if (t.add(aA)) {
         L.put(aA, aA);
         U.put(aA, aA);
-        // Merges with the interval starting on A[i] + 1.
+        // Merges with the interval starting on A.get(i) + 1.
         if (L.containsKey(aA + 1)) {
           L.put(U.get(aA), L.get(aA + 1));
           U.put(L.get(aA + 1), U.get(aA));
           L.remove(aA + 1);
           U.remove(aA);
         }
-        // Merges with the interval ending on A[i] - 1.
+        // Merges with the interval ending on A.get(i) - 1.
         if (U.containsKey(aA - 1)) {
           U.put(L.get(aA), U.get(aA - 1));
           L.put(U.get(aA - 1), L.get(aA));
@@ -74,14 +83,14 @@ public class LongestContainedRange {
           @Override
           public int compare(Map.Entry<Integer, Integer> o1,
                              Map.Entry<Integer, Integer> o2) {
-            return Integer.valueOf(o1.getValue() - o1.getKey())
-                .compareTo(o2.getValue() - o2.getKey());
+            return Integer.compare(o1.getValue() - o1.getKey(),
+                                   o2.getValue() - o2.getKey());
           }
         });
     return m.getValue() - m.getKey() + 1;
   }
 
-  public static Range findLongestContainedRange(int[] A) {
+  public static Range findLongestContainedRange(List<Integer> A) {
     // S records the existence of each entry in A.
     Set<Integer> S = new HashSet<>();
     for (int a : A) {
@@ -90,7 +99,7 @@ public class LongestContainedRange {
 
     int maxLen = 0;
     Range maxRange = new Range(0, -1);
-    // L stores the longest length ending at each A[i].
+    // L stores the longest length ending at each A.get(i).
     Map<Integer, Integer> L = new HashMap<>();
     for (int a : A) {
       int len = longestRangeLen(a, S, L);
@@ -116,12 +125,9 @@ public class LongestContainedRange {
   }
 
   // @include
-  public static int longestContainedRange(int[] A) {
+  public static int longestContainedRange(List<Integer> A) {
     // unprocessedEntries records the existence of each entry in A.
-    Set<Integer> unprocessedEntries = new HashSet<>();
-    for (int i = 0; i < A.length; i++) {
-      unprocessedEntries.add(A[i]);
-    }
+    Set<Integer> unprocessedEntries = new HashSet<>(A);
 
     int maxIntervalSize = 0;
     while (!unprocessedEntries.isEmpty()) {
@@ -157,9 +163,9 @@ public class LongestContainedRange {
       } else {
         n = r.nextInt(10001);
       }
-      int[] A = new int[n];
+      List<Integer> A = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
-        A[i] = r.nextInt(n + 1);
+        A.add(r.nextInt(n + 1));
       }
 
       assert(findLongestContainedRangeInt(A) == checkAns(A));

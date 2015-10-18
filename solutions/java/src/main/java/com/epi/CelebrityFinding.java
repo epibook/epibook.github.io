@@ -1,16 +1,18 @@
 package com.epi;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class CelebrityFinding {
   // @include
-  public static int celebrityFinding(boolean[][] F) {
-    // Start checking the relation from F[0][1].
+  public static int celebrityFinding(List<List<Boolean>> F) {
+    // Start checking the relation from F.get(0).get(1).
     int i = 0, j = 1;
-    while (j < F.length) {
-      if (F[i][j]) {
+    while (j < F.size()) {
+      if (F.get(i).get(j)) {
         i = j++; // All candidates j' < j are not celebrity candidates.
-      } else { // F[i][j] == false.
+      } else { // F.get(i).get(j) == false.
         ++j; // i is still a celebrity candidate but j is not.
       }
     }
@@ -23,23 +25,24 @@ public class CelebrityFinding {
     for (int times = 0; times < 1000; ++times) {
       int n;
       if (args.length > 0) {
-        n = Integer.valueOf(args[0]);
+        n = Integer.parseInt(args[0]);
       } else {
         n = gen.nextInt(1000) + 1;
       }
-      boolean[][] graph = new boolean[n][n];
+      List<List<Boolean>> graph = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
+        graph.add(new ArrayList(n));
         for (int j = 0; j < n; ++j) {
-          graph[i][j] = gen.nextBoolean();
+          graph.get(i).add(gen.nextBoolean());
         }
-        graph[i][i] = false;
+        graph.get(i).set(i, false);
       }
       int celebrity = gen.nextInt(n);
       for (int i = 0; i < n; ++i) {
-        graph[i][celebrity] = true;
+        graph.get(i).set(celebrity, true);
       }
       for (int j = 0; j < n; ++j) {
-        graph[celebrity][j] = false;
+        graph.get(celebrity).set(j, false);
       }
       System.out.println(celebrityFinding(graph));
       assert celebrity == celebrityFinding(graph);

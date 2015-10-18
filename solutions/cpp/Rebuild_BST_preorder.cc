@@ -11,6 +11,7 @@
 
 using std::cout;
 using std::endl;
+using std::make_unique;
 using std::numeric_limits;
 using std::unique_ptr;
 using std::vector;
@@ -36,7 +37,7 @@ unique_ptr<BSTNode<int>> RebuildBSTFromPreorderHelper(
          preorder_sequence[transition_point] < preorder_sequence[start]) {
     ++transition_point;
   }
-  return unique_ptr<BSTNode<int>>(new BSTNode<int>{
+  return make_unique<BSTNode<int>>(BSTNode<int>{
       preorder_sequence[start],
       RebuildBSTFromPreorderHelper(preorder_sequence, start + 1,
                                    transition_point),

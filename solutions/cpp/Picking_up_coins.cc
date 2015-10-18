@@ -14,8 +14,7 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-int PickUpCoinsHelper(const vector<int>& C, int a, int b,
-                      vector<vector<int>>* T);
+int PickUpCoinsHelper(const vector<int>&, int, int, vector<vector<int>>*);
 
 // @include
 int PickUpCoins(const vector<int>& C) {
@@ -24,18 +23,19 @@ int PickUpCoins(const vector<int>& C) {
 }
 
 int PickUpCoinsHelper(const vector<int>& C, int a, int b,
-                      vector<vector<int>>* T) {
+                      vector<vector<int>>* T_ptr) {
   if (a > b) {
     return 0;  // Base condition.
   }
 
-  if ((*T)[a][b] == -1) {
-    (*T)[a][b] = max(C[a] + min(PickUpCoinsHelper(C, a + 2, b, T),
-                                PickUpCoinsHelper(C, a + 1, b - 1, T)),
-                     C[b] + min(PickUpCoinsHelper(C, a + 1, b - 1, T),
-                                PickUpCoinsHelper(C, a, b - 2, T)));
+  vector<vector<int>>& T = *T_ptr;
+  if (T[a][b] == -1) {
+    T[a][b] = max(C[a] + min(PickUpCoinsHelper(C, a + 2, b, T_ptr),
+                             PickUpCoinsHelper(C, a + 1, b - 1, T_ptr)),
+                  C[b] + min(PickUpCoinsHelper(C, a + 1, b - 1, T_ptr),
+                             PickUpCoinsHelper(C, a, b - 2, T_ptr)));
   }
-  return (*T)[a][b];
+  return T[a][b];
 }
 // @exclude
 

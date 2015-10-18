@@ -5,9 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class MinimumWaitingTime {
   // @include
   public static int minimumWaitingTime(List<Integer> serviceTime) {

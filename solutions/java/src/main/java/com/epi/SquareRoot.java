@@ -36,12 +36,13 @@ public class SquareRoot {
     final double EPSILON = 0.00001;
     // Uses normalization for precision problem.
     double diff = (a - b) / b;
-    return diff < -EPSILON ? Ordering.SMALLER
-                           : (diff > EPSILON ? Ordering.LARGER : Ordering.EQUAL);
+    return diff < -EPSILON
+        ? Ordering.SMALLER
+        : (diff > EPSILON ? Ordering.LARGER : Ordering.EQUAL);
   }
   // @exclude
 
-  private static void SimpleTest() {
+  private static void simpleTest() {
     Double[] res = new Double[2];
     res[0] = squareRoot(1.0);
     res[1] = Math.sqrt(1.0);
@@ -69,7 +70,7 @@ public class SquareRoot {
   }
 
   public static void main(String[] args) {
-    SimpleTest();
+    simpleTest();
     Random r = new Random();
     for (int times = 0; times < 100000; ++times) {
       double x;
@@ -80,8 +81,8 @@ public class SquareRoot {
       }
       double[] res = new double[2];
       System.out.println("x is " + x);
-      System.out.println((res[0] = squareRoot(x)) + " " +
-                         (res[1] = Math.sqrt(x)));
+      System.out.println((res[0] = squareRoot(x)) + " "
+                         + (res[1] = Math.sqrt(x)));
       assert(compare(res[0], res[1]) == Ordering.EQUAL);
     }
   }

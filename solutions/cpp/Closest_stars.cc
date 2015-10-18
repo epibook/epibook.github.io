@@ -30,20 +30,12 @@ using std::vector;
 
 // @include
 struct Star {
- public:
-  bool operator<(const Star& rhs) const {
-    double distance = x * x + y * y + z * z;
-    double rhs_distance = rhs.x * rhs.x + rhs.y * rhs.y + rhs.z * rhs.z;
-    return distance < rhs_distance;
+  bool operator<(const Star& that) const {
+    return Distance() < that.Distance();
   }
 
-  // @exclude
-  bool operator==(const Star& rhs) const {
-    double distance = x * x + y * y + z * z;
-    double rhs_distance = rhs.x * rhs.x + rhs.y * rhs.y + rhs.z * rhs.z;
-    return fabs(distance - rhs_distance) / rhs_distance < 1.0e-5;
-  }
-  // @include
+  double Distance() const { return sqrt(x * x + y * y + z * z); }
+
   double x, y, z;
 };
 
@@ -102,10 +94,10 @@ void SimpleTest() {
   istringstream sin(CreateStreamingString(stars));
   vector<Star> closest_stars = FindClosestKStars(3, &sin);
   assert(3 == closest_stars.size());
-  assert(closest_stars[0] == (Star{0, 2, 1}));
-  assert(closest_stars[0] == (Star{2, 0, 1}));
-  assert(closest_stars[1] == (Star{1, 2, 1}));
-  assert(closest_stars[1] == (Star{1, 1, 2}));
+  assert(closest_stars[0].Distance() == (Star{0, 2, 1}.Distance()));
+  assert(closest_stars[0].Distance() == (Star{2, 0, 1}.Distance()));
+  assert(closest_stars[1].Distance() == (Star{1, 2, 1}.Distance()));
+  assert(closest_stars[1].Distance() == (Star{1, 1, 2}.Distance()));
 
   stars.clear();
   stars.emplace_back((Star{1, 2, 3}));
@@ -119,8 +111,8 @@ void SimpleTest() {
   istringstream sin2(CreateStreamingString(stars));
   closest_stars = FindClosestKStars(2, &sin2);
   assert(2 == closest_stars.size());
-  assert(closest_stars[0] == (Star{1, 2, 3}));
-  assert(closest_stars[1] == (Star{3, 2, 1}));
+  assert(closest_stars[0].Distance() == (Star{1, 2, 3}.Distance()));
+  assert(closest_stars[1].Distance() == (Star{3, 2, 1}.Distance()));
 }
 
 int main(int argc, char* argv[]) {
@@ -153,10 +145,12 @@ int main(int argc, char* argv[]) {
     sort(stars.begin(), stars.end());
     cout << "k = " << k << endl;
     cout << stars[k - 1].x << " " << stars[k - 1].y << " " << stars[k - 1].z
-         << endl;
+         << " " << stars[k - 1].Distance() << endl;
     cout << closest_stars.back().x << " " << closest_stars.back().y << " "
-         << closest_stars.back().z << endl;
-    assert(stars[k - 1] == closest_stars.back());
+         << closest_stars.back().z << " " << closest_stars.back().Distance()
+         << endl;
+    assert(fabs(stars[k - 1].Distance() - closest_stars.back().Distance()) <
+           1.0e-2);
   }
   return 0;
 }

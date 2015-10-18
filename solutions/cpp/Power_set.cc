@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
     iota(S.begin(), S.end(), 0);
   }
   auto power_set = GeneratePowerSet(S);
-  for (const auto& one_set : power_set) {
+  for (const vector<int>& one_set : power_set) {
     copy(one_set.begin(), one_set.end(), ostream_iterator<int>(cout, " "));
     cout << endl;
   }

@@ -14,42 +14,44 @@
 using std::cout;
 using std::default_random_engine;
 using std::endl;
+using std::make_unique;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::unique_ptr;
 using std::unordered_map;
 using std::vector;
 
-unique_ptr<BinaryTreeNode<int>> ReconstructPostInOrdersHelper(
-    const vector<int>& post, size_t post_s, size_t post_e, size_t in_s,
-    size_t in_e, const unordered_map<int, size_t>& in_entry_idx_map);
+unique_ptr<BinaryTreeNode<int>> ReconstructPostInordersHelper(
+    const vector<int>&, size_t, size_t, size_t, size_t,
+    const unordered_map<int, size_t>&);
 
 // @include
-unique_ptr<BinaryTreeNode<int>> ReconstructPostInOrders(const vector<int>& post,
-                                                        const vector<int>& in) {
+unique_ptr<BinaryTreeNode<int>> ReconstructPostInorders(
+    const vector<int>& post, const vector<int>& in) {
   unordered_map<int, size_t> in_entry_idx_map;
   for (size_t i = 0; i < in.size(); ++i) {
     in_entry_idx_map.emplace(in[i], i);
   }
-  return ReconstructPostInOrdersHelper(post, 0, post.size(), 0, in.size(),
+  return ReconstructPostInordersHelper(post, 0, post.size(), 0, in.size(),
                                        in_entry_idx_map);
 }
 
-unique_ptr<BinaryTreeNode<int>> ReconstructPostInOrdersHelper(
+unique_ptr<BinaryTreeNode<int>> ReconstructPostInordersHelper(
     const vector<int>& post, size_t post_s, size_t post_e, size_t in_s,
     size_t in_e, const unordered_map<int, size_t>& in_entry_idx_map) {
   if (post_e > post_s && in_e > in_s) {
     auto idx = in_entry_idx_map.at(post[post_e - 1]);
     auto left_tree_size = idx - in_s;
 
-    return unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{
+    return make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{
         post[post_e - 1],
         // Recursively builds the left subtree.
-        ReconstructPostInOrdersHelper(post, post_s, post_s + left_tree_size,
+        ReconstructPostInordersHelper(post, post_s, post_s + left_tree_size,
                                       in_s, idx, in_entry_idx_map),
         // Recursively builds the right subtree.
-        ReconstructPostInOrdersHelper(post, post_s + left_tree_size, post_e - 1,
-                                      idx + 1, in_e, in_entry_idx_map)});
+        ReconstructPostInordersHelper(post, post_s + left_tree_size,
+                                      post_e - 1, idx + 1, in_e,
+                                      in_entry_idx_map)});
   }
   return nullptr;
 }
@@ -70,7 +72,7 @@ int main(int argc, char* argv[]) {
         generate_rand_binary_tree<int>(n, true);
     vector<int> post = generate_postorder(root);
     vector<int> in = generate_inorder(root);
-    auto res = ReconstructPostInOrders(post, in);
+    auto res = ReconstructPostInorders(post, in);
     assert(is_two_binary_trees_equal<int>(root, res));
     delete_binary_tree(&root);
     delete_binary_tree(&res);

@@ -8,6 +8,7 @@
 
 using std::cout;
 using std::endl;
+using std::make_unique;
 using std::unique_ptr;
 
 // @include
@@ -37,26 +38,24 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4  6
-  auto root = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3});
+  auto root = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{3});
   root->parent = nullptr;
   assert(FindSuccessor(root) == nullptr);
-  root->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
+  root->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{2});
   root->left->parent = root.get();
   assert(FindSuccessor(root->left)->data == 3);
 
-  root->left->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
+  root->left->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{1});
   root->left->left->parent = root->left.get();
   assert(FindSuccessor(root->left)->data == 3);
   assert(FindSuccessor(root->left->left)->data == 2);
 
-  root->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
+  root->right = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{5});
   root->right->parent = root.get();
-  root->right->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
+  root->right->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{4});
   root->right->left->parent = root->right.get();
   root->right->right =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
+      make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{6});
   root->right->right->parent = root->right.get();
   // should output 6
   auto* node = FindSuccessor(root->right);

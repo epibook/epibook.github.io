@@ -23,7 +23,9 @@ public class PowerXY {
         result *= x;
       }
       x *= x;
+      // clang-format off
       power >>>= 1;
+      // clang-format on
     }
     return result;
   }
@@ -36,15 +38,15 @@ public class PowerXY {
     if (args.length == 2) {
       x = Double.parseDouble(args[0]);
       y = Integer.parseInt(args[1]);
-      System.out.println(x + "^" + y + ": " + power(x, y) + ", " +
-                         Math.pow(x, y));
+      System.out.println(x + "^" + y + ": " + power(x, y) + ", "
+                         + Math.pow(x, y));
       assert(compare(power(x, y), Math.pow(x, y)) == 0);
     } else {
       for (int times = 0; times < 10000; ++times) {
         x = r.nextDouble() * 10;
         y = r.nextInt(257) - 128;
-        System.out.println(x + "^" + y + ": " + power(x, y) + ", " +
-                           Math.pow(x, y));
+        System.out.println(x + "^" + y + ": " + power(x, y) + ", "
+                           + Math.pow(x, y));
         assert(compare(power(x, y), Math.pow(x, y)) == 0);
       }
     }

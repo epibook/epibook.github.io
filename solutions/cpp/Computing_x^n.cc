@@ -30,7 +30,7 @@ vector<int> GetShortestStraightLineProgram(int n) {
     vector<int> candidate_SLP = SLPs.front();
     SLPs.pop();
     // Tries all possible combinations in candidate_SLP.
-    for (const int& a : candidate_SLP) {
+    for (int a : candidate_SLP) {
       int power = a + candidate_SLP.back();
       if (power > n) {
         break;  // No possible solution for candidate_SLP.
@@ -45,7 +45,8 @@ vector<int> GetShortestStraightLineProgram(int n) {
     }
   }
   // @exclude
-  throw invalid_argument("unknown error");  // This line should never be called.
+  throw invalid_argument(
+      "unknown error");  // This line should never be called.
   // @include
 }
 // @exclude
@@ -73,7 +74,7 @@ int main(int argc, char* argv[]) {
   }
   cout << "n = " << n << endl;
   auto min_exp = GetShortestStraightLineProgram(n);
-  for (const int& t : min_exp) {
+  for (int t : min_exp) {
     cout << t << ' ';
   }
   cout << endl;

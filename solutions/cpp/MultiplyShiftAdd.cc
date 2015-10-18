@@ -53,7 +53,8 @@ int main(int argc, char* argv[]) {
       unsigned int x = dis(gen), y = dis(gen);
       unsigned int prod = Multiply(x, y);
       assert(prod == x * y);
-      cout << "PASS: x = " << x << ", y = " << y << "; prod = " << prod << endl;
+      cout << "PASS: x = " << x << ", y = " << y << "; prod = " << prod
+           << endl;
     }
   }
   return 0;

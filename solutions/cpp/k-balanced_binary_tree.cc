@@ -10,7 +10,9 @@
 
 using std::cout;
 using std::endl;
+using std::make_unique;
 using std::pair;
+using std::tie;
 using std::unique_ptr;
 
 pair<BinaryTreeNode<int>*, int> FindKUnbalancedNodeHelper(
@@ -32,18 +34,24 @@ pair<BinaryTreeNode<int>*, int> FindKUnbalancedNodeHelper(
   }
 
   // Early return if left subtree is not k-balanced.
-  auto left_result = FindKUnbalancedNodeHelper(tree->left, k);
-  if (left_result.first != nullptr) {
-    return {left_result.first, 0};
+  BinaryTreeNode<int>* left_subtree_result;
+  int left_subtree_node_num;
+  tie(left_subtree_result, left_subtree_node_num) =
+      FindKUnbalancedNodeHelper(tree->left, k);
+  if (left_subtree_result != nullptr) {
+    return {left_subtree_result, 0};
   }
   // Early return if right subtree is not k-balanced.
-  auto right_result = FindKUnbalancedNodeHelper(tree->right, k);
-  if (right_result.first != nullptr) {
-    return {right_result.first, 0};
+  BinaryTreeNode<int>* right_subtree_result;
+  int right_subtree_node_num;
+  tie(right_subtree_result, right_subtree_node_num) =
+      FindKUnbalancedNodeHelper(tree->right, k);
+  if (right_subtree_result != nullptr) {
+    return {right_subtree_result, 0};
   }
 
-  int node_num = left_result.second + right_result.second + 1;
-  if (abs(left_result.second - right_result.second) > k) {
+  int node_num = left_subtree_node_num + right_subtree_node_num + 1;
+  if (abs(left_subtree_node_num - right_subtree_node_num) > k) {
     // tree is not k-balanced but its children are k-balanced.
     return {tree.get(), node_num};
   }
@@ -55,18 +63,18 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{3, nullptr, nullptr});
-  root->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{2, nullptr, nullptr});
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{1, nullptr, nullptr});
-  root->right = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{5, nullptr, nullptr});
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{4, nullptr, nullptr});
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{6, nullptr, nullptr});
+  unique_ptr<BinaryTreeNode<int>> root = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{3, nullptr, nullptr});
+  root->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{2, nullptr, nullptr});
+  root->left->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{1, nullptr, nullptr});
+  root->right = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{5, nullptr, nullptr});
+  root->right->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{4, nullptr, nullptr});
+  root->right->right = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{6, nullptr, nullptr});
   int k = 0;
   BinaryTreeNode<int>* ans(FindKUnbalancedNode(root, k));
   assert(ans->data == 2);

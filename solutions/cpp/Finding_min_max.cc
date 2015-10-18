@@ -44,14 +44,14 @@ pair<int, int> FindMinMax(const vector<int>& A) {
 // @exclude
 
 static void SimpleTest() {
-  vector<int> A = {-1,3,-4,6,4,10,4,4,9};
+  vector<int> A = {-1, 3, -4, 6, 4, 10, 4, 4, 9};
   auto res = FindMinMax(A);
   assert(-4 == res.first && 10 == res.second);
   A[5] = -12;
   res = FindMinMax(A);
   assert(-12 == res.first && 9 == res.second);
 
-  A = {-1,3,-4};
+  A = {-1, 3, -4};
   res = FindMinMax(A);
   assert(-4 == res.first && 3 == res.second);
 }

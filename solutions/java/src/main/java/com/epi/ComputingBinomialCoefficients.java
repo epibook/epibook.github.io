@@ -1,28 +1,24 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ComputingBinomialCoefficients {
   // @include
   public static int computeBinomialCoefficients(int n, int k) {
-    int[] table = new int[k + 1];
-    for (int j = 0; j < k + 1; ++j) {
-      table[j] = 0;
-    }
-    table[0] = 1; // C(0, 0).
+    k = Math.min(k, n - k);
+    List<Integer> table = new ArrayList<>(Collections.nCopies(k + 1, 0));
+    table.set(0, 1); // C(0, 0).
     // C(i, j) = C(i - 1, j) + C(i - 1, j - 1).
     for (int i = 1; i <= n; ++i) {
       for (int j = Math.min(i, k); j >= 1; --j) {
-        table[j] = table[j] + table[j - 1];
+        table.set(j, table.get(j) + table.get(j - 1));
       }
-      table[0] = 1; // One way to select zero element.
+      table.set(0, 1); // One way to select zero element.
     }
-    return table[k];
+    return table.get(k);
   }
   // @exclude
 

@@ -1,7 +1,7 @@
 package com.epi;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -11,8 +11,8 @@ public class JumpGame {
     int furthestReachSoFar = 0, lastIndex = maxAdvanceSteps.size() - 1;
     for (int i = 0; i <= furthestReachSoFar && furthestReachSoFar < lastIndex;
          ++i) {
-      furthestReachSoFar =
-          Math.max(furthestReachSoFar, i + maxAdvanceSteps.get(i));
+      furthestReachSoFar
+          = Math.max(furthestReachSoFar, i + maxAdvanceSteps.get(i));
     }
     return furthestReachSoFar >= lastIndex;
   }

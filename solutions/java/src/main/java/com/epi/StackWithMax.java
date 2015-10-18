@@ -1,7 +1,7 @@
 package com.epi;
 
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Deque;
 import java.util.LinkedList;
 
 public class StackWithMax {
@@ -15,10 +15,11 @@ public class StackWithMax {
       this.max = max;
     }
   }
+
   public static class Stack {
     // Stores (element, cached maximum) pair.
-    private LinkedList<ElementWithCachedMax> elementWithCachedMax =
-        new LinkedList<>();
+    private Deque<ElementWithCachedMax> elementWithCachedMax
+        = new LinkedList<>();
 
     public boolean empty() { return elementWithCachedMax.isEmpty(); }
 
@@ -26,19 +27,19 @@ public class StackWithMax {
       if (!empty()) {
         return elementWithCachedMax.peek().max;
       }
-      throw new RuntimeException("max(): empty stack");
+      throw new IllegalStateException("max(): empty stack");
     }
 
     public Integer pop() {
       if (empty()) {
-        throw new RuntimeException("pop(): empty stack");
+        throw new IllegalStateException("pop(): empty stack");
       }
-      return elementWithCachedMax.pop().element;
+      return elementWithCachedMax.removeFirst().element;
     }
 
     public void push(Integer x) {
-      elementWithCachedMax.push(new ElementWithCachedMax(
-          x, Collections.max(Arrays.asList(x, empty() ? x : max()))));
+      elementWithCachedMax.addFirst(
+          new ElementWithCachedMax(x, Math.max(x, empty() ? x : max())));
     }
   }
   // @exclude

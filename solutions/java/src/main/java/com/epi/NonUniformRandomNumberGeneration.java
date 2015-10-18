@@ -4,43 +4,49 @@ package com.epi;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
 
 public class NonUniformRandomNumberGeneration {
   // @include
-  public static int nonuniformRandomNumberGeneration(List<Integer> values,
-                                                     List<Double> probabilities) {
+  public static int nonuniformRandomNumberGeneration(
+      List<Integer> values, List<Double> probabilities) {
     List<Double> prefixSumOfProbabilities = new ArrayList<>();
     prefixSumOfProbabilities.add(0.0);
     // Creating the endpoints for the intervals corresponding to the
     // probabilities.
     for (double p : probabilities) {
       prefixSumOfProbabilities.add(
-          prefixSumOfProbabilities.get(prefixSumOfProbabilities.size() - 1) + p);
+          prefixSumOfProbabilities.get(prefixSumOfProbabilities.size() - 1)
+          + p);
     }
 
-    Random uniform01 = new Random();
+    Random r = new Random();
+    // Get a random number in [0.0,1.0).
+    double uniform01 = r.nextDouble();
     // Find the index of the interval that uniform01 lies in.
-    int it = Collections.binarySearch(prefixSumOfProbabilities,
-                                      uniform01.nextDouble());
-    if (it >= 0) {
-      // Because we are dealing with random double, the probability of hitting an
-      // endpoint in prefixSumOfProbabilities is pretty low. However, it is not 0
-      // because finite precision.
+    int it = Collections.binarySearch(prefixSumOfProbabilities, uniform01);
+    if (it < 0) {
+      // We want the index of the first element in the array which is
+      // greater than the key.
+      //
+      // When a key is not present in the array, Collections.binarySearch()
+      // returns the negative of 1 plus the smallest index whose entry
+      // is greater than the key.
+      //
+      // Therefore, if the return value is negative, by taking its absolute
+      // value and adding 1 to it, we get the desired index.
+      int intervalIdx = (Math.abs(it) - 1) - 1;
+      return values.get(intervalIdx);
+    } else {
+      // We have it >= 0, i.e., uniform01 equals an entry
+      // in prefixSumOfProbabilities.
+      //
+      // Because we uniform01 is a random double, the probability of it
+      // equalling an endpoint in prefixSumOfProbabilities is exceedingly low.
+      // However, it is not 0, so to be robust we must consider this case.
       return values.get(it);
     }
-    // When a key is not present in the array, Collections.binarySearch()
-    // returns the negative of 1 plus the smallest index whose entry
-    // is greater than the key.
-    //
-    // Therefore, if the return value is negative, by taking its absolute
-    // value and adding 1, we get the index of the first element in the
-    // array which is greater than the key.
-    int intervalIdx = (Math.abs(it) - 1) - 1;
-    return values.get(intervalIdx);
   }
   // @exclude
 
@@ -48,7 +54,7 @@ public class NonUniformRandomNumberGeneration {
     Random gen = new Random();
     int n;
     if (args.length == 1) {
-      n = Integer.valueOf(args[0]);
+      n = Integer.parseInt(args[0]);
     } else {
       n = gen.nextInt(50) + 1;
     }
@@ -66,7 +72,6 @@ public class NonUniformRandomNumberGeneration {
     P.add(fullProb);
 
     System.out.println(T);
-
     System.out.println(P);
 
     System.out.println(nonuniformRandomNumberGeneration(T, P));

@@ -1,13 +1,21 @@
 package com.epi;
 
-import java.io.*;
-import java.util.*;
-import java.util.LinkedList;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.PriorityQueue;
+import java.util.Random;
 
 import static com.epi.utils.Utils.objectInputStreamFromList;
 
 public class ClosestStars {
   // @include
+
   public static class Star implements Comparable<Star>, Serializable {
     private double x, y, z;
 
@@ -17,41 +25,26 @@ public class ClosestStars {
       this.z = z;
     }
 
+    public double distance() { return Math.sqrt(x * x + y * y + z * z); }
+
     @Override
     public int compareTo(Star rhs) {
-      double rhsDistance = rhs.x * rhs.x + rhs.y * rhs.y + rhs.z * rhs.z;
-      double distance = x * x + y * y + z * z;
-      int cmp = Double.valueOf(distance).compareTo(rhsDistance);
-      return cmp;
+      return Double.compare(this.distance(), rhs.distance());
     }
+
     // @exclude
-
+    // clang-format off
     @Override
-    public boolean equals(Object obj) {
-      if (!(obj instanceof Star)) {
-        return false;
-      }
-      if (obj == this) {
-        return true;
-      }
-
-      Star rhs = (Star)obj;
-      double rhsDistance = rhs.x * rhs.x + rhs.y * rhs.y + rhs.z * rhs.z;
-      double distance = x * x + y * y + z * z;
-      return distance == rhsDistance;
-    }
-
-    @Override
-    public String toString() {
-      return "(" + x + "," + y + "," + z + ")";
-    }
+    public String toString() { return "(" + x + "," + y + "," + z + ")"; }
+    // clang-format on
     // @include
   }
 
-  public static List<Star> findClosestKStars(int k, ObjectInputStream osin) {
+  public static List<Star> findClosestKStars(int k, ObjectInputStream osin)
+      throws ClassNotFoundException, IOException {
     // maxHeap to store the closest k stars seen so far.
-    PriorityQueue<Star> maxHeap =
-        new PriorityQueue<>(k, Collections.reverseOrder());
+    PriorityQueue<Star> maxHeap
+        = new PriorityQueue<>(k, Collections.reverseOrder());
     try {
       while (true) {
         // Add each star to the max-heap. If the max-heap size exceeds k,
@@ -62,24 +55,19 @@ public class ClosestStars {
           maxHeap.remove();
         }
       }
-    } catch (IOException e) {
-      // Do nothing, read last element in stream.
-    } catch (ClassNotFoundException e) {
-      System.out.println("ClassNotFoundException: " + e.getMessage());
+    } catch (EOFException e) {
+      // Do nothing since the end of the stream has been reached.
     }
 
-    // We cannot go directly to an ArrayList from PriorityQueue, since
-    // unlike LinkedList, it does not guarantee ordering of entries.
     List<Star> orderedStars = new ArrayList<Star>(maxHeap);
-    // We need to reverse the orderedStars list since it goes from
-    // largest to smallest because the PriorityQueue used the
-    // Collections.reverse() comparator.
-    Collections.reverse(orderedStars);
+    // The only guarantee PriorityQueue makes about ordering is that the
+    // maximum element comes first, so we sort orderedStars.
+    Collections.sort(orderedStars);
     return orderedStars;
   }
   // @exclude
 
-  private static void simpleTest() {
+  private static void simpleTest() throws ClassNotFoundException, IOException {
     List<Star> stars = new ArrayList<>();
     stars.add(new Star(1, 2, 3));
     stars.add(new Star(5, 5, 5));
@@ -91,10 +79,10 @@ public class ClosestStars {
 
     List<Star> closestStars = findClosestKStars(3, ois);
     assert(3 == closestStars.size());
-    assert(closestStars.get(0).equals(new Star(0, 2, 1)));
-    assert(closestStars.get(0).equals(new Star(2, 0, 1)));
-    assert(closestStars.get(1).equals(new Star(1, 2, 1)));
-    assert(closestStars.get(1).equals(new Star(1, 1, 2)));
+    assert(0 == closestStars.get(0).compareTo(new Star(0, 2, 1)));
+    assert(0 == closestStars.get(0).compareTo(new Star(2, 0, 1)));
+    assert(0 == closestStars.get(1).compareTo(new Star(1, 2, 1)));
+    assert(0 == closestStars.get(1).compareTo(new Star(1, 1, 2)));
 
     stars = new ArrayList<>();
     stars.add(new Star(1, 2, 3));
@@ -108,11 +96,12 @@ public class ClosestStars {
     ois = objectInputStreamFromList(stars);
     closestStars = findClosestKStars(2, ois);
     assert(2 == closestStars.size());
-    assert(closestStars.get(0).equals(new Star(1, 2, 3)));
-    assert(closestStars.get(1).equals(new Star(3, 2, 1)));
+    assert(0 == closestStars.get(0).compareTo(new Star(1, 2, 3)));
+    assert(0 == closestStars.get(1).compareTo(new Star(3, 2, 1)));
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args)
+      throws ClassNotFoundException, IOException {
     simpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
@@ -138,7 +127,9 @@ public class ClosestStars {
       closestStars = findClosestKStars(k, ois);
       Collections.sort(closestStars);
       Collections.sort(stars);
-      assert(stars.get(k - 1).equals(closestStars.get(closestStars.size() - 1)));
+      assert(0
+             == stars.get(k - 1)
+                    .compareTo(closestStars.get(closestStars.size() - 1)));
     }
   }
 }

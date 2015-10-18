@@ -10,6 +10,7 @@
 using std::cout;
 using std::endl;
 using std::list;
+using std::make_unique;
 using std::unique_ptr;
 
 list<const unique_ptr<BinaryTreeNode<int>>*> LeftBoundaryAndLeaves(
@@ -41,9 +42,9 @@ list<const unique_ptr<BinaryTreeNode<int>>*> LeftBoundaryAndLeaves(
     }
     result.splice(result.end(),
                   LeftBoundaryAndLeaves(subtree->left, is_boundary));
-    result.splice(result.end(),
-                  LeftBoundaryAndLeaves(
-                      subtree->right, is_boundary && subtree->left == nullptr));
+    result.splice(result.end(), LeftBoundaryAndLeaves(
+                                    subtree->right,
+                                    is_boundary && subtree->left == nullptr));
   }
   return result;
 }
@@ -54,9 +55,9 @@ list<const unique_ptr<BinaryTreeNode<int>>*> RightBoundaryAndLeaves(
     const unique_ptr<BinaryTreeNode<int>>& subtree, bool is_boundary) {
   list<const unique_ptr<BinaryTreeNode<int>>*> result;
   if (subtree != nullptr) {
-    result.splice(result.end(),
-                  RightBoundaryAndLeaves(
-                      subtree->left, is_boundary && subtree->right == nullptr));
+    result.splice(result.end(), RightBoundaryAndLeaves(
+                                    subtree->left,
+                                    is_boundary && subtree->right == nullptr));
     result.splice(result.end(),
                   RightBoundaryAndLeaves(subtree->right, is_boundary));
     if (is_boundary || IsLeaf(subtree)) {
@@ -85,36 +86,36 @@ int main(int argc, char* argv[]) {
   //    2      5
   //  1  0    4 6
   //   -1 -2
-  unique_ptr<BinaryTreeNode<int>> tree = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{3, nullptr, nullptr});
+  unique_ptr<BinaryTreeNode<int>> tree = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{3, nullptr, nullptr});
   auto L = ExteriorBinaryTree(tree);
   list<int> result = CreateOutputList(L);
   list<int> golden_result = {3};
   assert(result.size() == golden_result.size() &&
          equal(result.begin(), result.end(), golden_result.begin()));
 
-  tree->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{2, nullptr, nullptr});
+  tree->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{2, nullptr, nullptr});
   L = ExteriorBinaryTree(tree);
   result = CreateOutputList(L);
   golden_result = {3, 2};
   assert(result.size() == golden_result.size() &&
          equal(result.begin(), result.end(), golden_result.begin()));
 
-  tree->left->right = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{0, nullptr, nullptr});
-  tree->left->right->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{-1, nullptr, nullptr});
-  tree->left->right->right = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{-2, nullptr, nullptr});
-  tree->left->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{1, nullptr, nullptr});
-  tree->right = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{5, nullptr, nullptr});
-  tree->right->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{4, nullptr, nullptr});
-  tree->right->right = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{6, nullptr, nullptr});
+  tree->left->right = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{0, nullptr, nullptr});
+  tree->left->right->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{-1, nullptr, nullptr});
+  tree->left->right->right = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{-2, nullptr, nullptr});
+  tree->left->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{1, nullptr, nullptr});
+  tree->right = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{5, nullptr, nullptr});
+  tree->right->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{4, nullptr, nullptr});
+  tree->right->right = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{6, nullptr, nullptr});
   L = ExteriorBinaryTree(tree);
   result = CreateOutputList(L);
   golden_result = {3, 2, 1, -1, -2, 4, 6, 5};

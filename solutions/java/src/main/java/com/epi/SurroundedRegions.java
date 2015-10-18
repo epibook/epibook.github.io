@@ -1,6 +1,7 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -21,10 +22,14 @@ public class SurroundedRegions {
       return;
     }
 
-    boolean[][] visited = new boolean[board.size()][board.get(0).size()];
+    List<List<Boolean>> visited = new ArrayList<>(board.size());
+    for (int i = 0; i < board.size(); ++i) {
+      visited.add(
+          new ArrayList(Collections.nCopies(board.get(i).size(), false)));
+    }
     for (int i = 1; i < board.size() - 1; ++i) {
       for (int j = 1; j < board.get(i).size() - 1; ++j) {
-        if (board.get(i).get(j) == 'W' && !visited[i][j]) {
+        if (board.get(i).get(j) == 'W' && !visited.get(i).get(j)) {
           markRegionIfSurrounded(i, j, board, visited);
         }
       }
@@ -33,26 +38,27 @@ public class SurroundedRegions {
 
   private static void markRegionIfSurrounded(int i, int j,
                                              List<List<Character>> board,
-                                             boolean[][] visited) {
+                                             List<List<Boolean>> visited) {
     int dir[][] = new int[][] {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
     // Uses q as a queue.
     List<Coordinate> q = new ArrayList<>();
     q.add(new Coordinate(i, j));
-    visited[i][j] = true;
+    visited.get(i).set(j, true);
     boolean isSurrounded = true;
     int idx = 0;
     // Uses BFS to traverse this region.
     while (idx < q.size()) {
       Coordinate curr = q.get(idx++);
       // A 'W' on the border means this region is not surrounded.
-      if (curr.x == 0 || curr.x == board.size() - 1 || curr.y == 0 ||
-          curr.y == board.get(curr.x).size() - 1) {
+      if (curr.x == 0 || curr.x == board.size() - 1 || curr.y == 0
+          || curr.y == board.get(curr.x).size() - 1) {
         isSurrounded = false;
       } else {
         for (int[] d : dir) {
           Coordinate next = new Coordinate(curr.x + d[0], curr.y + d[1]);
-          if (board.get(next.x).get(next.y) == 'W' && !visited[next.x][next.y]) {
-            visited[next.x][next.y] = true;
+          if (board.get(next.x).get(next.y) == 'W'
+              && !visited.get(next.x).get(next.y)) {
+            visited.get(next.x).set(next.y, true);
             q.add(next);
           }
         }

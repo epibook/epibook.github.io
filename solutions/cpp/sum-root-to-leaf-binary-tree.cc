@@ -10,6 +10,7 @@
 using std::cout;
 using std::endl;
 using std::equal;
+using std::make_unique;
 using std::unique_ptr;
 
 int SumRootToLeafHelper(const unique_ptr<BinaryTreeNode<int>>&, int);
@@ -39,23 +40,23 @@ int main(int argc, char** argv) {
   //      1
   //    1   0
   //  0    1 0
-  unique_ptr<BinaryTreeNode<int>> root = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{1, nullptr, nullptr});
+  unique_ptr<BinaryTreeNode<int>> root = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{1, nullptr, nullptr});
   assert(SumRootToLeaf(root) == 1);
-  root->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{1, nullptr, nullptr});
+  root->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{1, nullptr, nullptr});
   assert(SumRootToLeaf(root) == 3);
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{0, nullptr, nullptr});
+  root->left->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{0, nullptr, nullptr});
   assert(SumRootToLeaf(root) == 6);
-  root->right = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{0, nullptr, nullptr});
+  root->right = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{0, nullptr, nullptr});
   assert(SumRootToLeaf(root) == 8);
-  root->right->left = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{1, nullptr, nullptr});
+  root->right->left = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{1, nullptr, nullptr});
   assert(SumRootToLeaf(root) == 11);
-  root->right->right = unique_ptr<BinaryTreeNode<int>>(
-      new BinaryTreeNode<int>{0, nullptr, nullptr});
+  root->right->right = make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{0, nullptr, nullptr});
   assert(SumRootToLeaf(root) == 15);
   return 0;
 }

@@ -6,6 +6,7 @@
 
 #include "./BST_parent_prototype.h"
 
+using std::make_unique;
 using std::unique_ptr;
 using std::vector;
 
@@ -57,17 +58,17 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4  6
-  auto root = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
+  auto root = make_unique<BSTNode<int>>(BSTNode<int>{3});
   root->parent = nullptr;
-  root->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
+  root->left = make_unique<BSTNode<int>>(BSTNode<int>{2});
   root->left->parent = root.get();
-  root->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{1});
+  root->left->left = make_unique<BSTNode<int>>(BSTNode<int>{1});
   root->left->left->parent = root->left.get();
-  root->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
+  root->right = make_unique<BSTNode<int>>(BSTNode<int>{5});
   root->right->parent = root.get();
-  root->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
+  root->right->left = make_unique<BSTNode<int>>(BSTNode<int>{4});
   root->right->left->parent = root->right.get();
-  root->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{6});
+  root->right->right = make_unique<BSTNode<int>>(BSTNode<int>{6});
   root->right->right->parent = root->right.get();
   vector<BSTNode<int>*> res = RangeQueryOnBST(root, 2, 5);
   assert(res.size() == 4);

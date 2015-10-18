@@ -2,11 +2,11 @@
 
 package com.epi;
 
-class OverlappingListsNoCycle {
+public class OverlappingListsNoCycle {
   // @include
-  public static ListNode<Integer> overlappingNoCycleLists(ListNode<Integer> L1,
-                                                          ListNode<Integer> L2) {
-    int L1Length = Length(L1), L2Length = Length(L2);
+  public static ListNode<Integer> overlappingNoCycleLists(
+      ListNode<Integer> L1, ListNode<Integer> L2) {
+    int L1Length = length(L1), L2Length = length(L2);
 
     // Advances the longer list to get equal length lists.
     if (L1Length > L2Length) {
@@ -29,7 +29,7 @@ class OverlappingListsNoCycle {
     return L;
   }
 
-  private static int Length(ListNode<Integer> L) {
+  private static int length(ListNode<Integer> L) {
     int len = 0;
     while (L != null) {
       ++len;

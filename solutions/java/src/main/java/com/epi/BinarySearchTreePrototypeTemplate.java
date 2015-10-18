@@ -1,10 +1,12 @@
 package com.epi;
 
+import java.util.Objects;
+
 public class BinarySearchTreePrototypeTemplate {
   // @include
   public static class BSTNode<T> {
-    private T data;
-    private BSTNode<T> left, right;
+    public T data;
+    public BSTNode<T> left, right;
     // @exclude
 
     public BSTNode() {}
@@ -16,18 +18,6 @@ public class BinarySearchTreePrototypeTemplate {
       this.left = left;
       this.right = right;
     }
-
-    public T getData() { return data; }
-
-    public void setData(T data) { this.data = data; }
-
-    public BSTNode<T> getLeft() { return left; }
-
-    public void setLeft(BSTNode<T> left) { this.left = left; }
-
-    public BSTNode<T> getRight() { return right; }
-
-    public void setRight(BSTNode<T> right) { this.right = right; }
 
     @Override
     public boolean equals(Object o) {
@@ -52,6 +42,11 @@ public class BinarySearchTreePrototypeTemplate {
 
       return true;
     }
+
+    // clang-format off
+    @Override
+    public int hashCode() { return Objects.hash(data, left, right); }
+    // clang-format on
   }
   // @include
 }

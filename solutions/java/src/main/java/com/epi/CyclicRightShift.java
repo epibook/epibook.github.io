@@ -49,7 +49,7 @@ public class CyclicRightShift {
     ListNode<Integer> L;
     L = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, null)));
     ListNode<Integer> result = cyclicallyRightShiftList(L, 2);
-    assert(result.data.equals(2) && result.next.data.equals(3) &&
-           result.next.next.data.equals(1) && result.next.next.next == null);
+    assert(result.data.equals(2) && result.next.data.equals(3)
+           && result.next.next.data.equals(1) && result.next.next.next == null);
   }
 }

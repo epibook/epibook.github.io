@@ -118,10 +118,7 @@ int LongestRangeLength(int a, const unordered_set<int>& S,
 // @include
 int LongestContainedRange(const vector<int>& A) {
   // unprocessed_entries records the existence of each entry in A.
-  unordered_set<int> unprocessed_entries;
-  for (int a : A) {
-    unprocessed_entries.emplace(a);
-  }
+  unordered_set<int> unprocessed_entries(A.begin(), A.end());
 
   int max_interval_size = 0;
   while (!unprocessed_entries.empty()) {

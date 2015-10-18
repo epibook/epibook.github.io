@@ -24,9 +24,9 @@ bool IsPalindrome(int x) {
     return true;
   }
 
-  const int kNumDigits = static_cast<int>(floor(log10(x))) + 1;
-  int msd_mask = static_cast<int>(pow(10, kNumDigits - 1));
-  for (int i = 0; i < (kNumDigits / 2); ++i) {
+  const int num_digits = static_cast<int>(floor(log10(x))) + 1;
+  int msd_mask = static_cast<int>(pow(10, num_digits - 1));
+  for (int i = 0; i < (num_digits / 2); ++i) {
     if (x / msd_mask != x % 10) {
       return false;
     }

@@ -65,7 +65,20 @@ string RandString(int len) {
   return ret;
 }
 
+void SimpleTest() {
+  ofstream ofs("/tmp/logs.txt");
+  ofs << "a A" << endl;
+  ofs << "b B" << endl;
+  ofs << "c A" << endl;
+  ofs.close();
+  ifstream ifs("/tmp/logs.txt");
+  auto result = HighestAffinityPair(&ifs);
+  assert((result.first == "a" && result.second == "c") ||
+         (result.first == "c" && result.second == "a"));
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   int n;
   if (argc == 2) {
@@ -74,14 +87,14 @@ int main(int argc, char* argv[]) {
     uniform_int_distribution<int> dis(1, 10000);
     n = dis(gen);
   }
-  ofstream ofs("logs.txt");
+  ofstream ofs("/tmp/logs.txt");
   for (int i = 0; i < n; ++i) {
     string name = RandString(5);
     transform(name.begin(), name.end(), name.begin(), toupper);
     ofs << name << " " << RandString(5) << endl;
   }
   ofs.close();
-  ifstream ifs("logs.txt");
+  ifstream ifs("/tmp/logs.txt");
   auto result = HighestAffinityPair(&ifs);
   cout << result.first << " " << result.second << endl;
   return 0;

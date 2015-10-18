@@ -10,6 +10,7 @@
 #include "./Binary_tree_utils.h"
 
 using std::cout;
+using std::make_unique;
 using std::ostream_iterator;
 using std::swap;
 using std::unique_ptr;
@@ -67,15 +68,12 @@ int main(int argc, char *argv[]) {
   //    2   4
   //  1    5 6
   unique_ptr<BinaryTreeNode<int>> root =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3});
-  root->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
-  root->left->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
-  root->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
-  root->right->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
-  root->right->right =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
+      make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{
+          3, make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{
+                 2, make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{1})}),
+          make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{
+              4, make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{5}),
+              make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{6})})});
   recover_BST(&root);
   auto result = generate_inorder(root);
   copy(result.cbegin(), result.cend(), ostream_iterator<int>(cout, " "));

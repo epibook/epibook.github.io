@@ -21,7 +21,7 @@ struct Event {
 
 struct Endpoint {
   bool operator<(const Endpoint& e) const {
-    // If times are equal, times corresponding to start come first.
+    // If times are equal, an endpoint that starts an interval comes first.
     return time != e.time ? time < e.time : (isStart && !e.isStart);
   }
 

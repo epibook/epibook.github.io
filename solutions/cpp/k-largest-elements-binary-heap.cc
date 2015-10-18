@@ -1,6 +1,7 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
+#include <functional>
 #include <iostream>
 #include <queue>
 #include <utility>
@@ -8,17 +9,12 @@
 
 using std::cout;
 using std::endl;
+using std::function;
 using std::pair;
 using std::priority_queue;
 using std::vector;
 
 // @include
-struct Compare {
-  bool operator()(const pair<size_t, int>& a, const pair<size_t, int>& b) {
-    return a.second < b.second;
-  }
-};
-
 vector<int> KLargestInBinaryHeap(const vector<int>& A, int k) {
   if (k <= 0) {
     return {};
@@ -26,21 +22,25 @@ vector<int> KLargestInBinaryHeap(const vector<int>& A, int k) {
 
   // Stores the (index, value)-pair in candidate_max_heap. This heap is
   // ordered by the value field.
-  priority_queue<pair<size_t, int>, vector<pair<size_t, int>>, Compare>
-      candidate_max_heap;
+  priority_queue<pair<int, int>, vector<pair<int, int>>,
+                 function<bool(pair<int, int>, pair<int, int>)>>
+  candidate_max_heap(
+      [](const pair<int, int>& a, const pair<int, int>& b) -> bool {
+        return a.second < b.second;
+      });
   // The largest element in A is at index 0.
   candidate_max_heap.emplace(0, A[0]);
   vector<int> result;
   for (int i = 0; i < k; ++i) {
-    size_t candidate_idx = candidate_max_heap.top().first;
+    int candidate_idx = candidate_max_heap.top().first;
     result.emplace_back(candidate_max_heap.top().second);
     candidate_max_heap.pop();
 
-    size_t left_child_idx = 2 * candidate_idx + 1;
+    int left_child_idx = 2 * candidate_idx + 1;
     if (left_child_idx < A.size()) {
       candidate_max_heap.emplace(left_child_idx, A[left_child_idx]);
     }
-    size_t right_child_idx = 2 * candidate_idx + 2;
+    int right_child_idx = 2 * candidate_idx + 2;
     if (right_child_idx < A.size()) {
       candidate_max_heap.emplace(right_child_idx, A[right_child_idx]);
     }

@@ -10,6 +10,7 @@
 using std::boolalpha;
 using std::cout;
 using std::endl;
+using std::make_unique;
 using std::numeric_limits;
 using std::unique_ptr;
 
@@ -57,15 +58,13 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  auto root = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3});
-  root->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
-  root->left->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
-  root->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
-  root->right->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
+  auto root = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{3});
+  root->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{2});
+  root->left->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{1});
+  root->right = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{5});
+  root->right->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{4});
   root->right->right =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
+      make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{6});
   assert(IsBinaryTreeBST(root) == true);
   cout << boolalpha << IsBinaryTreeBST(root) << endl;
   //      10

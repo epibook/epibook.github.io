@@ -1,6 +1,12 @@
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 public class WordBreaking {
   private static String randString(int len) {
@@ -14,29 +20,38 @@ public class WordBreaking {
 
   // @include
   public static List<String> wordBreaking(String s, Set<String> dict) {
-    // T[i] stores the length of the last string which composed of s(0, i).
-    int[] T = new int[s.length()];
+    List<Integer> T = new ArrayList<>(Collections.nCopies(s.length(), -1));
+    // When the algorithm finishes, T.get(i) != -1 indicates s.substring(0, i +
+    // 1) has a valid decomposition. Specifically, the length of the last string
+    // in the decomposition will be T.get(i).
+
     for (int i = 0; i < s.length(); ++i) {
-      // Sets T[i] if s(0, i) is a valid word.
+      // If s.substring(0, i + 1) is a valid word, set T.get(i) to the length of
+      // that word.
       if (dict.contains(s.substring(0, i + 1))) {
-        T[i] = i + 1;
+        T.set(i, i + 1);
       }
 
-      // Set T[i] if T[j] != 0 and s(j + 1, i) is a valid word.
-      for (int j = 0; j < i && T[i] == 0; ++j) {
-        if (T[j] != 0 && dict.contains(s.substring(j + 1, i + 1))) {
-          T[i] = i - j;
+      // If T.get(i) = -1 look for j < i such that s.substring(0, j + 1)
+      // has a valid decomposition and s.substring(j + 1, i + 1) is a
+      // dictionary word. If so, record the length of that word in T.get(i).
+      if (T.get(i) == -1) {
+        for (int j = 0; j < i; ++j) {
+          if (T.get(j) != -1 && dict.contains(s.substring(j + 1, i + 1))) {
+            T.set(i, i - j);
+            break;
+          }
         }
       }
     }
 
     List<String> ret = new ArrayList<>();
-    // s can be assembled by valid words.
-    if (T[T.length - 1] != 0) {
+    if (T.get(T.size() - 1) != -1) {
+      // s can be assembled by valid words.
       int idx = s.length() - 1;
       while (idx >= 0) {
-        ret.add(s.substring(idx - T[idx] + 1, idx + 1));
-        idx -= T[idx];
+        ret.add(s.substring(idx + 1 - T.get(idx), idx + 1));
+        idx -= T.get(idx);
       }
       Collections.reverse(ret);
     }
@@ -46,14 +61,14 @@ public class WordBreaking {
 
   // Verify the strings in ans can be assembled into s.
   private static void checkAns(String s, List<String> ans) {
-    String temp = "";
+    StringBuilder temp = new StringBuilder();
     System.out.println(s);
     for (String an : ans) {
       System.out.print(an + " ");
-      temp += an;
+      temp.append(an);
     }
     System.out.println();
-    assert(ans.size() == 0 || s.equals(temp));
+    assert(ans.size() == 0 || s.equals(temp.toString()));
   }
 
   private static void smallCase() {
@@ -65,6 +80,54 @@ public class WordBreaking {
     dictionary.add("beyond");
     List<String> ans = wordBreaking("bedbathandbeyond", dictionary);
     List<String> goldenAns = Arrays.asList("bed", "bath", "and", "beyond");
+    assert(ans.equals(goldenAns));
+    checkAns("bedbathandbeyond", goldenAns);
+
+    dictionary = new HashSet<>();
+    dictionary.add("aa");
+    dictionary.add("b");
+    dictionary.add("ccc");
+
+    ans = wordBreaking("b", dictionary);
+    goldenAns = Arrays.asList("b");
+    assert(ans.equals(goldenAns));
+    checkAns("b", goldenAns);
+
+    ans = wordBreaking("ccc", dictionary);
+    goldenAns = Arrays.asList("ccc");
+    assert(ans.equals(goldenAns));
+    checkAns("ccc", goldenAns);
+
+    ans = wordBreaking("aabccc", dictionary);
+    goldenAns = Arrays.asList("aa", "b", "ccc");
+    assert(ans.equals(goldenAns));
+    checkAns("aabccc", goldenAns);
+
+    ans = wordBreaking("baabccc", dictionary);
+    goldenAns = Arrays.asList("b", "aa", "b", "ccc");
+    assert(ans.equals(goldenAns));
+    checkAns("baabccc", goldenAns);
+
+    dictionary.add("bb");
+    ans = wordBreaking("bbb", dictionary);
+    // Note: goldenAns relies on how our algorithm is implemented: our
+    // algorithm chooses longest word ending at that index, so the answer
+    // is "b", "bb", not "b", "b", "b" or "bb", "b".
+    goldenAns = Arrays.asList("b", "bb");
+    assert(ans.equals(goldenAns));
+    checkAns("bbb", goldenAns);
+
+    ans = wordBreaking("bbcccb", dictionary);
+    goldenAns = Arrays.asList("bb", "ccc", "b");
+    assert(ans.equals(goldenAns));
+    checkAns("bbcccb", goldenAns);
+
+    ans = wordBreaking("bbcccbabb", dictionary);
+    goldenAns = Arrays.asList();
+    assert(ans.equals(goldenAns));
+
+    ans = wordBreaking("d", dictionary);
+    goldenAns = Arrays.asList();
     assert(ans.equals(goldenAns));
   }
 

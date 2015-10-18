@@ -4,9 +4,9 @@ package com.epi;
 
 import java.util.Arrays;
 
-class CanStringBePalindromeSorting {
+public class CanStringBePalindromeSorting {
   // @include
-  public static boolean canStringBeAPalindrome(String s) {
+  public static boolean canFormPalindrome(String s) {
     char[] a = s.toCharArray();
     Arrays.sort(a);
     int oddCount = 0;

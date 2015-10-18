@@ -11,6 +11,7 @@
 using std::cout;
 using std::default_random_engine;
 using std::endl;
+using std::make_unique;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::unique_ptr;
@@ -32,7 +33,7 @@ unique_ptr<BSTNode<int>> BuildMinHeightBSTFromSortedArrayHelper(
     return nullptr;
   }
   int mid = start + ((end - start) / 2);
-  return unique_ptr<BSTNode<int>>(new BSTNode<int>{
+  return make_unique<BSTNode<int>>(BSTNode<int>{
       A[mid], BuildMinHeightBSTFromSortedArrayHelper(A, start, mid),
       BuildMinHeightBSTFromSortedArrayHelper(A, mid + 1, end)});
 }
@@ -49,14 +50,13 @@ void TraversalCheck(const unique_ptr<BSTNode<T>>& tree, T* target) {
 }
 
 static void SimpleTest() {
-  vector<int> A = {1,2,3,4};
+  vector<int> A = {1, 2, 3, 4};
   unique_ptr<BSTNode<int>> result = BuildMinHeightBSTFromSortedArray(A);
   assert(3 == result->data);
   assert(2 == result->left->data);
   assert(1 == result->left->left->data);
   assert(4 == result->right->data);
 }
-
 
 int main(int argc, char* argv[]) {
   SimpleTest();

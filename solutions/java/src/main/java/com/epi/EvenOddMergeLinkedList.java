@@ -5,7 +5,7 @@ package com.epi;
 
 import java.util.Random;
 
-class EvenOddMergeLinkedList {
+public class EvenOddMergeLinkedList {
   // @include
   public static ListNode<Integer> evenOddMerge(ListNode<Integer> L) {
     if (L == null) {
@@ -26,6 +26,7 @@ class EvenOddMergeLinkedList {
       }
     }
 
+    // Appends odd list to the tail of even list.
     if (evenListIter != null) {
       evenListIter.next = oddListHead;
     } else {
@@ -59,7 +60,8 @@ class EvenOddMergeLinkedList {
     int n = 0;
     if (args.length > 1) {
       for (String element : args) {
-        ListNode<Integer> curr = new ListNode<>(Integer.parseInt(element), null);
+        ListNode<Integer> curr
+            = new ListNode<>(Integer.parseInt(element), null);
         curr.next = head;
         head = curr;
       }

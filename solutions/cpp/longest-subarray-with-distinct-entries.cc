@@ -59,7 +59,15 @@ int CheckAns(const vector<int>& A) {
   return len;
 }
 
+void SimpleTest() {
+  assert(1 == LongestSubarrayWithDistinctEntries({1, 1, 1}));
+  assert(2 == LongestSubarrayWithDistinctEntries({1, 2, 1}));
+  assert(3 == LongestSubarrayWithDistinctEntries({1, 2, 1, 3, 1, 2, 1}));
+  assert(2 == LongestSubarrayWithDistinctEntries({1, 2, 2, 3, 3, 1, 1, 2, 1}));
+}
+
 int main(int argc, char** argv) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   uniform_int_distribution<size_t> dis(0, 1000);
   int n;

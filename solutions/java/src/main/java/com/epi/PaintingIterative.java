@@ -1,20 +1,14 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
-import static com.epi.utils.Utils.simplePrint;
-
 public class PaintingIterative {
-  static void printMatrix(boolean[][] A) {
-    for (boolean[] element : A) {
-      simplePrint(element);
-      System.out.println();
-    }
-  }
-
   // @include
   private static class Coordinate {
     public Integer x;
@@ -26,22 +20,23 @@ public class PaintingIterative {
     }
   }
 
-  public static void flipColor(boolean[][] A, int x, int y) {
+  public static void flipColor(List<List<Boolean>> A, int x, int y) {
     int[][] dir = new int[][] {new int[] {0, 1}, new int[] {0, -1},
                                new int[] {1, 0}, new int[] {-1, 0}};
-    boolean color = A[x][y];
+    boolean color = A.get(x).get(y);
 
     Queue<Coordinate> q = new LinkedList<>();
-    A[x][y] = !A[x][y]; // Flips.
+    A.get(x).set(y, !A.get(x).get(y)); // Flips.
     q.add(new Coordinate(x, y));
     while (!q.isEmpty()) {
       Coordinate curr = q.element();
       for (int[] d : dir) {
         Coordinate next = new Coordinate(curr.x + d[0], curr.y + d[1]);
-        if (next.x >= 0 && next.x < A.length && next.y >= 0 &&
-            next.y < A[next.x].length && A[next.x][next.y] == color) {
+        if (next.x >= 0 && next.x < A.size() && next.y >= 0
+            && next.y < A.get(next.x).size()
+            && A.get(next.x).get(next.y) == color) {
           // Flips the color.
-          A[next.x][next.y] = !A[next.x][next.y];
+          A.get(next.x).set(next.y, !color);
           q.add(next);
         }
       }
@@ -54,22 +49,22 @@ public class PaintingIterative {
     int n;
     Random gen = new Random();
     if (args.length == 1) {
-      n = Integer.valueOf(args[0]);
+      n = Integer.parseInt(args[0]);
     } else {
       n = gen.nextInt(100) + 1;
     }
 
-    boolean[][] A = new boolean[n][n];
+    List<List<Boolean>> A = new ArrayList<>(n);
     for (int i = 0; i < n; ++i) {
+      A.add(new ArrayList(n));
       for (int j = 0; j < n; ++j) {
-        A[i][j] = gen.nextBoolean();
+        A.get(i).add(gen.nextBoolean());
       }
     }
     int i = gen.nextInt(n), j = gen.nextInt(n);
-    System.out.println("color = " + i + " " + j + " " + A[i][j]);
-    printMatrix(A);
+    System.out.println("color = " + i + " " + j + " " + A.get(i).get(j));
+    System.out.println(A);
     flipColor(A, i, j);
-    System.out.println();
-    printMatrix(A);
+    System.out.println(A);
   }
 }

@@ -2,14 +2,15 @@ package com.epi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Random;
 
 public class HuffmanEncoding {
-  private static final double[] ENGLISH_FREQ = {
-      8.167, 1.492, 2.782, 4.253, 12.702, 2.228, 2.015, 6.094, 6.966,
-      0.153, 0.772, 4.025, 2.406, 6.749,  7.507, 1.929, 0.095, 5.987,
-      6.327, 9.056, 2.758, 0.978, 2.360,  0.150, 1.974, 0.074};
+  private static final double[] ENGLISH_FREQ
+      = {8.167, 1.492, 2.782, 4.253, 12.702, 2.228, 2.015, 6.094, 6.966,
+         0.153, 0.772, 4.025, 2.406, 6.749,  7.507, 1.929, 0.095, 5.987,
+         6.327, 9.056, 2.758, 0.978, 2.360,  0.150, 1.974, 0.074};
 
   // @include
   public static class Symbol {
@@ -23,17 +24,35 @@ public class HuffmanEncoding {
     public Symbol s;
     public BinaryTree left, right;
 
-    public BinaryTree(double prob, Symbol s, BinaryTree left, BinaryTree right) {
+    public BinaryTree(double prob, Symbol s, BinaryTree left,
+                      BinaryTree right) {
       this.prob = prob;
       this.s = s;
       this.left = left;
       this.right = right;
     }
 
+    // clang-format off
     @Override
-    public int compareTo(BinaryTree o) {
-      return Double.compare(prob, o.prob);
+    public int compareTo(BinaryTree o) { return Double.compare(prob, o.prob); }
+    // clang-format on
+
+    @Override
+    public boolean equals(Object obj) {
+      if (!(obj instanceof BinaryTree)) {
+        return false;
+      }
+      if (this == obj) {
+        return true;
+      }
+      BinaryTree that = (BinaryTree)obj;
+      return this.prob == that.prob;
     }
+
+    // clang-format off
+    @Override
+    public int hashCode() { return Objects.hash(prob); }
+    // clang-format on
   }
 
   public static void huffmanEncoding(List<Symbol> symbols) {
@@ -50,14 +69,13 @@ public class HuffmanEncoding {
       minHeap.add(new BinaryTree(l.prob + r.prob, null, l, r));
     }
 
-    // Traverses the binary tree and assign code.
+    // Traverses the binary tree, assigning codes to nodes.
     assignHuffmanCode(minHeap.peek(), "");
   }
 
-  // Traverses tree and assign code.
   private static void assignHuffmanCode(BinaryTree r, String code) {
     if (r != null) {
-      // This node (i.e., leaf) contains symbol.
+      // This node (i.e., leaf) contains a symbol.
       if (r.s != null) {
         r.s.code = code;
       } else { // Non-leaf node.

@@ -1,16 +1,32 @@
 package com.epi;
 
-import java.io.*;
-import java.util.*;
+import com.epi.utils.Utils;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Random;
 
 public class AverageTop3Scores {
   // @include
-  public static String findStudentWithHighestBestOfThreeScores(ObjectInputStream ois) {
+  public static String findStudentWithHighestBestOfThreeScores(
+      ObjectInputStream ois) throws ClassNotFoundException, IOException {
     Map<String, PriorityQueue<Integer>> studentScores = new HashMap<>();
     try {
       while (true) {
-        String name = (String) ois.readObject();
-        Integer score = (Integer) ois.readObject();
+        String name = (String)ois.readObject();
+        Integer score = (Integer)ois.readObject();
         PriorityQueue<Integer> scores = studentScores.get(name);
         if (scores == null) {
           scores = new PriorityQueue<>();
@@ -18,18 +34,17 @@ public class AverageTop3Scores {
         }
         scores.add(score);
         if (scores.size() > 3) {
-            scores.poll(); // Only keep the top 3 scores.
+          scores.poll(); // Only keep the top 3 scores.
         }
       }
-    } catch (IOException e) {
-    } catch (ClassNotFoundException e) {
+    } catch (EOFException e) {
+      // Do nothing since the end of the stream has been reached.
     }
 
     String topStudent = "no such student";
     int currentTopThreeScoresSum = 0;
     for (Map.Entry<String, PriorityQueue<Integer>> scores :
          studentScores.entrySet()) {
-      System.out.println(scores.getKey());
       if (scores.getValue().size() == 3) {
         int currentScoresSum = getTopThreeScoresSum(scores.getValue());
         if (currentScoresSum > currentTopThreeScoresSum) {
@@ -61,7 +76,7 @@ public class AverageTop3Scores {
     return ret.toString();
   }
 
-  private static void SimpleTest() {
+  private static void simpleTest() throws ClassNotFoundException, IOException {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     ByteArrayInputStream sin = null;
     ObjectOutputStream oos = null;
@@ -97,8 +112,9 @@ public class AverageTop3Scores {
     assert("adnan".equals(result));
   }
 
-  public static void main(String[] args) {
-    SimpleTest();
+  public static void main(String[] args)
+      throws ClassNotFoundException, IOException {
+    simpleTest();
     Random r = new Random();
     int n;
     if (args.length == 1) {
@@ -106,9 +122,11 @@ public class AverageTop3Scores {
     } else {
       n = r.nextInt(10000) + 1;
     }
+    OutputStream ofs = null;
+    ObjectOutputStream oos = null;
     try {
-      OutputStream ofs = new FileOutputStream("scores.txt");
-      ObjectOutputStream oos = new ObjectOutputStream(ofs);
+      ofs = new FileOutputStream("scores.txt");
+      oos = new ObjectOutputStream(ofs);
       for (int i = 0; i < n; ++i) {
         int testNum = r.nextInt(21);
         String name = randString(r.nextInt(6) + 5);
@@ -117,9 +135,10 @@ public class AverageTop3Scores {
           oos.writeInt(r.nextInt(101));
         }
       }
-      ofs.close();
     } catch (Exception e) {
       System.out.println("Error creating scores.txt: " + e.getMessage());
+    } finally {
+      Utils.closeSilently(ofs, oos);
     }
     try {
       InputStream ifs = new FileInputStream("scores.txt");

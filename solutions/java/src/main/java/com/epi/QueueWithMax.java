@@ -1,53 +1,49 @@
 package com.epi;
 
+import com.epi.StackWithMax.Stack;
+
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
-
 import java.util.NoSuchElementException;
 
+// @include
 public class QueueWithMax {
-  // @include
-  public static class Queue {
-    private LinkedList<Integer> q1 = new LinkedList<>();
-    private LinkedList<Integer> q2 = new LinkedList<>();
+  private StackWithMax.Stack enqueue = new StackWithMax.Stack();
+  private StackWithMax.Stack dequeue = new StackWithMax.Stack();
 
-    public void enqueue(Integer x) { q1.push(x); }
+  public void enqueue(Integer x) { enqueue.push(x); }
 
-    public Integer dequeue() {
-      if (q2.isEmpty()) {
-        while (!q1.isEmpty()) {
-          q2.push(q1.pop());
-        }
+  public Integer dequeue() {
+    if (dequeue.empty()) {
+      while (!enqueue.empty()) {
+        dequeue.push(enqueue.pop());
       }
-      if (!q2.isEmpty()) {
-        return q2.pop();
+    }
+    if (!dequeue.empty()) {
+      return dequeue.pop();
+    }
+    throw new NoSuchElementException("Cannot get max() on empty queue.");
+  }
+
+  public Integer max() {
+    if (!enqueue.empty()) {
+      return enqueue.max();
+    } else { // enqueue.empty() == true.
+      if (!dequeue.empty()) {
+        return dequeue.max();
       }
       throw new NoSuchElementException("Cannot get max() on empty queue.");
-    }
-
-    public Integer max() {
-      if (!q1.isEmpty()) {
-        return q2.isEmpty() ? Collections.max(q1)
-                            : Collections.max(Arrays.asList(Collections.max(q1),
-                                                            Collections.max(q2)));
-      } else { // q1.empty() == true.
-        if (!q2.isEmpty()) {
-          return Collections.max(q2);
-        }
-        throw new NoSuchElementException("Cannot get max() on empty queue.");
-      }
     }
   }
   // @exclude
 
-  private static void assertDequeue(Queue q, Integer t) {
+  private static void assertDequeue(QueueWithMax q, Integer t) {
     Integer dequeue = q.dequeue();
     assert(t.equals(dequeue));
   }
 
   private static void simpleTest() {
-    Queue Q = new Queue();
+    QueueWithMax Q = new QueueWithMax();
     Q.enqueue(11);
     Q.enqueue(2);
     assert(11 == Q.max());
@@ -84,7 +80,7 @@ public class QueueWithMax {
 
   public static void main(String[] args) {
     simpleTest();
-    Queue Q = new Queue();
+    QueueWithMax Q = new QueueWithMax();
     Q.enqueue(1);
     Q.enqueue(2);
     assert(2 == Q.max());
@@ -105,4 +101,5 @@ public class QueueWithMax {
       System.out.println(e.getMessage());
     }
   }
+  // @include
 }

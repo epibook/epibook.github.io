@@ -18,6 +18,10 @@ using std::vector;
 
 // @include
 string ShortestEquivalentPath(const string& path) {
+  if (path.empty()) {
+    throw invalid_argument("Empty string is not a valid path.");
+  }
+
   vector<string> path_names;  // Uses vector as a stack.
   // Special case: starts with "/", which is an absolute path.
   if (path.front() == '/') {
@@ -59,13 +63,20 @@ string ShortestEquivalentPath(const string& path) {
 int main(int argc, char* argv[]) {
   assert(ShortestEquivalentPath("123/456") == string("123/456"));
   assert(ShortestEquivalentPath("/123/456") == string("/123/456"));
-  assert(ShortestEquivalentPath("usr/lib/../bin/gcc") == string("usr/bin/gcc"));
+  assert(ShortestEquivalentPath("usr/lib/../bin/gcc") ==
+         string("usr/bin/gcc"));
   assert(ShortestEquivalentPath("./../") == string(".."));
   assert(ShortestEquivalentPath("../../local") == string("../../local"));
   assert(ShortestEquivalentPath("./.././../local") == string("../../local"));
   assert(ShortestEquivalentPath("/foo/../foo/./../") == string("/"));
   try {
     ShortestEquivalentPath("/foo.txt");
+  } catch (const exception& e) {
+    cout << e.what() << endl;
+  }
+  try {
+    ShortestEquivalentPath("");
+    assert(false);
   } catch (const exception& e) {
     cout << e.what() << endl;
   }

@@ -18,32 +18,29 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
+// Assumption: there are at least k elements in the stream.
 vector<int> OnlineRandomSample(istringstream* sin, int k) {
   int x;
   vector<int> running_sample;
   // Stores the first k elements.
-  // @exclude
   // clang-format off
-  // @include
   for (int i = 0; i < k && *sin >> x; ++i) {
-    // @exclude
     // clang-format on
-    // @include
     running_sample.emplace_back(x);
   }
 
-  // After the first k elements.
+  default_random_engine seed((random_device())());  // Random num generator.
+  // Have read the first k elements.
   int num_seen_so_far = k;
   while (*sin >> x) {
-    default_random_engine seed((random_device())());  // Random num generator.
-    // Generate a random number in [0, num_seen_so_far], and if this number is
-    // in [0, k - 1], we replace that element from the sample with x.
-    uniform_int_distribution<int> rand_idx_gen(0, num_seen_so_far);
-    int idx_to_replace = rand_idx_gen(seed);
+    ++num_seen_so_far;
+    // Generate a random number in [0, num_seen_so_far - 1], and if this
+    // number is in [0, k - 1], we replace that element from the sample with x.
+    int idx_to_replace =
+        uniform_int_distribution<int>{0, num_seen_so_far - 1}(seed);
     if (idx_to_replace < k) {
       running_sample[idx_to_replace] = x;
     }
-    ++num_seen_so_far;
   }
   return running_sample;
 }

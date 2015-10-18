@@ -1,6 +1,7 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -26,13 +27,13 @@ public class ZeroOneKnapsack {
   }
 
   public static int knapsack(int w, List<Item> items) {
-    int[] V = new int[w + 1];
+    List<Integer> V = new ArrayList<>(Collections.nCopies(w + 1, 0));
     for (Item item : items) {
       for (int j = w; j >= item.weight; --j) {
-        V[j] = Math.max(V[j], V[j - item.weight] + item.value);
+        V.set(j, Math.max(V.get(j), V.get(j - item.weight) + item.value));
       }
     }
-    return V[w];
+    return V.get(w);
   }
   // @exclude
 

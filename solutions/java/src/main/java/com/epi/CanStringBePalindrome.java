@@ -4,7 +4,7 @@ package com.epi;
 
 import java.util.Random;
 
-class CanStringBePalindrome {
+public class CanStringBePalindrome {
   private static String randString(int len) {
     StringBuilder ret = new StringBuilder();
     Random rnd = new Random();
@@ -25,8 +25,8 @@ class CanStringBePalindrome {
         s = randString(rnd.nextInt(10) + 1);
       }
       System.out.println(s);
-      assert(CanStringBePalindromeHash.canStringBeAPalindrome(s) ==
-             CanStringBePalindromeSorting.canStringBeAPalindrome(s));
+      assert(CanStringBePalindromeHash.canFormPalindrome(s)
+             == CanStringBePalindromeSorting.canFormPalindrome(s));
     }
   }
 }

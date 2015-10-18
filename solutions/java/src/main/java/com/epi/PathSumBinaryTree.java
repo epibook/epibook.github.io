@@ -4,7 +4,8 @@ import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 public class PathSumBinaryTree {
   // @include
-  public static boolean hasPathSum(BinaryTreeNode<Integer> tree, int targetSum) {
+  public static boolean hasPathSum(BinaryTreeNode<Integer> tree,
+                                   int targetSum) {
     return hasPathSumHelper(tree, 0, targetSum);
   }
 
@@ -13,13 +14,13 @@ public class PathSumBinaryTree {
     if (node == null) {
       return false;
     }
-    partialPathSum += node.getData();
-    if (node.getLeft() == null && node.getRight() == null) { // Leaf.
+    partialPathSum += node.data;
+    if (node.left == null && node.right == null) { // Leaf.
       return partialPathSum == targetSum;
     }
     // Non-leaf.
-    return hasPathSumHelper(node.getLeft(), partialPathSum, targetSum) ||
-        hasPathSumHelper(node.getRight(), partialPathSum, targetSum);
+    return hasPathSumHelper(node.left, partialPathSum, targetSum)
+        || hasPathSumHelper(node.right, partialPathSum, targetSum);
   }
   // @exclude
 
@@ -29,19 +30,19 @@ public class PathSumBinaryTree {
     // 1 4 6
     BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(3);
     assert(hasPathSum(tree, 3));
-    tree.setLeft(new BinaryTreeNode<>(2));
+    tree.left = new BinaryTreeNode<>(2);
     assert(hasPathSum(tree, 5));
-    tree.getLeft().setLeft(new BinaryTreeNode<>(1));
+    tree.left.left = new BinaryTreeNode<>(1);
     assert(hasPathSum(tree, 6));
-    tree.setRight(new BinaryTreeNode<>(5));
+    tree.right = new BinaryTreeNode<>(5);
     assert(hasPathSum(tree, 8));
     assert(!hasPathSum(tree, 7));
-    tree.getRight().setLeft(new BinaryTreeNode<>(4));
+    tree.right.left = new BinaryTreeNode<>(4);
     assert(hasPathSum(tree, 12));
     assert(!hasPathSum(tree, 1));
     assert(!hasPathSum(tree, 3));
     assert(!hasPathSum(tree, 5));
-    tree.getRight().setRight(new BinaryTreeNode<>(6));
+    tree.right.right = new BinaryTreeNode<>(6);
     assert(hasPathSum(tree, 6));
     assert(!hasPathSum(tree, 7));
     assert(hasPathSum(tree, 14));

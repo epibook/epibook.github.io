@@ -15,6 +15,7 @@ using std::vector;
 
 // @include
 int ComputeBinomialCoefficients(int n, int k) {
+  k = min(k, n - k);
   vector<int> table(k + 1, 0);
   table[0] = 1;  // C(0, 0).
   // C(i, j) = C(i - 1, j) + C(i - 1, j - 1).
@@ -50,11 +51,11 @@ int CheckAns(int n, int k) {
   }
 
   int res = 1;
-  for (const int& a : number) {
+  for (int a : number) {
     res *= a;
   }
 
-  for (const int& a : temp) {
+  for (int a : temp) {
     res /= a;
   }
 

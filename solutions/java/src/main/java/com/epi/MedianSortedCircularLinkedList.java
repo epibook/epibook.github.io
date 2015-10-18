@@ -1,11 +1,10 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
-// @author Andrey Pavlov
 
 package com.epi;
 
 import java.util.Random;
 
-class MedianSortedCircularLinkedList {
+public class MedianSortedCircularLinkedList {
   // @include
   public static double findMedianSortedCircularLinkedList(
       ListNode<Integer> arbitraryNode) {
@@ -13,15 +12,12 @@ class MedianSortedCircularLinkedList {
     ListNode<Integer> iter = arbitraryNode, firstSmallestNode = arbitraryNode;
     int n = 0;
     do {
+      if (Integer.compare(iter.data, iter.next.data) > 0) {
+        firstSmallestNode = iter.next;
+      }
       ++n;
       iter = iter.next;
-      if (firstSmallestNode.data.compareTo(iter.data) <= 0) {
-        // Now firstSmallestNode points to the largest element.
-        firstSmallestNode = iter;
-      }
     } while (iter != arbitraryNode);
-    // firstSmallestNode's next is the first smallest node.
-    firstSmallestNode = firstSmallestNode.next;
 
     // Advances to the middle of the list.
     for (int i = 0; i < ((n - 1) / 2); ++i) {
@@ -33,7 +29,15 @@ class MedianSortedCircularLinkedList {
   }
   // @exclude
 
+  private static void smallTest() {
+    ListNode<Integer> L = new ListNode<>(
+        0, new ListNode<>(2, new ListNode<>(2, new ListNode<>(2, null))));
+    L.next.next.next.next = L;
+    assert(2 == findMedianSortedCircularLinkedList(L.next.next));
+  }
+
   public static void main(String[] args) {
+    smallTest();
     Random gen = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;

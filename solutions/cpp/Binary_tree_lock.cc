@@ -16,7 +16,7 @@ class BinaryTreeNode {
   bool IsLocked() const { return locked_; }
 
   bool Lock() {
-    // We cannot lock if any of this node's descendents are locked.
+    // We cannot lock if any of this node's descendants are locked.
     if (numLockedDescendants_ > 0 || locked_) {
       return false;
     }
@@ -28,7 +28,8 @@ class BinaryTreeNode {
       }
     }
 
-    // Lock this node and increments all its ancestors's descendent lock counts.
+    // Lock this node and increments all its ancestors's descendant lock
+    // counts.
     locked_ = true;
     for (auto iter = parent_; iter != nullptr; iter = iter->parent_) {
       ++iter->numLockedDescendants_;
@@ -38,7 +39,7 @@ class BinaryTreeNode {
 
   void Unlock() {
     if (locked_) {
-      // Unlocks itself and decrements its ancestors's descendent lock counts.
+      // Unlocks itself and decrements its ancestors's descendant lock counts.
       locked_ = false;
       for (auto iter = parent_; iter != nullptr; iter = iter->parent_) {
         --iter->numLockedDescendants_;

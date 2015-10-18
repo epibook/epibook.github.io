@@ -39,9 +39,10 @@ void PhoneMnemonicHelper(const string& phone_number, int digit,
     mnemonics->emplace_back(*partial_mnemonic);
   } else {
     // Try all possible characters for this digit.
-    for (const char& c : M[phone_number[digit] - '0']) {
+    for (char c : M[phone_number[digit] - '0']) {
       (*partial_mnemonic)[digit] = c;
-      PhoneMnemonicHelper(phone_number, digit + 1, partial_mnemonic, mnemonics);
+      PhoneMnemonicHelper(phone_number, digit + 1, partial_mnemonic,
+                          mnemonics);
     }
   }
 }
@@ -66,7 +67,7 @@ int main(int argc, char* argv[]) {
   }
   auto result = PhoneMnemonic(num);
   cout << "number = " << num << endl;
-  for (const auto& str : result) {
+  for (const string& str : result) {
     cout << str << endl;
   }
   return 0;

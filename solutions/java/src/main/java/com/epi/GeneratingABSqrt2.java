@@ -1,6 +1,11 @@
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 // These numbers have very interesting property, and people called it ugly
 // numbers. It is also called Quadratic integer rings.
@@ -16,10 +21,10 @@ public class GeneratingABSqrt2 {
       val = a + b * Math.sqrt(2);
     }
 
+    // clang-format off
     @Override
-    public int compareTo(ABSqrt2 o) {
-      return Double.compare(val, o.val);
-    }
+    public int compareTo(ABSqrt2 o) { return Double.compare(val, o.val); }
+    // clang-format on
     // @exclude
 
     @Override
@@ -34,11 +39,16 @@ public class GeneratingABSqrt2 {
       ABSqrt2 that = (ABSqrt2)o;
       return a == that.a && b == that.b;
     }
+
+    // clang-format off
+    @Override
+    public int hashCode() { return Objects.hash(a, b); }
+    // clang-format on
     // @include
   }
 
   public static List<ABSqrt2> generateFirstKABSqrt2(int k) {
-    TreeSet<ABSqrt2> candidates = new TreeSet<>();
+    SortedSet<ABSqrt2> candidates = new TreeSet<>();
     // Initial for 0 + 0 * sqrt(2).
     candidates.add(new ABSqrt2(0, 0));
 
@@ -56,14 +66,14 @@ public class GeneratingABSqrt2 {
   }
   // @exclude
 
-  private static void SimpleTest() {
+  private static void simpleTest() {
     List<ABSqrt2> ans = generateFirstKABSqrt2(8);
     assert(0.0 == ans.get(0).val);
     assert(1.0 == ans.get(1).val);
     assert(Math.sqrt(2.0) == ans.get(2).val);
     assert(2.0 == ans.get(3).val);
     assert(1.0 + Math.sqrt(2.0) == ans.get(4).val);
-    assert(2.0*Math.sqrt(2.0) == ans.get(5).val);
+    assert(2.0 * Math.sqrt(2.0) == ans.get(5).val);
     assert(3.0 == ans.get(6).val);
     assert(2.0 + Math.sqrt(2.0) == ans.get(7).val);
   }
@@ -79,8 +89,8 @@ public class GeneratingABSqrt2 {
       }
       List<ABSqrt2> ans = generateFirstKABSqrt2(k);
       for (int i = 0; i < ans.size(); ++i) {
-        System.out.println(ans.get(i).a + " " + ans.get(i).b + " " +
-                           ans.get(i).val);
+        System.out.println(ans.get(i).a + " " + ans.get(i).b + " "
+                           + ans.get(i).val);
         if (i > 0) {
           assert(ans.get(i).val >= ans.get(i - 1).val);
         }

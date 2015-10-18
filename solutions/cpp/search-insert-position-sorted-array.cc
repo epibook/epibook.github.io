@@ -65,7 +65,8 @@ int main(int argc, char** argv) {
     */
     int target = A_dis(gen);
     // cout << "target = " << target << endl;
-    auto result = search_insert_position(A, target), ans = check_ans(A, target);
+    auto result = search_insert_position(A, target),
+         ans = check_ans(A, target);
     assert(result == ans);
   }
   return 0;

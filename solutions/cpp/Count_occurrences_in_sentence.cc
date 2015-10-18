@@ -15,7 +15,7 @@ using std::string;
 using std::uniform_int_distribution;
 using std::unordered_map;
 
-static unordered_map<char, int> charToCount;
+static unordered_map<char, int> char_to_count;
 
 // @include
 void CountOccurrences(string S) {
@@ -28,7 +28,7 @@ void CountOccurrences(string S) {
     } else {
       cout << '(' << S[i - 1] << ',' << current_character_count << "),";
       // @exclude
-      charToCount[S[i-1]] = current_character_count;
+      char_to_count[S[i - 1]] = current_character_count;
       // @include
       current_character_count = 1;
     }
@@ -49,17 +49,18 @@ string RandString(int len) {
 
 static void SimpleTest() {
   CountOccurrences("foo bar! ABA A");
-  assert(charToCount['f'] == 1);
-  assert(charToCount.count('F') == 0);
-  assert(charToCount['o'] == 2);
-  assert(charToCount.count('x') == 0);
-  assert(charToCount[' '] == 3);
-  assert(charToCount['!'] == 1);
-  assert(charToCount['A'] == 3);
-  assert(charToCount['B'] == 1);
+  assert(char_to_count['f'] == 1);
+  assert(char_to_count.count('F') == 0);
+  assert(char_to_count['o'] == 2);
+  assert(char_to_count.count('x') == 0);
+  assert(char_to_count[' '] == 3);
+  assert(char_to_count['!'] == 1);
+  assert(char_to_count['A'] == 3);
+  assert(char_to_count['B'] == 1);
 }
 
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   string S;
   if (argc == 2) {

@@ -22,8 +22,8 @@ bool TestCollatzConjecture(int n) {
   // Stores odd numbers already tested to converge to 1.
   unordered_set<long> verified_numbers;
 
-  // Starts from 2, since hypothesis holds trivially for 1.
-  for (int i = 2; i <= n; ++i) {
+  // Starts from 3, since hypothesis holds trivially for 1 and 2.
+  for (int i = 3; i <= n; i += 2) {
     unordered_set<long> sequence;
     long test_i = i;
     while (test_i >= i) {
@@ -40,7 +40,8 @@ bool TestCollatzConjecture(int n) {
         }
         long next_test_i = 3 * test_i + 1;  // Multiply by 3 and add 1.
         if (next_test_i <= test_i) {
-          throw overflow_error("Collatz sequence overflow for " + to_string(i));
+          throw overflow_error("Collatz sequence overflow for " +
+                               to_string(i));
         }
         test_i = next_test_i;
       } else {

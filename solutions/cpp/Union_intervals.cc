@@ -20,8 +20,12 @@ struct Interval {
 
  public:
   bool operator<(const Interval& i) const {
-    return left.val != i.left.val ? left.val < i.left.val
-                                  : (left.isClosed && !i.left.isClosed);
+    if (left.val != i.left.val) {
+      return left.val < i.left.val;
+    }
+    // Left endpoints are equal, so now see if one is closed and the other open
+    // - closed intervals should appear first.
+    return left.isClosed && !i.left.isClosed;
   }
 
   Endpoint left, right;

@@ -10,6 +10,7 @@
 
 using std::cout;
 using std::endl;
+using std::make_unique;
 using std::stack;
 using std::unique_ptr;
 using std::vector;
@@ -40,12 +41,12 @@ vector<int> BSTInSortedOrder(const unique_ptr<BSTNode<int>>& tree) {
 
 void SimpleTest() {
   unique_ptr<BSTNode<int>> tree =
-      unique_ptr<BSTNode<int>>(new BSTNode<int>{43, nullptr});
+      make_unique<BSTNode<int>>(BSTNode<int>{43, nullptr});
   auto result = BSTInSortedOrder(tree);
   vector<int> golden_result = {43};
   assert(golden_result.size() == result.size() &&
          equal(golden_result.begin(), golden_result.end(), result.begin()));
-  tree->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{23, nullptr});
+  tree->left = make_unique<BSTNode<int>>(BSTNode<int>{23, nullptr});
   result = BSTInSortedOrder(tree);
   golden_result = {23, 43};
   assert(golden_result.size() == result.size() &&
@@ -60,17 +61,17 @@ int main(int argc, char* argv[]) {
   //    29  41
   //     31
   unique_ptr<BSTNode<int>> tree =
-      unique_ptr<BSTNode<int>>(new BSTNode<int>{43, nullptr});
-  tree->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{23, nullptr});
-  tree->left->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{37, nullptr});
+      make_unique<BSTNode<int>>(BSTNode<int>{43, nullptr});
+  tree->left = make_unique<BSTNode<int>>(BSTNode<int>{23, nullptr});
+  tree->left->right = make_unique<BSTNode<int>>(BSTNode<int>{37, nullptr});
   tree->left->right->left =
-      unique_ptr<BSTNode<int>>(new BSTNode<int>{29, nullptr});
+      make_unique<BSTNode<int>>(BSTNode<int>{29, nullptr});
   tree->left->right->left->right =
-      unique_ptr<BSTNode<int>>(new BSTNode<int>{31, nullptr});
+      make_unique<BSTNode<int>>(BSTNode<int>{31, nullptr});
   tree->left->right->right =
-      unique_ptr<BSTNode<int>>(new BSTNode<int>{41, nullptr});
-  tree->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{47, nullptr});
-  tree->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{53, nullptr});
+      make_unique<BSTNode<int>>(BSTNode<int>{41, nullptr});
+  tree->right = make_unique<BSTNode<int>>(BSTNode<int>{47, nullptr});
+  tree->right->right = make_unique<BSTNode<int>>(BSTNode<int>{53, nullptr});
   auto result = BSTInSortedOrder(tree);
   vector<int> golden_res = {23, 29, 31, 37, 41, 43, 47, 53};
   assert(golden_res.size() == result.size() &&

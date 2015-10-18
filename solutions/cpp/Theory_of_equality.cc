@@ -20,7 +20,7 @@ using std::uniform_int_distribution;
 using std::unordered_map;
 
 struct GraphVertex;
-void DFS(const GraphVertex& u);
+void DFS(const GraphVertex&);
 
 // @include
 struct Constraint {
@@ -37,7 +37,7 @@ bool are_constraints_satisfied(
     const vector<Constraint>& I) {  // Inequality constraints.
   unordered_map<int, GraphVertex> G;
   // Build graph G according to E.
-  for (const auto& e : E) {
+  for (const Constraint& e : E) {
     G[e.a].edges.emplace_back(&G[e.b]), G[e.b].edges.emplace_back(&G[e.a]);
   }
 
@@ -61,7 +61,7 @@ bool are_constraints_satisfied(
 }
 
 void DFS(const GraphVertex& u) {
-  for (const auto& v : u.edges) {
+  for (GraphVertex* v : u.edges) {
     if (v->group == -1) {
       v->group = u.group;
       DFS(*v);

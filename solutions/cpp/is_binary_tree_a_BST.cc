@@ -10,11 +10,11 @@
 using std::boolalpha;
 using std::cout;
 using std::endl;
+using std::make_unique;
 using std::numeric_limits;
 using std::unique_ptr;
 
-bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>& tree, int low_range,
-                    int high_range);
+bool AreKeysInRange(const unique_ptr<BinaryTreeNode<int>>&, int, int);
 
 // @include
 bool IsBinaryTreeBST(const unique_ptr<BinaryTreeNode<int>>& tree) {
@@ -39,15 +39,13 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  auto tree = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3});
-  tree->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
-  tree->left->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
-  tree->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
-  tree->right->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
+  auto tree = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{3});
+  tree->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{2});
+  tree->left->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{1});
+  tree->right = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{5});
+  tree->right->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{4});
   tree->right->right =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{6});
+      make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{6});
   // should output true.
   assert(IsBinaryTreeBST(tree) == true);
   cout << boolalpha << IsBinaryTreeBST(tree) << endl;

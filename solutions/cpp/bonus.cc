@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <functional>
 #include <iostream>
 #include <queue>
 #include <numeric>
@@ -13,6 +14,7 @@
 using std::cout;
 using std::default_random_engine;
 using std::endl;
+using std::function;
 using std::max;
 using std::pair;
 using std::priority_queue;
@@ -37,23 +39,21 @@ void CheckAns(const vector<int>& productivity, const vector<int>& C) {
 }
 
 // @include
-struct Compare {
-  bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) {
-    return lhs.second > rhs.second;
-  }
-};
-
 vector<int> CalculateBonus(const vector<int>& productivity) {
   // Stores (index, productivity)-pair in min_heap where ordered by
   // productivity.
-  priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> min_heap;
+  priority_queue<pair<int, int>, vector<pair<int, int>>,
+                 function<bool(pair<int, int>, pair<int, int>)>>
+  min_heap([](const pair<int, int>& lhs, const pair<int, int>& rhs) -> bool {
+    return lhs.second > rhs.second;
+  });
   for (int i = 0; i < productivity.size(); ++i) {
     min_heap.emplace(i, productivity[i]);
   }
 
   // Initially assigns one ticket to everyone.
   vector<int> tickets(productivity.size(), 1);
-  // Fills tickets in the increasing order of productivity.
+  // Fills tickets from lowest rating to highest rating.
   while (!min_heap.empty()) {
     int next_dev = min_heap.top().first;
     // Handles the left neighbor.

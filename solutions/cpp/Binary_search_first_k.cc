@@ -4,13 +4,14 @@
 #include <cassert>
 #include <iostream>
 #include <iterator>
+#include <limits>
 #include <random>
 #include <vector>
-#include <limits>
 
 using std::cout;
 using std::default_random_engine;
 using std::endl;
+using std::numeric_limits;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
@@ -26,7 +27,7 @@ int SearchFirstOfK(const vector<int>& A, int k) {
     } else if (A[mid] == k) {
       result = mid;
       // Nothing to the right of mid can be the first occurrence of k.
-      right = mid - 1;  
+      right = mid - 1;
     } else {  // A[mid] < k.
       left = mid + 1;
     }
@@ -36,7 +37,7 @@ int SearchFirstOfK(const vector<int>& A, int k) {
 // @exclude
 
 static void SimpleTest() {
-  vector<int> A = {0,1,2,3,4,5,6,7};
+  vector<int> A = {0, 1, 2, 3, 4, 5, 6, 7};
   int k = 4;
   assert(0 == SearchFirstOfK(A, 0));
   assert(1 == SearchFirstOfK(A, 1));
@@ -44,20 +45,19 @@ static void SimpleTest() {
   assert(6 == SearchFirstOfK(A, 6));
   assert(7 == SearchFirstOfK(A, 7));
   assert(-1 == SearchFirstOfK(A, 8));
-  assert(-1 == SearchFirstOfK(A, INT_MIN));
+  assert(-1 == SearchFirstOfK(A, numeric_limits<int>::min()));
   A[0] = 1;
   assert(0 == SearchFirstOfK(A, 1));
   A[5] = 4;
   A[6] = 4;
   assert(4 == SearchFirstOfK(A, 4));
-  A = {1,1,1,1,1,2};
+  A = {1, 1, 1, 1, 1, 2};
   assert(-1 == SearchFirstOfK(A, 0));
   assert(0 == SearchFirstOfK(A, 1));
   assert(5 == SearchFirstOfK(A, 2));
   A[4] = 2;
   assert(4 == SearchFirstOfK(A, 2));
 }
-
 
 int SearchFirstOfKAlternative(const vector<int>& A, int k) {
   auto result = lower_bound(A.begin(), A.end(), k);

@@ -14,8 +14,8 @@ public class ExteriorBinaryTree {
     List<BinaryTreeNode<Integer>> exterior = new LinkedList<>();
     if (tree != null) {
       exterior.add(tree);
-      exterior.addAll(leftBoundaryAndLeaves(tree.getLeft(), true));
-      exterior.addAll(rightBoundaryAndLeaves(tree.getRight(), true));
+      exterior.addAll(leftBoundaryAndLeaves(tree.left, true));
+      exterior.addAll(rightBoundaryAndLeaves(tree.right, true));
     }
     return exterior;
   }
@@ -29,9 +29,9 @@ public class ExteriorBinaryTree {
       if (isBoundary || isLeaf(subtreeRoot)) {
         result.add(subtreeRoot);
       }
-      result.addAll(leftBoundaryAndLeaves(subtreeRoot.getLeft(), isBoundary));
+      result.addAll(leftBoundaryAndLeaves(subtreeRoot.left, isBoundary));
       result.addAll(leftBoundaryAndLeaves(
-          subtreeRoot.getRight(), isBoundary && subtreeRoot.getLeft() == null));
+          subtreeRoot.right, isBoundary && subtreeRoot.left == null));
     }
     return result;
   }
@@ -43,8 +43,8 @@ public class ExteriorBinaryTree {
     List<BinaryTreeNode<Integer>> result = new LinkedList<>();
     if (subtreeRoot != null) {
       result.addAll(rightBoundaryAndLeaves(
-          subtreeRoot.getLeft(), isBoundary && subtreeRoot.getRight() == null));
-      result.addAll(rightBoundaryAndLeaves(subtreeRoot.getRight(), isBoundary));
+          subtreeRoot.left, isBoundary && subtreeRoot.right == null));
+      result.addAll(rightBoundaryAndLeaves(subtreeRoot.right, isBoundary));
       if (isBoundary || isLeaf(subtreeRoot)) {
         result.add(subtreeRoot);
       }
@@ -53,14 +53,15 @@ public class ExteriorBinaryTree {
   }
 
   private static boolean isLeaf(BinaryTreeNode<Integer> node) {
-    return node.getLeft() == null && node.getRight() == null;
+    return node.left == null && node.right == null;
   }
   // @exclude
 
-  private static List<Integer> createOutputList(List<BinaryTreeNode<Integer>> L) {
+  private static List<Integer> createOutputList(
+      List<BinaryTreeNode<Integer>> L) {
     List<Integer> result = new ArrayList<Integer>();
     for (BinaryTreeNode<Integer> l : L) {
-      result.add(l.getData());
+      result.add(l.data);
     }
     return result;
   }
@@ -76,19 +77,19 @@ public class ExteriorBinaryTree {
     List<Integer> goldenResult = Arrays.asList(3);
     assert(goldenResult.equals(result));
 
-    tree.setLeft(new BinaryTreeNode<>(2, null, null));
+    tree.left = new BinaryTreeNode<>(2, null, null);
     L = exteriorBinaryTree(tree);
     result = createOutputList(L);
     goldenResult = Arrays.asList(3, 2);
     assert(goldenResult.equals(result));
 
-    tree.getLeft().setRight(new BinaryTreeNode<>(0, null, null));
-    tree.getLeft().getRight().setLeft(new BinaryTreeNode<>(-1, null, null));
-    tree.getLeft().getRight().setRight(new BinaryTreeNode<>(-2, null, null));
-    tree.getLeft().setLeft(new BinaryTreeNode<>(1, null, null));
-    tree.setRight(new BinaryTreeNode<>(5, null, null));
-    tree.getRight().setLeft(new BinaryTreeNode<>(4, null, null));
-    tree.getRight().setRight(new BinaryTreeNode<>(6, null, null));
+    tree.left.right = new BinaryTreeNode<>(0, null, null);
+    tree.left.right.left = new BinaryTreeNode<>(-1, null, null);
+    tree.left.right.right = new BinaryTreeNode<>(-2, null, null);
+    tree.left.left = new BinaryTreeNode<>(1, null, null);
+    tree.right = new BinaryTreeNode<>(5, null, null);
+    tree.right.left = new BinaryTreeNode<>(4, null, null);
+    tree.right.right = new BinaryTreeNode<>(6, null, null);
     L = exteriorBinaryTree(tree);
     result = createOutputList(L);
     goldenResult = Arrays.asList(3, 2, 1, -1, -2, 4, 6, 5);

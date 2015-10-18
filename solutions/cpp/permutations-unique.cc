@@ -32,7 +32,8 @@ vector<vector<int>> permutations_unique(vector<int> A) {
 }
 
 void permutations_unique_helper(const vector<int> &A, deque<bool> *used,
-                                vector<int> *ans, vector<vector<int>> *result) {
+                                vector<int> *ans,
+                                vector<vector<int>> *result) {
   if (ans->size() == A.size()) {
     result->emplace_back(*ans);
     return;

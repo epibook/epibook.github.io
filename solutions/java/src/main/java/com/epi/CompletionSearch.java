@@ -1,23 +1,25 @@
 package com.epi;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 public class CompletionSearch {
   // @include
   public static double findSalaryCap(double targetPayroll,
-                                     Double[] currentSalaries) {
-    Arrays.sort(currentSalaries);
+                                     List<Double> currentSalaries) {
+    Collections.sort(currentSalaries);
     double unadjustedSalarySum = 0;
-    double adjustedSalarySum = currentSalaries[0] * currentSalaries.length;
-    for (int i = 0; i < currentSalaries.length; ++i) {
-      unadjustedSalarySum += currentSalaries[i];
-      adjustedSalarySum = currentSalaries[i] * (currentSalaries.length - (i + 1));
+    double adjustedSalarySum = currentSalaries.get(0) * currentSalaries.size();
+    for (int i = 0; i < currentSalaries.size(); ++i) {
+      unadjustedSalarySum += currentSalaries.get(i);
+      adjustedSalarySum = currentSalaries.get(i)
+                          * (currentSalaries.size() - (i + 1));
       if (unadjustedSalarySum + adjustedSalarySum >= targetPayroll) {
-        return (targetPayroll - unadjustedSalarySum + currentSalaries[i]) /
-            (currentSalaries.length - i);
+        return (targetPayroll - unadjustedSalarySum + currentSalaries.get(i))
+            / (currentSalaries.size() - i);
       }
     }
     // No solution, since targetPayroll > existing payroll.
@@ -26,7 +28,7 @@ public class CompletionSearch {
   // @exclude
 
   private static void smallTest() {
-    Double[] A = {20.0, 30.0, 40.0, 90.0, 100.0};
+    List<Double> A = Arrays.asList(20.0, 30.0, 40.0, 90.0, 100.0);
     double T = 210;
     assert(findSalaryCap(T, A) == 60);
     T = 280;
@@ -53,9 +55,9 @@ public class CompletionSearch {
         n = r.nextInt(1000) + 1;
         tar = r.nextInt(100000);
       }
-      Double[] A = new Double[n];
+      List<Double> A = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
-        A[i] = (double)r.nextInt(10000);
+        A.add((double)r.nextInt(10000));
       }
       System.out.println("tar = " + tar);
       double ret = findSalaryCap(tar, A);
@@ -63,10 +65,10 @@ public class CompletionSearch {
         System.out.println("ret = " + ret);
         double sum = 0.0;
         for (int i = 0; i < n; ++i) {
-          if (A[i] > ret) {
+          if (A.get(i) > ret) {
             sum += ret;
           } else {
-            sum += A[i];
+            sum += A.get(i);
           }
         }
         tar -= sum;

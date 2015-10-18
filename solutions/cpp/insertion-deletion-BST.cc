@@ -6,6 +6,7 @@
 
 using std::cout;
 using std::endl;
+using std::make_unique;
 using std::unique_ptr;
 
 // @include
@@ -17,7 +18,7 @@ class BinarySearchTree {
   // @include
   bool Insert(int key) {
     if (root_ == nullptr) {
-      root_ = unique_ptr<TreeNode>(new TreeNode{key, nullptr, nullptr});
+      root_ = make_unique<TreeNode>(TreeNode{key, nullptr, nullptr});
     } else {
       TreeNode *curr = root_.get(), *parent = nullptr;
       while (curr) {

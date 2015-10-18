@@ -2,59 +2,59 @@ package com.epi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class LargestRectangleUnderSkyline {
   public static int calculateLargestRectangleAlternative(List<Integer> A) {
     // Calculate L.
-    LinkedList<Integer> s = new LinkedList<>();
+    Deque<Integer> s = new LinkedList<>();
     List<Integer> L = new ArrayList<>();
     for (int i = 0; i < A.size(); ++i) {
-      while (!s.isEmpty() && A.get(s.peek()) >= A.get(i)) {
-        s.pop();
+      while (!s.isEmpty() && A.get(s.peekFirst()) >= A.get(i)) {
+        s.removeFirst();
       }
-      L.add(s.isEmpty() ? -1 : s.peek());
-      s.push(i);
+      L.add(s.isEmpty() ? Integer.valueOf(-1) : s.peekFirst());
+      s.addFirst(i);
     }
 
     // Clear stack for calculating R.
     while (!s.isEmpty()) {
-      s.pop();
+      s.removeFirst();
     }
-    int[] R = new int[A.size()];
+    List<Integer> R = new ArrayList<>(Collections.nCopies(A.size(), 0));
     for (int i = A.size() - 1; i >= 0; --i) {
-      while (!s.isEmpty() && A.get(s.peek()) >= A.get(i)) {
-        s.pop();
+      while (!s.isEmpty() && A.get(s.peekFirst()) >= A.get(i)) {
+        s.removeFirst();
       }
-      R[i] = s.isEmpty() ? A.size() : s.peek();
-      s.push(i);
+      R.set(i, s.isEmpty() ? A.size() : s.peekFirst());
+      s.addFirst(i);
     }
 
-    // For each A[i], find its maximum area include it.
+    // For each A.get(i), find its maximum area include it.
     int maxArea = 0;
     for (int i = 0; i < A.size(); ++i) {
-      maxArea = Math.max(maxArea, A.get(i) * (R[i] - L.get(i) - 1));
+      maxArea = Math.max(maxArea, A.get(i) * (R.get(i) - L.get(i) - 1));
     }
     return maxArea;
   }
 
   // @include
   public static int calculateLargestRectangle(List<Integer> A) {
-    LinkedList<Integer> s = new LinkedList<>();
+    Deque<Integer> s = new LinkedList<>();
     int maxArea = 0;
     for (int i = 0; i <= A.size(); ++i) {
-      while (!s.isEmpty() && (i == A.size() || A.get(i) < A.get(s.peek()))) {
-        int height = A.get(s.peek());
-        s.pop();
-        maxArea =
-            Math.max(maxArea, height * (s.isEmpty() ? i : i - s.peek() - 1));
+      while (!s.isEmpty()
+             && (i == A.size() || A.get(i) < A.get(s.peekFirst()))) {
+        int height = A.get(s.peekFirst());
+        s.removeFirst();
+        maxArea = Math.max(maxArea,
+                           height * (s.isEmpty() ? i : i - s.peekFirst() - 1));
       }
-      s.push(i);
+      s.addFirst(i);
     }
     return maxArea;
   }

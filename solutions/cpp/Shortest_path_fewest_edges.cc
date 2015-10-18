@@ -23,12 +23,12 @@ using std::uniform_int_distribution;
 using std::vector;
 
 struct GraphVertex;
-void OutputShortestPath(const GraphVertex* v);
+void OutputShortestPath(const GraphVertex*);
 
 // @include
 struct GraphVertex {
-  // distance stores (dis, #edges) pair.
-  pair<int, int> distance = {numeric_limits<int>::max(), 0};
+  // distance_with_fewest_edges stores (dis, #edges) pair.
+  pair<int, int> distance_with_fewest_edges = {numeric_limits<int>::max(), 0};
   vector<pair<GraphVertex&, int>> edges;
   int id;  // The id of this vertex.
   const GraphVertex* pred = nullptr;  // The predecessor in the shortest path.
@@ -36,15 +36,18 @@ struct GraphVertex {
 
 struct Comp {
   bool operator()(const GraphVertex* lhs, const GraphVertex* rhs) {
-    return lhs->distance.first < rhs->distance.first ||
-           (lhs->distance.first == rhs->distance.first &&
-            lhs->distance.second < rhs->distance.second);
+    return lhs->distance_with_fewest_edges.first <
+               rhs->distance_with_fewest_edges.first ||
+           (lhs->distance_with_fewest_edges.first ==
+                rhs->distance_with_fewest_edges.first &&
+            lhs->distance_with_fewest_edges.second <
+                rhs->distance_with_fewest_edges.second);
   }
 };
 
 void DijkstraShortestPath(GraphVertex* s, const GraphVertex* t) {
-  // Initialization the distance of starting point.
-  s->distance = {0, 0};
+  // Initialization of the distance of starting point.
+  s->distance_with_fewest_edges = {0, 0};
   set<GraphVertex*, Comp> node_set;
   node_set.emplace(s);
 
@@ -57,15 +60,15 @@ void DijkstraShortestPath(GraphVertex* s, const GraphVertex* t) {
     node_set.erase(node_set.cbegin());
 
     // Relax neighboring vertices of u.
-    for (const auto& v : u->edges) {
-      int v_distance = u->distance.first + v.second;
-      int v_num_edges = u->distance.second + 1;
-      if (v.first.distance.first > v_distance ||
-          (v.first.distance.first == v_distance &&
-           v.first.distance.second > v_num_edges)) {
+    for (const pair<GraphVertex&, int>& v : u->edges) {
+      int v_distance = u->distance_with_fewest_edges.first + v.second;
+      int v_num_edges = u->distance_with_fewest_edges.second + 1;
+      if (v.first.distance_with_fewest_edges.first > v_distance ||
+          (v.first.distance_with_fewest_edges.first == v_distance &&
+           v.first.distance_with_fewest_edges.second > v_num_edges)) {
         node_set.erase(&v.first);
         v.first.pred = u;
-        v.first.distance = {v_distance, v_num_edges};
+        v.first.distance_with_fewest_edges = {v_distance, v_num_edges};
         node_set.emplace(&v.first);
       }
     }
@@ -133,10 +136,12 @@ void test() {
   // distance is: 13 + 7 + 1 = 21.
 
   DijkstraShortestPath(&G[s], &G[t]);
-  cout << endl << "Min distance: " << G[t].distance.first << endl;
-  assert(G[t].distance.first == 21);
-  cout << "Number of edges: " << G[t].distance.second << endl;
-  assert(G[t].distance.second == 3);
+  cout << endl
+       << "Min distance: " << G[t].distance_with_fewest_edges.first << endl;
+  assert(G[t].distance_with_fewest_edges.first == 21);
+  cout << "Number of edges: " << G[t].distance_with_fewest_edges.second
+       << endl;
+  assert(G[t].distance_with_fewest_edges.second == 3);
 }
 
 int main(int argc, char* argv[]) {
@@ -181,7 +186,9 @@ int main(int argc, char* argv[]) {
   int s = dis_n(gen), t = dis_n(gen);
   cout << "source = " << s << ", terminal = " << t << endl;
   DijkstraShortestPath(&G[s], &G[t]);
-  cout << endl << G[t].distance.first << " " << G[t].distance.second << endl;
+  cout << endl
+       << G[t].distance_with_fewest_edges.first << " "
+       << G[t].distance_with_fewest_edges.second << endl;
   test();
   return 0;
 }

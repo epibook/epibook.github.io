@@ -15,21 +15,21 @@ public class BalancedBinaryTree {
   }
 
   public static boolean isBalanced(BinaryTreeNode<Integer> tree) {
-    return CheckBalanced(tree).balanced;
+    return checkBalanced(tree).balanced;
   }
 
-  private static BalanceStatusWithHeight CheckBalanced(
+  private static BalanceStatusWithHeight checkBalanced(
       BinaryTreeNode<Integer> tree) {
     if (tree == null) {
       return new BalanceStatusWithHeight(true, -1); // Base case.
     }
 
-    BalanceStatusWithHeight leftResult = CheckBalanced(tree.getLeft());
-    if (leftResult.balanced == false) {
+    BalanceStatusWithHeight leftResult = checkBalanced(tree.left);
+    if (!leftResult.balanced) {
       return leftResult; // Left subtree is not balanced.
     }
-    BalanceStatusWithHeight rightResult = CheckBalanced(tree.getRight());
-    if (rightResult.balanced == false) {
+    BalanceStatusWithHeight rightResult = checkBalanced(tree.right);
+    if (!rightResult.balanced) {
       return rightResult; // Right subtree is not balanced.
     }
 
@@ -45,16 +45,16 @@ public class BalancedBinaryTree {
     // 2 5
     // 1 4 6
     BinaryTreeNode<Integer> tree = new BinaryTreeNode<>();
-    tree.setLeft(new BinaryTreeNode<Integer>());
-    tree.getLeft().setLeft(new BinaryTreeNode<Integer>());
-    tree.setRight(new BinaryTreeNode<Integer>());
-    tree.getRight().setLeft(new BinaryTreeNode<Integer>());
-    tree.getRight().setRight(new BinaryTreeNode<Integer>());
+    tree.left = new BinaryTreeNode<Integer>();
+    tree.left.left = new BinaryTreeNode<Integer>();
+    tree.right = new BinaryTreeNode<Integer>();
+    tree.right.left = new BinaryTreeNode<Integer>();
+    tree.right.right = new BinaryTreeNode<Integer>();
     assert(isBalanced(tree));
     System.out.println(isBalanced(tree));
     tree = new BinaryTreeNode<>();
-    tree.setLeft(new BinaryTreeNode<Integer>());
-    tree.getLeft().setLeft(new BinaryTreeNode<Integer>());
+    tree.left = new BinaryTreeNode<Integer>();
+    tree.left.left = new BinaryTreeNode<Integer>();
     assert(!isBalanced(tree));
     System.out.println(isBalanced(tree));
   }

@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
   iota(A.begin(), A.end(), 0);
   auto result = Permutations(A);
   cout << "n = " << n << endl;
-  for (const auto& vec : result) {
+  for (const vector<int>& vec : result) {
     for (int a : vec) {
       cout << a << " ";
     }

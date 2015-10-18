@@ -16,7 +16,7 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-int FindOptimumSubarrayUsingComp(const vector<int>& A,
+int FindOptimumSubarrayUsingComp(const vector<int>&,
                                  const int& (*comp)(const int&, const int&));
 
 // @include
@@ -30,7 +30,7 @@ int MaxSubarraySumInCircular(const vector<int>& A) {
 int FindOptimumSubarrayUsingComp(const vector<int>& A,
                                  const int& (*comp)(const int&, const int&)) {
   int till = 0, overall = 0;
-  for (const int& a : A) {
+  for (int a : A) {
     till = comp(a, a + till);
     overall = comp(overall, till);
   }

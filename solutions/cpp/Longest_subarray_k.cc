@@ -19,7 +19,8 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-pair<int, int> find_longest_subarray_less_equal_k(const vector<int>& A, int k) {
+pair<int, int> find_longest_subarray_less_equal_k(const vector<int>& A,
+                                                  int k) {
   // Build the prefix sum according to A.
   vector<int> prefix_sum;
   partial_sum(A.cbegin(), A.cend(), back_inserter(prefix_sum));
@@ -34,10 +35,11 @@ pair<int, int> find_longest_subarray_less_equal_k(const vector<int>& A, int k) {
                                                  min_prefix_sum.cend(), k) -
                                          1));
   for (int i = 0; i < prefix_sum.size(); ++i) {
-    auto idx = distance(min_prefix_sum.cbegin(),
-                        upper_bound(min_prefix_sum.cbegin(),
-                                    min_prefix_sum.cend(), k + prefix_sum[i])) -
-               1;
+    auto idx =
+        distance(min_prefix_sum.cbegin(),
+                 upper_bound(min_prefix_sum.cbegin(), min_prefix_sum.cend(),
+                             k + prefix_sum[i])) -
+        1;
     if (idx - i - 1 > arr_idx.second - arr_idx.first) {
       arr_idx = {i + 1, idx};
     }

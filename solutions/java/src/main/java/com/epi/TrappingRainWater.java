@@ -2,8 +2,12 @@
 
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 public class TrappingRainWater {
   private static int getIndexOfMaxElement(List<Integer> A) {
@@ -27,7 +31,7 @@ public class TrappingRainWater {
     // Finds the index with maximum height.
     int maxH = getIndexOfMaxElement(A);
 
-    // Calculates the water within [1 : maxH - 1].
+    // Calculates the water within A.subList(1, maxH).
     int sum = 0, left = A.get(0);
     for (int i = 1; i < maxH; ++i) {
       if (A.get(i) >= left) {
@@ -37,7 +41,7 @@ public class TrappingRainWater {
       }
     }
 
-    // Calculates the water within [maxH + 1 : A.size() - 2].
+    // Calculates the water within A.subList(maxH + 1, A.size() - 1).
     int right = A.get(A.size() - 1);
     for (int i = A.size() - 2; i > maxH; --i) {
       if (A.get(i) >= right) {
@@ -60,19 +64,20 @@ public class TrappingRainWater {
       this.rightBound = rightBound;
     }
   }
+
   private static int checkAnswer(List<Integer> A) {
-    LinkedList<HeightBound> s = new LinkedList<>();
+    Deque<HeightBound> s = new LinkedList<>();
     int sum = 0;
     for (int i = 0; i < A.size(); ++i) {
-      while (!s.isEmpty() && s.peek().rightBound <= A.get(i)) {
-        int bottom = s.pop().rightBound;
+      while (!s.isEmpty() && s.peekFirst().rightBound <= A.get(i)) {
+        int bottom = s.removeFirst().rightBound;
         if (s.isEmpty()) {
           break;
         }
-        int top = Math.min(s.peek().rightBound, A.get(i));
-        sum += (top - bottom) * (i - s.peek().leftBound - 1);
+        int top = Math.min(s.peekFirst().rightBound, A.get(i));
+        sum += (top - bottom) * (i - s.peekFirst().leftBound - 1);
       }
-      s.push(new HeightBound(i, A.get(i)));
+      s.addFirst(new HeightBound(i, A.get(i)));
     }
     return sum;
   }

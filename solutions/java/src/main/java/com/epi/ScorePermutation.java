@@ -5,9 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ScorePermutation {
   // @include
   public static long countPermutations(int k, List<Integer> scoreWays) {

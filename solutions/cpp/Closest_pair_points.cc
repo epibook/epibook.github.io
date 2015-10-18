@@ -65,7 +65,8 @@ tuple<Point, Point, double> FindClosestPairPointsInSubarray(
   auto result1 = FindClosestPairPointsInSubarray(points, mid, end);
   auto best_result_in_subsets =
       get<2>(result0) < get<2>(result1) ? result0 : result1;
-  vector<Point> remain;  // Stores the points whose x-dis < min_d.
+  // Stores the points whose separation along the X-axis is less than min_d.
+  vector<Point> remain;
   for (const Point& p : points) {
     if (abs(p.x - points[mid].x) < get<2>(best_result_in_subsets)) {
       remain.emplace_back(p);

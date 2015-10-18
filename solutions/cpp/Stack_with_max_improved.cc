@@ -33,8 +33,8 @@ class Stack {
     }
     int pop_element = element_.top();
     element_.pop();
-    const int kCurrentMax = cached_max_with_count_.top().first;
-    if (pop_element == kCurrentMax) {
+    const int current_max = cached_max_with_count_.top().first;
+    if (pop_element == current_max) {
       int& max_frequency = cached_max_with_count_.top().second;
       --max_frequency;
       if (max_frequency == 0) {
@@ -49,11 +49,11 @@ class Stack {
     if (cached_max_with_count_.empty()) {
       cached_max_with_count_.emplace(x, 1);
     } else {
-      const int kCurrentMax = cached_max_with_count_.top().first;
-      if (x == kCurrentMax) {
+      const int current_max = cached_max_with_count_.top().first;
+      if (x == current_max) {
         int& max_frequency = cached_max_with_count_.top().second;
         ++max_frequency;
-      } else if (x > kCurrentMax) {
+      } else if (x > current_max) {
         cached_max_with_count_.emplace(x, 1);
       }
     }

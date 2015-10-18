@@ -44,7 +44,7 @@ void small_test() {
 }
 
 bool check_ans(const vector<string>& A, const string& target) {
-  for (const auto& s : A) {
+  for (const string& s : A) {
     if (s.compare(target) > 0 && !is_prefix(target, s)) {
       return false;
     } else if (is_prefix(target, s)) {

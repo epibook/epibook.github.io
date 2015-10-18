@@ -6,8 +6,7 @@ import java.util.Random;
 
 public class ReplaceAndRemove {
   // @include
-  public static String replaceAndRemove(String s) {
-    char[] sChars = s.toCharArray();
+  public static String replaceAndRemove(char[] sChars) {
     // Forward iteration: remove "b"s and count the number of "a"s.
     int writeIdx = 0, aCount = 0;
     for (char c : sChars) {
@@ -71,7 +70,7 @@ public class ReplaceAndRemove {
       }
       System.out.println(s);
       System.out.println();
-      String ans = replaceAndRemove(s);
+      String ans = replaceAndRemove(s.toCharArray());
       System.out.println(ans);
       checkAns(s, ans);
     }

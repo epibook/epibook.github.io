@@ -56,9 +56,9 @@ bool IsPalindrome(const string& prefix) {
 // @exclude
 
 void CheckAns(const vector<vector<string>>& vecs, const string& input) {
-  for (const auto& vec : vecs) {
+  for (const vector<string>& vec : vecs) {
     string temp;
-    for (const auto& s : vec) {
+    for (const string& s : vec) {
       assert(IsPalindrome(s));
       temp += s;
     }
@@ -95,8 +95,8 @@ int main(int argc, char** argv) {
     auto result = PalindromePartitioning(s);
     CheckAns(result, s);
     cout << "string s = " << s << endl;
-    for (const auto& vec : result) {
-      for (const auto& t : vec) {
+    for (const vector<string>& vec : result) {
+      for (const string& t : vec) {
         cout << t << " ";
       }
       cout << endl;
@@ -109,8 +109,8 @@ int main(int argc, char** argv) {
       auto result = PalindromePartitioning(s);
       CheckAns(result, s);
       cout << "string s = " << s << endl;
-      for (const auto& vec : result) {
-        for (const auto& t : vec) {
+      for (const vector<string>& vec : result) {
+        for (const string& t : vec) {
           cout << t << " ";
         }
         cout << endl;

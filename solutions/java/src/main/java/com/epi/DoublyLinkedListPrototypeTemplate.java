@@ -3,12 +3,13 @@
 package com.epi;
 
 // @include
-class DoublyListNode<T> {
+class DoublyLinkedListNode<T> {
   public T data;
-  public DoublyListNode<T> prev, next;
+  public DoublyLinkedListNode<T> prev, next;
   // @exclude
 
-  DoublyListNode(T data, DoublyListNode<T> prev, DoublyListNode<T> next) {
+  DoublyLinkedListNode(T data, DoublyLinkedListNode<T> prev,
+                       DoublyLinkedListNode<T> next) {
     this.data = data;
     this.prev = prev;
     this.next = next;

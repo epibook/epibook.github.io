@@ -11,7 +11,7 @@ using std::string;
 namespace CanStringBeAPalindromeSorting {
 
 // @include
-bool CanStringBeAPalindrome(string* s) {
+bool CanFormPalindrome(string* s) {
   sort(s->begin(), s->end());
   int odd_count = 0, num_curr_char = 1;
 

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class LoadBalancing {
   // @include
   public static List<Integer> decideLoadBalancing(List<Integer> userFileSize,
@@ -24,8 +21,8 @@ public class LoadBalancing {
       for (int i = 0; i < serverNum; i++) {
         assignRes.add(0);
       }
-      boolean isFeasible =
-          greedyAssignment(userFileSize, serverNum, m, assignRes);
+      boolean isFeasible
+          = greedyAssignment(userFileSize, serverNum, m, assignRes);
       if (isFeasible) {
         feasibleAssignment = assignRes;
         r = m - 1;

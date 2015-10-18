@@ -11,9 +11,9 @@ public class PalindromeNumber {
       return true;
     }
 
-    final int NUM_DIGITS = (int)(Math.floor(Math.log10(x))) + 1;
-    int msdMask = (int)Math.pow(10, NUM_DIGITS - 1);
-    for (int i = 0; i < (NUM_DIGITS / 2); ++i) {
+    final int numDigits = (int)(Math.floor(Math.log10(x))) + 1;
+    int msdMask = (int)Math.pow(10, numDigits - 1);
+    for (int i = 0; i < (numDigits / 2); ++i) {
       if (x / msdMask != x % 10) {
         return false;
       }

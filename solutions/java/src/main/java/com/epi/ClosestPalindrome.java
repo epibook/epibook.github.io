@@ -2,8 +2,6 @@ package com.epi;
 
 import java.util.Random;
 
-import static java.lang.Math.abs;
-
 public class ClosestPalindrome {
   // @include
   static long findClosestPalindrome(long x) {
@@ -11,7 +9,7 @@ public class ClosestPalindrome {
     String mirrored = mirrorLeftHalf(String.valueOf(x));
     StringBuilder str = new StringBuilder(mirrored);
 
-    long mirrorLeft = Long.valueOf(mirrored);
+    long mirrorLeft = Long.parseLong(mirrored);
     int idx = (str.length() - 1) / 2;
     if (mirrorLeft >= x) {
       // Subtract one from the left half.
@@ -46,9 +44,9 @@ public class ClosestPalindrome {
 
     // Make str a palindrome again by mirroring the left half to the right half.
     mirrored = mirrorLeftHalf(str.toString());
-    return abs(x - mirrorLeft) < abs(x - Long.valueOf(mirrored))
+    return Math.abs(x - mirrorLeft) < Math.abs(x - Long.parseLong(mirrored))
         ? mirrorLeft
-        : Long.valueOf(mirrored);
+        : Long.parseLong(mirrored);
   }
   // @exclude
 
@@ -96,7 +94,7 @@ public class ClosestPalindrome {
     for (int times = 0; times < 100000; ++times) {
       long x;
       if (args.length == 1) {
-        x = Integer.valueOf(args[0]);
+        x = Integer.parseInt(args[0]);
       } else {
         x = gen.nextInt(10000000) + 1;
       }

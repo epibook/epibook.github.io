@@ -1,7 +1,7 @@
 package com.epi;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -23,9 +23,9 @@ public class Combinations {
     }
 
     // Generate remaining combinations over {offset, ..., n - 1} of size
-    // K_NUM_REMAINING.
-    final int K_NUM_REMAINING = k - partialCombination.size();
-    for (int i = offset; i <= n && K_NUM_REMAINING <= n - i + 1; ++i) {
+    // numRemaining.
+    final int numRemaining = k - partialCombination.size();
+    for (int i = offset; i <= n && numRemaining <= n - i + 1; ++i) {
       partialCombination.add(i);
       directedCombinations(n, k, i + 1, partialCombination, result);
       partialCombination.remove(partialCombination.size() - 1);

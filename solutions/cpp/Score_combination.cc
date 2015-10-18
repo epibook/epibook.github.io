@@ -13,15 +13,15 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-int CountCombinations(int k, const vector<int>& score_ways) {
-  vector<int> combinations(k + 1, 0);
+int CountCombinations(int total_score, const vector<int>& score_ways) {
+  vector<int> combinations(total_score + 1, 0);
   combinations[0] = 1;  // One way to reach 0.
-  for (const int& score : score_ways) {
-    for (int j = score; j <= k; ++j) {
+  for (int score : score_ways) {
+    for (int j = score; j <= total_score; ++j) {
       combinations[j] += combinations[j - score];
     }
   }
-  return combinations[k];
+  return combinations[total_score];
 }
 // @exclude
 
@@ -29,6 +29,7 @@ void SimpleTest() {
   vector<int> score_ways = {2, 3, 7};
   assert(4 == CountCombinations(12, score_ways));
   assert(1 == CountCombinations(5, score_ways));
+  assert(3 == CountCombinations(9, score_ways));
 }
 
 int main(int argc, char* argv[]) {

@@ -24,7 +24,8 @@ bool SolveSudoku(vector<vector<int>>* partial_assignment) {
   return SolvePartialSudoku(0, 0, partial_assignment);
 }
 
-bool SolvePartialSudoku(int i, int j, vector<vector<int>>* partial_assignment) {
+bool SolvePartialSudoku(int i, int j,
+                        vector<vector<int>>* partial_assignment) {
   if (i == partial_assignment->size()) {
     i = 0;  // Starts a new row.
     if (++j == (*partial_assignment)[i].size()) {
@@ -76,7 +77,8 @@ bool ValidToAddVal(const vector<vector<int>>& partial_assignment, int i, int j,
   int I = i / region_size, J = j / region_size;
   for (int a = 0; a < region_size; ++a) {
     for (int b = 0; b < region_size; ++b) {
-      if (val == partial_assignment[region_size * I + a][region_size * J + b]) {
+      if (val ==
+          partial_assignment[region_size * I + a][region_size * J + b]) {
         return false;
       }
     }

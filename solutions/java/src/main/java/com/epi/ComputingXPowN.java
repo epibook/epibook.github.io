@@ -1,7 +1,11 @@
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Random;
 
 public class ComputingXPowN {
   // @include
@@ -10,31 +14,31 @@ public class ComputingXPowN {
       return Arrays.asList(1);
     }
 
-    LinkedList<ArrayList<Integer>> expLists = new LinkedList<>();
-    // Constructs the initial list with one node whose value is 1.
-    expLists.addLast(new ArrayList<Integer>() {
-      { add(1); }
-    });
-    while (!expLists.isEmpty()) {
-      List<Integer> exp = expLists.pop();
-      // Tries all possible combinations in list exp.
-      for (int a : exp) {
-        int sum = a + exp.get(exp.size() - 1);
+    // SLP is acronym for straight line program.
+    Queue<List<Integer>> SLPs = new LinkedList<>();
+    // Constructs the initial SLP with one node whose value is 1.
+    SLPs.add(Arrays.asList(1));
+    while (!SLPs.isEmpty()) {
+      List<Integer> candidateSLP = SLPs.remove();
+      // Tries all possible combinations in candidateSLP.
+      for (int a : candidateSLP) {
+        int sum = a + candidateSLP.get(candidateSLP.size() - 1);
         if (sum > n) {
-          break; // No possible solution.
+          break; // No possible solution for candidateSLP.
         }
 
-        ArrayList<Integer> newExp = new ArrayList<>(exp);
-        newExp.add(sum);
+        List<Integer> newSLP = new ArrayList<>(candidateSLP);
+        newSLP.add(sum);
+
         if (sum == n) {
-          return newExp;
+          return newSLP;
         }
-        expLists.addLast(newExp);
+        SLPs.add(newSLP);
       }
     }
     // @exclude
     // This line should never be called.
-    throw new RuntimeException("unknown error");
+    throw new IllegalStateException("Program logic broken!");
     // @include
   }
   // @exclude

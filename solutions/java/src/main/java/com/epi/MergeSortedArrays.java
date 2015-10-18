@@ -1,12 +1,12 @@
 package com.epi;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 import java.util.PriorityQueue;
+import java.util.Random;
 
 public class MergeSortedArrays {
   // @include
@@ -28,7 +28,7 @@ public class MergeSortedArrays {
         DEFAULT_INITIAL_CAPACITY, new Comparator<ArrayEntry>() {
           @Override
           public int compare(ArrayEntry o1, ArrayEntry o2) {
-            return o1.value.compareTo(o2.value);
+            return Integer.compare(o1.value, o2.value);
           }
         });
     List<Integer> heads = new ArrayList<>(sortedArrays.size());
@@ -44,46 +44,39 @@ public class MergeSortedArrays {
     }
 
     List<Integer> result = new ArrayList<>();
-    while (!minHeap.isEmpty()) {
-      int smallestEntry = minHeap.peek().value;
-      List<Integer> smallestArray = sortedArrays.get(minHeap.peek().arrayId);
-      int smallestArrayHead = heads.get(minHeap.peek().arrayId);
-      result.add(smallestEntry);
+    ArrayEntry headEntry;
+    while ((headEntry = minHeap.poll()) != null) {
+      result.add(headEntry.value);
+      List<Integer> smallestArray = sortedArrays.get(headEntry.arrayId);
+      int smallestArrayHead = heads.get(headEntry.arrayId);
       if (smallestArrayHead < smallestArray.size()) {
         // Add the next entry of smallestArray into minHeap.
         minHeap.add(new ArrayEntry(smallestArray.get(smallestArrayHead),
-                                   minHeap.peek().arrayId));
-        heads.set(minHeap.peek().arrayId, heads.get(minHeap.peek().arrayId) + 1);
+                                   headEntry.arrayId));
+        heads.set(headEntry.arrayId, heads.get(headEntry.arrayId) + 1);
       }
-      minHeap.remove();
     }
     return result;
   }
   // @exclude
 
   private static void simpleTest() {
-    List<List<Integer>> S = new ArrayList<>();
-    S.add(Arrays.asList(1, 5, 10));
-    S.add(Arrays.asList(2, 3, 100));
-    S.add(Arrays.asList(2, 12, Integer.MAX_VALUE));
-
+    List<List<Integer>> S
+        = Arrays.asList(Arrays.asList(1, 5, 10), Arrays.asList(2, 3, 100),
+                        Arrays.asList(2, 12, Integer.MAX_VALUE));
     List<Integer> ans = mergeSortedArrays(S);
-    assert(9 == ans.size());
-    assert(1 == ans.get(0));
-    assert(2 == ans.get(1));
-    assert(2 == ans.get(2));
-    assert(3 == ans.get(3));
-    assert(5 == ans.get(4));
-    assert(10 == ans.get(5));
-    assert(12 == ans.get(6));
-    assert(100 == ans.get(7));
-    assert(Integer.MAX_VALUE == ans.get(8));
+    List<Integer> golden
+        = Arrays.asList(1, 2, 2, 3, 5, 10, 12, 100, Integer.MAX_VALUE);
+    assert(9 == ans.size() && ans.equals(golden));
 
-    S = new ArrayList<>();
-    S.add(Arrays.asList(1));
+    S = Arrays.asList(Arrays.asList(1));
     ans = mergeSortedArrays(S);
-    assert(1 == ans.size());
-    assert(1 == ans.get(0));
+    assert(1 == ans.size() && 1 == ans.get(0));
+
+    S = Arrays.asList(new ArrayList<Integer>(), Arrays.asList(1),
+                      Arrays.asList(2));
+    ans = mergeSortedArrays(S);
+    assert(2 == ans.size() && ans.equals(Arrays.asList(1, 2)));
   }
 
   public static void main(String[] args) {

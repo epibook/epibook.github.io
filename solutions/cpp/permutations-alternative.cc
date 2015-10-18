@@ -25,18 +25,20 @@ vector<vector<int>> Permutations(vector<int> A) {
   return result;
 }
 
-void DirectedPermutations(int i, vector<int> *A, vector<vector<int>> *result) {
-  if (i == A->size() - 1) {
-    result->emplace_back(*A);
+void DirectedPermutations(int i, vector<int> *A_ptr,
+                          vector<vector<int>> *result) {
+  vector<int> &A = *A_ptr;
+  if (i == A.size() - 1) {
+    result->emplace_back(A);
     return;
   }
 
   // Try every possibility for A[i].
-  for (int j = i; j < A->size(); ++j) {
-    swap((*A)[i], (*A)[j]);
+  for (int j = i; j < A.size(); ++j) {
+    swap(A[i], A[j]);
     // Generate all permutations for A[i + 1 : A.size() - 1].
-    DirectedPermutations(i + 1, A, result);
-    swap((*A)[i], (*A)[j]);
+    DirectedPermutations(i + 1, A_ptr, result);
+    swap(A[i], A[j]);
   }
 }
 // @exclude

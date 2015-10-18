@@ -53,23 +53,22 @@ pair<int, int> FindDuplicateMissing(const vector<int>& A) {
 }
 // @exclude
 
-void SmallTest() {
+void SimpleTest() {
   vector<int> A = {0, 1, 2, 4, 5, 6, 6};
   auto ans = FindDuplicateMissing(A);
-  cout << ans.first << " " << ans.second << endl;
   assert(ans.first == 6 && ans.second == 3);
 
-  A = {0,0,1};
+  A = {0, 0, 1};
   ans = FindDuplicateMissing(A);
   assert(ans.first == 0 && ans.second == 2);
-  
-  A = {1,3,2,5,3,4};
+
+  A = {1, 3, 2, 5, 3, 4};
   ans = FindDuplicateMissing(A);
   assert(ans.first == 3 && ans.second == 0);
 }
 
 int main(int argc, char* argv[]) {
-  SmallTest();
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int n;

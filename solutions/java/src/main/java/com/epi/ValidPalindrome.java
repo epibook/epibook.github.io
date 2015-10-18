@@ -1,8 +1,5 @@
 package com.epi;
 
-import static java.lang.Character.isLetterOrDigit;
-import static java.lang.Character.toLowerCase;
-
 public class ValidPalindrome {
   // @include
   public static boolean isPalindrome(String s) {
@@ -10,13 +7,14 @@ public class ValidPalindrome {
     int i = 0, j = s.length() - 1;
     while (i < j) {
       // i and j both skip non-alphanumeric characters.
-      while (!isLetterOrDigit(s.charAt(i)) && i < j) {
+      while (!Character.isLetterOrDigit(s.charAt(i)) && i < j) {
         ++i;
       }
-      while (!isLetterOrDigit(s.charAt(j)) && i < j) {
+      while (!Character.isLetterOrDigit(s.charAt(j)) && i < j) {
         --j;
       }
-      if (toLowerCase(s.charAt(i)) != toLowerCase(s.charAt(j))) {
+      if (Character.toLowerCase(s.charAt(i))
+          != Character.toLowerCase(s.charAt(j))) {
         return false;
       }
       ++i;

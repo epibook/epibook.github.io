@@ -1,13 +1,10 @@
 package com.epi;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class PrettyPrinting {
   private static String randString(int len) {
     Random r = new Random();
@@ -21,29 +18,31 @@ public class PrettyPrinting {
   // @include
   public static int findPrettyPrinting(List<String> W, int L) {
     // Calculates M(i).
-    long[] M = new long[W.size()];
-    Arrays.fill(M, Long.MAX_VALUE);
+    List<Long> M
+        = new ArrayList<>(Collections.nCopies(W.size(), Long.MAX_VALUE));
     for (int i = 0; i < W.size(); ++i) {
       int bLen = L - W.get(i).length();
-      M[i] = Math.min((i - 1 < 0 ? 0 : M[i - 1]) + (1 << bLen), M[i]);
+      M.set(i,
+            Math.min((i - 1 < 0 ? 0 : M.get(i - 1)) + (1 << bLen), M.get(i)));
       for (int j = i - 1; j >= 0; --j) {
         bLen -= (W.get(j).length() + 1);
         if (bLen < 0) {
           break;
         }
-        M[i] = Math.min((j - 1 < 0 ? 0 : M[j - 1]) + (1 << bLen), M[i]);
+        M.set(i,
+              Math.min((j - 1 < 0 ? 0 : M.get(j - 1)) + (1 << bLen), M.get(i)));
       }
     }
 
     // Finds the minimum cost without considering the last line.
-    long minMess = (W.size() >= 2 ? M[W.size() - 2] : 0);
+    long minMess = (W.size() >= 2 ? M.get(W.size() - 2) : 0);
     int bLen = L - W.get(W.size() - 1).length();
     for (int i = W.size() - 2; i >= 0; --i) {
       bLen -= (W.get(i).length() + 1);
       if (bLen < 0) {
         return (int)minMess;
       }
-      minMess = Math.min(minMess, (i - 1 < 0 ? 0 : M[i - 1]));
+      minMess = Math.min(minMess, (i - 1 < 0 ? 0 : M.get(i - 1)));
     }
     return (int)minMess;
   }

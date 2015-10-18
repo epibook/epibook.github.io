@@ -1,57 +1,60 @@
 package com.epi;
 
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 public class FindKthElementInTwoSortedArrays {
   // @include
-  public static int findKthNTwoSortedArrays(int[] A, int[] B, int k) {
+  public static int findKthNTwoSortedArrays(List<Integer> A, List<Integer> B,
+                                            int k) {
     // Lower bound of elements we will choose in A.
-    int b = Math.max(0, k - B.length);
+    int b = Math.max(0, k - B.size());
     // Upper bound of elements we will choose in A.
-    int t = Math.min(A.length, k);
+    int t = Math.min(A.size(), k);
 
     while (b < t) {
       int x = b + ((t - b) / 2);
-      int ax1 = (x <= 0 ? Integer.MIN_VALUE : A[x - 1]);
-      int ax = (x >= A.length ? Integer.MAX_VALUE : A[x]);
-      int bkx1 = (k - x <= 0 ? Integer.MIN_VALUE : B[k - x - 1]);
-      int bkx = (k - x >= B.length ? Integer.MAX_VALUE : B[k - x]);
+      int ax1 = (x <= 0 ? Integer.MIN_VALUE : A.get(x - 1));
+      int ax = (x >= A.size() ? Integer.MAX_VALUE : A.get(x));
+      int bkx1 = (k - x <= 0 ? Integer.MIN_VALUE : B.get(k - x - 1));
+      int bkx = (k - x >= B.size() ? Integer.MAX_VALUE : B.get(k - x));
 
       if (ax < bkx1) {
         b = x + 1;
       } else if (ax1 > bkx) {
         t = x - 1;
       } else {
-        // B[k - x - 1] <= A[x] && A[x - 1] < B[k - x].
+        // B.get(k - x - 1) <= A.get(x) && A.get(x - 1) < B.get(k - x).
         return Math.max(ax1, bkx1);
       }
     }
 
-    int ab1 = b <= 0 ? Integer.MIN_VALUE : A[b - 1];
-    int bkb1 = k - b - 1 < 0 ? Integer.MIN_VALUE : B[k - b - 1];
+    int ab1 = b <= 0 ? Integer.MIN_VALUE : A.get(b - 1);
+    int bkb1 = k - b - 1 < 0 ? Integer.MIN_VALUE : B.get(k - b - 1);
     return Math.max(ab1, bkb1);
   }
   // @exclude
 
-  private static int checkAnswer(int[] A, int[] B, int k) {
+  private static int checkAnswer(List<Integer> A, List<Integer> B, int k) {
     int i = 0, j = 0, count = 0;
     int ret = -1;
-    while ((i < A.length || j < B.length) && count < k) {
-      if (i < A.length && j < B.length) {
-        if (A[i] < B[j]) {
-          ret = A[i];
+    while ((i < A.size() || j < B.size()) && count < k) {
+      if (i < A.size() && j < B.size()) {
+        if (A.get(i) < B.get(j)) {
+          ret = A.get(i);
           ++i;
         } else {
-          ret = B[j];
+          ret = B.get(j);
           ++j;
         }
-      } else if (i < A.length) {
-        ret = A[i];
+      } else if (i < A.size()) {
+        ret = A.get(i);
         ++i;
       } else {
-        ret = B[j];
+        ret = B.get(j);
         ++j;
       }
       ++count;
@@ -61,8 +64,8 @@ public class FindKthElementInTwoSortedArrays {
 
   private static void smallTest() {
     // AA: handwritten test
-    int[] a0 = new int[] {0, 1, 2, 3};
-    int[] b0 = new int[] {0, 1, 2, 3};
+    List<Integer> a0 = Arrays.asList(0, 1, 2, 3);
+    List<Integer> b0 = Arrays.asList(0, 1, 2, 3);
     assert(0 == findKthNTwoSortedArrays(a0, b0, 1));
     assert(0 == findKthNTwoSortedArrays(a0, b0, 2));
     assert(1 == findKthNTwoSortedArrays(a0, b0, 3));
@@ -89,16 +92,16 @@ public class FindKthElementInTwoSortedArrays {
         m = r.nextInt(10000) + 1;
         k = r.nextInt(n + m) + 1;
       }
-      int[] A = new int[n];
-      int[] B = new int[m];
+      List<Integer> A = new ArrayList<>(n);
+      List<Integer> B = new ArrayList<>(m);
       for (int i = 0; i < n; ++i) {
-        A[i] = r.nextInt(100000);
+        A.add(r.nextInt(100000));
       }
       for (int i = 0; i < m; ++i) {
-        B[i] = r.nextInt(100000);
+        B.add(r.nextInt(100000));
       }
-      Arrays.sort(A);
-      Arrays.sort(B);
+      Collections.sort(A);
+      Collections.sort(B);
       /*
        * System.out.println(A); System.out.println(B);
        */

@@ -57,7 +57,7 @@ void MarkRegionIfSurrounded(size_t i, size_t j, vector<vector<char>>* board,
         curr.second == 0 || curr.second == (*board)[curr.first].size() - 1) {
       is_surrounded = false;
     } else {
-      for (const auto& d : dir) {
+      for (const array<int, 2>& d : dir) {
         const pair<size_t, size_t> next(curr.first + d[0], curr.second + d[1]);
         if ((*board)[next.first][next.second] == 'W' &&
             !(*visited)[next.first][next.second]) {
@@ -70,7 +70,7 @@ void MarkRegionIfSurrounded(size_t i, size_t j, vector<vector<char>>* board,
 
   if (is_surrounded) {
     // Marks surrounded regions in q.
-    for (const auto& p : q) {
+    for (const pair<size_t, size_t>& p : q) {
       (*board)[p.first][p.second] = 'B';
     }
   }

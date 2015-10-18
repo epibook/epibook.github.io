@@ -5,7 +5,7 @@ package com.epi;
 
 import static com.epi.ReverseLinkedListIterative.reverseLinkedList;
 
-class PalindromeLinkedList {
+public class PalindromeLinkedList {
   // @include
   public static boolean isLinkedListAPalindrome(ListNode<Integer> L) {
     if (L == null) {
@@ -20,8 +20,8 @@ class PalindromeLinkedList {
     }
 
     // Compare the first half and the reversed second half lists.
-    ListNode<Integer> firstHalfIter = L, secondHalfIter =
-                                             reverseLinkedList(slow.next);
+    ListNode<Integer> firstHalfIter = L;
+    ListNode<Integer> secondHalfIter = reverseLinkedList(slow);
     while (secondHalfIter != null && firstHalfIter != null) {
       if (secondHalfIter.data != firstHalfIter.data) {
         return false;
@@ -33,47 +33,46 @@ class PalindromeLinkedList {
   }
   // @exclude
 
-  public static <T> void printList(ListNode<T> L) {
-    while (L != null) {
-      System.out.print(L.data + " ");
-      L = L.next;
-    }
-    System.out.println("");
-  }
-
   public static void main(String[] args) {
-    ListNode<Integer> head = null;
-
-    if (args.length > 1) {
+    if (args.length >= 1) {
+      ListNode<Integer> head = null;
       // Input the node's value in reverse order.
       for (String element : args) {
-        ListNode<Integer> curr = new ListNode<>(Integer.parseInt(element), head);
+        ListNode<Integer> curr
+            = new ListNode<>(Integer.parseInt(element), head);
         head = curr;
       }
       System.out.println(((isLinkedListAPalindrome(head)) ? "Yes" : "No"));
-    } else {
-      // A link list is a palindrome.
-      for (int i = 6; i >= 1; --i) {
-        ListNode<Integer> curr = new ListNode<>(1, head);
-        head = curr;
-      }
-      assert(isLinkedListAPalindrome(head));
-
-      // Still a palindrome linked list.
-      head = null;
-      for (int i = 5; i >= 1; --i) {
-        ListNode<Integer> curr = new ListNode<>(1, head);
-        head = curr;
-      }
-      head.next.next.data = 3;
-      assert(isLinkedListAPalindrome(head));
-      // Not a palindrome linked list.
-      head = null;
-      for (int i = 5; i >= 1; --i) {
-        ListNode<Integer> curr = new ListNode<>(i, head);
-        head = curr;
-      }
-      assert(!isLinkedListAPalindrome(head));
     }
+    assert(isLinkedListAPalindrome(null));
+    assert(isLinkedListAPalindrome(new ListNode<Integer>(1, null)));
+    assert(isLinkedListAPalindrome(
+        new ListNode<Integer>(1, new ListNode<>(1, null))));
+    assert(!isLinkedListAPalindrome(
+               new ListNode<Integer>(1, new ListNode<>(2, null))));
+
+    ListNode<Integer> head = null;
+    // A link list is a palindrome.
+    for (int i = 6; i >= 1; --i) {
+      ListNode<Integer> curr = new ListNode<>(1, head);
+      head = curr;
+    }
+    assert(isLinkedListAPalindrome(head));
+
+    // Still a palindrome linked list.
+    head = null;
+    for (int i = 5; i >= 1; --i) {
+      ListNode<Integer> curr = new ListNode<>(1, head);
+      head = curr;
+    }
+    head.next.next.data = 3;
+    assert(isLinkedListAPalindrome(head));
+    // Not a palindrome linked list.
+    head = null;
+    for (int i = 5; i >= 1; --i) {
+      ListNode<Integer> curr = new ListNode<>(i, head);
+      head = curr;
+    }
+    assert(!isLinkedListAPalindrome(head));
   }
 }

@@ -15,10 +15,10 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-void MatrixLayerInClockwise(const vector<vector<int>> &, int, vector<int> *);
+void MatrixLayerInClockwise(const vector<vector<int>>&, int, vector<int>*);
 
 // @include
-vector<int> MatrixInSpiralOrder(const vector<vector<int>> &square_matrix) {
+vector<int> MatrixInSpiralOrder(const vector<vector<int>>& square_matrix) {
   vector<int> spiral_ordering;
   for (int offset = 0; offset < ceil(0.5 * square_matrix.size()); ++offset) {
     MatrixLayerInClockwise(square_matrix, offset, &spiral_ordering);
@@ -26,8 +26,8 @@ vector<int> MatrixInSpiralOrder(const vector<vector<int>> &square_matrix) {
   return spiral_ordering;
 }
 
-void MatrixLayerInClockwise(const vector<vector<int>> &square_matrix,
-                            int offset, vector<int> *spiral_ordering) {
+void MatrixLayerInClockwise(const vector<vector<int>>& square_matrix,
+                            int offset, vector<int>* spiral_ordering) {
   if (offset == square_matrix.size() - offset - 1) {
     // square_matrix has odd dimension, and we are at the center of
     // square_matrix.
@@ -60,7 +60,7 @@ void SimpleTest() {
          equal(result.begin(), result.end(), golden_result.begin()));
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   SimpleTest();
   default_random_engine gen((random_device())());
   int N;

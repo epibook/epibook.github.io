@@ -16,27 +16,27 @@ using std::stack;
 // @include
 class Queue {
  public:
-  void Enqueue(int x) { Q1_.emplace(x); }
+  void Enqueue(int x) { enq_.emplace(x); }
 
   int Dequeue() {
-    if (Q2_.empty()) {
-      // Transfers the elements in Q1_ to Q2_.
-      while (!Q1_.empty()) {
-        Q2_.emplace(Q1_.top());
-        Q1_.pop();
+    if (deq_.empty()) {
+      // Transfers the elements in enq_ to deq_.
+      while (!enq_.empty()) {
+        deq_.emplace(enq_.top());
+        enq_.pop();
       }
     }
 
-    if (Q2_.empty()) {  // Q2_ is still empty!
+    if (deq_.empty()) {  // deq_ is still empty!
       throw length_error("empty queue");
     }
-    int ret = Q2_.top();
-    Q2_.pop();
+    int ret = deq_.top();
+    deq_.pop();
     return ret;
   }
 
  private:
-  stack<int> Q1_, Q2_;
+  stack<int> enq_, deq_;
 };
 // @exclude
 

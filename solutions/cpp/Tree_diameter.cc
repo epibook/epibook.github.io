@@ -12,6 +12,7 @@
 using std::array;
 using std::cout;
 using std::endl;
+using std::make_unique;
 using std::max;
 using std::numeric_limits;
 using std::pair;
@@ -19,7 +20,7 @@ using std::unique_ptr;
 using std::vector;
 
 struct TreeNode;
-pair<double, double> ComputeHeightAndDiameter(const unique_ptr<TreeNode>& r);
+pair<double, double> ComputeHeightAndDiameter(const unique_ptr<TreeNode>&);
 
 // @include
 struct TreeNode {
@@ -34,7 +35,7 @@ double ComputeDiameter(const unique_ptr<TreeNode>& T) {
 pair<double, double> ComputeHeightAndDiameter(const unique_ptr<TreeNode>& r) {
   double diameter = numeric_limits<double>::min();
   array<double, 2> height = {{0.0, 0.0}};  // Stores the max two heights.
-  for (const auto& e : r->edges) {
+  for (const pair<unique_ptr<TreeNode>, double>& e : r->edges) {
     pair<double, double> h_d = ComputeHeightAndDiameter(e.first);
     if (h_d.first + e.second > height[0]) {
       height[1] = height[0];
@@ -51,14 +52,13 @@ pair<double, double> ComputeHeightAndDiameter(const unique_ptr<TreeNode>& r) {
 int main(int argc, char* argv[]) {
   unique_ptr<TreeNode> r = nullptr;
   assert(0.0 == ComputeDiameter(r));
-  r = unique_ptr<TreeNode>(new TreeNode());
-  r->edges.emplace_back(unique_ptr<TreeNode>(new TreeNode()), 10);
-  r->edges[0].first->edges.emplace_back(unique_ptr<TreeNode>(new TreeNode()),
-                                        50);
-  r->edges.emplace_back(unique_ptr<TreeNode>(new TreeNode()), 20);
+  r = make_unique<TreeNode>(TreeNode());
+  r->edges.emplace_back(make_unique<TreeNode>(TreeNode()), 10);
+  r->edges[0].first->edges.emplace_back(make_unique<TreeNode>(TreeNode()), 50);
+  r->edges.emplace_back(make_unique<TreeNode>(TreeNode()), 20);
   assert(80 == ComputeDiameter(r));
   cout << ComputeDiameter(r) << endl;
-  r->edges[0].first->edges.emplace_back(unique_ptr<TreeNode>(new TreeNode()),
+  r->edges[0].first->edges.emplace_back(make_unique<TreeNode>(TreeNode()),
                                         100);
   assert(150 == ComputeDiameter(r));
   cout << ComputeDiameter(r) << endl;

@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-class ThreeSum {
+public class ThreeSum {
   // @include
   public static boolean hasThreeSum(List<Integer> A, int t) {
     Collections.sort(A);

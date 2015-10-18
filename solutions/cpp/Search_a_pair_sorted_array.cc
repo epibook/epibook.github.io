@@ -18,22 +18,23 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-template <typename Comp>
-pair<int, int> FindPairUsingComp(const vector<int>& A, int k, Comp comp);
-pair<int, int> FindPositiveNegativePair(const vector<int>& A, int k);
+template <typename Compare>
+pair<int, int> FindPairUsingCompare(const vector<int>&, int k, Compare);
+pair<int, int> FindPositiveNegativePair(const vector<int>&, int);
 
 // @include
 pair<int, int> FindPairSumK(const vector<int>& A, int k) {
   pair<int, int> result = FindPositiveNegativePair(A, k);
   if (result.first == -1 && result.second == -1) {
-    return k >= 0 ? FindPairUsingComp(A, k, less<int>())
-                  : FindPairUsingComp(A, k, greater_equal<int>());
+    return k >= 0 ? FindPairUsingCompare(A, k, less<int>())
+                  : FindPairUsingCompare(A, k, greater_equal<int>());
   }
   return result;
 }
 
-template <typename Comp>
-pair<int, int> FindPairUsingComp(const vector<int>& A, int k, Comp comp) {
+template <typename Compare>
+pair<int, int> FindPairUsingCompare(const vector<int>& A, int k,
+                                    Compare comp) {
   pair<int, int> result(0, A.size() - 1);
   while (result.first < result.second && comp(A[result.first], 0)) {
     ++result.first;
@@ -88,7 +89,14 @@ pair<int, int> FindPositiveNegativePair(const vector<int>& A, int k) {
 }
 // @exclude
 
+static void SimpleTest() {
+  vector<int> A = {0, 0, -1, 2, -3, -3};
+  pair<int, int> ans = FindPairSumK(A, 2);
+  assert(ans.first != -1);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 10000; ++times) {
     int n;
@@ -103,12 +111,6 @@ int main(int argc, char* argv[]) {
     generate_n(back_inserter(A), n, [&] { return dis(gen); });
     sort(A.begin(), A.end(), [](int x, int y) { return abs(x) < abs(y); });
     int k = dis(gen);
-    /*
-    for (const int& a : A) {
-      cout << a << " ";
-    }
-    cout << endl << "k = " << k << endl;
-    */
     pair<int, int> ans = FindPairSumK(A, k);
     if (ans.first != -1 && ans.second != -1) {
       assert(A[ans.first] + A[ans.second] == k);

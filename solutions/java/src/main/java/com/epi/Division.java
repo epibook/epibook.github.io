@@ -43,7 +43,9 @@ public class Division {
     long yPower = y << power;
     while (x >= y) {
       while (yPower > x) {
+        // clang-format off
         yPower >>>= 1;
+        // clang-format on
         --power;
       }
 
