@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class PalindromeNumber {
   // @include
-  public static boolean isPalindrome(int x) {
+  public static boolean isPalindromeNumber(int x) {
     if (x < 0) {
       return false;
     } else if (x == 0) {
@@ -40,12 +40,12 @@ public class PalindromeNumber {
     int x;
     if (args.length == 1) {
       x = Integer.parseInt(args[0]);
-      System.out.println(x + " " + isPalindrome(x));
-      assert(checkAns(x) == isPalindrome(x));
+      System.out.println(x + " " + isPalindromeNumber(x));
+      assert(checkAns(x) == isPalindromeNumber(x));
     } else {
       for (int times = 0; times < 1000; ++times) {
         x = r.nextInt(99999 * 2 + 1) - 99999;
-        assert(checkAns(x) == isPalindrome(x));
+        assert(checkAns(x) == isPalindromeNumber(x));
       }
     }
   }

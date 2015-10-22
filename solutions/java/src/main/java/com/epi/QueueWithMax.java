@@ -22,7 +22,7 @@ public class QueueWithMax {
     if (!dequeue.empty()) {
       return dequeue.pop();
     }
-    throw new NoSuchElementException("Cannot get max() on empty queue.");
+    throw new NoSuchElementException("Cannot get dequeue() on empty queue.");
   }
 
   public Integer max() {
