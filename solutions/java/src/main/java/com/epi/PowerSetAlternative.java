@@ -23,11 +23,10 @@ public class PowerSetAlternative {
       powerSet.add(new ArrayList<>(selectedSoFar));
       return;
     }
+    // Generate all subsets that do not contain inputSet[toBeSelected].
+    directedPowerSet(inputSet, toBeSelected + 1, selectedSoFar, powerSet);
     // Generate all subsets that contain inputSet[toBeSelected].
     selectedSoFar.add(inputSet.get(toBeSelected));
-    directedPowerSet(inputSet, toBeSelected + 1, selectedSoFar, powerSet);
-    // Generate all subsets that do not contain inputSet[toBeSelected].
-    selectedSoFar.remove(selectedSoFar.size() - 1);
     directedPowerSet(inputSet, toBeSelected + 1, selectedSoFar, powerSet);
   }
   // @exclude
