@@ -48,10 +48,10 @@ public class AsyncThread {
         innerThread.start();
         try {
           Thread.sleep(TIMEOUT);
-          innerThread.interrupt();
         } catch(InterruptedException e) {
           e.printStackTrace();
         }
+        innerThread.interrupt();
       }
     };
     new Thread(task).start();
