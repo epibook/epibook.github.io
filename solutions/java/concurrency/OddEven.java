@@ -9,15 +9,15 @@ public class OddEven {
     public synchronized void waitTurn(boolean oldTurn) {
       while (turn != oldTurn) {
         try {
-          wait();
-        } catch(Exception e) {
+          this.wait();
+        } catch(InterruptedException e) {
         }
       }
     }
 
     public synchronized void toggleTurn() {
       turn ^= true;
-      notify();
+      this.notify();
     }
   }
 
@@ -63,7 +63,7 @@ public class OddEven {
     try {
       t1.join();
       t2.join();
-    } catch(Exception e) {
+    } catch(InterruptedException e) {
     }
   } 
 }
