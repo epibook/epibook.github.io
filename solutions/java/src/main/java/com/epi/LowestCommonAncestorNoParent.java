@@ -30,7 +30,12 @@ public class LowestCommonAncestorNoParent {
     if (tree == null) {
       return new Status(0, null);
     }
-
+    
+    //Avoid traversing
+		if(tree == node0 || tree == node1) {
+			return new Status (1, tree);
+		}
+		
     Status leftResult = LCAHelper(tree.left, node0, node1);
     if (leftResult.numTargetNodes == 2) {
       // Found both nodes in the left subtree.
@@ -43,7 +48,8 @@ public class LowestCommonAncestorNoParent {
     }
     int numTargetNodes = leftResult.numTargetNodes + rightResult.numTargetNodes
                          + (tree == node0 ? 1 : 0) + (tree == node1 ? 1 : 0);
-    return new Status(numTargetNodes, numTargetNodes == 2 ? tree : null);
+    return new Status(numTargetNodes, numTargetNodes == 2 ? tree : 
+          (leftResult.ancestor != null ? leftResult.ancestor : rightResult.ancestor));
   }
   // @exclude
 
