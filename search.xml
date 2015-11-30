@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+    
+    <entry>
+      <title><![CDATA[EPI back at Amazon]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/11/28/2015-09-09-amzn-status/</url>
+      <content type="html"><![CDATA[<h1 id="<!-￼0->"></h1><strike><h3>EPI is not currently available from Amazon, we are working on this issue</h3></strike>
+
+<font color="red"><b>As of 12:43 CDT 9/15/2015, EPI is available again!</b></font>
+
+<!-- For unknown reasons, EPI was not available from Amazon directly for over a week.
+We made numerous calls to Amazon and Createspace (the publisher), but were never able to get a clear idea of what happened. -->
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[EPI Problem Solution Integration]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/11/28/2015-04-03-integrated-problems-and-solutions/</url>
+      <content type="html"><![CDATA[<h1 id="<!-￼0->"></h1><p>A number of readers have suggested integrating solutions with problems, that is presenting<br>the solution immediately after the problem. Their goal is to avoid having to go back<br>and forth.</p>
+<p>This has been particularly challenging for readers using the Ebook - Google Play strips<br>the links we provide in the PDF between problems and solutions (and also to page and figure references).</p>
+<p>We have updated EPI to have this integration. The new version is now available from Amazon.</p>
+<p>If you have an Ebook, you can always get the latest version for free from <a href="https://play.google.com/store/books/details/Adnan_Aziz_Elements_of_Programming_Interviews?id=y6FLBQAAQBAJ" target="_blank" rel="external">Google Play</a>. </p>
+<p>Happy Reading,<br>The EPI Team</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Warming Up]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/11/28/Warming-Up/</url>
+      <content type="html"><![CDATA[<h1 id="<!-￼0->"></h1><p>The programming exercises in EPI are representative of what you will be asked<br>in an interview. We do not provide textbook-style review questions.</p>
+<p>In this document, we present a small set of programming exercises suitable for<br>someone who needs to review basics. (You are unlikely to be<br>asked these questions - their purpose is to bootstrap reading EPI.) </p>
+<p>When you write your solutions to these exercises, please code to the following constraints:</p>
+<ol><br><li>Do not use library calls.<br></li><li>Do not try to design clever solutions. (This means it is fine to use brute-force approaches.)<br></li><li>Assume valid inputs, and ignore internal errors like overflow, IO exceptions, etc.<br></li><li>Write unit tests for your programs.<br></li><li>Analyze your programs for time and space complexity.<br></li></ol>
+
+
+<p></p><h3>Exercises, one for each EPI chapter</h3><p></p>
+<ol><br><li> Primitive types: write a program that takes as input an integer, N, and prints<br>all the integers from 1 to N, replacing numbers divisible by 3 with “fizz”, numbers divisible by<br>5 with “buzz”, and numbers divisible by both with “fizz buzz”.<br></li><li> Arrays: Write a program that tests if a 2D square array is symmetric about the diagonal<br>from (0,0) to (n-1,n-1).<br></li><li> Strings: Write a program to find the longest substring that consists of a single<br>character in an input string.<br></li><li> Linked Lists: Implement a doubly linked list of integers class. Write a reverse method for your list class<br>that reverses a list without changing the node contents.<br></li><li> Stacks and Queues: Write a programt to evaluate arithmetical expressions that use + and <em> applied<br>to nonnegative integer arguments. Expressions are in reverse-Polish notation, e.g., 3 4 + 5 </em>, 1 3 + 5 7 + *.<br></li><li> Binary Trees: Write inorder, preorder and postorder traversal methods for a binary tree. (You will need<br>to implement a class suitable for representing binary trees, but do not need to implement<br>add, lookup, delete, etc. methods.)<br></li><li> Heaps: Write a program that builds a max-heap from an integer array. (You will need to implement<br>a class suitable for representing heaps, but do not need to implement extract-max, insert key, etc.)<br></li><li> Searching: Write a nonrecursive program to perform binary search over a sorted array.<br></li><li> Hash tables: Write a program that finds the most common object in an array of objects. The<br>objects consists of pairs of strings. Treat strings as being the same if they are equal when converted to lower case.<br></li><li> BSTs: Write a program that searches a BST on integer keys for a given value. (You will need to<br>implement a class suitable for representing BSTs, but do not need to implement<br>add, lookup, delete, etc. methods.)<br></li><li> Write a recursive program that takes as input positive integers x and N, and returns x to the power N.<br>You should use O(log N) multiplications.<br></li><li> Dynamic Programming: Write a program that takes a positive integer N, and returns the number<br>of binary strings of length N such that there are no consecutive 1s. For example, if N = 3, the result<br>is 5, corresponding to the strings 000, 001, 010, 100, 101.<br></li><li> Greedy Algorithms and Invariants: Write a program that takes an input a positive integer<br>N, and returns the minimum number of coins in the US coinage system to create N cents. For example, if<br>N = 37, the answer is 4, corresponding to a quarter, a dime, and two pennies.<br></li><li> Graphs: Implement Depth First Search and Breadth First Search. (You will need to implement<br>classes suitable to representing graphs.)<br></li><li> Parallel Computing: Write a program which uses two threads to print the numbers from<br>1 to 100 in order. One thread can only print odd numbers, the other can only print even numbers.<br></li></ol>
+
+<p>Discource <a href="http://talk.elementsofprogramminginterviews.com/t/discussion-around-the-warming-up-blog-post/217" target="_blank" rel="external">discussion</a> around this article.</p>
+<div id="discourse-comments"></div>
+
+<script type="text/javascript">
+  var discourseUrl = "http://fishtank.eviltrout.com/",
+      discourseEmbedUrl = 'http://talk.elementsofprogramminginterviews.com/t/discussion-around-the-warming-up-blog-post/217';
+
+  (function() {
+    var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+      d.src = discourseUrl + 'javascripts/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+  })();
+</script>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Tools]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/11/28/Tools/</url>
+      <content type="html"><![CDATA[<h1 id="<!-￼0->"></h1><h3>Building and maintaining programs</h3>
+
+<ol><br><li>  What version control system do you use?<br></li><li>  What coverage tool do you use?<br></li><li>  What build system do you use?<br></li><li>  What documentation system do you use?<br></li><li>  What bug tracking system do you use?<br></li><li>  How is branching implemented in a version control system?<br></li><li>  Are deltas in the branching for a revision tree stored out forwards<br>or backwards? What are the benefits of each approach?<br></li><li>  What are the advantages and disadvantages of a version control system that locks files?<br></li></ol>
+
+<h3>The Shell</h3>
+
+<p>There are scores, if not hundreds of books on the UNIX shell and related tools.<br>We have enjoyed LINUX 101 Hacks by Natarajan. It introduces<br>these tools through useful hacks, such as the use of find<br>to find all files that have not been modified in the past 100 days<br>and are larger than 100~megabytes in size, sorting the password file on the third field, etc.</p>
+<ol><br><li>  Write a regular expression for identifying social security numbers in a file.<br></li><li>  Write a command that prints out lines in a text file which contain the<br>strings foo and bar in any order.<br></li><li>  Write a command which replaces every occurrence of a foo followed by a bar (with<br>possibly some other characters in between) by widget.<br></li><li>  Given a text file with two columns of integers, i.e., two integers encoded in ASCII per line, write a filter which sorts lines in the file by the second integer.<br></li><li>  How would you take two documents in PDF and create a new document which consists of the pages of the two original documents interleaved in order?<br></li><li>  How would you write a program which checks every hour if a network connection is up?<br></li><li>  How would you write a program which checks the price of a Nikon D5300 DLSR each day on amazon.com?<br></li></ol>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Programming Languages]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/11/28/Programming-Languages/</url>
+      <content type="html"><![CDATA[<h1 id="<!-￼0->"></h1><h3>Core language</h3>
+
+<ol><br><li> What are the types in C, Java, C++, and Perl?  How many bits does it take<br>to represent the basic types?<br></li><li> What do floating point numbers look like in<br>memory? Specifically, how many bits are there in a double and<br>what sequence to the bits appear in?<br></li><li> What is twos-complement notation?<br></li><li> How would you implement a bit array class?<br></li><li> Does the check x == x + 1 always return false for integer x?<br></li><li> What does a C struct look like in memory?  What does a C++<br>object look like in memory? What does a Java object look like in<br>memory?<br></li><li> What is the difference between an interpreted and a compiled language?<br></li><li> What is garbage collection?<br></li><li> How would you determine if call stack grows up or down relative<br>to memory addresses?<br></li><li> Give an example of a memory leak in Java.<br></li><li> What is tail recursion? How can it be removed automatically?<br></li><li> Is the natural recursive program for computing <i>n!</i> tail recursive?<br></li><li> Your manager reads an online article that says it is 10X faster to code in Python than in C++. He wants you to code exclusively in Python from now on. What would you say to him?<br></li><li> What does an executable look like as a sequence of bytes?<br></li></ol>
+
+<h3>Libraries</h3>
+
+<p>A programmer who regularly implements complex algorithms such as KMP<br>string matching or the Dijkstra shortest path computation quickly<br>will not advance very far. Solutions to such problems are well-known and have<br>high quality, thoroughly tested, and debugged implementations, often<br>available as open source. Programmers should know and use these libraries.</p>
+<ol><br><li>Give an example of a function which is in the C standard library.<br></li><li>Give an example of a commonly used function which is not in the C standard library.<br></li><li>What library would you use to determine the current date in Java?<br></li><li>What library would you use in Java if you had to implement a tinyurl service?<br></li><li>How does STL implement sets?<br></li><li>How does the library code compute trigonometric functions?<br></li><li>The strtok(char <em>s1, char </em>s2) function in the C standard library successively returns occurrences of the characters in s2 in string s1; it returns null if there are no more occurrences.<br></li><li>What makes this a dangerous function to use in a multithreaded program?<br></li></ol>
+
+<h3>Programming language implementation</h3>
+
+<ol><br><li> Give an example of a language which cannot be parsed by any computer.<br></li><li> What problems does dynamic linkage solve? What problems does it introduce?<br></li><li> What is a functional language?<br></li><li> What is a virtual function?<br></li><li> How is method dispatch implemented in Java?<br></li><li> What is automatic garbage collection and how is it implemented?<br></li><li> What is a type-safe language?<br></li><li> What is the difference between a lexer and a parser?<br></li><li> Give an example of a language which cannot be recognized by a lexer.<br></li><li> Give an example of a language which cannot be parsed by a parser.<br></li></ol>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Operating Systems]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/11/28/OS/</url>
+      <content type="html"><![CDATA[<h1 id="<!-￼0->"></h1><p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
+<ol><br><li> What is a system call?<br></li><li> How is a system call different from a library call?<br></li><li> What is a device driver?<br></li><li> What is livelock? What is deadlock? Give examples of each.<br></li><li> What is a race? What can you do to prevent races?<br></li><li> What is a mutex? What are semaphores? How are they implemented?<br></li><li> Give examples of system calls that are not related to input-output.<br></li><li> Give examples of library functions that call a system function all the time, none of the time, and some of the time.<br></li><li> What is the time lag between the system call on the client side and the receipt of the packet on the server on a LAN?<br></li><li> How fast can you write a gigabyte of data from RAM to disk?<br></li><li> How does TCP/IP work?<br></li><li> What is DNS?<br></li></ol>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[General Programming Questions]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/11/28/General-Programming-Questions/</url>
+      <content type="html"><![CDATA[<h1 id="<!-￼5->"></h1><p>Our book is focused on questions that entail writing programs. You may be asked<br>questions related to general programming practices, which are conceptual and/or<br>knowledge-based, and do not require writing a program. (The extent to which<br>you are asked such questions depends on the company, your experience, the job, etc.)</p>
+<p>Such questions tend to be narrow, and as such are not appropriate for our book.<br>We have begun the process of collecting representative questions, which you can see below. </p>
+<p><a href="!--￼0--">Languages</a>,<br><a href="!--￼1--">Debugging and Testing</a>,<br><a href="!--￼2--">Operating Systems</a>,<br><a href="!--￼3--">Tools</a>, </p>
+<p>We have also put together a small list of <a href="!--￼4--">warm up</a> exercises that are appropriate<br>for someone who is a little rusty.</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Debugging and Testing]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/11/28/Debugging-and-Testing/</url>
+      <content type="html"><![CDATA[<h1 id="<!-￼0->"></h1><p>Debugging and testing are topics which are not usually the focus of university teaching.<br>We highly recommend The Practice of Programming by Kernighan and<br>Pike, which teaches much more than just writing code. Specifically, it covers testing,<br>debugging, portability, performance, and design alternatives.</p>
+<ol><br><li> What was your last bug? What was your hardest bug?<br></li><li> How would you debug a distributed program?<br></li><li> A program works sometimes and fails other times - why?<br></li><li> A program works sometimes and fails other times on the exact same input - why?<br></li><li> How would you determine where a program spends most of its time?<br></li><li> How does JUnit make the process of testing easier?<br></li><li> List five ways in which C code can be non-portable. What can you do to make the code portable?<br></li><li> Write tests for implementation of an isupper() function.<br></li><li> Should you test private methods? Should you test one line methods?<br></li><li> If you find and fix an error by adding debug code, should you remove the debug code afterwards? Should you leave them in with a conditional compilation flag or with a run time flag?<br></li><li> What is a buffer overflow and how can hackers exploit it?<br></li><li> How can you use Valgrind to solve segfault problems?<br></li><li> How does Valgrind catch access uninitialized memory?<br></li></ol>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[EPI in Python]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/11/28/2015-02-27-python/</url>
+      <content type="html"><![CDATA[<h1 id="<!-￼0->"></h1><p><b>We’ve begun the process of writing Python solutions!</b></p>
+<p>Python versions of the program in the EPI sampler are listed below and<br>we would really appreciate your thoughts on them with respect to idiomaticity and clarity.</p>
+<p>Python has exceptionally powerful libraries. Our programs by design use a simple subset of the<br>library but in many cases we also provide alternative Pythonistic solutions.</p>
+<p>Solutions are written for Python 3.4.</p>
+<p></p><h3 style="margin-bottom: 0px;"> Compute parity </h3><br><a href="/parity.py">parity.py</a><br><a href="/parity1.py">parity1.py</a><br><a href="/parity2.py">parity2.py</a><br><a href="/parity3.py">parity3.py</a><br><a href="/parity4.py">parity4.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Convert base</h3><br><a href="/convert_base.py">convert_base.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Compute the max-difference </h3><br><a href="/robot_battery.py">robot_battery.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Interconvert strings and integers </h3><br><a href="/interconverting_string_integer.py">interconverting_string_integer.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Reverse all the words in a sentence </h3><br><a href="/reverse_words.py">reverse_words.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Test for cyclicity </h3><br><a href="/linked_list_prototype.py">linked_list_prototype.py</a><br><a href="/checking_cycle.py">checking_cycle.py</a><br><a href="/checking_cycle_alternative.py">checking_cycle_alternative.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Stack with max API </h3><br><a href="/stack_with_max.py">stack_with_max.py</a><br><a href="/stack_with_max_improved.py">stack_with_max_improved.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Print a binary tree in level order </h3><br><a href="/binary_tree_prototype.py">binary_tree_prototype.py</a><br><a href="/binary_tree_level_order.py">binary_tree_level_order.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Test if a binary tree is balanced </h3><br><a href="/balanced_binary_tree.py">balanced_binary_tree.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Merge sorted arrays </h3><br><a href="/merge_sorted_arrays.py">merge_sorted_arrays.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Search a sorted array for the first occurrence of K </h3><br><a href="/binary_search_first_k.py">binary_search_first_k.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Test if an anonymous letter is constructible </h3><br><a href="/anonymous_letter.py">anonymous_letter.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Compute the intersection of two sorted arrays </h3><br><a href="/intersect_sorted_arrays.py">intersect_sorted_arrays.py</a><br><a href="/intersect_sorted_arrays1.py">intersect_sorted_arrays1.py</a><br><a href="/intersect_sorted_arrays2.py">intersect_sorted_arrays2.py</a><br><a href="/intersect_sorted_arrays3.py">intersect_sorted_arrays3.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Render a calendar </h3><br><a href="/rendering_calendar.py">rendering_calendar.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Test if a binary tree satisfies the BST property </h3><br><a href="/is_binary_tree_a_bst.py">is_binary_tree_a_bst.py</a><br><a href="/is_binary_tree_a_bst_bfs.py">is_binary_tree_a_bst_bfs.py</a><br><a href="/is_binary_tree_a_bst_const_space.py">is_binary_tree_a_bst_const_space.y</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Enumerate the power set </h3><br><a href="/power_set.py">power_set.py</a><br><a href="/power_set_alternative.py">power_set_alternative.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Count the number of ways to traverse a 2D array</h3><br><a href="/number_ways.py">number_ways.py</a><br><a href="/number_ways_obstacles.py">number_ways_obstacles.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> The 3-sum problem </h3><br><a href="/3-sum.py">3-sum.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Paint a Boolean matrix </h3><br><a href="/painting_iterative.py">painting_iterative.py</a><br><a href="/painting_recursive.py">painting_recursive.py</a><p></p>
+<p></p><h3 style="margin-bottom: 0px;"> Analyze two unsynchronized interleaved threads </h3><br><a href="/two_thread_increment.py">two_thread_increment.py</a><br><p></p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[EPI Ebook on Google Play]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/11/28/2014-11-16-ebook/</url>
+      <content type="html"><![CDATA[<h1 id="<!-￼0->"></h1><p>The single biggest request from our readers has been for an Ebook.</p>
+<p><b>We’re happy to announce EPI is now available as an Ebook through Google Play!</b></p>
+<p>Here’s the<br><a href="https://play.google.com/store/books/details/Adnan_Aziz_Elements_of_Programming_Interviews?id=y6FLBQAAQBAJ" target="_blank" rel="external">link</a>, which includes a sample.</p>
+<p>You can read Google Play books on Android, IOS, and your computer:<br><a href="https://support.google.com/googleplay/answer/2851658?hl=en" target="_blank" rel="external">Android instructions</a>,<br><a href="https://support.google.com/googleplay/answer/188504?hl=en" target="_blank" rel="external">IOS instructions</a>,<br><a href="https://support.google.com/googleplay/answer/185545" target="_blank" rel="external">reading on your computer</a>.</p>
+<p>The Ebook is identical to the printed copy.</p>
+<p>Read our post <a href="2014/04/08/epi-features/">EPI in a nutshell</a> to get a broader overview of our book.</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Why we wrote EPI]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/11/28/2014-08-29-why/</url>
+      <content type="html"><![CDATA[<h1 id="<!-￼0->"></h1><p><b>We wrote EPI for you!</b></p>
+<p>EPI began as a Google Doc which we prepared for our friends who wanted to join companies<br>like Google, Facebook, Amazon, Microsoft, as well as hot startups.</p>
+<p>Like you, they had talent, but were not familiar with the interviewing style<br>at these companies, and often failed to land their dream job.</p>
+<p>For example, many of our friends had engineering and science degrees, or had been out of college for a while,<br>and were not prepared for data structures and algorithms interview questions.</p>
+<p>EPI evens the playing field. Combined with your hard work, it will enable you<br>to interview successfully at the best companies.</p>
+<p>Read our post <a href="2014/04/08/epi-features/">EPI in a nutshell</a> to get a broader overview of our book.</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[EPI in a nutshell]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/11/28/2014-04-08-epi-features/</url>
+      <content type="html"><![CDATA[<h1 id="<!-￼0->"></h1><h2>Problem-driven approach</h2><br>EPI includes over 300 solved problems<br>representative of those asked at leading software companies.<br><p><br>With the exception of approximately 20 design problems, the<br>problems are designed to be codable in a 60 minute interview.<br></p><p><br>For many problems, at the end of its solution,<br>we describe a large number of variants.<br></p><p><br>We include a hints section, which consists of 1-2 sentence<br>suggestions, similar to what your interviewer will give you when you are stuck.<br></p><p><br><br><br></p><h2>The inside story</h2>
+
+<p>All three of us successfully made it through the Google interview process, and went on to<br>work at Google, where, among other things, we interviewed candidates for our teams.</p>
+<p></p><p><br>We have complementary backgrounds  (large company, startup, academia)<br>and have held multiple roles (individual contributor, tech lead, CTO, consultant, professor),<br>that gives us unparalleled insight into the job market.</p>
+<p></p><p><br>In addition to Google, some of the other places we have worked at include<br>Facebook, Microsoft, IBM, Qualcomm, and Synopsys, as well as a number of start-ups.<br>We have studied and taught at leading universities in the US (Berkeley, Texas) and<br>internationally (IIT Kanpur, National Tsing Hua University).</p>
+<p>
+
+</p><h2>Study guide</h2>
+
+<p>We specify subsets of problems to solve and to review on based on the amount of time you<br>can commit, ranging from a weekend hackathon (intense!), to an hour a day for a semester.</p>
+<p>
+
+</p><h2>Commitment to excellence</h2><br>We have used best-in-class practices in the development of EPI: LaTeX for document<br>preparation, GitHub for revision control, agile development, continuous integration, unit testing.<br><p><br></p><p><br>As a concrete example, we have close to 200 figures in our book. These<br>were prepared using the TikZ extensions to LaTeX, which allow us to programmatically<br>specify figures, leading to much clearer illustrations.<br></p><p><br><br></p><h2>Tested programs</h2><br>EPI solutions are mostly written in C++. (The programs illustrating concurrency<br>are in Java.)<br><p><br><br>We have developed Java equivalents to the C++ programs. Both<br>C++ and Java versions for all problems, including test cases,<br>available from Google Code and GitHub. See code link in the sidebar for details.<br><br></p><h2>Nontechnical aspects of interviewing</h2>
+
+<p>In a seperate chapter, we present a set of 14 data structure, algorithm, and design patterns -<br>useful general problem solving techniques that you can apply when you are stumped. We<br>have suggestions on when and where to apply them, as well as examples illustrating their use.</p>
+<p>
+
+</p><p>We describe how to prepare for an interview, how to conduct yourself<br>during the interview, and what to do afterwards. This review covers the<br>technical (selecting variable names, memory management)<br>as well as nontechnical (what to wear, what not to say).<br>We present insights into<br>the different company cultures, and how it impacts how you need to present yourself.</p>
+<p>
+
+</p><p>We give a brief account of interviewing from the interviewer’s  perspective.<br>In addition to being useful to anyone interviewing, this is useful for any<br>engineer conducting an interview.</p>
+<p>
+
+
+</p>]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[EPI 2.0]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/11/28/2015-08-20-java-review/</url>
+      <content type="html"><![CDATA[<h1 id="<!-￼0->"></h1><h3>The draft version of EPI in Java is ready!</h3>
+
+<p>EPI is a community book - its content, quality, and very existence,<br>are a testament to the engagement and enthusiasm of its readers.</p>
+<p>In this spirit, we are asking readers to help us by providing<br>feedback on 1-2 chapters on the Java draft.</p>
+<p>By acting as a reviewer, you will get </p>
+<ol><br><li>a chance to perfect your interviewing skills,<br></li><li> an early look at the book,<br></li><li> our undying gratitude, and,<br></li><li> a free hardcopy of the book, <em>if</em> you are one of the first 25 reviewers or make great contributions to this review.<br></li></ol>
+
+<p><del>If you are interested, please sign up via this <!--<a href="http://goo.gl/forms/a9CsMJFXbn">-->Google form<!--</a>-->.</del></p>
+<font color="red"><b>Due to enormous interest, we are no longer signing up reviewers. If you are very keen on participating,<br>please write directly to us - you can use adnan.aziz@gmail.com.</b></font>
+
+<p>We expect reviewers to spend one to two afternoons going through<br>the chapter, and identify an issue every 1 to 2 pages. The text is very similar to that of<br>the current version - the big difference is in the programs which are now in Java. </p>
+<p>The perfect is the enemy of the good - please send us your inputs as soon as you can. (We are hoping<br>to have a substantial amount of feedback by the end of August.)</p>
+<p>Issues can be typos, language that is misleading, suboptimum solutions, bad programming practices - in short<br>anything that can improve the quality of the book.<br>Every individual issue you identify should be reported through a Google form, which you<br>can view <a href="http://goo.gl/forms/x0DJqUcP6e" target="_blank" rel="external">here</a>.</p>
+<p>Here are some examples of issues reported by readers.<br>Note how specific these suggestions are - they have details on where the issue was, what the problem was, what the right wording should be, etc.</p>
+<ol><br><li> Typo: 3rd paragraph, 3rd line: “<0, 7="" 0,="" 2,="" 3,="" 5,="">“. According to the input array, it should be “<0, 7="" 0,="" 2,="" 3,="" 6,="">“, because when we reach day 6, the max profit is 14 - 8 = 6, not 14 - 9 = 5.<br>This means on the last line of this paragraph, the last two elements in M should be 8 and 6 (instead of 7 and 5).<br><li> Comment: Why in problem 6.19 and the variant, we need to assume that n = 2^k? This condition is not really used in current solutions (unless you meant to discuss an alternate solution that uses divide and conquer to rotate the matrix by quarters).<br></li><li> Clarification: Solution 12.14: I feel the parameters in recursive function are confusing. Would it not be better to use two integers to keep track of the number of left parens we need and the number of right parens we need? If the first one is larger than 0, then we can add either left or right paren; otherwise we just add right parens. When both are 0, we save the valid prefix.<br></li><li> Error: Program in Solution 8.4 goes into an infinite loop<br>if there are duplicates entries in the input list. The problem statement should either explicitly<br>rule that out, or you should use a container which supports duplicate entries.<br></li><li> Suggestion: Drop Variant 10.16.1, as it is effectively the same as Problem 10.18.<br></li></0,></0,></li></ol>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Elements of Programming Interviews in Java]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/11/28/2015-09-23-epi-java/</url>
+      <content type="html"><![CDATA[<h1 id="<!-￼0->"></h1><p><b>The Java version of EPI is <strike>in press</strike> ready!</b></p>
+<p><img src="/epi-java-thumbnail.png"></p>
+<p>With tag:</p>
+<p><img src="epi-java-thumbnail.png" alt=""></p>
+<strike>It should be available from Amazon in a few days.<br>We will post a direct link to the Amazon page when it is ready.</strike>
+
+<p><b>It’s here!</b></p><p></p>
+<p><a href="http://www.amazon.com/Elements-Programming-Interviews-Java-Insiders/dp/1517435803/" target="_blank" rel="external">Link</a> to Amazon page<br>for EPI in Java.</p>
+<p></p><p><br><img src="/epi-java-amzn.png" width="600"></p>
+<p>
+
+</p><p>The only difference between the original EPI and EPI in Java is that<br>the programs are now in Java instead of C++. (We also have a short chapter<br>on Java, which includes best coding practices for an interview and a small<br>number of language review questions; this replaces the similar chapter on C++<br>in the original EPI.)</p>
+<p>All programs, Java and C++, are always available from the website.</p>
+<p>We will continue to sell the original EPI for readers who prefer C++.</p>
+]]></content>
+    </entry>
+    
+  
+  
+</search>
