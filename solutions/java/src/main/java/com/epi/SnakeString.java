@@ -3,47 +3,46 @@ package com.epi;
 import java.util.Random;
 
 public class SnakeString {
-  // @include
-  public static String snakeString(String s) {
-    String result = "";
-    // Outputs the first row, i.e., s[1], s[5], s[9], ...
-    for (int i = 1; i < s.length(); i += 4) {
-      result += s.charAt(i);
-    }
-    // Outputs the second row, i.e., s[0], s[2], s[4], ...
-    for (int i = 0; i < s.length(); i += 2) {
-      result += s.charAt(i);
-    }
-    // Outputs the third row, i.e., s[3], s[7], s[11], ...
-    for (int i = 3; i < s.length(); i += 4) {
-      result += s.charAt(i);
-    }
-    return result;
-  }
-  // @exclude
+   public static void main(String[] args) {
+        String s = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mollis, purus id scelerisque " +
+                "sollicitudin, nisl urna laoreet mauris, eget vestibulum nibh ligula at augue. Donec et finibus";
 
-  private static String randString(int len) {
-    Random r = new Random();
-    StringBuilder ret = new StringBuilder(len);
-    while (len-- > 0) {
-      ret.append((char)(r.nextInt(26) + 'A'));
-    }
-    return ret.toString();
-  }
+        int verticalHt = 20;
 
-  private static void smallTest() {
-    assert(snakeString("Hello World!").equals("e lHloWrdlo!"));
-  }
-
-  public static void main(String[] args) {
-    smallTest();
-    Random r = new Random();
-    String s;
-    if (args.length == 1) {
-      s = args[0];
-    } else {
-      s = randString(r.nextInt(100) + 1);
+        printSin(s,verticalHt);
     }
-    System.out.println(snakeString(s));
-  }
+
+    private static void printSin(String s, int verticalHt) {
+        char[][] grid = new char[verticalHt][s.length()];
+        double v = (Math.PI*10)/(s.length());
+        double x=0;
+        for (int i=0; i<s.length(); i++)
+        {
+            int h = (int) (verticalHt*Math.sin(x)/2)+verticalHt/2;
+            if(h==verticalHt)
+             h--;
+            /**
+             * h would be calculated based on sin function 
+             * Sin would return values between -1 and +1 , 
+             * which should corrosponds to 0 to vertical height of grid
+             * -1 should give 0
+             * 0 should give verticalHt/2
+             * +1 should give (verticalHt-1)
+             * intermediate values are dependent on value of Sine function 
+             */
+            x+=v;
+            System.out.println(h);
+            grid[h][i] = s.charAt(i);
+        }
+        for (int i=0; i< verticalHt; i++)
+        {
+            for (int j = 0; j < s.length(); j++) {
+                if(grid[i][j]!=0)
+                    System.out.print(grid[i][j]);
+                else
+                    System.out.print(" ");
+            }
+            System.out.println();
+        }
+    }
 }
