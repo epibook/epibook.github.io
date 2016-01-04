@@ -28,17 +28,18 @@ void PrintMatrix(const vector<deque<bool>>& A) {
 }
 
 // @include
-void FilpColor(int x, int y, vector<deque<bool>>* A) {
-  const array<array<int, 2>, 4> dir = {
+void FlipColor(int x, int y, vector<deque<bool>>* A_ptr) {
+  vector<deque<bool>>& A = *A_ptr;
+  const array<array<int, 2>, 4> kDirs = {
       {{{0, 1}}, {{0, -1}}, {{1, 0}}, {{-1, 0}}}};
-  const bool color = (*A)[x][y];
+  const bool color = A[x][y];
 
-  (*A)[x][y] = !(*A)[x][y];  // Flips.
-  for (const auto& d : dir) {
-    const int nx = x + d[0], ny = y + d[1];
-    if (nx >= 0 && nx < A->size() && ny >= 0 && ny < (*A)[nx].size() &&
-        (*A)[nx][ny] == color) {
-      FilpColor(nx, ny, A);
+  A[x][y] = !color;  // Flips.
+  for (const array<int, 2>& dir : kDirs) {
+    const int next_x = x + dir[0], next_y = y + dir[1];
+    if (next_x >= 0 && next_x < A.size() && next_y >= 0 &&
+        next_y < A[next_x].size() && A[next_x][next_y] == color) {
+      FlipColor(next_x, next_y, A_ptr);
     }
   }
 }
@@ -64,7 +65,7 @@ int main(int argc, char* argv[]) {
   size_t i = dis(gen), j = dis(gen);
   cout << "color = " << i << ' ' << j << ' ' << A[i][j] << endl;
   PrintMatrix(A);
-  FilpColor(static_cast<int>(i), static_cast<int>(j), &A);
+  FlipColor(static_cast<int>(i), static_cast<int>(j), &A);
   cout << endl;
   PrintMatrix(A);
   return 0;

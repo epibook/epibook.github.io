@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <iostream>
@@ -16,8 +16,11 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-// Returns a pair of (duplicate, missing).
-pair<int, int> FindDuplicateMissing(const vector<int>& A) {
+struct DuplicateAndMissing {
+  int duplicate, missing;
+};
+
+DuplicateAndMissing FindDuplicateMissing(const vector<int>& A) {
   // Compute the XOR of all numbers from 0 to |A| - 1 and all entries in A.
   int miss_XOR_dup = 0;
   for (int i = 0; i < A.size(); ++i) {
@@ -53,23 +56,22 @@ pair<int, int> FindDuplicateMissing(const vector<int>& A) {
 }
 // @exclude
 
-void SmallTest() {
+void SimpleTest() {
   vector<int> A = {0, 1, 2, 4, 5, 6, 6};
   auto ans = FindDuplicateMissing(A);
-  cout << ans.first << " " << ans.second << endl;
-  assert(ans.first == 6 && ans.second == 3);
+  assert(ans.duplicate == 6 && ans.missing == 3);
 
-  A = {0,0,1};
+  A = {0, 0, 1};
   ans = FindDuplicateMissing(A);
-  assert(ans.first == 0 && ans.second == 2);
-  
-  A = {1,3,2,5,3,4};
+  assert(ans.duplicate == 0 && ans.missing == 2);
+
+  A = {1, 3, 2, 5, 3, 4};
   ans = FindDuplicateMissing(A);
-  assert(ans.first == 3 && ans.second == 0);
+  assert(ans.duplicate == 3 && ans.missing == 0);
 }
 
 int main(int argc, char* argv[]) {
-  SmallTest();
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int n;
@@ -90,11 +92,11 @@ int main(int argc, char* argv[]) {
     }
     int dup = A[dup_idx];
     A[missing_idx] = dup;
-    pair<int, int> ans = FindDuplicateMissing(A);
+    DuplicateAndMissing ans = FindDuplicateMissing(A);
     cout << "times = " << times << endl;
     cout << dup << ' ' << missing << endl;
-    cout << ans.first << ' ' << ans.second << endl;
-    assert(ans.first == dup && ans.second == missing);
+    cout << ans.duplicate << ' ' << ans.missing << endl;
+    assert(ans.duplicate == dup && ans.missing == missing);
   }
   return 0;
 }

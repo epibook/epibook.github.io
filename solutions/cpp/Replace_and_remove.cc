@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <iostream>
@@ -13,23 +13,22 @@ using std::string;
 using std::uniform_int_distribution;
 
 // @include
-string ReplaceAndRemove(string s) {
+int ReplaceAndRemove(int size, char s[]) {
   // Forward iteration: remove "b"s and count the number of "a"s.
   int write_idx = 0, a_count = 0;
-  for (const char &c : s) {
-    if (c != 'b') {
-      s[write_idx++] = c;
+  for (int i = 0; i < size; ++i) {
+    if (s[i] != 'b') {
+      s[write_idx++] = s[i];
     }
-    if (c == 'a') {
+    if (s[i] == 'a') {
       ++a_count;
     }
   }
 
-  // Allocates space according to the number of "a".
-  s.resize(write_idx + a_count);
   // Backward iteration: replace "a"s with "dd"s starting from the end.
   int cur_idx = write_idx - 1;
-  write_idx = s.size() - 1;
+  write_idx = write_idx + a_count - 1;
+  int final_size = write_idx + 1;
   while (cur_idx >= 0) {
     if (s[cur_idx] == 'a') {
       s[write_idx--] = 'd';
@@ -39,7 +38,7 @@ string ReplaceAndRemove(string s) {
     }
     --cur_idx;
   }
-  return s;
+  return final_size;
 }
 // @exclude
 
@@ -76,9 +75,10 @@ int main(int argc, char *argv[]) {
       s = RandString(dis(gen));
     }
     cout << s << endl << endl;
-    string ans = ReplaceAndRemove(s);
-    cout << ans << endl;
-    CheckAns(s, ans);
+    char *s_copy = new char[(s.size() << 1) + 1];
+    strcpy(s_copy, s.c_str());
+    int final_size = ReplaceAndRemove(s.size(), s_copy);
+    CheckAns(s, string(s_copy, final_size));
   }
   return 0;
 }

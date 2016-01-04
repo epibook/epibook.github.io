@@ -24,13 +24,9 @@ void find_kth_largest_stream(istringstream* sin, int k) {
   priority_queue<int, vector<int>, greater<int>> min_heap;
   // The first k elements, output the minimum element.
   int x;
-  // @exclude
   // clang-format off
-  // @include
   for (int i = 0; i < k && *sin >> x; ++i) {
-    // @exclude
     // clang-format on
-    // @include
     min_heap.emplace(x);
     cout << min_heap.top() << endl;
   }
@@ -45,6 +41,24 @@ void find_kth_largest_stream(istringstream* sin, int k) {
   }
 }
 // @exclude
+
+static void simpleTest() {
+  int A[] = new int[]{5, 6, 2, 1, 3, 0, 4};
+  simpleTestArray(A);
+  A = new int[]{5, -1, 2, 1, 3, 1, 4, Integer.MAX_VALUE, 5};
+  simpleTestArray(A);
+  int N = 1000;
+  A = new int[N];
+  Random r = new Random();
+  for (int i = 0; i < A.length; ++i) {
+    A[i] = r.nextInt(10);
+  }
+  simpleTestArray(A);
+  for (int i = 0; i < A.length; ++i) {
+    A[i] = r.nextInt(100000000);
+  }
+  simpleTestArray(A);
+}
 
 int main(int argc, char* argv[]) {
   default_random_engine gen((random_device())());

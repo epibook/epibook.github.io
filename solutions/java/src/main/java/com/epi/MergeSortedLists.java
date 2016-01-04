@@ -48,8 +48,8 @@ public class MergeSortedLists {
     L1 = new ListNode(-123, null);
     L2 = new ListNode(123, null);
     result = mergeTwoSortedLists(L1, L2);
-    assert(result.data == -123 && result.next.data == 123 &&
-           result.next.next == null);
+    assert(result.data == -123 && result.next.data == 123
+           && result.next.next == null);
   }
 
   public static void main(String[] args) {

@@ -26,10 +26,10 @@ public class DrawingSkylines {
       return new ArrayList<>(buildings.subList(leftEndpoint, rightEndpoint));
     }
     int mid = leftEndpoint + ((rightEndpoint - leftEndpoint) / 2);
-    List<Rectangle> leftSkyline =
-        computeSkylineInInterval(buildings, leftEndpoint, mid);
-    List<Rectangle> rightSkyline =
-        computeSkylineInInterval(buildings, mid, rightEndpoint);
+    List<Rectangle> leftSkyline
+        = computeSkylineInInterval(buildings, leftEndpoint, mid);
+    List<Rectangle> rightSkyline
+        = computeSkylineInInterval(buildings, mid, rightEndpoint);
     return mergeSkylines(leftSkyline, rightSkyline);
   }
 
@@ -44,8 +44,8 @@ public class DrawingSkylines {
       } else if (rightSkyline.get(j).right < leftSkyline.get(i).left) {
         merged.add(rightSkyline.get(j++));
       } else if (leftSkyline.get(i).left <= rightSkyline.get(j).left) {
-        boolean advanceFirst = mergeIntersectSkylines(merged, leftSkyline.get(i),
-                                                      rightSkyline.get(j));
+        boolean advanceFirst = mergeIntersectSkylines(
+            merged, leftSkyline.get(i), rightSkyline.get(j));
         if (advanceFirst) {
           i++;
         } else {
@@ -53,8 +53,8 @@ public class DrawingSkylines {
         }
 
       } else { // leftSkyline.get(i).left > rightSkyline.get(j).left.
-        boolean advanceFirst = mergeIntersectSkylines(merged, rightSkyline.get(j),
-                                                      leftSkyline.get(i));
+        boolean advanceFirst = mergeIntersectSkylines(
+            merged, rightSkyline.get(j), leftSkyline.get(i));
         if (advanceFirst) {
           j++;
         } else {
@@ -104,6 +104,18 @@ public class DrawingSkylines {
   }
   // @exclude
 
+  private static void checkAnswer(List<Rectangle> ans) {
+    // Just check there is no overlap.
+    for (int i = 0; i < ans.size(); ++i) {
+      assert(ans.get(i).left <= ans.get(i).right);
+      if (i > 0) {
+        assert(ans.get(i - 1).right <= ans.get(i).left);
+        assert(ans.get(i - 1).right != ans.get(i).left
+               || ans.get(i - 1).height != ans.get(i).height);
+      }
+    }
+  }
+
   public static void main(String[] args) {
     Random r = new Random();
     for (int times = 0; times < 2000; ++times) {
@@ -122,15 +134,7 @@ public class DrawingSkylines {
       }
       List<Rectangle> ans = drawingSkylines(A);
       System.out.println("n = " + n);
-      // Just check there is no overlap.
-      for (int i = 0; i < ans.size(); ++i) {
-        assert(ans.get(i).left <= ans.get(i).right);
-        if (i > 0) {
-          assert(ans.get(i - 1).right <= ans.get(i).left);
-          assert(ans.get(i - 1).right != ans.get(i).left ||
-                 ans.get(i - 1).height != ans.get(i).height);
-        }
-      }
+      checkAnswer(ans);
     }
   }
 }

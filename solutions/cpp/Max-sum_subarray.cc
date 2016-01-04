@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <iostream>
@@ -9,15 +9,20 @@
 using std::cout;
 using std::default_random_engine;
 using std::endl;
-using std::pair;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-pair<int, int> FindMaximumSubarray(const vector<int>& A) {
-  // A[range.first : range.second - 1] will be the maximum subarray.
-  pair<int, int> range(0, 0);
+// Used to represent subarry consisting of elements from index start
+// (inclusive) to index end (exclusive)
+struct Subarray {
+  int start = 0, end = 0;
+};
+
+Subarray FindMaximumSubarray(const vector<int>& A) {
+  // A[range.start : range.end - 1] will be the maximum subarray.
+  Subarray range;
   int min_idx = -1, min_sum = 0, sum = 0, max_sum = 0;
   for (int i = 0; i < A.size(); ++i) {
     sum += A[i];
@@ -33,14 +38,14 @@ pair<int, int> FindMaximumSubarray(const vector<int>& A) {
 // @exclude
 
 /*
-pair<int, int> FindMaximumSubarray(vector<int> &A) {
+Subarray FindMaximumSubarray(vector<int> &A) {
   int maximum_till = A[0], maximum = A[0];
-  pair<int, int> range_max_till(0, 0), range_max(0, 0);
+  Subarray range_max_till(0, 0), range_max(0, 0);
   for (int i = 1; i < A.size(); ++i) {
     if (A[i] > A[i] + maximum_till) {
-      maximum_till = A[i], range_max_till = pair<int, int>(i, i);
+      maximum_till = A[i], range_max_till = Subarray(i, i);
     } else {
-      maximum_till = A[i] + maximum_till, range_max_till.second = i;
+      maximum_till = A[i] + maximum_till, range_max_till.end = i;
     }
     if (maximum_till > maximum) {
       maximum = maximum_till, range_max = range_max_till;
@@ -62,9 +67,9 @@ vector<T> RandVector(int len) {
 }
 
 template <typename T>
-void CheckMaxSum(const vector<T>& A, const pair<int, int>& range) {
+void CheckMaxSum(const vector<T>& A, const Subarray& range) {
   T max_sum = 0;
-  for (int i = range.first; i < range.second; ++i) {
+  for (int i = range.start; i < range.end; ++i) {
     max_sum += A[i];
   }
   for (int i = 0; i < A.size(); ++i) {
@@ -78,32 +83,32 @@ void CheckMaxSum(const vector<T>& A, const pair<int, int>& range) {
 
 void SmallTest() {
   vector<int> B = {1};
-  pair<int, int> range = FindMaximumSubarray(B);
-  cout << range.first << " " << range.second << endl;
+  Subarray range = FindMaximumSubarray(B);
+  cout << range.start << " " << range.end << endl;
   CheckMaxSum(B, range);
   B = {-5};
   range = FindMaximumSubarray(B);
-  cout << range.first << " " << range.second << endl;
+  cout << range.start << " " << range.end << endl;
   CheckMaxSum(B, range);
   B = {0};
   range = FindMaximumSubarray(B);
-  cout << range.first << " " << range.second << endl;
+  cout << range.start << " " << range.end << endl;
   CheckMaxSum(B, range);
   B = {0, 0};
   range = FindMaximumSubarray(B);
-  cout << range.first << " " << range.second << endl;
+  cout << range.start << " " << range.end << endl;
   CheckMaxSum(B, range);
   B = {0, 0, 0};
   range = FindMaximumSubarray(B);
-  cout << range.first << " " << range.second << endl;
+  cout << range.start << " " << range.end << endl;
   CheckMaxSum(B, range);
   B = {0, -5, 0};
   range = FindMaximumSubarray(B);
-  cout << range.first << " " << range.second << endl;
+  cout << range.start << " " << range.end << endl;
   CheckMaxSum(B, range);
   B = {-2, -1};
   range = FindMaximumSubarray(B);
-  cout << range.first << " " << range.second << endl;
+  cout << range.start << " " << range.end << endl;
   CheckMaxSum(B, range);
 }
 
@@ -123,8 +128,8 @@ int main(int argc, char* argv[]) {
         A.push_back(atoi(argv[i]));
       }
     }
-    pair<int, int> range = FindMaximumSubarray(A);
-    cout << range.first << " " << range.second << endl;
+    Subarray range = FindMaximumSubarray(A);
+    cout << range.start << " " << range.end << endl;
     CheckMaxSum(A, range);
   }
   return 0;

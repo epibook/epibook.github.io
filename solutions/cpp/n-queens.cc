@@ -78,8 +78,8 @@ static void SimpleTest() {
   result = NQueens(4);
   assert(2 == result.size());
 
-  vector<int> place1 = {1,3,0,2};
-  vector<int> place2 = {2,0,3,1};
+  vector<int> place1 = {1, 3, 0, 2};
+  vector<int> place2 = {2, 0, 3, 1};
   assert(result[0] == place1 || result[0] == place2);
   assert(result[1] == place1 || result[1] == place2);
   assert(result[0] != result[1]);
@@ -97,7 +97,7 @@ int main(int argc, char** argv) {
   }
   cout << "n = " << n << endl;
   auto result = NQueens(n);
-  for (const auto& vec : result) {
+  for (const vector<int>& vec : result) {
     vector<string> text_rep = ToTextRepresentation(vec);
     for (const string& s : text_rep) {
       cout << s << endl;

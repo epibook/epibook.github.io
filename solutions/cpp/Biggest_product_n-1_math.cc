@@ -40,11 +40,12 @@ int FindBiggestNMinusOneProduct(const vector<int>& A) {
   }
 
   int product = 1;
-  int idx_to_skip = number_of_negatives % 2
-                        ? least_negative_idx
-                        // Check if there are any nonnegative entry.
-                        : (least_nonnegative_idx != -1 ? least_nonnegative_idx
-                                                       : greatest_negative_idx);
+  int idx_to_skip =
+      number_of_negatives % 2
+          ? least_negative_idx
+          // Check if there are any nonnegative entry.
+          : (least_nonnegative_idx != -1 ? least_nonnegative_idx
+                                         : greatest_negative_idx);
   for (int i = 0; i < A.size(); ++i) {
     if (i != idx_to_skip) {
       product *= A[i];

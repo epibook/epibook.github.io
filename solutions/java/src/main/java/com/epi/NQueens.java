@@ -55,7 +55,7 @@ public class NQueens {
     return sol;
   }
 
-  private static void SimpleTest() {
+  private static void simpleTest() {
     List<List<Integer>> result = nQueens(2);
     assert(0 == result.size());
 
@@ -64,19 +64,21 @@ public class NQueens {
 
     result = nQueens(4);
     assert(2 == result.size());
-    assert(result.get(0).equals(Arrays.asList(1,3,0,2)) || result.get(0).equals(Arrays.asList(2,0,3,1)));
-    assert(result.get(1).equals(Arrays.asList(1,3,0,2)) || result.get(1).equals(Arrays.asList(2,0,3,1)));
+    assert(result.get(0).equals(Arrays.asList(1, 3, 0, 2))
+           || result.get(0).equals(Arrays.asList(2, 0, 3, 1)));
+    assert(result.get(1).equals(Arrays.asList(1, 3, 0, 2))
+           || result.get(1).equals(Arrays.asList(2, 0, 3, 1)));
     assert(!result.get(0).equals(result.get(1)));
   }
 
   public static void main(String[] args) {
-    SimpleTest();
+    simpleTest();
     Random r = new Random();
     int n;
     if (args.length == 1) {
       n = Integer.parseInt(args[0]);
     } else {
-      n = r.nextInt(15) + 1;
+      n = r.nextInt(10) + 1;
     }
     System.out.println("n = " + n);
     List<List<Integer>> result = nQueens(n);

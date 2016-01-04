@@ -1,13 +1,17 @@
 package com.epi.utils;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.util.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 public class Utils {
   private static Random random;
@@ -71,11 +75,6 @@ public class Utils {
   /**
    * Fills the range [from, to) with sequentially increasing values, starting
    * with value and repetitively evaluating ++value.
-   *
-   * @param array
-   * @param from
-   * @param to
-   * @param value
    */
   public static void iota(int[] array, int from, int to, int value) {
     for (int i = from; i < to; ++i) {
@@ -86,10 +85,6 @@ public class Utils {
   /**
    * Fills the list with sequentially increasing values, starting with value and
    * repetitively evaluating ++value.
-   *
-   * @param list
-   * @param numOfElements
-   * @param value
    */
   public static void iota(List<Integer> list, int numOfElements, int value) {
     for (int i = 1; i <= numOfElements; ++i) {
@@ -100,10 +95,6 @@ public class Utils {
   /**
    * Fills the list with sequentially increasing values, starting with value and
    * repetitively evaluating ++value.
-   *
-   * @param list
-   * @param numOfElements
-   * @param value
    */
   public static void iota(List<Double> list, int numOfElements, double value) {
     for (int i = 1; i <= numOfElements; ++i) {
@@ -167,5 +158,19 @@ public class Utils {
       System.out.println("IOException: " + e.getMessage());
     }
     return null;
+  }
+
+  public static void closeSilently(Closeable... closeables) {
+    if (closeables != null) {
+      for (Closeable closeable : closeables) {
+        if (closeable != null) {
+          try {
+            closeable.close();
+          } catch (Exception e) {
+            // We dont' care.
+          }
+        }
+      }
+    }
   }
 }

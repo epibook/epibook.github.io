@@ -1,5 +1,7 @@
 package com.epi;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class FindMissingAndDuplicate {
@@ -14,11 +16,11 @@ public class FindMissingAndDuplicate {
     }
   }
 
-  public static DuplicateAndMissing findDuplicateMissing(int[] A) {
+  public static DuplicateAndMissing findDuplicateMissing(List<Integer> A) {
     int sum = 0, squareSum = 0;
-    for (int i = 0; i < A.length; ++i) {
-      sum += i - A[i];
-      squareSum += i * i - A[i] * A[i];
+    for (int i = 0; i < A.size(); ++i) {
+      sum += i - A.get(i);
+      squareSum += i * i - A.get(i) * A.get(i);
     }
     return new DuplicateAndMissing((squareSum / sum - sum) / 2,
                                    (squareSum / sum + sum) / 2);
@@ -34,18 +36,18 @@ public class FindMissingAndDuplicate {
       } else {
         n = r.nextInt(9999) + 2;
       }
-      int[] A = new int[n];
+      List<Integer> A = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
-        A[i] = i;
+        A.add(i);
       }
       int missingIdx = r.nextInt(n);
-      int missing = A[missingIdx];
+      int missing = A.get(missingIdx);
       int dupIdx = r.nextInt(n);
       while (dupIdx == missingIdx) {
         dupIdx = r.nextInt(n);
       }
-      int dup = A[dupIdx];
-      A[missingIdx] = dup;
+      int dup = A.get(dupIdx);
+      A.set(missingIdx, dup);
       DuplicateAndMissing ans = findDuplicateMissing(A);
       System.out.println("times = " + times);
       System.out.println(dup + " " + missing);

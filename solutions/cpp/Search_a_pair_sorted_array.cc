@@ -18,77 +18,90 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
-template <typename Comp>
-pair<int, int> FindPairUsingComp(const vector<int>& A, int k, Comp comp);
-pair<int, int> FindPositiveNegativePair(const vector<int>& A, int k);
+struct IndexPair;
+template <typename Compare>
+IndexPair FindPairUsingCompare(const vector<int>&, int, Compare);
+IndexPair FindPositiveNegativePair(const vector<int>&, int);
 
 // @include
-pair<int, int> FindPairSumK(const vector<int>& A, int k) {
-  pair<int, int> result = FindPositiveNegativePair(A, k);
-  if (result.first == -1 && result.second == -1) {
-    return k >= 0 ? FindPairUsingComp(A, k, less<int>())
-                  : FindPairUsingComp(A, k, greater_equal<int>());
+struct IndexPair {
+  int index_1, index_2;
+};
+
+IndexPair FindPairSumK(const vector<int>& A, int k) {
+  IndexPair result = FindPositiveNegativePair(A, k);
+  if (result.index_1 == -1 && result.index_2 == -1) {
+    return k >= 0 ? FindPairUsingCompare(A, k, less<int>())
+                  : FindPairUsingCompare(A, k, greater_equal<int>());
   }
   return result;
 }
 
-template <typename Comp>
-pair<int, int> FindPairUsingComp(const vector<int>& A, int k, Comp comp) {
-  pair<int, int> result(0, A.size() - 1);
-  while (result.first < result.second && comp(A[result.first], 0)) {
-    ++result.first;
+template <typename Compare>
+IndexPair FindPairUsingCompare(const vector<int>& A, int k, Compare comp) {
+  IndexPair result = IndexPair{0, static_cast<int>(A.size() - 1)};
+  while (result.index_1 < result.index_2 && comp(A[result.index_1], 0)) {
+    ++result.index_1;
   }
-  while (result.first < result.second && comp(A[result.second], 0)) {
-    --result.second;
+  while (result.index_1 < result.index_2 && comp(A[result.index_2], 0)) {
+    --result.index_2;
   }
 
-  while (result.first < result.second) {
-    if (A[result.first] + A[result.second] == k) {
+  while (result.index_1 < result.index_2) {
+    if (A[result.index_1] + A[result.index_2] == k) {
       return result;
-    } else if (comp(A[result.first] + A[result.second], k)) {
+    } else if (comp(A[result.index_1] + A[result.index_2], k)) {
       do {
-        ++result.first;
-      } while (result.first < result.second && comp(A[result.first], 0));
+        ++result.index_1;
+      } while (result.index_1 < result.index_2 && comp(A[result.index_1], 0));
     } else {
       do {
-        --result.second;
-      } while (result.first < result.second && comp(A[result.second], 0));
+        --result.index_2;
+      } while (result.index_1 < result.index_2 && comp(A[result.index_2], 0));
     }
   }
   return {-1, -1};  // No answer.
 }
 
-pair<int, int> FindPositiveNegativePair(const vector<int>& A, int k) {
-  // result.first for positive, and result.second for negative.
-  pair<int, int> result(A.size() - 1, A.size() - 1);
+IndexPair FindPositiveNegativePair(const vector<int>& A, int k) {
+  // result.index_1 for positive, and result.index_2 for negative.
+  IndexPair result = IndexPair{static_cast<int>(A.size() - 1),
+                               static_cast<int>(A.size() - 1)};
   // Find the last positive or zero.
-  while (result.first >= 0 && A[result.first] < 0) {
-    --result.first;
+  while (result.index_1 >= 0 && A[result.index_1] < 0) {
+    --result.index_1;
   }
 
   // Find the last negative.
-  while (result.second >= 0 && A[result.second] >= 0) {
-    --result.second;
+  while (result.index_2 >= 0 && A[result.index_2] >= 0) {
+    --result.index_2;
   }
 
-  while (result.first >= 0 && result.second >= 0) {
-    if (A[result.first] + A[result.second] == k) {
+  while (result.index_1 >= 0 && result.index_2 >= 0) {
+    if (A[result.index_1] + A[result.index_2] == k) {
       return result;
-    } else if (A[result.first] + A[result.second] > k) {
+    } else if (A[result.index_1] + A[result.index_2] > k) {
       do {
-        --result.first;
-      } while (result.first >= 0 && A[result.first] < 0);
-    } else {  // A[result.first] + A[result.second] < k.
+        --result.index_1;
+      } while (result.index_1 >= 0 && A[result.index_1] < 0);
+    } else {  // A[result.index_1] + A[result.index_2] < k.
       do {
-        --result.second;
-      } while (result.second >= 0 && A[result.second] >= 0);
+        --result.index_2;
+      } while (result.index_2 >= 0 && A[result.index_2] >= 0);
     }
   }
   return {-1, -1};  // No answer.
 }
 // @exclude
 
+static void SimpleTest() {
+  vector<int> A = {0, 0, -1, 2, -3, -3};
+  IndexPair ans = FindPairSumK(A, 2);
+  assert(ans.index_1 != -1);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 10000; ++times) {
     int n;
@@ -103,16 +116,10 @@ int main(int argc, char* argv[]) {
     generate_n(back_inserter(A), n, [&] { return dis(gen); });
     sort(A.begin(), A.end(), [](int x, int y) { return abs(x) < abs(y); });
     int k = dis(gen);
-    /*
-    for (const int& a : A) {
-      cout << a << " ";
-    }
-    cout << endl << "k = " << k << endl;
-    */
-    pair<int, int> ans = FindPairSumK(A, k);
-    if (ans.first != -1 && ans.second != -1) {
-      assert(A[ans.first] + A[ans.second] == k);
-      cout << A[ans.first] << "+" << A[ans.second] << "=" << k << endl;
+    IndexPair ans = FindPairSumK(A, k);
+    if (ans.index_1 != -1 && ans.index_2 != -1) {
+      assert(A[ans.index_1] + A[ans.index_2] == k);
+      cout << A[ans.index_1] << "+" << A[ans.index_2] << "=" << k << endl;
     } else {
       sort(A.begin(), A.end());
       int l = 0, r = A.size() - 1;

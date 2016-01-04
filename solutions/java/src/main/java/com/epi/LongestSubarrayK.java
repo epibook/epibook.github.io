@@ -15,12 +15,14 @@ public class LongestSubarrayK {
       this.start = start;
       this.end = end;
     }
-
+    // @exclude
+    // clang-format off
     @Override
-    public String toString() {
-      return "[" + start + "," + end + "]";
-    }
+    public String toString() { return "[" + start + "," + end + "]"; }
+    // clang-format on
+    // @include
   }
+
   public static Subarray findLongestSubarrayLessEqualK(List<Integer> A, int k) {
     // Build the prefix sum according to A.
     List<Integer> prefixSum = new ArrayList<>();
@@ -33,7 +35,8 @@ public class LongestSubarrayK {
     List<Integer> minPrefixSum = new ArrayList<>(prefixSum);
 
     for (int i = minPrefixSum.size() - 2; i >= 0; --i) {
-      minPrefixSum.set(i, Math.min(minPrefixSum.get(i), minPrefixSum.get(i + 1)));
+      minPrefixSum.set(i,
+                       Math.min(minPrefixSum.get(i), minPrefixSum.get(i + 1)));
     }
 
     Subarray arrIdx = new Subarray(0, firstGreaterThanKey(minPrefixSum, k) - 1);
@@ -50,14 +53,13 @@ public class LongestSubarrayK {
   // input key.
   // Returns the size of the input array if the key is greater than or equal to
   // all entries in the array.
-  public static <T extends Comparable<T>> int firstGreaterThanKey(List<T> arr,
-                                                                  T key) {
+  public static int firstGreaterThanKey(List<Integer> arr, Integer key) {
     int len = arr.size();
     int lo = 0;
     int hi = len - 1;
     int mid = (lo + hi) / 2;
     while (true) {
-      int cmp = arr.get(mid).compareTo(key);
+      int cmp = Integer.compare(arr.get(mid), key);
       if (cmp <= 0) {
         lo = mid + 1;
         if (hi < lo) {

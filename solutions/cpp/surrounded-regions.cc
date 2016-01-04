@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <array>
@@ -15,14 +15,13 @@ using std::cout;
 using std::default_random_engine;
 using std::deque;
 using std::endl;
-using std::pair;
 using std::random_device;
 using std::stoi;
 using std::uniform_int_distribution;
 using std::vector;
 
-void MarkRegionIfSurrounded(size_t i, size_t j, vector<vector<char>>* board,
-                            vector<deque<bool>>* visited);
+void MarkRegionIfSurrounded(int, int, vector<vector<char>>*,
+                            vector<deque<bool>>*);
 
 // @include
 void FillSurroundedRegions(vector<vector<char>>* board) {
@@ -41,27 +40,29 @@ void FillSurroundedRegions(vector<vector<char>>* board) {
   }
 }
 
-void MarkRegionIfSurrounded(size_t i, size_t j, vector<vector<char>>* board,
+void MarkRegionIfSurrounded(int i, int j, vector<vector<char>>* board,
                             vector<deque<bool>>* visited) {
-  const array<array<int, 2>, 4> dir = {
-      {{{0, 1}}, {{0, -1}}, {{1, 0}}, {{-1, 0}}}};
-  vector<pair<size_t, size_t>> q;  // Uses it as an queue.
-  q.emplace_back(i, j), (*visited)[i][j] = true;
+  struct Coordinate {
+    int x, y;
+  };
+  vector<Coordinate> q;  // Uses it as an queue.
+  q.emplace_back(Coordinate{i, j}), (*visited)[i][j] = true;
   bool is_surrounded = true;
   size_t idx = 0;
   // Uses BFS to traverse this region.
   while (idx < q.size()) {
     const auto curr = q[idx++];
     // A 'W' on the border means this region is not surrounded.
-    if (curr.first == 0 || curr.first == board->size() - 1 ||
-        curr.second == 0 || curr.second == (*board)[curr.first].size() - 1) {
+    if (curr.x == 0 || curr.x == board->size() - 1 || curr.y == 0 ||
+        curr.y == (*board)[curr.x].size() - 1) {
       is_surrounded = false;
     } else {
-      for (const auto& d : dir) {
-        const pair<size_t, size_t> next(curr.first + d[0], curr.second + d[1]);
-        if ((*board)[next.first][next.second] == 'W' &&
-            !(*visited)[next.first][next.second]) {
-          (*visited)[next.first][next.second] = true;
+      const static array<array<int, 2>, 4> kDirs = {
+          {{0, 1}, {0, -1}, {1, 0}, {-1, 0}}};
+      for (const array<int, 2>& d : kDirs) {
+        const Coordinate next = Coordinate{curr.x + d[0], curr.y + d[1]};
+        if ((*board)[next.x][next.y] == 'W' && !(*visited)[next.x][next.y]) {
+          (*visited)[next.x][next.y] = true;
           q.emplace_back(next);
         }
       }
@@ -70,8 +71,8 @@ void MarkRegionIfSurrounded(size_t i, size_t j, vector<vector<char>>* board,
 
   if (is_surrounded) {
     // Marks surrounded regions in q.
-    for (const auto& p : q) {
-      (*board)[p.first][p.second] = 'B';
+    for (const Coordinate& p : q) {
+      (*board)[p.x][p.y] = 'B';
     }
   }
 }

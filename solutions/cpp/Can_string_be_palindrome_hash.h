@@ -7,17 +7,16 @@
 #include <unordered_map>
 #include <utility>
 
-using std::pair;
 using std::string;
 using std::unordered_map;
 
 namespace CanStringBeAPalindromeHash {
 
 // @include
-bool CanStringBeAPalindrome(const string& s) {
+bool CanFormPalindrome(const string& s) {
   unordered_map<char, int> char_frequencies;
   // Compute the frequency of each char in s.
-  for (const auto& c : s) {
+  for (char c : s) {
     ++char_frequencies[c];
   }
 

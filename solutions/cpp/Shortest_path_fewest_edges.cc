@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <deque>
@@ -16,35 +16,45 @@ using std::default_random_engine;
 using std::deque;
 using std::endl;
 using std::numeric_limits;
-using std::pair;
 using std::random_device;
 using std::set;
 using std::uniform_int_distribution;
 using std::vector;
 
 struct GraphVertex;
-void OutputShortestPath(const GraphVertex* v);
+void OutputShortestPath(const GraphVertex*);
 
 // @include
 struct GraphVertex {
-  // distance stores (dis, #edges) pair.
-  pair<int, int> distance = {numeric_limits<int>::max(), 0};
-  vector<pair<GraphVertex&, int>> edges;
+  struct DistanceWithFewestEdges {
+    int distance, min_num_edges;
+  };
+  DistanceWithFewestEdges distance_with_fewest_edges =
+      DistanceWithFewestEdges{numeric_limits<int>::max(), 0};
+
+  struct VertexWithDistance {
+    GraphVertex& vertex;
+    int distance;
+  };
+  vector<VertexWithDistance> edges;
   int id;  // The id of this vertex.
   const GraphVertex* pred = nullptr;  // The predecessor in the shortest path.
 };
 
 struct Comp {
   bool operator()(const GraphVertex* lhs, const GraphVertex* rhs) {
-    return lhs->distance.first < rhs->distance.first ||
-           (lhs->distance.first == rhs->distance.first &&
-            lhs->distance.second < rhs->distance.second);
+    return lhs->distance_with_fewest_edges.distance <
+               rhs->distance_with_fewest_edges.distance ||
+           (lhs->distance_with_fewest_edges.distance ==
+                rhs->distance_with_fewest_edges.distance &&
+            lhs->distance_with_fewest_edges.min_num_edges <
+                rhs->distance_with_fewest_edges.min_num_edges);
   }
 };
 
 void DijkstraShortestPath(GraphVertex* s, const GraphVertex* t) {
-  // Initialization the distance of starting point.
-  s->distance = {0, 0};
+  // Initialization of the distance of starting point.
+  s->distance_with_fewest_edges = {0, 0};
   set<GraphVertex*, Comp> node_set;
   node_set.emplace(s);
 
@@ -57,16 +67,16 @@ void DijkstraShortestPath(GraphVertex* s, const GraphVertex* t) {
     node_set.erase(node_set.cbegin());
 
     // Relax neighboring vertices of u.
-    for (const auto& v : u->edges) {
-      int v_distance = u->distance.first + v.second;
-      int v_num_edges = u->distance.second + 1;
-      if (v.first.distance.first > v_distance ||
-          (v.first.distance.first == v_distance &&
-           v.first.distance.second > v_num_edges)) {
-        node_set.erase(&v.first);
-        v.first.pred = u;
-        v.first.distance = {v_distance, v_num_edges};
-        node_set.emplace(&v.first);
+    for (const GraphVertex::VertexWithDistance& v : u->edges) {
+      int v_distance = u->distance_with_fewest_edges.distance + v.distance;
+      int v_num_edges = u->distance_with_fewest_edges.min_num_edges + 1;
+      if (v.vertex.distance_with_fewest_edges.distance > v_distance ||
+          (v.vertex.distance_with_fewest_edges.distance == v_distance &&
+           v.vertex.distance_with_fewest_edges.min_num_edges > v_num_edges)) {
+        node_set.erase(&v.vertex);
+        v.vertex.pred = u;
+        v.vertex.distance_with_fewest_edges = {v_distance, v_num_edges};
+        node_set.emplace(&v.vertex);
       }
     }
   }
@@ -92,38 +102,38 @@ void test() {
   }
 
   // G[0] is the source node that connects to 8 other nodes.
-  G[0].edges.push_back(pair<GraphVertex&, int>(G[1], 13));  // 0-1
-  G[1].edges.push_back(pair<GraphVertex&, int>(G[0], 13));  // 1-0
+  G[0].edges.push_back(GraphVertex::VertexWithDistance{G[1], 13});  // 0-1
+  G[1].edges.push_back(GraphVertex::VertexWithDistance{G[0], 13});  // 1-0
 
-  G[0].edges.push_back(pair<GraphVertex&, int>(G[2], 24));  // 0-2
-  G[2].edges.push_back(pair<GraphVertex&, int>(G[0], 24));  // 2-0
+  G[0].edges.push_back(GraphVertex::VertexWithDistance{G[2], 24});  // 0-2
+  G[2].edges.push_back(GraphVertex::VertexWithDistance{G[0], 24});  // 2-0
 
-  G[0].edges.push_back(pair<GraphVertex&, int>(G[3], 28));  // 0-3
-  G[3].edges.push_back(pair<GraphVertex&, int>(G[0], 28));  // 3-0
+  G[0].edges.push_back(GraphVertex::VertexWithDistance{G[3], 28});  // 0-3
+  G[3].edges.push_back(GraphVertex::VertexWithDistance{G[0], 28});  // 3-0
 
-  G[0].edges.push_back(pair<GraphVertex&, int>(G[4], 25));  // 0-4
-  G[4].edges.push_back(pair<GraphVertex&, int>(G[0], 25));  // 4-0
+  G[0].edges.push_back(GraphVertex::VertexWithDistance{G[4], 25});  // 0-4
+  G[4].edges.push_back(GraphVertex::VertexWithDistance{G[0], 25});  // 4-0
 
-  G[0].edges.push_back(pair<GraphVertex&, int>(G[5], 30));  // 0-5
-  G[5].edges.push_back(pair<GraphVertex&, int>(G[0], 30));  // 5-0
+  G[0].edges.push_back(GraphVertex::VertexWithDistance{G[5], 30});  // 0-5
+  G[5].edges.push_back(GraphVertex::VertexWithDistance{G[0], 30});  // 5-0
 
-  G[0].edges.push_back(pair<GraphVertex&, int>(G[6], 31));  // 0-6
-  G[6].edges.push_back(pair<GraphVertex&, int>(G[0], 31));  // 6-0
+  G[0].edges.push_back(GraphVertex::VertexWithDistance{G[6], 31});  // 0-6
+  G[6].edges.push_back(GraphVertex::VertexWithDistance{G[0], 31});  // 6-0
 
-  G[0].edges.push_back(pair<GraphVertex&, int>(G[7], 10));  // 0-7
-  G[7].edges.push_back(pair<GraphVertex&, int>(G[0], 10));  // 7-0
+  G[0].edges.push_back(GraphVertex::VertexWithDistance{G[7], 10});  // 0-7
+  G[7].edges.push_back(GraphVertex::VertexWithDistance{G[0], 10});  // 7-0
 
-  G[0].edges.push_back(pair<GraphVertex&, int>(G[8], 29));  // 0-8
-  G[8].edges.push_back(pair<GraphVertex&, int>(G[0], 29));  // 8-0
+  G[0].edges.push_back(GraphVertex::VertexWithDistance{G[8], 29});  // 0-8
+  G[8].edges.push_back(GraphVertex::VertexWithDistance{G[0], 29});  // 8-0
 
-  G[1].edges.push_back(pair<GraphVertex&, int>(G[8], 7));  // 1-8
-  G[8].edges.push_back(pair<GraphVertex&, int>(G[1], 7));  // 8-1
+  G[1].edges.push_back(GraphVertex::VertexWithDistance{G[8], 7});  // 1-8
+  G[8].edges.push_back(GraphVertex::VertexWithDistance{G[1], 7});  // 8-1
 
-  G[2].edges.push_back(pair<GraphVertex&, int>(G[8], 1));  // 2-8
-  G[8].edges.push_back(pair<GraphVertex&, int>(G[2], 1));  // 8-2
+  G[2].edges.push_back(GraphVertex::VertexWithDistance{G[8], 1});  // 2-8
+  G[8].edges.push_back(GraphVertex::VertexWithDistance{G[2], 1});  // 8-2
 
-  G[7].edges.push_back(pair<GraphVertex&, int>(G[8], 16));  // 7-8
-  G[8].edges.push_back(pair<GraphVertex&, int>(G[7], 16));  // 8-7
+  G[7].edges.push_back(GraphVertex::VertexWithDistance{G[8], 16});  // 7-8
+  G[8].edges.push_back(GraphVertex::VertexWithDistance{G[7], 16});  // 8-7
 
   int s = 0;  // Source is G[0].
   int t = 2;  // Destination is G[2].
@@ -133,10 +143,12 @@ void test() {
   // distance is: 13 + 7 + 1 = 21.
 
   DijkstraShortestPath(&G[s], &G[t]);
-  cout << endl << "Min distance: " << G[t].distance.first << endl;
-  assert(G[t].distance.first == 21);
-  cout << "Number of edges: " << G[t].distance.second << endl;
-  assert(G[t].distance.second == 3);
+  cout << endl
+       << "Min distance: " << G[t].distance_with_fewest_edges.distance << endl;
+  assert(G[t].distance_with_fewest_edges.distance == 21);
+  cout << "Number of edges: " << G[t].distance_with_fewest_edges.min_num_edges
+       << endl;
+  assert(G[t].distance_with_fewest_edges.min_num_edges == 3);
 }
 
 int main(int argc, char* argv[]) {
@@ -159,8 +171,8 @@ int main(int argc, char* argv[]) {
   for (int i = 1; i < n; ++i) {
     uniform_int_distribution<int> dis(1, 100);
     int len = dis(gen);
-    G[i - 1].edges.emplace_back(G[i], len);
-    G[i].edges.emplace_back(G[i - 1], len);
+    G[i - 1].edges.emplace_back(GraphVertex::VertexWithDistance{G[i], len});
+    G[i].edges.emplace_back(GraphVertex::VertexWithDistance{G[i - 1], len});
     is_edge_exist[i - 1][i] = is_edge_exist[i][i - 1] = true;
   }
 
@@ -175,13 +187,15 @@ int main(int argc, char* argv[]) {
     is_edge_exist[a][b] = is_edge_exist[b][a] = true;
     uniform_int_distribution<int> one_to_100(1, 100);
     int len = one_to_100(gen);
-    G[a].edges.emplace_back(G[b], len);
-    G[b].edges.emplace_back(G[a], len);
+    G[a].edges.emplace_back(GraphVertex::VertexWithDistance{G[b], len});
+    G[b].edges.emplace_back(GraphVertex::VertexWithDistance{G[a], len});
   }
   int s = dis_n(gen), t = dis_n(gen);
   cout << "source = " << s << ", terminal = " << t << endl;
   DijkstraShortestPath(&G[s], &G[t]);
-  cout << endl << G[t].distance.first << " " << G[t].distance.second << endl;
+  cout << endl
+       << G[t].distance_with_fewest_edges.distance << " "
+       << G[t].distance_with_fewest_edges.min_num_edges << endl;
   test();
   return 0;
 }

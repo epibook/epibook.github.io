@@ -1,42 +1,46 @@
 package com.epi;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class ContainerWithMostWater {
   // @include
-  public static int getMaxArea(int[] heights) {
-    int i = 0, j = heights.length - 1, maxArea = 0;
+  public static int getMaxTrappedWater(List<Integer> heights) {
+    int i = 0, j = heights.size() - 1, maxWater = 0;
     while (i < j) {
-      maxArea = Math.max(maxArea, Math.min(heights[i], heights[j]) * (j - i));
-      if (heights[i] > heights[j]) {
+      int width = j - i;
+      maxWater = Math.max(maxWater,
+                          width * Math.min(heights.get(i), heights.get(j)));
+      if (heights.get(i) > heights.get(j)) {
         --j;
-      } else if (heights[i] < heights[j]) {
+      } else if (heights.get(i) < heights.get(j)) {
         ++i;
-      } else { // heights[i] == heights[j].
+      } else { // heights.get(i) == heights.get(j).
         ++i;
         --j;
       }
     }
-    return maxArea;
+    return maxWater;
   }
   // @exclude
 
   // O(n^2) checking answer.
-  private static int checkAns(int[] heights) {
+  private static int checkAns(List<Integer> heights) {
     int res = 0;
-    for (int i = 0; i < heights.length; ++i) {
-      for (int j = i + 1; j < heights.length; ++j) {
-        res = Math.max(res, Math.min(heights[i], heights[j]) * (j - i));
+    for (int i = 0; i < heights.size(); ++i) {
+      for (int j = i + 1; j < heights.size(); ++j) {
+        res = Math.max(res, Math.min(heights.get(i), heights.get(j)) * (j - i));
       }
     }
     return res;
   }
 
   private static void smallTest() {
-    int[] A = {1, 2, 1, 3, 4, 4, 5, 6, 2, 1, 3, 1, 3, 2, 1, 2, 4, 1};
-    assert(48 == getMaxArea(A));
+    List<Integer> A
+        = Arrays.asList(1, 2, 1, 3, 4, 4, 5, 6, 2, 1, 3, 1, 3, 2, 1, 2, 4, 1);
+    assert(48 == getMaxTrappedWater(A));
   }
 
   public static void main(String[] args) {
@@ -49,12 +53,12 @@ public class ContainerWithMostWater {
       } else {
         n = r.nextInt(9999) + 2;
       }
-      int[] heights = new int[n];
+      List<Integer> heights = new ArrayList<>(n);
       for (int i = 0; i < n; i++) {
-        heights[i] = r.nextInt(1000) + 1;
+        heights.add(r.nextInt(1000) + 1);
       }
-      System.out.println(getMaxArea(heights));
-      assert(getMaxArea(heights) == checkAns(heights));
+      System.out.println(getMaxTrappedWater(heights));
+      assert(getMaxTrappedWater(heights) == checkAns(heights));
     }
   }
 }

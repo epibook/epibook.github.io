@@ -1,28 +1,46 @@
 package com.epi;
 
-import java.io.*;
-import java.util.*;
+import com.epi.utils.Utils;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Set;
 
 public class MissingElement {
   // @include
+  private static final int NUM_BUCKET = 1 << 16;
+
   public static int findMissingElement(InputStream ifs) throws IOException {
-    int[] counter = new int[1 << 16];
+    List<Integer> counter = new ArrayList<>(Collections.nCopies(NUM_BUCKET, 0));
     ifs.mark(Integer.MAX_VALUE);
     Scanner s = new Scanner(ifs);
     while (s.hasNextInt()) {
-      ++counter[s.nextInt() >> 16];
+      int idx = s.nextInt() >>> 16;
+      counter.set(idx, counter.get(idx) + 1);
     }
 
-    for (int i = 0; i < counter.length; ++i) {
-      // Look for a bucket that contains less than (1 << 16) elements.
-      if (counter[i] < (1 << 16)) {
-        BitSet bitVec = new BitSet(1 << 16);
+    for (int i = 0; i < counter.size(); ++i) {
+      // Look for a bucket that contains less than NUM_BUCKET elements.
+      if (counter.get(i) < NUM_BUCKET) {
+        BitSet bitVec = new BitSet(NUM_BUCKET);
         ifs.reset();
         s = new Scanner(ifs);
         while (s.hasNext()) {
           int x = s.nextInt();
-          if (i == (x >> 16)) {
-            bitVec.set(((1 << 16) - 1) & x); // Gets the lower 16 bits of x.
+          if (i == (x >>> 16)) {
+            bitVec.set(((NUM_BUCKET)-1) & x); // Gets the lower 16 bits of x.
           }
         }
         ifs.close();
@@ -50,9 +68,10 @@ public class MissingElement {
     Set<Integer> hash = new HashSet<>();
     FileOutputStream ofs = null;
     try {
+      OutputStreamWriter osw = null;
       try {
         ofs = new FileOutputStream(missingFile);
-        OutputStreamWriter osw = new OutputStreamWriter(ofs);
+        osw = new OutputStreamWriter(ofs);
         for (int i = 0; i < n; ++i) {
           int x;
           do {
@@ -61,9 +80,7 @@ public class MissingElement {
           osw.write(x + "\n");
         }
       } finally {
-        if (ofs != null) {
-          ofs.close();
-        }
+        Utils.closeSilently(osw);
       }
 
       FileInputStream ifs = null;

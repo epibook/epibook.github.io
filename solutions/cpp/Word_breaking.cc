@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -28,35 +28,47 @@ string RandString(int len) {
 }
 
 // @include
-vector<string> WordBreaking(const string& s,
-                            const unordered_set<string>& dict) {
-  // T[i] is the length of the last string in the decomposition of s(0, i).
-  vector<int> T(s.size(), 0);
-  for (int i = 0; i < s.size(); ++i) {
-    // Sets T[i] if s(0, i) is a valid word.
-    if (dict.find(s.substr(0, i + 1)) != dict.cend()) {
-      T[i] = i + 1;
+vector<string> DecomposeIntoDictionaryWords(
+    const string& domain, const unordered_set<string>& dictionary) {
+  // When the algorithm finishes, last_length[i] != -1 indicates
+  // domain.substr(0, i + 1) has a valid decomposition, and the length of the
+  // last string in the decomposition is last_length[i].
+  vector<int> last_length(domain.size(), -1);
+  for (int i = 0; i < domain.size(); ++i) {
+    // If domain.substr(0, i + 1) is a dictionary word, set last_length[i] to
+    // the length of that word.
+    if (dictionary.find(domain.substr(0, i + 1)) != dictionary.cend()) {
+      last_length[i] = i + 1;
     }
 
-    // Sets T[i] if T[j] != 0 and s(j + 1, i) is a valid word.
-    for (int j = 0; j < i && T[i] == 0; ++j) {
-      if (T[j] != 0 && dict.find(s.substr(j + 1, i - j)) != dict.cend()) {
-        T[i] = i - j;
+    // If last_length[i] = -1 look for j < i such that domain.substr(0, j + 1)
+    // has a valid decomposition and domain.substring(j + 1, i + 1) is a
+    // dictionary word. If so, record the length of that word in
+    // last_length[i].
+    if (last_length[i] == -1) {
+      for (int j = 0; j < i; ++j) {
+        if (last_length[j] != -1 &&
+            dictionary.find(domain.substr(j + 1, i - j)) !=
+                dictionary.cend()) {
+          last_length[i] = i - j;
+          break;
+        }
       }
     }
   }
 
-  vector<string> ret;
-  // s can be assembled by valid words.
-  if (T.back()) {
-    int idx = s.size() - 1;
+  vector<string> decompositions;
+  if (last_length.back() != -1) {
+    // domain can be assembled by dictionary words.
+    int idx = domain.size() - 1;
     while (idx >= 0) {
-      ret.emplace_back(s.substr(idx - T[idx] + 1, T[idx]));
-      idx -= T[idx];
+      decompositions.emplace_back(
+          domain.substr(idx + 1 - last_length[idx], last_length[idx]));
+      idx -= last_length[idx];
     }
-    reverse(ret.begin(), ret.end());
+    reverse(decompositions.begin(), decompositions.end());
   }
-  return ret;
+  return decompositions;
 }
 // @exclude
 
@@ -74,13 +86,66 @@ void CheckAns(const string& s, vector<string>& ans) {
 
 void SmallCase() {
   unordered_set<string> dictionary = {"bed", "bath", "and", "hand", "beyond"};
-  auto ans = WordBreaking("bedbathandbeyond", dictionary);
+  auto ans = DecomposeIntoDictionaryWords("bedbathandbeyond", dictionary);
   vector<string> golden_ans = {"bed", "bath", "and", "beyond"};
+  CheckAns("bedbathandbeyond", ans);
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  dictionary = {"aa", "b", "ccc"};
+  ans = DecomposeIntoDictionaryWords("b", dictionary);
+  golden_ans = {"b"};
+  CheckAns("b", ans);
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  ans = DecomposeIntoDictionaryWords("ccc", dictionary);
+  golden_ans = {"ccc"};
+  CheckAns("ccc", ans);
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  ans = DecomposeIntoDictionaryWords("aabccc", dictionary);
+  golden_ans = {"aa", "b", "ccc"};
+  CheckAns("aabccc", ans);
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  ans = DecomposeIntoDictionaryWords("baabccc", dictionary);
+  golden_ans = {"b", "aa", "b", "ccc"};
+  CheckAns("baabccc", ans);
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  dictionary.insert("bb");
+  ans = DecomposeIntoDictionaryWords("bbb", dictionary);
+  // Note: golden_ans relies on how our algorithm is implemented: our
+  // algorithm chooses longest word ending at that index, so the answer
+  // is "b", "bb", not "b", "b", "b" or "bb", "b".
+  golden_ans = {"b", "bb"};
+  CheckAns("bbb", ans);
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  ans = DecomposeIntoDictionaryWords("bbcccb", dictionary);
+  golden_ans = {"bb", "ccc", "b"};
+  CheckAns("bbcccb", ans);
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  ans = DecomposeIntoDictionaryWords("bbcccbabb", dictionary);
+  golden_ans = {};
+  assert(golden_ans.size() == ans.size() &&
+         equal(ans.begin(), ans.end(), golden_ans.begin()));
+
+  ans = DecomposeIntoDictionaryWords("d", dictionary);
+  golden_ans = {};
   assert(golden_ans.size() == ans.size() &&
          equal(ans.begin(), ans.end(), golden_ans.begin()));
 }
 
 int main(int argc, char* argv[]) {
+  SmallCase();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     unordered_set<string> dictionary;
@@ -108,7 +173,7 @@ int main(int argc, char* argv[]) {
         dictionary.emplace(RandString(dis(gen)));
       }
     }
-    vector<string> ans(WordBreaking(target, dictionary));
+    vector<string> ans(DecomposeIntoDictionaryWords(target, dictionary));
     CheckAns(target, ans);
     if (argc == 3) {
       break;

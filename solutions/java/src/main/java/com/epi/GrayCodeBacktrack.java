@@ -56,8 +56,8 @@ public class GrayCodeBacktrack {
     for (int i = 1; i < A.size(); ++i) {
       int numDifferBits = 0;
       String prevS = addZerosTo100(Integer.toBinaryString(A.get(i)));
-      String nowS =
-          addZerosTo100(Integer.toBinaryString(A.get((i + 1) % A.size())));
+      String nowS
+          = addZerosTo100(Integer.toBinaryString(A.get((i + 1) % A.size())));
       for (int j = 0; j < 100; ++j) {
         if (prevS.charAt(j) != nowS.charAt(j)) {
           ++numDifferBits;

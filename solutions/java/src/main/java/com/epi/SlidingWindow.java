@@ -1,10 +1,11 @@
 package com.epi;
 
-import com.epi.QueueWithMaxUsingDeque.Queue;
+import com.epi.QueueWithMaxAlternative;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SlidingWindow {
   // @include
@@ -19,8 +20,8 @@ public class SlidingWindow {
 
     @Override
     public int compareTo(TrafficElement o) {
-      double result = volume - o.volume;
-      return result != 0.0 ? (result > 0 ? 1 : -1) : time - o.time;
+      int volumeCmp = Double.compare(volume, o.volume);
+      return volumeCmp != 0 ? volumeCmp : time - o.time;
     }
 
     @Override
@@ -33,11 +34,17 @@ public class SlidingWindow {
       }
       return compareTo((TrafficElement)o) == 0;
     }
+
+    // clang-format off
+    @Override
+    public int hashCode() { return Objects.hash(volume, time); }
+    // clang-format on
   }
 
-  public static List<TrafficElement> computeTrafficVolumes(TrafficElement[] A,
-                                                           int w) {
-    Queue<TrafficElement> slidingWindow = new Queue<>();
+  public static List<TrafficElement> computeTrafficVolumes(
+      List<TrafficElement> A, int w) {
+    QueueWithMaxAlternative.QueueWithMax<TrafficElement> slidingWindow
+        = new QueueWithMaxAlternative.QueueWithMax<>();
     List<TrafficElement> maximumVolumes = new ArrayList<>();
     for (TrafficElement trafficInfo : A) {
       slidingWindow.enqueue(trafficInfo);
@@ -53,17 +60,17 @@ public class SlidingWindow {
 
   public static void main(String[] args) {
     int w = 3;
-    TrafficElement[] A = new TrafficElement[] {
+    List<TrafficElement> A = Arrays.asList(
         new TrafficElement(0, 1.3), new TrafficElement(2, 2.5),
         new TrafficElement(3, 3.7), new TrafficElement(5, 1.4),
         new TrafficElement(6, 2.6), new TrafficElement(8, 2.2),
-        new TrafficElement(9, 1.7), new TrafficElement(14, 1.1)};
+        new TrafficElement(9, 1.7), new TrafficElement(14, 1.1));
     List<TrafficElement> result = computeTrafficVolumes(A, w);
-    List<TrafficElement> golden =
-        Arrays.asList(new TrafficElement(0, 1.3), new TrafficElement(2, 2.5),
-                      new TrafficElement(3, 3.7), new TrafficElement(5, 3.7),
-                      new TrafficElement(6, 3.7), new TrafficElement(8, 2.6),
-                      new TrafficElement(9, 2.6), new TrafficElement(14, 1.1));
+    List<TrafficElement> golden = Arrays.asList(
+        new TrafficElement(0, 1.3), new TrafficElement(2, 2.5),
+        new TrafficElement(3, 3.7), new TrafficElement(5, 3.7),
+        new TrafficElement(6, 3.7), new TrafficElement(8, 2.6),
+        new TrafficElement(9, 2.6), new TrafficElement(14, 1.1));
     assert result.equals(golden);
   }
 }

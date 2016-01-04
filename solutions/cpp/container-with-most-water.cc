@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -18,10 +18,11 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-int GetMaxArea(const vector<int>& heights) {
-  int i = 0, j = heights.size() - 1, max_area = 0;
+int GetMaxTrappedWater(const vector<int>& heights) {
+  int i = 0, j = heights.size() - 1, max_water = 0;
   while (i < j) {
-    max_area = max(max_area, min(heights[i], heights[j]) * (j - i));
+    int width = j - i;
+    max_water = max(max_water, width * min(heights[i], heights[j]));
     if (heights[i] > heights[j]) {
       --j;
     } else if (heights[i] < heights[j]) {
@@ -30,7 +31,7 @@ int GetMaxArea(const vector<int>& heights) {
       ++i, --j;
     }
   }
-  return max_area;
+  return max_water;
 }
 // @exclude
 
@@ -47,7 +48,7 @@ int CheckAns(const vector<int>& heights) {
 
 void SmallTest() {
   vector<int> A = {1, 2, 1, 3, 4, 4, 5, 6, 2, 1, 3, 1, 3, 2, 1, 2, 4, 1};
-  assert(48 == GetMaxArea(A));
+  assert(48 == GetMaxTrappedWater(A));
 }
 
 int main(int argc, char** argv) {
@@ -64,8 +65,8 @@ int main(int argc, char** argv) {
     uniform_int_distribution<int> dis_1000(1, 1000);
     vector<int> heights;
     generate_n(back_inserter(heights), n, [&] { return dis_1000(gen); });
-    cout << GetMaxArea(heights) << endl;
-    assert(GetMaxArea(heights) == CheckAns(heights));
+    cout << GetMaxTrappedWater(heights) << endl;
+    assert(GetMaxTrappedWater(heights) == CheckAns(heights));
   }
   return 0;
 }

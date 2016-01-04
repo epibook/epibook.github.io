@@ -38,7 +38,7 @@ vector<int> DecideLoadBalancing(vector<int> user_file_size, int server_num) {
 bool GreedyAssignment(const vector<int>& user_file_size, int server_num,
                       int limit, vector<int>* assign_res) {
   int server_idx = 0;
-  for (const int& file : user_file_size) {
+  for (int file : user_file_size) {
     while (server_idx < server_num &&
            file + (*assign_res)[server_idx] > limit) {
       ++server_idx;
@@ -72,12 +72,12 @@ int main(int argc, char* argv[]) {
     uniform_int_distribution<int> dis(1, 1000);
     users.emplace_back(dis(gen));
   }
-  for (const int& u : users) {
+  for (int u : users) {
     cout << u << " ";
   }
   cout << endl;
   vector<int> res = DecideLoadBalancing(users, m);
-  for (const int& file : res) {
+  for (int file : res) {
     cout << file << ' ';
   }
   cout << endl;

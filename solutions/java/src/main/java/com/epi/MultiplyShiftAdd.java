@@ -11,7 +11,9 @@ public class MultiplyShiftAdd {
       if ((x & 1) != 0) {
         sum = add(sum, y);
       }
+      // clang-format off
       x >>>= 1;
+      // clang-format on
       y <<= 1;
     }
     return sum;
@@ -25,8 +27,10 @@ public class MultiplyShiftAdd {
       sum |= (ak ^ bk ^ carryin);
       carryin = carryout << 1;
       k <<= 1;
+      // clang-format off
       tempA >>>= 1;
       tempB >>>= 1;
+      // clang-format on
     }
     return sum | carryin;
   }
@@ -45,7 +49,8 @@ public class MultiplyShiftAdd {
         int x = r.nextInt(65535), y = r.nextInt(65535);
         long prod = multiply(x, y);
         assert(prod == (long)x * y);
-        System.out.println("PASS: x = " + x + ", y = " + y + "; prod = " + prod);
+        System.out.println("PASS: x = " + x + ", y = " + y + "; prod = "
+                           + prod);
       }
     }
   }

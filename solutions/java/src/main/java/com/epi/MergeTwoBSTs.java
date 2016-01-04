@@ -5,8 +5,8 @@ import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 public class MergeTwoBSTs {
   private static BSTNode<Integer> head;
 
-  private static BSTNode<Integer> buildSortedDoublyLinkedList(BSTNode<Integer> L,
-                                                              int n) {
+  private static BSTNode<Integer> buildSortedDoublyLinkedList(
+      BSTNode<Integer> L, int n) {
     head = L;
     return buildSortedDoublyLinkedListHelper(0, n);
   }
@@ -20,10 +20,10 @@ public class MergeTwoBSTs {
 
     int m = s + ((e - s) / 2);
     BSTNode<Integer> left = buildSortedDoublyLinkedListHelper(s, m);
-    BSTNode<Integer> curr = new BSTNode<>(head.getData());
-    head = head.getRight();
-    curr.setLeft(left);
-    curr.setRight(buildSortedDoublyLinkedListHelper(m + 1, e));
+    BSTNode<Integer> curr = new BSTNode<>(head.data);
+    head = head.right;
+    curr.left = left;
+    curr.right = buildSortedDoublyLinkedListHelper(m + 1, e);
     return curr;
   }
 
@@ -36,15 +36,15 @@ public class MergeTwoBSTs {
     }
 
     // Recursively build the list from left and right subtrees.
-    BSTNode<T> lHead = bstToDoublyLinkedList(n.getLeft());
-    BSTNode<T> rHead = bstToDoublyLinkedList(n.getRight());
+    BSTNode<T> lHead = bstToDoublyLinkedList(n.left);
+    BSTNode<T> rHead = bstToDoublyLinkedList(n.right);
 
     // Append n to the list from left subtree.
     BSTNode<T> lTail = null;
     if (lHead != null) {
-      lTail = lHead.getLeft();
-      lTail.setRight(n);
-      n.setLeft(lTail);
+      lTail = lHead.left;
+      lTail.right = n;
+      n.left = lTail;
       lTail = n;
     } else {
       lHead = lTail = n;
@@ -53,14 +53,14 @@ public class MergeTwoBSTs {
     // Append the list from right subtree to n.
     BSTNode<T> rTail = null;
     if (rHead != null) {
-      rTail = rHead.getLeft();
-      lTail.setRight(rHead);
-      rHead.setLeft(lTail);
+      rTail = rHead.left;
+      lTail.right = rHead;
+      rHead.left = lTail;
     } else {
       rTail = lTail;
     }
-    rTail.setRight(lHead);
-    lHead.setLeft(rTail);
+    rTail.right = lHead;
+    lHead.left = rTail;
 
     return lHead;
   }
@@ -70,7 +70,7 @@ public class MergeTwoBSTs {
     int len = 0;
     while (L != null) {
       ++len;
-      L = L.getRight();
+      L = L.right;
     }
     return len;
   }
@@ -80,10 +80,10 @@ public class MergeTwoBSTs {
                                               BSTNode<Integer> B) {
     A = bstToDoublyLinkedList(A);
     B = bstToDoublyLinkedList(B);
-    A.getLeft().setRight(null);
-    B.getLeft().setRight(null);
-    A.setLeft(null);
-    B.setLeft(null);
+    A.left.right = null;
+    B.left.right = null;
+    A.left = null;
+    B.left = null;
     int ALength = countLength(A);
     int BLength = countLength(B);
     return buildSortedDoublyLinkedList(mergeTwoSortedLinkedLists(A, B),
@@ -92,40 +92,39 @@ public class MergeTwoBSTs {
   // @exclude
 
   // Merge two sorted linked lists, return the head of list.
-  private static BSTNode<Integer> mergeTwoSortedLinkedLists(BSTNode<Integer> A,
-                                                            BSTNode<Integer> B) {
+  private static BSTNode<Integer> mergeTwoSortedLinkedLists(
+      BSTNode<Integer> A, BSTNode<Integer> B) {
     BSTNode<Integer> dummyHead = new BSTNode<>();
     BSTNode<Integer> current = dummyHead;
     BSTNode<Integer> p1 = A;
     BSTNode<Integer> p2 = B;
 
     while (p1 != null && p2 != null) {
-      if (p1.getData().compareTo(p2.getData()) < 0) {
-        current.setRight(p1);
-        p1 = p1.getRight();
+      if (Integer.compare(p1.data, p2.data) < 0) {
+        current.right = p1;
+        p1 = p1.right;
       } else {
-        current.setRight(p2);
-        p2 = p2.getRight();
+        current.right = p2;
+        p2 = p2.right;
       }
-      current = current.getRight();
+      current = current.right;
     }
 
     if (p1 != null) {
-      current.setRight(p1);
+      current.right = p1;
     }
     if (p2 != null) {
-      current.setRight(p2);
+      current.right = p2;
     }
-    return dummyHead.getRight();
+    return dummyHead.right;
   }
 
-  private static <T extends Comparable<T>> void printBstInOrder(BSTNode<T> n,
-                                                                T pre) {
+  private static void printBstInorder(BSTNode<Integer> n, Integer pre) {
     if (n != null) {
-      printBstInOrder(n.getLeft(), pre);
-      assert(pre.compareTo(n.getData()) <= 0);
-      System.out.print(n.getData() + " ");
-      printBstInOrder(n.getRight(), n.getData());
+      printBstInorder(n.left, pre);
+      assert(Integer.compare(pre, n.data) <= 0);
+      System.out.print(n.data + " ");
+      printBstInorder(n.right, n.data);
     }
   }
 
@@ -134,21 +133,21 @@ public class MergeTwoBSTs {
     // 2 5
     // 1 4 6
     BSTNode<Integer> L = new BSTNode<>(3);
-    L.setLeft(new BSTNode<>(2));
-    L.getLeft().setLeft(new BSTNode<>(1));
-    L.setRight(new BSTNode<>(5));
-    L.getRight().setLeft(new BSTNode<>(4));
-    L.getRight().setRight(new BSTNode<>(6));
+    L.left = new BSTNode<>(2);
+    L.left.left = new BSTNode<>(1);
+    L.right = new BSTNode<>(5);
+    L.right.left = new BSTNode<>(4);
+    L.right.right = new BSTNode<>(6);
     // 7
     // 2 8
     // 0
     BSTNode<Integer> R = new BSTNode<>(7);
-    R.setLeft(new BSTNode<>(2));
-    R.getLeft().setLeft(new BSTNode<>(0));
-    R.setRight(new BSTNode<>(8));
+    R.left = new BSTNode<>(2);
+    R.left.left = new BSTNode<>(0);
+    R.right = new BSTNode<>(8);
 
     BSTNode<Integer> root = mergeTwoBSTs(L, R);
     // should output 0 1 2 2 3 4 5 6 7 8
-    printBstInOrder(root, Integer.MIN_VALUE);
+    printBstInorder(root, Integer.MIN_VALUE);
   }
 }

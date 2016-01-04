@@ -13,7 +13,6 @@ using std::endl;
 using std::exception;
 using std::length_error;
 using std::stack;
-using std::pair;
 
 // @include
 class Stack {
@@ -21,10 +20,10 @@ class Stack {
   bool Empty() const { return element_.empty(); }
 
   int Max() const {
-    if (!Empty()) {
-      return cached_max_with_count_.top().first;
+    if (Empty()) {
+      throw length_error("Max(): empty stack");
     }
-    throw length_error("Max(): empty stack");
+    return cached_max_with_count_.top().max;
   }
 
   int Pop() {
@@ -33,9 +32,9 @@ class Stack {
     }
     int pop_element = element_.top();
     element_.pop();
-    const int kCurrentMax = cached_max_with_count_.top().first;
-    if (pop_element == kCurrentMax) {
-      int& max_frequency = cached_max_with_count_.top().second;
+    const int current_max = cached_max_with_count_.top().max;
+    if (pop_element == current_max) {
+      int& max_frequency = cached_max_with_count_.top().count;
       --max_frequency;
       if (max_frequency == 0) {
         cached_max_with_count_.pop();
@@ -47,22 +46,25 @@ class Stack {
   void Push(int x) {
     element_.emplace(x);
     if (cached_max_with_count_.empty()) {
-      cached_max_with_count_.emplace(x, 1);
+      cached_max_with_count_.emplace(MaxWithCount{x, 1});
     } else {
-      const int kCurrentMax = cached_max_with_count_.top().first;
-      if (x == kCurrentMax) {
-        int& max_frequency = cached_max_with_count_.top().second;
+      const int current_max = cached_max_with_count_.top().max;
+      if (x == current_max) {
+        int& max_frequency = cached_max_with_count_.top().count;
         ++max_frequency;
-      } else if (x > kCurrentMax) {
-        cached_max_with_count_.emplace(x, 1);
+      } else if (x > current_max) {
+        cached_max_with_count_.emplace(MaxWithCount{x, 1});
       }
     }
   }
 
  private:
   stack<int> element_;
-  // Stores (maximum value, count) pair.
-  stack<pair<int, int>> cached_max_with_count_;
+
+  struct MaxWithCount {
+    int max, count;
+  };
+  stack<MaxWithCount> cached_max_with_count_;
 };
 // @exclude
 

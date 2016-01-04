@@ -1,9 +1,8 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
-// @author Ivan Sharov
 
 package com.epi;
 
-class ReverseLinkedListRecursive {
+public class ReverseLinkedListRecursive {
   // @include
   public static ListNode<Integer> reverseLinkedList(ListNode<Integer> head) {
     if (head == null || head.next == null) {
@@ -25,15 +24,11 @@ class ReverseLinkedListRecursive {
   }
 
   public static void main(String[] args) {
-    ListNode<Integer> l1 = new ListNode<>(1, null);
-    ListNode<Integer> l2 = new ListNode<>(2, null);
-    l1.next = l2;
-    ListNode<Integer> l3 = new ListNode<>(3, null);
-    l2.next = l3;
-
+    ListNode<Integer> l
+        = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, null)));
     System.out.println("before reverse");
-    print(l1);
-    ListNode<Integer> newhead = reverseLinkedList(l1);
+    print(l);
+    ListNode<Integer> newhead = reverseLinkedList(l);
     System.out.println("\nafter reverse");
     print(newhead);
     newhead = reverseLinkedList(newhead);

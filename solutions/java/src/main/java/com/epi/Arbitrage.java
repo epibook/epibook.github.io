@@ -2,14 +2,15 @@
 
 package com.epi;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 public class Arbitrage {
   // @include
-  public static boolean isArbitrageExist(List<? extends List<Double>> G) {
+  public static boolean isArbitrageExist(List<List<Double>> G) {
     // Transforms each edge in G.
     for (List<Double> edgeList : G) {
       for (int i = 0; i < edgeList.size(); i++) {
@@ -21,19 +22,19 @@ public class Arbitrage {
     return bellmanFord(G, 0);
   }
 
-  private static boolean bellmanFord(List<? extends List<Double>> G, int source) {
-    double[] disToSource = new double[G.size()];
-    Arrays.fill(disToSource, Double.MAX_VALUE);
-    disToSource[source] = 0;
+  private static boolean bellmanFord(List<List<Double>> G, int source) {
+    List<Double> disToSource
+        = new ArrayList<>(Collections.nCopies(G.size(), Double.MAX_VALUE));
+    disToSource.set(source, 0.0);
 
     for (int times = 1; times < G.size(); ++times) {
       boolean haveUpdate = false;
       for (int i = 0; i < G.size(); ++i) {
         for (int j = 0; j < G.get(i).size(); ++j) {
-          if (disToSource[i] != Double.MAX_VALUE &&
-              disToSource[j] > disToSource[i] + G.get(i).get(j)) {
+          if (disToSource.get(i) != Double.MAX_VALUE
+              && disToSource.get(j) > disToSource.get(i) + G.get(i).get(j)) {
             haveUpdate = true;
-            disToSource[j] = disToSource[i] + G.get(i).get(j);
+            disToSource.set(j, disToSource.get(i) + G.get(i).get(j));
           }
         }
       }
@@ -47,8 +48,8 @@ public class Arbitrage {
     // Detects cycle if there is any further update.
     for (int i = 0; i < G.size(); ++i) {
       for (int j = 0; j < G.get(i).size(); ++j) {
-        if (disToSource[i] != Double.MAX_VALUE &&
-            disToSource[j] > disToSource[i] + G.get(i).get(j)) {
+        if (disToSource.get(i) != Double.MAX_VALUE
+            && disToSource.get(i) > disToSource.get(i) + G.get(i).get(j)) {
           return true;
         }
       }

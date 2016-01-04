@@ -23,7 +23,7 @@ class TournamentTree {
   void PrintLeaf() {
     for (int i = 0; i < tree_.size(); ++i) {
       cout << "i = " << i << ", cap = " << tree_[i].cap << endl;
-      for (const int& item : tree_[i].items) {
+      for (int item : tree_[i].items) {
         cout << item << ' ';
       }
       cout << endl;

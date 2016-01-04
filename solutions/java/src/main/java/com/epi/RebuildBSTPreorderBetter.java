@@ -2,23 +2,24 @@ package com.epi;
 
 import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class RebuildBSTPreorderBetter {
   // @include
+  // Global variable, tracks current subtree.
   private static Integer rootIdx;
 
   public static BSTNode<Integer> rebuildBSTFromPreorder(
       List<Integer> preorderSequence) {
     rootIdx = 0;
-    return rebuildBSFromPreorderHelper(preorderSequence, Integer.MIN_VALUE,
-                                       Integer.MAX_VALUE);
+    return rebuildBSFromPreorderOnValueRange(
+        preorderSequence, Integer.MIN_VALUE, Integer.MAX_VALUE);
   }
 
-  // Builds a BST from preorderSequence on keys in (lowerBound, upperBound).
-  private static BSTNode<Integer> rebuildBSFromPreorderHelper(
+  // Builds a BST on the subtree rooted at rootIdx from preorderSequence on keys
+  // in (lowerBound, upperBound).
+  private static BSTNode<Integer> rebuildBSFromPreorderOnValueRange(
       List<Integer> preorderSequence, Integer lowerBound, Integer upperBound) {
     if (rootIdx == preorderSequence.size()) {
       return null;
@@ -29,18 +30,22 @@ public class RebuildBSTPreorderBetter {
       return null;
     }
     ++rootIdx;
-    return new BSTNode<>(
-        root, rebuildBSFromPreorderHelper(preorderSequence, lowerBound, root),
-        rebuildBSFromPreorderHelper(preorderSequence, root, upperBound));
+    // Note that rebuildBSFromPreorderOnValueRange updates rootIdx. So the order
+    // of following two calls are critical.
+    BSTNode<Integer> leftSubtree
+        = rebuildBSFromPreorderOnValueRange(preorderSequence, lowerBound, root);
+    BSTNode<Integer> rightSubtree
+        = rebuildBSFromPreorderOnValueRange(preorderSequence, root, upperBound);
+    return new BSTNode<>(root, leftSubtree, rightSubtree);
   }
   // @exclude
 
   private static void checkAns(BSTNode<Integer> n, Integer pre) {
     if (n != null) {
-      checkAns(n.getLeft(), pre);
-      assert(pre <= n.getData());
-      System.out.println(n.getData());
-      checkAns(n.getRight(), n.getData());
+      checkAns(n.left, pre);
+      assert(pre <= n.data);
+      System.out.println(n.data);
+      checkAns(n.right, n.data);
     }
   }
 
@@ -53,11 +58,11 @@ public class RebuildBSTPreorderBetter {
     List<Integer> preorder = Arrays.asList(3, 2, 1, 5, 4, 6);
     BSTNode<Integer> tree = rebuildBSTFromPreorder(preorder);
     checkAns(tree, Integer.MIN_VALUE);
-    assert(3 == tree.getData());
-    assert(2 == tree.getLeft().getData());
-    assert(1 == tree.getLeft().getLeft().getData());
-    assert(5 == tree.getRight().getData());
-    assert(4 == tree.getRight().getLeft().getData());
-    assert(6 == tree.getRight().getRight().getData());
+    assert(3 == tree.data);
+    assert(2 == tree.left.data);
+    assert(1 == tree.left.left.data);
+    assert(5 == tree.right.data);
+    assert(4 == tree.right.left.data);
+    assert(6 == tree.right.right.data);
   }
 }

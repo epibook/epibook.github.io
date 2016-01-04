@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <iostream>
@@ -13,8 +13,31 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
+int ComputeXChooseY(int, int, vector<vector<int>>*);
+
 // @include
-int ComputeBinomialCoefficients(int n, int k) {
+int ComputeBinomialCoefficient(int n, int k) {
+  vector<vector<int>> x_choose_y(n + 1, vector<int>(k + 1, 0));
+  return ComputeXChooseY(n, k, &x_choose_y);
+}
+
+int ComputeXChooseY(int x, int y, vector<vector<int>>* x_choose_y_ptr) {
+  if (y == 0 || x == y) {
+    return 1;
+  }
+
+  vector<vector<int>>& x_choose_y = *x_choose_y_ptr;
+  if (x_choose_y[x][y] == 0) {
+    int without_y = ComputeXChooseY(x - 1, y, x_choose_y_ptr);
+    int with_y = ComputeXChooseY(x - 1, y - 1, x_choose_y_ptr);
+    x_choose_y[x][y] = without_y + with_y;
+  }
+  return x_choose_y[x][y];
+}
+// @exclude
+
+int ComputeBinomialCoefficientsSpaceEfficient(int n, int k) {
+  k = min(k, n - k);
   vector<int> table(k + 1, 0);
   table[0] = 1;  // C(0, 0).
   // C(i, j) = C(i - 1, j) + C(i - 1, j - 1).
@@ -26,7 +49,6 @@ int ComputeBinomialCoefficients(int n, int k) {
   }
   return table[k];
 }
-// @exclude
 
 int CheckAns(int n, int k) {
   vector<int> number;
@@ -50,11 +72,11 @@ int CheckAns(int n, int k) {
   }
 
   int res = 1;
-  for (const int& a : number) {
+  for (int a : number) {
     res *= a;
   }
 
-  for (const int& a : temp) {
+  for (int a : temp) {
     res /= a;
   }
 
@@ -74,9 +96,10 @@ int main(int argc, char* argv[]) {
       k = k_dis(gen);
     }
 
-    int res = ComputeBinomialCoefficients(n, k);
+    int res = ComputeBinomialCoefficient(n, k);
     cout << "res = " << res << endl;
     assert(res == CheckAns(n, k));
+    assert(res == ComputeBinomialCoefficientsSpaceEfficient(n, k));
     cout << n << " out of " << k << " = " << res << endl;
     if (argc == 3) {
       break;

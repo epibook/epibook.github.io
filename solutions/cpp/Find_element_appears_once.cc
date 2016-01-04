@@ -1,10 +1,12 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
+#include <array>
 #include <cassert>
 #include <iostream>
 #include <random>
 #include <vector>
 
+using std::array;
 using std::cout;
 using std::default_random_engine;
 using std::endl;
@@ -14,6 +16,24 @@ using std::vector;
 
 // @include
 int FindElementAppearsOnce(const vector<int> &A) {
+  array<int, 32> counts = {};
+  for (int x : A) {
+    for (int i = 0; i < 32; ++i) {
+      if (x & (1 << i)) {
+        ++counts[i];
+      }
+    }
+  }
+
+  int result = 0;
+  for (int i = 0; i < 32; ++i) {
+    result |= (counts[i] % 3) * (1 << i);
+  }
+  return result;
+}
+// @exclude
+
+int FindElementAppearsOnceAlternative(const vector<int> &A) {
   // ones denotes whether a bit-position has been set once (modulo 3) so far.
   // twos denotes whether a bit-position has been set twice (modulo 3) so far.
   int ones = 0, twos = 0;
@@ -38,7 +58,6 @@ int FindElementAppearsOnce(const vector<int> &A) {
   // it is the element which appears only once.
   return ones;
 }
-// @exclude
 
 int main(int argc, char *argv[]) {
   default_random_engine gen((random_device())());
@@ -62,6 +81,7 @@ int main(int argc, char *argv[]) {
     }
     cout << "Singleton element: " << FindElementAppearsOnce(A) << endl;
     assert(FindElementAppearsOnce(A) == single);
+    assert(FindElementAppearsOnceAlternative(A) == single);
   }
   return 0;
 }

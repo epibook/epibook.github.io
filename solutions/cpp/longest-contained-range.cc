@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <iostream>
 #include <algorithm>
@@ -14,7 +14,6 @@ using std::cout;
 using std::default_random_engine;
 using std::endl;
 using std::max;
-using std::pair;
 using std::random_device;
 using std::stoul;
 using std::uniform_int_distribution;
@@ -70,58 +69,16 @@ int FindLongestContainedRange(const vector<int>& A) {
     }
   }
 
-  auto m = max_element(L.cbegin(), L.cend(),
-                       [](const pair<int, int>& a, const pair<int, int>& b) {
-                         return a.second - a.first < b.second - b.first;
-                       });
+  auto m = max_element(L.cbegin(), L.cend(), [](const auto& a, const auto& b) {
+    return a.second - a.first < b.second - b.first;
+  });
   return m->second - m->first + 1;
-}
-
-/*
-int LongestRangeLength(int a, const unordered_set<int>& S, unordered_map<int,
-int>* L);
-
-pair<int, int> FindLongestContainedRange(const vector<int>& A) {
-  // S records the existence of each entry in A.
-  unordered_set<int> S;
-  for (int a : A) {
-    S.emplace(a);
-  }
-
-  int max_len = 0;
-  pair<int, int> max_range(0, -1);
-  // L stores the longest length ending at each A[i].
-  unordered_map<int, int> L;
-  for (int a : A) {
-    int len = LongestRangeLength(a, S, &L);
-    if (len > max_len) {
-      max_len = len, max_range = {a - len + 1, a};
-    }
-  }
-  return max_range;
-}
-*/
-
-int LongestRangeLength(int a, const unordered_set<int>& S,
-                       unordered_map<int, int>* L) {
-  // Base case. If a does not exist.
-  if (S.find(a) == S.end()) {
-    return 0;
-  }
-
-  if (L->find(a) == L->end()) {
-    (*L)[a] = LongestRangeLength(a - 1, S, L) + 1;
-  }
-  return (*L)[a];
 }
 
 // @include
 int LongestContainedRange(const vector<int>& A) {
   // unprocessed_entries records the existence of each entry in A.
-  unordered_set<int> unprocessed_entries;
-  for (int a : A) {
-    unprocessed_entries.emplace(a);
-  }
+  unordered_set<int> unprocessed_entries(A.begin(), A.end());
 
   int max_interval_size = 0;
   while (!unprocessed_entries.empty()) {
@@ -170,13 +127,6 @@ int main(int argc, char* argv[]) {
     cout << endl;
     //*/
     assert(FindLongestContainedRange(A) == CheckAns(A));
-    /*
-    auto max_interval_size = FindLongestContainedRange(A);
-    cout << "max_interval_size = " << max_interval_size.first << ", " <<
-    max_interval_size.second << endl;
-    assert(max_interval_size.second - max_interval_size.first + 1 ==
-    FindLongestContainedRange(A));
-    */
     assert(LongestContainedRange(A) == CheckAns(A));
   }
   return 0;

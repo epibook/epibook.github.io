@@ -30,17 +30,18 @@ public class InsertionDeletionBST {
         TreeNode parent = curr;
         while (curr != null) {
           parent = curr;
-          if (key.compareTo(curr.data) == 0) {
+          int cmp = Integer.compare(key, curr.data);
+          if (cmp == 0) {
             return false; // key already present, no duplicates to be added.
-          } else if (key.compareTo(curr.data) < 0) {
+          } else if (cmp < 0) {
             curr = curr.left;
-          } else { // key.compareTo(curr.data) > 0.
+          } else { // cmp > 0.
             curr = curr.right;
           }
         }
 
         // Insert key according to key and parent.
-        if (key.compareTo(parent.data) < 0) {
+        if (Integer.compare(key, parent.data) < 0) {
           parent.left = new TreeNode(key, null, null);
         } else {
           parent.right = new TreeNode(key, null, null);
@@ -52,9 +53,9 @@ public class InsertionDeletionBST {
     public boolean delete(Integer key) {
       // Find the node with key.
       TreeNode curr = root, parent = null;
-      while (curr != null && curr.data.compareTo(key) != 0) {
+      while (curr != null && Integer.compare(curr.data, key) != 0) {
         parent = curr;
-        curr = key.compareTo(curr.data) < 0 ? curr.left : curr.right;
+        curr = Integer.compare(key, curr.data) < 0 ? curr.left : curr.right;
       }
 
       if (curr == null) {
@@ -95,6 +96,7 @@ public class InsertionDeletionBST {
       }
       return true;
     }
+
     // @exclude
     public Integer getRootVal() { return root.data; }
     // @include

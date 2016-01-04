@@ -13,7 +13,6 @@
 using std::cout;
 using std::default_random_engine;
 using std::endl;
-using std::pair;
 using std::ostream_iterator;
 using std::random_device;
 using std::string;
@@ -34,7 +33,7 @@ vector<vector<string>> FindAnagrams(const vector<string>& dictionary) {
   }
 
   vector<vector<string>> anagram_groups;
-  for (const pair<string, vector<string>>& p : sorted_string_to_anagrams) {
+  for (const auto& p : sorted_string_to_anagrams) {
     if (p.second.size() >= 2) {  // Found anagrams.
       anagram_groups.emplace_back(p.second);
     }
@@ -54,8 +53,12 @@ string RandString(int len) {
 }
 
 void SmallTest() {
-  vector<string> D = {"debit card",     "bad credit", "the morse code",
-                      "here come dots", "the eyes",   "they see",
+  vector<string> D = {"debit card",
+                      "bad credit",
+                      "the morse code",
+                      "here come dots",
+                      "the eyes",
+                      "they see",
                       "THL"};
   auto result = FindAnagrams(D);
   // 3 nontrivial groups:

@@ -1,6 +1,14 @@
 package com.epi;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.RandomAccessFile;
 
 public class Tail {
   // @include
@@ -31,7 +39,36 @@ public class Tail {
   }
   // @exclude
 
+  private static void simpleTest() {
+    try {
+      File testFile = File.createTempFile("TailTest", ".txt");
+      String L1 = "The first line";
+      String L2 = "The second line";
+      String L3 = "The third line";
+      String L4 = "The fourth line";
+      PrintWriter writer = new PrintWriter(testFile);
+      writer.println(L1);
+      writer.println(L2);
+      writer.println(L3);
+      writer.println(L4);
+      writer.close();
+      String fileName = testFile.getAbsolutePath();
+      String output = tail(fileName, 1);
+      assert(output.equals(L4 + "\n"));
+      output = tail(fileName, 2);
+      assert(output.equals(L3 + "\n" + L4 + "\n"));
+      output = tail(fileName, 3);
+      assert(output.equals(L2 + "\n" + L3 + "\n" + L4 + "\n"));
+      output = tail(fileName, 4);
+      assert(output.equals(L1 + "\n" + L2 + "\n" + L3 + "\n" + L4 + "\n"));
+    } catch (IOException e) {
+      e.printStackTrace();
+      assert(false);
+    }
+  }
+
   public static void main(String[] args) throws IOException {
+    simpleTest();
     System.out.println("Usage: file name and tail count");
 
     int tailCount = 10;
@@ -40,7 +77,7 @@ public class Tail {
       fileName = args[0];
     } else if (args.length == 2) {
       fileName = args[0];
-      tailCount = Integer.valueOf(args[1]);
+      tailCount = Integer.parseInt(args[1]);
     } else {
       return;
     }

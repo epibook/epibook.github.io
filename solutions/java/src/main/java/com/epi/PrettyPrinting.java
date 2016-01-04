@@ -2,12 +2,10 @@ package com.epi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class PrettyPrinting {
   private static String randString(int len) {
     Random r = new Random();
@@ -19,37 +17,42 @@ public class PrettyPrinting {
   }
 
   // @include
-  public static int findPrettyPrinting(List<String> W, int L) {
-    // Calculates M(i).
-    long[] M = new long[W.size()];
-    Arrays.fill(M, Long.MAX_VALUE);
-    for (int i = 0; i < W.size(); ++i) {
-      int bLen = L - W.get(i).length();
-      M[i] = Math.min((i - 1 < 0 ? 0 : M[i - 1]) + (1 << bLen), M[i]);
+  public static int minimumMessiness(List<String> words, int lineLength) {
+    // minimumMessiness[i] is the minimum messiness when placing words[0 : i].
+    int[] minimumMessiness = new int[words.size()];
+    Arrays.fill(minimumMessiness, Integer.MAX_VALUE);
+    int numRemainingBlanks = lineLength - words.get(0).length();
+    minimumMessiness[0] = numRemainingBlanks * numRemainingBlanks;
+    for (int i = 1; i < words.size(); ++i) {
+      numRemainingBlanks = lineLength - words.get(i).length();
+      minimumMessiness[i]
+          = minimumMessiness[i - 1] + numRemainingBlanks * numRemainingBlanks;
+      // Try adding words.get(i - 1), words.get(i - 2), ...
       for (int j = i - 1; j >= 0; --j) {
-        bLen -= (W.get(j).length() + 1);
-        if (bLen < 0) {
+        numRemainingBlanks -= (words.get(j).length() + 1);
+        if (numRemainingBlanks < 0) {
+          // Not enough space to add more words.
           break;
         }
-        M[i] = Math.min((j - 1 < 0 ? 0 : M[j - 1]) + (1 << bLen), M[i]);
+        int firstJMessiness = j - 1 < 0 ? 0 : minimumMessiness[j - 1];
+        int currentLineMessiness = numRemainingBlanks * numRemainingBlanks;
+        minimumMessiness[i] = Math.min(minimumMessiness[i],
+                                       firstJMessiness + currentLineMessiness);
       }
     }
-
-    // Finds the minimum cost without considering the last line.
-    long minMess = (W.size() >= 2 ? M[W.size() - 2] : 0);
-    int bLen = L - W.get(W.size() - 1).length();
-    for (int i = W.size() - 2; i >= 0; --i) {
-      bLen -= (W.get(i).length() + 1);
-      if (bLen < 0) {
-        return (int)minMess;
-      }
-      minMess = Math.min(minMess, (i - 1 < 0 ? 0 : M[i - 1]));
-    }
-    return (int)minMess;
+    return minimumMessiness[words.size() - 1];
   }
   // @exclude
 
+  private static void smallTest() {
+    assert(minimumMessiness(
+               Arrays.asList("aaa", "bbb", "c", "d", "ee", "ff", "gggggg"), 11)
+           == 45);
+    assert(minimumMessiness(Arrays.asList("a", "b", "c", "d"), 5) == 8);
+  }
+
   public static void main(String[] args) {
+    smallTest();
     Random r = new Random();
     int n, L;
     if (args.length == 1) {
@@ -68,6 +71,6 @@ public class PrettyPrinting {
     }
     System.out.println(W);
     System.out.println(L);
-    System.out.println(findPrettyPrinting(W, L));
+    System.out.println(minimumMessiness(W, L));
   }
 }

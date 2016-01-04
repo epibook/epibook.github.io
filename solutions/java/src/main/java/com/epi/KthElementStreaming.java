@@ -1,11 +1,17 @@
 package com.epi;
 
-import java.io.*;
-import java.util.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Random;
+import java.util.Scanner;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class KthElementStreaming {
   // @include
   public static void findKthLargestStream(InputStream sin, int k) {

@@ -38,11 +38,11 @@ struct EndPoint {
   bool is_left;
 };
 
-vector<int> FindMinimumVisits(const vector<Interval>& I) {
+vector<int> FindMinimumVisits(const vector<Interval>& intervals) {
   vector<EndPoint> endpoints;
-  for (size_t i = 0; i < I.size(); ++i) {
-    endpoints.emplace_back(EndPoint{&I[i], true});
-    endpoints.emplace_back(EndPoint{&I[i], false});
+  for (size_t i = 0; i < intervals.size(); ++i) {
+    endpoints.emplace_back(EndPoint{&intervals[i], true});
+    endpoints.emplace_back(EndPoint{&intervals[i], false});
   }
   sort(endpoints.begin(), endpoints.end());
 
@@ -53,7 +53,7 @@ vector<int> FindMinimumVisitsHelper(const vector<EndPoint>& endpoints) {
   vector<int> S;  // A minimum set of visit times.
   unordered_set<const Interval*> covered;
   vector<const Interval*> covering;
-  for (const auto& e : endpoints) {
+  for (const EndPoint& e : endpoints) {
     if (e.is_left) {
       covering.emplace_back(e.ptr);
     } else if (covered.find(e.ptr) == covered.end()) {
@@ -69,43 +69,45 @@ vector<int> FindMinimumVisitsHelper(const vector<EndPoint>& endpoints) {
 // @exclude
 
 // O(n^2) checking solution.
-void CheckAns(const vector<Interval>& I, const vector<int>& ans) {
-  deque<bool> is_visited(I.size(), false);
-  for (const int& a : ans) {
-    for (size_t i = 0; i < I.size(); ++i) {
-      if (a >= I[i].left && a <= I[i].right) {
+void CheckAns(const vector<Interval>& intervals, const vector<int>& ans) {
+  deque<bool> is_visited(intervals.size(), false);
+  for (int a : ans) {
+    for (size_t i = 0; i < intervals.size(); ++i) {
+      if (a >= intervals[i].left && a <= intervals[i].right) {
         is_visited[i] = true;
       }
     }
   }
 
-  for (const bool& b : is_visited) {
+  for (bool b : is_visited) {
     assert(b == true);
   }
 }
 
 void SimpleTest() {
-  vector<Interval> I;
-  I.emplace_back(Interval{1, 4});
-  I.emplace_back(Interval{2, 8});
-  I.emplace_back(Interval{3, 6});
-  I.emplace_back(Interval{3, 5});
-  I.emplace_back(Interval{7, 10});
-  I.emplace_back(Interval{9, 11});
-  vector<int> ans = FindMinimumVisits(I);
+  vector<Interval> intervals;
+  intervals.emplace_back(Interval{1, 4});
+  intervals.emplace_back(Interval{2, 8});
+  intervals.emplace_back(Interval{3, 6});
+  intervals.emplace_back(Interval{3, 5});
+  intervals.emplace_back(Interval{7, 10});
+  intervals.emplace_back(Interval{9, 11});
+  vector<int> ans = FindMinimumVisits(intervals);
   vector<int> golden = {4, 10};
-  assert(ans.size() && golden.size() && equal(ans.begin(), ans.end(), golden.begin()));
+  assert(ans.size() && golden.size() &&
+         equal(ans.begin(), ans.end(), golden.begin()));
 
-  I.clear();
-  I.emplace_back(Interval{1, 2});
-  I.emplace_back(Interval{2, 3});
-  I.emplace_back(Interval{3, 4});
-  I.emplace_back(Interval{4, 5});
-  I.emplace_back(Interval{5, 6});
-  I.emplace_back(Interval{6, 7});
-  ans = FindMinimumVisits(I);
+  intervals.clear();
+  intervals.emplace_back(Interval{1, 2});
+  intervals.emplace_back(Interval{2, 3});
+  intervals.emplace_back(Interval{3, 4});
+  intervals.emplace_back(Interval{4, 5});
+  intervals.emplace_back(Interval{5, 6});
+  intervals.emplace_back(Interval{6, 7});
+  ans = FindMinimumVisits(intervals);
   golden = {2, 4, 6};
-  assert(ans.size() && golden.size() && equal(ans.begin(), ans.end(), golden.begin()));
+  assert(ans.size() && golden.size() &&
+         equal(ans.begin(), ans.end(), golden.begin()));
 }
 
 int main(int argc, char* argv[]) {

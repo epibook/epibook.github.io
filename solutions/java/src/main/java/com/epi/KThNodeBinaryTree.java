@@ -22,7 +22,8 @@ public class KThNodeBinaryTree {
         iter = iter.left;
       }
     }
-    return null; // If k is between 1 and the tree size, this line is unreachable.
+    // If k is between 1 and the tree size, this line is unreachable.
+    return null;
   }
   // @exclude
 

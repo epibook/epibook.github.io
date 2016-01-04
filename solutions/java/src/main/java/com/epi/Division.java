@@ -19,7 +19,7 @@ public class Division {
         break;
       }
       long yshift = y << powerMid;
-      if ((yshift >> powerMid) != y) {
+      if ((yshift >>> powerMid) != y) {
         // yshift overflowed, use a smaller shift.
         powerRight = powerMid;
         continue;
@@ -43,7 +43,9 @@ public class Division {
     long yPower = y << power;
     while (x >= y) {
       while (yPower > x) {
+        // clang-format off
         yPower >>>= 1;
+        // clang-format on
         --power;
       }
 

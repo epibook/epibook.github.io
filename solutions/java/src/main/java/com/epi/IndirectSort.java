@@ -3,12 +3,18 @@ package com.epi;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
-class IndirectSort {
+public class IndirectSort {
   // @include
-  public static void indirectSort(String fileName) throws Exception {
+  public static void indirectSort(String fileName) throws IOException {
     // Stores file records into A.
     Scanner ifs = null;
     List<Integer> A = new ArrayList<>();
@@ -18,7 +24,9 @@ class IndirectSort {
         A.add(ifs.nextInt());
       }
     } finally {
-      ifs.close();
+      if (ifs != null) {
+        ifs.close();
+      }
     }
 
     // Indirectly sorts file.
@@ -32,28 +40,14 @@ class IndirectSort {
         ofs.println(a);
       }
     } finally {
-      ofs.close();
+      if (ofs != null) {
+        ofs.close();
+      }
     }
   }
   // @exclude
 
-  public static <T extends Comparable<T>> boolean isSorted(Iterable<T> iterable) {
-    Iterator<T> iter = iterable.iterator();
-    if (!iter.hasNext()) {
-      return true;
-    }
-    T t = iter.next();
-    while (iter.hasNext()) {
-      T t2 = iter.next();
-      if (t.compareTo(t2) > 0) {
-        return false;
-      }
-      t = t2;
-    }
-    return true;
-  }
-
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) throws IOException {
     Random rnd = new Random();
     for (int times = 0; times < 1000; ++times) {
       System.out.println("times = " + times);
@@ -75,7 +69,9 @@ class IndirectSort {
           ofs.println(a);
         }
       } finally {
-        ofs.close();
+        if (ofs != null) {
+          ofs.close();
+        }
       }
       indirectSort("input.txt");
 
@@ -88,10 +84,14 @@ class IndirectSort {
           A.add(ifs.nextInt());
         }
       } finally {
-        ifs.close();
+        if (ifs != null) {
+          ifs.close();
+        }
       }
 
-      assert(isSorted(A));
+      List<Integer> Adup = new ArrayList<>(A);
+      Collections.sort(Adup);
+      assert(Adup.equals(A));
       input.delete();
     }
   }

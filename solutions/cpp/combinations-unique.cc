@@ -59,10 +59,8 @@ int main(int argc, char** argv) {
     A.emplace_back(static_cast<int>(i)), A.emplace_back(static_cast<int>(i));
   }
   cout << "n = " << n << endl;
-  A.clear();
-  A = {1, 2, 2};
   auto res = SubsetsUnique(A);
-  for (const auto& vec : res) {
+  for (const vector<int>& vec : res) {
     copy(vec.cbegin(), vec.cend(), ostream_iterator<int>(cout, " "));
     cout << endl;
   }

@@ -19,16 +19,15 @@ using std::vector;
 // @include
 double FindSalaryCap(double target_payroll, vector<double> current_salaries) {
   sort(current_salaries.begin(), current_salaries.end());
-  double unadjusted_salary_sum = 0;
-  double adjusted_salary_sum = current_salaries.size() * current_salaries[0];
+  double unadjusted_salary_sum = 0.0;
   for (int i = 0; i < current_salaries.size(); ++i) {
-    unadjusted_salary_sum += current_salaries[i];
-    adjusted_salary_sum =
-        current_salaries[i] * (current_salaries.size() - (i + 1));
+    const double adjusted_salary_sum =
+        current_salaries[i] * (current_salaries.size() - i);
     if (unadjusted_salary_sum + adjusted_salary_sum >= target_payroll) {
-      return (target_payroll - unadjusted_salary_sum + current_salaries[i]) /
+      return (target_payroll - unadjusted_salary_sum) /
              (current_salaries.size() - i);
     }
+    unadjusted_salary_sum += current_salaries[i];
   }
   // No solution, since target_payroll > existing payroll.
   return -1.0;

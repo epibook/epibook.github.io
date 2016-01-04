@@ -6,6 +6,9 @@
 #include <random>
 #include <vector>
 
+#include "./2_sum.h"
+
+using TwoSum::HasTwoSum;
 using std::boolalpha;
 using std::cout;
 using std::default_random_engine;
@@ -13,8 +16,6 @@ using std::endl;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
-
-bool HasTwoSum(const vector<int>& A, int t);
 
 // @include
 bool HasThreeSum(vector<int> A, int t) {
@@ -24,21 +25,6 @@ bool HasThreeSum(vector<int> A, int t) {
     // Finds if the sum of two numbers in A equals to t - a.
     if (HasTwoSum(A, t - a)) {
       return true;
-    }
-  }
-  return false;
-}
-
-bool HasTwoSum(const vector<int>& A, int t) {
-  int j = 0, k = A.size() - 1;
-
-  while (j <= k) {
-    if (A[j] + A[k] == t) {
-      return true;
-    } else if (A[j] + A[k] < t) {
-      ++j;
-    } else {  // A[j] + A[k] > t.
-      --k;
     }
   }
   return false;

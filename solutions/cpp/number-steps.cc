@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -15,26 +15,35 @@ using std::stoi;
 using std::uniform_int_distribution;
 using std::vector;
 
+int ComputeNumberOfWaysToH(int, int, vector<int>*);
+
 // @include
-int NumberSteps(int n, int k) {
-  if (n <= 1) {
+int NumberOfWaysToTop(int top, int maximum_step) {
+  vector<int> number_of_ways_to_h(top + 1, 0);
+  return ComputeNumberOfWaysToH(top, maximum_step, &number_of_ways_to_h);
+}
+
+int ComputeNumberOfWaysToH(int h, int maximum_step,
+                           vector<int>* number_of_ways_to_h_ptr) {
+  if (h <= 1) {
     return 1;
   }
 
-  vector<int> steps(k + 1, 0);
-  steps[0] = steps[1] = 1;
-  for (int i = 2; i <= n; ++i) {
-    steps[i % (k + 1)] = 0;
-    for (int j = 1; j <= k && i - j >= 0; ++j) {
-      steps[i % (k + 1)] += steps[(i - j) % (k + 1)];
+  vector<int>& number_of_ways_to_h = *number_of_ways_to_h_ptr;
+  if (number_of_ways_to_h[h] == 0) {
+    for (int i = 1; i <= maximum_step && h - i >= 0; ++i) {
+      number_of_ways_to_h[h] +=
+          ComputeNumberOfWaysToH(h - i, maximum_step, number_of_ways_to_h_ptr);
     }
   }
-  return steps[n % (k + 1)];
+  return number_of_ways_to_h[h];
 }
 // @exclude
 
 int main(int argc, char** argv) {
-  assert(5 == NumberSteps(4, 2));
+  assert(5 == NumberOfWaysToTop(4, 2));
+  assert(1 == NumberOfWaysToTop(1, 2));
+  assert(1 == NumberOfWaysToTop(0, 3));
   default_random_engine gen((random_device())());
   int n, k;
   if (argc == 3) {
@@ -46,6 +55,6 @@ int main(int argc, char** argv) {
     k = k_dis(gen);
   }
   cout << "n = " << n << ", k = " << k << endl;
-  cout << NumberSteps(n, k) << endl;
+  cout << NumberOfWaysToTop(n, k) << endl;
   return 0;
 }

@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
       return dis(gen);
     });
     ofstream ofs("input.txt");
-    for (const int& a : A) {
+    for (int a : A) {
       ofs << a << endl;
     }
 

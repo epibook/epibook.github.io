@@ -1,8 +1,8 @@
 package com.epi;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
 
 public class ValidIPAddress {
   // @include
@@ -48,8 +48,11 @@ public class ValidIPAddress {
     }
     List<String> res1 = getValidIpAddress("255255255255");
     System.out.println(res1);
+    assert(res1.size() == 1);
+    assert(res1.get(0).equals("255.255.255.255"));
     List<String> res2 = getValidIpAddress("19216811");
     System.out.println(res2);
+    assert(res2.size() == 9);
     List<String> res3 = getValidIpAddress("1111");
     System.out.println(res3);
     assert(res3.size() == 1);

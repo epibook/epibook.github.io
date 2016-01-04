@@ -9,10 +9,10 @@ public class IntersectSortedArrays {
     int n = 100;
     int l = 1000;
     if (args.length > 0) {
-      n = new Integer(args[0]);
+      n = Integer.parseInt(args[0]);
     }
     if (args.length > 1) {
-      l = new Integer(args[1]);
+      l = Integer.parseInt(args[1]);
     }
     Random rnd = new Random(0);
     for (int i = 0; i < n; i++) {

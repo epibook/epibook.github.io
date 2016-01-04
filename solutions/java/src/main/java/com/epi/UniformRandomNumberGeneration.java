@@ -27,8 +27,8 @@ public class UniformRandomNumberGeneration {
     for (int times = 0; times < 1000; ++times) {
       int a, b;
       if (args.length == 2) {
-        a = Integer.valueOf(args[0]);
-        b = Integer.valueOf(args[1]);
+        a = Integer.parseInt(args[0]);
+        b = Integer.parseInt(args[1]);
       } else {
         a = gen.nextInt(100);
         b = gen.nextInt(100) + a + 1;

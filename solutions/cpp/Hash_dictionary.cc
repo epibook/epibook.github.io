@@ -35,7 +35,7 @@ int StringHash(const string& str, int modulus) {
   */
   // @include
   int val = 0;
-  for (const char& c : str) {
+  for (char c : str) {
     val = (val * kMult + c) % modulus;
   }
   return val;

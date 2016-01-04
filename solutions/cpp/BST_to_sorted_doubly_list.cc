@@ -11,44 +11,46 @@ using std::cout;
 using std::endl;
 using std::make_shared;
 using std::numeric_limits;
-using std::pair;
 using std::shared_ptr;
 
-pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>>
-BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>&);
+struct HeadAndTail;
+HeadAndTail BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>&);
 
 // @include
+struct HeadAndTail {
+  shared_ptr<BSTNode<int>> head, tail;
+};
+
 shared_ptr<BSTNode<int>> BSTToDoublyLinkedList(
     const shared_ptr<BSTNode<int>>& tree) {
-  return BSTToDoublyLinkedListHelper(tree).first;
+  return BSTToDoublyLinkedListHelper(tree).head;
 }
 
 // Transforms a BST into a sorted doubly linked list in-place,
-// and return the head and tail of the list as a pair.
-pair<shared_ptr<BSTNode<int>>, shared_ptr<BSTNode<int>>>
-BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>& tree) {
+// and return the head and tail of the list.
+HeadAndTail BSTToDoublyLinkedListHelper(const shared_ptr<BSTNode<int>>& tree) {
   // Empty subtree.
   if (!tree) {
     return {nullptr, nullptr};
   }
 
   // Recursively builds the list from left and right subtrees.
-  auto left = BSTToDoublyLinkedListHelper(tree->left);
-  auto right = BSTToDoublyLinkedListHelper(tree->right);
+  HeadAndTail left = BSTToDoublyLinkedListHelper(tree->left);
+  HeadAndTail right = BSTToDoublyLinkedListHelper(tree->right);
 
   // Appends tree to the list from left subtree.
-  if (left.second) {
-    left.second->right = tree;
+  if (left.tail) {
+    left.tail->right = tree;
   }
-  tree->left = left.second;
+  tree->left = left.tail;
 
   // Appends the list from right subtree to tree.
-  tree->right = right.first;
-  if (right.first) {
-    right.first->left = tree;
+  tree->right = right.head;
+  if (right.head) {
+    right.head->left = tree;
   }
 
-  return {left.first ? left.first : tree, right.second ? right.second : tree};
+  return {left.head ? left.head : tree, right.tail ? right.tail : tree};
 }
 // @exclude
 

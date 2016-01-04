@@ -1,5 +1,7 @@
 package com.epi;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static com.epi.utils.Utils.simplePrint;
@@ -8,26 +10,26 @@ public class PickingUpCoinsDontLose {
   // @include
   // Return 0 means choosing F (even numbered coins),
   // and return 1 means choosing S (odd numbered coins).
-  static int pickUpCoins(int[] C) {
+  public static int pickUpCoins(List<Integer> C) {
     int evenSum = 0, oddSum = 0;
-    for (int i = 0; i < C.length; ++i) {
-      if ((i % 2) == 1) { // odd.
-        oddSum += C[i];
+    for (int i = 0; i < C.size(); ++i) {
+      if ((i % 2) != 0) { // odd.
+        oddSum += C.get(i);
       } else { // even.
-        evenSum += C[i];
+        evenSum += C.get(i);
       }
     }
     return evenSum >= oddSum ? 0 : 1;
   }
   // @exclude
 
-  static void check(int[] C, int choose) {
+  private static void check(List<Integer> C, int choose) {
     int even = 0, odd = 0;
-    for (int i = 0; i < C.length; ++i) {
-      if ((i % 2) == 1) {
-        odd += C[i];
+    for (int i = 0; i < C.size(); ++i) {
+      if ((i % 2) != 0) {
+        odd += C.get(i);
       } else {
-        even += C[i];
+        even += C.get(i);
       }
     }
     if (choose == 0) {
@@ -40,16 +42,15 @@ public class PickingUpCoinsDontLose {
   public static void main(String[] args) {
     Random gen = new Random();
     for (int times = 0; times < 1000; ++times) {
-      int[] C;
+      List<Integer> C = new ArrayList<>();
       if (args.length >= 1) {
-        C = new int[args.length - 1];
         for (int i = 0; i < args.length; ++i) {
-          C[i] = Integer.valueOf(args[i]);
+          C.add(Integer.parseInt(args[i]));
         }
       } else {
-        C = new int[gen.nextInt(1000)];
-        for (int i = 0; i < C.length; ++i) {
-          C[i] = gen.nextInt(100);
+        int n = gen.nextInt(1000);
+        for (int i = 0; i < n; ++i) {
+          C.add(gen.nextInt(100));
         }
       }
 

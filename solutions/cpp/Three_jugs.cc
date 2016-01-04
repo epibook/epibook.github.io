@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <iostream>
@@ -12,7 +12,6 @@ using std::cout;
 using std::default_random_engine;
 using std::endl;
 using std::hash;
-using std::pair;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::unordered_set;
@@ -22,37 +21,38 @@ struct Jug;
 
 struct HashPair;
 
-class PairEqual;
+struct VolumeRange;
+struct HashVolumeRange;
 
-bool CheckFeasibleHelper(const vector<Jug>& jugs, int L, int H,
-                         unordered_set<pair<int, int>, HashPair, PairEqual>* c);
+bool CheckFeasibleHelper(const vector<Jug>&, int, int,
+                         unordered_set<VolumeRange, HashVolumeRange>*);
 
 // @include
 struct Jug {
   int low, high;
 };
 
-class PairEqual {
- public:
-  bool operator()(const pair<int, int>& a, const pair<int, int>& b) const {
-    return a.first == b.first && a.second == b.second;
+struct VolumeRange {
+  int low, high;
+
+  bool operator==(const VolumeRange& that) const {
+    return low == that.low && high == that.high;
   }
 };
 
-struct HashPair {
-  size_t operator()(const pair<int, int>& p) const {
-    return hash<int>()(p.first) ^ hash<int>()(p.second);
+struct HashVolumeRange {
+  size_t operator()(const VolumeRange& p) const {
+    return hash<int>()(p.low) ^ hash<int>()(p.high);
   }
 };
 
 bool CheckFeasible(const vector<Jug>& jugs, int L, int H) {
-  unordered_set<pair<int, int>, HashPair, PairEqual> cache;
+  unordered_set<VolumeRange, HashVolumeRange> cache;
   return CheckFeasibleHelper(jugs, L, H, &cache);
 }
 
-bool CheckFeasibleHelper(
-    const vector<Jug>& jugs, int L, int H,
-    unordered_set<pair<int, int>, HashPair, PairEqual>* c) {
+bool CheckFeasibleHelper(const vector<Jug>& jugs, int L, int H,
+                         unordered_set<VolumeRange, HashVolumeRange>* c) {
   if (L > H || c->find({L, H}) != c->cend() || (L < 0 && H < 0)) {
     return false;
   }
@@ -64,7 +64,7 @@ bool CheckFeasibleHelper(
       return true;
     }
   }
-  c->emplace(L, H);  // Marks this as impossible.
+  c->emplace(VolumeRange{L, H});  // Marks this as impossible.
   return false;
 }
 // @exclude

@@ -61,14 +61,14 @@ int MaxSquareSubmatrix(const vector<deque<bool>>& A) {
     for (int j = A[i].size() - 1; j >= 0; --j) {
       // Finds the largest h such that (i, j) to (i + h - 1, j) are feasible.
       // Finds the largest w such that (i, j) to (i, j + w - 1) are feasible.
-      table[i][j] = A[i][j]
-                        ? MaxHW{i + 1 < A.size() ? table[i + 1][j].h + 1 : 1,
-                                j + 1 < A[i].size() ? table[i][j + 1].w + 1 : 1}
-                        : MaxHW{0, 0};
+      table[i][j] =
+          A[i][j] ? MaxHW{i + 1 < A.size() ? table[i + 1][j].h + 1 : 1,
+                          j + 1 < A[i].size() ? table[i][j + 1].w + 1 : 1}
+                  : MaxHW{0, 0};
     }
   }
 
-  // A table stores the length of largest square for each (i, j).
+  // A table stores the length of the largest square for each (i, j).
   vector<vector<int>> s(A.size(), vector<int>(A.front().size(), 0));
   int max_square_area = 0;
   for (int i = A.size() - 1; i >= 0; --i) {

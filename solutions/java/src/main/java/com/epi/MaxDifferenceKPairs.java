@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static java.lang.Math.max;
-
 public class MaxDifferenceKPairs {
   // @include
   public static double maxKPairsProfits(List<Double> A, int k) {
@@ -19,7 +17,7 @@ public class MaxDifferenceKPairs {
       List<Double> preKSum = new ArrayList<>(kSum);
       for (int j = 0, sign = -1; j < kSum.size() && j <= i; ++j, sign *= -1) {
         double diff = sign * A.get(i) + (j == 0 ? 0 : preKSum.get(j - 1));
-        kSum.set(j, max(diff, preKSum.get(j)));
+        kSum.set(j, Math.max(diff, preKSum.get(j)));
       }
     }
 
@@ -33,7 +31,7 @@ public class MaxDifferenceKPairs {
                                        double ans, double maxAns) {
     double finalMaxAns;
     if (l == k) {
-      finalMaxAns = max(maxAns, ans);
+      finalMaxAns = Math.max(maxAns, ans);
     } else {
       finalMaxAns = maxAns;
       for (int i = pre; i < A.size(); ++i) {
@@ -71,14 +69,14 @@ public class MaxDifferenceKPairs {
     }
 
     if (args.length == 1) {
-      n = Integer.valueOf(args[0]);
+      n = Integer.parseInt(args[0]);
       k = gen.nextInt(n / 2) + 1;
     } else if (args.length == 2) {
-      n = Integer.valueOf(args[0]);
-      k = Integer.valueOf(args[1]);
+      n = Integer.parseInt(args[0]);
+      k = Integer.parseInt(args[1]);
     } else {
-      n = gen.nextInt(100) + 1;
-      k = gen.nextInt(n / 10) + 1;
+      n = gen.nextInt(60) + 1;
+      k = gen.nextInt(1 + (n / 10)) + 1;
     }
 
     List<Double> A = new ArrayList<>();

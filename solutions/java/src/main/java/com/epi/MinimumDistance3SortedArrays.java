@@ -1,9 +1,15 @@
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.NavigableSet;
+import java.util.Objects;
+import java.util.Random;
+import java.util.TreeSet;
 
 public class MinimumDistance3SortedArrays {
-  private static int distance(List<? extends List<Integer>> sortedArrays,
+  private static int distance(List<List<Integer>> sortedArrays,
                               List<Integer> idx) {
     int maxVal = Integer.MIN_VALUE;
     int minVal = Integer.MAX_VALUE;
@@ -26,16 +32,33 @@ public class MinimumDistance3SortedArrays {
 
     @Override
     public int compareTo(ArrayData o) {
-      int result = Integer.valueOf(val).compareTo(o.val);
+      int result = Integer.compare(val, o.val);
       if (result == 0) {
-        result = Integer.valueOf(idx).compareTo(o.idx);
+        result = Integer.compare(idx, o.idx);
       }
       return result;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+      if (obj == null || !(obj instanceof ArrayData)) {
+        return false;
+      }
+      if (this == obj) {
+        return true;
+      }
+      ArrayData that = (ArrayData)obj;
+      return this.val == that.val && this.idx == that.idx;
+    }
+
+    // clang-format off
+    @Override
+    public int hashCode() { return Objects.hash(val, idx); }
+    // clang-format on
   }
 
   public static int findMinDistanceSortedArrays(
-      List<? extends List<Integer>> sortedArrays) {
+      List<List<Integer>> sortedArrays) {
     // Indices into each of the arrays.
     List<Integer> heads = new ArrayList<>(sortedArrays.size());
     for (List<Integer> arr : sortedArrays) {
@@ -50,8 +73,8 @@ public class MinimumDistance3SortedArrays {
     }
 
     while (true) {
-      result =
-          Math.min(result, currentHeads.last().val - currentHeads.first().val);
+      result = Math.min(result,
+                        currentHeads.last().val - currentHeads.first().val);
       int idxNextMin = currentHeads.first().idx;
       // Return if some array has no remaining elements.
       heads.set(idxNextMin, heads.get(idxNextMin) + 1);
@@ -67,7 +90,7 @@ public class MinimumDistance3SortedArrays {
 
   private static Integer ans;
 
-  private static void recGenAnswer(List<? extends List<Integer>> sortedArrays,
+  private static void recGenAnswer(List<List<Integer>> sortedArrays,
                                    List<Integer> idx, int level) {
     if (level == sortedArrays.size()) {
       ans = Math.min(distance(sortedArrays, idx), ans);
@@ -79,8 +102,7 @@ public class MinimumDistance3SortedArrays {
     }
   }
 
-  private static int bruteForceGenAnswer(
-      List<? extends List<Integer>> sortedArrays) {
+  private static int bruteForceGenAnswer(List<List<Integer>> sortedArrays) {
     List<Integer> idx = new ArrayList<>(sortedArrays.size());
     for (List<Integer> arr : sortedArrays) {
       idx.add(0);
@@ -95,7 +117,7 @@ public class MinimumDistance3SortedArrays {
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
-      List<ArrayList<Integer>> sortedArrays = new ArrayList<>();
+      List<List<Integer>> sortedArrays = new ArrayList<>();
       if (args.length == 1) {
         n = Integer.parseInt(args[0]);
       } else {

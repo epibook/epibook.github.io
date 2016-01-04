@@ -57,26 +57,29 @@ bool IsValidPart(const string& s) {
 int main(int argc, char** argv) {
   if (argc == 2) {
     auto result = GetValidIPAddress(argv[1]);
-    for (const auto& s : result) {
+    for (const string& s : result) {
       cout << s << endl;
     }
   }
   auto res1 = GetValidIPAddress("255255255255");
-  for (const auto& s : res1) {
+  for (const string& s : res1) {
     cout << s << endl;
   }
+  assert(res1.size() == 1);
+  assert(res1.front() == "255.255.255.255");
   auto res2 = GetValidIPAddress("19216811");
-  for (const auto& s : res2) {
+  for (const string& s : res2) {
     cout << s << endl;
   }
+  assert(res2.size() == 9);
   auto res3 = GetValidIPAddress("1111");
-  for (const auto& s : res3) {
+  for (const string& s : res3) {
     cout << s << endl;
   }
   assert(res3.size() == 1);
   assert(res3.front().compare("1.1.1.1") == 0);
   auto res4 = GetValidIPAddress("11000");
-  for (const auto& s : res4) {
+  for (const string& s : res4) {
     cout << s << endl;
   }
   assert(res4.size() == 2);

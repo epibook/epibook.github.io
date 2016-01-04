@@ -2,12 +2,12 @@ package com.epi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.SortedSet;
 import java.util.Random;
+import java.util.Set;
 import java.util.TreeSet;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class GaussianPrimes {
   // @include
   public static class Complex implements Comparable<Complex> {
@@ -32,24 +32,41 @@ public class GaussianPrimes {
 
     @Override
     public int compareTo(Complex o) {
-      int result = Integer.valueOf(getNorm()).compareTo(o.getNorm());
+      int result = Integer.compare(getNorm(), o.getNorm());
       if (result == 0) {
-        result = Integer.valueOf(getReal()).compareTo(o.getReal());
+        result = Integer.compare(getReal(), o.getReal());
       }
       if (result == 0) {
-        result = Integer.valueOf(getImag()).compareTo(o.getImag());
+        result = Integer.compare(getImag(), o.getImag());
       }
       return result;
     }
 
     @Override
-    public String toString() {
-      return "(" + real + "," + imag + ")";
+    public boolean equals(Object obj) {
+      if (obj == null || !(obj instanceof Complex)) {
+        return false;
+      }
+      if (this == obj) {
+        return true;
+      }
+      Complex that = (Complex)obj;
+      return getReal() == that.getReal() && getImag() == that.getImag();
     }
+
+    // clang-format off
+    @Override
+    public int hashCode() { return Objects.hash(getReal(), getImag()); }
+    // clang-format on
+
+    // clang-format off
+    @Override
+    public String toString() { return "(" + real + "," + imag + ")"; }
+    // clang-format on
   }
 
   public static List<Complex> generateGaussianPrimes(int n) {
-    TreeSet<Complex> candidates = new TreeSet<>();
+    SortedSet<Complex> candidates = new TreeSet<>();
     List<Complex> primes = new ArrayList<>();
 
     // Generate all possible Gaussian prime candidates.
@@ -62,10 +79,11 @@ public class GaussianPrimes {
     }
 
     while (!candidates.isEmpty()) {
-      Complex p = candidates.pollFirst();
+      Complex p = candidates.first();
       primes.add(p);
-      int maxMultiplier =
-          (int)Math.ceil(Math.sqrt(2.0) * n / Math.floor(Math.sqrt(p.getNorm())));
+      candidates.remove(p);
+      int maxMultiplier = (int)Math.ceil(Math.sqrt(2.0) * n
+                                         / Math.floor(Math.sqrt(p.getNorm())));
 
       // Any Gaussian integer outside the range we're iterating
       // over below has a modulus greater than maxMultiplier.
@@ -86,15 +104,15 @@ public class GaussianPrimes {
   }
 
   private static boolean isUnit(Complex z) {
-    return (z.getReal() == 1 && z.getImag() == 0) ||
-        (z.getReal() == -1 && z.getImag() == 0) ||
-        (z.getReal() == 0 && z.getImag() == 1) ||
-        (z.getReal() == 0 && z.getImag() == -1);
+    return (z.getReal() == 1 && z.getImag() == 0)
+        || (z.getReal() == -1 && z.getImag() == 0)
+        || (z.getReal() == 0 && z.getImag() == 1)
+        || (z.getReal() == 0 && z.getImag() == -1);
   }
   // @exclude
 
   private static List<Complex> generateGaussianPrimesCanary(int n) {
-    TreeSet<Complex> candidates = new TreeSet<>();
+    SortedSet<Complex> candidates = new TreeSet<>();
     List<Complex> primes = new ArrayList<>();
 
     // Generate all possible Gaussian prime candidates.
@@ -107,8 +125,9 @@ public class GaussianPrimes {
     }
 
     while (!candidates.isEmpty()) {
-      Complex p = candidates.pollFirst();
+      Complex p = candidates.first();
       primes.add(p);
+      candidates.remove(p);
       int maxMultiplier = n;
 
       for (int i = maxMultiplier; i >= -maxMultiplier; --i) {
@@ -138,8 +157,8 @@ public class GaussianPrimes {
       List<Complex> gPrimes = generateGaussianPrimes(i);
       System.out.println(first.size() + " " + gPrimes.size());
       for (int j = 0; j < first.size(); ++j) {
-        if (first.get(j).getReal() != gPrimes.get(j).getReal() ||
-            first.get(j).getImag() != gPrimes.get(j).getImag()) {
+        if (first.get(j).getReal() != gPrimes.get(j).getReal()
+            || first.get(j).getImag() != gPrimes.get(j).getImag()) {
           System.out.print(first.get(j) + " ");
           System.out.print(gPrimes.get(j) + " ");
         }

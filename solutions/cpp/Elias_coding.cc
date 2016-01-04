@@ -22,7 +22,7 @@ int TransBinaryToInt(const string& binary);
 // @include
 string Encode(const vector<int>& A) {
   string ret;
-  for (const int& a : A) {
+  for (int a : A) {
     string binary = TransIntToBinary(a);
     binary.insert(0, binary.size() - 1, '0');  // prepend 0s.
     ret += binary;
@@ -59,7 +59,7 @@ vector<int> Decode(const string& s) {
 
 int TransBinaryToInt(const string& binary) {
   int ret = 0;
-  for (const char& c : binary) {
+  for (char c : binary) {
     ret = (ret * 2) + c - '0';
   }
   return ret;

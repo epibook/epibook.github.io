@@ -14,8 +14,8 @@ public class PalindromePartitioningMinCuts {
     }
     for (int i = s.length() - 1; i >= 0; --i) {
       for (int j = i; j < s.length(); ++j) {
-        if (s.charAt(i) == s.charAt(j) &&
-            (j - i < 2 || isPalindrome[i + 1][j - 1])) {
+        if (s.charAt(i) == s.charAt(j)
+            && (j - i < 2 || isPalindrome[i + 1][j - 1])) {
           isPalindrome[i][j] = true;
           T[i] = Math.min(T[i], 1 + T[j + 1]);
         }
@@ -43,12 +43,13 @@ public class PalindromePartitioningMinCuts {
 
   public static void main(String[] args) {
     smallTest();
+    String s;
     if (args.length == 1) {
-      String s = args[0];
+      s = args[0];
     } else {
       Random r = new Random();
-      String s = randString(r.nextInt(11));
-      System.out.println("times = " + minCuts(s));
+      s = randString(r.nextInt(11));
     }
+    System.out.println("times = " + minCuts(s));
   }
 }

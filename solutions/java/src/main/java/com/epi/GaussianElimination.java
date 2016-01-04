@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import static com.epi.utils.Utils.*;
+import static com.epi.utils.Utils.copy;
+import static com.epi.utils.Utils.simplePrint;
 
 public class GaussianElimination {
   // @include
@@ -95,7 +96,9 @@ public class GaussianElimination {
       int temp = val;
       for (int i = 0; i < b.length; ++i) {
         x[i] = (temp & 1) > 0;
-        temp >>= 1;
+        // clang-format off
+        temp >>>= 1;
+        // clang-format on
       }
 
       /*
@@ -166,7 +169,7 @@ public class GaussianElimination {
     for (int times = 0; times < 1000; ++times) {
       int n;
       if (args.length == 1) {
-        n = Integer.valueOf(args[0]);
+        n = Integer.parseInt(args[0]);
         System.out.println("n = " + n);
       } else {
         n = gen.nextInt(16) + 1;

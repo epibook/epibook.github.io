@@ -1,51 +1,52 @@
 package com.epi;
 
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Random;
 
 public class StackSorting {
   // @include
-  public static void sort(LinkedList<Integer> S) {
+  public static void sort(Deque<Integer> S) {
     if (!S.isEmpty()) {
-      Integer val = S.pop();
+      Integer val = S.removeFirst();
       sort(S);
       insert(val, S);
     }
   }
 
-  private static void insert(Integer val, LinkedList<Integer> S) {
-    if (S.isEmpty() || S.peek().compareTo(val) <= 0) {
-      S.push(val);
+  private static void insert(Integer val, Deque<Integer> S) {
+    if (S.isEmpty() || Integer.compare(S.peekFirst(), val) <= 0) {
+      S.addFirst(val);
     } else {
-      Integer f = S.pop();
+      Integer f = S.removeFirst();
       insert(val, S);
-      S.push(f);
+      S.addFirst(f);
     }
   }
   // @exclude
 
   private static void simpleTest() {
-    LinkedList<Integer> S = new LinkedList<>();
-    S.push(1);
+    Deque<Integer> S = new LinkedList<>();
+    S.addFirst(1);
     sort(S);
-    assert(S.peek() == 1);
-    S.push(0);
+    assert(S.peekFirst() == 1);
+    S.addFirst(0);
     sort(S);
-    assert(S.peek() == 1);
-    S.pop();
-    assert(S.peek() == 0);
-    S.pop();
+    assert(S.peekFirst() == 1);
+    S.removeFirst();
+    assert(S.peekFirst() == 0);
+    S.removeFirst();
     assert(S.isEmpty());
-    S.push(-1);
-    S.push(1);
-    S.push(0);
+    S.addFirst(-1);
+    S.addFirst(1);
+    S.addFirst(0);
     sort(S);
-    assert(S.peek() == 1);
-    S.pop();
-    assert(S.peek() == 0);
-    S.pop();
-    assert(S.peek() == -1);
-    S.pop();
+    assert(S.peekFirst() == 1);
+    S.removeFirst();
+    assert(S.peekFirst() == 0);
+    S.removeFirst();
+    assert(S.peekFirst() == -1);
+    S.removeFirst();
     assert(S.isEmpty());
   }
 
@@ -60,16 +61,16 @@ public class StackSorting {
         n = r.nextInt(10000) + 1;
       }
 
-      LinkedList<Integer> S = new LinkedList<>();
+      Deque<Integer> S = new LinkedList<>();
       for (int i = 0; i < n; i++) {
-        S.push(r.nextInt(1000000));
+        S.addFirst(r.nextInt(1000000));
       }
       sort(S);
       int pre = Integer.MAX_VALUE;
       while (!S.isEmpty()) {
-        assert(pre >= S.peek());
-        System.out.println(S.peek());
-        pre = S.pop();
+        assert(pre >= S.peekFirst());
+        System.out.println(S.peekFirst());
+        pre = S.removeFirst();
       }
     }
   }

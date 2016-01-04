@@ -45,9 +45,10 @@ int CheckAns(const vector<int>& A) {
 }
 
 static void SimpleTest() {
-  vector<int> A = {0,1,2,3};
+  vector<int> A = {0, 1, 2, 3};
   assert(-1 != SearchEntryEqualToItsIndex(A));
-  assert(0 <= SearchEntryEqualToItsIndex(A) && SearchEntryEqualToItsIndex(A) <= 3);
+  assert(0 <= SearchEntryEqualToItsIndex(A) &&
+         SearchEntryEqualToItsIndex(A) <= 3);
   A[0] = -1;
   A[2] = 4;
   A[3] = 5;
@@ -56,7 +57,6 @@ static void SimpleTest() {
   assert(-1 != SearchEntryEqualToItsIndex(A));
   A[0] = -1;
   assert(-1 == SearchEntryEqualToItsIndex(A));
-
 }
 
 int main(int argc, char* argv[]) {

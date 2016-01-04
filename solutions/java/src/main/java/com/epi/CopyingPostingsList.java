@@ -4,9 +4,9 @@ package com.epi;
 
 import java.util.Random;
 
-class CopyingPostingsList {
+public class CopyingPostingsList {
   // @include
-  public static PNode<Integer> copyPostingsList(PNode<Integer> L) {
+  public static PostingListNode copyPostingsList(PostingListNode L) {
     if (L == null) {
       return null;
     }
@@ -14,9 +14,10 @@ class CopyingPostingsList {
     // Stage 1: Makes a copy of the original list without assigning the jump
     //          field, and creates the mapping for each node in the original
     //          list to the copied list.
-    PNode<Integer> iter = L;
+    PostingListNode iter = L;
     while (iter != null) {
-      PNode<Integer> newNode = new PNode<>(iter.data, iter.next, null);
+      PostingListNode newNode
+          = new PostingListNode(iter.order, iter.next, null);
       iter.next = newNode;
       iter = newNode.next;
     }
@@ -33,9 +34,9 @@ class CopyingPostingsList {
     // Stage 3: Reverts the original list, and assigns the next field of
     //          the copied list.
     iter = L;
-    PNode<Integer> newListHead = iter.next;
+    PostingListNode newListHead = iter.next;
     while (iter.next != null) {
-      PNode<Integer> temp = iter.next;
+      PostingListNode temp = iter.next;
       iter.next = temp.next;
       iter = temp;
     }
@@ -43,14 +44,16 @@ class CopyingPostingsList {
   }
   // @exclude
 
-  public static <T> void checkPostingsListEqual(PNode<T> a, PNode<T> b) {
+  public static void checkPostingsListEqual(PostingListNode a,
+                                            PostingListNode b) {
     while (a != null && b != null) {
-      System.out.print(a.data + " ");
-      assert(a.data == b.data);
-      assert(a.jump == null && b.jump == null ||
-             (a.jump != null && b.jump != null && a.jump.data == b.jump.data));
+      System.out.print(a.order + " ");
+      assert(a.order == b.order);
+      assert(a.jump == null && b.jump == null
+             || (a.jump != null && b.jump != null
+                 && a.jump.order == b.jump.order));
       if (a.jump != null) {
-        System.out.print(a.jump.data);
+        System.out.print(a.jump.order);
       }
       System.out.println("");
       a = a.next;
@@ -70,10 +73,10 @@ class CopyingPostingsList {
         n = gen.nextInt(1000) + 1;
       }
 
-      PNode<Integer> L = null;
-      PNode<Integer> curr = L;
+      PostingListNode L = null;
+      PostingListNode curr = L;
       for (int i = 0; i < n; ++i) {
-        PNode<Integer> temp = new PNode<>(i, null, null);
+        PostingListNode temp = new PostingListNode(i, null, null);
         if (L != null) {
           curr.next = temp;
           curr = temp;
@@ -83,14 +86,14 @@ class CopyingPostingsList {
 
         // Randomly assigned a jump node.
         int jumpNum = (i > 0) ? gen.nextInt(i) : 0;
-        PNode<Integer> jump = L;
+        PostingListNode jump = L;
         while (jumpNum-- != 0) {
           jump = jump.next;
         }
         temp.jump = jump;
       }
 
-      PNode<Integer> copied = copyPostingsList(L);
+      PostingListNode copied = copyPostingsList(L);
       checkPostingsListEqual(L, copied);
     }
   }

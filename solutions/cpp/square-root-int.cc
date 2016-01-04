@@ -19,7 +19,7 @@ using std::uniform_int_distribution;
 // @include
 int SquareRoot(int k) {
   int left = 0, right = k;
-  // Candidate interval [left : right] where everything before left has
+  // Candidate interval [left, right] where everything before left has
   // square <= k, and everything after right has square > k.
   while (left <= right) {
     long mid = left + ((right - left) / 2);
@@ -35,6 +35,7 @@ int SquareRoot(int k) {
 // @exclude
 
 static void SimpleTest() {
+  assert(SquareRoot(0) == 0);
   assert(SquareRoot(1) == 1);
   assert(SquareRoot(2) == 1);
   assert(SquareRoot(3) == 1);
@@ -43,7 +44,7 @@ static void SimpleTest() {
   assert(SquareRoot(121) == 11);
   assert(SquareRoot(64) == 8);
   assert(SquareRoot(300) == 17);
-  assert(SquareRoot(INT_MAX) == 46340);
+  assert(SquareRoot(numeric_limits<int>::max()) == 46340);
 }
 
 int main(int argc, char** argv) {
@@ -63,7 +64,5 @@ int main(int argc, char** argv) {
       assert(result[0] == result[1]);
     }
   }
-  x = 2147395599;
-  cout << SquareRoot(x) << endl;
   return 0;
 }

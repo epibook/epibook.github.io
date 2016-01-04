@@ -35,7 +35,7 @@ void transitive_closure(vector<GraphVertex>* G) {
 }
 
 void DFS(GraphVertex* cur, int time, vector<GraphVertex*>* contacts) {
-  for (const auto& next : cur->edges) {
+  for (GraphVertex* next : cur->edges) {
     if (next->visit_time != time) {
       next->visit_time = time;
       contacts->emplace_back(next);

@@ -1,48 +1,69 @@
-// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
-
 package com.epi;
 
+/*
+    @slug
+    render-a-calender
+
+    @title
+    Render a Calendar
+
+    @problem
+    Write a program that takes a set of events, and determines the maximum
+   number of
+    events that take place concurrently.
+
+    @hint
+    Focus on endpoints.
+
+ */
+
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-class Event {
-  int start, finish;
-
-  public Event(int start, int finish) {
-    this.start = start;
-    this.finish = finish;
-  }
-}
-
-class Endpoint implements Comparable<Endpoint> {
-  public int compareTo(Endpoint e) {
-    if (time != e.time) {
-      return Integer.compare(time, e.time);
-    }
-    // If times are equal, times corresponding to start come first.
-    if (isStart && !e.isStart) {
-      return -1;
-    }
-    if (!isStart && e.isStart) {
-      return 1;
-    }
-    return 0;
-  }
-
-  Endpoint(int t, boolean is) {
-    time = t;
-    isStart = is;
-  }
-
-  public int time;
-  public boolean isStart;
-}
-
-class RenderingCalendar {
+public class RenderingCalendar {
   // @include
-  public static int findMaxSimultaneousEvents(Event[] A) {
+  // @judge-include-display
+  public static class Event {
+    public int start, finish;
+
+    public Event(int start, int finish) {
+      this.start = start;
+      this.finish = finish;
+    }
+
+    // @exclude
+    @Override
+    public String toString() {
+      return "[" + start + "," + finish + "]";
+    }
+    // @include
+  }
+  // @judge-exclude-display
+
+  private static class Endpoint implements Comparable<Endpoint> {
+    public int time;
+    public boolean isStart;
+
+    public int compareTo(Endpoint e) {
+      if (time != e.time) {
+        return Integer.compare(time, e.time);
+      }
+      // If times are equal, an endpoint that starts an interval comes first.
+      return isStart && !e.isStart ? -1 : !isStart && e.isStart ? 1 : 0;
+    }
+
+    Endpoint(int t, boolean is) {
+      time = t;
+      isStart = is;
+    }
+  }
+
+  // @judge-include-display
+  public static int findMaxSimultaneousEvents(List<Event> A) {
+    // @judge-exclude-display
     // Builds an array of all endpoints.
     List<Endpoint> E = new ArrayList<>();
     for (Event event : A) {
@@ -59,28 +80,49 @@ class RenderingCalendar {
     for (Endpoint endpoint : E) {
       if (endpoint.isStart) {
         ++numSimultaneousEvents;
-        maxNumSimultaneousEvents =
-            Math.max(numSimultaneousEvents, maxNumSimultaneousEvents);
+        maxNumSimultaneousEvents
+            = Math.max(numSimultaneousEvents, maxNumSimultaneousEvents);
       } else {
         --numSimultaneousEvents;
       }
     }
     return maxNumSimultaneousEvents;
+    // @judge-include-display
   }
+  // @judge-exclude-display
   // @exclude
 
+  private static void check(int expected, List<Event> events) {
+    int got = findMaxSimultaneousEvents(events);
+    if (expected != got) {
+      System.err.println("Failed on input " + events);
+      System.err.println("Expected " + expected);
+      System.err.println("Got " + got);
+      System.exit(-1);
+    }
+  }
+
   private static void simpleTest() {
-    Event[] events = new Event[9];
-    events[0] = new Event(1, 5);
-    events[1] = new Event(2, 7);
-    events[2] = new Event(4, 5);
-    events[3] = new Event(6, 10);
-    events[4] = new Event(8, 9);
-    events[5] = new Event(9, 17);
-    events[6] = new Event(11, 13);
-    events[7] = new Event(12, 15);
-    events[8] = new Event(14, 15);
-    assert(3 == findMaxSimultaneousEvents(events));
+    List<Event> events = Arrays.asList(
+        new Event(1, 5), new Event(2, 7), new Event(4, 5), new Event(6, 10),
+        new Event(8, 9), new Event(9, 17), new Event(11, 13), new Event(12, 15),
+        new Event(14, 15));
+    check(3, events);
+
+    check(1, Arrays.asList(new Event(1, 2), new Event(3, 4)));
+    check(2, Arrays.asList(new Event(1, 3), new Event(3, 4)));
+    check(2, Arrays.asList(new Event(1, 3), new Event(0, 4)));
+    check(2, Arrays.asList(new Event(1, 3), new Event(0, 4), new Event(-1, 0)));
+    check(2, Arrays.asList(new Event(1, 1), new Event(0, 0), new Event(0, 0)));
+    int N = 1000000;
+    List<Event> big1 = new ArrayList<>(N);
+    List<Event> big2 = new ArrayList<>(N);
+    for (int i = 0; i < N; i++) {
+      big1.add(new Event(i, i));
+      big2.add(new Event(-i, i));
+    }
+    check(1, big1);
+    check(N, big2);
   }
 
   public static void main(String[] args) {
@@ -92,12 +134,11 @@ class RenderingCalendar {
     } else {
       n = gen.nextInt(100000) + 1;
     }
-    Event[] A = new Event[n];
+    List<Event> A = new ArrayList<>(n);
     for (int i = 0; i < n; ++i) {
       int start = gen.nextInt(99999);
       int finish = gen.nextInt(start + 10000) + start + 1;
-      Event temp = new Event(start, finish);
-      A[i] = temp;
+      A.add(new Event(start, finish));
     }
     int ans = findMaxSimultaneousEvents(A);
     System.out.println(ans);

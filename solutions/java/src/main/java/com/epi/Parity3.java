@@ -14,10 +14,13 @@ public class Parity3 {
   public static short parity(long x) {
     final int WORD_SIZE = 16;
     final int BIT_MASK = 0xFFFF;
-    return (short)(precomputedParity[(int)((x >>> (3 * WORD_SIZE)) & BIT_MASK)] ^
-                   precomputedParity[(int)((x >>> (2 * WORD_SIZE)) & BIT_MASK)] ^
-                   precomputedParity[(int)((x >>> WORD_SIZE) & BIT_MASK)] ^
-                   precomputedParity[(int)(x & BIT_MASK)]);
+    // clang-format off
+    return (short) (
+        precomputedParity[(int)((x >>> (3 * WORD_SIZE)) & BIT_MASK)]
+        ^ precomputedParity[(int)((x >>> (2 * WORD_SIZE)) & BIT_MASK)]
+        ^ precomputedParity[(int)((x >>> WORD_SIZE) & BIT_MASK)]
+        ^ precomputedParity[(int)(x & BIT_MASK)]);
+    // clang-format on
   }
   // @exclude
 }

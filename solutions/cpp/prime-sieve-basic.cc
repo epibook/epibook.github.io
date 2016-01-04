@@ -19,9 +19,8 @@ using std::vector;
 // Given n, return all primes up to and including n.
 vector<int> GeneratePrimes(int n) {
   vector<int> primes;
-  // is_prime[p] represents whether p is prime or not.
-  // Initially, set each to true, excepting 0 and 1. Then use sieving to
-  // eliminate nonprimes.
+  // is_prime[p] represents if p is prime or not. Initially, set each to true,
+  // excepting 0 and 1. Then use sieving to eliminate nonprimes.
   deque<bool> is_prime(n + 1, true);
   is_prime[0] = is_prime[1] = false;
   for (int p = 2; p < n; ++p) {

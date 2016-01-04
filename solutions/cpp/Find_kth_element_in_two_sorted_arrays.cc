@@ -111,7 +111,7 @@ T CheckAnswer(const vector<T>& A, const vector<T>& B, int k) {
   return ret;
 }
 
-void small_test() {
+void SmallTest() {
   // AA: handwritten test
   vector<int> A0;
   vector<int> B0;
@@ -131,7 +131,7 @@ void small_test() {
 }
 
 int main(int argc, char* argv[]) {
-  small_test();
+  SmallTest();
   default_random_engine gen((random_device())());
   // Random test 10000 times.
   for (int times = 0; times < 10000; ++times) {
@@ -170,7 +170,6 @@ int main(int argc, char* argv[]) {
     int ans = FindKthInTwoSortedArrays(A, B, k);
     cout << k << "th = " << ans << endl;
     assert(ans == CheckAnswer(A, B, k));
-    A.clear(), B.clear();
   }
   return 0;
 }

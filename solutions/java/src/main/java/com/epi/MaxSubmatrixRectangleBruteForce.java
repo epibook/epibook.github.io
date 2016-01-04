@@ -1,14 +1,11 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class MaxSubmatrixRectangleBruteForce {
   // O(m^3 n^3) time solution.
-  public static int maxRectangleSubmatrixBruteForce(
-      ArrayList<ArrayList<Boolean>> A) {
+  public static int maxRectangleSubmatrixBruteForce(List<List<Boolean>> A) {
     int max = 0;
     for (int a = 0; a < A.size(); ++a) {
       for (int b = 0; b < A.get(a).size(); ++b) {

@@ -31,8 +31,8 @@ public class RegularExpression {
       // Case (3.): A '*' match.
       // Iterate through s, checking '*' condition, if '*' condition holds,
       // performs the remaining checks.
-      for (int i = 0; i < s.length() &&
-                      (regex.charAt(0) == '.' || regex.charAt(0) == s.charAt(i));
+      for (int i = 0; i < s.length() && (regex.charAt(0) == '.'
+                                         || regex.charAt(0) == s.charAt(i));
            ++i) {
         if (isMatchHere(regex.substring(2), s.substring(i + 1))) {
           return true;
@@ -43,9 +43,9 @@ public class RegularExpression {
     }
 
     // Case (4.): regex begins with single character match.
-    return !s.isEmpty() &&
-        (regex.charAt(0) == '.' || regex.charAt(0) == s.charAt(0)) &&
-        isMatchHere(regex.substring(1), s.substring(1));
+    return !s.isEmpty()
+        && (regex.charAt(0) == '.' || regex.charAt(0) == s.charAt(0))
+        && isMatchHere(regex.substring(1), s.substring(1));
   }
   // @exclude
 

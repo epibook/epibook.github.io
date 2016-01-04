@@ -34,10 +34,10 @@ struct RightComp {
   }
 };
 
-vector<int> FindMinimumVisits(const vector<Interval>& I) {
+vector<int> FindMinimumVisits(const vector<Interval>& intervals) {
   set<const Interval*, LeftComp> L;
   set<const Interval*, RightComp> R;
-  for (const auto& i : I) {
+  for (const Interval& i : intervals) {
     L.emplace(&i), R.emplace(&i);
   }
 
@@ -58,11 +58,11 @@ vector<int> FindMinimumVisits(const vector<Interval>& I) {
 // @exclude
 
 // O(n^2) checking solution
-void CheckAns(const vector<Interval>& I, const vector<int>& ans) {
-  deque<bool> is_visited(I.size(), false);
-  for (const int& a : ans) {
-    for (int i = 0; i < I.size(); ++i) {
-      if (a >= I[i].left && a <= I[i].right) {
+void CheckAns(const vector<Interval>& intervals, const vector<int>& ans) {
+  deque<bool> is_visited(intervals.size(), false);
+  for (int a : ans) {
+    for (int i = 0; i < intervals.size(); ++i) {
+      if (a >= intervals[i].left && a <= intervals[i].right) {
         is_visited[i] = true;
       }
     }
@@ -74,15 +74,25 @@ void CheckAns(const vector<Interval>& I, const vector<int>& ans) {
 }
 
 void SimpleTest() {
-  vector<Interval> I;
-  I.emplace_back(Interval{1, 4});
-  I.emplace_back(Interval{2, 8});
-  I.emplace_back(Interval{3, 6});
-  I.emplace_back(Interval{3, 5});
-  I.emplace_back(Interval{7, 10});
-  I.emplace_back(Interval{9, 11});
-  vector<int> ans = FindMinimumVisits(I);
+  vector<Interval> intervals;
+  intervals.emplace_back(Interval{1, 4});
+  intervals.emplace_back(Interval{2, 8});
+  intervals.emplace_back(Interval{3, 6});
+  intervals.emplace_back(Interval{3, 5});
+  intervals.emplace_back(Interval{7, 10});
+  intervals.emplace_back(Interval{9, 11});
+  vector<int> ans = FindMinimumVisits(intervals);
   assert(ans.size() == 2 && ans[0] == 4 && ans[1] == 10);
+
+  intervals.clear();
+  intervals.emplace_back(Interval{1, 2});
+  intervals.emplace_back(Interval{2, 3});
+  intervals.emplace_back(Interval{3, 4});
+  intervals.emplace_back(Interval{4, 5});
+  intervals.emplace_back(Interval{5, 6});
+  intervals.emplace_back(Interval{6, 7});
+  ans = FindMinimumVisits(intervals);
+  assert(ans.size() == 3 && ans[0] == 2 && ans[1] == 4 && ans[2] == 6);
 }
 
 int main(int argc, char* argv[]) {

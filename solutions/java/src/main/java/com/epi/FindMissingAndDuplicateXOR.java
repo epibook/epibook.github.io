@@ -1,10 +1,12 @@
 package com.epi;
 
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class FindMissingAndDuplicateXOR {
   // @include
-
   private static class DuplicateAndMissing {
     public Integer duplicate;
     public Integer missing;
@@ -14,11 +16,12 @@ public class FindMissingAndDuplicateXOR {
       this.missing = missing;
     }
   }
-  public static DuplicateAndMissing findDuplicateMissing(int[] A) {
+
+  public static DuplicateAndMissing findDuplicateMissing(List<Integer> A) {
     // Compute the XOR of all numbers from 0 to |A| - 1 and all entries in A.
     int missXORDup = 0;
-    for (int i = 0; i < A.length; ++i) {
-      missXORDup ^= i ^ A[i];
+    for (int i = 0; i < A.size(); ++i) {
+      missXORDup ^= i ^ A.get(i);
     }
 
     // We need to find a bit that's set to 1 in missXORDup. Such a bit
@@ -29,13 +32,13 @@ public class FindMissingAndDuplicateXOR {
     // except for the least significant bit in missXORDup that's 1.
     int differBit = missXORDup & (~(missXORDup - 1));
     int missOrDup = 0;
-    for (int i = 0; i < A.length; ++i) {
+    for (int i = 0; i < A.size(); ++i) {
       // Focus on entries and numbers in which the differBit-th bit is 1.
       if ((i & differBit) != 0) {
         missOrDup ^= i;
       }
-      if ((A[i] & differBit) != 0) {
-        missOrDup ^= A[i];
+      if ((A.get(i) & differBit) != 0) {
+        missOrDup ^= A.get(i);
       }
     }
 
@@ -50,18 +53,22 @@ public class FindMissingAndDuplicateXOR {
   }
   // @exclude
 
-  private static void SimpleTest() {
-    int[] A = {0,0,1};
+  private static void simpleTest() {
+    List<Integer> A = Arrays.asList(0, 1, 2, 4, 5, 6, 6);
     DuplicateAndMissing dm = findDuplicateMissing(A);
+    assert(dm.duplicate == 6 && dm.missing == 3);
+
+    A = Arrays.asList(0, 0, 1);
+    dm = findDuplicateMissing(A);
     assert(dm.duplicate == 0 && dm.missing == 2);
 
-    A = new int[]{1,3,2,5,3,4};
+    A = Arrays.asList(1, 3, 2, 5, 3, 4);
     dm = findDuplicateMissing(A);
     assert(dm.duplicate == 3 && dm.missing == 0);
   }
 
   public static void main(String[] args) {
-    SimpleTest();
+    simpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
@@ -70,18 +77,18 @@ public class FindMissingAndDuplicateXOR {
       } else {
         n = r.nextInt(9999) + 2;
       }
-      int[] A = new int[n];
+      List<Integer> A = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
-        A[i] = i;
+        A.add(i);
       }
       int missingIdx = r.nextInt(n);
-      int missing = A[missingIdx];
+      int missing = A.get(missingIdx);
       int dupIdx = r.nextInt(n);
       while (dupIdx == missingIdx) {
         dupIdx = r.nextInt(n);
       }
-      int dup = A[dupIdx];
-      A[missingIdx] = dup;
+      int dup = A.get(dupIdx);
+      A.set(missingIdx, dup);
       DuplicateAndMissing ans = findDuplicateMissing(A);
       System.out.println("times = " + times);
       System.out.println(dup + " " + missing);

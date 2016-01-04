@@ -1,12 +1,13 @@
 package com.epi;
 
 import java.util.Comparator;
-import java.util.PriorityQueue;
 import java.util.NoSuchElementException;
+import java.util.PriorityQueue;
 
 public class StackQueueUsingHeap {
-  private static final int DEFAULT_INITIAL_CAPACITY = 16;
   // @include
+  private static final int DEFAULT_INITIAL_CAPACITY = 16;
+
   private static class ValueWithRank {
     public Integer value;
     public Integer rank;
@@ -20,18 +21,20 @@ public class StackQueueUsingHeap {
   private static class Compare implements Comparator<ValueWithRank> {
     @Override
     public int compare(ValueWithRank o1, ValueWithRank o2) {
-      return o2.value.compareTo(o1.value);
+      return Integer.compare(o2.value, o1.value);
     }
 
     public static final Compare COMPARE_VALUEWITHRANK = new Compare();
   }
 
   public static class Stack {
-    private int order = 0;
+    private int timestamp = 0;
     private PriorityQueue<ValueWithRank> maxHeap = new PriorityQueue<>(
         DEFAULT_INITIAL_CAPACITY, Compare.COMPARE_VALUEWITHRANK);
 
-    public void push(Integer x) { maxHeap.add(new ValueWithRank(order++, x)); }
+    public void push(Integer x) {
+      maxHeap.add(new ValueWithRank(timestamp++, x));
+    }
 
     public Integer pop() throws NoSuchElementException {
       return maxHeap.remove().rank;
@@ -43,8 +46,8 @@ public class StackQueueUsingHeap {
 
   public static class Queue {
     private int order = 0;
-    private PriorityQueue<ValueWithRank> H =
-        new PriorityQueue<>(11, new Compare());
+    private PriorityQueue<ValueWithRank> H
+        = new PriorityQueue<>(DEFAULT_INITIAL_CAPACITY, new Compare());
 
     public void enqueue(Integer x) { H.add(new ValueWithRank(order--, x)); }
 

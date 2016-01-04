@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -67,15 +67,16 @@ string RandString(int len) {
 }
 
 static void SimpleTest() {
-  vector<Person> people = {Person({20, "foo"}), Person({10, "bar"}), Person({20, "widget"}), Person({20, "something"})};
+  vector<Person> people = {Person({20, "foo"}), Person({10, "bar"}),
+                           Person({20, "widget"}), Person({20, "something"})};
 
   GroupByAge(&people);
   if (people[0].age == 10) {
-      assert(people[1].age == 20 && people[2].age == 20 && people[3].age == 20);
-  } else {  
-      assert(people[1].age == 20 && people[2].age == 20 && people[3].age == 10);
+    assert(people[1].age == 20 && people[2].age == 20 && people[3].age == 20);
+  } else {
+    assert(people[1].age == 20 && people[2].age == 20 && people[3].age == 10);
   }
-} 
+}
 
 int main(int argc, char* argv[]) {
   SimpleTest();

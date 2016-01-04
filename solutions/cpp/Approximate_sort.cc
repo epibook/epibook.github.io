@@ -7,6 +7,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <cassert>
 
 using std::cout;
 using std::default_random_engine;
@@ -20,19 +21,20 @@ using std::stringstream;
 using std::uniform_int_distribution;
 using std::vector;
 
+static vector<int> result;
+
 // @include
 void SortApproximatelySortedData(istringstream* sequence, int k) {
+  // @exclude
+  result = {};
+  // @include
   priority_queue<int, vector<int>, greater<int>> min_heap;
   // Adds the first k elements into min_heap. Stop if there are fewer than k
   // elements.
   int x;
-  // @exclude
   // clang-format off
-  // @include
   for (int i = 0; i < k && *sequence >> x; ++i) {
-    // @exclude
     // clang-format on
-    // @include
     min_heap.push(x);
   }
 
@@ -40,18 +42,29 @@ void SortApproximatelySortedData(istringstream* sequence, int k) {
   while (*sequence >> x) {
     min_heap.push(x);
     cout << min_heap.top() << endl;
+    // @exclude
+    result.push_back(min_heap.top());
+    // @include
     min_heap.pop();
   }
 
   // sequence is exhausted, iteratively extracts the remaining elements.
   while (!min_heap.empty()) {
+    // @exclude
+    result.push_back(min_heap.top());
+    // @include
     cout << min_heap.top() << endl;
     min_heap.pop();
   }
 }
 // @exclude
 
-// It should print 1, 2, 3, 4, 5, 6, 7, ,8, 9.
+template <typename T>
+bool EqualVector(const vector<T>& A, const vector<T>& B) {
+  return A.size() == B.size() && equal(A.begin(), A.end(), B.begin());
+}
+
+// It should sort to 1, 2, 3, 4, 5, 6, 7, 8, 9.
 void SimpleTest() {
   vector<int> A = {2, 1, 5, 4, 3, 9, 8, 7, 6};
   stringstream ss;
@@ -60,6 +73,8 @@ void SimpleTest() {
   }
   istringstream sequence(ss.str());
   SortApproximatelySortedData(&sequence, 3);
+  vector<int> goldenResult = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+  assert(EqualVector(result, goldenResult));
 }
 
 int main(int argc, char* argv[]) {
@@ -72,7 +87,6 @@ int main(int argc, char* argv[]) {
     uniform_int_distribution<int> n_dis(1, 100000);
     n = n_dis(gen);
   }
-  cout << "n = " << n << endl;
   vector<int> A;
   uniform_int_distribution<int> dis(1, 999999);
   for (int i = 0; i < n; ++i) {
@@ -84,5 +98,7 @@ int main(int argc, char* argv[]) {
   }
   istringstream sequence(ss.str());
   SortApproximatelySortedData(&sequence, n - 1);
+  sort(A.begin(), A.end());
+  assert(EqualVector(result, A));
   return 0;
 }

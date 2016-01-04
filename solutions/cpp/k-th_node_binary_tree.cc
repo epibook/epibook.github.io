@@ -9,6 +9,7 @@ using std::cout;
 using std::endl;
 using std::exception;
 using std::length_error;
+using std::make_unique;
 using std::unique_ptr;
 
 template <typename T>
@@ -33,8 +34,8 @@ const BinaryTreeNode<int>* FindKthNodeBinaryTree(
       iter = iter->left.get();
     }
   }
-  return nullptr;  // If k is between 1 and the tree size, this line is
-  // unreachable.
+  // If k is between 1 and the tree size, this line is unreachable.
+  return nullptr;
 }
 // @exclude
 
@@ -48,24 +49,22 @@ int main(int argc, char* argv[]) {
   //      3
   //    2   5
   //  1    4 6
-  auto root = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  auto root = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>());
   root->size = 6;
   root->data = 3;
-  root->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  root->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>());
   root->left->size = 2;
   root->left->data = 2;
-  root->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  root->left->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>());
   root->left->left->size = 1;
   root->left->left->data = 1;
-  root->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  root->right = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>());
   root->right->size = 3;
   root->right->data = 5;
-  root->right->left =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  root->right->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>());
   root->right->left->size = 1;
   root->right->left->data = 4;
-  root->right->right =
-      unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>());
+  root->right->right = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>());
   root->right->right->size = 1;
   root->right->right->data = 6;
   // 0th node does not exist - leftmost node is node 1

@@ -7,19 +7,19 @@ public class SearchMinFirstBST {
   public static boolean searchMinFirstBST(BinaryTreeNode<Integer> minFirstBST,
                                           Integer k) {
     // First handle the base cases.
-    if (minFirstBST == null || minFirstBST.getData().compareTo(k) > 0) {
+    if (minFirstBST == null || Integer.compare(minFirstBST.data, k) > 0) {
       return false;
-    } else if (minFirstBST.getData().compareTo(k) == 0) {
+    } else if (Integer.compare(minFirstBST.data, k) == 0) {
       return true;
     }
 
     // Recursively search just the right subtree if the smallest key in the
     // right subtree is greater than or equal to k.
-    if (minFirstBST.getRight() != null &&
-        k.compareTo(minFirstBST.getRight().getData()) >= 0) {
-      return searchMinFirstBST(minFirstBST.getRight(), k);
+    if (minFirstBST.right != null
+        && Integer.compare(k, minFirstBST.right.data) >= 0) {
+      return searchMinFirstBST(minFirstBST.right, k);
     }
-    return searchMinFirstBST(minFirstBST.getLeft(), k);
+    return searchMinFirstBST(minFirstBST.left, k);
   }
   // @exclude
 
@@ -29,11 +29,11 @@ public class SearchMinFirstBST {
     // 2 4
     // 3 5 7
     BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(1);
-    tree.setLeft(new BinaryTreeNode<>(2));
-    tree.getLeft().setLeft(new BinaryTreeNode<>(3));
-    tree.setRight(new BinaryTreeNode<>(4));
-    tree.getRight().setLeft(new BinaryTreeNode<>(5));
-    tree.getRight().setRight(new BinaryTreeNode<>(7));
+    tree.left = new BinaryTreeNode<>(2);
+    tree.left.left = new BinaryTreeNode<>(3);
+    tree.right = new BinaryTreeNode<>(4);
+    tree.right.left = new BinaryTreeNode<>(5);
+    tree.right.right = new BinaryTreeNode<>(7);
     assert(searchMinFirstBST(tree, 1));
     assert(searchMinFirstBST(tree, 3));
     assert(searchMinFirstBST(tree, 5));

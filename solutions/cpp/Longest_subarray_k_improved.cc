@@ -19,14 +19,14 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-pair<int, int> FindLongestSubarrayLessEqualK(const vector<int> &A, int k) {
+int FindLongestSubarrayLessEqualK(const vector<int> &A, int k) {
   // Builds the prefix sum according to A.
   vector<int> prefix_sum;
   partial_sum(A.cbegin(), A.cend(), back_inserter(prefix_sum));
 
   // Early returns if the sum of A is smaller than or equal to k.
   if (prefix_sum.back() <= k) {
-    return {0, A.size() - 1};
+    return A.size();
   }
 
   // Builds min_prefix_sum.
@@ -37,7 +37,6 @@ pair<int, int> FindLongestSubarrayLessEqualK(const vector<int> &A, int k) {
   }
 
   int a = 0, b = 0, max_length = 0;
-  pair<int, int> res_idx(-1, -1);
   while (a < A.size() && b < A.size()) {
     int min_curr_sum =
         a > 0 ? min_prefix_sum[b] - prefix_sum[a - 1] : min_prefix_sum[b];
@@ -45,35 +44,29 @@ pair<int, int> FindLongestSubarrayLessEqualK(const vector<int> &A, int k) {
       int curr_length = b - a + 1;
       if (curr_length > max_length) {
         max_length = curr_length;
-        res_idx = {a, b};
       }
       ++b;
     } else {  // min_curr_sum > k.
       ++a;
     }
   }
-  return res_idx;
+  return max_length;
 }
 // @exclude
 
 // O(n^2) checking answer.
 template <typename T>
-void CheckAnswer(const vector<T> &A, const pair<int, int> &ans, const T &k) {
+void CheckAnswer(const vector<T> &A, int ans, const T &k) {
   vector<T> sum(A.size() + 1, 0);
   sum[0] = 0;
   for (size_t i = 0; i < A.size(); ++i) {
     sum[i + 1] = sum[i] + A[i];
   }
-  if (ans.first != -1 && ans.second != -1) {
-    T s = 0;
-    for (size_t i = ans.first; i <= ans.second; ++i) {
-      s += A[i];
-    }
-    assert(s <= k);
+  if (ans != 0) {
     for (size_t i = 0; i < sum.size(); ++i) {
       for (size_t j = i + 1; j < sum.size(); ++j) {
         if (sum[j] - sum[i] <= k) {
-          assert((j - i) <= (ans.second - ans.first + 1));
+          assert((j - i) <= ans);
         }
       }
     }
@@ -89,11 +82,11 @@ void CheckAnswer(const vector<T> &A, const pair<int, int> &ans, const T &k) {
 void SmallTest() {
   vector<int> A = {1, 1};
   int k = 0;
-  auto res = FindLongestSubarrayLessEqualK(A, k);
-  assert(res.first == -1 && res.second == -1);
+  int res = FindLongestSubarrayLessEqualK(A, k);
+  assert(res == 0);
   k = -100;
   res = FindLongestSubarrayLessEqualK(A, k);
-  assert(res.first == -1 && res.second == -1);
+  assert(res == 0);
 }
 
 int main(int argc, char *argv[]) {
@@ -118,8 +111,8 @@ int main(int argc, char *argv[]) {
       uniform_int_distribution<int> dis(-1000, 1000);
       A.emplace_back(dis(gen));
     }
-    auto ans = FindLongestSubarrayLessEqualK(A, k);
-    cout << k << ' ' << ans.first << ' ' << ans.second << endl;
+    int ans = FindLongestSubarrayLessEqualK(A, k);
+    cout << k << ' ' << ans << endl;
     CheckAnswer(A, ans, k);
   }
   return 0;

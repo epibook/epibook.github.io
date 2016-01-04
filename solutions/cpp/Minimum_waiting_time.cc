@@ -1,6 +1,7 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
+#include <cassert>
 #include <iostream>
 #include <random>
 #include <vector>
@@ -13,19 +14,23 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-int MinimumWaitingTime(vector<int> service_time) {
-  // Sort the query time in increasing order.
-  sort(service_time.begin(), service_time.end());
+int MinimumTotalWaitingTime(vector<int> service_times) {
+  // Sort the service times in increasing order.
+  sort(service_times.begin(), service_times.end());
 
-  int waiting = 0;
-  for (int i = 0; i < service_time.size(); ++i) {
-    waiting += service_time[i] * (service_time.size() - (i + 1));
+  int total_waiting_time = 0;
+  for (int i = 0; i < service_times.size(); ++i) {
+    int num_remaining_queries = service_times.size() - (i + 1);
+    total_waiting_time += service_times[i] * num_remaining_queries;
   }
-  return waiting;
+  return total_waiting_time;
 }
 // @exclude
 
+void SmallTest() { assert(10 == MinimumTotalWaitingTime({5, 1, 2, 3})); }
+
 int main(int argc, char* argv[]) {
+  SmallTest();
   default_random_engine gen((random_device())());
   int n;
   if (argc == 2) {
@@ -43,6 +48,6 @@ int main(int argc, char* argv[]) {
     cout << waiting_time[i] << ' ';
   }
   cout << endl;
-  cout << MinimumWaitingTime(waiting_time) << endl;
+  cout << MinimumTotalWaitingTime(waiting_time) << endl;
   return 0;
 }

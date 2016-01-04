@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <iostream>
@@ -11,19 +11,23 @@ using std::cout;
 using std::default_random_engine;
 using std::endl;
 using std::numeric_limits;
-using std::pair;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-vector<pair<int, int>> TaskAssignment(vector<int> task_durations) {
+struct PairedTasks {
+  int task_1, task_2;
+};
+
+vector<PairedTasks> OptimumTaskAssignment(vector<int> task_durations) {
   sort(task_durations.begin(), task_durations.end());
-  vector<pair<int, int>> task_pairings;
+  vector<PairedTasks> optimum_assignments;
   for (int i = 0, j = task_durations.size() - 1; i < j; ++i, --j) {
-    task_pairings.emplace_back(task_durations[i], task_durations[j]);
+    optimum_assignments.emplace_back(
+        PairedTasks{task_durations[i], task_durations[j]});
   }
-  return task_pairings;
+  return optimum_assignments;
 }
 // @exclude
 
@@ -41,11 +45,11 @@ int main(int argc, char* argv[]) {
     uniform_int_distribution<int> dis(0, 999);
     A.emplace_back(dis(gen));
   }
-  vector<pair<int, int>> P(TaskAssignment(A));
+  vector<PairedTasks> P(OptimumTaskAssignment(A));
   int max = numeric_limits<int>::min();
   for (size_t i = 0; i < P.size(); ++i) {
-    if (P[i].first + P[i].second > max) {
-      max = P[i].first + P[i].second;
+    if (P[i].task_1 + P[i].task_2 > max) {
+      max = P[i].task_1 + P[i].task_2;
     }
   }
   cout << max << endl;

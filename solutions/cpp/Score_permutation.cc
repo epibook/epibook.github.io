@@ -17,7 +17,7 @@ int CountPermutations(int k, const vector<int>& score_ways) {
   vector<int> permutations(k + 1, 0);
   permutations[0] = 1;  // One way to reach 0.
   for (int i = 0; i <= k; ++i) {
-    for (const int& score : score_ways) {
+    for (int score : score_ways) {
       if (i >= score) {
         permutations[i] += permutations[i - score];
       }

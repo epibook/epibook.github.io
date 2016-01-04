@@ -76,7 +76,7 @@ void Test() {
   q.Enqueue(16);
   q.Enqueue(17);
   q.Enqueue(18);
-  // The elements starting from head=3 are overwritten!
+  // The elements starting from head=3 are over-written!
 
   assert(4 == q.Dequeue());
   assert(5 == q.Dequeue());

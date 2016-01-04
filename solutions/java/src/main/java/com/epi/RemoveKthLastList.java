@@ -2,7 +2,7 @@
 
 package com.epi;
 
-class RemoveKthLastList {
+public class RemoveKthLastList {
   // @include
   // Assumes L has at least k nodes, deletes the k-th last node in L.
   public static ListNode<Integer> removeKthLast(ListNode<Integer> L, int k) {
@@ -24,8 +24,8 @@ class RemoveKthLastList {
   // @exclude
 
   public static void main(String[] args) {
-    ListNode<Integer> L =
-        new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, null)));
+    ListNode<Integer> L
+        = new ListNode<>(1, new ListNode<>(2, new ListNode<>(3, null)));
     L = removeKthLast(L, 2);
     assert(L.data == 1 && L.next.data == 3);
     L = removeKthLast(L, 2);

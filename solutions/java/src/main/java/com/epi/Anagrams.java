@@ -2,11 +2,18 @@
 
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
-class Anagrams {
+public class Anagrams {
   // @include
-  public static List<List<String>> findAnagrams(String[] dictionary) {
+  public static List<List<String>> findAnagrams(List<String> dictionary) {
     Map<String, List<String>> sortedStringToAnagrams = new HashMap<>();
     for (String s : dictionary) {
       // Sorts the string, uses it as a key, and then appends
@@ -21,7 +28,8 @@ class Anagrams {
     }
 
     List<List<String>> anagramGroups = new ArrayList<>();
-    for (Map.Entry<String, List<String>> p : sortedStringToAnagrams.entrySet()) {
+    for (Map.Entry<String, List<String>> p :
+         sortedStringToAnagrams.entrySet()) {
       if (p.getValue().size() >= 2) { // Found anagrams.
         anagramGroups.add(p.getValue());
       }
@@ -31,9 +39,9 @@ class Anagrams {
   // @exclude
 
   private static void smallTest() {
-    String[] dictionary = new String[] {
-        "debit card", "bad credit", "the morse code", "here come dots",
-        "the eyes",   "they see",   "THL"};
+    List<String> dictionary
+        = Arrays.asList("debit card", "bad credit", "the morse code",
+                        "here come dots", "the eyes", "they see", "THL");
     List<List<String>> result = findAnagrams(dictionary);
     assert result.size() == 3;
   }
@@ -56,10 +64,9 @@ class Anagrams {
     for (int i = 0; i < n; ++i) {
       table.add(randString(rnd.nextInt(12) + 1));
     }
-    String[] dictionary = new String[table.size()];
-    int idx = 0;
+    List<String> dictionary = new ArrayList<>();
     for (String s : table) {
-      dictionary[idx++] = s;
+      dictionary.add(s);
     }
     findAnagrams(dictionary);
   }

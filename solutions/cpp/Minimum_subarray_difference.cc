@@ -21,7 +21,7 @@ int MinimizeDifference(const vector<int>& A) {
 
   unordered_set<int> is_Ok;
   is_Ok.emplace(0);
-  for (const int& item : A) {
+  for (int item : A) {
     for (int v = sum / 2; v >= item; --v) {
       if (is_Ok.find(v - item) != is_Ok.cend()) {
         is_Ok.emplace(v);

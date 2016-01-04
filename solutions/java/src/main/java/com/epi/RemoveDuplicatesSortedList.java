@@ -41,8 +41,9 @@ public class RemoveDuplicatesSortedList {
     simpleTest();
     ListNode<Integer> L;
     L = new ListNode<>(
-        2, new ListNode<>(
-               2, new ListNode<>(2, new ListNode<>(2, new ListNode<>(2, null)))));
+        2,
+        new ListNode<>(
+            2, new ListNode<>(2, new ListNode<>(2, new ListNode<>(2, null)))));
     ListNode<Integer> pre = null;
     ListNode<Integer> result = removeDuplicates(L);
     int count = 0;

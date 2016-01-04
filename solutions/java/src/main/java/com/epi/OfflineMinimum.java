@@ -2,68 +2,68 @@
 package com.epi;
 
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
-
-import static com.epi.utils.Utils.iota;
-import static com.epi.utils.Utils.shuffle;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
 
 public class OfflineMinimum {
   // @include
-  public static int[] offlineMinimum(int[] A, int[] E) {
-    int[] R = new int[A.length];
-    Arrays.fill(R, E.length);
+  public static List<Integer> offlineMinimum(List<Integer> A, List<Integer> E) {
+    List<Integer> R = new ArrayList<>(Collections.nCopies(A.size(), E.size()));
     int pre = 0;
 
     // Initialize the collection of subsets.
-    for (int i = 0; i < E.length; ++i) {
-      for (int j = pre; j <= E[i]; ++j) {
-        R[A[j]] = i;
+    for (int i = 0; i < E.size(); ++i) {
+      for (int j = pre; j <= E.get(i); ++j) {
+        R.set(A.get(j), i);
       }
-      pre = E[i] + 1;
+      pre = E.get(i) + 1;
     }
 
-    int[] ret = new int[E.length];
-    Arrays.fill(ret, -1); // stores the answer
-    int[] set = new int[E.length + 1]; // the disjoint-set
-    iota(set, 0, set.length, 0); // initializes the disjoint-set
-    for (int i = 0; i < A.length; ++i) {
-      if (findSet(set, R[i]) != E.length && ret[findSet(set, R[i])] == -1) {
-        ret[set[R[i]]] = i;
-        unionSet(set, set[R[i]], set[R[i]] + 1);
+    List<Integer> ret = new ArrayList<>(Collections.nCopies(E.size(), -1));
+    List<Integer> set = new ArrayList<>(E.size() + 1); // the disjoint-set
+    // initializes the disjoint-set
+    for (int i = 0; i < E.size() + 1; ++i) {
+      set.add(i);
+    }
+    for (int i = 0; i < A.size(); ++i) {
+      if (findSet(set, R.get(i)) != E.size()
+          && ret.get(findSet(set, R.get(i))) == -1) {
+        ret.set(set.get(R.get(i)), i);
+        unionSet(set, set.get(R.get(i)), set.get(R.get(i)) + 1);
       }
     }
     return ret;
   }
 
-  private static int findSet(int[] set, int x) {
-    if (set[x] != x) {
-      set[x] = findSet(set, set[x]); // path compression.
+  private static int findSet(List<Integer> set, int x) {
+    if (set.get(x) != x) {
+      set.set(x, findSet(set, set.get(x))); // path compression.
     }
-    return set[x];
+    return set.get(x);
   }
 
-  private static void unionSet(int[] set, int x, int y) {
+  private static void unionSet(List<Integer> set, int x, int y) {
     int xRoot = findSet(set, x), yRoot = findSet(set, y);
-    set[min(xRoot, yRoot)] = max(xRoot, yRoot);
+    set.set(Math.min(xRoot, yRoot), Math.max(xRoot, yRoot));
   }
   // @exclude
 
   // O(nm) checking method
-  static int[] checkAnswer(int[] A, int[] E) {
-    boolean[] exist = new boolean[A.length];
-    int[] ans = new int[E.length];
+  static List<Integer> checkAnswer(List<Integer> A, List<Integer> E) {
+    boolean[] exist = new boolean[A.size()];
+    List<Integer> ans = new ArrayList<>(E.size());
 
-    for (int i = 0; i < E.length; ++i) {
+    for (int i = 0; i < E.size(); ++i) {
       int minVal = Integer.MAX_VALUE;
-      for (int j = 0; j <= E[i]; ++j) {
-        if (A[j] < minVal && !exist[A[j]]) {
-          minVal = min(A[j], minVal);
+      for (int j = 0; j <= E.get(i); ++j) {
+        if (A.get(j) < minVal && !exist[A.get(j)]) {
+          minVal = Math.min(A.get(j), minVal);
         }
       }
       exist[minVal] = true;
-      ans[i] = minVal;
+      ans.add(minVal);
     }
     /*
      * System.out.print("ans2 = "); System.out.println(Arrays.toString(ans));
@@ -76,37 +76,39 @@ public class OfflineMinimum {
     for (int times = 0; times < 1000; ++times) {
       int n, m;
       if (args.length == 1) {
-        n = Integer.valueOf(args[0]);
+        n = Integer.parseInt(args[0]);
         m = gen.nextInt(n) + 1;
       } else if (args.length == 2) {
-        n = Integer.valueOf(args[0]);
-        m = Integer.valueOf(args[1]);
+        n = Integer.parseInt(args[0]);
+        m = Integer.parseInt(args[1]);
       } else {
         n = gen.nextInt(1000) + 1;
         m = gen.nextInt(n) + 1;
       }
       System.out.println("n = " + n + ", m = " + m);
-      int[] A = new int[n];
-      iota(A, 0, A.length, 0);
-      shuffle(A);
+      List<Integer> A = new ArrayList<>(n);
+      for (int i = 0; i < n; ++i) {
+        A.add(i);
+      }
+      Collections.shuffle(A);
 
       /*
        * System.out.print("A = "); System.out.println(Arrays.toString(A));
        */
-      int[] E = new int[m];
+      List<Integer> E = new ArrayList<>(m);
       for (int i = 0; i < m; ++i) {
-        E[i] = gen.nextInt(n - i) + i;
+        E.add(gen.nextInt(n - i) + i);
       }
-      Arrays.sort(E);
+      Collections.sort(E);
       /*
        * System.out.print("E = "); System.out.println(Arrays.toString(E));
        */
-      int[] ans = offlineMinimum(A, E);
+      List<Integer> ans = offlineMinimum(A, E);
       /*
        * System.out.print("ans1 = "); System.out.println(Arrays.toString(ans));
        */
-      int[] tmp = checkAnswer(A, E);
-      assert(Arrays.equals(ans, tmp));
+      List<Integer> tmp = checkAnswer(A, E);
+      assert(ans.equals(tmp));
     }
   }
 }

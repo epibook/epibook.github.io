@@ -1,32 +1,35 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class NumberWaysObstacles {
   // @include
   // Given the dimensions of A, n and m, and B, return the number of ways
-  // from A[0][0] to A[n - 1][m - 1] considering obstacles.
+  // from A.get(0).get(0) to A.get(n - 1).get(m - 1) considering obstacles.
   public static int numberOfWaysWithObstacles(int n, int m,
                                               List<List<Boolean>> B) {
-    int[][] A = new int[n][m];
-    if (B.get(0).get(0)) { // No way to start from (0, 0) if B[0][0] == true.
+    // No way to start from (0, 0) if B.get(0).get(0) == true.
+    if (B.get(0).get(0)) {
       return 0;
     }
 
-    A[0][0] = 1;
+    List<List<Integer>> A = new ArrayList<>(n);
+    for (int i = 0; i < n; ++i) {
+      A.add(new ArrayList<>(Collections.nCopies(m, 0)));
+    }
+    A.get(0).set(0, 1);
     for (int i = 0; i < n; ++i) {
       for (int j = 0; j < m; ++j) {
         if (!B.get(i).get(j)) {
-          A[i][j] += (i < 1 ? 0 : A[i - 1][j]) + (j < 1 ? 0 : A[i][j - 1]);
+          A.get(i).set(j, A.get(i).get(j) + (i < 1 ? 0 : A.get(i - 1).get(j))
+                              + (j < 1 ? 0 : A.get(i).get(j - 1)));
         }
       }
     }
-    return A[n - 1][m - 1];
+    return A.get(n - 1).get(m - 1);
   }
   // @exclude
 

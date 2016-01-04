@@ -16,7 +16,8 @@ BSTNode<int>* FindFirstEqualK(const unique_ptr<BSTNode<int>>& tree, int k) {
     auto* node = FindFirstEqualK(tree->left, k);
     return node ? node : tree.get();
   }
-  // Search the left or right subtree based on relative values of tree->data and k.
+  // Search the left or right subtree based on relative values of tree->data
+  // and k.
   return FindFirstEqualK(tree->data < k ? tree->right : tree->left, k);
 }
 // @exclude

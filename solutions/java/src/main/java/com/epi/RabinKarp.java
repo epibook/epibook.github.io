@@ -36,15 +36,8 @@ public class RabinKarp {
       }
       tHash = (tHash * kBase + t.charAt(i)) % kMod;
     }
-    // Tries to match s and t[t.size() - s.size() : t.size() - 1].
-    if (tHash == sHash &&
-        t.subSequence(t.length() - s.length(), t.length()).equals(s)) {
-      return t.length() - s.length();
-    }
-
-    // Tries to match s and t[t.length() - s.length() : t.length() - 1].
-    if (tHash == sHash &&
-        t.subSequence(t.length() - s.length(), t.length()).equals(s)) {
+    // Tries to match s and t.substring(t.length() - s.length()).
+    if (tHash == sHash && t.substring(t.length() - s.length()).equals(s)) {
       return t.length() - s.length();
     }
     return -1; // s is not a substring of t.
@@ -60,7 +53,7 @@ public class RabinKarp {
           break;
         }
       }
-      if (find == true) {
+      if (find) {
         return i;
       }
     }

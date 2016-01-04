@@ -3,22 +3,22 @@
 
 package com.epi;
 
-import static com.epi.OverlappingListsNoCycle.overlappingNoCycleLists;
 import static com.epi.OverlappingListsNoCycle.advanceListByK;
+import static com.epi.OverlappingListsNoCycle.overlappingNoCycleLists;
 
-class OverlappingLists {
+public class OverlappingLists {
   // @include
   public static ListNode<Integer> overlappingLists(ListNode<Integer> L1,
                                                    ListNode<Integer> L2) {
     // Store the start of cycle if any.
-    ListNode<Integer> root1 = CheckingCycle.hasCycle(L1),
-                      root2 = CheckingCycle.hasCycle(L2);
+    ListNode<Integer> root1 = CheckingCycle.hasCycle(L1);
+    ListNode<Integer> root2 = CheckingCycle.hasCycle(L2);
 
     if (root1 == null && root2 == null) {
       // Both lists don't have cycles.
       return overlappingNoCycleLists(L1, L2);
-    } else if ((root1 != null && root2 == null) ||
-               (root1 == null && root2 != null)) {
+    } else if ((root1 != null && root2 == null)
+               || (root1 == null && root2 != null)) {
       // One list has cycle, and one list has no cycle.
       return null;
     }

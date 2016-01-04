@@ -33,9 +33,9 @@ public class NextPermutation {
     }
 
     // Swap the smallest entry after index k that is greater than perm[k]. We
-    // exploit the fact that perm[k + 1 : perm.size() - 1] is decreasing so if we
-    // search in reverse order, the first entry that is greater than perm[k] is
-    // the smallest such entry.
+    // exploit the fact that perm.subList(k + 1, perm.size()) is decreasing so
+    // if we search in reverse order, the first entry that is greater than
+    // perm[k] is the smallest such entry.
     for (int i = perm.size() - 1; i > k; --i) {
       if (perm.get(i) > perm.get(k)) {
         Collections.swap(perm, k, i);
@@ -43,8 +43,8 @@ public class NextPermutation {
       }
     }
 
-    // Since perm[k + 1 : perm.size() - 1] is in decreasing order, we can build
-    // the smallest dictionary ordering of this subarray by reversing it.
+    // Since perm.subList[k + 1, perm.size()) is in decreasing order, we can
+    // build the smallest dictionary ordering of this subarray by reversing it.
     Collections.reverse(perm.subList(k + 1, perm.size()));
     return perm;
   }
@@ -61,7 +61,7 @@ public class NextPermutation {
 
     // 2. find last index toSwap, that c[k] < c[toSwap]
     int toSwap = c.size() - 1;
-    while (c.get(first).compareTo(c.get(toSwap)) >= 0) {
+    while (Integer.compare(c.get(first), c.get(toSwap)) >= 0) {
       --toSwap;
     }
 
@@ -81,7 +81,7 @@ public class NextPermutation {
   // if no such k exists (there is not greater permutation), return -1
   private static int getFirst(final List<Integer> c) {
     for (int i = c.size() - 2; i >= 0; --i) {
-      if (c.get(i).compareTo(c.get(i + 1)) < 0) {
+      if (Integer.compare(c.get(i), c.get(i + 1)) < 0) {
         return i;
       }
     }
@@ -93,11 +93,11 @@ public class NextPermutation {
       List<Integer> perm = new ArrayList<>();
       if (args.length > 1) {
         for (int i = 1; i < args.length; ++i) {
-          perm.add(Integer.valueOf(args[i]));
+          perm.add(Integer.parseInt(args[i]));
         }
       } else {
         Random gen = new Random();
-        int n = (args.length == 1 ? Integer.valueOf(args[0])
+        int n = (args.length == 1 ? Integer.parseInt(args[0])
                                   : (gen.nextInt(100) + 1));
         for (int i = 0; i < n; ++i) {
           perm.add(gen.nextInt(n));

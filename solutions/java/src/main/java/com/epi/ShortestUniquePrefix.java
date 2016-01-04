@@ -1,10 +1,11 @@
 package com.epi;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ShortestUniquePrefix {
   private static String randString(int len) {
     Random r = new Random();
@@ -41,7 +42,8 @@ public class ShortestUniquePrefix {
 
     public boolean insert(String s) {
       TrieNode p = root;
-      for (char c : s.toCharArray()) {
+      for (int i = 0; i < s.length(); i++) {
+        char c = s.charAt(i);
         if (!p.getLeaves().containsKey(c)) {
           p.getLeaves().put(c, new TrieNode());
         }
@@ -60,7 +62,8 @@ public class ShortestUniquePrefix {
     public String getShortestUniquePrefix(String s) {
       TrieNode p = root;
       StringBuilder prefix = new StringBuilder();
-      for (char c : s.toCharArray()) {
+      for (int i = 0; i < s.length(); i++) {
+        char c = s.charAt(i);
         prefix.append(c);
         if (!p.getLeaves().containsKey(c)) {
           return prefix.toString();

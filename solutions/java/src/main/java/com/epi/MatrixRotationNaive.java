@@ -18,17 +18,18 @@ public class MatrixRotationNaive {
 
   // @include
   public static void rotateMatrix(List<List<Integer>> squareMatrix) {
-    final int MATRIX_SIZE = squareMatrix.size() - 1;
+    final int matrixSize = squareMatrix.size() - 1;
     for (int i = 0; i < (squareMatrix.size() / 2); ++i) {
-      for (int j = i; j < MATRIX_SIZE - i; ++j) {
+      for (int j = i; j < matrixSize - i; ++j) {
         // Perform a 4-way exchange.
-        int temp = squareMatrix.get(i).get(j);
-        squareMatrix.get(i).set(j, squareMatrix.get(MATRIX_SIZE - j).get(i));
-        squareMatrix.get(MATRIX_SIZE - j)
-            .set(i, squareMatrix.get(MATRIX_SIZE - i).get(MATRIX_SIZE - j));
-        squareMatrix.get(MATRIX_SIZE - i)
-            .set(MATRIX_SIZE - j, squareMatrix.get(j).get(MATRIX_SIZE - i));
-        squareMatrix.get(j).set(MATRIX_SIZE - i, temp);
+        int temp1 = squareMatrix.get(matrixSize - j).get(i);
+        int temp2 = squareMatrix.get(matrixSize - i).get(matrixSize - j);
+        int temp3 = squareMatrix.get(j).get(matrixSize - i);
+        int temp4 = squareMatrix.get(i).get(j);
+        squareMatrix.get(i).set(j, temp1);
+        squareMatrix.get(matrixSize - j).set(i, temp2);
+        squareMatrix.get(matrixSize - i).set(matrixSize - j, temp3);
+        squareMatrix.get(j).set(matrixSize - i, temp4);
       }
     }
   }
@@ -37,7 +38,7 @@ public class MatrixRotationNaive {
   public static void main(String[] args) {
     int n;
     if (args.length == 1) {
-      n = Integer.valueOf(args[0]);
+      n = Integer.parseInt(args[0]);
       List<List<Integer>> A = new ArrayList<>();
       int k = 1;
       for (int i = 0; i < (1 << n); ++i) {

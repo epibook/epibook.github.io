@@ -1,21 +1,23 @@
 package com.epi;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class RookAttack {
   // @include
-  public static void rookAttack(int[][] A) {
-    int m = A.length, n = A[0].length;
+  public static void rookAttack(List<List<Integer>> A) {
+    int m = A.size(), n = A.get(0).size();
     boolean hasFirstRowZero = false;
     for (int j = 0; j < n; ++j) {
-      if (A[0][j] == 0) {
+      if (A.get(0).get(j) == 0) {
         hasFirstRowZero = true;
         break;
       }
     }
     boolean hasFirstColumnZero = false;
-    for (int[] aA : A) {
-      if (aA[0] == 0) {
+    for (int i = 0; i < m; ++i) {
+      if (A.get(i).get(0) == 0) {
         hasFirstColumnZero = true;
         break;
       }
@@ -23,50 +25,51 @@ public class RookAttack {
 
     for (int i = 1; i < m; ++i) {
       for (int j = 1; j < n; ++j) {
-        if (A[i][j] == 0) {
-          A[i][0] = A[0][j] = 0;
+        if (A.get(i).get(j) == 0) {
+          A.get(i).set(0, 0);
+          A.get(0).set(j, 0);
         }
       }
     }
 
     for (int i = 1; i < m; ++i) {
-      if (A[i][0] == 0) {
+      if (A.get(i).get(0) == 0) {
         for (int j = 1; j < n; ++j) {
-          A[i][j] = 0;
+          A.get(i).set(j, 0);
         }
       }
     }
 
     for (int j = 1; j < n; ++j) {
-      if (A[0][j] == 0) {
+      if (A.get(0).get(j) == 0) {
         for (int i = 1; i < m; ++i) {
-          A[i][j] = 0;
+          A.get(i).set(j, 0);
         }
       }
     }
 
     if (hasFirstRowZero) {
       for (int j = 0; j < n; ++j) {
-        A[0][j] = 0;
+        A.get(0).set(j, 0);
       }
     }
     if (hasFirstColumnZero) {
       for (int i = 0; i < m; ++i) {
-        A[i][0] = 0;
+        A.get(i).set(0, 0);
       }
     }
   }
   // @exclude
 
-  private static void checkAns(int[][] A, int[][] ans) {
-    for (int i = 0; i < A.length; ++i) {
-      for (int j = 0; j < A[i].length; ++j) {
-        if (A[i][j] == 0) {
-          for (int[] an : ans) {
-            assert(an[j] == 0);
+  private static void checkAns(List<List<Integer>> A, List<List<Integer>> ans) {
+    for (int i = 0; i < A.size(); ++i) {
+      for (int j = 0; j < A.get(i).size(); ++j) {
+        if (A.get(i).get(j) == 0) {
+          for (List<Integer> an : ans) {
+            assert(an.get(j) == 0);
           }
-          for (int k = 0; k < ans[i].length; ++k) {
-            assert(ans[i][k] == 0);
+          for (int k = 0; k < ans.get(i).size(); ++k) {
+            assert(ans.get(i).get(k) == 0);
           }
         }
       }
@@ -84,12 +87,16 @@ public class RookAttack {
         m = r.nextInt(50) + 1;
         n = r.nextInt(50) + 1;
       }
-      int A[][] = new int[m][n];
-      int copyA[][] = new int[m][n];
+      List<List<Integer>> A = new ArrayList<>(m);
       for (int i = 0; i < m; ++i) {
+        A.add(new ArrayList(n));
         for (int j = 0; j < n; ++j) {
-          copyA[i][j] = A[i][j] = r.nextInt(2);
+          A.get(i).add(r.nextInt(2));
         }
+      }
+      List<List<Integer>> copyA = new ArrayList<>(m);
+      for (List<Integer> a : A) {
+        copyA.add(new ArrayList(a));
       }
       System.out.println("m = " + m + ", n = " + n);
       rookAttack(A);

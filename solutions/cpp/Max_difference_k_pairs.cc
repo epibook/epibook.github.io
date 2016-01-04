@@ -54,8 +54,8 @@ double CheckAns(const vector<double> &A, int k) {
 
 int main(int argc, char *argv[]) {
   default_random_engine gen((random_device())());
-  int n = 40, k = 4;
-  // random tests for n = 40, k = 4 for 100 times/
+  int n = 30, k = 4;
+  // random tests for n = 30, k = 4 for 100 times/
   for (int times = 0; times < 100; ++times) {
     vector<double> A;
     uniform_real_distribution<double> dis(0, 99);
@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
     n = atoi(argv[1]);
     k = atoi(argv[2]);
   } else {
-    uniform_int_distribution<int> n_dis(1, 100);
+    uniform_int_distribution<int> n_dis(1, 60);
     n = n_dis(gen);
     uniform_int_distribution<int> k_dis(1, n / 10);
     k = (k_dis(gen));

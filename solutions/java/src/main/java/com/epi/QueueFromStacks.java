@@ -1,26 +1,27 @@
 package com.epi;
 
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public class QueueFromStacks {
   // @include
   public static class Queue {
-    private LinkedList<Integer> q1 = new LinkedList<>();
-    private LinkedList<Integer> q2 = new LinkedList<>();
+    private Deque<Integer> enq = new LinkedList<>();
+    private Deque<Integer> deq = new LinkedList<>();
 
-    public void enqueue(Integer x) { q1.push(x); }
+    public void enqueue(Integer x) { enq.addFirst(x); }
 
     public Integer dequeue() {
-      if (q2.isEmpty()) {
-        // Transfers the elements from q1 to q2.
-        while (!q1.isEmpty()) {
-          q2.push(q1.pop());
+      if (deq.isEmpty()) {
+        // Transfers the elements from enq to deq.
+        while (!enq.isEmpty()) {
+          deq.addFirst(enq.removeFirst());
         }
       }
 
-      if (!q2.isEmpty()) {
-        return q2.pop();
+      if (!deq.isEmpty()) {
+        return deq.removeFirst();
       }
       throw new NoSuchElementException("Cannot pop empty queue");
     }

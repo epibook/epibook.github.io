@@ -2,48 +2,52 @@ package com.epi;
 
 import com.epi.BinarySearchTreePrototypeTemplate.BSTNode;
 
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BuildBSTFromSortedArray {
   // @include
-  public static BSTNode<Integer> buildMinHeightBSTFromSortedArray(int[] A) {
-    return buildMinHeightBSTFromSortedArrayHelper(A, 0, A.length);
+  public static BSTNode<Integer> buildMinHeightBSTFromSortedArray(
+      List<Integer> A) {
+    return buildMinHeightBSTFromSortedArrayHelper(A, 0, A.size());
   }
 
-  // Build a min-height BST over the entries in A[start : end - 1].
+  // Build a min-height BST over the entries in A.subList(start, end - 1).
   private static BSTNode<Integer> buildMinHeightBSTFromSortedArrayHelper(
-      int[] A, int start, int end) {
+      List<Integer> A, int start, int end) {
     if (start >= end) {
       return null;
     }
     int mid = start + ((end - start) / 2);
-    return new BSTNode<>(A[mid],
-                         buildMinHeightBSTFromSortedArrayHelper(A, start, mid),
-                         buildMinHeightBSTFromSortedArrayHelper(A, mid + 1, end));
+    return new BSTNode<>(
+        A.get(mid), buildMinHeightBSTFromSortedArrayHelper(A, start, mid),
+        buildMinHeightBSTFromSortedArrayHelper(A, mid + 1, end));
   }
   // @exclude
 
   private static int traversalCheck(BSTNode<Integer> tree, Integer target) {
     if (tree != null) {
-      target = traversalCheck(tree.getLeft(), target);
-      assert(target.equals(tree.getData()));
+      target = traversalCheck(tree.left, target);
+      assert(target.equals(tree.data));
       ++target;
-      target = traversalCheck(tree.getRight(), target);
+      target = traversalCheck(tree.right, target);
     }
     return target;
   }
 
-  private static void SimpleTest() {
-     BSTNode<Integer> result = buildMinHeightBSTFromSortedArray(new int[]{1,2,3,4});
-     assert(3 == result.getData());
-     assert(2 == result.getLeft().getData());
-     assert(1 == result.getLeft().getLeft().getData());
-     assert(4 == result.getRight().getData());
+  private static void simpleTest() {
+    BSTNode<Integer> result
+        = buildMinHeightBSTFromSortedArray(Arrays.asList(1, 2, 3, 4));
+    assert(3 == result.data);
+    assert(2 == result.left.data);
+    assert(1 == result.left.left.data);
+    assert(4 == result.right.data);
   }
 
-
   public static void main(String[] args) {
-    SimpleTest();
+    simpleTest();
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n;
@@ -52,9 +56,9 @@ public class BuildBSTFromSortedArray {
       } else {
         n = r.nextInt(1000) + 1;
       }
-      int[] A = new int[n];
+      List<Integer> A = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
-        A[i] = i;
+        A.add(i);
       }
       BSTNode<Integer> tree = buildMinHeightBSTFromSortedArray(A);
       int target = 0;

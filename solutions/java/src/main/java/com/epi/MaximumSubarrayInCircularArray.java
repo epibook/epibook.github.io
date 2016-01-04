@@ -1,12 +1,10 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class MaximumSubarrayInCircularArray {
   // @include
   public static int maxSubarraySumInCircular(List<Integer> A) {
@@ -31,22 +29,24 @@ public class MaximumSubarrayInCircularArray {
     maximumBegin.add(sum);
     for (int i = 1; i < A.size(); ++i) {
       sum += A.get(i);
-      maximumBegin.add(Math.max(maximumBegin.get(maximumBegin.size() - 1), sum));
+      maximumBegin.add(
+          Math.max(maximumBegin.get(maximumBegin.size() - 1), sum));
     }
 
     // Maximum subarray sum starts at index i + 1 and ends at the last element.
-    Integer[] maximumEnd = new Integer[A.size()];
-    maximumEnd[maximumEnd.length - 1] = 0;
+    List<Integer> maximumEnd
+        = new ArrayList<>(Collections.nCopies(A.size(), 0));
     sum = 0;
     for (int i = A.size() - 2; i >= 0; --i) {
       sum += A.get(i + 1);
-      maximumEnd[i] = Math.max(maximumEnd[i + 1], sum);
+      maximumEnd.set(i, Math.max(maximumEnd.get(i + 1), sum));
     }
 
     // Calculates the maximum subarray which is circular.
     int circularMax = 0;
     for (int i = 0; i < A.size(); ++i) {
-      circularMax = Math.max(circularMax, maximumBegin.get(i) + maximumEnd[i]);
+      circularMax
+          = Math.max(circularMax, maximumBegin.get(i) + maximumEnd.get(i));
     }
     return circularMax;
   }

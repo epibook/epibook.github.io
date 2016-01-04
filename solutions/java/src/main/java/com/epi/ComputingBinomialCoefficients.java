@@ -1,30 +1,43 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ComputingBinomialCoefficients {
   // @include
-  public static int computeBinomialCoefficients(int n, int k) {
-    int[] table = new int[k + 1];
-    for (int j = 0; j < k + 1; ++j) {
-      table[j] = 0;
+  public static int computeBinomialCoefficient(int n, int k) {
+    return computeXChooseY(n, k, new int[n + 1][k + 1]);
+  }
+
+  private static int computeXChooseY(int x, int y, int[][] xChooseY) {
+    if (y == 0 || x == y) {
+      return 1;
     }
-    table[0] = 1; // C(0, 0).
+
+    if (xChooseY[x][y] == 0) {
+      int withoutY = computeXChooseY(x - 1, y, xChooseY);
+      int withY = computeXChooseY(x - 1, y - 1, xChooseY);
+      xChooseY[x][y] = withoutY + withY;
+    }
+    return xChooseY[x][y];
+  }
+  // @exclude
+
+  private static int computeBinomialCoefficientsSpaceEfficient(int n, int k) {
+    k = Math.min(k, n - k);
+    List<Integer> table = new ArrayList<>(Collections.nCopies(k + 1, 0));
+    table.set(0, 1); // C(0, 0).
     // C(i, j) = C(i - 1, j) + C(i - 1, j - 1).
     for (int i = 1; i <= n; ++i) {
       for (int j = Math.min(i, k); j >= 1; --j) {
-        table[j] = table[j] + table[j - 1];
+        table.set(j, table.get(j) + table.get(j - 1));
       }
-      table[0] = 1; // One way to select zero element.
+      table.set(0, 1); // One way to select zero element.
     }
-    return table[k];
+    return table.get(k);
   }
-  // @exclude
 
   private static int checkAns(int n, int k) {
     List<Integer> number = new ArrayList<>();
@@ -71,8 +84,9 @@ public class ComputingBinomialCoefficients {
         k = r.nextInt(n) + 1;
       }
 
-      int res = computeBinomialCoefficients(n, k);
+      int res = computeBinomialCoefficient(n, k);
       assert(res == checkAns(n, k));
+      assert(res == computeBinomialCoefficientsSpaceEfficient(n, k));
       System.out.println(n + " out of " + k + " = " + res);
       if (args.length == 2) {
         break;

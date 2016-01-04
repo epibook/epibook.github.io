@@ -15,7 +15,6 @@ using std::default_random_engine;
 using std::endl;
 using std::min;
 using std::ostream_iterator;
-using std::pair;
 using std::random_device;
 using std::stack;
 using std::stoi;
@@ -56,19 +55,23 @@ int CalculateTrappingWater(const vector<int> &A) {
 
 // Stack approach, O(n) time, O(n) space
 int CheckAnswer(const vector<int> &A) {
-  stack<pair<int, int>> s;
+  struct HeightBound {
+    int left_bound, right_bound;
+  };
+
+  stack<HeightBound> s;
   int sum = 0;
-  for (size_t i = 0; i < A.size(); ++i) {
-    while (!s.empty() && s.top().second <= A[i]) {
-      int bottom = s.top().second;
+  for (int i = 0; i < A.size(); ++i) {
+    while (!s.empty() && s.top().right_bound <= A[i]) {
+      int bottom = s.top().right_bound;
       s.pop();
       if (s.empty()) {
         break;
       }
-      int top = min(s.top().second, A[i]);
-      sum += (top - bottom) * (i - s.top().first - 1);
+      int top = min(s.top().right_bound, A[i]);
+      sum += (top - bottom) * (i - s.top().left_bound - 1);
     }
-    s.emplace(i, A[i]);
+    s.emplace(HeightBound{i, A[i]});
   }
   return sum;
 }

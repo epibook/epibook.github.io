@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <iostream>
@@ -17,28 +17,19 @@ shared_ptr<ListNode<int>> ListPivoting(const shared_ptr<ListNode<int>>& L,
                                        int x) {
   shared_ptr<ListNode<int>> less_head(new ListNode<int>),
       equal_head(new ListNode<int>), greater_head(new ListNode<int>);
-  auto less_iter = less_head, equal_iter = equal_head,
-       greater_iter = greater_head;
+  shared_ptr<ListNode<int>> less_iter = less_head, equal_iter = equal_head,
+                            greater_iter = greater_head;
   // Populates the three lists.
-  auto iter = L;
+  shared_ptr<ListNode<int>> iter = L;
   while (iter) {
-    if (iter->data < x) {
-      AppendNode(&iter, &less_iter);
-    } else if (iter->data == x) {
-      AppendNode(&iter, &equal_iter);
-    } else {  // iter->data > x.
-      AppendNode(&iter, &greater_iter);
-    }
+    AppendNode(&iter, iter->data < x ? &less_iter : iter->data == x
+                                                        ? &equal_iter
+                                                        : &greater_iter);
   }
-  less_iter->next = equal_iter->next = greater_iter->next = nullptr;
-
   // Combines the three lists.
-  if (greater_head->next) {
-    equal_iter->next = greater_head->next;
-  }
-  if (equal_head->next) {
-    less_iter->next = equal_head->next;
-  }
+  greater_iter->next = nullptr;
+  equal_iter->next = greater_head->next;
+  less_iter->next = equal_head->next;
   return less_head->next;
 }
 // @exclude

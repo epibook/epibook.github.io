@@ -2,12 +2,10 @@ package com.epi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class RoadNetwork {
   // @include
   public static class HighwaySection {
@@ -21,59 +19,61 @@ public class RoadNetwork {
     }
     // @exclude
 
+    // clang-format off
     @Override
-    public String toString() {
-      return x + " " + y + " " + distance;
-    }
+    public String toString() { return x + " " + y + " " + distance; }
+    // clang-format on
     // @include
   }
 
   public static HighwaySection findBestProposals(List<HighwaySection> H,
-                                                 List<HighwaySection> P, int a,
-                                                 int b, int n) {
+                                                 List<HighwaySection> P,
+                                                 int n) {
     // G stores the shortest path distances between all pairs of vertices.
-    double[][] G = new double[n][n];
-    for (double[] g : G) {
-      Arrays.fill(g, Double.MAX_VALUE);
+    List<List<Double>> G = new ArrayList<>(n);
+    for (int i = 0; i < n; ++i) {
+      G.add(new ArrayList(Collections.nCopies(n, Double.MAX_VALUE)));
     }
     for (int i = 0; i < n; ++i) {
-      G[i][i] = 0;
+      G.get(i).set(i, 0.0);
     }
-
-    // Builds a undirected graph G based on existing highway sections H.
+    // Builds an undirected graph G based on existing highway sections H.
     for (HighwaySection h : H) {
-      G[h.x][h.y] = G[h.y][h.x] = h.distance;
+      G.get(h.x).set(h.y, h.distance);
+      G.get(h.y).set(h.x, h.distance);
     }
-    // Performs Floyd Warshall to build the shortest path between vertices.
-    FloydWarshall(G);
 
-    // Examines each proposal for shorter distance between a and b.
-    double minDisAB = G[a][b];
-    HighwaySection bestProposal = new HighwaySection(-1, -1, 0.0); // default
+    // Performs Floyd Warshall to build the shortest path between vertices.
+    floydWarshall(G);
+
+    // Examines each proposal for shorter distance for all pairs.
+    double bestDistanceSaving = Double.MIN_VALUE;
+    HighwaySection bestProposal = new HighwaySection(-1, -1, 0.0); // Default.
     for (HighwaySection p : P) {
-      // Checks the path of a => p.x => p.y => b.
-      if (G[a][p.x] != Double.MAX_VALUE && G[p.y][b] != Double.MAX_VALUE &&
-          minDisAB > G[a][p.x] + p.distance + G[p.y][b]) {
-        minDisAB = G[a][p.x] + p.distance + G[p.y][b];
-        bestProposal = p;
+      double proposalSaving = 0.0;
+      for (int a = 0; a < n; ++a) {
+        for (int b = 0; b < n; ++b) {
+          double saving = G.get(a).get(b) - (G.get(a).get(p.x) + p.distance
+                                             + G.get(p.y).get(b));
+          proposalSaving += saving > 0.0 ? saving : 0.0;
+        }
       }
-      // Checks the path of a => p.y => p.x => b.
-      if (G[a][p.y] != Double.MAX_VALUE && G[p.x][b] != Double.MAX_VALUE &&
-          minDisAB > G[a][p.y] + p.distance + G[p.x][b]) {
-        minDisAB = G[a][p.y] + p.distance + G[p.x][b];
+      if (proposalSaving > bestDistanceSaving) {
+        bestDistanceSaving = proposalSaving;
         bestProposal = p;
       }
     }
     return bestProposal;
   }
 
-  private static void FloydWarshall(double[][] G) {
-    for (int k = 0; k < G.length; ++k) {
-      for (int i = 0; i < G.length; ++i) {
-        for (int j = 0; j < G.length; ++j) {
-          if (G[i][k] != Double.MAX_VALUE && G[k][j] != Double.MAX_VALUE &&
-              G[i][j] > G[i][k] + G[k][j]) {
-            G[i][j] = G[i][k] + G[k][j];
+  private static void floydWarshall(List<List<Double>> G) {
+    for (int k = 0; k < G.size(); ++k) {
+      for (int i = 0; i < G.size(); ++i) {
+        for (int j = 0; j < G.size(); ++j) {
+          if (G.get(i).get(k) != Double.MAX_VALUE
+              && G.get(k).get(j) != Double.MAX_VALUE
+              && G.get(i).get(j) > G.get(i).get(k) + G.get(k).get(j)) {
+            G.get(i).set(j, G.get(i).get(k) + G.get(k).get(j));
           }
         }
       }
@@ -81,46 +81,20 @@ public class RoadNetwork {
   }
   // @exclude
 
-  // Tries to add each proposal and use Floyd Warshall to solve, O(n^4)
-  // algorithm.
-  private static HighwaySection checkAns(List<HighwaySection> H,
-                                         List<HighwaySection> P, int a, int b,
-                                         int n) {
-    // G stores the shortest path distances between all pairs of vertices.
-    double[][] G = new double[n][n];
-    for (double[] g : G) {
-      Arrays.fill(g, Double.MAX_VALUE);
-    }
-    for (int i = 0; i < n; ++i) {
-      G[i][i] = 0;
-    }
+  private static void simpleTest() {
+    List<HighwaySection> H = Arrays.asList(new HighwaySection(0, 1, 10),
+                                           new HighwaySection(1, 2, 10),
+                                           new HighwaySection(2, 3, 10));
+    List<HighwaySection> P = Arrays.asList(new HighwaySection(0, 3, 1),
+                                           new HighwaySection(0, 2, 2),
+                                           new HighwaySection(0, 1, 3));
 
-    // Builds a undirected graph G based on existing highway sections H.
-    for (HighwaySection h : H) {
-      G[h.x][h.y] = G[h.y][h.x] = h.distance;
-    }
-    // Performs Floyd Warshall to build the shortest path between vertices.
-    FloydWarshall(G);
-
-    double bestCost = G[a][b];
-    HighwaySection bestProposal = new HighwaySection(-1, -1, 0.0); // default
-    for (HighwaySection p : P) {
-      // Creates new gTest for Floyd Warshall.
-      double[][] gTest = new double[G.length][];
-      for (int i = 0; i < G.length; i++) {
-        gTest[i] = Arrays.copyOf(G[i], G[i].length);
-      }
-      gTest[p.x][p.y] = gTest[p.y][p.x] = p.distance;
-      FloydWarshall(gTest);
-      if (bestCost > gTest[a][b]) {
-        bestCost = gTest[a][b];
-        bestProposal = p;
-      }
-    }
-    return bestProposal;
+    HighwaySection t = findBestProposals(H, P, 4);
+    assert(t.x == 0 && t.y == 3 && t.distance == 1.0);
   }
 
   public static void main(String[] args) {
+    simpleTest();
     Random r = new Random();
     for (int times = 0; times < 100; ++times) {
       int n, m, k;
@@ -173,18 +147,8 @@ public class RoadNetwork {
       }
       // */
 
-      int a, b;
-      do {
-        a = r.nextInt(n);
-        b = r.nextInt(n);
-      } while (a == b);
-      System.out.println("a = " + a + ", b = " + b);
-      HighwaySection t = findBestProposals(H, P, a, b, n);
+      HighwaySection t = findBestProposals(H, P, n);
       System.out.println(t);
-      HighwaySection ans = checkAns(H, P, a, b, n);
-      System.out.println(ans);
-      // TODO(THL): follow assert may fail sometime due to epsilon problem.
-      // assert(t.x == ans.x && t.y == ans.y && t.distance == ans.distance);
     }
   }
 }

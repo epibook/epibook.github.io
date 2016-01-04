@@ -7,14 +7,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static java.lang.Math.ceil;
-
 public class SpiralMatrixClockwise {
   // @include
   public static List<Integer> matrixInSpiralOrder(
       List<List<Integer>> squareMatrix) {
     List<Integer> spiralOrdering = new ArrayList<>();
-    for (int offset = 0; offset < ceil(0.5 * squareMatrix.size()); ++offset) {
+    for (int offset = 0; offset < Math.ceil(0.5 * squareMatrix.size());
+         ++offset) {
       matrixLayerInClockwise(squareMatrix, offset, spiralOrdering);
     }
     return spiralOrdering;
@@ -59,7 +58,7 @@ public class SpiralMatrixClockwise {
     Random gen = new Random();
     int N;
     if (args.length == 1) {
-      N = Integer.valueOf(args[0]);
+      N = Integer.parseInt(args[0]);
     } else {
       N = gen.nextInt(50) + 1;
     }

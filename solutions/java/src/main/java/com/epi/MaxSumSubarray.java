@@ -17,14 +17,16 @@ public class MaxSumSubarray {
       this.start = start;
       this.end = end;
     }
-
+    // @exclude
+    // clang-format off
     @Override
-    public String toString() {
-      return "[" + start + "," + end + "]";
-    }
+    public String toString() { return "[" + start + "," + end + "]"; }
+    // clang-format on
+    // @include
   }
+
   public static Subarray findMaximumSubarray(List<Integer> A) {
-    // A[range.start : range.end - 1] will be the maximum subarray.
+    // A.subList(range.start, range.end) will be the maximum subarray.
     Subarray range = new Subarray(0, 0);
     int minIdx = -1, minSum = 0, sum = 0, maxSum = 0;
     for (int i = 0; i < A.size(); ++i) {

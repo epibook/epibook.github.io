@@ -15,12 +15,15 @@ public class GrayCode {
       return Arrays.asList(0, 1);
     }
 
-    // These implicitly begin with 0 at bit-index (num_bits - 1).
+    // These implicitly begin with 0 at bit-index (numBits - 1).
     List<Integer> grayCodeNumBitsMinus1 = grayCode(numBits - 1);
-    // Now, add a 1 at bit-index (numBits - 1) to all entries in grayCodeNumBitsMinus1.
+
+    // Now, add a 1 at bit-index (numBits - 1) to all entries in
+    // grayCodeNumBitsMinus1.
     int leadingBitOne = 1 << (numBits - 1);
-    List<Integer> reflection = new ArrayList<>();
+
     // Process in reverse order to achieve reflection of grayCodeNumBitsMinus1.
+    List<Integer> reflection = new ArrayList<>();
     for (int i = grayCodeNumBitsMinus1.size() - 1; i >= 0; --i) {
       reflection.add(leadingBitOne | grayCodeNumBitsMinus1.get(i));
     }
@@ -41,8 +44,8 @@ public class GrayCode {
     for (int i = 0; i < A.size(); ++i) {
       int numDifferBits = 0;
       String prevS = addZerosTo10(Integer.toBinaryString(A.get(i)));
-      String nowS =
-          addZerosTo10(Integer.toBinaryString(A.get((i + 1) % A.size())));
+      String nowS
+          = addZerosTo10(Integer.toBinaryString(A.get((i + 1) % A.size())));
       for (int j = 0; j < 10; ++j) {
         if (prevS.charAt(j) != nowS.charAt(j)) {
           ++numDifferBits;

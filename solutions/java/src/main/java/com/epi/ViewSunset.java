@@ -1,6 +1,13 @@
 package com.epi;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -14,40 +21,41 @@ public class ViewSunset {
       this.id = id;
       this.height = height;
     }
+    // @exclude
 
     @Override
     public String toString() {
       return "(id = " + id + ", height = " + height + ")";
     }
+    // @include
   }
-  public static LinkedList<BuildingWithHeight> examineBuildingsWithSunset(
-      InputStream sin) {
+
+  public static Deque<BuildingWithHeight> examineBuildingsWithSunset(
+      InputStream sin) throws ClassNotFoundException, IOException {
     int buildingIdx = 0;
     Integer buildingHeight;
-    // Stores (buildingIdx, buildingHeight) pair with sunset views.
-    LinkedList<BuildingWithHeight> buildingsWithSunset = new LinkedList<>();
+    Deque<BuildingWithHeight> buildingsWithSunset = new LinkedList<>();
     try {
       ObjectInputStream osin = new ObjectInputStream(sin);
       while (true) {
         buildingHeight = (Integer)osin.readObject();
-        while (!buildingsWithSunset.isEmpty() &&
-               (buildingHeight.compareTo(buildingsWithSunset.getLast().height) >=
-                0)) {
+        while (!buildingsWithSunset.isEmpty()
+               && (Integer.compare(buildingHeight,
+                                   buildingsWithSunset.getLast().height)
+                   >= 0)) {
           buildingsWithSunset.removeLast();
         }
         buildingsWithSunset.addLast(
             new BuildingWithHeight(buildingIdx++, buildingHeight));
       }
-    } catch (ClassNotFoundException e) {
-      System.out.println(e.getMessage());
-    } catch (IOException e) {
-      // Catching when there no more objects in InputStream
+    } catch (EOFException e) {
+      // Do nothing since the end of the stream has been reached.
     }
     return buildingsWithSunset;
   }
   // @exclude
 
-  public static void main(String[] args) {
+  public static void main(String[] args) throws ClassNotFoundException {
     Random r = new Random();
     try {
       for (int times = 0; times < 1000; ++times) {
@@ -64,11 +72,11 @@ public class ViewSunset {
           oos.writeObject(height);
         }
         ByteArrayInputStream sin = new ByteArrayInputStream(baos.toByteArray());
-        LinkedList<BuildingWithHeight> res = examineBuildingsWithSunset(sin);
-        BuildingWithHeight prev = res.pop();
+        Deque<BuildingWithHeight> res = examineBuildingsWithSunset(sin);
+        BuildingWithHeight prev = res.removeFirst();
         System.out.println(prev);
         while (!res.isEmpty()) {
-          BuildingWithHeight current = res.pop();
+          BuildingWithHeight current = res.removeFirst();
           System.out.println(current);
           assert(prev.id < current.id);
           assert(prev.height > current.height);

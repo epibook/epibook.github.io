@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class MaximumSubarrayInCircularArrayConstantSpace {
-  private interface IntegerComparator { Integer compare(Integer o1, Integer o2); }
+  // @include
+  private interface IntegerComparator {
+    Integer compare(Integer o1, Integer o2);
+  }
 
   private static class MaxComparator implements IntegerComparator {
     @Override
@@ -24,7 +24,6 @@ public class MaximumSubarrayInCircularArrayConstantSpace {
     }
   }
 
-  // @include
   public static int maxSubarraySumInCircular(List<Integer> A) {
     // Finds the max in non-circular case and circular case.
     int accumulate = 0;

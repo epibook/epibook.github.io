@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -10,42 +10,54 @@
 using std::cout;
 using std::default_random_engine;
 using std::endl;
-using std::pair;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-size_t FindStartCity(const vector<int>& G, const vector<int>& D) {
-  int carry = 0;
-  pair<size_t, int> city_carry_pair(0, 0);
-  for (size_t i = 1; i < G.size(); ++i) {
-    carry += G[i - 1] - D[i - 1];
-    if (carry < city_carry_pair.second) {
-      city_carry_pair = {i, carry};
+const int kMPG = 20;
+
+// gallons[i] is the amount of gas in city i, and distances[i] is the distance
+// city i to the next city.
+size_t FindAmpleCity(const vector<int>& gallons,
+                     const vector<int>& distances) {
+  int remaining_gallons = 0;
+  struct CityAndRemainingGas {
+    int city = 0, remaining_gallons = 0;
+  };
+  CityAndRemainingGas city_remaining_gallons_pair;
+  int num_cities = gallons.size();
+  for (int i = 1; i < num_cities; ++i) {
+    remaining_gallons += gallons[i - 1] - distances[i - 1] / kMPG;
+    if (remaining_gallons < city_remaining_gallons_pair.remaining_gallons) {
+      city_remaining_gallons_pair = {i, remaining_gallons};
     }
   }
-  return city_carry_pair.first;
+  return city_remaining_gallons_pair.city;
 }
 // @exclude
 
-void CheckAns(const vector<int>& G, const vector<int>& D, size_t c) {
+void CheckAns(const vector<int>& gallons, const vector<int>& distances,
+              size_t c) {
   size_t s = c;
   int gas = 0;
   do {
-    gas += G[s] - D[s];
+    gas += gallons[s] - distances[s] / kMPG;
     assert(gas >= 0);
-    s = (s + 1) % G.size();
+    s = (s + 1) % gallons.size();
   } while (s != c);
 }
 
 void SmallTest() {
   // Example in the book.
-  vector<int> G = {20, 15, 15, 15, 35, 25, 30, 15, 65, 45, 10, 45, 25};
-  vector<int> D = {15, 20, 50, 15, 15, 30, 20, 55, 20, 50, 10, 15, 15};
-  size_t ans = FindStartCity(G, D);
+  vector<int> gallons = {20, 15, 15, 15, 35, 25, 30, 15, 65, 45, 10, 45, 25};
+  vector<int> distances = {15 * kMPG, 20 * kMPG, 50 * kMPG, 15 * kMPG,
+                           15 * kMPG, 30 * kMPG, 20 * kMPG, 55 * kMPG,
+                           20 * kMPG, 50 * kMPG, 10 * kMPG, 15 * kMPG,
+                           15 * kMPG};
+  size_t ans = FindAmpleCity(gallons, distances);
   assert(ans == 8);
-  CheckAns(G, D, ans);
+  CheckAns(gallons, distances, ans);
 }
 
 int main(int argc, char* argv[]) {
@@ -59,13 +71,13 @@ int main(int argc, char* argv[]) {
       uniform_int_distribution<int> dis(1, 10000);
       n = dis(gen);
     }
-    vector<int> G, D;
+    vector<int> gallons, distances;
     int sum = 0;
     for (int i = 0; i < n; ++i) {
       uniform_int_distribution<int> dis(1, 200);
       int x = dis(gen);
       sum += x;
-      G.emplace_back(x);
+      gallons.emplace_back(x);
     }
     sum -= n;
     for (int i = 0; i < n; ++i) {
@@ -74,23 +86,13 @@ int main(int argc, char* argv[]) {
         uniform_int_distribution<int> dis(1, sum);
         x = dis(gen);
       }
-      D.emplace_back(x + 1);
+      distances.emplace_back(x + 1);
       sum -= x;
     }
-    D.back() += sum;
-    /*
-    for (int i = 0; i < n; ++i) {
-      cout << G[i] << ' ';
-    }
-    cout << endl;
-    for (int i = 0; i < n; ++i) {
-      cout << D[i] << ' ';
-    }
-    cout << endl;
-    */
-    size_t c = FindStartCity(G, D);
+    distances.back() += sum;
+    size_t c = FindAmpleCity(gallons, distances);
     cout << "start city = " << c << endl;
-    CheckAns(G, D, c);
+    CheckAns(gallons, distances, c);
   }
   return 0;
 }

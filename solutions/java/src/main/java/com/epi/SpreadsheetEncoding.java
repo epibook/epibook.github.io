@@ -15,7 +15,8 @@ public class SpreadsheetEncoding {
   // @include
   public static int ssDecodeColID(final String col) {
     int ret = 0;
-    for (char c : col.toCharArray()) {
+    for (int i = 0; i < col.length(); i++) {
+      char c = col.charAt(i);
       ret = ret * 26 + c - 'A' + 1;
     }
     return ret;

@@ -3,12 +3,13 @@
 package com.epi;
 
 import java.util.Arrays;
-import java.util.Random;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
-class CountOccurrencesInSentence {
-  private static Map<Character,Integer> charToCount = new HashMap<>();
+public class CountOccurrencesInSentence {
+  private static Map<Character, Integer> charToCount = new HashMap<>();
+
   // @include
   public static void countOccurrences(String s) {
     char[] a = s.toCharArray();
@@ -21,12 +22,13 @@ class CountOccurrencesInSentence {
       } else {
         System.out.print("(" + a[i - 1] + "," + currentCharacterCount + "),");
         // @exclude
-        charToCount.put(a[i-1], currentCharacterCount);
+        charToCount.put(a[i - 1], currentCharacterCount);
         // @include
         currentCharacterCount = 1;
       }
     }
-    System.out.println("(" + a[a.length - 1] + ',' + currentCharacterCount + ")");
+    System.out.println("(" + a[a.length - 1] + ',' + currentCharacterCount
+                       + ")");
   }
   // @exclude
 
@@ -40,7 +42,7 @@ class CountOccurrencesInSentence {
     return ret.toString();
   }
 
-  private static void SimpleTest() {
+  private static void simpleTest() {
     countOccurrences("foo bar! ABA A");
     assert(charToCount.get('f') == 1);
     assert(charToCount.get('F') == null);
@@ -53,7 +55,7 @@ class CountOccurrencesInSentence {
   }
 
   public static void main(String[] args) {
-    SimpleTest();
+    simpleTest();
     Random rnd = new Random();
     String s;
     if (args.length == 1) {

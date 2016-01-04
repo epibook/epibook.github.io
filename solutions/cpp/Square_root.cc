@@ -54,13 +54,15 @@ Ordering Compare(double a, double b) {
 
 static void SimpleTest() {
   assert(Compare(SquareRoot(1.0), sqrt(1.0) == EQUAL));
+  assert(Compare(SquareRoot(2.0), sqrt(2.0) == EQUAL));
   assert(Compare(SquareRoot(0.001), sqrt(0.001) == EQUAL));
+  assert(Compare(SquareRoot(0.5), sqrt(0.5) == EQUAL));
   assert(Compare(SquareRoot(100000000.001), sqrt(100000000.001) == EQUAL));
   assert(Compare(SquareRoot(1024.0), sqrt(1024.0) == EQUAL));
 }
 
-
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 100000; ++times) {
     double x;

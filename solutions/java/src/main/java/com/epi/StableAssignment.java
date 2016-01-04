@@ -1,7 +1,10 @@
 package com.epi;
 
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
@@ -18,6 +21,7 @@ public class StableAssignment {
       this.student = student;
     }
   }
+
   public static ProfessorStudentPairing[] findStableAssignment(
       int[][] professorPreference, int[][] studentPreference) {
     // stores currently free students.
@@ -27,35 +31,35 @@ public class StableAssignment {
     }
 
     // Records the professors that each student have asked.
-    int[] studentPrefIdx = new int[studentPreference.length];
-    Arrays.fill(studentPrefIdx, 0);
+    List<Integer> studentPrefIdx
+        = new ArrayList<>(Collections.nCopies(studentPreference.length, 0));
 
     // Records the current student choice for each professor.
-    int[] professorChoice = new int[professorPreference.length];
-    Arrays.fill(professorChoice, -1);
+    List<Integer> professorChoice
+        = new ArrayList<>(Collections.nCopies(professorPreference.length, -1));
 
     while (!freeStudent.isEmpty()) {
       int i = freeStudent.element(); // free student.
-      int j = studentPreference[i][studentPrefIdx[i]]; // target professor.
-      if (professorChoice[j] == -1) { // this professor is free.
-        professorChoice[j] = i;
+      int j = studentPreference[i][studentPrefIdx.get(i)]; // target professor.
+      if (professorChoice.get(j) == -1) { // this professor is free.
+        professorChoice.set(j, i);
         freeStudent.remove();
       } else { // this professor has student now.
-        int originalPref = find(professorPreference[j], professorChoice[j]);
+        int originalPref = find(professorPreference[j], professorChoice.get(j));
         int newPref = find(professorPreference[j], i);
         if (newPref < originalPref) { // this professor prefers the new one.
-          freeStudent.add(professorChoice[j]);
-          professorChoice[j] = i;
+          freeStudent.add(professorChoice.get(j));
+          professorChoice.set(j, i);
           freeStudent.remove();
         }
       }
-      ++studentPrefIdx[i];
+      studentPrefIdx.set(i, studentPrefIdx.get(i) + 1);
     }
 
-    ProfessorStudentPairing[] matchResult =
-        new ProfessorStudentPairing[professorChoice.length];
-    for (int j = 0; j < professorChoice.length; ++j) {
-      matchResult[j] = new ProfessorStudentPairing(professorChoice[j], j);
+    ProfessorStudentPairing[] matchResult
+        = new ProfessorStudentPairing[professorChoice.size()];
+    for (int j = 0; j < professorChoice.size(); ++j) {
+      matchResult[j] = new ProfessorStudentPairing(professorChoice.get(j), j);
     }
     return matchResult;
   }
@@ -72,9 +76,10 @@ public class StableAssignment {
 
   // @exclude
 
-  static void checkAns(int[][] professorPreference, int[][] studentPreference,
-                       ProfessorStudentPairing[] matchResult) {
-    assert matchResult.length == professorPreference.length;
+  private static void checkAns(int[][] professorPreference,
+                               int[][] studentPreference,
+                               ProfessorStudentPairing[] matchResult) {
+    assert(matchResult.length == professorPreference.length);
 
     boolean[] professor = new boolean[professorPreference.length];
     boolean[] student = new boolean[studentPreference.length];
@@ -108,12 +113,12 @@ public class StableAssignment {
     for (int times = 0; times < 1000; ++times) {
       int n;
       if (args.length == 1) {
-        n = Integer.valueOf(args[0]);
+        n = Integer.parseInt(args[0]);
       } else {
         n = gen.nextInt(300) + 1;
       }
-      int[][] professorPreference = new int[n][n], studentPreference =
-                                                       new int[n][n];
+      int[][] professorPreference = new int[n][n], studentPreference
+                                                   = new int[n][n];
       for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
           professorPreference[i][j] = j;
@@ -131,8 +136,8 @@ public class StableAssignment {
        * System.out.println(studentPreference[i][j] + " "); }
        * System.out.println(); }
        */
-      ProfessorStudentPairing[] res =
-          findStableAssignment(professorPreference, studentPreference);
+      ProfessorStudentPairing[] res
+          = findStableAssignment(professorPreference, studentPreference);
 
       /*
        * for (int i = 0; i < res.size(); ++i) {

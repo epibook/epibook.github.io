@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class EliasCoding {
   // @include
   public static String encode(List<Integer> A) {
@@ -26,7 +23,9 @@ public class EliasCoding {
     StringBuilder ret = new StringBuilder();
     while (decimal != 0) {
       ret.append((char)('0' + (decimal % 2)));
-      decimal >>= 1;
+      // clang-format off
+      decimal >>>= 1;
+      // clang-format on
     }
     ret.reverse();
     return ret.toString();
@@ -51,7 +50,8 @@ public class EliasCoding {
 
   private static int transBinaryToInt(String binary) {
     int ret = 0;
-    for (char c : binary.toCharArray()) {
+    for (int i = 0; i < binary.length(); i++) {
+      char c = binary.charAt(i);
       ret = (ret * 2) + c - '0';
     }
     return ret;

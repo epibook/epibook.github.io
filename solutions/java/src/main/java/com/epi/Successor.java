@@ -6,22 +6,22 @@ public class Successor {
   // @include
   public static BinaryTree<Integer> findSuccessor(BinaryTree<Integer> node) {
     BinaryTree<Integer> iter = node;
-    if (iter.getRight() != null) {
+    if (iter.right != null) {
       // Find the leftmost element in node's right subtree.
-      iter = iter.getRight();
-      while (iter.getLeft() != null) {
-        iter = iter.getLeft();
+      iter = iter.right;
+      while (iter.left != null) {
+        iter = iter.left;
       }
       return iter;
     }
 
     // Find the closest ancestor whose left subtree contains node.
-    while (iter.getParent() != null && iter.getParent().getRight() == iter) {
-      iter = iter.getParent();
+    while (iter.parent != null && iter.parent.right == iter) {
+      iter = iter.parent;
     }
     // A return value of null means node does not have successor, i.e., it is
     // the rightmost node in the tree.
-    return iter.getParent();
+    return iter.parent;
   }
   // @exclude
 
@@ -31,30 +31,30 @@ public class Successor {
     // 1   4 6
     BinaryTree<Integer> root = new BinaryTree<>(3, null, null);
     assert(findSuccessor(root) == null);
-    root.setLeft(new BinaryTree<>(2, null, null));
-    root.getLeft().setParent(root);
-    assert(findSuccessor(root.getLeft()).getData() == 3);
+    root.left = new BinaryTree<>(2, null, null);
+    root.left.parent = root;
+    assert(findSuccessor(root.left).data == 3);
 
-    root.getLeft().setLeft(new BinaryTree<>(1, null, null));
-    root.getLeft().getLeft().setParent(root.getLeft());
-    assert(findSuccessor(root.getLeft()).getData() == 3);
-    assert(findSuccessor(root.getLeft().getLeft()).getData() == 2);
+    root.left.left = new BinaryTree<>(1, null, null);
+    root.left.left.parent = root.left;
+    assert(findSuccessor(root.left).data == 3);
+    assert(findSuccessor(root.left.left).data == 2);
 
-    root.setRight(new BinaryTree<>(5, null, null));
-    root.getRight().setParent(root);
-    root.getRight().setLeft(new BinaryTree<>(4, null, null));
-    root.getRight().getLeft().setParent(root.getRight());
-    root.getRight().setRight(new BinaryTree<>(6, null, null));
-    root.getRight().getRight().setParent(root.getRight());
+    root.right = new BinaryTree<>(5, null, null);
+    root.right.parent = root;
+    root.right.left = new BinaryTree<>(4, null, null);
+    root.right.left.parent = root.right;
+    root.right.right = new BinaryTree<>(6, null, null);
+    root.right.right.parent = root.right;
     // should output 6
-    BinaryTree<Integer> node = findSuccessor(root.getRight());
-    assert(node.getData().equals(6));
-    System.out.println(node.getData());
+    BinaryTree<Integer> node = findSuccessor(root.right);
+    assert(node.data.equals(6));
+    System.out.println(node.data);
     // should output "null"
-    node = findSuccessor(root.getRight().getRight());
+    node = findSuccessor(root.right.right);
     assert(node == null);
     if (node != null) {
-      System.out.println(node.getData());
+      System.out.println(node.data);
     } else {
       System.out.println("null");
     }

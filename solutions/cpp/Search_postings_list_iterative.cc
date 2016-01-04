@@ -4,19 +4,15 @@
 #include <memory>
 #include <stack>
 
+#include "Postings_list_prototype.h"
+
 using std::make_shared;
 using std::shared_ptr;
 using std::stack;
 
-template <typename T>
-struct ListNode {
-  T order;
-  shared_ptr<ListNode<T>> next, jump;
-};
-
 // @include
-void SetJumpOrder(const shared_ptr<ListNode<int>>& L) {
-  stack<shared_ptr<ListNode<int>>> s;
+void SetJumpOrder(const shared_ptr<PostingListNode>& L) {
+  stack<shared_ptr<PostingListNode>> s;
   int order = 0;
   s.emplace(L);
   while (!s.empty()) {
@@ -34,12 +30,12 @@ void SetJumpOrder(const shared_ptr<ListNode<int>>& L) {
 // @exclude
 
 int main(int argc, char* argv[]) {
-  shared_ptr<ListNode<int>> L = nullptr, curr;
+  shared_ptr<PostingListNode> L = nullptr, curr;
   curr = L;
   // Build a linked list L->1->2->3->4->5->nullptr.
   for (size_t i = 0; i < 5; ++i) {
-    shared_ptr<ListNode<int>> temp =
-        make_shared<ListNode<int>>(ListNode<int>{-1, nullptr, nullptr});
+    shared_ptr<PostingListNode> temp =
+        make_shared<PostingListNode>(PostingListNode{-1, nullptr, nullptr});
     if (curr) {
       curr->next = temp;
       curr = temp;
@@ -53,7 +49,7 @@ int main(int argc, char* argv[]) {
   L->next->next->next->jump = nullptr;  // no jump from 4
   L->next->next->next->next->jump =
       L->next->next->next->next;  // 5's jump points to 5
-  shared_ptr<ListNode<int>> temp = L;
+  shared_ptr<PostingListNode> temp = L;
   SetJumpOrder(L);
   // output the jump-first order, it should be 0, 1, 4, 2, 3
   assert(temp->order == 0);

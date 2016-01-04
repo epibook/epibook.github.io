@@ -6,7 +6,7 @@ import java.util.Random;
 
 import static com.epi.ReverseLinkedListIterative.reverseLinkedList;
 
-class ZippingList {
+public class ZippingList {
   // @include
   public static ListNode<Integer> zippingLinkedList(ListNode<Integer> L) {
     if (L == null || L.next == null) {
@@ -25,8 +25,8 @@ class ZippingList {
     secondHalfHead = reverseLinkedList(secondHalfHead);
 
     // Interleave the first half and the reversed of the second half.
-    ListNode<Integer> firstHalfIter = firstHalfHead, secondHalfIter =
-                                                         secondHalfHead;
+    ListNode<Integer> firstHalfIter = firstHalfHead;
+    ListNode<Integer> secondHalfIter = secondHalfHead;
     while (secondHalfIter != null) {
       ListNode<Integer> temp = secondHalfIter.next;
       secondHalfIter.next = firstHalfIter.next;
@@ -44,7 +44,8 @@ class ZippingList {
     int n = 0;
     if (args.length > 1) {
       for (String element : args) {
-        ListNode<Integer> curr = new ListNode<>(Integer.parseInt(element), null);
+        ListNode<Integer> curr
+            = new ListNode<>(Integer.parseInt(element), null);
         curr.next = head;
         head = curr;
       }

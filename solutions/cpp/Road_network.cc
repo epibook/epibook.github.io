@@ -26,37 +26,34 @@ struct HighwaySection {
 };
 
 HighwaySection FindBestProposals(const vector<HighwaySection>& H,
-                                 const vector<HighwaySection>& P, int a, int b,
-                                 int n) {
+                                 const vector<HighwaySection>& P, int n) {
   // G stores the shortest path distances between all pairs of vertices.
-  vector<vector<double>> G(n, vector<double>(n, numeric_limits<double>::max()));
+  vector<vector<double>> G(n,
+                           vector<double>(n, numeric_limits<double>::max()));
   for (int i = 0; i < n; ++i) {
     G[i][i] = 0;
   }
-
-  // Builds a undirected graph G based on existing highway sections H.
+  // Builds an undirected graph G based on existing highway sections H.
   for (const HighwaySection& h : H) {
     G[h.x][h.y] = G[h.y][h.x] = h.distance;
   }
+
   // Performs Floyd Warshall to build the shortest path between vertices.
   FloydWarshall(&G);
 
-  // Examines each proposal for shorter distance between a and b.
-  double min_dis_a_b = G[a][b];
-  HighwaySection best_proposal = {-1, -1, 0.0};  // default
+  // Examines each proposal for shorter distance for all pairs.
+  double best_distance_saving = numeric_limits<double>::min();
+  HighwaySection best_proposal = {-1, -1, 0.0};  // Default.
   for (const HighwaySection& p : P) {
-    // Checks the path of a => p.x => p.y => b.
-    if (G[a][p.x] != numeric_limits<double>::max() &&
-        G[p.y][b] != numeric_limits<double>::max() &&
-        min_dis_a_b > G[a][p.x] + p.distance + G[p.y][b]) {
-      min_dis_a_b = G[a][p.x] + p.distance + G[p.y][b];
-      best_proposal = p;
+    double proposal_saving = 0.0;
+    for (int a = 0; a < n; ++a) {
+      for (int b = 0; b < n; ++b) {
+        double saving = G[a][b] - (G[a][p.x] + p.distance + G[p.y][b]);
+        proposal_saving += saving > 0.0 ? saving : 0.0;
+      }
     }
-    // Checks the path of a => p.y => p.x => b.
-    if (G[a][p.y] != numeric_limits<double>::max() &&
-        G[p.x][b] != numeric_limits<double>::max() &&
-        min_dis_a_b > G[a][p.y] + p.distance + G[p.x][b]) {
-      min_dis_a_b = G[a][p.y] + p.distance + G[p.x][b];
+    if (proposal_saving > best_distance_saving) {
+      best_distance_saving = proposal_saving;
       best_proposal = p;
     }
   }
@@ -78,38 +75,18 @@ void FloydWarshall(vector<vector<double>>* G) {
 }
 // @exclude
 
-// Tries to add each proposal and use Floyd Warshall to solve, O(n^4) algorithm.
-HighwaySection CheckAns(const vector<HighwaySection>& H,
-                        const vector<HighwaySection>& P, int a, int b, int n) {
-  // G stores the shortest path distances between all pairs of vertices.
-  vector<vector<double>> G(n, vector<double>(n, numeric_limits<double>::max()));
-  for (int i = 0; i < n; ++i) {
-    G[i][i] = 0;
-  }
-
-  // Builds a undirected graph G based on existing highway sections H.
-  for (const HighwaySection& h : H) {
-    G[h.x][h.y] = G[h.y][h.x] = h.distance;
-  }
-  // Performs Floyd Warshall to build the shortest path between vertices.
-  FloydWarshall(&G);
-
-  double best_cost = G[a][b];
-  HighwaySection best_proposal = {-1, -1, 0.0};  // default
-  for (const HighwaySection& p : P) {
-    // Creates new G_test for Floyd Warshall.
-    vector<vector<double>> G_test(G);
-    G_test[p.x][p.y] = G_test[p.y][p.x] = p.distance;
-    FloydWarshall(&G_test);
-    if (best_cost > G_test[a][b]) {
-      best_cost = G_test[a][b];
-      best_proposal = p;
-    }
-  }
-  return best_proposal;
+void SimpleTest() {
+  vector<HighwaySection> H = {HighwaySection{0, 1, 10},
+                              HighwaySection{1, 2, 10},
+                              HighwaySection{2, 3, 10}};
+  vector<HighwaySection> P = {HighwaySection{0, 3, 1}, HighwaySection{0, 2, 2},
+                              HighwaySection{0, 1, 3}};
+  HighwaySection t = FindBestProposals(H, P, 4);
+  assert(t.x == 0 && t.y == 3 && t.distance == 1.0);
 }
 
 int main(int argc, char* argv[]) {
+  SimpleTest();
   for (int times = 0; times < 1000; ++times) {
     default_random_engine gen((random_device())());
     int n, m, k;
@@ -170,17 +147,8 @@ int main(int argc, char* argv[]) {
     }
     //*/
 
-    int a, b;
-    do {
-      a = vertex_dis(gen), b = vertex_dis(gen);
-    } while (a == b);
-    cout << "a = " << a << ", b = " << b << endl;
-    HighwaySection t = FindBestProposals(H, P, a, b, n);
+    HighwaySection t = FindBestProposals(H, P, n);
     cout << t.x << ' ' << t.y << ' ' << t.distance << endl;
-    HighwaySection ans = CheckAns(H, P, a, b, n);
-    cout << ans.x << ' ' << ans.y << ' ' << ans.distance << endl;
-    // TODO(THL): follow assert may fail sometime due to epsilon problem.
-    // assert(t.x == ans.x && t.y == ans.y && t.distance == ans.distance);
   }
   return 0;
 }

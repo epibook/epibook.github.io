@@ -69,7 +69,8 @@ int main(int argc, char** argv) {
   }
   auto result = ReverseK(L, k);
   assert(result->data == 2 && result->next->data == 1 &&
-         result->next->next->data == 4 && result->next->next->next->data == 3 &&
+         result->next->next->data == 4 &&
+         result->next->next->next->data == 3 &&
          result->next->next->next->next->data == 5 &&
          result->next->next->next->next->next == nullptr);
   while (result) {

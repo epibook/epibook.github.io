@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <iostream>
@@ -16,10 +16,10 @@ shared_ptr<ListNode<int>> BuildBSTFromSortedDoublyListHelper(
 // @include
 // Returns the root of the corresponding BST. The prev and next fields of the
 // list nodes are used as the BST nodes left and right fields, respectively.
-// n is the length of the list.
+// The length of the list is given.
 shared_ptr<ListNode<int>> BuildBSTFromSortedDoublyList(
-    shared_ptr<ListNode<int>> L, int n) {
-  return BuildBSTFromSortedDoublyListHelper(&L, 0, n);
+    shared_ptr<ListNode<int>> L, int length) {
+  return BuildBSTFromSortedDoublyListHelper(&L, 0, length);
 }
 
 // Builds a BST from the (start + 1)-th to the end-th node, inclusive, in L,
@@ -32,8 +32,9 @@ shared_ptr<ListNode<int>> BuildBSTFromSortedDoublyListHelper(
 
   int mid = start + ((end - start) / 2);
   auto left = BuildBSTFromSortedDoublyListHelper(L_ref, start, mid);
-  auto curr = *L_ref;  // The last function call sets L_ref to the successor
-  // of the maximum node in the tree rooted at left.
+  // The last function call sets L_ref to the successor of the maximum node in
+  // the tree rooted at left.
+  auto curr = *L_ref;
   *L_ref = (*L_ref)->next;
   curr->prev = left;
   curr->next = BuildBSTFromSortedDoublyListHelper(L_ref, mid + 1, end);
@@ -53,12 +54,6 @@ void InorderTraversal(const shared_ptr<ListNode<T>>& node, const T& pre,
 }
 
 int main(int argc, char* argv[]) {
-  shared_ptr<ListNode<int>> A[1000];
-
-  for (int i = 0; i < 1000; i++) {
-    A[i] = make_shared<ListNode<int>>(ListNode<int>{0});
-  }
-
   shared_ptr<ListNode<int>> temp0 =
       make_shared<ListNode<int>>(ListNode<int>{0});
   shared_ptr<ListNode<int>> temp1 =
@@ -79,5 +74,7 @@ int main(int argc, char* argv[]) {
   shared_ptr<ListNode<int>> L = temp0;
   auto tree = BuildBSTFromSortedDoublyList(L, 4);
   InorderTraversal(tree, -1, 0);
+  // Break the links of shared_ptr to prevent memory leak.
+  temp1->prev = temp2->prev = temp3->prev = nullptr;
   return 0;
 }

@@ -3,12 +3,11 @@
 package com.epi;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-class TaskAssignment {
+public class TaskAssignment {
   // @include
   private static class PairedTasks {
     public Integer task1;
@@ -20,14 +19,15 @@ class TaskAssignment {
     }
   }
 
-  public static List<PairedTasks> taskAssignment(List<Integer> taskDurations) {
+  public static List<PairedTasks> optimumTaskAssignment(
+      List<Integer> taskDurations) {
     Collections.sort(taskDurations);
-    List<PairedTasks> taskPairings = new ArrayList<>();
+    List<PairedTasks> optimumAssignments = new ArrayList<>();
     for (int i = 0, j = taskDurations.size() - 1; i < j; ++i, --j) {
-      taskPairings.add(
+      optimumAssignments.add(
           new PairedTasks(taskDurations.get(i), taskDurations.get(j)));
     }
-    return taskPairings;
+    return optimumAssignments;
   }
   // @exclude
 
@@ -43,7 +43,7 @@ class TaskAssignment {
     for (int i = 0; i < n; ++i) {
       A.add(gen.nextInt(999));
     }
-    List<PairedTasks> P = taskAssignment(A);
+    List<PairedTasks> P = optimumTaskAssignment(A);
     int max = Integer.MIN_VALUE;
     for (PairedTasks aP : P) {
       if (aP.task1 + aP.task2 > max) {

@@ -18,18 +18,20 @@ public class BiggestProductNMinus1Math {
         if (leastNegativeIdx == -1 || A.get(leastNegativeIdx) < A.get(i)) {
           leastNegativeIdx = i;
         }
-        if (greatestNegativeIdx == -1 || A.get(i) < A.get(greatestNegativeIdx)) {
+        if (greatestNegativeIdx == -1
+            || A.get(i) < A.get(greatestNegativeIdx)) {
           greatestNegativeIdx = i;
         }
       } else if (A.get(i) >= 0) {
-        if (leastNonnegativeIdx == -1 || A.get(i) < A.get(leastNonnegativeIdx)) {
+        if (leastNonnegativeIdx == -1
+            || A.get(i) < A.get(leastNonnegativeIdx)) {
           leastNonnegativeIdx = i;
         }
       }
     }
 
     int product = 1;
-    int IdxToSkip = (numberOfNegatives % 2) == 1
+    int IdxToSkip = (numberOfNegatives % 2) != 0
                         ? leastNegativeIdx
                         // Check if there are any nonnegative entry.
                         : (leastNonnegativeIdx != -1 ? leastNonnegativeIdx
@@ -68,7 +70,7 @@ public class BiggestProductNMinus1Math {
       int n;
       List<Integer> A;
       if (args.length == 1) {
-        n = Integer.valueOf(args[0]);
+        n = Integer.parseInt(args[0]);
       } else {
         // Get a random number from [2, 11]
         n = gen.nextInt(10) + 2;

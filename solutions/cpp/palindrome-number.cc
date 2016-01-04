@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <cmath>
@@ -17,16 +17,16 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-bool IsPalindrome(int x) {
+bool IsPalindromeNumber(int x) {
   if (x < 0) {
     return false;
   } else if (x == 0) {
     return true;
   }
 
-  const int kNumDigits = static_cast<int>(floor(log10(x))) + 1;
-  int msd_mask = static_cast<int>(pow(10, kNumDigits - 1));
-  for (int i = 0; i < (kNumDigits / 2); ++i) {
+  const int num_digits = static_cast<int>(floor(log10(x))) + 1;
+  int msd_mask = static_cast<int>(pow(10, num_digits - 1));
+  for (int i = 0; i < (num_digits / 2); ++i) {
     if (x / msd_mask != x % 10) {
       return false;
     }
@@ -53,13 +53,13 @@ int main(int argc, char** argv) {
   int x;
   if (argc == 2) {
     x = stoi(argv[1]);
-    cout << x << " " << std::boolalpha << IsPalindrome(x) << endl;
-    assert(CheckAns(x) == IsPalindrome(x));
+    cout << x << " " << std::boolalpha << IsPalindromeNumber(x) << endl;
+    assert(CheckAns(x) == IsPalindromeNumber(x));
   } else {
     uniform_int_distribution<int> dis(-99999, 99999);
     for (int times = 0; times < 1000; ++times) {
       x = dis(gen);
-      assert(CheckAns(x) == IsPalindrome(x));
+      assert(CheckAns(x) == IsPalindromeNumber(x));
     }
   }
   return 0;
