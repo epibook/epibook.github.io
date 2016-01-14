@@ -2,9 +2,15 @@
 
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
-class SearchFrequentItems {
+public class SearchFrequentItems {
   public static String randString(int len) {
     StringBuilder sb = new StringBuilder();
     Random gen = new Random();

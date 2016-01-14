@@ -1,7 +1,7 @@
 package com.epi;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -15,8 +15,8 @@ public class PascalTriangle1 {
         // Set this entry to the sum of the two above adjacent entries if they
         // exist.
         currRow.add((0 < j && j < i)
-                        ? pascalTriangle.get(i - 1).get(j - 1) +
-                              pascalTriangle.get(i - 1).get(j)
+                        ? pascalTriangle.get(i - 1).get(j - 1)
+                              + pascalTriangle.get(i - 1).get(j)
                         : 1);
       }
       pascalTriangle.add(currRow);

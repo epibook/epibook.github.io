@@ -41,7 +41,7 @@ GraphVertex* CloneGraph(GraphVertex* G) {
   while (!q.empty()) {
     auto v = q.front();
     q.pop();
-    for (const auto& e : v->edges) {
+    for (GraphVertex* e : v->edges) {
       // Try to copy vertex e.
       if (vertex_map.find(e) == vertex_map.end()) {
         vertex_map.emplace(e, new GraphVertex({e->label}));
@@ -57,7 +57,7 @@ GraphVertex* CloneGraph(GraphVertex* G) {
 
 vector<int> CopyLabels(const vector<GraphVertex*>& edges) {
   vector<int> labels;
-  for (const auto& e : edges) {
+  for (GraphVertex* e : edges) {
     labels.emplace_back(e->label);
   }
   return labels;
@@ -77,7 +77,7 @@ void CheckGraph(GraphVertex* node, const vector<GraphVertex>& G) {
     sort(label1.begin(), label1.end()), sort(label2.begin(), label2.end());
     assert(label1.size() == label2.size());
     assert(equal(label1.begin(), label1.end(), label2.begin()));
-    for (const auto& e : vertex->edges) {
+    for (GraphVertex* e : vertex->edges) {
       if (vertex_set.find(e) == vertex_set.end()) {
         vertex_set.emplace(e);
         q.emplace(e);

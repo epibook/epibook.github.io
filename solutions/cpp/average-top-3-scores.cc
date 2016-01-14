@@ -46,12 +46,11 @@ string FindStudentWithHighestBestOfThreeScores(ifstream* ifs) {
   while (*ifs >> name >> score) {
     student_scores[name].emplace(score);
     if (student_scores[name].size() > 3) {
-      // Remove the smallest score stored in this student.
-      student_scores[name].pop();
+      student_scores[name].pop();  // Only keep the top 3 scores.
     }
   }
 
-  string top_student("no such student");
+  string top_student = "no such student";
   int current_top_three_scores_sum = 0;
   for (const auto& scores : student_scores) {
     if (scores.second.size() == 3) {
@@ -87,7 +86,26 @@ string RandString(int len) {
   return ret;
 }
 
+void SimpleTest() {
+  ofstream ofs("scores.txt");
+  ofs << "adnan 100";
+  ofs << "amit 99";
+  ofs << "adnan 98";
+  ofs << "thl 90";
+  ofs << "adnan 10";
+  ofs << "amit 100";
+  ofs << "thl 99";
+  ofs << "thl 95";
+  ofs << "adnan 95";
+  ofs.close();
+  ifstream ifs("scores.txt");
+  string result = FindStudentWithHighestBestOfThreeScores(&ifs);
+  cout << "result = " << result << endl;
+  assert(result == "adnan");
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   int n;
   if (argc == 2) {
@@ -96,7 +114,7 @@ int main(int argc, char* argv[]) {
     uniform_int_distribution<int> dis(1, 10000);
     n = dis(gen);
   }
-  ofstream ofs("scores.txt");
+  ofstream ofs("/tmp/scores.txt");
   for (int i = 0; i < n; ++i) {
     uniform_int_distribution<int> test_num_dis(0, 20);
     int test_num = test_num_dis(gen);
@@ -108,7 +126,7 @@ int main(int argc, char* argv[]) {
     }
   }
   ofs.close();
-  ifstream ifs("scores.txt");
+  ifstream ifs("/tmp/scores.txt");
   string name = FindStudentWithHighestBestOfThreeScores(&ifs);
   cout << "top student is " << name << endl;
   // Remove file after the execution.

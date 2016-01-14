@@ -1,26 +1,22 @@
 // Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 package com.epi;
 
+import java.util.Collections;
+import java.util.List;
+
 public class RotateArray {
   // @include
-  public static void rotateArray(int i, int[] A) {
-    i %= A.length;
-    reverse(A, 0, A.length);
-    reverse(A, 0, i);
-    reverse(A, i, A.length);
+  public static void rotateArray(int i, List<Integer> A) {
+    i %= A.size();
+    reverse(0, A.size(), A);
+    reverse(0, i, A);
+    reverse(i, A.size(), A);
+  }
+
+  private static void reverse(int begin, int end, List<Integer> A) {
+    for (int i = begin, j = end - 1; i < j; ++i, --j) {
+      Collections.swap(A, i, j);
+    }
   }
   // @exclude
-
-  public static void reverse(int[] array, int start, int stopIndex) {
-    if (start >= stopIndex) {
-      return;
-    }
-
-    int last = stopIndex - 1;
-    for (int i = start; i <= start + (last - start) / 2; i++) {
-      int tmp = array[i];
-      array[i] = array[last - i + start];
-      array[last - i + start] = tmp;
-    }
-  }
 }

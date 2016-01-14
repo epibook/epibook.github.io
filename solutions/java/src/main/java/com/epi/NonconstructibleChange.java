@@ -1,11 +1,15 @@
 package com.epi;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class NonconstructibleChange {
   // @include
-  public static int SmallestNonconstructibleValue(int[] A) {
-    Arrays.sort(A);
+  public static int smallestNonconstructibleValue(List<Integer> A) {
+    Collections.sort(A);
     int maxConstructibleValue = 0;
     for (int a : A) {
       if (a > maxConstructibleValue + 1) {
@@ -18,22 +22,22 @@ public class NonconstructibleChange {
   // @exclude
 
   private static void smallTest() {
-    int[] A = new int[] {1, 2, 3, 4};
-    assert(11 == SmallestNonconstructibleValue(A));
-    A = new int[] {1, 2, 2, 4};
-    assert(10 == SmallestNonconstructibleValue(A));
-    A = new int[] {2, 3, 4, 5};
-    assert(1 == SmallestNonconstructibleValue(A));
-    A = new int[] {1, 3, 2, 1};
-    assert(8 == SmallestNonconstructibleValue(A));
-    A = new int[] {1, 3, 2, 5};
-    assert(12 == SmallestNonconstructibleValue(A));
-    A = new int[] {1, 3, 2, 6};
-    assert(13 == SmallestNonconstructibleValue(A));
-    A = new int[] {1, 3, 2, 7};
-    assert(14 == SmallestNonconstructibleValue(A));
-    A = new int[] {1, 3, 2, 8};
-    assert(7 == SmallestNonconstructibleValue(A));
+    List<Integer> A = Arrays.asList(1, 2, 3, 4);
+    assert(11 == smallestNonconstructibleValue(A));
+    A = Arrays.asList(1, 2, 2, 4);
+    assert(10 == smallestNonconstructibleValue(A));
+    A = Arrays.asList(2, 3, 4, 5);
+    assert(1 == smallestNonconstructibleValue(A));
+    A = Arrays.asList(1, 3, 2, 1);
+    assert(8 == smallestNonconstructibleValue(A));
+    A = Arrays.asList(1, 3, 2, 5);
+    assert(12 == smallestNonconstructibleValue(A));
+    A = Arrays.asList(1, 3, 2, 6);
+    assert(13 == smallestNonconstructibleValue(A));
+    A = Arrays.asList(1, 3, 2, 7);
+    assert(14 == smallestNonconstructibleValue(A));
+    A = Arrays.asList(1, 3, 2, 8);
+    assert(7 == smallestNonconstructibleValue(A));
   }
 
   public static void main(String[] args) {
@@ -45,11 +49,11 @@ public class NonconstructibleChange {
     } else {
       n = r.nextInt(1000) + 1;
     }
-    int[] A = new int[n];
+    List<Integer> A = new ArrayList<>(n);
     for (int i = 0; i < n; i++) {
-      A[i] = r.nextInt(1000) + 1;
+      A.add(r.nextInt(1000) + 1);
     }
-    int ans = SmallestNonconstructibleValue(A);
+    int ans = smallestNonconstructibleValue(A);
     System.out.println(ans);
   }
 }

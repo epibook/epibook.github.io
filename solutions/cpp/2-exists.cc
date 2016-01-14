@@ -16,7 +16,7 @@ using std::uniform_int_distribution;
 using std::vector;
 
 struct GraphVertex;
-bool HasCycle(GraphVertex* cur, const GraphVertex* pre);
+bool HasCycle(GraphVertex*, const GraphVertex*);
 
 // @include
 struct GraphVertex {
@@ -28,10 +28,7 @@ struct GraphVertex {
 };
 
 bool IsGraphMinimallyConnected(vector<GraphVertex>* G) {
-  if (!G->empty()) {
-    return !HasCycle(&G->front(), nullptr);
-  }
-  return true;
+  return G->empty() || !HasCycle(&G->front(), nullptr);
 }
 
 bool HasCycle(GraphVertex* cur, const GraphVertex* pre) {
@@ -216,15 +213,6 @@ int main(int argc, char* argv[]) {
       G[b].edges.emplace_back(&G[a]);
     }
 
-    /*
-    for (int i = 0; i < G.size(); ++i) {
-      cout << i << endl;
-      for (int j = 0; j < G[i].edges.size(); ++j) {
-        cout << ' ' << G[i].edges[j];
-      }
-      cout << endl;
-    }
-    */
     bool result = IsGraphMinimallyConnected(&G);
     cout << boolalpha << result << endl;
     assert(CheckAnswer(&G) == result);

@@ -10,15 +10,18 @@
 using std::cout;
 using std::default_random_engine;
 using std::endl;
-using std::pair;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-pair<int, int> FindLongestIncreasingSubarray(const vector<int> &A) {
+struct Subarray {
+  int start = 0, end = 0;
+};
+
+Subarray FindLongestIncreasingSubarray(const vector<int> &A) {
   int max_length = 1;
-  pair<int, int> ans(0, 0);
+  Subarray ans;
   int i = 0;
   while (i < A.size() - max_length) {
     // Backward check and skip if A[j - 1] >= A[j].
@@ -46,9 +49,9 @@ pair<int, int> FindLongestIncreasingSubarray(const vector<int> &A) {
 
 void SimpleTest() {
   auto ans = FindLongestIncreasingSubarray({-1, -1});
-  assert(ans.first == 0 && ans.second == 0);
+  assert(ans.start == 0 && ans.end == 0);
   ans = FindLongestIncreasingSubarray({1, 2});
-  assert(ans.first == 0 && ans.second == 1);
+  assert(ans.start == 0 && ans.end == 1);
 }
 
 int main(int argc, char *argv[]) {
@@ -74,8 +77,8 @@ int main(int argc, char *argv[]) {
         A.emplace_back((pos_or_neg(gen) ? -1 : 1) * dis(gen));
       }
     }
-    pair<int, int> result = FindLongestIncreasingSubarray(A);
-    cout << result.first << ' ' << result.second << endl;
+    Subarray result = FindLongestIncreasingSubarray(A);
+    cout << result.start << ' ' << result.end << endl;
     int len = 1;
     for (int i = 1; i < A.size(); ++i) {
       if (A[i] > A[i - 1]) {
@@ -83,7 +86,7 @@ int main(int argc, char *argv[]) {
       } else {
         len = 1;
       }
-      assert(len <= result.second - result.first + 1);
+      assert(len <= result.end - result.start + 1);
     }
   }
   return 0;

@@ -8,7 +8,7 @@ public class CircularQueue {
   // @include
   public static class Queue {
     private int head = 0, tail = 0, numQueueElements = 0;
-    private final int SCALE_FACTOR = 2;
+    private static final int SCALE_FACTOR = 2;
     private Integer[] entries;
 
     public Queue(int capacity) { entries = new Integer[capacity]; }
@@ -72,7 +72,7 @@ public class CircularQueue {
     q.enqueue(16);
     q.enqueue(17);
     q.enqueue(18);
-    // The elements starting from head=3 are overwriten!
+    // The elements starting from head=3 are over-written!
 
     assertDequeue(q, 4);
     assertDequeue(q, 5);

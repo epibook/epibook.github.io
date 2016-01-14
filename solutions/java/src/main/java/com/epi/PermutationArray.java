@@ -1,12 +1,9 @@
 package com.epi;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
-import static com.epi.utils.Utils.simplePrint;
 
 public class PermutationArray {
   public static void main(String[] args) {
@@ -14,7 +11,7 @@ public class PermutationArray {
     int n;
     for (int times = 0; times < 1000; ++times) {
       if (args.length == 1) {
-        n = Integer.valueOf(args[0]);
+        n = Integer.parseInt(args[0]);
       } else {
         n = gen.nextInt(100) + 1;
       }
@@ -26,18 +23,15 @@ public class PermutationArray {
 
       // Knuth shuffle
       Collections.shuffle(perm);
-      simplePrint(perm);
-      System.out.println();
+      System.out.println("perm = " + perm);
 
       List<Integer> B = new ArrayList<>(A);
       PermutationArray1.applyPermutation(perm, B);
-      simplePrint(B);
-      System.out.println();
+      System.out.println(B);
 
       List<Integer> C = new ArrayList<>(A);
       PermutationArray2.applyPermutation(perm, C);
-      simplePrint(C);
-      System.out.println();
+      System.out.println(C);
 
       // check answer by comparing the two permutations
       assert(B.equals(C));

@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -21,13 +21,18 @@ void SimpleTest() {
   vector<vector<int>> S = {
       {1, 5, 10}, {2, 3, 100}, {2, 12, numeric_limits<int>::max()}};
   auto ans = MergeSortedArrays(S);
-  vector<int> golden = {1, 2, 2, 3, 5, 10, 12, 100, numeric_limits<int>::max()};
+  vector<int> golden = {
+      1, 2, 2, 3, 5, 10, 12, 100, numeric_limits<int>::max()};
   assert(golden.size() == ans.size() &&
          equal(ans.begin(), ans.end(), golden.begin()));
 
   S = {{1}};
   ans = MergeSortedArrays(S);
   assert(ans.size() == 1 && ans.front() == 1);
+
+  S = {{}, {1}, {2}};
+  ans = MergeSortedArrays(S);
+  assert(ans.size() == 2 && ans[0] == 1 && ans[1] == 2);
 }
 
 int main(int argc, char* argv[]) {

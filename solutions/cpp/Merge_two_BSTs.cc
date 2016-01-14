@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <iostream>
@@ -14,12 +14,12 @@ using std::numeric_limits;
 using std::shared_ptr;
 
 shared_ptr<BSTNode<int>> BSTToDoublyListHelper(
-    const shared_ptr<BSTNode<int>>& node);
+    const shared_ptr<BSTNode<int>>&);
 
-shared_ptr<BSTNode<int>> MergeTwoSortedLists(shared_ptr<BSTNode<int>> A,
-                                             shared_ptr<BSTNode<int>> B);
+shared_ptr<BSTNode<int>> MergeTwoSortedLists(shared_ptr<BSTNode<int>>,
+                                             shared_ptr<BSTNode<int>>);
 
-void AppendNode(shared_ptr<BSTNode<int>>* node, shared_ptr<BSTNode<int>>* tail);
+void AppendNode(shared_ptr<BSTNode<int>>*, shared_ptr<BSTNode<int>>*);
 
 // Build a BST from the (s + 1)-th to the e-th node in L.
 shared_ptr<BSTNode<int>> BuildBSTFromSortedDoublyListHelper(

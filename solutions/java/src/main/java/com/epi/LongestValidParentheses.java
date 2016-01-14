@@ -1,22 +1,23 @@
 package com.epi;
 
+import java.util.Deque;
 import java.util.LinkedList;
 
 public class LongestValidParentheses {
   // @include
   public static int longestValidParentheses(String s) {
     int maxLength = 0, end = -1;
-    LinkedList<Integer> leftParenthesesIndices = new LinkedList<>();
+    Deque<Integer> leftParenthesesIndices = new LinkedList<>();
     for (int i = 0; i < s.length(); ++i) {
       if (s.charAt(i) == '(') {
-        leftParenthesesIndices.push(i);
+        leftParenthesesIndices.addFirst(i);
       } else if (leftParenthesesIndices.isEmpty()) {
         end = i;
       } else {
-        leftParenthesesIndices.pop();
+        leftParenthesesIndices.removeFirst();
         int start = leftParenthesesIndices.isEmpty()
                         ? end
-                        : leftParenthesesIndices.peek();
+                        : leftParenthesesIndices.peekFirst();
         maxLength = Math.max(maxLength, i - start);
       }
     }

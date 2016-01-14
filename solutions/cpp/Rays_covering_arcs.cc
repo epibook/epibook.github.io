@@ -42,7 +42,7 @@ vector<TimeType> find_minimum_visits_helper(
   vector<TimeType> S;  // a minimum set of visit times
   unordered_set<const Interval<TimeType>*> covered;
   vector<const Interval<TimeType>*> covering;
-  for (const auto& e : endpoints) {
+  for (const EndPoint<TimeType>& e : endpoints) {
     if (e.is_left) {
       covering.emplace_back(e.ptr);
     } else if (covered.find(e.ptr) == covered.end()) {
@@ -59,7 +59,7 @@ vector<TimeType> find_minimum_visits_helper(
 template <typename TimeType>
 vector<TimeType> find_minimum_visits(const vector<Interval<TimeType>>& I) {
   vector<EndPoint<TimeType>> endpoints;
-  for (const auto& i : I) {
+  for (const Interval<TimeType>& i : I) {
     endpoints.emplace_back(EndPoint<TimeType>{&i, true});
     endpoints.emplace_back(EndPoint<TimeType>{&i, false});
   }
@@ -82,7 +82,7 @@ void check_ans(const vector<Interval<TimeType>>& I,
     }
   }
 
-  for (const bool& b : is_visited) {
+  for (bool b : is_visited) {
     assert(b == true);
   }
 }

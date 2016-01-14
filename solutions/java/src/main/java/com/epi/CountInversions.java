@@ -10,7 +10,7 @@ public class CountInversions {
     return countSubarrayInversions(A, 0, A.size());
   }
 
-  // Return the number of inversions in A[start : end - 1].
+  // Return the number of inversions in A.subList(start, end).
   private static int countSubarrayInversions(List<Integer> A, int start,
                                              int end) {
     if (end - start <= 1) {
@@ -18,14 +18,14 @@ public class CountInversions {
     }
 
     int mid = start + ((end - start) / 2);
-    return countSubarrayInversions(A, start, mid) +
-        countSubarrayInversions(A, mid, end) +
-        mergeSortAndCountInversionsAcrossSubarrays(A, start, mid, end);
+    return countSubarrayInversions(A, start, mid)
+        + countSubarrayInversions(A, mid, end)
+        + mergeSortAndCountInversionsAcrossSubarrays(A, start, mid, end);
   }
 
-  // Merge two sorted subarrays A[start : mid - 1] and A[mid : end - 1]
-  // into A[start : end - 1] and return the number of inversions across
-  // A[start : mid - 1] and A[mid : end - 1].
+  // Merge two sorted sublists AsubList(start, mid) and A.subList(mid, end)
+  // into A.subList(start, end) and return the number of inversions across
+  // A.subList(start, mid) and A.subList(mid, end).
   private static int mergeSortAndCountInversionsAcrossSubarrays(List<Integer> A,
                                                                 int start,
                                                                 int mid,
@@ -34,10 +34,10 @@ public class CountInversions {
     int leftStart = start, rightStart = mid, inversionCount = 0;
 
     while (leftStart < mid && rightStart < end) {
-      if (A.get(leftStart).compareTo(A.get(rightStart)) <= 0) {
+      if (Integer.compare(A.get(leftStart), A.get(rightStart)) <= 0) {
         sortedA.add(A.get(leftStart++));
       } else {
-        // A[leftStart : mid - 1] are the inversions of A[rightStart].
+        // A.subList(leftStart, mid) are the inversions of A[rightStart].
         inversionCount += mid - leftStart;
         sortedA.add(A.get(rightStart++));
       }
@@ -54,11 +54,11 @@ public class CountInversions {
   // @exclude
 
   // O(n^2) check of inversions.
-  private static <T extends Comparable<T>> int n2Check(List<T> a) {
+  private static int n2Check(List<Integer> a) {
     int count = 0;
     for (int i = 0; i < a.size(); ++i) {
       for (int j = i + 1; j < a.size(); ++j) {
-        if (a.get(i).compareTo(a.get(j)) > 0) {
+        if (Integer.compare(a.get(i), a.get(j)) > 0) {
           ++count;
         }
       }

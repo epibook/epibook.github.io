@@ -1,6 +1,7 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
+#include <functional>
 #include <iostream>
 #include <queue>
 #include <random>
@@ -10,6 +11,7 @@
 using std::cout;
 using std::default_random_engine;
 using std::endl;
+using std::function;
 using std::hash;
 using std::priority_queue;
 using std::queue;
@@ -26,14 +28,12 @@ struct ABSqrt2 {
   // Equal function for hash.
   bool operator==(const ABSqrt2& n) const { return a == n.a && b == n.b; }
 
+  bool operator<(const ABSqrt2& that) const { return val > that.val; }
   // @include
   int a, b;
   double val;
 };
 // @exclude
-struct CompareABSqrt2 {
-  bool operator()(ABSqrt2 const& x, ABSqrt2 const& y) { return x.val > y.val; }
-};
 
 // Hash function for ABSqrt2.
 struct HashABSqrt2 {
@@ -45,7 +45,7 @@ struct HashABSqrt2 {
 
 vector<ABSqrt2> GenerateFirstKABSqrt2(int k) {
   // Will store the first k numbers of the form a + b sqrt(2).
-  vector<ABSqrt2> result;  
+  vector<ABSqrt2> result;
   result.emplace_back(0, 0);
   int i = 0, j = 0;
   for (int n = 1; n < k; ++n) {
@@ -67,26 +67,26 @@ vector<ABSqrt2> GenerateFirstKABSqrt2(int k) {
 // @exclude
 
 vector<ABSqrt2> Golden(int k) {
-  priority_queue<ABSqrt2, vector<ABSqrt2>, CompareABSqrt2> min_heap;
+  priority_queue<ABSqrt2, vector<ABSqrt2>> min_heap;
   vector<ABSqrt2> smallest;
-  unordered_set<ABSqrt2, HashABSqrt2> hash;
+  unordered_set<ABSqrt2, HashABSqrt2> hash_table;
 
   // Initial for 0 + 0 * sqrt(2).
   min_heap.emplace(0, 0);
-  hash.emplace(0, 0);
+  hash_table.emplace(0, 0);
 
   while (smallest.size() < k) {
     ABSqrt2 s(min_heap.top());
     smallest.emplace_back(s);
-    hash.erase(s);
+    hash_table.erase(s);
     min_heap.pop();
 
     // Add the next two numbers derived from s.
     ABSqrt2 c1(s.a + 1, s.b), c2(s.a, s.b + 1);
-    if (hash.emplace(c1).second) {
+    if (hash_table.emplace(c1).second) {
       min_heap.emplace(c1);
     }
-    if (hash.emplace(c2).second) {
+    if (hash_table.emplace(c2).second) {
       min_heap.emplace(c2);
     }
   }
@@ -100,7 +100,7 @@ static void SimpleTest() {
   assert(sqrt(2.0) == ans[2].val);
   assert(2.0 == ans[3].val);
   assert(1.0 + sqrt(2.0) == ans[4].val);
-  assert(2.0*sqrt(2.0) == ans[5].val);
+  assert(2.0 * sqrt(2.0) == ans[5].val);
   assert(3.0 == ans[6].val);
   assert(2.0 + sqrt(2.0) == ans[7].val);
 }

@@ -14,6 +14,7 @@
 using std::cout;
 using std::default_random_engine;
 using std::endl;
+using std::make_unique;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::unique_ptr;
@@ -47,7 +48,7 @@ unique_ptr<BinaryTreeNode<int>> BinaryTreeFromPreorderInorderHelper(
   size_t root_inorder_idx = node_to_inorder_idx.at(preorder[preorder_start]);
   size_t left_subtree_size = root_inorder_idx - inorder_start;
 
-  return unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{
+  return make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{
       preorder[preorder_start],
       // Recursively builds the left subtree.
       BinaryTreeFromPreorderInorderHelper(

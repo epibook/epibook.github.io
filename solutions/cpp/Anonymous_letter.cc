@@ -33,20 +33,21 @@ bool IsLetterConstructibleFromMagazine(const string& letter_text,
                                        const string& magazine_text) {
   unordered_map<char, int> char_frequency_for_letter;
   // Compute the frequencies for all chars in letter_text.
-  for (const char& c : letter_text) {
+  for (char c : letter_text) {
     ++char_frequency_for_letter[c];
   }
 
   // Check if the characters in magazine_text can cover characters
   // in char_frequency_for_letter.
-  for (const char& c : magazine_text) {
+  for (char c : magazine_text) {
     auto it = char_frequency_for_letter.find(c);
     if (it != char_frequency_for_letter.cend()) {
       --it->second;
       if (it->second == 0) {
         char_frequency_for_letter.erase(it);
         if (char_frequency_for_letter.empty()) {
-          return true;
+          // All characters for letter_text are matched.
+          break;
         }
       }
     }
@@ -57,7 +58,22 @@ bool IsLetterConstructibleFromMagazine(const string& letter_text,
 }
 // @exclude
 
+void SimpleTest() {
+  assert(!IsLetterConstructibleFromMagazine("123", "456"));
+  assert(!IsLetterConstructibleFromMagazine("123", "12222222"));
+  assert(IsLetterConstructibleFromMagazine("123", "1123"));
+  assert(IsLetterConstructibleFromMagazine("123", "123"));
+  assert(!IsLetterConstructibleFromMagazine("12323", "123"));
+  assert(IsLetterConstructibleFromMagazine("GATTACA", "A AD FS GA T ACA TTT"));
+  assert(!IsLetterConstructibleFromMagazine("a", ""));
+  assert(IsLetterConstructibleFromMagazine("aa", "aa"));
+  assert(IsLetterConstructibleFromMagazine("aa", "aaa"));
+  assert(IsLetterConstructibleFromMagazine("", "123"));
+  assert(IsLetterConstructibleFromMagazine("", ""));
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   string L, M;
   if (argc == 3) {
@@ -69,10 +85,6 @@ int main(int argc, char* argv[]) {
   }
   cout << L << endl;
   cout << M << endl;
-  assert(!IsLetterConstructibleFromMagazine("123", "456"));
-  assert(!IsLetterConstructibleFromMagazine("123", "12222222"));
-  assert(IsLetterConstructibleFromMagazine("123", "1123"));
-  assert(IsLetterConstructibleFromMagazine("123", "123"));
   cout << boolalpha << IsLetterConstructibleFromMagazine(L, M) << endl;
   return 0;
 }

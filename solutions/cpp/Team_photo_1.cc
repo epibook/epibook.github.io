@@ -16,7 +16,7 @@ struct Player {
 class Team {
  public:
   explicit Team(const vector<int>& height) {
-    for (const int& h : height) {
+    for (int h : height) {
       players_.emplace_back(Player{h});
     }
   }

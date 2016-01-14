@@ -59,7 +59,7 @@ unsigned find_closest_palindrome(unsigned x) {
 unsigned diff(unsigned a, unsigned b) { return a > b ? a - b : b - a; }
 // @exclude
 
-bool is_palindrome(const unsigned& x) {
+bool is_palindrome(unsigned x) {
   string str(to_string(x));
   for (int i = 0, j = str.size() - 1; i < j; ++i, --j) {
     if (str[i] != str[j]) {
@@ -69,7 +69,7 @@ bool is_palindrome(const unsigned& x) {
   return true;
 }
 
-void check_answer(const unsigned& x, const unsigned& ans) {
+void check_answer(unsigned x, unsigned ans) {
   if (is_palindrome(x)) {
     assert(ans == x);
     return;

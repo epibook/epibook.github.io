@@ -6,34 +6,32 @@ import java.util.Random;
 
 public class ReplaceAndRemove {
   // @include
-  public static String replaceAndRemove(String s) {
-    char[] sChars = s.toCharArray();
+  public static int replaceAndRemove(int size, char[] s) {
     // Forward iteration: remove "b"s and count the number of "a"s.
     int writeIdx = 0, aCount = 0;
-    for (char c : sChars) {
-      if (c != 'b') {
-        sChars[writeIdx++] = c;
+    for (int i = 0; i < size; ++i) {
+      if (s[i] != 'b') {
+        s[writeIdx++] = s[i];
       }
-      if (c == 'a') {
+      if (s[i] == 'a') {
         ++aCount;
       }
     }
 
-    // Allocates space according to the number of "a".
-    sChars = Arrays.copyOf(sChars, writeIdx + aCount);
     // Backward iteration: replace "a"s with "dd"s starting from the end.
     int curIdx = writeIdx - 1;
-    writeIdx = sChars.length - 1;
+    writeIdx = writeIdx + aCount - 1;
+    int finalSize = writeIdx + 1;
     while (curIdx >= 0) {
-      if (sChars[curIdx] == 'a') {
-        sChars[writeIdx--] = 'd';
-        sChars[writeIdx--] = 'd';
+      if (s[curIdx] == 'a') {
+        s[writeIdx--] = 'd';
+        s[writeIdx--] = 'd';
       } else {
-        sChars[writeIdx--] = sChars[curIdx];
+        s[writeIdx--] = s[curIdx];
       }
       --curIdx;
     }
-    return new String(sChars);
+    return finalSize;
   }
   // @exclude
 
@@ -71,9 +69,16 @@ public class ReplaceAndRemove {
       }
       System.out.println(s);
       System.out.println();
-      String ans = replaceAndRemove(s);
-      System.out.println(ans);
-      checkAns(s, ans);
+      char[] sCopy = new char[(s.length() << 1) + 1];
+      for (int i = 0; i < s.length(); ++i) {
+        sCopy[i] = s.charAt(i);
+      }
+      int finalSize = replaceAndRemove(s.length(), sCopy);
+      StringBuilder ans = new StringBuilder();
+      for (int i = 0; i < finalSize; ++i) {
+        ans.append(sCopy[i]);
+      }
+      checkAns(s, ans.toString());
     }
   }
 }

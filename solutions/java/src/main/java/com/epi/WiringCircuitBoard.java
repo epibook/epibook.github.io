@@ -3,11 +3,9 @@ package com.epi;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class WiringCircuitBoard {
   // @include
   public static class GraphVertex {
@@ -17,7 +15,7 @@ public class WiringCircuitBoard {
 
   public static boolean isAnyPlacementFeasible(List<GraphVertex> G) {
     for (GraphVertex v : G) {
-      if (v.d == -1) { // unvisited vertex.
+      if (v.d == -1) { // Unvisited vertex.
         v.d = 0;
         if (!BFS(v)) {
           return false;
@@ -28,19 +26,19 @@ public class WiringCircuitBoard {
   }
 
   private static boolean BFS(GraphVertex s) {
-    LinkedList<GraphVertex> q = new LinkedList<>();
-    q.addLast(s);
+    Queue<GraphVertex> q = new LinkedList<>();
+    q.add(s);
 
     while (!q.isEmpty()) {
       for (GraphVertex t : q.peek().edges) {
-        if (t.d == -1) { // unvisited vertex.
+        if (t.d == -1) { // Unvisited vertex.
           t.d = q.peek().d + 1;
-          q.addLast(t);
+          q.add(t);
         } else if (t.d == q.peek().d) {
           return false;
         }
       }
-      q.removeFirst();
+      q.remove();
     }
     return true;
   }

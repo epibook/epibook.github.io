@@ -32,7 +32,8 @@ void ApplyPermutation(const vector<int>& perm, vector<int>* A_ptr) {
   }
 }
 
-void CyclicPermutation(int start, const vector<int>& perm, vector<int>* A_ptr) {
+void CyclicPermutation(int start, const vector<int>& perm,
+                       vector<int>* A_ptr) {
   vector<int>& A = *A_ptr;
   int i = start;
   int temp = A[start];

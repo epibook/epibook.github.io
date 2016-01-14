@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <iostream>
@@ -11,60 +11,68 @@
 using std::cout;
 using std::endl;
 using std::exception;
+using std::function;
 using std::length_error;
 using std::numeric_limits;
-using std::pair;
 using std::priority_queue;
 using std::vector;
 
 // @include
-struct Compare {
-  bool operator()(const pair<int, int>& lhs, const pair<int, int>& rhs) {
-    return lhs.first < rhs.first;
-  }
-};
-
 class Stack {
  public:
-  void Push(int x) { max_heap_.emplace(timestamp_++, x); }
+  void Push(int x) { max_heap_.emplace(ValueWithRank{timestamp_++, x}); }
 
   int Pop() {
     if (max_heap_.empty()) {
       throw length_error("empty stack");
     }
-    int val = max_heap_.top().second;
+    int val = max_heap_.top().rank;
     max_heap_.pop();
     return val;
   }
 
-  const int& Peek() const { return max_heap_.top().second; }
+  int Peek() const { return max_heap_.top().rank; }
 
  private:
   int timestamp_ = 0;
-  // Stores (timestamp, element)-pair. Pairs are ordered by timestamp.
-  priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> max_heap_;
+
+  struct ValueWithRank {
+    int value, rank;
+
+    bool operator<(const ValueWithRank& that) const {
+      return value < that.value;
+    }
+  };
+  priority_queue<ValueWithRank, vector<ValueWithRank>> max_heap_;
 };
 // @exclude
 
 class Queue {
  public:
-  void Enqueue(int x) { max_heap_.emplace(order_--, x); }
+  void Enqueue(int x) { max_heap_.emplace(ValueWithRank{order_--, x}); }
 
   int Dequeue() {
     if (max_heap_.empty()) {
       throw length_error("empty queue");
     }
-    int ret = max_heap_.top().second;
+    int ret = max_heap_.top().rank;
     max_heap_.pop();
     return ret;
   }
 
-  const int& Head() const { return max_heap_.top().second; }
+  int Head() const { return max_heap_.top().rank; }
 
  private:
   int order_ = 0;
-  // Uses a pair where first is the order_ and the second is the element.
-  priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> max_heap_;
+
+  struct ValueWithRank {
+    int value, rank;
+
+    bool operator<(const ValueWithRank& that) const {
+      return value < that.value;
+    }
+  };
+  priority_queue<ValueWithRank, vector<ValueWithRank>> max_heap_;
 };
 
 int main(int argc, char* argv[]) {

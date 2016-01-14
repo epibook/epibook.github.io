@@ -7,7 +7,7 @@ import java.util.Random;
 public class TwoExists {
   // @include
   public static class GraphVertex {
-    public enum Color { WHITE, GRAY, BLACK }
+    public static enum Color { WHITE, GRAY, BLACK }
 
     public Color color;
     public List<GraphVertex> edges;
@@ -18,18 +18,15 @@ public class TwoExists {
       edges = new ArrayList<>();
     }
 
+    // clang-format off
     @Override
-    public String toString() {
-      return edges.toString();
-    }
+    public String toString() { return edges.toString(); }
+    // clang-format on
     // @include
   }
 
   public static boolean isGraphMinimallyConnected(List<GraphVertex> G) {
-    if (!G.isEmpty()) {
-      return !hasCycle(G.get(0), null);
-    }
-    return true;
+    return G.isEmpty() || !hasCycle(G.get(0), null);
   }
 
   private static boolean hasCycle(GraphVertex cur, GraphVertex pre) {
@@ -56,8 +53,8 @@ public class TwoExists {
                                         GraphVertex b) {
     cur.color = GraphVertex.Color.BLACK;
     for (GraphVertex next : cur.edges) {
-      if (next.color == GraphVertex.Color.WHITE &&
-          ((cur != a && cur != b) || (next != a && next != b))) {
+      if (next.color == GraphVertex.Color.WHITE
+          && ((cur != a && cur != b) || (next != a && next != b))) {
         hasCycleExclusion(next, a, b);
       }
     }

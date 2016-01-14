@@ -1,20 +1,21 @@
 package com.epi;
 
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class PlanningFishing {
   // @include
-  public static int maximizeFishing(int[][] A) {
-    for (int i = 0; i < A.length; ++i) {
-      for (int j = 0; j < A[i].length; ++j) {
-        A[i][j] += Math.max(i < 1 ? 0 : A[i - 1][j], j < 1 ? 0 : A[i][j - 1]);
+  public static int maximizeFishing(List<List<Integer>> A) {
+    for (int i = 0; i < A.size(); ++i) {
+      for (int j = 0; j < A.get(i).size(); ++j) {
+        A.get(i).set(j, A.get(i).get(j)
+                            + Math.max(i < 1 ? 0 : A.get(i - 1).get(j),
+                                       j < 1 ? 0 : A.get(i).get(j - 1)));
       }
     }
-    return A[A.length - 1][A[0].length - 1];
+    return A.get(A.size() - 1).get(A.get(0).size() - 1);
   }
   // @exclude
 
@@ -28,13 +29,14 @@ public class PlanningFishing {
       n = r.nextInt(100) + 1;
       m = r.nextInt(100) + 1;
     }
-    int[][] A = new int[n][m];
+    List<List<Integer>> A = new ArrayList<>(n);
     for (int i = 0; i < n; ++i) {
+      A.add(new ArrayList(m));
       for (int j = 0; j < m; ++j) {
-        A[i][j] = r.nextInt(1000);
+        A.get(i).add(r.nextInt(1000));
       }
     }
-    System.out.println(Arrays.deepToString(A));
+    System.out.println(A);
     System.out.println(maximizeFishing(A));
   }
 }

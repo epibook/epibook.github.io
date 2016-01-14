@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -15,14 +15,17 @@ using std::cout;
 using std::default_random_engine;
 using std::deque;
 using std::endl;
-using std::pair;
 using std::queue;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-vector<pair<int, int>> find_stable_assignment(
+struct ProfessorStudentPairing {
+  int professor, student;
+};
+
+vector<ProfessorStudentPairing> find_stable_assignment(
     const vector<vector<int>>& professor_preference,
     const vector<vector<int>>& student_preference) {
   queue<int> free_student;  // stores currently free students.
@@ -58,9 +61,9 @@ vector<pair<int, int>> find_stable_assignment(
     ++student_pref_idx[i];
   }
 
-  vector<pair<int, int>> match_result;
+  vector<ProfessorStudentPairing> match_result;
   for (int j = 0; j < professor_choice.size(); ++j) {
-    match_result.emplace_back(professor_choice[j], j);
+    match_result.emplace_back(ProfessorStudentPairing{professor_choice[j], j});
   }
   return match_result;
 }
@@ -68,13 +71,13 @@ vector<pair<int, int>> find_stable_assignment(
 
 void check_ans(const vector<vector<int>>& professor_preference,
                const vector<vector<int>>& student_preference,
-               const vector<pair<int, int>>& match_result) {
+               const vector<ProfessorStudentPairing>& match_result) {
   assert(match_result.size() == professor_preference.size());
   deque<bool> professor(professor_preference.size(), false),
       student(student_preference.size(), false);
-  for (const pair<int, int>& p : match_result) {
-    student[p.first] = true;
-    professor[p.second] = true;
+  for (const ProfessorStudentPairing& p : match_result) {
+    student[p.professor] = true;
+    professor[p.student] = true;
   }
   for (auto p : professor) {
     assert(p);
@@ -85,8 +88,8 @@ void check_ans(const vector<vector<int>>& professor_preference,
 
   for (int i = 0; i < match_result.size(); ++i) {
     for (int j = i + 1; j < match_result.size(); ++j) {
-      int s0 = match_result[i].first, a0 = match_result[i].second;
-      int s1 = match_result[j].first, a1 = match_result[j].second;
+      int s0 = match_result[i].professor, a0 = match_result[i].student;
+      int s1 = match_result[j].professor, a1 = match_result[j].student;
       int a0_in_s0_order = distance(student_preference[s0].cbegin(),
                                     find(student_preference[s0].cbegin(),
                                          student_preference[s0].cend(), a0));
@@ -144,11 +147,11 @@ int main(int argc, char* argv[]) {
     }
     */
 
-    vector<pair<int, int>> res =
+    vector<ProfessorStudentPairing> res =
         find_stable_assignment(professor_preference, student_preference);
     /*
     for (int i = 0; i < res.size(); ++i) {
-      cout << res[i].first << ", " << res[i].second << endl;
+      cout << res[i].professor << ", " << res[i].student << endl;
     }
     */
     check_ans(professor_preference, student_preference, res);

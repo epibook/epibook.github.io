@@ -28,8 +28,8 @@ public class TailCoin {
     int n, trails;
     Random gen = new Random();
     if (args.length == 2) {
-      n = Integer.valueOf(args[0]);
-      trails = Integer.valueOf(args[1]);
+      n = Integer.parseInt(args[0]);
+      trails = Integer.parseInt(args[1]);
     } else {
       n = gen.nextInt(1000) + 1;
       trails = gen.nextInt(1000) + 1;

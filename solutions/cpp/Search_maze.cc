@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <array>
 #include <cassert>
@@ -14,10 +14,14 @@ using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
+// @include
+typedef enum { WHITE, BLACK } Color;
+// @exclude
+
 struct Coordinate;
-bool SearchMazeHelper(const Coordinate& cur, const Coordinate& e,
-                      vector<vector<int>>* maze, vector<Coordinate>* path);
-bool IsFeasible(const Coordinate& cur, const vector<vector<int>>& maze);
+bool SearchMazeHelper(const Coordinate&, const Coordinate&,
+                      vector<vector<Color>>*, vector<Coordinate>*);
+bool IsFeasible(const Coordinate&, const vector<vector<Color>>&);
 
 // @include
 struct Coordinate {
@@ -28,10 +32,10 @@ struct Coordinate {
   int x, y;
 };
 
-vector<Coordinate> SearchMaze(vector<vector<int>> maze, const Coordinate& s,
+vector<Coordinate> SearchMaze(vector<vector<Color>> maze, const Coordinate& s,
                               const Coordinate& e) {
   vector<Coordinate> path;
-  maze[s.x][s.y] = 1;
+  maze[s.x][s.y] = BLACK;
   path.emplace_back(s);
   if (!SearchMazeHelper(s, e, &maze, &path)) {
     path.pop_back();
@@ -41,18 +45,16 @@ vector<Coordinate> SearchMaze(vector<vector<int>> maze, const Coordinate& s,
 
 // Perform DFS to find a feasible path.
 bool SearchMazeHelper(const Coordinate& cur, const Coordinate& e,
-                      vector<vector<int>>* maze, vector<Coordinate>* path) {
+                      vector<vector<Color>>* maze, vector<Coordinate>* path) {
   if (cur == e) {
     return true;
   }
 
-  const array<array<int, 2>, 4> shift = {
-      {{{0, 1}}, {{0, -1}}, {{1, 0}}, {{-1, 0}}}};
-
-  for (const auto& s : shift) {
+  const array<array<int, 2>, 4> kShift = {{{0, 1}, {0, -1}, {1, 0}, {-1, 0}}};
+  for (const array<int, 2>& s : kShift) {
     Coordinate next{cur.x + s[0], cur.y + s[1]};
     if (IsFeasible(next, *maze)) {
-      (*maze)[next.x][next.y] = 1;
+      (*maze)[next.x][next.y] = BLACK;
       path->emplace_back(next);
       if (SearchMazeHelper(next, e, maze, path)) {
         return true;
@@ -64,9 +66,9 @@ bool SearchMazeHelper(const Coordinate& cur, const Coordinate& e,
 }
 
 // Checks cur is within maze and is a white pixel.
-bool IsFeasible(const Coordinate& cur, const vector<vector<int>>& maze) {
+bool IsFeasible(const Coordinate& cur, const vector<vector<Color>>& maze) {
   return cur.x >= 0 && cur.x < maze.size() && cur.y >= 0 &&
-         cur.y < maze[cur.x].size() && maze[cur.x][cur.y] == 0;
+         cur.y < maze[cur.x].size() && maze[cur.x][cur.y] == WHITE;
 }
 // @exclude
 
@@ -82,17 +84,17 @@ int main(int argc, char* argv[]) {
       n = dis(gen);
       m = dis(gen);
     }
-    vector<vector<int>> maze(n, vector<int>(m));
+    vector<vector<Color>> maze(n, vector<Color>(m));
     for (int i = 0; i < n; ++i) {
       for (int j = 0; j < m; ++j) {
         uniform_int_distribution<int> zero_or_one(0, 1);
-        maze[i][j] = zero_or_one(gen);
+        maze[i][j] = zero_or_one(gen) ? WHITE : BLACK;
       }
     }
     vector<Coordinate> white;
     for (int i = 0; i < n; ++i) {
       for (int j = 0; j < m; ++j) {
-        if (maze[i][j] == 0) {
+        if (maze[i][j] == WHITE) {
           white.emplace_back(Coordinate{i, j});
         }
         cout << maze[i][j] << ' ';

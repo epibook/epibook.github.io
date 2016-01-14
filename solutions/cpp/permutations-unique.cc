@@ -32,7 +32,8 @@ vector<vector<int>> permutations_unique(vector<int> A) {
 }
 
 void permutations_unique_helper(const vector<int> &A, deque<bool> *used,
-                                vector<int> *ans, vector<vector<int>> *result) {
+                                vector<int> *ans,
+                                vector<vector<int>> *result) {
   if (ans->size() == A.size()) {
     result->emplace_back(*ans);
     return;
@@ -61,12 +62,9 @@ void small_test() {
   vector<int> A = {0, 0, 1, 1};
   auto result = permutations_unique(A);
   assert(result.size() == 6);
-  vector<vector<int>> golden_result = {{0, 0, 1, 1},
-                                       {0, 1, 0, 1},
-                                       {0, 1, 1, 0},
-                                       {1, 0, 0, 1},
-                                       {1, 0, 1, 0},
-                                       {1, 1, 0, 0}};
+  vector<vector<int>> golden_result = {{0, 0, 1, 1}, {0, 1, 0, 1},
+                                       {0, 1, 1, 0}, {1, 0, 0, 1},
+                                       {1, 0, 1, 0}, {1, 1, 0, 0}};
   for (size_t i = 0; i < 6; ++i) {
     assert(equal_vector(result[i], golden_result[i]));
   }

@@ -22,8 +22,7 @@ vector<int> RandomSubset(int n, int k) {
   default_random_engine seed((random_device())());  // Random num generator.
   for (int i = 0; i < k; ++i) {
     // Generate a random index in [i, n - 1].
-    uniform_int_distribution<int> rand_idx_gen(i, n - 1);
-    int rand_idx = rand_idx_gen(seed);
+    int rand_idx = uniform_int_distribution<int>{i, n - 1}(seed);
     auto ptr1 = changed_elements.find(rand_idx),
          ptr2 = changed_elements.find(i);
     if (ptr1 == changed_elements.end() && ptr2 == changed_elements.end()) {

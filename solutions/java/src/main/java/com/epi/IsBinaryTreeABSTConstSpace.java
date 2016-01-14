@@ -11,32 +11,32 @@ public class IsBinaryTreeABSTConstSpace {
     boolean result = true;
 
     while (n != null) {
-      if (n.getLeft() != null) {
+      if (n.left != null) {
         // Finds the predecessor of n.
-        BinaryTreeNode<Integer> pre = n.getLeft();
-        while (pre.getRight() != null && pre.getRight() != n) {
-          pre = pre.getRight();
+        BinaryTreeNode<Integer> pre = n.left;
+        while (pre.right != null && pre.right != n) {
+          pre = pre.right;
         }
 
         // Processes the successor link.
-        if (pre.getRight() != null) { // pre.getRight() == n.
+        if (pre.right != null) { // pre.right == n.
           // Reverts the successor link if predecessor's successor is n.
-          pre.setRight(null);
-          if (last.compareTo(n.getData()) > 0) {
+          pre.right = null;
+          if (Integer.compare(last, n.data) > 0) {
             result = false;
           }
-          last = n.getData();
-          n = n.getRight();
+          last = n.data;
+          n = n.right;
         } else { // If predecessor's successor is not n.
-          pre.setRight(n);
-          n = n.getLeft();
+          pre.right = n;
+          n = n.left;
         }
       } else {
-        if (last.compareTo(n.getData()) > 0) {
+        if (Integer.compare(last, n.data) > 0) {
           result = false;
         }
-        last = n.getData();
-        n = n.getRight();
+        last = n.data;
+        n = n.right;
       }
     }
     return result;
@@ -48,18 +48,18 @@ public class IsBinaryTreeABSTConstSpace {
     // 2 5
     // 1 4 6
     BinaryTreeNode<Integer> tree = new BinaryTreeNode<>(3);
-    tree.setLeft(new BinaryTreeNode<>(2));
-    tree.getLeft().setLeft(new BinaryTreeNode<>(1));
-    tree.setRight(new BinaryTreeNode<>(5));
-    tree.getRight().setLeft(new BinaryTreeNode<>(4));
-    tree.getRight().setRight(new BinaryTreeNode<>(6));
+    tree.left = new BinaryTreeNode<>(2);
+    tree.left.left = new BinaryTreeNode<>(1);
+    tree.right = new BinaryTreeNode<>(5);
+    tree.right.left = new BinaryTreeNode<>(4);
+    tree.right.right = new BinaryTreeNode<>(6);
     // should output true.
     assert isBST(tree);
     System.out.println(isBST(tree));
     // 10
     // 2 5
     // 1 4 6
-    tree.setData(10);
+    tree.data = 10;
     // should output false.
     assert(!isBST(tree));
     System.out.println(isBST(tree));

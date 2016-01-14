@@ -21,21 +21,18 @@ public class ReverseWords {
   }
 
   // @include
-  public static String reverseWords(String input) {
+  public static void reverseWords(char[] input) {
     // Reverses the whole string first.
-    char[] reversed = input.toCharArray();
-    reverse(reversed, 0, input.length());
+    reverse(input, 0, input.length);
 
     int start = 0, end;
-    while ((end = find(reversed, ' ', start)) != -1) {
+    while ((end = find(input, ' ', start)) != -1) {
       // Reverses each word in the string.
-      reverse(reversed, start, end);
+      reverse(input, start, end);
       start = end + 1;
     }
     // Reverses the last word.
-    reverse(reversed, start, reversed.length);
-
-    return new String(reversed);
+    reverse(input, start, input.length);
   }
 
   public static void reverse(char[] array, int start, int stopIndex) {
@@ -57,39 +54,42 @@ public class ReverseWords {
         return i;
       }
     }
-
     return -1;
   }
   // @exclude
 
   private static void checkAnswer(String ori, String str) {
-    String reversed = reverseWords(str);
-    assert ori.equals(reversed);
+    char[] input = str.toCharArray();
+    reverseWords(input);
+    assert ori.equals(new String(input));
   }
 
   private static void simpleTest() {
-    assert reverseWords("a cat and dog").equals("dog and cat a");
-    assert reverseWords("dog").equals("dog");
+    char[] input = "a cat and dog".toCharArray();
+    reverseWords(input);
+    assert "dog and cat a".equals(new String(input));
+    input = "dog".toCharArray();
+    reverseWords(input);
+    assert "dog".equals(new String(input));
   }
 
   public static void main(String[] args) {
     simpleTest();
     Random gen = new Random();
     for (int times = 0; times < 1000; ++times) {
-      String str = "";
+      StringBuilder str = new StringBuilder();
       if (args.length >= 1) {
-        str += args[0];
+        str.append(args[0]);
         for (int i = 1; i < args.length; ++i) {
-          str += ' ';
-          str += args[i];
+          str.append(' ').append(args[i]);
         }
       } else {
-        str = randString(gen.nextInt(10000));
+        str.append(randString(gen.nextInt(10000)));
       }
       System.out.println(str);
-      String reversed = reverseWords(str);
-      System.out.println(reversed);
-      checkAnswer(str, reversed);
+      char[] input = str.toString().toCharArray();
+      reverseWords(input);
+      checkAnswer(str.toString(), new String(input));
     }
   }
 }

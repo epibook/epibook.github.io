@@ -26,7 +26,11 @@ using std::unordered_map;
 using std::vector;
 
 // @include
-pair<string, string> HighestAffinityPair(ifstream* ifs) {
+struct PagePair {
+  string page_a, page_b;
+};
+
+PagePair HighestAffinityPair(ifstream* ifs) {
   // Creates a mapping from pages to distinct users.
   unordered_map<string, set<string>> page_users_map;
   string page, user;
@@ -34,7 +38,7 @@ pair<string, string> HighestAffinityPair(ifstream* ifs) {
     page_users_map[page].emplace(user);
   }
 
-  pair<string, string> result;
+  PagePair result;
   int max_count = 0;
   // Compares all pairs of pages to users maps.
   for (auto a = page_users_map.begin(); a != page_users_map.end(); ++a) {
@@ -65,7 +69,20 @@ string RandString(int len) {
   return ret;
 }
 
+void SimpleTest() {
+  ofstream ofs("/tmp/logs.txt");
+  ofs << "a A" << endl;
+  ofs << "b B" << endl;
+  ofs << "c A" << endl;
+  ofs.close();
+  ifstream ifs("/tmp/logs.txt");
+  auto result = HighestAffinityPair(&ifs);
+  assert((result.page_a == "a" && result.page_b == "c") ||
+         (result.page_a == "c" && result.page_b == "a"));
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   int n;
   if (argc == 2) {
@@ -74,15 +91,15 @@ int main(int argc, char* argv[]) {
     uniform_int_distribution<int> dis(1, 10000);
     n = dis(gen);
   }
-  ofstream ofs("logs.txt");
+  ofstream ofs("/tmp/logs.txt");
   for (int i = 0; i < n; ++i) {
     string name = RandString(5);
     transform(name.begin(), name.end(), name.begin(), toupper);
     ofs << name << " " << RandString(5) << endl;
   }
   ofs.close();
-  ifstream ifs("logs.txt");
+  ifstream ifs("/tmp/logs.txt");
   auto result = HighestAffinityPair(&ifs);
-  cout << result.first << " " << result.second << endl;
+  cout << result.page_a << " " << result.page_b << endl;
   return 0;
 }

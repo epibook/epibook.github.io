@@ -42,10 +42,11 @@ int SearchSmallestHelper(const vector<int>& A, int left, int right) {
 }
 // @exclude
 
+// Hand-made tests
 static void SimpleTest() {
-  vector<int> A = {3,1,2};
+  vector<int> A = {3, 1, 2};
   assert(1 == SearchSmallest(A));
-  A = {0,2,4,8};
+  A = {0, 2, 4, 8};
   assert(0 == SearchSmallest(A));
   A[0] = 16;
   assert(1 == SearchSmallest(A));
@@ -90,32 +91,5 @@ int main(int argc, char* argv[]) {
     */
     assert((shift + 1) % n == SearchSmallest(A));
   }
-
-  // hand-made tests
-  vector<int> A;
-  A.emplace_back(2);
-  A.emplace_back(2);
-  A.emplace_back(2);
-  assert(0 == SearchSmallest(A));
-  A.clear();
-  A.emplace_back(100);
-  A.emplace_back(2);
-  A.emplace_back(5);
-  A.emplace_back(5);
-  assert(1 == SearchSmallest(A));
-  A.clear();
-  A.emplace_back(1);
-  A.emplace_back(2);
-  A.emplace_back(3);
-  A.emplace_back(3);
-  A.emplace_back(3);
-  assert(0 == SearchSmallest(A));
-  A.clear();
-  A.emplace_back(5);
-  A.emplace_back(2);
-  A.emplace_back(3);
-  A.emplace_back(3);
-  A.emplace_back(3);
-  assert(1 == SearchSmallest(A));
   return 0;
 }

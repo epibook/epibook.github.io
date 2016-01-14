@@ -15,8 +15,8 @@ public class PhoneMnemonic {
     return mnemonics;
   }
 
-  // The mapping from digit to corresponding charaters.
-  private static final String[] M = new String[] {
+  // The mapping from digit to corresponding characters.
+  private static final String[] MAPPING = new String[] {
       "0", "1", "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ"};
 
   private static void phoneMnemonicHelper(String phoneNumber, int digit,
@@ -28,7 +28,9 @@ public class PhoneMnemonic {
       mnemonics.add(new String(partialMnemonic));
     } else {
       // Try all possible characters for this digit.
-      for (char c : M[phoneNumber.charAt(digit) - '0'].toCharArray()) {
+      for (int i = 0; i < MAPPING[phoneNumber.charAt(digit) - '0'].length();
+           ++i) {
+        char c = MAPPING[phoneNumber.charAt(digit) - '0'].charAt(i);
         partialMnemonic[digit] = c;
         phoneMnemonicHelper(phoneNumber, digit + 1, partialMnemonic, mnemonics);
       }

@@ -1,4 +1,5 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
+
 package com.epi;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class LongestIncreasingSubarray {
       this.end = end;
     }
   }
+
   public static Subarray findLongestIncreasingSubarray(List<Integer> A) {
     int maxLength = 1;
     Subarray ans = new Subarray(0, 0);
@@ -62,14 +64,14 @@ public class LongestIncreasingSubarray {
       List<Integer> A = new ArrayList<>();
       if (args.length > 2) {
         for (int i = 1; i < args.length; ++i) {
-          A.add(Integer.valueOf(args[i]));
+          A.add(Integer.parseInt(args[i]));
         }
       } else {
         int n;
         if (args.length == 1) {
-          n = Integer.valueOf(args[0]);
+          n = Integer.parseInt(args[0]);
         } else {
-          n = gen.nextInt(1000000) + 1;
+          n = gen.nextInt(10000) + 1;
         }
         for (int i = 0; i < n; ++i) {
           A.add((gen.nextBoolean() ? -1 : 1) * gen.nextInt(n));

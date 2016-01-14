@@ -1,7 +1,7 @@
 package com.epi;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -19,7 +19,7 @@ public class BinarySearchUnknownLength {
         } else if (A.get(idx) > k) {
           break;
         }
-      } catch (Exception e) {
+      } catch (IndexOutOfBoundsException e) {
         break;
       }
       ++p;
@@ -79,7 +79,8 @@ public class BinarySearchUnknownLength {
       System.out.println(n + " " + k);
       int idx = binarySearchUnknownLength(A, k);
       System.out.println(idx);
-      assert(idx != -1 && A.get(idx) == k || Collections.binarySearch(A, k) < 0);
+      assert(idx != -1 && A.get(idx) == k
+             || Collections.binarySearch(A, k) < 0);
     }
   }
 }

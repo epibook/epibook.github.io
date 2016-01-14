@@ -1,13 +1,19 @@
 package com.epi;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class AddingCredits {
   // @include
   public static class ClientsCreditsInfo {
     private int offset = 0;
     private Map<String, Integer> clientToCredit = new HashMap<>();
-    private NavigableMap<Integer, Set<String>> creditToClients = new TreeMap<>();
+    private NavigableMap<Integer, Set<String>> creditToClients
+        = new TreeMap<>();
 
     public void insert(String clientID, int c) {
       remove(clientID);
@@ -51,24 +57,30 @@ public class AddingCredits {
   public static void main(String[] args) {
     ClientsCreditsInfo a = new ClientsCreditsInfo();
     assert(a.max().isEmpty());
-    assert(!a.remove("foo"));
-    a.insert("foo", 10);
-    a.insert("foo", 1);
-    a.insert("bar", 2);
+    String foo = "foo";
+    String bar = "bar";
+    String widget = "widget";
+    String dothis = "dothis";
+    String xyz = "xyz";
+    String dd = "dd";
+    assert(!a.remove(foo));
+    a.insert(foo, 10);
+    a.insert(foo, 1);
+    a.insert(bar, 2);
     a.addAll(5);
-    a.insert("widget", 3);
+    a.insert(widget, 3);
     a.addAll(5);
-    a.insert("dothis", 4);
-    assert(11 == a.lookup("foo"));
-    assert(12 == a.lookup("bar"));
-    assert(8 == a.lookup("widget"));
-    assert(4 == a.lookup("dothis"));
-    assert(a.remove("foo"));
-    assert(-1 == a.lookup("foo"));
-    assert(a.max().equals("bar"));
-    a.insert("xyz", 13);
-    assert(a.max().equals("xyz"));
-    a.insert("dd", 15);
-    assert(a.max().equals("dd"));
+    a.insert(dothis, 4);
+    assert(11 == a.lookup(foo));
+    assert(12 == a.lookup(bar));
+    assert(8 == a.lookup(widget));
+    assert(4 == a.lookup(dothis));
+    assert(a.remove(foo));
+    assert(-1 == a.lookup(foo));
+    assert(a.max().equals(bar));
+    a.insert(xyz, 13);
+    assert(a.max().equals(xyz));
+    a.insert(dd, 15);
+    assert(a.max().equals(dd));
   }
 }

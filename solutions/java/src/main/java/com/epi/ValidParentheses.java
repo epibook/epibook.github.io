@@ -1,24 +1,25 @@
 package com.epi;
 
+import java.util.Deque;
 import java.util.LinkedList;
 
 public class ValidParentheses {
   // @include
   public static boolean isWellFormed(String s) {
-    LinkedList<Character> leftChars = new LinkedList<>();
+    Deque<Character> leftChars = new LinkedList<>();
     for (int i = 0; i < s.length(); ++i) {
       if (s.charAt(i) == '(' || s.charAt(i) == '{' || s.charAt(i) == '[') {
-        leftChars.push(s.charAt(i));
+        leftChars.addFirst(s.charAt(i));
       } else {
         if (leftChars.isEmpty()) {
           return false; // Unmatched right char.
         }
-        if ((s.charAt(i) == ')' && leftChars.peek() != '(') ||
-            (s.charAt(i) == '}' && leftChars.peek() != '{') ||
-            (s.charAt(i) == ']' && leftChars.peek() != '[')) {
+        if ((s.charAt(i) == ')' && leftChars.peekFirst() != '(')
+            || (s.charAt(i) == '}' && leftChars.peekFirst() != '{')
+            || (s.charAt(i) == ']' && leftChars.peekFirst() != '[')) {
           return false; // Mismatched chars.
         }
-        leftChars.pop();
+        leftChars.removeFirst();
       }
     }
     return leftChars.isEmpty();

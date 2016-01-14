@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -9,7 +9,7 @@
 #include <utility>
 #include <vector>
 
-#include "./GCD.h"
+#include "./GCD2.h"
 
 using std::cout;
 using std::default_random_engine;
@@ -23,6 +23,7 @@ using std::uniform_int_distribution;
 using std::unordered_map;
 using std::unordered_set;
 using std::vector;
+using GCD2::GCD;
 
 // @include
 struct Point {
@@ -119,20 +120,17 @@ Line FindLineWithMostPoints(const vector<Point>& P) {
   }
 
   // @exclude
-  auto line_max_points =
-      max_element(table.cbegin(), table.cend(),
-                  [](const pair<Line, unordered_set<Point, HashPoint>>& a,
-                     const pair<Line, unordered_set<Point, HashPoint>>& b) {
-                    return a.second.size() < b.second.size();
-                  });
+  auto line_max_points = max_element(
+      table.cbegin(), table.cend(), [](const auto& a, const auto& b) {
+        return a.second.size() < b.second.size();
+      });
   int res = check(P);
   // cout << res << " " << line_max_points.second.size() << endl;
   assert(res == line_max_points->second.size());
   // @include
   // Return the line with most points have passed.
   return max_element(table.cbegin(), table.cend(),
-                     [](const pair<Line, unordered_set<Point, HashPoint>>& a,
-                        const pair<Line, unordered_set<Point, HashPoint>>& b) {
+                     [](const auto& a, const auto& b) {
                        return a.second.size() < b.second.size();
                      })
       ->first;
@@ -147,7 +145,7 @@ int main(int argc, char* argv[]) {
     if (argc == 2) {
       n = atoi(argv[1]);
     } else {
-      uniform_int_distribution<int> dis(1, 1000);
+      uniform_int_distribution<int> dis(1, 100);
       n = dis(gen);
     }
     vector<Point> points;

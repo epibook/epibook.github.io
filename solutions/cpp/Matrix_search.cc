@@ -3,14 +3,15 @@
 #include <algorithm>
 #include <cassert>
 #include <iostream>
+#include <limits>
 #include <random>
 #include <vector>
-#include <limits>
 
 using std::cout;
 using std::default_random_engine;
 using std::endl;
 using std::max;
+using std::numeric_limits;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
@@ -33,45 +34,33 @@ bool MatrixSearch(const vector<vector<int>>& A, int x) {
 // @exclude
 
 static void SimpleTest() {
-  vector<int> A0 = {1};
-  vector<vector<int>> A; 
-  A[0] = A0;
+  vector<vector<int>> A = {{1}};
   assert(!MatrixSearch(A, 0));
   assert(MatrixSearch(A, 1));
 
-  A0 = {1,5};
-  vector<int> A1 = {2,6};
-  A[0] = A0;
-  A[1] = A1;
+  A = {{1, 5}, {2, 6}};
   assert(!MatrixSearch(A, 0));
   assert(MatrixSearch(A, 1));
   assert(MatrixSearch(A, 2));
   assert(MatrixSearch(A, 5));
   assert(MatrixSearch(A, 6));
   assert(!MatrixSearch(A, 3));
-  assert(!MatrixSearch(A, INT_MAX));
+  assert(!MatrixSearch(A, numeric_limits<int>::max()));
 
-  A0[0] = 2;
+  A = {{2, 5}, {2, 6}};
   assert(!MatrixSearch(A, 1));
   assert(MatrixSearch(A, 2));
 
-  A0 = {1,5,7};
-  A1 = {3,10,100};
-  vector<int> A2 = {3,12,INT_MAX};
-  A[0] = A0;
-  A[1] = A1;
-  A[2] = A2;
+  A = {{1, 5, 7}, {3, 10, 100}, {3, 12, numeric_limits<int>::max()}};
   assert(MatrixSearch(A, 1));
   assert(!MatrixSearch(A, 2));
   assert(!MatrixSearch(A, 4));
   assert(MatrixSearch(A, 3));
   assert(MatrixSearch(A, 10));
-  assert(MatrixSearch(A, INT_MAX));
-  assert(!MatrixSearch(A, INT_MAX-1));
+  assert(MatrixSearch(A, numeric_limits<int>::max()));
+  assert(!MatrixSearch(A, numeric_limits<int>::max() - 1));
   assert(MatrixSearch(A, 12));
 }
-
-
 
 // O(n^2) solution for verifying answer.
 bool BruteForceSearch(const vector<vector<int>>& A, int x) {
@@ -86,6 +75,7 @@ bool BruteForceSearch(const vector<vector<int>>& A, int x) {
 }
 
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 10000; ++times) {
     int n, m;

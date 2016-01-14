@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -20,8 +20,11 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-// Returns (min, max) pair of elements in A.
-pair<int, int> FindMinMax(const vector<int>& A) {
+struct MinMax {
+  int min, max;
+};
+
+MinMax FindMinMax(const vector<int>& A) {
   if (A.size() <= 1) {
     return {A.front(), A.front()};
   }
@@ -39,21 +42,21 @@ pair<int, int> FindMinMax(const vector<int>& A) {
     global_min_max = {min(global_min_max.first, A.back()),
                       max(global_min_max.second, A.back())};
   }
-  return global_min_max;
+  return {global_min_max.first, global_min_max.second};
 }
 // @exclude
 
 static void SimpleTest() {
-  vector<int> A = {-1,3,-4,6,4,10,4,4,9};
+  vector<int> A = {-1, 3, -4, 6, 4, 10, 4, 4, 9};
   auto res = FindMinMax(A);
-  assert(-4 == res.first && 10 == res.second);
+  assert(-4 == res.min && 10 == res.max);
   A[5] = -12;
   res = FindMinMax(A);
-  assert(-12 == res.first && 9 == res.second);
+  assert(-12 == res.min && 9 == res.max);
 
-  A = {-1,3,-4};
+  A = {-1, 3, -4};
   res = FindMinMax(A);
-  assert(-4 == res.first && 3 == res.second);
+  assert(-4 == res.min && 3 == res.max);
 }
 
 int main(int argc, char* argv[]) {
@@ -72,9 +75,9 @@ int main(int argc, char* argv[]) {
       uniform_int_distribution<int> dis(0, 999999);
       A.emplace_back(dis(gen));
     }
-    pair<int, int> res = FindMinMax(A);
-    assert(res.first == *min_element(A.cbegin(), A.cend()) &&
-           res.second == *max_element(A.cbegin(), A.cend()));
+    MinMax res = FindMinMax(A);
+    assert(res.min == *min_element(A.cbegin(), A.cend()) &&
+           res.max == *max_element(A.cbegin(), A.cend()));
   }
   return 0;
 }

@@ -16,8 +16,10 @@ using std::random_device;
 using std::uniform_int_distribution;
 
 // @include
+const int kNumUnsignBits = 64;
+
 unsigned long ClosestIntSameBitCount(unsigned long x) {
-  for (int i = 0; i < 63; ++i) {
+  for (int i = 0; i < kNumUnsignBits - 1; ++i) {
     if (((x >> i) & 1) != ((x >> (i + 1)) & 1)) {
       x ^= (1UL << i) | (1UL << (i + 1));  // Swaps bit-i and bit-(i + 1).
       return x;
@@ -25,11 +27,11 @@ unsigned long ClosestIntSameBitCount(unsigned long x) {
   }
 
   // Throw error if all bits of x are 0 or 1.
-  throw invalid_argument("all bits are 0 or 1");
+  throw invalid_argument("All bits are 0 or 1");
 }
 // @exclude
 
-int CountBitsSetTo1(int x) {
+int CountBitsSetTo1(unsigned long x) {
   int count = 0;
   while (x) {
     x &= (x - 1);
@@ -43,6 +45,21 @@ void SmallTest() {
   assert(ClosestIntSameBitCount(7) == 11);
   assert(ClosestIntSameBitCount(2) == 1);
   assert(ClosestIntSameBitCount(32) == 16);
+  assert(ClosestIntSameBitCount(numeric_limits<unsigned long>::max() - 1) ==
+         numeric_limits<unsigned long>::max() - 2);
+
+  try {
+    ClosestIntSameBitCount(numeric_limits<unsigned long>::max());
+    assert(false);
+  } catch (const exception& e) {
+    cout << e.what() << endl;
+  }
+  try {
+    ClosestIntSameBitCount(0);
+    assert(false);
+  } catch (const exception& e) {
+    cout << e.what() << endl;
+  }
 }
 
 int main(int argc, char* argv[]) {
@@ -52,7 +69,7 @@ int main(int argc, char* argv[]) {
   if (argc == 2) {
     x = atol(argv[1]);
   } else {
-    uniform_int_distribution<int> dis(0, numeric_limits<int>::max());
+    uniform_int_distribution<int> dis(0, numeric_limits<unsigned long>::max());
     x = dis(gen);
   }
   try {

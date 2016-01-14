@@ -1,10 +1,11 @@
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class MinimumSubarrayDifference {
   // @include
   public static int minimizeDifference(List<Integer> A) {

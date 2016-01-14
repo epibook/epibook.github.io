@@ -38,7 +38,8 @@ int FindNearestRepetition(const vector<string>& paragraph) {
   for (int i = 0; i < paragraph.size(); ++i) {
     auto latest_equal_word = word_to_latest_index.find(paragraph[i]);
     if (latest_equal_word != word_to_latest_index.end()) {
-      nearest_repeated_distance = min(nearest_repeated_distance, i - latest_equal_word->second);
+      nearest_repeated_distance =
+          min(nearest_repeated_distance, i - latest_equal_word->second);
     }
     word_to_latest_index[paragraph[i]] = i;
   }

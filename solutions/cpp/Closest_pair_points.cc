@@ -6,7 +6,6 @@
 #include <iostream>
 #include <limits>
 #include <random>
-#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -16,19 +15,19 @@ using std::endl;
 using std::get;
 using std::numeric_limits;
 using std::ostream;
-using std::pair;
 using std::random_device;
-using std::tuple;
 using std::uniform_int_distribution;
 using std::vector;
 
 struct Point;
-tuple<Point, Point, double> FindClosestPairPointsInSubarray(
+struct PairOfPoints;
+struct PairOfPointsWithDistance;
+PairOfPointsWithDistance FindClosestPairPointsInSubarray(
     const vector<Point>& points, int s, int e);
-tuple<Point, Point, double> SolveByEnumerateAllPairs(
-    const vector<Point>& points, int s, int e);
-tuple<Point, Point, double> FindClosestPairInRemain(vector<Point>* points,
-                                                    double d);
+PairOfPointsWithDistance SolveByEnumerateAllPairs(const vector<Point>& points,
+                                                  int s, int e);
+PairOfPointsWithDistance FindClosestPairInRemain(vector<Point>* points,
+                                                 double d);
 double Distance(const Point& a, const Point& b);
 
 // @include
@@ -43,51 +42,61 @@ struct Point {
 };
 const int kBruteForceThreshold = 50;
 
-pair<Point, Point> FindClosestPairPoints(vector<Point> points) {
+struct PairOfPoints {
+  Point p1, p2;
+};
+
+struct PairOfPointsWithDistance {
+  Point p1, p2;
+  double distance;
+};
+
+PairOfPoints FindClosestPairPoints(vector<Point> points) {
   sort(points.begin(), points.end(),
        [](const Point& a, const Point& b) -> bool { return a.x < b.x; });
   auto closest_two_points_with_distance =
       FindClosestPairPointsInSubarray(points, 0, points.size());
-  return {get<0>(closest_two_points_with_distance),
-          get<1>(closest_two_points_with_distance)};
+  return {closest_two_points_with_distance.p1,
+          closest_two_points_with_distance.p2};
 }
 
 // Returns the closest two points and their distance as a tuple in
 // points[begin : end - 1].
-tuple<Point, Point, double> FindClosestPairPointsInSubarray(
+PairOfPointsWithDistance FindClosestPairPointsInSubarray(
     const vector<Point>& points, int begin, int end) {
   if (end - begin <= kBruteForceThreshold) {  // Switch to brute-force.
     return SolveByEnumerateAllPairs(points, begin, end);
   }
 
-  int mid = (end + begin) / 2;
+  int mid = begin + (end - begin) / 2;
   auto result0 = FindClosestPairPointsInSubarray(points, begin, mid);
   auto result1 = FindClosestPairPointsInSubarray(points, mid, end);
   auto best_result_in_subsets =
-      get<2>(result0) < get<2>(result1) ? result0 : result1;
-  vector<Point> remain;  // Stores the points whose x-dis < min_d.
+      result0.distance < result1.distance ? result0 : result1;
+  // Stores the points whose separation along the X-axis is less than min_d.
+  vector<Point> remain;
   for (const Point& p : points) {
-    if (abs(p.x - points[mid].x) < get<2>(best_result_in_subsets)) {
+    if (abs(p.x - points[mid].x) < best_result_in_subsets.distance) {
       remain.emplace_back(p);
     }
   }
 
   auto mid_ret =
-      FindClosestPairInRemain(&remain, get<2>(best_result_in_subsets));
-  return get<2>(mid_ret) < get<2>(best_result_in_subsets)
+      FindClosestPairInRemain(&remain, best_result_in_subsets.distance);
+  return mid_ret.distance < best_result_in_subsets.distance
              ? mid_ret
              : best_result_in_subsets;
 }
 
 // Returns the closest two points and the distance between them.
-tuple<Point, Point, double> SolveByEnumerateAllPairs(
-    const vector<Point>& points, int begin, int end) {
-  tuple<Point, Point, double> ret;
-  get<2>(ret) = numeric_limits<double>::max();
+PairOfPointsWithDistance SolveByEnumerateAllPairs(const vector<Point>& points,
+                                                  int begin, int end) {
+  PairOfPointsWithDistance ret;
+  ret.distance = numeric_limits<double>::max();
   for (int i = begin; i < end; ++i) {
     for (int j = i + 1; j < end; ++j) {
       double dis = Distance(points[i], points[j]);
-      if (dis < get<2>(ret)) {
+      if (dis < ret.distance) {
         ret = {points[i], points[j], dis};
       }
     }
@@ -96,19 +105,19 @@ tuple<Point, Point, double> SolveByEnumerateAllPairs(
 }
 
 // Returns the closest two points and its distance as a tuple.
-tuple<Point, Point, double> FindClosestPairInRemain(vector<Point>* remain,
-                                                    double d) {
+PairOfPointsWithDistance FindClosestPairInRemain(vector<Point>* remain,
+                                                 double d) {
   sort(remain->begin(), remain->end(),
        [](const Point& a, const Point& b) -> bool { return a.y < b.y; });
 
   // At most six points in remain.
-  tuple<Point, Point, double> ret;
-  get<2>(ret) = numeric_limits<double>::max();
+  PairOfPointsWithDistance ret;
+  ret.distance = numeric_limits<double>::max();
   for (int i = 0; i < remain->size(); ++i) {
     for (int j = i + 1;
          j < remain->size() && (*remain)[j].y - (*remain)[i].y < d; ++j) {
       double dis = Distance((*remain)[i], (*remain)[j]);
-      if (dis < get<2>(ret)) {
+      if (dis < ret.distance) {
         ret = {(*remain)[i], (*remain)[j], dis};
       }
     }
@@ -139,11 +148,11 @@ int main(int argc, char* argv[]) {
     }
     auto p = FindClosestPairPoints(points);
     auto q = SolveByEnumerateAllPairs(points, 0, points.size());
-    cout << "p = " << p.first << " " << p.second
-         << ", dis = " << Distance(p.first, p.second) << endl;
-    cout << "q = " << get<0>(q) << " " << get<1>(q)
-         << ", dis = " << Distance(get<0>(q), get<1>(q)) << endl;
-    assert(Distance(p.first, p.second) == get<2>(q));
+    cout << "p = " << p.p1 << " " << p.p2 << ", dis = " << Distance(p.p1, p.p2)
+         << endl;
+    cout << "q = " << q.p1 << " " << q.p2 << ", dis = " << Distance(q.p1, q.p2)
+         << endl;
+    assert(Distance(p.p1, p.p2) == q.distance);
   }
   return 0;
 }

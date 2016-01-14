@@ -1,34 +1,35 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Random;
-import java.util.Stack;
 
 public class TowerHanoi {
-  static int numSteps;
+  private static int numSteps;
   // @include
   private static final int NUM_PEGS = 3;
 
   public static void computeTowerHanoi(int numRings) {
-    List<Stack<Integer>> pegs = new ArrayList<>();
+    List<Deque<Integer>> pegs = new ArrayList<>();
     for (int i = 0; i < NUM_PEGS; i++) {
-      pegs.add(new Stack<Integer>());
+      pegs.add(new LinkedList<Integer>());
     }
     // Initialize pegs.
     for (int i = numRings; i >= 1; --i) {
-      pegs.get(0).push(i);
+      pegs.get(0).addFirst(i);
     }
-
     computeTowerHanoiSteps(numRings, pegs, 0, 1, 2);
   }
 
   private static void computeTowerHanoiSteps(int numRingsToMove,
-                                             List<Stack<Integer>> pegs,
-                                             int fromPeg, int toPeg, int usePeg) {
+                                             List<Deque<Integer>> pegs,
+                                             int fromPeg, int toPeg,
+                                             int usePeg) {
     if (numRingsToMove > 0) {
       computeTowerHanoiSteps(numRingsToMove - 1, pegs, fromPeg, usePeg, toPeg);
-      pegs.get(toPeg).push(pegs.get(fromPeg).pop());
+      pegs.get(toPeg).addFirst(pegs.get(fromPeg).removeFirst());
       System.out.println("Move from peg " + fromPeg + " to peg " + toPeg);
       // @exclude
       numSteps++;

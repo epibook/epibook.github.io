@@ -18,35 +18,34 @@ using std::numeric_limits;
 // @include
 class QueueWithMax {
  public:
-  void Enqueue(int x) { enqueue_stack_.Push(x); }
+  void Enqueue(int x) { enqueue_.Push(x); }
 
   int Dequeue() {
-    if (dequeue_stack_.Empty()) {
-      while (!enqueue_stack_.Empty()) {
-        dequeue_stack_.Push(enqueue_stack_.Pop());
+    if (dequeue_.Empty()) {
+      while (!enqueue_.Empty()) {
+        dequeue_.Push(enqueue_.Pop());
       }
     }
-    if (!dequeue_stack_.Empty()) {
-      return dequeue_stack_.Pop();
+    if (!dequeue_.Empty()) {
+      return dequeue_.Pop();
     }
     throw length_error("empty queue");
   }
 
   int Max() const {
-    if (!enqueue_stack_.Empty()) {
-      return dequeue_stack_.Empty()
-                 ? enqueue_stack_.Max()
-                 : max(enqueue_stack_.Max(), dequeue_stack_.Max());
-    } else {  // enqueue_stack_.Empty() == true.
-      if (!dequeue_stack_.Empty()) {
-        return dequeue_stack_.Max();
+    if (!enqueue_.Empty()) {
+      return dequeue_.Empty() ? enqueue_.Max()
+                              : max(enqueue_.Max(), dequeue_.Max());
+    } else {  // enqueue_.Empty() == true.
+      if (!dequeue_.Empty()) {
+        return dequeue_.Max();
       }
       throw length_error("empty queue");
     }
   }
 
  private:
-  Stack enqueue_stack_, dequeue_stack_;
+  Stack enqueue_, dequeue_;
 };
 // @exclude
 

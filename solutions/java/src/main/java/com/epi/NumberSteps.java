@@ -4,25 +4,29 @@ import java.util.Random;
 
 public class NumberSteps {
   // @include
-  public static int numberSteps(int n, int k) {
+  public static int numberOfWaysToTop(int top, int maximumStep) {
+    return computeNumberOfWaysToH(top, maximumStep, new int[top + 1]);
+  }
+
+  private static int computeNumberOfWaysToH(int n, int maximumStep,
+                                            int[] numberOfWaysToH) {
     if (n <= 1) {
       return 1;
     }
-
-    int steps[] = new int[k + 1];
-    steps[0] = steps[1] = 1;
-    for (int i = 2; i <= n; ++i) {
-      steps[i % (k + 1)] = 0;
-      for (int j = 1; j <= k && i - j >= 0; ++j) {
-        steps[i % (k + 1)] += steps[(i - j) % (k + 1)];
+    if (numberOfWaysToH[n] == 0) {
+      for (int i = 1; i <= maximumStep && n - i >= 0; ++i) {
+        numberOfWaysToH[n]
+            += computeNumberOfWaysToH(n - i, maximumStep, numberOfWaysToH);
       }
     }
-    return steps[n % (k + 1)];
+    return numberOfWaysToH[n];
   }
   // @exclude
 
   public static void main(String[] args) {
-    assert(5 == numberSteps(4, 2));
+    assert(5 == numberOfWaysToTop(4, 2));
+    assert(1 == numberOfWaysToTop(1, 2));
+    assert(1 == numberOfWaysToTop(0, 3));
     Random r = new Random();
     int n, k;
     if (args.length == 2) {
@@ -33,6 +37,6 @@ public class NumberSteps {
       k = r.nextInt(n) + 1;
     }
     System.out.println("n = " + n + ", k = " + k);
-    System.out.println(numberSteps(n, k));
+    System.out.println(numberOfWaysToTop(n, k));
   }
 }

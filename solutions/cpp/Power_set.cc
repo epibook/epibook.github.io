@@ -34,8 +34,8 @@ vector<vector<int>> GeneratePowerSet(const vector<int>& input_set) {
 // @exclude
 
 void SimpleTest() {
-  vector<vector<int>> golden_result = {
-      {}, {0}, {1}, {0, 1}, {2}, {0, 2}, {1, 2}, {0, 1, 2}};
+  vector<vector<int>> golden_result = {{},  {0},    {1},    {0, 1},
+                                       {2}, {0, 2}, {1, 2}, {0, 1, 2}};
   auto result = GeneratePowerSet({0, 1, 2});
   assert(result.size() == golden_result.size() &&
          equal(result.begin(), result.end(), golden_result.begin()));
@@ -55,7 +55,7 @@ int main(int argc, char* argv[]) {
     iota(S.begin(), S.end(), 0);
   }
   auto power_set = GeneratePowerSet(S);
-  for (const auto& one_set : power_set) {
+  for (const vector<int>& one_set : power_set) {
     copy(one_set.begin(), one_set.end(), ostream_iterator<int>(cout, " "));
     cout << endl;
   }

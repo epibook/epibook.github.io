@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -32,9 +32,9 @@ int main(int argc, char *argv[]) {
       A.emplace_back(dis(gen));
     }
     cout << "n = " << n << endl;
-    int ret_length = LNS_nlogn::LongestNondecreasingSubsequence(A);
-    vector<int> output = LNS_n2::LongestNondecreasingSubsequence(A);
-    assert(ret_length == output.size());
+    int ret_length = LNS_nlogn::LongestNondecreasingSubsequenceLength(A);
+    int another_length = LNS_n2::LongestNondecreasingSubsequenceLength(A);
+    assert(ret_length == another_length);
   }
   return 0;
 }

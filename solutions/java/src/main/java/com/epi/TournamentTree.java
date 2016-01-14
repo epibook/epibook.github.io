@@ -3,9 +3,6 @@ package com.epi;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 // @include
 public class TournamentTree {
   private static class TreeNode {
@@ -44,7 +41,9 @@ public class TournamentTree {
     }
   }
 
-  public void insert(int item, double itemCap) { insertHelper(0, item, itemCap); }
+  public void insert(int item, double itemCap) {
+    insertHelper(0, item, itemCap);
+  }
 
   // @exclude
   private void printLeaf() {

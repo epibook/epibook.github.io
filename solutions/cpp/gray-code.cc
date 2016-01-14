@@ -29,7 +29,8 @@ vector<int> GrayCode(int num_bits) {
 
   // These implicitly begin with 0 at bit-index (num_bits - 1).
   auto gray_code_num_bits_minus_1 = GrayCode(num_bits - 1);
-  // Now, add a 1 at bit-index (num_bits - 1) to all entries in grayCodeNumBitsMinus1.
+  // Now, add a 1 at bit-index (num_bits - 1) to all entries in
+  // grayCodeNumBitsMinus1.
   int leading_bit_one = 1 << (num_bits - 1);
   vector<int> reflection;
   // Process in reverse order to achieve reflection of

@@ -3,7 +3,7 @@ clang: $(lastModifiedcppFile)
 	$(MAKE) compile && ./a.out
 
 compile: $(lastModifiedcppFile)
-	clang++ -Weverything -Wno-c++98-compat -Wno-missing-prototypes $(lastModifiedcppFile) -stdlib=libc++ -std=c++11 -O3
+	clang++ -Weverything -Wno-c++98-compat -Wno-missing-prototypes $(lastModifiedcppFile) -stdlib=libc++ -std=c++14 -O3
 
 lint: $(lastModifiedcppFile)
 	python cpplint.py $(lastModifiedcppFile) 

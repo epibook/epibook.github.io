@@ -8,11 +8,10 @@
 using std::shared_ptr;
 
 // @include
-template <typename T>
-class ListNode {
+class PostingListNode {
  public:
-  T data;
-  shared_ptr<ListNode<T>> next, jump;
+  int order;
+  shared_ptr<PostingListNode> next, jump;
 };
 // @exclude
 #endif  // SOLUTIONS_POSTINGS_LIST_PROTOTYPE_H_

@@ -24,14 +24,11 @@ double FindMedianSortedCircularLinkedList(
   auto iter = arbitrary_node, first_smallest_node = arbitrary_node;
   int n = 0;
   do {
-    ++n, iter = iter->next;
-    if (first_smallest_node->data <= iter->data) {
-      // Now first_smallest_node points to the largest element.
-      first_smallest_node = iter;
+    if (iter->data > iter->next->data) {
+      first_smallest_node = iter->next;
     }
+    ++n, iter = iter->next;
   } while (iter != arbitrary_node);
-  // first_smallest_node's next is the first smallest node.
-  first_smallest_node = first_smallest_node->next;
 
   // Advances to the middle of the list.
   for (int i = 0; i < ((n - 1) / 2); ++i) {
@@ -43,7 +40,19 @@ double FindMedianSortedCircularLinkedList(
 }
 // @exclude
 
+void SmallTest() {
+  shared_ptr<ListNode<int>> L = make_shared<ListNode<int>>(
+      ListNode<int>{0, make_shared<ListNode<int>>(ListNode<int>{
+                           2, make_shared<ListNode<int>>(ListNode<int>{
+                                  2, make_shared<ListNode<int>>(
+                                         ListNode<int>{2, nullptr})})})});
+  L->next->next->next->next = L;
+  cout << FindMedianSortedCircularLinkedList(L->next->next) << endl;
+  assert(2 == FindMedianSortedCircularLinkedList(L->next->next));
+}
+
 int main(int argc, char* argv[]) {
+  SmallTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int n;

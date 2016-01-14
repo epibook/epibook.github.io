@@ -1,9 +1,9 @@
 package com.epi;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 
@@ -12,7 +12,7 @@ public class StringInMatrix {
     Random r = new Random();
     List<List<Integer>> matrix = new ArrayList<>(n);
     for (int i = 0; i < n; ++i) {
-      matrix.add(new ArrayList(n));
+      matrix.add(new ArrayList<Integer>(n));
       for (int j = 0; j < n; ++j) {
         matrix.get(i).add(r.nextInt(n));
       }
@@ -20,17 +20,15 @@ public class StringInMatrix {
     return matrix;
   }
 
-  private static class CacheEntry {
+  private static class Attempt {
     public Integer x;
     public Integer y;
-    public Integer suffixIndex;
+    public Integer offset;
 
-    public CacheEntry() {}
-
-    public CacheEntry(Integer x, Integer y, Integer suffixIndex) {
+    public Attempt(Integer x, Integer y, Integer offset) {
       this.x = x;
       this.y = y;
-      this.suffixIndex = suffixIndex;
+      this.offset = offset;
     }
 
     @Override
@@ -42,7 +40,7 @@ public class StringInMatrix {
         return false;
       }
 
-      CacheEntry cacheEntry = (CacheEntry)o;
+      Attempt cacheEntry = (Attempt)o;
 
       if (x != null ? !x.equals(cacheEntry.x) : cacheEntry.x != null) {
         return false;
@@ -50,29 +48,32 @@ public class StringInMatrix {
       if (y != null ? !y.equals(cacheEntry.y) : cacheEntry.y != null) {
         return false;
       }
-      if (suffixIndex != null ? !suffixIndex.equals(cacheEntry.suffixIndex)
-                              : cacheEntry.suffixIndex != null) {
+      if (offset != null ? !offset.equals(cacheEntry.offset)
+                         : cacheEntry.offset != null) {
         return false;
       }
 
       return true;
     }
 
+    // clang-format off
     @Override
-    public int hashCode() {
-      int result = x != null ? x.hashCode() : 0;
-      result = 31 * result + (y != null ? y.hashCode() : 0);
-      result = 31 * result + (suffixIndex != null ? suffixIndex.hashCode() : 0);
-      return result;
-    }
+    public int hashCode() { return Objects.hash(x, y, offset); }
+    // clang-format on
   }
 
   // @include
-  public static boolean match(List<List<Integer>> A, List<Integer> S) {
-    Set<CacheEntry> failedAttemptsCache = new HashSet<>();
-    for (int i = 0; i < A.size(); ++i) {
-      for (int j = 0; j < A.get(i).size(); ++j) {
-        if (matchHelper(A, S, failedAttemptsCache, i, j, 0)) {
+  public static boolean isPatternContainedInGrid(List<List<Integer>> grid,
+                                                 List<Integer> pattern) {
+    // Each entry in previousAttempts is a point in the grid and suffix of
+    // pattern (identified by its offset). Presence in previousAttempts
+    // indicates the suffix is not contained in the grid starting from that
+    // point.
+    Set<Attempt> previousAttempts = new HashSet<>();
+    for (int i = 0; i < grid.size(); ++i) {
+      for (int j = 0; j < grid.get(i).size(); ++j) {
+        if (isPatternSuffixContainedStartingAtXY(grid, i, j, pattern, 0,
+                                                 previousAttempts)) {
           return true;
         }
       }
@@ -80,26 +81,31 @@ public class StringInMatrix {
     return false;
   }
 
-  private static boolean matchHelper(List<List<Integer>> A, List<Integer> S,
-                                     Set<CacheEntry> failedAttemptsCache, int i,
-                                     int j, int len) {
-    if (S.size() == len) {
+  private static boolean isPatternSuffixContainedStartingAtXY(
+      List<List<Integer>> grid, int x, int y, List<Integer> pattern, int offset,
+      Set<Attempt> previousAttempts) {
+    if (pattern.size() == offset) {
+      // Nothing left to complete.
       return true;
     }
-
-    if (i < 0 || i >= A.size() || j < 0 || j >= A.get(i).size() ||
-        failedAttemptsCache.contains(new CacheEntry(i, j, len))) {
+    // Check if (x, y) lies within grid.
+    if (x < 0 || x >= grid.size() || y < 0 || y >= grid.get(x).size()
+        || previousAttempts.contains(new Attempt(x, y, offset))) {
       return false;
     }
 
-    if (A.get(i).get(j) == S.get(len) &&
-        (matchHelper(A, S, failedAttemptsCache, i - 1, j, len + 1) ||
-         matchHelper(A, S, failedAttemptsCache, i + 1, j, len + 1) ||
-         matchHelper(A, S, failedAttemptsCache, i, j - 1, len + 1) ||
-         matchHelper(A, S, failedAttemptsCache, i, j + 1, len + 1))) {
+    if (grid.get(x).get(y).equals(pattern.get(offset))
+        && (isPatternSuffixContainedStartingAtXY(grid, x - 1, y, pattern,
+                                                 offset + 1, previousAttempts)
+            || isPatternSuffixContainedStartingAtXY(
+                   grid, x + 1, y, pattern, offset + 1, previousAttempts)
+            || isPatternSuffixContainedStartingAtXY(
+                   grid, x, y - 1, pattern, offset + 1, previousAttempts)
+            || isPatternSuffixContainedStartingAtXY(
+                   grid, x, y + 1, pattern, offset + 1, previousAttempts))) {
       return true;
     }
-    failedAttemptsCache.add(new CacheEntry(i, j, len));
+    previousAttempts.add(new Attempt(x, y, offset));
     return false;
   }
   // @exclude
@@ -120,6 +126,6 @@ public class StringInMatrix {
       S.add(r.nextInt(n));
     }
     System.out.println("S = " + S);
-    System.out.println(match(A, S));
+    System.out.println(isPatternContainedInGrid(A, S));
   }
 }

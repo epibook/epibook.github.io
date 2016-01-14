@@ -1,56 +1,63 @@
 package com.epi;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.Random;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class OrderStatistic {
   // @include
   private static class Compare {
     private static class GreaterThan implements Comparator<Integer> {
       public int compare(Integer a, Integer b) {
-        return (a > b) ? -1 : (a == b) ? 0 : 1;
+        return (a > b) ? -1 : (a.equals(b)) ? 0 : 1;
       }
     }
+
     public static final GreaterThan GREATER_THAN = new GreaterThan();
     // @exclude
 
     private static class LessThan implements Comparator<Integer> {
       public int compare(Integer a, Integer b) {
-        return (a < b) ? -1 : (a == b) ? 0 : 1;
+        return (a < b) ? -1 : (a.equals(b)) ? 0 : 1;
       }
     }
+
     public static final LessThan LESS_THAN = new LessThan();
+    // @include
   }
 
-  // @include
-  // The numbering starts from one, i.e., if A = [3,1,-1,2] then 
+  // The numbering starts from one, i.e., if A = [3,1,-1,2] then
   // findKthLargest(A, 1) returns 3, findKthLargest(A, 2) returns 2,
   // findKthLargest(A, 3) returns 1, and findKthLargest(A, 4) returns -1.
-  public static int findKthLargest(int[] A, int k ) {
+  public static int findKthLargest(List<Integer> A, int k) {
     return findKth(A, k, Compare.GREATER_THAN);
   }
 
   // @exclude
 
-  // The numbering starts from one, i.e., if A = [3,1,-1,2] then 
+  // The numbering starts from one, i.e., if A = [3,1,-1,2] then
   // findKthSmallest(A, 1) returns -1, findKthSmallest(A, 2) returns 1,
   // findKthSmallest(A, 3) returns 2, and findKthSmallest(A, 4) returns 3.
-  public static int findKthSmallest(int[] A, int k ) {
+  public static int findKthSmallest(List<Integer> A, int k) {
     return findKth(A, k, Compare.LESS_THAN);
   }
 
   // @include
-  public static int findKth(int[] A, int k, Comparator<Integer> cmp) {
-    int left = 0, right = A.length - 1;
-    Random r = new Random();
+  public static int findKth(List<Integer> A, int k, Comparator<Integer> cmp) {
+    int left = 0, right = A.size() - 1;
+    Random r = new Random(0);
     while (left <= right) {
       // Generates a random integer in [left, right].
       int pivotIdx = r.nextInt(right - left + 1) + left;
       int newPivotIdx = partitionAroundPivot(left, right, pivotIdx, A, cmp);
       if (newPivotIdx == k - 1) {
-        return A[newPivotIdx];
+        return A.get(newPivotIdx);
       } else if (newPivotIdx > k - 1) {
         right = newPivotIdx - 1;
       } else { // newPivotIdx < k - 1.
@@ -62,37 +69,34 @@ public class OrderStatistic {
     // @include
   }
 
-  // Partition A[left : right] around pivotIdx, returns the new index of the
-  // pivot, newPivotIdx, after partition. After partitioning,
-  // A[left : newPivotIdx - 1] contains elements that are greater than the
-  // pivot, and A[newPivotIdx + 1 : right] contains elements that are less
-  // than the pivot. 
+  // Partitions A.subList(left, right+1) around pivotIdx, returns the new index
+  // of the pivot, newPivotIdx, after partition. After partitioning,
+  // A.subList(left, newPivotIdx) contains elements that are less than the
+  // pivot, and A.subList(newPivotIdx + 1 , right + 1) contains elements that
+  // are greater than the pivot.
   //
-  // Note that greater than is defined by the comparator object.
+  // Note: "less than" is defined by the Comparator object.
+  //
+  // Returns the new index of the pivot element after partition.
   private static int partitionAroundPivot(int left, int right, int pivotIdx,
-                                          int[] A, Comparator<Integer> cmp) {
-    int pivotValue = A[pivotIdx];
+                                          List<Integer> A,
+                                          Comparator<Integer> cmp) {
+    int pivotValue = A.get(pivotIdx);
     int newPivotIdx = left;
 
-    swap(A, pivotIdx, right);
+    Collections.swap(A, pivotIdx, right);
     for (int i = left; i < right; ++i) {
-      if (cmp.compare(A[i], pivotValue) < 0) {
-        swap(A, i, newPivotIdx++);
+      if (cmp.compare(A.get(i), pivotValue) < 0) {
+        Collections.swap(A, i, newPivotIdx++);
       }
     }
-    swap(A, right, newPivotIdx);
+    Collections.swap(A, right, newPivotIdx);
     return newPivotIdx;
-  }
-
-  private static void swap(int[] A, int a, int b) {
-    int temp = A[a];
-    A[a] = A[b];
-    A[b] = temp;
   }
   // @exclude
 
-  private static void SimpleTestKthSmallest() {
-    int[] A = new int[] {3, 1, 2, 0, 4, 6, 5};
+  private static void simpleTestKthSmallest() {
+    List<Integer> A = Arrays.asList(3, 1, 2, 0, 4, 6, 5);
     assert(0 == findKthSmallest(A, 1));
     assert(1 == findKthSmallest(A, 2));
     assert(2 == findKthSmallest(A, 3));
@@ -100,40 +104,51 @@ public class OrderStatistic {
     assert(4 == findKthSmallest(A, 5));
     assert(5 == findKthSmallest(A, 6));
     assert(6 == findKthSmallest(A, 7));
-    A[2] = 6;
+    A.set(2, 6);
     assert(6 == findKthSmallest(A, 6));
     assert(6 == findKthSmallest(A, 7));
-    assert(5 == findKthSmallest(A,5));
+    assert(5 == findKthSmallest(A, 5));
 
-    A = new int[]{0,-7,3,4,4,12,6,10,0};
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
     // -7 0 0 3 4 4 6 10 12
-    System.out.println("first element " + findKthSmallest(A, 1));
     assert(-7 == findKthSmallest(A, 1));
-    A = new int[]{0,-7,3,4,4,12,6,10,0};
+
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
     assert(0 == findKthSmallest(A, 2));
-    A = new int[]{0,-7,3,4,4,12,6,10,0};
+
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
     assert(0 == findKthSmallest(A, 3));
-    A = new int[]{0,-7,3,4,4,12,6,10,0};
+
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
     assert(3 == findKthSmallest(A, 4));
-    A = new int[]{0,-7,3,4,4,12,6,10,0};
+
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
     assert(4 == findKthSmallest(A, 5));
-    A = new int[]{0,-7,3,4,4,12,6,10,0};
+
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
     assert(4 == findKthSmallest(A, 6));
-    A = new int[]{0,-7,3,4,4,12,6,10,0};
-    assert(4 == findKthSmallest(A, 5));
-    for(int i = 0; i < A.length; i++) {
-        System.out.println("i,A[i] = " + i + " " + A[i]);
-        if (i<4) {
-            assert(A[i] < 4);
-        } else if (i > 5) {
-            assert(A[i] > 4);
-        }
+
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
+    assert(6 == findKthSmallest(A, 7));
+
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
+    assert(10 == findKthSmallest(A, 8));
+
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
+    assert(12 == findKthSmallest(A, 9));
+
+    assert(4 == findKthSmallest(A, 6));
+    for (int i = 0; i < A.size(); i++) {
+      if (i < 4) {
+        assert(A.get(i) < 4);
+      } else if (i > 5) {
+        assert(A.get(i) > 4);
+      }
     }
   }
 
-
-  private static void SimpleTestKthLargest() {
-    int[] A = new int[] {3, 1, 2, 0, 4, 6, 5};
+  private static void simpleTestKthLargest() {
+    List<Integer> A = Arrays.asList(3, 1, 2, 0, 4, 6, 5);
     assert(6 == findKthLargest(A, 1));
     assert(5 == findKthLargest(A, 2));
     assert(4 == findKthLargest(A, 3));
@@ -141,47 +156,139 @@ public class OrderStatistic {
     assert(2 == findKthLargest(A, 5));
     assert(1 == findKthLargest(A, 6));
     assert(0 == findKthLargest(A, 7));
-    A[2] = 6;
+    A.set(2, 6);
     assert(6 == findKthLargest(A, 1));
     assert(6 == findKthLargest(A, 2));
     assert(5 == findKthLargest(A, 3));
 
-    A = new int[]{0,-7,3,4,4,12,6,10,0};
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
     // 12 10 6 4 4 3 0 0 -7
-    System.out.println("first element " + findKthLargest(A, 1));
     assert(12 == findKthLargest(A, 1));
-    A = new int[]{0,-7,3,4,4,12,6,10,0};
+
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
     assert(10 == findKthLargest(A, 2));
-    A = new int[]{0,-7,3,4,4,12,6,10,0};
+
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
     assert(6 == findKthLargest(A, 3));
-    A = new int[]{0,-7,3,4,4,12,6,10,0};
+
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
     assert(4 == findKthLargest(A, 4));
-    A = new int[]{0,-7,3,4,4,12,6,10,0};
+
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
     assert(4 == findKthLargest(A, 5));
-    A = new int[]{0,-7,3,4,4,12,6,10,0};
+
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
     assert(3 == findKthLargest(A, 6));
-    A = new int[]{0,-7,3,4,4,12,6,10,0};
+
+    A = Arrays.asList(0, -7, 3, 4, 4, 12, 6, 10, 0);
     assert(4 == findKthLargest(A, 5));
-    for(int i = 0; i < A.length; i++) {
-        System.out.println("i,A[i] = " + i + " " + A[i]);
-        if (i<3) {
-            assert(A[i] > 4);
-        } else if (i > 4) {
-            assert(A[i] < 4);
-        }
+    for (int i = 0; i < A.size(); i++) {
+      if (i < 3) {
+        assert(A.get(i) > 4);
+      } else if (i > 4) {
+        assert(A.get(i) < 4);
+      }
     }
   }
 
-  private static void SimpleTest() {
-    int[] A = new int[]{123};
+  private static void simpleTest() {
+    List<Integer> C = Arrays.asList(9, 5);
+    assert(9 == findKthLargest(C, 1));
+    assert(5 == findKthSmallest(C, 1));
+
+    List<Integer> B = Arrays.asList(3, 2, 3, 5, 7, 3, 1);
+    int c = findKthSmallest(B, 4);
+
+    List<Integer> A = Arrays.asList(123);
     assert(123 == findKthLargest(A, 1));
-    System.out.println("Length 1 array: " + findKthLargest(A, 1));
+  }
+
+  private static void randomTestFixedN(int N) {
+    List<Integer> order = new ArrayList<>();
+    for (int i = 0; i < 5; i++) {
+      order.add(Math.min(N, i + 1));
+    }
+    order.add(Math.min(N, 7));
+    order.add(Math.min(N, 9));
+    order.add(Math.min(N, 12));
+    order.add(Math.min(N, Math.max(N / 2 - 1, 1)));
+    order.add(Math.min(N, Math.max(N / 2, 1)));
+    order.add(Math.min(N, N / 2 + 1));
+    order.add(Math.max(1, N - 1));
+    order.add(N);
+
+    List<Integer> A = new ArrayList<>(N);
+    Random r = new Random(0);
+    for (int i = 0; i < N; ++i) {
+      A.add(r.nextInt(10000000));
+    }
+    testAllOrders(A, order);
+
+    A.clear();
+    for (int i = 0; i < N; ++i) {
+      A.add(r.nextInt(N));
+    }
+    testAllOrders(A, order);
+
+    A.clear();
+    for (int i = 0; i < N; ++i) {
+      A.add(r.nextInt(2 * N));
+    }
+    testAllOrders(A, order);
+
+    A.clear();
+    for (int i = 0; i < N; ++i) {
+      A.add(r.nextInt(Math.max(N / 2, 1)));
+    }
+    testAllOrders(A, order);
+  }
+
+  private static void testAllOrders(List<Integer> A, List<Integer> order) {
+    for (int K : order) {
+      checkOrderStatistic(A, K, true);
+      checkOrderStatistic(A, K, false);
+    }
+  }
+
+  private static void checkOrderStatistic(List<Integer> A, int K,
+                                          boolean increasingOrder) {
+    List<Integer> B = new ArrayList<>(A);
+    if (increasingOrder) {
+      findKthSmallest(A, K);
+    } else {
+      findKthLargest(A, K);
+    }
+
+    List<Integer> Bsort = new ArrayList(B);
+    Collections.sort(Bsort);
+    if (!increasingOrder) {
+      Collections.reverse(Bsort);
+    }
+
+    List<Integer> Asort = new ArrayList<>(A);
+    Collections.sort(Asort);
+    if (!increasingOrder) {
+      Collections.reverse(Asort);
+    }
+
+    assert(Asort.equals(Bsort));
+  }
+
+  private static void complexRandomTest() {
+    int[] N = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 50, 100};
+    for (int i = 0; i < N.length; i++) {
+      for (int j = 0; j < 100; j++) {
+        randomTestFixedN(N[i]);
+      }
+    }
   }
 
   public static void main(String[] args) {
-    SimpleTest();
-    SimpleTestKthLargest();
-    SimpleTestKthSmallest();
+    simpleTest();
+    simpleTestKthLargest();
+    simpleTestKthSmallest();
+    complexRandomTest();
+    System.out.println("Finished complexRandomTest()");
     Random r = new Random();
     for (int times = 0; times < 1000; ++times) {
       int n, k;
@@ -195,13 +302,13 @@ public class OrderStatistic {
         n = r.nextInt(100000) + 1;
         k = r.nextInt(n - 1) + 1;
       }
-      int[] A = new int[n];
+      List<Integer> A = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
-        A[i] = r.nextInt(10000000);
+        A.add(r.nextInt(10000000));
       }
       int result = findKthLargest(A, k);
-      Arrays.sort(A);
-      assert(result == A[A.length - k]);
+      Collections.sort(A);
+      assert(result == A.get(A.size() - k));
     }
   }
 }

@@ -12,7 +12,8 @@ using std::make_shared;
 using std::shared_ptr;
 
 // @include
-shared_ptr<ListNode<int>> RemoveDuplicates(const shared_ptr<ListNode<int>>& L) {
+shared_ptr<ListNode<int>> RemoveDuplicates(
+    const shared_ptr<ListNode<int>>& L) {
   auto iter = L;
   while (iter) {
     // Uses next_distinct to find the next distinct value.

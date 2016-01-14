@@ -24,7 +24,7 @@ using std::unordered_map;
 using std::unordered_set;
 using std::vector;
 
-string join_vector(const vector<int>& A);
+string join_vector(const vector<int>&);
 
 // @include
 vector<vector<int>> four_sum(vector<int> A, int target) {
@@ -33,7 +33,7 @@ vector<vector<int>> four_sum(vector<int> A, int target) {
   for (size_t i = 0; i < A.size(); ++i) {
     for (size_t j = i + 1; j < A.size(); ++j) {
       bool have_duplicate = false;
-      for (const auto& vec : T[A[i] + A[j]]) {
+      for (const vector<size_t>& vec : T[A[i] + A[j]]) {
         if (A[vec.front()] == A[i] || A[vec.back()] == A[j]) {
           have_duplicate = true;
           break;
@@ -52,9 +52,10 @@ vector<vector<int>> four_sum(vector<int> A, int target) {
     for (size_t j = i + 1; j < A.size(); ++j) {
       auto it = T.find(target - A[i] - A[j]);
       if (it != T.end()) {
-        for (const auto& vec : it->second) {
+        for (const vector<size_t>& vec : it->second) {
           if (i > vec.back()) {
-            vector<int> candidate = {A[vec.front()], A[vec.back()], A[i], A[j]};
+            vector<int> candidate = {A[vec.front()], A[vec.back()], A[i],
+                                     A[j]};
             if (answers.emplace(join_vector(candidate)).second) {
               res.emplace_back(move(candidate));
             }
@@ -77,7 +78,7 @@ string join_vector(const vector<int>& A) {
 // @exclude
 
 void check_ans(int target, const vector<vector<int>>& vecs) {
-  for (const auto& vec : vecs) {
+  for (const vector<int>& vec : vecs) {
     int sum = 0;
     for (int v : vec) {
       sum += v;
@@ -104,7 +105,7 @@ int main(int argc, char** argv) {
   check_ans(target, vecs);
   A = {-2, -1, 0, 0, 1, 2};
   vecs = four_sum(A, 0);
-  for (const auto& vec : vecs) {
+  for (const vector<int>& vec : vecs) {
     for (int a : vec) {
       cout << a << " ";
     }

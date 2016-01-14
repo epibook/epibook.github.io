@@ -24,7 +24,8 @@ bool SolveSudoku(vector<vector<int>>* partial_assignment) {
   return SolvePartialSudoku(0, 0, partial_assignment);
 }
 
-bool SolvePartialSudoku(int i, int j, vector<vector<int>>* partial_assignment) {
+bool SolvePartialSudoku(int i, int j,
+                        vector<vector<int>>* partial_assignment) {
   if (i == partial_assignment->size()) {
     i = 0;  // Starts a new row.
     if (++j == (*partial_assignment)[i].size()) {
@@ -76,7 +77,8 @@ bool ValidToAddVal(const vector<vector<int>>& partial_assignment, int i, int j,
   int I = i / region_size, J = j / region_size;
   for (int a = 0; a < region_size; ++a) {
     for (int b = 0; b < region_size; ++b) {
-      if (val == partial_assignment[region_size * I + a][region_size * J + b]) {
+      if (val ==
+          partial_assignment[region_size * I + a][region_size * J + b]) {
         return false;
       }
     }
@@ -97,15 +99,12 @@ int main(int argc, char* argv[]) {
   A[7] = {5, 0, 0, 2, 0, 4, 0, 0, 9};
   A[8] = {0, 3, 8, 0, 0, 0, 4, 6, 0};
   assert(SolveSudoku(&A));
-  vector<vector<int>> golden_A = {{7, 2, 6, 4, 9, 3, 8, 1, 5},
-                                  {3, 1, 5, 7, 2, 8, 9, 4, 6},
-                                  {4, 8, 9, 6, 5, 1, 2, 3, 7},
-                                  {8, 5, 2, 1, 4, 7, 6, 9, 3},
-                                  {6, 7, 3, 9, 8, 5, 1, 2, 4},
-                                  {9, 4, 1, 3, 6, 2, 7, 5, 8},
-                                  {1, 9, 4, 8, 3, 6, 5, 7, 2},
-                                  {5, 6, 7, 2, 1, 4, 3, 8, 9},
-                                  {2, 3, 8, 5, 7, 9, 4, 6, 1}};
+  vector<vector<int>> golden_A = {
+      {7, 2, 6, 4, 9, 3, 8, 1, 5}, {3, 1, 5, 7, 2, 8, 9, 4, 6},
+      {4, 8, 9, 6, 5, 1, 2, 3, 7}, {8, 5, 2, 1, 4, 7, 6, 9, 3},
+      {6, 7, 3, 9, 8, 5, 1, 2, 4}, {9, 4, 1, 3, 6, 2, 7, 5, 8},
+      {1, 9, 4, 8, 3, 6, 5, 7, 2}, {5, 6, 7, 2, 1, 4, 3, 8, 9},
+      {2, 3, 8, 5, 7, 9, 4, 6, 1}};
   for (size_t i = 0; i < 9; ++i) {
     for (size_t j = 0; j < 9; ++j) {
       assert(A[i][j] == golden_A[i][j]);

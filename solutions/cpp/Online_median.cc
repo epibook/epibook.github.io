@@ -61,7 +61,8 @@ void OnlineMedian(istringstream* sequence) {
     // @include
     cout << (min_heap.size() == max_heap.size()
                  ? 0.5 * (min_heap.top() + max_heap.top())
-                 : min_heap.top()) << endl;
+                 : min_heap.top())
+         << endl;
   }
 }
 // @exclude

@@ -28,7 +28,7 @@ vector<string> PhoneMnemonic(const string& phone_number) {
 const int kNumTelDigits = 10;
 
 // The mapping from digit to corresponding characters.
-const array<string, kNumTelDigits> M = {
+const array<string, kNumTelDigits> kMapping = {
     {"0", "1", "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ"}};
 
 void PhoneMnemonicHelper(const string& phone_number, int digit,
@@ -39,9 +39,10 @@ void PhoneMnemonicHelper(const string& phone_number, int digit,
     mnemonics->emplace_back(*partial_mnemonic);
   } else {
     // Try all possible characters for this digit.
-    for (const char& c : M[phone_number[digit] - '0']) {
+    for (char c : kMapping[phone_number[digit] - '0']) {
       (*partial_mnemonic)[digit] = c;
-      PhoneMnemonicHelper(phone_number, digit + 1, partial_mnemonic, mnemonics);
+      PhoneMnemonicHelper(phone_number, digit + 1, partial_mnemonic,
+                          mnemonics);
     }
   }
 }
@@ -66,7 +67,7 @@ int main(int argc, char* argv[]) {
   }
   auto result = PhoneMnemonic(num);
   cout << "number = " << num << endl;
-  for (const auto& str : result) {
+  for (const string& str : result) {
     cout << str << endl;
   }
   return 0;

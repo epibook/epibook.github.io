@@ -49,7 +49,7 @@ double compute_best_payoff_helper(
                                          num_red - 1, num_cards - 1),
               compute_best_payoff_helper(cache, upper_bound, cash + bet,
                                          num_red, num_cards - 1));
-      best = max(best, max(red_lower_bound, black_lower_bound));
+      best = max({best, red_lower_bound, black_lower_bound});
     }
     cache[cash][num_red][num_cards] = best;
   }

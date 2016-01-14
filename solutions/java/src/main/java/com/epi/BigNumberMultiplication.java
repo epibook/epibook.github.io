@@ -3,8 +3,8 @@
 package com.epi;
 
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -12,8 +12,8 @@ import java.util.Random;
 public class BigNumberMultiplication {
   // @include
   public static List<Integer> multiply(List<Integer> num1, List<Integer> num2) {
-    boolean isNegative = (num1.get(0) < 0 && num2.get(0) >= 0) ||
-                         (num1.get(0) >= 0 && num2.get(0) < 0);
+    boolean isNegative = (num1.get(0) < 0 && num2.get(0) >= 0)
+                         || (num1.get(0) >= 0 && num2.get(0) < 0);
     num1.set(0, Math.abs(num1.get(0)));
     num2.set(0, Math.abs(num2.get(0)));
 
@@ -68,8 +68,8 @@ public class BigNumberMultiplication {
                .equals(Arrays.asList(0)));
     assert(multiply(Arrays.asList(0), Arrays.asList(1, 0, 0, 0))
                .equals(Arrays.asList(0)));
-    assert(
-        multiply(Arrays.asList(9), Arrays.asList(9)).equals(Arrays.asList(8, 1)));
+    assert(multiply(Arrays.asList(9), Arrays.asList(9))
+               .equals(Arrays.asList(8, 1)));
     assert(multiply(Arrays.asList(9), Arrays.asList(9, 9, 9, 9))
                .equals(Arrays.asList(8, 9, 9, 9, 1)));
     assert(multiply(Arrays.asList(1, 3, 1, 4, 1, 2),
@@ -80,11 +80,11 @@ public class BigNumberMultiplication {
   }
 
   private static String listToString(List<Integer> A) {
-    String result = "";
+    StringBuilder result = new StringBuilder();
     for (int a : A) {
-      result += String.valueOf(a);
+      result.append(a);
     }
-    return result;
+    return result.toString();
   }
 
   public static void main(String[] args) {

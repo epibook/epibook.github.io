@@ -28,7 +28,7 @@ struct GraphVertex {
 
 bool IsAnyPlacementFeasible(vector<GraphVertex>* G) {
   for (GraphVertex& v : *G) {
-    if (v.d == -1) {  // unvisited vertex.
+    if (v.d == -1) {  // Unvisited vertex.
       v.d = 0;
       if (!BFS(&v)) {
         return false;
@@ -44,7 +44,7 @@ bool BFS(GraphVertex* s) {
 
   while (!q.empty()) {
     for (GraphVertex*& t : q.front()->edges) {
-      if (t->d == -1) {  // unvisited vertex.
+      if (t->d == -1) {  // Unvisited vertex.
         t->d = q.front()->d + 1;
         q.emplace(t);
       } else if (t->d == q.front()->d) {

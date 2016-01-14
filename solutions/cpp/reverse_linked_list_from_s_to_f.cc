@@ -12,8 +12,8 @@ using std::make_shared;
 using std::shared_ptr;
 
 // @include
-shared_ptr<ListNode<int>> ReverseSublist(shared_ptr<ListNode<int>> L, int start,
-                                         int finish) {
+shared_ptr<ListNode<int>> ReverseSublist(shared_ptr<ListNode<int>> L,
+                                         int start, int finish) {
   if (start == finish) {  // No need to reverse since start == finish.
     return L;
   }

@@ -37,7 +37,7 @@ bool DirectedExpressionSynthesis(const vector<int>& digits, int target,
       // @exclude
       auto operand_it = operands->cbegin();
       cout << *operand_it++;
-      for (const char& oper : *operators) {
+      for (char oper : *operators) {
         cout << ' ' << oper << ' ' << *operand_it++;
       }
       cout << " = " << target << endl;
@@ -53,14 +53,14 @@ bool DirectedExpressionSynthesis(const vector<int>& digits, int target,
                                   operands, operators)) {
     return true;
   }
-  // Adds operator '*'.
+  // Tries multiplication operator '*'.
   operands->emplace_back(current_term), operators->emplace_back('*');
   if (DirectedExpressionSynthesis(digits, target, 0, offset + 1, operands,
                                   operators)) {
     return true;
   }
   operands->pop_back(), operators->pop_back();
-  // Adds operator '+'.
+  // Tries addition operator '+'.
   operands->emplace_back(current_term);
   // First check feasibility of plus operator.
   if (target - Evaluate(*operands, *operators) <=
@@ -80,7 +80,7 @@ bool DirectedExpressionSynthesis(const vector<int>& digits, int target,
 int RemainingInt(const vector<int>& digits, int idx) {
   int val = 0;
   for (int i = idx; i < digits.size(); ++i) {
-    val = val * 10 + digits[idx];
+    val = val * 10 + digits[i];
   }
   return val;
 }
@@ -122,6 +122,9 @@ int main(int argc, char* argv[]) {
   assert(ExpressionSynthesis(A, k));
   A = {5, 2, 3, 4, 1};
   k = 20;
+  assert(ExpressionSynthesis(A, k));
+  A = {1, 1, 2, 3};
+  k = 124;
   assert(ExpressionSynthesis(A, k));
   return 0;
 }

@@ -1,38 +1,39 @@
 package com.epi;
 
-import java.util.Stack;
+import java.util.Deque;
+import java.util.LinkedList;
 
 public class RPN {
   // @include
   public static int eval(String RPNExpression) {
-    Stack<Integer> intermediateResults = new Stack<>();
+    Deque<Integer> intermediateResults = new LinkedList<>();
     String delimiter = ",";
     String[] symbols = RPNExpression.split(delimiter);
     for (String token : symbols) {
       if (token.length() == 1 && "+-*/".contains(token)) {
-        int y = intermediateResults.pop();
-        int x = intermediateResults.pop();
+        int y = intermediateResults.removeFirst();
+        int x = intermediateResults.removeFirst();
         switch (token.charAt(0)) {
           case '+':
-            intermediateResults.push(x + y);
+            intermediateResults.addFirst(x + y);
             break;
           case '-':
-            intermediateResults.push(x - y);
+            intermediateResults.addFirst(x - y);
             break;
           case '*':
-            intermediateResults.push(x * y);
+            intermediateResults.addFirst(x * y);
             break;
           case '/':
-            intermediateResults.push(x / y);
+            intermediateResults.addFirst(x / y);
             break;
           default:
             throw new IllegalArgumentException("Malformed RPN at :" + token);
         }
       } else { // token is a number.
-        intermediateResults.push(Integer.parseInt(token));
+        intermediateResults.addFirst(Integer.parseInt(token));
       }
     }
-    return intermediateResults.pop();
+    return intermediateResults.removeFirst();
   }
   // @exclude
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -17,12 +17,9 @@ using std::deque;
 using std::endl;
 using std::min;
 using std::ostream_iterator;
-using std::pair;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
-
-bool comp(const pair<int, int>& a, const pair<int, int>& b);
 
 // @include
 vector<deque<bool>> find_feasible_job_assignment(const vector<int>& T,
@@ -36,28 +33,42 @@ vector<deque<bool>> find_feasible_job_assignment(const vector<int>& T,
     return {};  // too many jobs or one task needs too many servers.
   }
 
-  vector<pair<int, int>> T_idx_data, S_idx_data;
+  struct Task {
+    int task_id, load;
+  };
+  vector<Task> T_idx_data;
   for (int i = 0; i < T.size(); ++i) {
-    T_idx_data.emplace_back(i, T[i]);
+    T_idx_data.emplace_back(Task{i, T[i]});
   }
+  struct Server {
+    int server_id, capacity;
+  };
+  vector<Server> S_idx_data;
   for (int j = 0; j < S.size(); ++j) {
-    S_idx_data.emplace_back(j, S[j]);
+    S_idx_data.emplace_back(Server{j, S[j]});
   }
 
-  sort(S_idx_data.begin(), S_idx_data.end(), comp);
+  sort(S_idx_data.begin(), S_idx_data.end(),
+       [](const Server& a, const Server& b) -> bool {
+         return a.capacity > b.capacity;
+       });
   vector<deque<bool>> X(T.size(), deque<bool>(S.size(), false));
   for (int j = 0; j < S_idx_data.size(); ++j) {
-    if (S_idx_data[j].second < T_idx_data.size()) {
-      nth_element(T_idx_data.begin(), T_idx_data.begin() + S_idx_data[j].second,
-                  T_idx_data.end(), comp);
+    if (S_idx_data[j].capacity < T_idx_data.size()) {
+      nth_element(T_idx_data.begin(),
+                  T_idx_data.begin() + S_idx_data[j].capacity,
+                  T_idx_data.end(), [](const Task& a, const Task& b) -> bool {
+                    return a.load > b.load;
+                  });
     }
 
     // Greedily assign jobs.
-    int size = min(static_cast<int>(T_idx_data.size()), S_idx_data[j].second);
+    int size =
+        min(static_cast<int>(T_idx_data.size()), S_idx_data[j].capacity);
     for (int i = 0; i < size; ++i) {
-      if (T_idx_data[i].second) {
-        X[T_idx_data[i].first][S_idx_data[j].first] = true;
-        --T_idx_data[i].second;
+      if (T_idx_data[i].load) {
+        X[T_idx_data[i].task_id][S_idx_data[j].server_id] = true;
+        --T_idx_data[i].load;
         --T_total;
       }
     }
@@ -66,10 +77,6 @@ vector<deque<bool>> find_feasible_job_assignment(const vector<int>& T,
     return {};  // still some jobs remain, no feasible assignment.
   }
   return X;
-}
-
-bool comp(const pair<int, int>& a, const pair<int, int>& b) {
-  return a.second > b.second;
 }
 // @exclude
 

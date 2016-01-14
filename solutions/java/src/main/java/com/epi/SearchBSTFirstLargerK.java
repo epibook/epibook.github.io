@@ -7,13 +7,12 @@ public class SearchBSTFirstLargerK {
   public static BSTNode<Integer> findFirstGreaterThanK(BSTNode<Integer> tree,
                                                        Integer k) {
     BSTNode<Integer> subtree = tree, firstSoFar = null;
-
     while (subtree != null) {
-      if (subtree.getData() > k) {
-        firstSoFar = subtree; 
-        subtree = subtree.getLeft();
+      if (subtree.data > k) {
+        firstSoFar = subtree;
+        subtree = subtree.left;
       } else { // Root and all keys in left-subtree are <= k, so skip them.
-        subtree = subtree.getRight();
+        subtree = subtree.right;
       }
     }
     return firstSoFar;
@@ -27,14 +26,14 @@ public class SearchBSTFirstLargerK {
     BSTNode<Integer> tree = new BSTNode<>(3);
     assert(findFirstGreaterThanK(tree, 1) == tree);
     assert(findFirstGreaterThanK(tree, 7) == null);
-    tree.setLeft(new BSTNode<>(2));
-    tree.getLeft().setLeft(new BSTNode<>(1));
-    tree.setRight(new BSTNode<>(5));
-    tree.getRight().setLeft(new BSTNode<>(4));
-    tree.getRight().setRight(new BSTNode<>(7));
-    assert(findFirstGreaterThanK(tree, 1) == tree.getLeft());
-    assert(findFirstGreaterThanK(tree, 5) == tree.getRight().getRight());
-    assert(findFirstGreaterThanK(tree, 6) == tree.getRight().getRight());
+    tree.left = new BSTNode<>(2);
+    tree.left.left = new BSTNode<>(1);
+    tree.right = new BSTNode<>(5);
+    tree.right.left = new BSTNode<>(4);
+    tree.right.right = new BSTNode<>(7);
+    assert(findFirstGreaterThanK(tree, 1) == tree.left);
+    assert(findFirstGreaterThanK(tree, 5) == tree.right.right);
+    assert(findFirstGreaterThanK(tree, 6) == tree.right.right);
     assert(findFirstGreaterThanK(tree, 7) == null);
   }
 }

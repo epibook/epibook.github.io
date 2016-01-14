@@ -1,7 +1,6 @@
 package com.epi;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -22,7 +21,7 @@ public class ComputeRandomPermutation {
     int n;
     Random gen = new Random();
     if (args.length == 1) {
-      n = Integer.valueOf(args[0]);
+      n = Integer.parseInt(args[0]);
     } else {
       n = gen.nextInt(1000000) + 1;
     }

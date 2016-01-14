@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <iostream>
@@ -9,14 +9,16 @@
 using std::cout;
 using std::default_random_engine;
 using std::endl;
-using std::pair;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-// Returns a pair<int, int>(duplicate, missing).
-pair<int, int> FindDuplicateMissing(const vector<int>& A) {
+struct DuplicateAndMissing {
+  int duplicate, missing;
+};
+
+DuplicateAndMissing FindDuplicateMissing(const vector<int>& A) {
   int sum = 0, square_sum = 0;
   for (int i = 0; i < A.size(); ++i) {
     sum += i - A[i], square_sum += i * i - A[i] * A[i];
@@ -46,11 +48,11 @@ int main(int argc, char* argv[]) {
     }
     int dup = A[dup_idx];
     A[missing_idx] = dup;
-    pair<int, int> ans = FindDuplicateMissing(A);
+    DuplicateAndMissing ans = FindDuplicateMissing(A);
     cout << "times = " << times << endl;
     cout << dup << ' ' << missing << endl;
-    cout << ans.first << ' ' << ans.second << endl;
-    assert(ans.first == dup && ans.second == missing);
+    cout << ans.duplicate << ' ' << ans.missing << endl;
+    assert(ans.duplicate == dup && ans.missing == missing);
   }
   return 0;
 }

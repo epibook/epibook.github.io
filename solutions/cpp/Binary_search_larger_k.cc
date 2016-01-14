@@ -3,13 +3,14 @@
 #include <algorithm>
 #include <cassert>
 #include <iostream>
+#include <limits>
 #include <random>
 #include <vector>
-#include <limits>
 
 using std::cout;
 using std::default_random_engine;
 using std::endl;
+using std::numeric_limits;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::vector;
@@ -41,7 +42,7 @@ int CheckAns(const vector<int>& A, int k) {
 }
 
 static void SimpleTest() {
-  vector<int> A = {0,1,2,3,4,5,6,7};
+  vector<int> A = {0, 1, 2, 3, 4, 5, 6, 7};
   int k = 4;
   assert(1 == SearchFirstLargerOfK(A, 0));
   assert(2 == SearchFirstLargerOfK(A, 1));
@@ -49,14 +50,14 @@ static void SimpleTest() {
   assert(7 == SearchFirstLargerOfK(A, 6));
   assert(-1 == SearchFirstLargerOfK(A, 7));
   assert(0 == SearchFirstLargerOfK(A, -1));
-  assert(0 == SearchFirstLargerOfK(A, INT_MIN));
-  assert(-1 == SearchFirstLargerOfK(A, INT_MAX));
+  assert(0 == SearchFirstLargerOfK(A, numeric_limits<int>::min()));
+  assert(-1 == SearchFirstLargerOfK(A, numeric_limits<int>::max()));
   A[0] = 1;
   assert(2 == SearchFirstLargerOfK(A, 1));
   A[5] = 4;
   A[6] = 4;
   assert(7 == SearchFirstLargerOfK(A, 4));
-  A = {1,1,1,1,1,2};
+  A = {1, 1, 1, 1, 1, 2};
   assert(5 == SearchFirstLargerOfK(A, 1));
   assert(-1 == SearchFirstLargerOfK(A, 5));
 }

@@ -1,31 +1,35 @@
 package com.epi;
 
+import java.util.Deque;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 public class NormalizedPathnames {
   // @include
-  public static String ShortestEquivalentPath(String path) {
-    LinkedList<String> pathNames = new LinkedList<>();
+  public static String shortestEquivalentPath(String path) {
+    if (path.equals("")) {
+      throw new IllegalArgumentException("Empty string is not a legal path.");
+    }
+
+    Deque<String> pathNames = new LinkedList<>();
     // Special case: starts with "/", which is an absolute path.
     if (path.startsWith("/")) {
-      pathNames.push("/");
+      pathNames.addFirst("/");
     }
 
     for (String token : path.split("/")) {
-      System.out.println(token);
       if (token.equals("..")) {
-        if (pathNames.isEmpty() || pathNames.peek().equals("..")) {
-          pathNames.push(token);
+        if (pathNames.isEmpty() || pathNames.peekFirst().equals("..")) {
+          pathNames.addFirst(token);
         } else {
-          if (pathNames.peek().equals("/")) {
+          if (pathNames.peekFirst().equals("/")) {
             throw new IllegalArgumentException(
                 "Path error, trying to go up root " + path);
           }
-          pathNames.pop();
+          pathNames.removeFirst();
         }
       } else if (!token.equals(".") && !token.isEmpty()) { // Must be a name.
-        pathNames.push(token);
+        pathNames.addFirst(token);
       }
     }
 
@@ -47,28 +51,35 @@ public class NormalizedPathnames {
   // @exclude
 
   public static void main(String[] args) {
-    assert(ShortestEquivalentPath("123/456").equals("123/456"));
-    assert(ShortestEquivalentPath("/123/456").equals("/123/456"));
-    assert(ShortestEquivalentPath("usr/lib/../bin/gcc").equals("usr/bin/gcc"));
-    assert(ShortestEquivalentPath("./../").equals(".."));
-    assert(ShortestEquivalentPath("../../local").equals("../../local"));
-    assert(ShortestEquivalentPath("./.././../local").equals("../../local"));
-    assert(ShortestEquivalentPath("/foo/../foo/./../").equals("/"));
+    assert(shortestEquivalentPath("123/456").equals("123/456"));
+    assert(shortestEquivalentPath("/123/456").equals("/123/456"));
+    assert(shortestEquivalentPath("usr/lib/../bin/gcc").equals("usr/bin/gcc"));
+    assert(shortestEquivalentPath("./../").equals(".."));
+    assert(shortestEquivalentPath("../../local").equals("../../local"));
+    assert(shortestEquivalentPath("./.././../local").equals("../../local"));
+    assert(shortestEquivalentPath("/foo/../foo/./../").equals("/"));
     try {
-      ShortestEquivalentPath("/..");
+      shortestEquivalentPath("/..");
+      assert(false);
     } catch (IllegalArgumentException e) {
       System.out.println(e.getMessage());
     }
     try {
-      ShortestEquivalentPath("/cpp_name/bin/");
+      shortestEquivalentPath("");
+      assert(false);
+    } catch (IllegalArgumentException e) {
+      System.out.println(e.getMessage());
+    }
+    try {
+      shortestEquivalentPath("/cpp_name/bin/");
     } catch (Exception e) {
       System.out.println(e.getMessage());
       assert(false);
     }
-    assert(ShortestEquivalentPath("scripts//./../scripts/awkscripts/././")
+    assert(shortestEquivalentPath("scripts//./../scripts/awkscripts/././")
                .equals("scripts/awkscripts"));
     if (args.length == 1) {
-      System.out.println(ShortestEquivalentPath(args[0]));
+      System.out.println(shortestEquivalentPath(args[0]));
     }
   }
 }

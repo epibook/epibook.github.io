@@ -43,6 +43,8 @@ void SmallTest() {
   assert(6 == area);
   A = {2, 2, 2};
   assert(6 == CalculateLargestRectangle(A));
+  A = {1, 1, 2};
+  assert(3 == CalculateLargestRectangle(A));
 }
 
 int main(int argc, char* argv[]) {

@@ -30,7 +30,17 @@ int CelebrityFinding(const vector<deque<bool>>& F) {
 }
 // @exclude
 
+void DirectedTest() {
+  vector<deque<bool>> F = {{false, true, false, true, false},
+                           {false, false, true, true, false},
+                           {false, false, false, true, true},
+                           {false, false, false, false, false},
+                           {true, false, false, true, false}};
+  assert(CelebrityFinding(F) == 3);
+}
+
 int main(int argc, char* argv[]) {
+  DirectedTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int n;

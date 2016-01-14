@@ -1,6 +1,11 @@
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Random;
 
 public class JobAssignment {
   private static void nthElement(List<Task> A, int n, CompTask c) {
@@ -27,6 +32,7 @@ public class JobAssignment {
       this.capacity = capacity;
     }
   }
+
   public static boolean[][] findFeasibleJobAssignment(List<Integer> T,
                                                       List<Integer> S) {
     int tTotal = 0;
@@ -80,14 +86,14 @@ public class JobAssignment {
   private static class CompTask implements Comparator<Task> {
     @Override
     public int compare(Task o1, Task o2) {
-      return o1.load.compareTo(o2.load);
+      return Integer.compare(o1.load, o2.load);
     }
   }
 
   private static class CompServer implements Comparator<Server> {
     @Override
     public int compare(Server o1, Server o2) {
-      return o1.capacity.compareTo(o2.capacity);
+      return Integer.compare(o1.capacity, o2.capacity);
     }
   }
   // @exclude

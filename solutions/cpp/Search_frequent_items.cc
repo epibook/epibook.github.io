@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -15,7 +15,6 @@ using std::default_random_engine;
 using std::endl;
 using std::ios;
 using std::istringstream;
-using std::pair;
 using std::random_device;
 using std::string;
 using std::uniform_int_distribution;
@@ -73,7 +72,7 @@ vector<string> SearchFrequentItems(int k, istringstream* sin) {
 
   // Selects the word which occurs > n / k times.
   vector<string> ret;
-  for (const pair<string, int>& it : hash) {
+  for (const auto& it : hash) {
     if (it.second > static_cast<double>(n) / k) {
       ret.emplace_back(it.first);
     }

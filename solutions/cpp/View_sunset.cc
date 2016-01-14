@@ -12,7 +12,6 @@ using std::cout;
 using std::default_random_engine;
 using std::endl;
 using std::istringstream;
-using std::pair;
 using std::random_device;
 using std::stack;
 using std::stringstream;
@@ -22,18 +21,20 @@ using std::vector;
 // @include
 vector<int> ExamineBuildingsWithSunset(istringstream* sin) {
   int building_idx = 0, building_height;
-  // Stores (building_idx, building_height) pair with sunset views.
-  stack<pair<int, int>> candidates;
+  struct BuildingWithHeight {
+    int id, height;
+  };
+  stack<BuildingWithHeight> candidates;
   while (*sin >> building_height) {
-    while (!candidates.empty() && building_height >= candidates.top().second) {
+    while (!candidates.empty() && building_height >= candidates.top().height) {
       candidates.pop();
     }
-    candidates.emplace(building_idx++, building_height);
+    candidates.emplace(BuildingWithHeight{building_idx++, building_height});
   }
 
   vector<int> buildings_with_sunset;
   while (!candidates.empty()) {
-    buildings_with_sunset.emplace_back(candidates.top().first);
+    buildings_with_sunset.emplace_back(candidates.top().id);
     candidates.pop();
   }
   return buildings_with_sunset;

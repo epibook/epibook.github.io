@@ -25,18 +25,20 @@ vector<vector<int>> Permutations(vector<int> A) {
   return result;
 }
 
-void DirectedPermutations(int i, vector<int> *A, vector<vector<int>> *result) {
-  if (i == A->size() - 1) {
-    result->emplace_back(*A);
+void DirectedPermutations(int i, vector<int> *A_ptr,
+                          vector<vector<int>> *result) {
+  vector<int> &A = *A_ptr;
+  if (i == A.size() - 1) {
+    result->emplace_back(A);
     return;
   }
 
   // Try every possibility for A[i].
-  for (int j = i; j < A->size(); ++j) {
-    swap((*A)[i], (*A)[j]);
+  for (int j = i; j < A.size(); ++j) {
+    swap(A[i], A[j]);
     // Generate all permutations for A[i + 1 : A.size() - 1].
-    DirectedPermutations(i + 1, A, result);
-    swap((*A)[i], (*A)[j]);
+    DirectedPermutations(i + 1, A_ptr, result);
+    swap(A[i], A[j]);
   }
 }
 // @exclude
@@ -50,8 +52,8 @@ void SmallTest() {
   vector<int> A = {0, 1, 2};
   auto result = Permutations(A);
   assert(result.size() == 6);
-  vector<vector<int>> golden_result = {
-      {0, 1, 2}, {0, 2, 1}, {1, 0, 2}, {1, 2, 0}, {2, 1, 0}, {2, 0, 1}};
+  vector<vector<int>> golden_result = {{0, 1, 2}, {0, 2, 1}, {1, 0, 2},
+                                       {1, 2, 0}, {2, 1, 0}, {2, 0, 1}};
   for (int i = 0; i < 6; ++i) {
     assert(EqualVector(result[i], golden_result[i]));
   }

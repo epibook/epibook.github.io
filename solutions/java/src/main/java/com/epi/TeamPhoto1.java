@@ -2,8 +2,8 @@
 
 package com.epi;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -15,8 +15,21 @@ class Player implements Comparable<Player> {
 
   @Override
   public int compareTo(Player that) {
-    return height.compareTo(that.height);
+    return Integer.compare(height, that.height);
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null || !(obj instanceof Player)) {
+      return false;
+    }
+    return this == obj ? true : height.equals(((Player)obj).height);
+  }
+
+  // clang-format off
+  @Override
+  public int hashCode() { return height.hashCode(); }
+  // clang-format on
 }
 
 class Team {
@@ -49,18 +62,19 @@ class Team {
 }
 // @exclude
 
-class TeamPhoto1 {
+public class TeamPhoto1 {
   public static void main(String[] args) {
     List<Integer> height = Arrays.asList(1, 5, 4);
     Team t1 = new Team(height);
     height = Arrays.asList(2, 3, 4);
     Team t2 = new Team(height);
-    assert(!Team.validPlacementExists(t1, t2) &&
-           !Team.validPlacementExists(t2, t1));
+    assert(!Team.validPlacementExists(t1, t2)
+           && !Team.validPlacementExists(t2, t1));
     height = Arrays.asList(0, 3, 2);
     Team t3 = new Team(height);
-    assert(
-        Team.validPlacementExists(t3, t1) && !Team.validPlacementExists(t1, t3) &&
-        Team.validPlacementExists(t3, t2) && !Team.validPlacementExists(t1, t2));
+    assert(Team.validPlacementExists(t3, t1)
+           && !Team.validPlacementExists(t1, t3)
+           && Team.validPlacementExists(t3, t2)
+           && !Team.validPlacementExists(t1, t2));
   }
 }

@@ -9,6 +9,7 @@
 
 using std::cout;
 using std::endl;
+using std::make_unique;
 using std::map;
 using std::unique_ptr;
 using std::vector;
@@ -33,7 +34,7 @@ class Endpoint {
 
 void CalculateViewFromAbove(const vector<LineSegment>& A) {
   vector<Endpoint> sorted_endpoints;
-  for (const auto& a : A) {
+  for (const LineSegment& a : A) {
     sorted_endpoints.emplace_back(Endpoint{true, &a});
     sorted_endpoints.emplace_back(Endpoint{false, &a});
   }
@@ -42,13 +43,13 @@ void CalculateViewFromAbove(const vector<LineSegment>& A) {
   int prev_xaxis = sorted_endpoints.front().Value();  // Leftmost end point.
   unique_ptr<LineSegment> prev = nullptr;
   map<int, const LineSegment*> active_line_segments;
-  for (const auto& endpoint : sorted_endpoints) {
+  for (const Endpoint& endpoint : sorted_endpoints) {
     if (!active_line_segments.empty() && prev_xaxis != endpoint.Value()) {
       if (prev == nullptr) {  // Found first segment.
-        prev = unique_ptr<LineSegment>(
-            new LineSegment{prev_xaxis, endpoint.Value(),
-                            active_line_segments.crbegin()->second->color,
-                            active_line_segments.crbegin()->second->height});
+        prev = make_unique<LineSegment>(
+            LineSegment{prev_xaxis, endpoint.Value(),
+                        active_line_segments.crbegin()->second->color,
+                        active_line_segments.crbegin()->second->height});
       } else {
         if (prev->height == active_line_segments.crbegin()->second->height &&
             prev->color == active_line_segments.crbegin()->second->color &&

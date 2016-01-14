@@ -31,22 +31,21 @@ public class TreeDiameter {
     return T != null ? computeHeightAndDiameter(T).diameter : 0.0;
   }
 
-  // Returns (height, diameter) pair.
   private static HeightAndDiameter computeHeightAndDiameter(TreeNode r) {
     double diameter = Double.MIN_VALUE;
-    double[] height = {0.0, 0.0}; // Stores the max two heights.
+    double[] heights = {0.0, 0.0}; // Stores the max two heights.
     for (Edge e : r.edges) {
       HeightAndDiameter heightDiameter = computeHeightAndDiameter(e.root);
-      if (heightDiameter.height + e.length > height[0]) {
-        height[1] = height[0];
-        height[0] = heightDiameter.height + e.length;
-      } else if (heightDiameter.height + e.length > height[1]) {
-        height[1] = heightDiameter.height + e.length;
+      if (heightDiameter.height + e.length > heights[0]) {
+        heights[1] = heights[0];
+        heights[0] = heightDiameter.height + e.length;
+      } else if (heightDiameter.height + e.length > heights[1]) {
+        heights[1] = heightDiameter.height + e.length;
       }
       diameter = Math.max(diameter, heightDiameter.diameter);
     }
-    return new HeightAndDiameter(height[0],
-                                 Math.max(diameter, height[0] + height[1]));
+    return new HeightAndDiameter(heights[0],
+                                 Math.max(diameter, heights[0] + heights[1]));
   }
   // @exclude
 

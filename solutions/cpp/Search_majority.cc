@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -18,17 +18,17 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-string MajoritySearch(istringstream* sin) {
-  string candidate, buf;
-  int count = 0;
-  while (*sin >> buf) {
-    if (count == 0) {
-      candidate = buf;
-      count = 1;
-    } else if (candidate == buf) {
-      ++count;
+string MajoritySearch(istringstream* input_stream) {
+  string candidate, iter;
+  int candidate_count = 0;
+  while (*input_stream >> iter) {
+    if (candidate_count == 0) {
+      candidate = iter;
+      candidate_count = 1;
+    } else if (candidate == iter) {
+      ++candidate_count;
     } else {
-      --count;
+      --candidate_count;
     }
   }
   return candidate;
@@ -47,20 +47,20 @@ string RandString(int len) {
 
 void CheckAns(vector<string>& stream, const string& ans) {
   sort(stream.begin(), stream.end());
-  int count = 1;
+  int candidate_count = 1;
   bool find = false;
   for (int i = 1; i < stream.size(); ++i) {
     if (stream[i].compare(stream[i - 1])) {
-      if (count * 2 >= stream.size()) {
+      if (candidate_count * 2 >= stream.size()) {
         assert(ans.compare(stream[i - 1]) == 0);
         find = true;
       }
-      count = 1;
+      candidate_count = 1;
     } else {
-      ++count;
+      ++candidate_count;
     }
   }
-  if (count * 2 >= stream.size()) {
+  if (candidate_count * 2 >= stream.size()) {
     assert(ans.compare(stream.back()) == 0);
     find = true;
   }
@@ -91,8 +91,8 @@ int main(int argc, char* argv[]) {
       s += stream[i];
       s += ' ';
     }
-    istringstream sin(s);
-    string ret(MajoritySearch(&sin));
+    istringstream input_stream(s);
+    string ret(MajoritySearch(&input_stream));
     cout << ret << endl;
     CheckAns(stream, ret);
   }

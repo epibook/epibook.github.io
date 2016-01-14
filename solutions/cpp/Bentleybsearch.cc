@@ -23,16 +23,15 @@ int bsearch(int t, const vector<int>& A) {
 // @exclude
 
 static void SimpleTest() {
-  vector<int> A = {1,2,3};
+  vector<int> A = {1, 2, 3};
   assert(0 == bsearch(1, A));
   assert(1 == bsearch(2, A));
   assert(2 == bsearch(3, A));
-  A = {2,2,2};
+  A = {2, 2, 2};
   assert(0 <= bsearch(2, A) && bsearch(2, A) <= 2);
   assert(-1 == bsearch(3, A));
   assert(-1 == bsearch(0, A));
 }
-
 
 int main(int argc, char* argv[]) {
   SimpleTest();

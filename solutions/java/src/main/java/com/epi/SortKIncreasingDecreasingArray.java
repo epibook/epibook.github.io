@@ -1,13 +1,11 @@
 package com.epi;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.PriorityQueue;
 
 public class SortKIncreasingDecreasingArray {
   // @include
@@ -18,42 +16,26 @@ public class SortKIncreasingDecreasingArray {
     int startIdx = 0;
     for (int i = 1; i <= A.size(); ++i) {
       if (i == A.size() // A is ended. Adds the last subarray
-          ||
-          (A.get(i - 1) < A.get(i) && subarrayType == SubarrayType.DECREASING) ||
-          (A.get(i - 1) >= A.get(i) && subarrayType == SubarrayType.INCREASING)) {
+          || (A.get(i - 1) < A.get(i)
+              && subarrayType == SubarrayType.DECREASING)
+          || (A.get(i - 1) >= A.get(i)
+              && subarrayType == SubarrayType.INCREASING)) {
         List<Integer> subList = A.subList(startIdx, i);
         if (subarrayType == SubarrayType.DECREASING) {
           Collections.reverse(subList);
         }
         sortedSubarrays.add(subList);
         startIdx = i;
-        subarrayType =
-            (subarrayType == SubarrayType.INCREASING ? SubarrayType.DECREASING
-                                                     : SubarrayType.INCREASING);
+        subarrayType = (subarrayType == SubarrayType.INCREASING
+                            ? SubarrayType.DECREASING
+                            : SubarrayType.INCREASING);
       }
     }
-
     return MergeSortedArrays.mergeSortedArrays(sortedSubarrays);
   }
 
   private static enum SubarrayType { INCREASING, DECREASING }
   // @exclude
-
-  public static <T extends Comparable<T>> boolean isSorted(Iterable<T> iterable) {
-    Iterator<T> iter = iterable.iterator();
-    if (!iter.hasNext()) {
-      return true;
-    }
-    T t = iter.next();
-    while (iter.hasNext()) {
-      T t2 = iter.next();
-      if (t.compareTo(t2) > 0) {
-        return false;
-      }
-      t = t2;
-    }
-    return true;
-  }
 
   private static void simpleTest() {
     List<Integer> A = Arrays.asList(1, 2, 3, 2, 1, 4, 5, 10, 9, 4, 4, 1, -1);
@@ -93,9 +75,11 @@ public class SortKIncreasingDecreasingArray {
         A.add(rnd.nextInt(999999));
       }
 
+      List<Integer> Adup = new ArrayList<>(A);
       List<Integer> ans = sortKIncreasingDecreasingArray(A);
       assert(A.size() == ans.size());
-      assert(isSorted(ans));
+      Collections.sort(Adup);
+      assert(Adup.equals(ans));
     }
   }
 }

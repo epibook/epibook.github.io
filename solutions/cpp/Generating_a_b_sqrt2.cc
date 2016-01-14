@@ -77,7 +77,7 @@ static void SimpleTest() {
   assert(sqrt(2.0) == ans[2].val);
   assert(2.0 == ans[3].val);
   assert(1.0 + sqrt(2.0) == ans[4].val);
-  assert(2.0*sqrt(2.0) == ans[5].val);
+  assert(2.0 * sqrt(2.0) == ans[5].val);
   assert(3.0 == ans[6].val);
   assert(2.0 + sqrt(2.0) == ans[7].val);
 }
@@ -103,10 +103,6 @@ int main(int argc, char* argv[]) {
     auto gold_res = Golden(k);
     for (size_t i = 0; i < k; ++i) {
       assert(ans[i].val == gold_res[i].val);
-      // cout << "first " << ans[i].a << " " << ans[i].b << " " << ans[i].val <<
-      // endl;
-      // cout << "second " << gold_res[i].a << " " << gold_res[i].b << " " <<
-      // gold_res[i].val << endl;
     }
   }
   return 0;

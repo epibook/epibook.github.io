@@ -28,7 +28,7 @@ string tail(const string& file_name, int N) {
     file_ptr.get(c);
     if (c == '\n') {
       ++newline_count;
-      if (newline_count > N) {
+      if (newline_count >= N) {
         break;
       }
     }
@@ -42,32 +42,23 @@ string tail(const string& file_name, int N) {
 
 void SmallTest() {
   ofstream ofs("test_Tail.txt");
-  ofs << "A free soft copy sample of Elements of Programming Interviews can be "
-         "found at bit.ly/epi-sample" << endl;
-  ofs << endl;
-  ofs << "The core of Elements of Programming Interviews (EPI) is a collection "
-         "of 300 problems with detailed solutions, including over 150 figures "
-         "and 250 tested programs. The problems are representative of the "
-         "questions asked at interviews at the most exciting companies. They "
-         "are well-motivated, thought-provoking and fun to solve!" << endl;
-  ofs << endl;
-  ofs << "EPI includes a summary of the nontechnical aspects of interviewing, "
-         "including common mistakes, strategies for a great interview, the "
-         "interviewer's perspective, negotiating the best offer, and much more."
-      << endl;
-  ofs << endl;
-  ofs << "Since different candidates have different time constraints, EPI "
-         "includes a study guide with several study scenarios, ranging from "
-         "weekend Hackathon to semester long preparation with a recommended a "
-         "subset of problems for each scenario." << endl;
-  ofs << endl;
+  string L1 = "The first line";
+  string L2 = "The second line";
+  string L3 = "The third line";
+  string L4 = "The fourth line";
+  ofs << L1 << endl;
+  ofs << L2 << endl;
+  ofs << L3 << endl;
+  ofs << L4;
   ofs.close();
-  auto res = tail("test_Tail.txt", 3);
-  assert(!res.compare(
-      "\nSince different candidates have different time constraints, EPI "
-      "includes a study guide with several study scenarios, ranging from "
-      "weekend Hackathon to semester long preparation with a recommended a "
-      "subset of problems for each scenario.\n\n"));
+  auto res = tail("test_Tail.txt", 1);
+  assert(!res.compare(L4));
+  res = tail("test_Tail.txt", 2);
+  assert(!res.compare(L3 + "\n" + L4));
+  res = tail("test_Tail.txt", 3);
+  assert(!res.compare(L2 + "\n" + L3 + "\n" + L4));
+  res = tail("test_Tail.txt", 4);
+  assert(!res.compare(L1 + "\n" + L2 + "\n" + L3 + "\n" + L4));
   remove("test_Tail.txt");
 }
 

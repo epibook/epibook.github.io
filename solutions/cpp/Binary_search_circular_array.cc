@@ -33,19 +33,23 @@ int SearchSmallest(const vector<int>& A) {
 }
 // @exclude
 
-void SmallTest() {
-  vector<int> A = {631, 203};
+void SimpleTest() {
+  vector<int> A = {3, 1, 2};
   assert(1 == SearchSmallest(A));
-  A = {3,1,2};
-  assert(1 == SearchSmallest(A));
-  A = {0,2,4,8};
+  A = {0, 2, 4, 8};
   assert(0 == SearchSmallest(A));
   A[0] = 16;
   assert(1 == SearchSmallest(A));
+  A = {2, 3, 4};
+  assert(0 == SearchSmallest(A));
+  A = {100, 101, 102, 2, 5};
+  assert(3 == SearchSmallest(A));
+  A = {10, 20, 30, 40, 5};
+  assert(4 == SearchSmallest(A));
 }
 
 int main(int argc, char* argv[]) {
-  SmallTest();
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int n;
@@ -81,25 +85,5 @@ int main(int argc, char* argv[]) {
      */
     assert((shift + 1) % n == SearchSmallest(A));
   }
-  // hand-made tests.
-  vector<int> A;
-  A.emplace_back(2);
-  A.emplace_back(3);
-  A.emplace_back(4);
-  assert(0 == SearchSmallest(A));
-  A.clear();
-  A.emplace_back(100);
-  A.emplace_back(101);
-  A.emplace_back(102);
-  A.emplace_back(2);
-  A.emplace_back(5);
-  assert(3 == SearchSmallest(A));
-  A.clear();
-  A.emplace_back(10);
-  A.emplace_back(20);
-  A.emplace_back(30);
-  A.emplace_back(40);
-  A.emplace_back(5);
-  assert(4 == SearchSmallest(A));
   return 0;
 }

@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <iostream>
@@ -13,14 +13,42 @@ using std::swap;
 using std::uniform_int_distribution;
 using std::vector;
 
+int ComputeNumberOfWaysToXY(int, int, vector<vector<int>>*);
+
 // @include
 int NumberOfWays(int n, int m) {
+  vector<vector<int>> number_of_ways(n, vector<int>(m, 0));
+  return ComputeNumberOfWaysToXY(n - 1, m - 1, &number_of_ways);
+}
+
+int ComputeNumberOfWaysToXY(int x, int y,
+                            vector<vector<int>>* number_of_ways_ptr) {
+  if (x == 0 && y == 0) {
+    return 1;
+  }
+
+  vector<vector<int>>& number_of_ways = *number_of_ways_ptr;
+  if (number_of_ways[x][y] == 0) {
+    int ways_top =
+        x == 0 ? 0 : ComputeNumberOfWaysToXY(x - 1, y, number_of_ways_ptr);
+    int ways_left =
+        y == 0 ? 0 : ComputeNumberOfWaysToXY(x, y - 1, number_of_ways_ptr);
+    number_of_ways[x][y] = ways_top + ways_left;
+  }
+  return number_of_ways[x][y];
+}
+// @exclude
+
+int ComputeNumberOfWaysSpaceEfficient(int n, int m) {
   if (n < m) {
     swap(n, m);
   }
   vector<int> A(m, 1);
   for (int i = 1; i < n; ++i) {
     int prev_res = 0;
+    if (n < m) {
+      swap(n, m);
+    }
     for (int j = 0; j < m; ++j) {
       A[j] = A[j] + prev_res;
       prev_res = A[j];
@@ -28,7 +56,6 @@ int NumberOfWays(int n, int m) {
   }
   return A[m - 1];
 }
-// @exclude
 
 int CheckAns(int n, int k) {
   vector<vector<int>> table(n + 1, vector<int>(k + 1));
@@ -63,6 +90,7 @@ int main(int argc, char* argv[]) {
     cout << "n = " << n << ", m = " << m
          << ", number of ways = " << NumberOfWays(n, m) << endl;
     assert(CheckAns(n + m - 2, m - 1) == NumberOfWays(n, m));
+    assert(ComputeNumberOfWaysSpaceEfficient(n, m) == NumberOfWays(n, m));
     if (argc == 3) {
       break;
     }

@@ -1,6 +1,11 @@
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+import java.util.Set;
 
 public class ThreeJugs {
   // @include
@@ -29,14 +34,17 @@ public class ThreeJugs {
       if (obj == null || !(obj instanceof VolumeRange)) {
         return false;
       }
+      if (this == obj) {
+        return true;
+      }
       VolumeRange vr = (VolumeRange)obj;
-      return (this.low == vr.low && this.high == vr.high);
+      return low.equals(vr.low) && high.equals(vr.high);
     }
 
+    // clang-format off
     @Override
-    public int hashCode() {
-      return low.hashCode() ^ high.hashCode();
-    }
+    public int hashCode() { return Objects.hash(low, high); }
+    // clang-format on
   }
 
   public static boolean checkFeasible(List<Jug> jugs, int L, int H) {

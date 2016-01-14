@@ -17,10 +17,10 @@ public class TwoForAll {
       edges = new ArrayList<>();
     }
 
+    // clang-format off
     @Override
-    public String toString() {
-      return edges.toString();
-    }
+    public String toString() { return edges.toString(); }
+    // clang-format on
     // @include
   }
 

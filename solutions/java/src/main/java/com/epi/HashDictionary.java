@@ -4,7 +4,7 @@ package com.epi;
 
 import java.util.Random;
 
-class HashDictionary {
+public class HashDictionary {
   private static String randString(int len) {
     StringBuilder ret = new StringBuilder();
     Random rnd = new Random();
@@ -19,7 +19,8 @@ class HashDictionary {
   public static int stringHash(String str, int modulus) {
     int kMult = 997;
     int val = 0;
-    for (char c : str.toCharArray()) {
+    for (int i = 0; i < str.length(); i++) {
+      char c = str.charAt(i);
       val = (val * kMult + c) % modulus;
     }
     return val;

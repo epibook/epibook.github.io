@@ -32,15 +32,9 @@ void Print(shared_ptr<ListNode<int>> head) {
 }
 
 int main(int argc, char* argv[]) {
-  shared_ptr<ListNode<int>> L1 =
-      make_shared<ListNode<int>>(ListNode<int>{1, nullptr});
-  shared_ptr<ListNode<int>> L2 =
-      make_shared<ListNode<int>>(ListNode<int>{2, nullptr});
-  L1->next = L2;
-  shared_ptr<ListNode<int>> L3 =
-      make_shared<ListNode<int>>(ListNode<int>{3, nullptr});
-  L2->next = L3;
-
+  shared_ptr<ListNode<int>> L1 = make_shared<ListNode<int>>(ListNode<int>{
+      1, make_shared<ListNode<int>>(ListNode<int>{
+             2, make_shared<ListNode<int>>(ListNode<int>{3, nullptr})})});
   cout << "before reverse" << endl;
   Print(L1);
   shared_ptr<ListNode<int>> newhead = ReverseLinkedList(L1);

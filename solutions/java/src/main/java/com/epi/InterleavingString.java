@@ -31,8 +31,9 @@ public class InterleavingString {
 
     for (int i = 0; i < s1.length(); ++i) {
       for (int j = 0; j < s2.length(); ++j) {
-        T[i + 1][j + 1] = (T[i][j + 1] && s1.charAt(i) == s3.charAt(i + j + 1)) ||
-                          (T[i + 1][j] && s2.charAt(j) == s3.charAt(i + j + 1));
+        T[i + 1][j + 1]
+            = (T[i][j + 1] && s1.charAt(i) == s3.charAt(i + j + 1))
+              || (T[i + 1][j] && s2.charAt(j) == s3.charAt(i + j + 1));
       }
     }
 

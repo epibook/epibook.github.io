@@ -24,12 +24,12 @@ int FindKthLargestUnknownLength(istringstream* sin, int k) {
   int x;
   while (*sin >> x) {
     candidates.emplace_back(x);
-    if (candidates.size() == (k * 2) - 1) {
+    if (candidates.size() == 2 * k - 1) {
       // Reorders elements about median with larger elements appearing before
       // the median.
       nth_element(candidates.begin(), candidates.begin() + k - 1,
                   candidates.end(), greater<int>());
-      // Keeps the k largest elements and discard the smaller ones.
+      // Reset idx to keep just the k largest elements seen so far.
       candidates.resize(k);
     }
   }
@@ -40,7 +40,44 @@ int FindKthLargestUnknownLength(istringstream* sin, int k) {
 }
 // @exclude
 
+static void SimpleTestArray(vector<int> A) {
+  stringstream ss;
+  for (int a : A) {
+    ss << a << ' ';
+  }
+  for (int i = 0; i < A.size(); ++i) {
+    cout << "i = " << i << endl;
+    istringstream sin(ss.str());
+    int k = i + 1;
+    int result = FindKthLargestUnknownLength(&sin, k);
+    nth_element(A.begin(), A.begin() + A.size() - k, A.end());
+    assert(result == A[A.size() - k]);
+  }
+}
+
+static void SimpleTest() {
+  vector<int> A = {5, 6, 2, 1, 3, 0, 4};
+  SimpleTestArray(A);
+  A = {5, -1, 2, 1, 3, 1, 4, 2 << 31 - 1, 5};
+  SimpleTestArray(A);
+  default_random_engine gen((random_device())());
+  int N = 1000;
+  A = {};
+  for (int i = 0; i < N; ++i) {
+    uniform_int_distribution<int> dis(0, 10 - 1);
+    A.emplace_back(dis(gen));
+  }
+  SimpleTestArray(A);
+  A = {};
+  for (int i = 0; i < N; ++i) {
+    uniform_int_distribution<int> dis(0, 100000000 - 1);
+    A.emplace_back(dis(gen));
+  }
+  SimpleTestArray(A);
+}
+
 int main(int argc, char* argv[]) {
+  SimpleTest();
   default_random_engine gen((random_device())());
   for (int times = 0; times < 1000; ++times) {
     int n, k;
@@ -62,13 +99,9 @@ int main(int argc, char* argv[]) {
       A.emplace_back(dis(gen));
     }
     stringstream ss;
-    for (const int& a : A) {
+    for (int a : A) {
       ss << a << ' ';
     }
-    /*
-    cout << "n = " << n << ", k = " << k << endl;
-    cout << ss.str() << endl;
-    */
     istringstream sin(ss.str());
     int result = FindKthLargestUnknownLength(&sin, k);
     nth_element(A.begin(), A.begin() + A.size() - k, A.end());

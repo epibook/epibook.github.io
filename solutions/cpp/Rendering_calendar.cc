@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -21,7 +21,7 @@ struct Event {
 
 struct Endpoint {
   bool operator<(const Endpoint& e) const {
-    // If times are equal, times corresponding to start come first.
+    // If times are equal, an endpoint that starts an interval comes first.
     return time != e.time ? time < e.time : (isStart && !e.isStart);
   }
 
@@ -57,15 +57,8 @@ int FindMaxSimultaneousEvents(const vector<Event>& A) {
 // @exclude
 
 void SimpleTest() {
-  vector<Event> A = {{1, 5},
-                     {2, 7},
-                     {4, 5},
-                     {6, 10},
-                     {8, 9},
-                     {9, 17},
-                     {11, 13},
-                     {12, 15},
-                     {14, 15}};
+  vector<Event> A = {{1, 5},  {2, 7},   {4, 5},   {6, 10}, {8, 9},
+                     {9, 17}, {11, 13}, {12, 15}, {14, 15}};
   assert(FindMaxSimultaneousEvents(A) == 3);
 }
 

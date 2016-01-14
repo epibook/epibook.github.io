@@ -18,19 +18,23 @@ using std::vector;
 // @include
 // Given n, return all primes up to and including n.
 vector<int> GeneratePrimes(int n) {
-  const int kSize = floor(0.5 * (n - 3)) + 1;
+  const int size = floor(0.5 * (n - 3)) + 1;
   vector<int> primes;
   primes.emplace_back(2);
   // is_prime[i] represents whether (2i + 3) is prime or not.
   // Initially, set each to true. Then use sieving to eliminate nonprimes.
-  deque<bool> is_prime(kSize, true);
-  for (long i = 0; i < kSize; ++i) {
+  deque<bool> is_prime(size, true);
+  for (int i = 0; i < size; ++i) {
     if (is_prime[i]) {
       int p = (i * 2) + 3;
       primes.emplace_back(p);
-      // Sieving from p^2, where value is (4i^2 + 12i + 9). The index in
+      // Sieving from p^2, whose value is (4i^2 + 12i + 9). The index in
       // is_prime is (2i^2 + 6i + 3) because is_prime[i] represents 2i + 3.
-      for (long j = ((i * i) * 2) + 6 * i + 3; j < kSize; j += p) {
+      //
+      // Note that we need to use long for j because p^2 might overflow.
+      for (long j =
+               ((static_cast<long>(i) * static_cast<long>(i)) * 2) + 6 * i + 3;
+           j < size; j += p) {
         is_prime[j] = false;
       }
     }

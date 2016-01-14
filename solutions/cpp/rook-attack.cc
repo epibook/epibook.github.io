@@ -17,7 +17,7 @@ using std::vector;
 
 // @include
 void RookAttack(vector<vector<int>>* A_ptr) {
-  auto& A = *A_ptr;
+  vector<vector<int>>& A = *A_ptr;
   size_t m = A.size(), n = A[0].size();
   bool has_first_row_zero = false;
   for (size_t j = 0; j < n; ++j) {

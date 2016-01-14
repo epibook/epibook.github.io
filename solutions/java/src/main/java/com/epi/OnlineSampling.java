@@ -17,7 +17,8 @@ public class OnlineSampling {
     for (int i = 0; i < k; ++i) {
       // Generate random int in [i, n - 1].
       int randIdx = i + randIdxGen.nextInt(n - i);
-      Integer ptr1 = changedElements.get(randIdx), ptr2 = changedElements.get(i);
+      Integer ptr1 = changedElements.get(randIdx);
+      Integer ptr2 = changedElements.get(i);
       if (ptr1 == null && ptr2 == null) {
         changedElements.put(randIdx, i);
         changedElements.put(i, randIdx);
@@ -45,11 +46,11 @@ public class OnlineSampling {
     Random gen = new Random();
     int n, k;
     if (args.length == 1) {
-      n = Integer.valueOf(args[0]);
+      n = Integer.parseInt(args[0]);
       k = gen.nextInt(n) + 1;
     } else if (args.length == 2) {
-      n = Integer.valueOf(args[0]);
-      k = Integer.valueOf(args[1]);
+      n = Integer.parseInt(args[0]);
+      k = Integer.parseInt(args[1]);
     } else {
       n = gen.nextInt(10000);
       k = gen.nextInt(n) + 1;

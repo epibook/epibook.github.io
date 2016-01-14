@@ -1,10 +1,11 @@
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class TheoryOfEquality {
   // @include
   public static class Constraint {
@@ -58,8 +59,8 @@ public class TheoryOfEquality {
       if (!G.containsKey(i.b)) {
         G.put(i.b, new GraphVertex());
       }
-      if (G.get(i.a).group != -1 && G.get(i.b).group != -1 &&
-          G.get(i.a).group == G.get(i.b).group) {
+      if (G.get(i.a).group != -1 && G.get(i.b).group != -1
+          && G.get(i.a).group == G.get(i.b).group) {
         return false;
       }
     }

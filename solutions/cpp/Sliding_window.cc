@@ -6,28 +6,28 @@
 #include <stdexcept>
 #include <vector>
 
-#include "./Queue_with_max_using_deque.h"
+#include "./Queue_with_max_alternative.h"
 
 using std::cout;
 using std::endl;
 using std::length_error;
 using std::queue;
 using std::vector;
-
-template <typename T>
-bool EqualVector(const vector<T>& A, const vector<T>& B) {
-  return A.size() == B.size() && equal(A.begin(), A.end(), B.begin());
-}
+using QueueWithMaxAlternative::QueueWithMax;
 
 // @include
 struct TrafficElement {
   // Following operators are needed for QueueWithMax with maximum.
-  bool operator<(const TrafficElement& that) const {
-    return volume < that.volume;
+  bool operator>(const TrafficElement& that) const {
+    return volume > that.volume || (volume == that.volume && time > that.time);
   }
 
   bool operator==(const TrafficElement& that) const {
     return time == that.time && volume == that.volume;
+  }
+
+  bool operator>=(const TrafficElement& that) const {
+    return *this > that || *this == that;
   }
 
   int time;
@@ -49,6 +49,11 @@ vector<TrafficElement> CalculateTrafficVolumes(const vector<TrafficElement>& A,
   return maximum_volumes;
 }
 // @exclude
+
+template <typename T>
+bool EqualVector(const vector<T>& A, const vector<T>& B) {
+  return A.size() == B.size() && equal(A.begin(), A.end(), B.begin());
+}
 
 int main(int argc, char* argv[]) {
   int w = 3;

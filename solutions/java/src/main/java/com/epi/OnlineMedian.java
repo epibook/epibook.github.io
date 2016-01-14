@@ -1,18 +1,30 @@
 package com.epi;
 
-import java.io.*;
-import java.util.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Random;
+import java.util.Scanner;
 
 public class OnlineMedian {
   private static List<Double> globalResult = new ArrayList<>();
 
   // @include
+  private static final int DEFAULT_INITIAL_CAPACITY = 16;
+
   public static void onlineMedian(InputStream sequence) {
     // minHeap stores the larger half seen so far.
     PriorityQueue<Integer> minHeap = new PriorityQueue<>();
     // maxHeap stores the smaller half seen so far.
-    PriorityQueue<Integer> maxHeap =
-        new PriorityQueue<>(11, Collections.reverseOrder());
+    PriorityQueue<Integer> maxHeap = new PriorityQueue<>(
+        DEFAULT_INITIAL_CAPACITY, Collections.reverseOrder());
 
     Scanner s = new Scanner(sequence);
     while (s.hasNextInt()) {
@@ -62,7 +74,7 @@ public class OnlineMedian {
     return new ByteArrayInputStream(baos.toByteArray());
   }
 
-  private static void SmallTest() {
+  private static void smallTest() {
     List<Integer> stream = Arrays.asList(5, 4, 3, 2, 1);
     onlineMedian(generateStream(stream));
     List<Double> golden = Arrays.asList(5.0, 4.5, 4.0, 3.5, 3.0);
@@ -88,7 +100,7 @@ public class OnlineMedian {
   }
 
   public static void main(String[] args) {
-    SmallTest();
+    smallTest();
     Random r = new Random();
     int num;
     if (args.length == 1) {

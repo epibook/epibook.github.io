@@ -21,7 +21,7 @@ public class BentleyBsearch {
   }
   // @exclude
 
-  private static void SimpleTest() {
+  private static void simpleTest() {
     ArrayList<Integer> A = new ArrayList<>(Arrays.asList(1, 2, 3));
     assert(0 == bsearch(1, A));
     assert(1 == bsearch(2, A));
@@ -33,7 +33,7 @@ public class BentleyBsearch {
   }
 
   public static void main(String[] args) {
-    SimpleTest();
+    simpleTest();
     ArrayList<Integer> A = new ArrayList<>();
     A.add(1);
     A.add(2);

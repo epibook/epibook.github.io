@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -18,21 +18,20 @@ using std::uniform_int_distribution;
 using std::unordered_map;
 using std::vector;
 
-bool MatchAllWordsInDict(const string& s,
-                         const unordered_map<string, int>& dict, size_t start,
-                         size_t num_words, size_t unit_size);
+bool MatchAllWordsInDict(const string&, const unordered_map<string, int>&, int,
+                         int, int);
 
 // @include
 vector<int> FindAllSubstrings(const string& s, const vector<string>& words) {
-  unordered_map<string, int> dict;
+  unordered_map<string, int> word_to_freq;
   for (const string& word : words) {
-    ++dict[word];
+    ++word_to_freq[word];
   }
 
-  auto unit_size = words.front().size();
+  int unit_size = words.front().size();
   vector<int> result;
-  for (size_t i = 0; i + unit_size * words.size() <= s.size(); ++i) {
-    if (MatchAllWordsInDict(s, dict, i, words.size(), unit_size)) {
+  for (int i = 0; i + unit_size * words.size() <= s.size(); ++i) {
+    if (MatchAllWordsInDict(s, word_to_freq, i, words.size(), unit_size)) {
       result.emplace_back(i);
     }
   }
@@ -40,17 +39,18 @@ vector<int> FindAllSubstrings(const string& s, const vector<string>& words) {
 }
 
 bool MatchAllWordsInDict(const string& s,
-                         const unordered_map<string, int>& dict, size_t start,
-                         size_t num_words, size_t unit_size) {
-  unordered_map<string, int> curr_dict;
-  for (size_t i = 0; i < num_words; ++i) {
+                         const unordered_map<string, int>& word_to_freq,
+                         int start, int num_words, int unit_size) {
+  unordered_map<string, int> curr_string_to_freq;
+  for (int i = 0; i < num_words; ++i) {
     string curr_word = s.substr(start + i * unit_size, unit_size);
-    auto iter = dict.find(curr_word);
-    if (iter == dict.end()) {
+    auto iter = word_to_freq.find(curr_word);
+    if (iter == word_to_freq.end()) {
       return false;
     }
-    ++curr_dict[curr_word];
-    if (curr_dict[curr_word] > iter->second) {
+    ++curr_string_to_freq[curr_word];
+    if (curr_string_to_freq[curr_word] > iter->second) {
+      // curr_word occurs too many times for a match to be possible.
       return false;
     }
   }

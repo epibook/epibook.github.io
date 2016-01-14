@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static com.epi.BinaryTreeUtils.generateInOrder;
-
 public class UniqueBinaryTreesAll {
   // @include
   public static List<BinaryTreeNode<Integer>> generateAllBinaryTrees(
@@ -20,10 +18,10 @@ public class UniqueBinaryTreesAll {
     for (int numLeftTreeNodes = 0; numLeftTreeNodes < numNodes;
          ++numLeftTreeNodes) {
       int numRightTreeNodes = numNodes - 1 - numLeftTreeNodes;
-      List<BinaryTreeNode<Integer>> leftSubtrees =
-          generateAllBinaryTrees(numLeftTreeNodes);
-      List<BinaryTreeNode<Integer>> rightSubtrees =
-          generateAllBinaryTrees(numNodes - 1 - numLeftTreeNodes);
+      List<BinaryTreeNode<Integer>> leftSubtrees
+          = generateAllBinaryTrees(numLeftTreeNodes);
+      List<BinaryTreeNode<Integer>> rightSubtrees
+          = generateAllBinaryTrees(numNodes - 1 - numLeftTreeNodes);
       // Generates all combinations of leftSubtrees and rightSubtrees.
       for (BinaryTreeNode<Integer> left : leftSubtrees) {
         for (BinaryTreeNode<Integer> right : rightSubtrees) {

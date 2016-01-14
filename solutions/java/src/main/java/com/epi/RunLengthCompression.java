@@ -7,7 +7,8 @@ public class RunLengthCompression {
   public static String decoding(String s) {
     int count = 0;
     StringBuilder result = new StringBuilder();
-    for (char c : s.toCharArray()) {
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
       if (Character.isDigit(c)) {
         count = count * 10 + c - '0';
       } else { // c is a letter of alphabet.

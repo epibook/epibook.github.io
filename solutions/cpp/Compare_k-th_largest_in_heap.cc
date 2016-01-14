@@ -59,11 +59,13 @@ int main(int argc, char* argv[]) {
     cout << (res == SMALLER ? "smaller" : (res == EQUAL ? "equal" : "larger"))
          << endl;
   } else {
-    assert(SMALLER == CompareKthLargestHeap(max_heap, 1, 6));  // expect smaller
+    assert(SMALLER ==
+           CompareKthLargestHeap(max_heap, 1, 6));  // expect smaller
     assert(EQUAL == CompareKthLargestHeap(max_heap, 1, 5));  // expect equal
     assert(EQUAL == CompareKthLargestHeap(max_heap, 6, 4));  // expect equal
     assert(EQUAL == CompareKthLargestHeap(max_heap, 3, 4));  // expect equal
-    assert(SMALLER == CompareKthLargestHeap(max_heap, 8, 4));  // expect smaller
+    assert(SMALLER ==
+           CompareKthLargestHeap(max_heap, 8, 4));  // expect smaller
     assert(LARGER == CompareKthLargestHeap(max_heap, 2, 4));  // expect larger
     assert(LARGER == CompareKthLargestHeap(max_heap, 2, 3));  // expect larger
   }

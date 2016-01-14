@@ -35,7 +35,8 @@ class ClientsCreditsInfo {
 
   int Lookup(const string& client_id) const {
     auto credit_iter = client_to_credit_.find(client_id);
-    return credit_iter == client_to_credit_.cend() ? -1 : credit_iter->second + offset_;
+    return credit_iter == client_to_credit_.cend() ? -1 : credit_iter->second +
+                                                              offset_;
   }
 
   void AddAll(int C) { offset_ += C; }

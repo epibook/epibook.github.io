@@ -20,38 +20,38 @@ using std::string;
 using std::uniform_int_distribution;
 using std::vector;
 
-void append_roman_chars(int digit, size_t idx, const array<char, 9>& symbols,
+void append_roman_chars(int digit, size_t idx, const array<char, 9>& kSymbols,
                         string* ret);
 
 // @include
 string int_to_roman(int n) {
-  // symbols represents {1000, 500, 100, 50, 10, 5, 1}.
-  const array<char, 9> symbols = {'M', 'D', 'C', 'L', 'X', 'V', 'I'};
+  // kSymbols represents {1000, 500, 100, 50, 10, 5, 1}.
+  const array<char, 9> kSymbols = {'M', 'D', 'C', 'L', 'X', 'V', 'I'};
   int scale = 1000;
   string ret;
-  for (size_t i = 0; n && i < symbols.size(); i += 2) {
-    append_roman_chars(n / scale, i, symbols, &ret);
+  for (size_t i = 0; n && i < kSymbols.size(); i += 2) {
+    append_roman_chars(n / scale, i, kSymbols, &ret);
     n %= scale;
     scale /= 10;
   }
   return ret;
 }
 
-void append_roman_chars(int digit, size_t idx, const array<char, 9>& symbols,
+void append_roman_chars(int digit, size_t idx, const array<char, 9>& kSymbols,
                         string* ret) {
   if (digit == 0) {
     return;
   } else if (digit <= 3) {
-    ret->append(digit, symbols[idx]);
+    ret->append(digit, kSymbols[idx]);
   } else if (digit == 4) {
-    ret->push_back(symbols[idx]);
-    ret->push_back(symbols[idx - 1]);
+    ret->push_back(kSymbols[idx]);
+    ret->push_back(kSymbols[idx - 1]);
   } else if (digit <= 8) {
-    ret->push_back(symbols[idx - 1]);
-    ret->append(digit - 5, symbols[idx]);
+    ret->push_back(kSymbols[idx - 1]);
+    ret->append(digit - 5, kSymbols[idx]);
   } else {  // digit == 9.
-    ret->push_back(symbols[idx]);
-    ret->push_back(symbols[idx - 2]);
+    ret->push_back(kSymbols[idx]);
+    ret->push_back(kSymbols[idx - 2]);
   }
 }
 // @exclude

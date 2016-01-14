@@ -5,10 +5,12 @@
 
 #include "./Binary_tree_prototype.h"
 
+using std::make_unique;
 using std::unique_ptr;
 
 // @include
-bool SearchMinFirstBST(const unique_ptr<BinaryTreeNode<int>>& min_first_BST, int k) {
+bool SearchMinFirstBST(const unique_ptr<BinaryTreeNode<int>>& min_first_BST,
+                       int k) {
   // First handle the base cases.
   if (!min_first_BST || min_first_BST->data > k) {
     return false;
@@ -30,12 +32,13 @@ int main(int argc, char* argv[]) {
   //    1
   //  2   4
   // 3   5 7
-  auto tree = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{1});
-  tree->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{2});
-  tree->left->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{3});
-  tree->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{4});
-  tree->right->left = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{5});
-  tree->right->right = unique_ptr<BinaryTreeNode<int>>(new BinaryTreeNode<int>{7});
+  auto tree = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{1});
+  tree->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{2});
+  tree->left->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{3});
+  tree->right = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{4});
+  tree->right->left = make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{5});
+  tree->right->right =
+      make_unique<BinaryTreeNode<int>>(BinaryTreeNode<int>{7});
   assert(SearchMinFirstBST(tree, 1));
   assert(SearchMinFirstBST(tree, 3));
   assert(SearchMinFirstBST(tree, 5));

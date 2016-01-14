@@ -41,9 +41,9 @@ vector<int> find_0_sum_subset(const vector<int> &A) {
 }
 // @exclude
 
-void check_ans(const vector<int> &A, const vector<int> &ans) {
+void CheckAns(const vector<int> &A, const vector<int> &ans) {
   int sum = 0;
-  for (const int &a : ans) {
+  for (int a : ans) {
     sum = (sum + A[a]) % A.size();
   }
   assert(sum == 0);
@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
       }
     }
     vector<int> ans = find_0_sum_subset(A);
-    check_ans(A, ans);
+    CheckAns(A, ans);
   }
   return 0;
 }

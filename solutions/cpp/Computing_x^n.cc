@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <iostream>
 #include <cassert>
@@ -18,44 +18,45 @@ using std::uniform_int_distribution;
 using std::vector;
 
 // @include
-vector<int> GetShortestStraightLineProgram(int n) {
+vector<int> ShortestAdditionChain(int n) {
   if (n == 1) {
     return {1};
   }
 
-  queue<vector<int>> SLPs;  // SLP is acronym for straight line program.
-  // Constructs the initial SLP with one node whose value is 1.
-  SLPs.emplace(1, 1);
-  while (!SLPs.empty()) {
-    vector<int> candidate_SLP = SLPs.front();
-    SLPs.pop();
-    // Tries all possible combinations in candidate_SLP.
-    for (const int& a : candidate_SLP) {
-      int power = a + candidate_SLP.back();
+  queue<vector<int>> addition_chains;
+  // Constructs the initial addition_chain with one node whose value is 1.
+  addition_chains.emplace(1, 1);
+  while (!addition_chains.empty()) {
+    vector<int> candidate_addition_chain = addition_chains.front();
+    addition_chains.pop();
+    // Tries all possible combinations in candidate_addition_chain.
+    for (int a : candidate_addition_chain) {
+      int power = a + candidate_addition_chain.back();
       if (power > n) {
-        break;  // No possible solution for candidate_SLP.
+        break;  // No possible solution for candidate_addition_chain.
       }
-      vector<int> new_SLP(candidate_SLP);
-      new_SLP.emplace_back(power);
+      vector<int> new_addition_chain(candidate_addition_chain);
+      new_addition_chain.emplace_back(power);
 
       if (power == n) {
-        return new_SLP;
+        return new_addition_chain;
       }
-      SLPs.emplace(new_SLP);
+      addition_chains.emplace(new_addition_chain);
     }
   }
   // @exclude
-  throw invalid_argument("unknown error");  // This line should never be called.
+  throw invalid_argument(
+      "unknown error");  // This line should never be called.
   // @include
 }
 // @exclude
 
 void SmallTest() {
-  auto res = GetShortestStraightLineProgram(88);
+  auto res = ShortestAdditionChain(88);
   vector<int> golden_res = {1, 2, 3, 4, 7, 11, 22, 44, 88};
   assert(res.size() == golden_res.size());
   assert(equal(res.begin(), res.end(), golden_res.begin()));
-  res = GetShortestStraightLineProgram(67);
+  res = ShortestAdditionChain(67);
   golden_res = {1, 2, 3, 4, 8, 16, 32, 35, 67};
   assert(res.size() == golden_res.size());
   assert(equal(res.begin(), res.end(), golden_res.begin()));
@@ -72,8 +73,8 @@ int main(int argc, char* argv[]) {
     n = n_dis(gen);
   }
   cout << "n = " << n << endl;
-  auto min_exp = GetShortestStraightLineProgram(n);
-  for (const int& t : min_exp) {
+  auto min_exp = ShortestAdditionChain(n);
+  for (int t : min_exp) {
     cout << t << ' ';
   }
   cout << endl;

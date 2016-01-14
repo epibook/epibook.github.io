@@ -4,7 +4,6 @@ import com.epi.BinaryTreePrototypeTemplate.BinaryTreeNode;
 
 public class KBalancedBinaryTree {
   // @include
-
   private static class TreeWithSize {
     public BinaryTreeNode<Integer> root;
     public Integer size;
@@ -30,12 +29,12 @@ public class KBalancedBinaryTree {
     }
 
     // Early return if left subtree is not k-balanced.
-    TreeWithSize leftResult = findKUnBalancedNodeHelper(tree.getLeft(), k);
+    TreeWithSize leftResult = findKUnBalancedNodeHelper(tree.left, k);
     if (leftResult.root != null) {
       return new TreeWithSize(leftResult.root, 0);
     }
     // Early return if right subtree is not k-balanced.
-    TreeWithSize rightResult = findKUnBalancedNodeHelper(tree.getRight(), k);
+    TreeWithSize rightResult = findKUnBalancedNodeHelper(tree.right, k);
     if (rightResult.root != null) {
       return new TreeWithSize(rightResult.root, 0);
     }
@@ -54,14 +53,14 @@ public class KBalancedBinaryTree {
     // 2 5
     // 1 4 6
     BinaryTreeNode<Integer> root = new BinaryTreeNode<>(3);
-    root.setLeft(new BinaryTreeNode<>(2));
-    root.getLeft().setLeft(new BinaryTreeNode<>(1));
-    root.setRight(new BinaryTreeNode<>(5));
-    root.getRight().setLeft(new BinaryTreeNode<>(4));
-    root.getRight().setRight(new BinaryTreeNode<>(6));
+    root.left = new BinaryTreeNode<>(2);
+    root.left.left = new BinaryTreeNode<>(1);
+    root.right = new BinaryTreeNode<>(5);
+    root.right.left = new BinaryTreeNode<>(4);
+    root.right.right = new BinaryTreeNode<>(6);
     int k = 0;
     BinaryTreeNode<Integer> ans = findKUnBalancedNode(root, k);
-    assert(ans.getData().equals(2));
-    System.out.println(ans.getData());
+    assert(ans.data.equals(2));
+    System.out.println(ans.data);
   }
 }

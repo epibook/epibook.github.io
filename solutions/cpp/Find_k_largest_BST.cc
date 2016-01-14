@@ -11,6 +11,7 @@
 using std::cout;
 using std::default_random_engine;
 using std::endl;
+using std::make_unique;
 using std::random_device;
 using std::uniform_int_distribution;
 using std::unique_ptr;
@@ -43,12 +44,12 @@ int main(int argc, char* argv[]) {
   //    3
   //  2   5
   // 1   4 6
-  unique_ptr<BSTNode<int>> tree = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
-  tree->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{2});
-  tree->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{1});
-  tree->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{5});
-  tree->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
-  tree->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{6});
+  unique_ptr<BSTNode<int>> tree = make_unique<BSTNode<int>>(BSTNode<int>{3});
+  tree->left = make_unique<BSTNode<int>>(BSTNode<int>{2});
+  tree->left->left = make_unique<BSTNode<int>>(BSTNode<int>{1});
+  tree->right = make_unique<BSTNode<int>>(BSTNode<int>{5});
+  tree->right->left = make_unique<BSTNode<int>>(BSTNode<int>{4});
+  tree->right->right = make_unique<BSTNode<int>>(BSTNode<int>{6});
   default_random_engine gen((random_device())());
   int k;
   if (argc == 2) {
@@ -72,12 +73,12 @@ int main(int argc, char* argv[]) {
   //    3
   //  3   4
   // 1   4 6
-  tree = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
-  tree->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{3});
-  tree->left->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{1});
-  tree->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
-  tree->right->left = unique_ptr<BSTNode<int>>(new BSTNode<int>{4});
-  tree->right->right = unique_ptr<BSTNode<int>>(new BSTNode<int>{6});
+  tree = make_unique<BSTNode<int>>(BSTNode<int>{3});
+  tree->left = make_unique<BSTNode<int>>(BSTNode<int>{3});
+  tree->left->left = make_unique<BSTNode<int>>(BSTNode<int>{1});
+  tree->right = make_unique<BSTNode<int>>(BSTNode<int>{4});
+  tree->right->left = make_unique<BSTNode<int>>(BSTNode<int>{4});
+  tree->right->right = make_unique<BSTNode<int>>(BSTNode<int>{6});
   ans = FindKLargestInBST(tree, 3);
   assert(ans[0] == 6);
   assert(ans[1] == 4);

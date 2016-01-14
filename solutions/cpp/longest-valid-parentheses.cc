@@ -15,19 +15,19 @@ using std::string;
 using std::vector;
 
 // @include
-size_t LongestValidParentheses(const string& s) {
-  size_t max_length = 0, end = -1;
+int LongestValidParentheses(const string& s) {
+  int max_length = 0, end = -1;
   stack<int> left_parentheses_indices;
-  for (size_t i = 0; i < s.size(); ++i) {
+  for (int i = 0; i < s.size(); ++i) {
     if (s[i] == '(') {
       left_parentheses_indices.emplace(i);
     } else if (left_parentheses_indices.empty()) {
       end = i;
     } else {
       left_parentheses_indices.pop();
-      size_t start = left_parentheses_indices.empty()
-                         ? end
-                         : left_parentheses_indices.top();
+      int start = left_parentheses_indices.empty()
+                      ? end
+                      : left_parentheses_indices.top();
       max_length = max(max_length, i - start);
     }
   }
@@ -35,7 +35,7 @@ size_t LongestValidParentheses(const string& s) {
 }
 // @exclude
 
-void small_test() {
+void SmallTest() {
   assert(LongestValidParentheses(")(((())()(()(") == 6);
   assert(LongestValidParentheses("((())()(()(") == 6);
   assert(LongestValidParentheses(")(") == 0);
@@ -45,7 +45,7 @@ void small_test() {
 }
 
 int main(int argc, char** argv) {
-  small_test();
+  SmallTest();
   string s;
   if (argc == 2) {
     s = argv[1];

@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <iostream>
@@ -35,9 +35,9 @@ vector<vector<int>> RandMatrix(int n) {
 
 struct HashTuple;
 
-bool MatchHelper(const vector<vector<int>>& A, const vector<int>& S, int i,
-                 int j, int len,
-                 unordered_set<tuple<int, int, int>, HashTuple>* cache);
+bool IsPatternSuffixContainedStartingAtXY(
+    const vector<vector<int>>&, int, int, const vector<int>&, int,
+    unordered_set<tuple<int, int, int>, HashTuple>*);
 
 // @include
 struct HashTuple {
@@ -47,11 +47,16 @@ struct HashTuple {
   }
 };
 
-bool Match(const vector<vector<int>>& A, const vector<int>& S) {
-  unordered_set<tuple<int, int, int>, HashTuple> cache;
-  for (int i = 0; i < A.size(); ++i) {
-    for (int j = 0; j < A[i].size(); ++j) {
-      if (MatchHelper(A, S, i, j, 0, &cache)) {
+bool IsPatternContainedInGrid(const vector<vector<int>>& grid,
+                              const vector<int>& pattern) {
+  // Each entry in previous_attempts is a point in the grid and suffix of
+  // pattern (identified by its offset). Presence in previousAttempts indicates
+  // the suffix is not contained in the grid starting from that point.
+  unordered_set<tuple<int, int, int>, HashTuple> previous_attempts;
+  for (int i = 0; i < grid.size(); ++i) {
+    for (int j = 0; j < grid[i].size(); ++j) {
+      if (IsPatternSuffixContainedStartingAtXY(grid, i, j, pattern, 0,
+                                               &previous_attempts)) {
         return true;
       }
     }
@@ -59,25 +64,32 @@ bool Match(const vector<vector<int>>& A, const vector<int>& S) {
   return false;
 }
 
-bool MatchHelper(const vector<vector<int>>& A, const vector<int>& S, int i,
-                 int j, int len,
-                 unordered_set<tuple<int, int, int>, HashTuple>* cache) {
-  if (S.size() == len) {
+bool IsPatternSuffixContainedStartingAtXY(
+    const vector<vector<int>>& grid, int x, int y, const vector<int>& pattern,
+    int offset,
+    unordered_set<tuple<int, int, int>, HashTuple>* previous_attempts) {
+  if (pattern.size() == offset) {
+    // Nothing left to complete.
     return true;
   }
-
-  if (i < 0 || i >= A.size() || j < 0 || j >= A[i].size() ||
-      cache->find({i, j, len}) != cache->cend()) {
+  // Check if (x, y) lies within grid.
+  if (x < 0 || x >= grid.size() || y < 0 || y >= grid[x].size() ||
+      previous_attempts->find({x, y, offset}) != previous_attempts->cend()) {
     return false;
   }
 
-  if (A[i][j] == S[len] && (MatchHelper(A, S, i - 1, j, len + 1, cache) ||
-                            MatchHelper(A, S, i + 1, j, len + 1, cache) ||
-                            MatchHelper(A, S, i, j - 1, len + 1, cache) ||
-                            MatchHelper(A, S, i, j + 1, len + 1, cache))) {
+  if (grid[x][y] == pattern[offset] &&
+      (IsPatternSuffixContainedStartingAtXY(grid, x - 1, y, pattern,
+                                            offset + 1, previous_attempts) ||
+       IsPatternSuffixContainedStartingAtXY(grid, x + 1, y, pattern,
+                                            offset + 1, previous_attempts) ||
+       IsPatternSuffixContainedStartingAtXY(grid, x, y - 1, pattern,
+                                            offset + 1, previous_attempts) ||
+       IsPatternSuffixContainedStartingAtXY(grid, x, y + 1, pattern,
+                                            offset + 1, previous_attempts))) {
     return true;
   }
-  cache->emplace(i, j, len);
+  previous_attempts->emplace(x, y, offset);
   return false;
 }
 // @exclude
@@ -106,6 +118,6 @@ int main(int argc, char* argv[]) {
     S[i] = dis(gen);
   }
   copy(S.begin(), S.end(), ostream_iterator<int>(cout, " "));
-  cout << endl << boolalpha << Match(A, S) << endl;
+  cout << endl << boolalpha << IsPatternContainedInGrid(A, S) << endl;
   return 0;
 }

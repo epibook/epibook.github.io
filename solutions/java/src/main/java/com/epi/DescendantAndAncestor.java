@@ -11,16 +11,14 @@ public class DescendantAndAncestor {
 
     // Perform interleaved searching from possibleAncOrDesc0 and
     // possibleAncOrDesc1 for middle.
-    while (search0 != possibleAncOrDesc1 && search0 != middle &&
-           search1 != possibleAncOrDesc0 && search1 != middle &&
-           (search0 != null || search1 != null)) {
+    while (search0 != possibleAncOrDesc1 && search0 != middle
+           && search1 != possibleAncOrDesc0 && search1 != middle
+           && (search0 != null || search1 != null)) {
       if (search0 != null) {
-        search0 = search0.getData() > middle.getData() ? search0.getLeft()
-                                                       : search0.getRight();
+        search0 = search0.data > middle.data ? search0.left : search0.right;
       }
       if (search1 != null) {
-        search1 = search1.getData() > middle.getData() ? search1.getLeft()
-                                                       : search1.getRight();
+        search1 = search1.data > middle.data ? search1.left : search1.right;
       }
     }
 
@@ -28,8 +26,8 @@ public class DescendantAndAncestor {
     // to possibleAncOrDesc1 without seeing middle, or from possibleAncOrDesc1
     // to possibleAncOrDesc0 without seeing middle, middle cannot lie between
     // possibleAncOrDesc0 and possibleAncOrDesc1.
-    if (search0 == possibleAncOrDesc1 || search1 == possibleAncOrDesc0 ||
-        (search0 != middle && search1 != middle)) {
+    if (search0 == possibleAncOrDesc1 || search1 == possibleAncOrDesc0
+        || (search0 != middle && search1 != middle)) {
       return false;
     }
 
@@ -43,7 +41,7 @@ public class DescendantAndAncestor {
   private static boolean searchTarget(BSTNode<Integer> from,
                                       BSTNode<Integer> target) {
     while (from != null && from != target) {
-      from = from.getData() > target.getData() ? from.getLeft() : from.getRight();
+      from = from.data > target.data ? from.left : from.right;
     }
     return from == target;
   }
@@ -52,34 +50,34 @@ public class DescendantAndAncestor {
   private static void smallTest() {
     BSTNode<Integer> root = new BSTNode<>(5);
     assert(!pairIncludesAncestorAndDescendantOfM(root, root, root));
-    root.setLeft(new BSTNode<>(2));
-    root.getLeft().setRight(new BSTNode<>(4));
-    assert(!pairIncludesAncestorAndDescendantOfM(root.getLeft(), root,
-                                                 root.getLeft().getRight()));
-    assert(pairIncludesAncestorAndDescendantOfM(root, root.getLeft().getRight(), root.getLeft()));
-    
+    root.left = new BSTNode<>(2);
+    root.left.right = new BSTNode<>(4);
+    assert(!pairIncludesAncestorAndDescendantOfM(root.left, root,
+                                                 root.left.right));
+    assert(
+        pairIncludesAncestorAndDescendantOfM(root, root.left.right, root.left));
+
     // Example of the first figure of BST chapter.
     root = new BSTNode<>(19);
-    root.setLeft(new BSTNode<>(7));
-    root.getLeft().setLeft(new BSTNode<>(3));
-    root.getLeft().getLeft().setLeft(new BSTNode<>(2));
-    root.getLeft().getLeft().setRight(new BSTNode<>(5));
-    root.getLeft().setRight(new BSTNode<>(11));
-    root.getLeft().getRight().setRight(new BSTNode<>(17));
-    root.getLeft().getRight().getRight().setLeft(new BSTNode<>(13));
-    root.setRight(new BSTNode<>(43));
-    root.getRight().setLeft(new BSTNode<>(23));
-    root.getRight().getLeft().setRight(new BSTNode<>(37));
-    root.getRight().getLeft().getRight().setLeft(new BSTNode<>(29));
-    root.getRight().getLeft().getRight().getLeft().setRight(new BSTNode<>(31));
-    root.getRight().getLeft().getRight().setRight(new BSTNode<>(41));
-    root.getRight().setRight(new BSTNode<>(47));
-    root.getRight().getRight().setRight(new BSTNode<>(53));
-    assert(!pairIncludesAncestorAndDescendantOfM(root.getRight(), root.getLeft(),
-                                                 root.getRight().getLeft()));
+    root.left = new BSTNode<>(7);
+    root.left.left = new BSTNode<>(3);
+    root.left.left.left = new BSTNode<>(2);
+    root.left.left.right = new BSTNode<>(5);
+    root.left.right = new BSTNode<>(11);
+    root.left.right.right = new BSTNode<>(17);
+    root.left.right.right.left = new BSTNode<>(13);
+    root.right = new BSTNode<>(43);
+    root.right.left = new BSTNode<>(23);
+    root.right.left.right = new BSTNode<>(37);
+    root.right.left.right.left = new BSTNode<>(29);
+    root.right.left.right.left.right = new BSTNode<>(31);
+    root.right.left.right.right = new BSTNode<>(41);
+    root.right.right = new BSTNode<>(47);
+    root.right.right.right = new BSTNode<>(53);
+    assert(!pairIncludesAncestorAndDescendantOfM(root.right, root.left,
+                                                 root.right.left));
     assert(pairIncludesAncestorAndDescendantOfM(
-        root, root.getRight().getLeft().getRight().getLeft().getRight(),
-        root.getRight().getLeft()));
+        root, root.right.left.right.left.right, root.right.left));
   }
 
   public static void main(String[] args) {
@@ -88,24 +86,22 @@ public class DescendantAndAncestor {
     //  2   5
     // 1   4 6
     BSTNode<Integer> root = new BSTNode<>(3);
-    root.setLeft(new BSTNode<>(2));
-    root.getLeft().setLeft(new BSTNode<>(1));
-    root.setRight(new BSTNode<>(5));
-    root.getRight().setLeft(new BSTNode<>(4));
-    root.getRight().setRight(new BSTNode<>(6));
-    assert(pairIncludesAncestorAndDescendantOfM(root, root.getRight().getRight(),
-                                                root.getRight()));
-    assert(pairIncludesAncestorAndDescendantOfM(root.getRight().getRight(), root,
-                                                root.getRight()));
-    assert(!pairIncludesAncestorAndDescendantOfM(root, root.getRight(),
-                                                 root.getRight().getRight()));
-    assert(!pairIncludesAncestorAndDescendantOfM(root.getRight(), root,
-                                                 root.getRight().getRight()));
-    assert(!pairIncludesAncestorAndDescendantOfM(root.getRight().getLeft(),
-                                                 root.getRight().getRight(),
-                                                 root.getRight()));
-    assert(!pairIncludesAncestorAndDescendantOfM(root.getRight().getLeft(),
-                                                 root.getLeft().getLeft(),
-                                                 root.getRight()));
+    root.left = new BSTNode<>(2);
+    root.left.left = new BSTNode<>(1);
+    root.right = new BSTNode<>(5);
+    root.right.left = new BSTNode<>(4);
+    root.right.right = new BSTNode<>(6);
+    assert(pairIncludesAncestorAndDescendantOfM(root, root.right.right,
+                                                root.right));
+    assert(pairIncludesAncestorAndDescendantOfM(root.right.right, root,
+                                                root.right));
+    assert(!pairIncludesAncestorAndDescendantOfM(root, root.right,
+                                                 root.right.right));
+    assert(!pairIncludesAncestorAndDescendantOfM(root.right, root,
+                                                 root.right.right));
+    assert(!pairIncludesAncestorAndDescendantOfM(root.right.left,
+                                                 root.right.right, root.right));
+    assert(!pairIncludesAncestorAndDescendantOfM(root.right.left,
+                                                 root.left.left, root.right));
   }
 }

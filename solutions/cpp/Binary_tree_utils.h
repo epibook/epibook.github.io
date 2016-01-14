@@ -14,7 +14,7 @@
 
 using std::default_random_engine;
 using std::list;
-using std::make_shared;
+using std::make_unique;
 using std::numeric_limits;
 using std::random_device;
 using std::unique_ptr;
@@ -28,8 +28,8 @@ unique_ptr<BinaryTreeNode<T>> generate_rand_binary_tree(
   default_random_engine gen((random_device())());
   list<unique_ptr<BinaryTreeNode<T>>*> l;
   uniform_int_distribution<int> dis(0, numeric_limits<int>::max());
-  auto root = unique_ptr<BinaryTreeNode<T>>(
-      new BinaryTreeNode<T>{(is_unique ? n-- : dis(gen))});
+  auto root = make_unique<BinaryTreeNode<T>>(
+      BinaryTreeNode<T>{(is_unique ? n-- : dis(gen))});
   l.emplace_back(&(root->left));
   l.emplace_back(&(root->right));
   while (n--) {
@@ -37,8 +37,8 @@ unique_ptr<BinaryTreeNode<T>> generate_rand_binary_tree(
     int x = x_dis(gen);
     typename list<unique_ptr<BinaryTreeNode<T>>*>::iterator it = l.begin();
     advance(it, x);
-    **it = unique_ptr<BinaryTreeNode<T>>(
-        new BinaryTreeNode<T>{(is_unique ? n : dis(gen))});
+    **it = make_unique<BinaryTreeNode<T>>(
+        BinaryTreeNode<T>{(is_unique ? n : dis(gen))});
     l.emplace_back(&((**it)->left));
     l.emplace_back(&((**it)->right));
     l.erase(it);

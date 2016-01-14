@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
@@ -18,7 +18,6 @@ using std::endl;
 using std::ostream_iterator;
 using std::min;
 using std::numeric_limits;
-using std::pair;
 using std::random_device;
 using std::string;
 using std::uniform_int_distribution;
@@ -37,7 +36,12 @@ string RandString(int len) {
 }
 
 // @include
-pair<int, int> FindSmallestSequentiallyCoveringSubset(
+struct Subarray {
+  // Represent subarray by starting and ending indices, inclusive.
+  int start, end;
+};
+
+Subarray FindSmallestSequentiallyCoveringSubset(
     const vector<string>& paragraph, const vector<string>& keywords) {
   // Maps each keyword to its index in the keywords array.
   unordered_map<string, int> keyword_to_idx;
@@ -56,7 +60,7 @@ pair<int, int> FindSmallestSequentiallyCoveringSubset(
                                        numeric_limits<int>::max());
 
   int shortest_distance = numeric_limits<int>::max();
-  pair<int, int> result(-1, -1);
+  Subarray result = Subarray{-1, -1};
   for (int i = 0; i < paragraph.size(); ++i) {
     if (keyword_to_idx.count(paragraph[i])) {
       int keyword_idx = keyword_to_idx.find(paragraph[i])->second;
@@ -88,8 +92,8 @@ void SmallTest() {
   vector<string> A3 = {"0", "1", "2", "3",  "4",  "5",  "6", "7", "8", "9",
                        "2", "4", "6", "10", "10", "10", "3", "2", "1", "0"};
   vector<string> subseq4 = {"0", "2", "9", "4", "6"};
-  pair<int, int> rr = FindSmallestSequentiallyCoveringSubset(A3, subseq4);
-  assert(rr.first == 0 && rr.second == 12);
+  Subarray rr = FindSmallestSequentiallyCoveringSubset(A3, subseq4);
+  assert(rr.start == 0 && rr.end == 12);
 }
 
 int main(int argc, char* argv[]) {
@@ -111,8 +115,8 @@ int main(int argc, char* argv[]) {
     cout << "A = ";
     copy(A.begin(), A.end(), ostream_iterator<string>(cout, ","));
     cout << endl;
-    uniform_int_distribution<int> m_dis(1,
-                                        min(static_cast<int>(dict.size()), 10));
+    uniform_int_distribution<int> m_dis(
+        1, min(static_cast<int>(dict.size()), 10));
     int m = m_dis(gen);
     vector<string> Q;
     auto it = dict.begin();
@@ -121,15 +125,15 @@ int main(int argc, char* argv[]) {
     copy(Q.begin(), Q.end(), ostream_iterator<string>(cout, ","));
     cout << endl;
 
-    pair<int, int> res(FindSmallestSequentiallyCoveringSubset(A, Q));
-    cout << res.first << ", " << res.second << endl;
-    if (res.first != -1 && res.second != Q.size()) {
-      if (res.first != res.second) {
-        cout << res.first << ", " << res.second << endl;
+    Subarray res(FindSmallestSequentiallyCoveringSubset(A, Q));
+    cout << res.start << ", " << res.end << endl;
+    if (res.start != -1 && res.end != Q.size()) {
+      if (res.start != res.end) {
+        cout << res.start << ", " << res.end << endl;
       }
       dict.clear();
       copy(Q.begin(), Q.end(), inserter(dict, dict.end()));
-      for (int i = res.first; i <= res.second; ++i) {
+      for (int i = res.start; i <= res.end; ++i) {
         if (dict.find(A[i]) != dict.end()) {
           dict.erase(A[i]);
         }

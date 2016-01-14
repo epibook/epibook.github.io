@@ -1,10 +1,12 @@
 package com.epi;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class ImageCompression {
   // @include
   public static class Point {
@@ -27,25 +29,25 @@ public class ImageCompression {
       }
 
       Point point = (Point)o;
-
       if (i != point.i) {
         return false;
       }
       if (j != point.j) {
         return false;
       }
-
       return true;
     }
 
+    // clang-format off
     @Override
-    public int hashCode() {
-      int result = i;
-      result = 31 * result + j;
-      return result;
-    }
-
+    public int hashCode() { return Objects.hash(i, j); }
+    // clang-format on
+    // @exclude
+    // clang-format off
+    @Override
     public String toString() { return "(" + i + " " + j + ")"; }
+    // clang-format on
+    // @include
   }
 
   public static class TreeNode {
@@ -94,10 +96,11 @@ public class ImageCompression {
     if (lowerLeft.i >= 1 && lowerLeft.j >= 1) {
       pixelSum += imageSum[lowerLeft.i - 1][lowerLeft.j - 1];
     }
-    return pixelSum == 0 || // totally white.
-        pixelSum ==
-            (upperRight.i - lowerLeft.i + 1) * // totally black.
-                (upperRight.j - lowerLeft.j + 1);
+    return pixelSum == 0
+        || // totally white.
+        pixelSum
+            == (upperRight.i - lowerLeft.i + 1) * // totally black.
+                   (upperRight.j - lowerLeft.j + 1);
   }
 
   public static TreeNode calculateOptimal2DTreeHelper(
@@ -118,8 +121,8 @@ public class ImageCompression {
         TreeNode p = new TreeNode(Integer.MAX_VALUE, lowerLeft, upperRight);
         for (int s = lowerLeft.i; s <= upperRight.i + 1; ++s) {
           for (int t = lowerLeft.j; t <= upperRight.j + 1; ++t) {
-            if ((s != lowerLeft.i && s != upperRight.i + 1) ||
-                (t != lowerLeft.j && t != upperRight.j + 1)) {
+            if ((s != lowerLeft.i && s != upperRight.i + 1)
+                || (t != lowerLeft.j && t != upperRight.j + 1)) {
               List<TreeNode> children = new ArrayList<>();
               // SW rectangle.
               children.add(calculateOptimal2DTreeHelper(

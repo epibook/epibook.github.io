@@ -14,13 +14,13 @@ public class SumRootToLeafBinaryTree {
       return 0;
     }
 
-    partialPathSum = partialPathSum * 2 + tree.getData();
-    if (tree.getLeft() == null && tree.getRight() == null) { // Leaf.
+    partialPathSum = partialPathSum * 2 + tree.data;
+    if (tree.left == null && tree.right == null) { // Leaf.
       return partialPathSum;
     }
     // Non-leaf.
-    return sumRootToLeafHelper(tree.getLeft(), partialPathSum) +
-        sumRootToLeafHelper(tree.getRight(), partialPathSum);
+    return sumRootToLeafHelper(tree.left, partialPathSum)
+        + sumRootToLeafHelper(tree.right, partialPathSum);
   }
   // @exclude
 
@@ -31,19 +31,19 @@ public class SumRootToLeafBinaryTree {
     BinaryTreeNode<Integer> root = new BinaryTreeNode<>(1);
     int result = sumRootToLeaf(root);
     assert(result == 1);
-    root.setLeft(new BinaryTreeNode<>(1));
+    root.left = new BinaryTreeNode<>(1);
     result = sumRootToLeaf(root);
     assert(result == 3);
-    root.getLeft().setLeft(new BinaryTreeNode<>(0));
+    root.left.left = new BinaryTreeNode<>(0);
     result = sumRootToLeaf(root);
     assert(result == 6);
-    root.setRight(new BinaryTreeNode<>(0));
+    root.right = new BinaryTreeNode<>(0);
     result = sumRootToLeaf(root);
     assert(result == 8);
-    root.getRight().setLeft(new BinaryTreeNode<>(1));
+    root.right.left = new BinaryTreeNode<>(1);
     result = sumRootToLeaf(root);
     assert(result == 11);
-    root.getRight().setRight(new BinaryTreeNode<>(0));
+    root.right.right = new BinaryTreeNode<>(0);
     result = sumRootToLeaf(root);
     assert(result == 15);
   }

@@ -34,9 +34,9 @@ void DirectedCombinations(int n, int k, int offset,
   }
 
   // Generate remaining combinations over {offset, ..., n - 1} of size
-  // kNumRemaining.
-  const int kNumRemaining = k - partial_combination->size();
-  for (int i = offset; i <= n && kNumRemaining <= n - i + 1; ++i) {
+  // num_remaining.
+  const int num_remaining = k - partial_combination->size();
+  for (int i = offset; i <= n && num_remaining <= n - i + 1; ++i) {
     partial_combination->emplace_back(i);
     DirectedCombinations(n, k, i + 1, partial_combination, result);
     partial_combination->pop_back();
@@ -46,8 +46,8 @@ void DirectedCombinations(int n, int k, int offset,
 
 void SmallTest() {
   auto result = Combinations(4, 2);
-  vector<vector<int>> golden_result = {
-      {1, 2}, {1, 3}, {1, 4}, {2, 3}, {2, 4}, {3, 4}};
+  vector<vector<int>> golden_result = {{1, 2}, {1, 3}, {1, 4},
+                                       {2, 3}, {2, 4}, {3, 4}};
   assert(result.size() == golden_result.size() &&
          equal(result.begin(), result.end(), golden_result.begin()));
 }
@@ -66,7 +66,7 @@ int main(int argc, char** argv) {
   }
   auto result = Combinations(n, k);
   cout << "n = " << n << ", k = " << k << endl;
-  for (const auto& vec : result) {
+  for (const vector<int>& vec : result) {
     for (int a : vec) {
       cout << a << " ";
     }

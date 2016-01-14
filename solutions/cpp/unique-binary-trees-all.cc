@@ -1,24 +1,23 @@
-// Copyright (c) 2013 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2015 Elements of Programming Interviews. All rights reserved.
 
 #include <algorithm>
 #include <cassert>
 #include <iostream>
 #include <random>
-#include <string>
 #include <vector>
 
 #include "./Binary_tree_prototype.h"
-#include "./Binary_tree_utils.h"
 
 using std::cout;
 using std::default_random_engine;
 using std::endl;
-using std::ostream_iterator;
+using std::make_unique;
 using std::random_device;
-using std::string;
 using std::stoi;
 using std::uniform_int_distribution;
 using std::vector;
+
+unique_ptr<BinaryTreeNode<int>> Clone(const unique_ptr<BinaryTreeNode<int>>&);
 
 // @include
 vector<unique_ptr<BinaryTreeNode<int>>> GenerateAllBinaryTrees(int num_nodes) {
@@ -35,12 +34,21 @@ vector<unique_ptr<BinaryTreeNode<int>>> GenerateAllBinaryTrees(int num_nodes) {
     // Generates all combinations of left_subtrees and right_subtrees.
     for (auto& left : left_subtrees) {
       for (auto& right : right_subtrees) {
-        result.emplace_back(
-            new BinaryTreeNode<int>{0, move(left), move(right)});
+        result.emplace_back(make_unique<BinaryTreeNode<int>>(
+            BinaryTreeNode<int>{0, Clone(left), Clone(right)}));
       }
     }
   }
   return result;
+}
+
+unique_ptr<BinaryTreeNode<int>> Clone(
+    const unique_ptr<BinaryTreeNode<int>>& tree) {
+  if (!tree) {
+    return nullptr;
+  }
+  return make_unique<BinaryTreeNode<int>>(
+      BinaryTreeNode<int>{0, Clone(tree->left), Clone(tree->right)});
 }
 // @exclude
 

@@ -2,8 +2,8 @@
 
 package com.epi;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-class SubseqCover {
+public class SubseqCover {
   public static String randString(int len) {
     StringBuilder sb = new StringBuilder();
     Random gen = new Random();
@@ -23,7 +23,7 @@ class SubseqCover {
   }
 
   // @include
-  private static class Subarray {
+  public static class Subarray {
     // Represent subarray by starting and ending indices, inclusive.
     public Integer start;
     public Integer end;
@@ -33,13 +33,16 @@ class SubseqCover {
       this.end = end;
     }
   }
+
   public static Subarray findSmallestSequentiallyCoveringSubset(
       List<String> paragraph, List<String> keywords) {
     // Maps each keyword to its index in the keywords array.
     Map<String, Integer> keywordToIdx = new HashMap<>();
+
     // Since keywords are uniquely identified by their indices in keywords
     // array, we can use those indices as keys to lookup in a vector.
     List<Integer> latestOccurrence = new ArrayList<>(keywords.size());
+
     // For each keyword (identified by its index in keywords array), stores the
     // length of the shortest subarray ending at the most recent occurrence of
     // that keyword that sequentially cover all keywords up to that keyword.
@@ -59,25 +62,26 @@ class SubseqCover {
       if (keywordIdx != null) {
         if (keywordIdx == 0) { // First keyword.
           shortestSubarrayLength.set(0, 1);
-        } else if (shortestSubarrayLength.get(keywordIdx - 1) !=
-                   Integer.MAX_VALUE) {
-          int distanceToPreviousKeyword =
-              i - latestOccurrence.get(keywordIdx - 1);
+        } else if (shortestSubarrayLength.get(keywordIdx - 1)
+                   != Integer.MAX_VALUE) {
+          int distanceToPreviousKeyword
+              = i - latestOccurrence.get(keywordIdx - 1);
           shortestSubarrayLength.set(
-              keywordIdx, distanceToPreviousKeyword +
-                              shortestSubarrayLength.get(keywordIdx - 1));
+              keywordIdx, distanceToPreviousKeyword
+                              + shortestSubarrayLength.get(keywordIdx - 1));
         }
         latestOccurrence.set(keywordIdx, i);
 
         // Last keyword, look for improved subarray.
-        if (keywordIdx == keywords.size() - 1 &&
-            shortestSubarrayLength.get(shortestSubarrayLength.size() - 1) <
-                shortestDistance) {
-          shortestDistance =
-              shortestSubarrayLength.get(shortestSubarrayLength.size() - 1);
-          result.start =
-              i - shortestSubarrayLength.get(shortestSubarrayLength.size() - 1) +
-              1;
+        if (keywordIdx == keywords.size() - 1
+            && shortestSubarrayLength.get(shortestSubarrayLength.size() - 1)
+                   < shortestDistance) {
+          shortestDistance
+              = shortestSubarrayLength.get(shortestSubarrayLength.size() - 1);
+          result.start
+              = i
+                - shortestSubarrayLength.get(shortestSubarrayLength.size() - 1)
+                + 1;
           result.end = i;
         }
       }
@@ -87,9 +91,9 @@ class SubseqCover {
   // @exclude
 
   public static void smallTest() {
-    List<String> a3 =
-        Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "2", "4",
-                      "6", "10", "10", "10", "3", "2", "1", "0");
+    List<String> a3
+        = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "2",
+                        "4", "6", "10", "10", "10", "3", "2", "1", "0");
     List<String> subseq4 = Arrays.asList("0", "2", "9", "4", "6");
     Subarray rr = findSmallestSequentiallyCoveringSubset(a3, subseq4);
     assert(rr.start == 0 && rr.end == 12);

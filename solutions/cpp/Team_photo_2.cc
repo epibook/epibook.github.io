@@ -52,7 +52,7 @@ int FindLongestPath(stack<GraphVertex*>* vertex_order) {
 
 void DFS(GraphVertex* cur, stack<GraphVertex*>* vertex_order) {
   cur->visited = true;
-  for (const auto& next : cur->edges) {
+  for (GraphVertex* next : cur->edges) {
     if (!next->visited) {
       DFS(next, vertex_order);
     }

@@ -1,14 +1,13 @@
 package com.epi;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
-/**
- * @author translated from c++ by Blazheev Alexander
- */
 public class MaxSubmatrixSquare {
   // O(m^3 n^3) time solution.
-  private static int checkAns(ArrayList<ArrayList<Boolean>> A) {
+  private static int checkAns(List<List<Boolean>> A) {
     int max = 0;
     for (int a = 0; a < A.size(); ++a) {
       for (int b = 0; b < A.get(a).size(); ++b) {
@@ -48,41 +47,49 @@ public class MaxSubmatrixSquare {
     }
   }
 
-  public static int maxSquareSubmatrix(ArrayList<ArrayList<Boolean>> A) {
+  public static int maxSquareSubmatrix(List<List<Boolean>> A) {
     // DP table stores (h, w) for each (i, j).
-    MaxHW[][] table = new MaxHW[A.size()][A.get(0).size()];
+    List<List<MaxHW>> table = new ArrayList<>(A.size());
+    for (int i = 0; i < A.size(); ++i) {
+      table.add(
+          new ArrayList(Collections.nCopies(A.get(i).size(), new MaxHW(0, 0))));
+    }
 
     for (int i = A.size() - 1; i >= 0; --i) {
       for (int j = A.get(i).size() - 1; j >= 0; --j) {
         // Find the largest h such that (i, j) to (i + h - 1, j) are feasible.
         // Find the largest w such that (i, j) to (i, j + w - 1) are feasible.
-        table[i][j] =
-            A.get(i).get(j)
-                ? new MaxHW(i + 1 < A.size() ? table[i + 1][j].h + 1 : 1,
-                            j + 1 < A.get(i).size() ? table[i][j + 1].w + 1 : 1)
-                : new MaxHW(0, 0);
+        table.get(i).set(
+            j, A.get(i).get(j)
+                   ? new MaxHW(
+                         i + 1 < A.size() ? table.get(i + 1).get(j).h + 1 : 1,
+                         j + 1 < A.get(i).size() ? table.get(i).get(j + 1).w + 1
+                                                 : 1)
+                   : new MaxHW(0, 0));
       }
     }
 
-    // A table stores the length of largest square for each (i, j).
-    int[][] s = new int[A.size()][A.get(0).size()];
+    // A table stores the length of the largest square for each (i, j).
+    List<List<Integer>> s = new ArrayList<>(A.size());
+    for (int i = 0; i < A.size(); ++i) {
+      s.add(new ArrayList(Collections.nCopies(A.get(i).size(), 0)));
+    }
     int maxSquareArea = 0;
     for (int i = A.size() - 1; i >= 0; --i) {
       for (int j = A.get(i).size() - 1; j >= 0; --j) {
-        int side = Math.min(table[i][j].h, table[i][j].w);
+        int side = Math.min(table.get(i).get(j).h, table.get(i).get(j).w);
         if (A.get(i).get(j)) {
           // Get the length of largest square with bottom-left corner (i, j).
           if (i + 1 < A.size() && j + 1 < A.get(i + 1).size()) {
-            side = Math.min(s[i + 1][j + 1] + 1, side);
+            side = Math.min(s.get(i + 1).get(j + 1) + 1, side);
           }
-          s[i][j] = side;
+          s.get(i).set(j, side);
           maxSquareArea = Math.max(maxSquareArea, side * side);
         }
       }
     }
     return maxSquareArea;
   }
-
   // @exclude
 
   public static void main(String[] args) {
@@ -97,9 +104,9 @@ public class MaxSubmatrixSquare {
         m = r.nextInt(50) + 1;
       }
 
-      ArrayList<ArrayList<Boolean>> A = new ArrayList<>(n);
+      List<List<Boolean>> A = new ArrayList<>(n);
       for (int i = 0; i < n; ++i) {
-        ArrayList<Boolean> last = new ArrayList<>(m);
+        List<Boolean> last = new ArrayList<>(m);
         A.add(last);
         for (int j = 0; j < m; ++j) {
           last.add(r.nextBoolean());

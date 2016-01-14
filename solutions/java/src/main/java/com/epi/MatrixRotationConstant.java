@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static com.epi.utils.Utils.copy;
-
 public class MatrixRotationConstant {
   private static void rotateMatrix(List<List<Integer>> squareMatrix) {
     for (int i = 0; i < (squareMatrix.size() / 2); ++i) {
@@ -27,7 +25,8 @@ public class MatrixRotationConstant {
     }
   }
 
-  private static void checkAnswer(List<List<Integer>> A, List<List<Integer>> B) {
+  private static void checkAnswer(List<List<Integer>> A,
+                                  List<List<Integer>> B) {
     RotatedMatrix rA = new RotatedMatrix(A);
     for (int i = 0; i < A.size(); ++i) {
       for (int j = 0; j < A.size(); ++j) {
@@ -39,7 +38,7 @@ public class MatrixRotationConstant {
   public static void main(String[] args) {
     int n;
     if (args.length == 1) {
-      n = Integer.valueOf(args[0]);
+      n = Integer.parseInt(args[0]);
       List<List<Integer>> A = new ArrayList<>(1 << n);
       int k = 1;
       for (int i = 0; i < (1 << n); ++i) {
@@ -48,7 +47,10 @@ public class MatrixRotationConstant {
           A.get(i).add(k++);
         }
       }
-      List<List<Integer>> B = copy(A);
+      List<List<Integer>> B = new ArrayList<>(1 << n);
+      for (int i = 0; i < (1 << n); ++i) {
+        B.add(new ArrayList<>(A.get(i)));
+      }
       rotateMatrix(B);
       checkAnswer(A, B);
     } else {
@@ -63,7 +65,10 @@ public class MatrixRotationConstant {
             A.get(i).add(k++);
           }
         }
-        List<List<Integer>> B = copy(A);
+        List<List<Integer>> B = new ArrayList<>(1 << n);
+        for (int i = 0; i < (1 << n); ++i) {
+          B.add(new ArrayList<>(A.get(i)));
+        }
         rotateMatrix(B);
         checkAnswer(A, B);
       }

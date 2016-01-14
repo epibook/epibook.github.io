@@ -5,12 +5,13 @@ package com.epi;
 import java.util.HashMap;
 import java.util.Map;
 
-class CanStringBePalindromeHash {
+public class CanStringBePalindromeHash {
   // @include
-  public static boolean canStringBeAPalindrome(String s) {
+  public static boolean canFormPalindrome(String s) {
     Map<Character, Integer> charFrequencies = new HashMap<>();
     // Compute the frequency of each char in s.
-    for (char c : s.toCharArray()) {
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
       if (!charFrequencies.containsKey(c)) {
         charFrequencies.put(c, 1);
       } else {
