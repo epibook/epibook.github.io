@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class SpiralMatrix {
+public class SpiralMatrix { 
   // @include
   public static List<Integer> matrixInSpiralOrder(
       List<List<Integer>> squareMatrix) {
