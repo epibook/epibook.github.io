@@ -238,23 +238,23 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
       <title><![CDATA[EPI Ebook on Google Play]]></title>
       <url>http://elementsofprogramminginterviews.com/2014-11-16-ebook/</url>
       <content type="html"><![CDATA[<p><b>We’re happy to announce EPI is now available as an Ebook through Google Play!</b></p>
-<p>Here’s the<br><a href="https://play.google.com/store/books/details/Adnan_Aziz_Elements_of_Programming_Interviews?id=y6FLBQAAQBAJ" target="_blank" rel="external">link</a>, to the C++ version, which includes a sample. Here’s a <a href="https://play.google.com/store/books/details/Adnan_Aziz_Elements_of_Programming_Interviews_in_J?id=ux3PCwAAQBAJ" target="_blank" rel="external">link</a> to the Java version.</p>
+<p>Here’s the <a href="https://play.google.com/store/books/details/Adnan_Aziz_Elements_of_Programming_Interviews?id=y6FLBQAAQBAJ" target="_blank" rel="external">link</a>, to the C++ version, which includes a sample. Here’s a <a href="https://play.google.com/store/books/details/Adnan_Aziz_Elements_of_Programming_Interviews_in_J?id=ux3PCwAAQBAJ" target="_blank" rel="external">link</a> to the Java version.</p>
 <p>You can read Google Play books on Android, IOS, and your computer:<br><a href="https://support.google.com/googleplay/answer/2851658?hl=en" target="_blank" rel="external">Android instructions</a>,<br><a href="https://support.google.com/googleplay/answer/188504?hl=en" target="_blank" rel="external">IOS instructions</a>,<br><a href="https://support.google.com/googleplay/answer/185545" target="_blank" rel="external">reading on your computer</a>.</p>
 <p>The Ebook is identical to the printed copy.</p>
 <p>Read our post <a href="2014/04/08/epi-features/">EPI in a nutshell</a> to get a broader overview of our book.</p>
-<p>Some readers have had problems viewing the book offline. Here’s one reader’s experience, and his solution.</p>
-<p><verb><br>So I think I got it working.</verb></p>
-<p>Last night when I disabled wifi, I noticed the book disappeared. Upon<br>connecting to the wifi again I noticed the book eventually came back.<br>I thought I had synced all pages manually, but I noticed I was missing<br>a few pages in the middle. Apparently the app won’t let you view the<br>book offline until all pages are synced. I noted that during all these<br>times the blue circle with checkmark was to the bottom right of the<br>book as if the book is synced, but that wasn’t the case.</p>
-<p>I decided to sync those missing pages manually, but I noticed a weird<br>thing after they were synced like a repetition of the same pages, like<br>65-68 couple of times in a row. I decided at that time to remove the<br>book from downloads, and close the app altogether (double tap on home<br>key and scroll up the app in the background). I thought about<br>reinstalling the book app, but didn’t.</p>
+<p></p><h3>Offline viewing</h3><br>Some readers have had problems viewing the book offline. Here’s one reader’s experience, and his solution.<p></p>
+<p>So I think I got it working.</p>
+<p>Last night when I disabled wifi, I noticed the book disappeared. Upon connecting to the wifi again I noticed the book eventually came back.  I thought I had synced all pages manually, but I noticed I was missing a few pages in the middle. Apparently the app won’t let you view the book offline until all pages are synced. I noted that during all these times the blue circle with checkmark was to the bottom right of the book as if the book is synced, but that wasn’t the case.</p>
+<p>I decided to sync those missing pages manually, but I noticed a weird thing after they were synced like a repetition of the same pages, like 65-68 couple of times in a row. I decided at that time to remove the book from downloads, and close the app altogether (double tap on home key and scroll up the app in the background). I thought about reinstalling the book app, but didn’t.</p>
 <p>Then I started the download of the book again overnight…</p>
-<p>This morning I noticed the blue checkmark, as if the book is synced.<br>Upon opening it, I saw that the pages weren’t synced either. This time<br>I went to the beginning of the book, and scroll to the end (faster if<br>you put the device in horizontal/landscape/2pages mode). Making sure<br>that all pages are synced. Then did a couple of tests relaunching the<br>app after:</p>
+<p>This morning I noticed the blue checkmark, as if the book is synced.  Upon opening it, I saw that the pages weren’t synced either. This time I went to the beginning of the book, and scroll to the end (faster if you put the device in horizontal/landscape/2pages mode). Making sure that all pages are synced. Then did a couple of tests relaunching the app after: </p>
 <ul>
 <li>wifi disabled (app still in background)</li>
 <li>wifi disabled, close app.</li>
 <li>wifi disabled, rebooted ipad</li>
 </ul>
-<p>and they all worked and I was able to read the book offline this time.<br>Maybe the book was corrupted before ?</p>
-<p>But I can tell that blue checkmark on the bottom right of the book<br><br>doesn’t mean sync (at least not here)</p>
+<p>and they all worked and I was able to read the book offline this time.  Maybe the book was corrupted before ?</p>
+<p>But I can tell that blue checkmark on the bottom right of the book doesn’t mean sync (at least not here)</p>
 ]]></content>
     </entry>
     
