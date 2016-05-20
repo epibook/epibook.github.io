@@ -140,7 +140,7 @@
 	<!-- display as entry -->	
 		<h3 class="title">
 			<div class="date"> 2015-03-31 </div>
-			<div class="article-title"><a href="/2015-03-31-programming-languages/" >General facts about C, C++, Java, Python</a></div>						
+			<div class="article-title"><a href="/2015-03-31-tools/" >Tools</a></div>						
 		</h3>
 	
 
@@ -149,22 +149,18 @@
   <div class="row">
 	
 	
-		<h3>Core language</h3>
+		<h3>Building and maintaining programs</h3>
 
-<ol><br><li> What are the types in C, Java, C++, and Perl?  How many bits does it take<br>to represent the basic types?<br></li><li> What do floating point numbers look like in<br>memory? Specifically, how many bits are there in a double and<br>what sequence to the bits appear in?<br></li><li> What is twos-complement notation?<br></li><li> How would you implement a bit array class?<br></li><li> Does the check x == x + 1 always return false for integer x?<br></li><li> What does a C struct look like in memory?  What does a C++<br>object look like in memory? What does a Java object look like in<br>memory?<br></li><li> What is the difference between an interpreted and a compiled language?<br></li><li> What is garbage collection?<br></li><li> How would you determine if call stack grows up or down relative<br>to memory addresses?<br></li><li> Give an example of a memory leak in Java.<br></li><li> What is tail recursion? How can it be removed automatically?<br></li><li> Is the natural recursive program for computing <i>n!</i> tail recursive?<br></li><li> Your manager reads an online article that says it is 10X faster to code in Python than in C++. He wants you to code exclusively in Python from now on. What would you say to him?<br></li><li> What does an executable look like as a sequence of bytes?<br></li></ol>
+<ol><br><li>  What version control system do you use?<br></li><li>  What coverage tool do you use?<br></li><li>  What build system do you use?<br></li><li>  What documentation system do you use?<br></li><li>  What bug tracking system do you use?<br></li><li>  How is branching implemented in a version control system?<br></li><li>  Are deltas in the branching for a revision tree stored out forwards<br>or backwards? What are the benefits of each approach?<br></li><li>  What are the advantages and disadvantages of a version control system that locks files?<br></li></ol>
 
-<h3>Libraries</h3>
+<h3>The Shell</h3>
 
-<p>A programmer who regularly implements complex algorithms such as KMP<br>string matching or the Dijkstra shortest path computation quickly<br>will not advance very far. Solutions to such problems are well-known and have<br>high quality, thoroughly tested, and debugged implementations, often<br>available as open source. Programmers should know and use these libraries.</p>
-<ol><br><li>Give an example of a function which is in the C standard library.<br></li><li>Give an example of a commonly used function which is not in the C standard library.<br></li><li>What library would you use to determine the current date in Java?<br></li><li>What library would you use in Java if you had to implement a tinyurl service?<br></li><li>How does STL implement sets?<br></li><li>How does the library code compute trigonometric functions?<br></li><li>The strtok(char <em>s1, char </em>s2) function in the C standard library successively returns occurrences of the characters in s2 in string s1; it returns null if there are no more occurrences.<br></li><li>What makes this a dangerous function to use in a multithreaded program?<br></li></ol>
-
-<h3>Programming language implementation</h3>
-
-<ol><br><li> Give an example of a language which cannot be parsed by any computer.<br></li><li> What problems does dynamic linkage solve? What problems does it introduce?<br></li><li> What is a functional language?<br></li><li> What is a virtual function?<br></li><li> How is method dispatch implemented in Java?<br></li><li> What is automatic garbage collection and how is it implemented?<br></li><li> What is a type-safe language?<br></li><li> What is the difference between a lexer and a parser?<br></li><li> Give an example of a language which cannot be recognized by a lexer.<br></li><li> Give an example of a language which cannot be parsed by a parser.<br></li></ol>
+<p>There are scores, if not hundreds of books on the UNIX shell and related tools.<br>We have enjoyed LINUX 101 Hacks by Natarajan. It introduces<br>these tools through useful hacks, such as the use of find<br>to find all files that have not been modified in the past 100 days<br>and are larger than 100~megabytes in size, sorting the password file on the third field, etc.</p>
+<ol><br><li>  Write a regular expression for identifying social security numbers in a file.<br></li><li>  Write a command that prints out lines in a text file which contain the<br>strings foo and bar in any order.<br></li><li>  Write a command which replaces every occurrence of a foo followed by a bar (with<br>possibly some other characters in between) by widget.<br></li><li>  Given a text file with two columns of integers, i.e., two integers encoded in ASCII per line, write a filter which sorts lines in the file by the second integer.<br></li><li>  How would you take two documents in PDF and create a new document which consists of the pages of the two original documents interleaved in order?<br></li><li>  How would you write a program which checks every hour if a network connection is up?<br></li><li>  How would you write a program which checks the price of a Nikon D5300 DLSR each day on amazon.com?<br></li></ol>
 
 	
 	</div>
-  <a type="button" href="/2015-03-31-programming-languages/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2015-03-31-tools/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -239,6 +235,11 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <!-- <a href="/2016-05-19-epi-cover-2/" ><i class="fa fa-file-o"></i>Dear readers - we need your...</a>  -->
+        <a href="/2016-05-19-epi-cover-2/" >Dear readers - we need your...</a>  
+      </li>
+    
+      <li>
         <!-- <a href="/2016-02-25-reviewers-for-2.0/" ><i class="fa fa-file-o"></i>Please help us review some ...</a>  -->
         <a href="/2016-02-25-reviewers-for-2.0/" >Please help us review some ...</a>  
       </li>
@@ -256,11 +257,6 @@
       <li>
         <!-- <a href="/2015-09-09-amzn-status/" ><i class="fa fa-file-o"></i>EPI back at Amazon...</a>  -->
         <a href="/2015-09-09-amzn-status/" >EPI back at Amazon...</a>  
-      </li>
-    
-      <li>
-        <!-- <a href="/2015-08-20-java-review/" ><i class="fa fa-file-o"></i>EPI in Java...</a>  -->
-        <a href="/2015-08-20-java-review/" >EPI in Java...</a>  
       </li>
     
   </ul>
@@ -308,45 +304,45 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/OS/">OS<span>1</span></a></li>
-		
-			<li><a href="/tags/Build/">Build<span>1</span></a></li>
-		
-			<li><a href="/tags/Java/">Java<span>1</span></a></li>
-		
-			<li><a href="/tags/Overview/">Overview<span>1</span></a></li>
-		
-			<li><a href="/tags/System-Call/">System Call<span>1</span></a></li>
-		
-			<li><a href="/tags/DNS/">DNS<span>1</span></a></li>
-		
-			<li><a href="/tags/Why-we-wrote-EPI/">Why we wrote EPI<span>1</span></a></li>
-		
-			<li><a href="/tags/Python/">Python<span>2</span></a></li>
-		
 			<li><a href="/tags/Unix/">Unix<span>1</span></a></li>
 		
-			<li><a href="/tags/PDF/">PDF<span>1</span></a></li>
-		
-			<li><a href="/tags/Regular-expressions/">Regular expressions<span>1</span></a></li>
+			<li><a href="/tags/Ebook/">Ebook<span>1</span></a></li>
 		
 			<li><a href="/tags/Kindle/">Kindle<span>1</span></a></li>
 		
-			<li><a href="/tags/Unit-testing/">Unit testing<span>1</span></a></li>
+			<li><a href="/tags/Overview/">Overview<span>1</span></a></li>
 		
-			<li><a href="/tags/Debugging/">Debugging<span>1</span></a></li>
+			<li><a href="/tags/Regular-expressions/">Regular expressions<span>1</span></a></li>
 		
-			<li><a href="/tags/VCS/">VCS<span>1</span></a></li>
+			<li><a href="/tags/DNS/">DNS<span>1</span></a></li>
 		
 			<li><a href="/tags/TCP-IP/">TCP/IP<span>1</span></a></li>
 		
+			<li><a href="/tags/Unit-testing/">Unit testing<span>1</span></a></li>
+		
+			<li><a href="/tags/Exercises/">Exercises<span>1</span></a></li>
+		
+			<li><a href="/tags/OS/">OS<span>1</span></a></li>
+		
+			<li><a href="/tags/PDF/">PDF<span>1</span></a></li>
+		
+			<li><a href="/tags/Google-Play/">Google Play<span>1</span></a></li>
+		
+			<li><a href="/tags/C/">C++<span>1</span></a></li>
+		
 			<li><a href="/tags/Introduction/">Introduction<span>1</span></a></li>
 		
-			<li><a href="/tags/Tools/">Tools<span>1</span></a></li>
+			<li><a href="/tags/System-Call/">System Call<span>1</span></a></li>
+		
+			<li><a href="/tags/Java/">Java<span>1</span></a></li>
+		
+			<li><a href="/tags/Testing/">Testing<span>1</span></a></li>
 		
 			<li><a href="/tags/iBooks/">iBooks<span>1</span></a></li>
 		
-			<li><a href="/tags/C/">C++<span>1</span></a></li>
+			<li><a href="/tags/VCS/">VCS<span>1</span></a></li>
+		
+			<li><a href="/tags/Build/">Build<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>26</span></a></li>
