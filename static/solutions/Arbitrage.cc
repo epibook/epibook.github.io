@@ -1,4 +1,4 @@
-// Copyright (c) 2016 Elements of Programming Interviews. All rights reserved.
+// Copyright (c) 2017 Elements of Programming Interviews. All rights reserved.
 
 #include <cassert>
 #include <cmath>
