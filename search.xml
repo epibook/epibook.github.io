@@ -74,7 +74,8 @@
     <entry>
       <title><![CDATA[Introducing the EPI online judge]]></title>
       <url>http://elementsofprogramminginterviews.com/2015-12-04-epi-judge/</url>
-      <content type="html"><![CDATA[<p><b>April 1, 2016</b></p><p><br>Judge availability will be sporadic going forward as we migrate the server and make some updates. Watch this space for updates.</p>
+      <content type="html"><![CDATA[<p><b>July 7, 2016</b></p><p> </p>
+<p><b>We’re closing the judge service for the near future as we take the lessons learned and build out a more robust and full-featured service.</b></p>
 <p><b>Jan 14, 2016</b></p><p> </p>
 <p>We’ve put together a prototype <a href="http://judge.elementsofprogramminginterviews.com:8080" target="_blank" rel="external">online judge</a> service that you can use to practice for interviews. </p>
 <p>Take a look at the screenshot at the end to see the UI, or just click on the link.<br>No login is needed, just read the problem description and start hacking!</p>
