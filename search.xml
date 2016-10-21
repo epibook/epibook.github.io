@@ -4,6 +4,17 @@
   
     
     <entry>
+      <title><![CDATA[New Covers]]></title>
+      <url>http://elementsofprogramminginterviews.com/2016-10-19-new-cover/</url>
+      <content type="html"><![CDATA[<p>We are celebrating four years of EPI with a new cover!</p>
+<p><img width="300" src="/img/epi-2.0-cover-c++.png"></p>
+<p>We update EPI continuously based on reader feedback as well as interviewing trends that we have observed.</p>
+<p>Over the past six months we have updated the core data structures and algorithms problem material by including a bootcamp for each topic.  Each boot camp is (1.) a straightforward, illustrative example that illustrates the essence of the chapter without being too challenging; and (2.) top tips for the subject matter, presented in tabular format. For chapters where the programming language includes features that are relevant, we present these features in list form.  </p>
+<p>We have also expanded the treatment of domain-specific knowledge.  In addition to the existing system design questions, we have added problems around programming language concepts, object-oriented programming, and commonly used tools such as SQL and TCP/IP.  Keep in mind that some companies do not ask these questions - you should investigate the topics asked by companies you are interviewing at before investing too much time in them.  These problems are more likely to be asked of architects, senior developers and specialists.</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[EPI variants and versions]]></title>
       <url>http://elementsofprogramminginterviews.com/2016-06-22-variants/</url>
       <content type="html"><![CDATA[<p>This post clarifies questions we are often asked about EPI versions and variants.</p>

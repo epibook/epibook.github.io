@@ -140,7 +140,7 @@
 	<!-- display as entry -->	
 		<h3 class="title">
 			<div class="date"> 2015-03-31 </div>
-			<div class="article-title"><a href="/2015-03-31-os/" >General facts about Operating Systems</a></div>						
+			<div class="article-title"><a href="/2015-03-31-programming-languages/" >General facts about C, C++, Java, Python</a></div>						
 		</h3>
 	
 
@@ -149,12 +149,22 @@
   <div class="row">
 	
 	
-		<p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
-<ol><br><li> What is a system call?<br></li><li> How is a system call different from a library call?<br></li><li> What is a device driver?<br></li><li> What is livelock? What is deadlock? Give examples of each.<br></li><li> What is a race? What can you do to prevent races?<br></li><li> What is a mutex? What are semaphores? How are they implemented?<br></li><li> Give examples of system calls that are not related to input-output.<br></li><li> Give examples of library functions that call a system function all the time, none of the time, and some of the time.<br></li><li> What is the time lag between the system call on the client side and the receipt of the packet on the server on a LAN?<br></li><li> How fast can you write a gigabyte of data from RAM to disk?<br></li><li> How does TCP/IP work?<br></li><li> What is DNS?<br></li></ol>
+		<h3>Core language</h3>
+
+<ol><br><li> What are the types in C, Java, C++, and Perl?  How many bits does it take<br>to represent the basic types?<br></li><li> What do floating point numbers look like in<br>memory? Specifically, how many bits are there in a double and<br>what sequence to the bits appear in?<br></li><li> What is twos-complement notation?<br></li><li> How would you implement a bit array class?<br></li><li> Does the check x == x + 1 always return false for integer x?<br></li><li> What does a C struct look like in memory?  What does a C++<br>object look like in memory? What does a Java object look like in<br>memory?<br></li><li> What is the difference between an interpreted and a compiled language?<br></li><li> What is garbage collection?<br></li><li> How would you determine if call stack grows up or down relative<br>to memory addresses?<br></li><li> Give an example of a memory leak in Java.<br></li><li> What is tail recursion? How can it be removed automatically?<br></li><li> Is the natural recursive program for computing <i>n!</i> tail recursive?<br></li><li> Your manager reads an online article that says it is 10X faster to code in Python than in C++. He wants you to code exclusively in Python from now on. What would you say to him?<br></li><li> What does an executable look like as a sequence of bytes?<br></li></ol>
+
+<h3>Libraries</h3>
+
+<p>A programmer who regularly implements complex algorithms such as KMP<br>string matching or the Dijkstra shortest path computation quickly<br>will not advance very far. Solutions to such problems are well-known and have<br>high quality, thoroughly tested, and debugged implementations, often<br>available as open source. Programmers should know and use these libraries.</p>
+<ol><br><li>Give an example of a function which is in the C standard library.<br></li><li>Give an example of a commonly used function which is not in the C standard library.<br></li><li>What library would you use to determine the current date in Java?<br></li><li>What library would you use in Java if you had to implement a tinyurl service?<br></li><li>How does STL implement sets?<br></li><li>How does the library code compute trigonometric functions?<br></li><li>The strtok(char <em>s1, char </em>s2) function in the C standard library successively returns occurrences of the characters in s2 in string s1; it returns null if there are no more occurrences.<br></li><li>What makes this a dangerous function to use in a multithreaded program?<br></li></ol>
+
+<h3>Programming language implementation</h3>
+
+<ol><br><li> Give an example of a language which cannot be parsed by any computer.<br></li><li> What problems does dynamic linkage solve? What problems does it introduce?<br></li><li> What is a functional language?<br></li><li> What is a virtual function?<br></li><li> How is method dispatch implemented in Java?<br></li><li> What is automatic garbage collection and how is it implemented?<br></li><li> What is a type-safe language?<br></li><li> What is the difference between a lexer and a parser?<br></li><li> Give an example of a language which cannot be recognized by a lexer.<br></li><li> Give an example of a language which cannot be parsed by a parser.<br></li></ol>
 
 	
 	</div>
-  <a type="button" href="/2015-03-31-os/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2015-03-31-programming-languages/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -229,6 +239,11 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <!-- <a href="/2016-10-19-new-cover/" ><i class="fa fa-file-o"></i>New Covers...</a>  -->
+        <a href="/2016-10-19-new-cover/" >New Covers...</a>  
+      </li>
+    
+      <li>
         <!-- <a href="/2016-06-22-variants/" ><i class="fa fa-file-o"></i>EPI variants and versions...</a>  -->
         <a href="/2016-06-22-variants/" >EPI variants and versions...</a>  
       </li>
@@ -246,11 +261,6 @@
       <li>
         <!-- <a href="/2015-12-04-epi-judge/" ><i class="fa fa-file-o"></i>Introducing the EPI online ...</a>  -->
         <a href="/2015-12-04-epi-judge/" >Introducing the EPI online ...</a>  
-      </li>
-    
-      <li>
-        <!-- <a href="/2015-09-23-epi-java/" ><i class="fa fa-file-o"></i>Elements of Programming Int...</a>  -->
-        <a href="/2015-09-23-epi-java/" >Elements of Programming Int...</a>  
       </li>
     
   </ul>
@@ -298,45 +308,45 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/Google-Play/">Google Play<span>1</span></a></li>
+			<li><a href="/tags/OS/">OS<span>1</span></a></li>
 		
-			<li><a href="/tags/Exercises/">Exercises<span>1</span></a></li>
+			<li><a href="/tags/C/">C++<span>1</span></a></li>
 		
 			<li><a href="/tags/General-Programming/">General Programming<span>1</span></a></li>
 		
+			<li><a href="/tags/Unit-testing/">Unit testing<span>1</span></a></li>
+		
+			<li><a href="/tags/Build/">Build<span>1</span></a></li>
+		
+			<li><a href="/tags/TCP-IP/">TCP/IP<span>1</span></a></li>
+		
 			<li><a href="/tags/Regular-expressions/">Regular expressions<span>1</span></a></li>
 		
-			<li><a href="/tags/Kindle/">Kindle<span>1</span></a></li>
+			<li><a href="/tags/Google-Play/">Google Play<span>1</span></a></li>
 		
-			<li><a href="/tags/DNS/">DNS<span>1</span></a></li>
+			<li><a href="/tags/Tools/">Tools<span>1</span></a></li>
 		
-			<li><a href="/tags/System-Call/">System Call<span>1</span></a></li>
+			<li><a href="/tags/Debugging/">Debugging<span>1</span></a></li>
 		
 			<li><a href="/tags/Testing/">Testing<span>1</span></a></li>
 		
 			<li><a href="/tags/iBooks/">iBooks<span>1</span></a></li>
 		
-			<li><a href="/tags/Debugging/">Debugging<span>1</span></a></li>
-		
-			<li><a href="/tags/TCP-IP/">TCP/IP<span>1</span></a></li>
-		
-			<li><a href="/tags/Unix/">Unix<span>1</span></a></li>
-		
-			<li><a href="/tags/C/">C++<span>1</span></a></li>
-		
 			<li><a href="/tags/Ebook/">Ebook<span>1</span></a></li>
 		
-			<li><a href="/tags/Unit-testing/">Unit testing<span>1</span></a></li>
+			<li><a href="/tags/Register/">Register<span>1</span></a></li>
 		
-			<li><a href="/tags/VCS/">VCS<span>1</span></a></li>
+			<li><a href="/tags/Introduction/">Introduction<span>1</span></a></li>
 		
 			<li><a href="/tags/Python/">Python<span>2</span></a></li>
 		
-			<li><a href="/tags/Why-we-wrote-EPI/">Why we wrote EPI<span>1</span></a></li>
+			<li><a href="/tags/VCS/">VCS<span>1</span></a></li>
+		
+			<li><a href="/tags/Unix/">Unix<span>1</span></a></li>
+		
+			<li><a href="/tags/DNS/">DNS<span>1</span></a></li>
 		
 			<li><a href="/tags/Overview/">Overview<span>1</span></a></li>
-		
-			<li><a href="/tags/Build/">Build<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>26</span></a></li>

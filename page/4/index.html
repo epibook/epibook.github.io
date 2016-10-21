@@ -139,8 +139,8 @@
 	
 	<!-- display as entry -->	
 		<h3 class="title">
-			<div class="date"> 2015-12-04 </div>
-			<div class="article-title"><a href="/2015-12-04-epi-judge/" >Introducing the EPI online judge</a></div>						
+			<div class="date"> 2016-02-25 </div>
+			<div class="article-title"><a href="/2016-02-25-reviewers-for-2.0/" >Please help us review some exciting new features!</a></div>						
 		</h3>
 	
 
@@ -149,40 +149,45 @@
   <div class="row">
 	
 	
-		<p><b>July 7, 2016</b></p><p> </p>
-<p><b>We’re closing the judge service for the near future as we take the lessons learned and build out a more robust and full-featured service.</b></p>
-<p><b>Jan 14, 2016</b></p><p> </p>
-<p>We’ve put together a prototype <a href="http://judge.elementsofprogramminginterviews.com:8080" target="_blank" rel="external">online judge</a> service that you can use to practice for interviews. </p>
-<p>Take a look at the screenshot at the end to see the UI, or just click on the link.<br>No login is needed, just read the problem description and start hacking!</p>
-<p>The judge problems correspond to the problems in the <a href="/sample">PDF sample</a>. These problems are an ideal starting point for anyone who wants to get up to speed with interviewing. (Right now, all programs are in Java.)</p>
-<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p>We use <strong>directed tests</strong> for the judge problems, and try to give <strong>meaningful feedback</strong>. For example, if your program for testing if a binary tree is balanced fails, you will see a report like the following.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Incorrect result on balanced tree &#123;0,1,2,3,#,4,5&#125;</span><br></pre></td></tr></table></figure>
-<p>
+		<h3>New features</h3>
 
-</p><p>If your program fails to compile, we return the <strong>compiler error</strong>, and the <strong>line numbers will correspond</strong> to the lines in your program.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Line 7: error: incompatible types&#10;    int y  = &#34;asd&#34;;&#10;             ^&#10;  required: int&#10;  found:    String&#10;1 error</span><br></pre></td></tr></table></figure>
-<p>
-
-</p><p>If your program throws an exception, we return the <strong>stacktrace</strong> - the <strong>line numbers will not correspond</strong> to the lines in your program.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &#34;main&#34; java.lang.RuntimeException&#10;    at BalancedBinaryTree.isBalanced(file.java:49)&#10;    at BalancedBinaryTree.main(file.java:86)</span><br></pre></td></tr></table></figure>
-<p>
-
-</p><p>Your program runs in  Docker container, so <strong>don’t worry about crashing or damaging</strong> our server. We run the program with a <strong>timeout of 20 seconds</strong>, so if your program has an infinite loop, or is very slow, you’ll get a timeout response.  If the server is under load, it may block requests that are too frequent.</p>
-<p>
-
-</p><p>A few programs require you to have an <strong>efficient solution to pass</strong>, e.g., if you brute-force compute the parity, you will see the judge informs you that your solution is too slow:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Execution Timed Out</span><br></pre></td></tr></table></figure>
-<p>
-
-</p><h3 id="Plans"><a href="#Plans" class="headerlink" title="Plans"></a>Plans</h3><p>We’re very excited about offering this service, and look forward to developing it - adding more problems, adding a login and persisting your code, classification of problens, drag-and-drop into the editor, executing from Github, etc.</p>
-<h3 id="Reader-Input"><a href="#Reader-Input" class="headerlink" title="Reader Input"></a>Reader Input</h3><p>As always, we treasure user input. Please <a href="contact">share</a> your thoughts with us about the judge. Some things we’re especially keen on learning about are:</p>
-<ol><br><li>  Bugs, e.g., program never returns, hint button doesn’t work, etc.<br></li><li>  Source of confusion, e.g., misleading stack traces, wording of error<br></li><li>  General UI issues: is editor font ok? do you prefer a light background?<br></li><li>  How important are features like login, timing, etc.?<br></li></ol>
-
-<p><img src="/img/epi-judge-ui.png" width="800px"></p>
+<p>EPI is a community book - its content, quality, and very existence, are a testament to the engagement and enthusiasm of its readers.</p>
+<p>In this spirit, we are asking readers to help us by providing <strong>feedback on some new material</strong> we’ve been working on.  Specifically, based on your feedback, we are adding the following features to EPI:</p>
+<ul>
+<li><strong>Expanded introductions for each chapter</strong>. These introductions include<ul>
+<li>An example that illustrates the key data structures and algorithms for that chapter, e.g., how to use binary search with a custom comparator.</li>
+<li>A table of top-tips for the chapter, e.g., consider reversing arrays of digits to operate on the least-significant digit first.</li>
+<li>A review of the most important library methods, e.g., Arrays.asList(1,3,5).</li>
+</ul>
+</li>
+<li><strong>More domain specific questions</strong>. Specifically, in addition to the existing chapter on system design problems, we are adding the following chapters.<ul>
+<li>Programming language questions, e.g., the difference between final and finally.<br>a Object-oriented principles, e.g., explain the difference between a class adapter and an object adapter.</li>
+<li>Tool questions, e.g., describe the role of merging in a version control system.</li>
+</ul>
+</li>
+</ul>
+<p>By acting as a reviewer, you will get </p>
+<ul>
+<li>a chance to perfect your interviewing skills,</li>
+<li>an early look at the book, </li>
+<li>our undying gratitude, and, </li>
+<li>a free hardcopy of the book, <em>if</em> you are one of the first 25 reviewers or make great contributions to this review.</li>
+</ul>
+<p>If you are interested, please <em>sign up</em> via this <a href="http://goo.gl/forms/J1cSiSx3JD" target="_blank" rel="external">Google form</a>.</p>
+<p>We expect reviewers to spend one to two afternoons going through the assigned material, and identify an issue every 1 to 2 pages. </p>
+<p>The perfect is the enemy of the good - please send us your inputs as soon as you can. (We are hoping to have a substantial amount of feedback by <em>mid April</em>.</p>
+<p>Issues can be typos, language that is misleading, suboptimum solutions, bad programming practices - in short anything that can improve the quality of the book.  Every individual issue you identify should be reported through a Google form, which you can view <a href="http://goo.gl/forms/abWVyxxWgV" target="_blank" rel="external">here</a>.</p>
+<p>Here are some examples of issues reported by readers.  Note how specific these suggestions are - they have details on where the issue was, what the problem was, what the right wording should be, etc.</p>
+<ul>
+<li>Suggestion: Solution 12.14: I feel that the limitations of the template method particularly in C++ should be addressed.</li>
+<li>Typo: The account of HTTPS consistently spells certificate as sertificate.</li>
+<li>Suggestion: Drop Variant 10.16.1, as it is effectively the same as Problem 10.18.</li>
+<li>Clarification: I don’t see how it’s possible to sort in O(n) time, as suggested by the writeup at the start of Chapter 13.</li>
+</ul>
 
 	
 	</div>
-  <a type="button" href="/2015-12-04-epi-judge/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2016-02-25-reviewers-for-2.0/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -257,6 +262,11 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <!-- <a href="/2016-10-19-new-cover/" ><i class="fa fa-file-o"></i>New Covers...</a>  -->
+        <a href="/2016-10-19-new-cover/" >New Covers...</a>  
+      </li>
+    
+      <li>
         <!-- <a href="/2016-06-22-variants/" ><i class="fa fa-file-o"></i>EPI variants and versions...</a>  -->
         <a href="/2016-06-22-variants/" >EPI variants and versions...</a>  
       </li>
@@ -274,11 +284,6 @@
       <li>
         <!-- <a href="/2015-12-04-epi-judge/" ><i class="fa fa-file-o"></i>Introducing the EPI online ...</a>  -->
         <a href="/2015-12-04-epi-judge/" >Introducing the EPI online ...</a>  
-      </li>
-    
-      <li>
-        <!-- <a href="/2015-09-23-epi-java/" ><i class="fa fa-file-o"></i>Elements of Programming Int...</a>  -->
-        <a href="/2015-09-23-epi-java/" >Elements of Programming Int...</a>  
       </li>
     
   </ul>
@@ -326,45 +331,45 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/Debugging/">Debugging<span>1</span></a></li>
+			<li><a href="/tags/Overview/">Overview<span>1</span></a></li>
 		
-			<li><a href="/tags/OS/">OS<span>1</span></a></li>
-		
-			<li><a href="/tags/Why-we-wrote-EPI/">Why we wrote EPI<span>1</span></a></li>
-		
-			<li><a href="/tags/Introduction/">Introduction<span>1</span></a></li>
-		
-			<li><a href="/tags/Python/">Python<span>2</span></a></li>
-		
-			<li><a href="/tags/TCP-IP/">TCP/IP<span>1</span></a></li>
-		
-			<li><a href="/tags/Google-Play/">Google Play<span>1</span></a></li>
-		
-			<li><a href="/tags/Regular-expressions/">Regular expressions<span>1</span></a></li>
-		
-			<li><a href="/tags/Ebook/">Ebook<span>1</span></a></li>
-		
-			<li><a href="/tags/DNS/">DNS<span>1</span></a></li>
-		
-			<li><a href="/tags/VCS/">VCS<span>1</span></a></li>
+			<li><a href="/tags/Unit-testing/">Unit testing<span>1</span></a></li>
 		
 			<li><a href="/tags/Testing/">Testing<span>1</span></a></li>
 		
-			<li><a href="/tags/Build/">Build<span>1</span></a></li>
+			<li><a href="/tags/iBooks/">iBooks<span>1</span></a></li>
 		
-			<li><a href="/tags/Tools/">Tools<span>1</span></a></li>
-		
-			<li><a href="/tags/C/">C++<span>1</span></a></li>
-		
-			<li><a href="/tags/Exercises/">Exercises<span>1</span></a></li>
+			<li><a href="/tags/VCS/">VCS<span>1</span></a></li>
 		
 			<li><a href="/tags/Register/">Register<span>1</span></a></li>
 		
+			<li><a href="/tags/Why-we-wrote-EPI/">Why we wrote EPI<span>1</span></a></li>
+		
 			<li><a href="/tags/PDF/">PDF<span>1</span></a></li>
+		
+			<li><a href="/tags/Unix/">Unix<span>1</span></a></li>
+		
+			<li><a href="/tags/Tools/">Tools<span>1</span></a></li>
 		
 			<li><a href="/tags/Kindle/">Kindle<span>1</span></a></li>
 		
-			<li><a href="/tags/iBooks/">iBooks<span>1</span></a></li>
+			<li><a href="/tags/C/">C++<span>1</span></a></li>
+		
+			<li><a href="/tags/Introduction/">Introduction<span>1</span></a></li>
+		
+			<li><a href="/tags/OS/">OS<span>1</span></a></li>
+		
+			<li><a href="/tags/Java/">Java<span>1</span></a></li>
+		
+			<li><a href="/tags/Build/">Build<span>1</span></a></li>
+		
+			<li><a href="/tags/DNS/">DNS<span>1</span></a></li>
+		
+			<li><a href="/tags/Ebook/">Ebook<span>1</span></a></li>
+		
+			<li><a href="/tags/Python/">Python<span>2</span></a></li>
+		
+			<li><a href="/tags/Google-Play/">Google Play<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>26</span></a></li>
