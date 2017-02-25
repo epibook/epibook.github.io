@@ -1,3 +1,5 @@
+package com.epi;
+
 /* from wikipedia, solution for multiple producers and consumers
 
 semaphore mutex = 1;

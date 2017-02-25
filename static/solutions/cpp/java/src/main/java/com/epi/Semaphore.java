@@ -1,3 +1,5 @@
+package com.epi;
+
 // @include
 public class Semaphore {
   private final int MAX_AVAILABLE;
