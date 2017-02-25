@@ -1,3 +1,5 @@
+package com.epi;
+
 // - mixed x and num (which was undefined)
 // - precedence of &
 // used sb, forgot binary to int is not how string conversion works!
