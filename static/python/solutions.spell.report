@@ -1,0 +1,2785 @@
+0-1_knapsack.py
+   7 argv
+   4 curr
+   1 elif
+   3 len
+   1 namedtuple
+   3 randint
+   1 randrange
+   4 subjec
+   8 sys
+2-exists.py
+  18 GraphVertex
+   2 argv
+   1 init
+   1 len
+   2 randint
+   2 randrange
+   1 repr
+   1 str
+   3 sys
+3-sum.py
+   2 argv
+   2 itertools
+   1 len
+   2 randint
+   1 randrange
+   3 sys
+a.py
+abstract.py
+   2 abc
+   3 abstractmethod
+add-two-number-list.py
+  26 ListNode
+   4 iter
+add_operators_in_string.py
+   5 del
+   2 functools
+   2 iter
+   1 len
+   5 oper
+addingcredits.py
+   2 ClientsCreditsInfo
+   1 RBTree
+   2 bintrees
+   2 del
+   2 dothis
+   1 init
+   1 iter
+   2 xyz
+anagrams.py
+   2 THL
+   1 defaultdict
+   2 len
+   2 morse
+   2 randint
+anonymous_letter.py
+   2 ACA
+   2 FS
+   2 GATTACA
+   1 Pythonic
+   2 TTT
+   6 aa
+   2 aaa
+   3 argv
+  24 constructible
+   1 del
+   1 len
+  12 pythonic
+   3 randint
+   3 ret
+   4 sys
+approximate_sort.py
+   5 argv
+   1 elif
+   1 heappop
+   1 heappush
+   1 heappushpop
+   4 heapq
+   1 islice
+   2 iter
+   1 iteratively
+   2 itertools
+   2 len
+   4 randint
+   6 sys
+arbitrage.py
+   2 argv
+   5 len
+   1 randint
+   3 sys
+args.py
+  10 args
+   5 euler
+   1 len
+   3 str
+async_thread.py
+   1 ProcessResponse
+   6 Requestor
+   2 SystemExit
+   1 TIMEDOUT
+   2 ctypes
+   1 ident
+   1 init
+   1 py
+   3 req
+average-top-3-scores.py
+   5 adnan
+   2 amit
+   2 argv
+   1 defaultdict
+   1 heappush
+   1 heappushpop
+   3 heapq
+   1 itemgetter
+   3 len
+   2 num
+   4 ofs
+   4 randint
+   3 sys
+   3 thl
+   4 txt
+b.py
+bad_set_insert.py
+   1 eq
+   1 init
+   1 isinstance
+balanced_binary_tree.py
+   6 BalancedStatusWithHeight
+  10 BinaryTreeNode
+   1 namedtuple
+   2 subtree
+basic.py
+   2 MagicMazeGame
+   2 MazeGame
+   1 abc
+   3 abstractmethod
+   3 addRoom
+   1 init
+   5 makeRoom
+basic_args.py
+basic_args_calls.py
+   1 args
+bentley_bsearch.py
+  11 bsearch
+   1 elif
+   1 len
+biggest_product_n-1.py
+   2 argv
+   2 itertools
+   5 len
+   1 mul
+   2 randint
+   3 sys
+biggest_product_n-1_math.py
+   2 argv
+   2 functools
+  18 idx
+   3 len
+   7 nonnegative
+   2 randint
+   3 sys
+bignumber_multiplication.py
+   3 argv
+   2 deepcopy
+   6 len
+  14 num
+   5 randint
+   3 ret
+   3 str
+   4 sys
+binary-tree-postorder-traversal-iterative-alternative.py
+   7 BinaryTreeNode
+   3 curr
+   4 postorder
+   2 preorder
+   1 utils
+binary-tree-postorder-traversal-iterative.py
+   7 BinaryTreeNode
+  11 curr
+   2 elif
+   7 postorder
+   7 prev
+   1 utils
+binary-tree-preorder-traversal-iterative.py
+   7 BinaryTreeNode
+   4 curr
+   4 preorder
+   1 utils
+binary_search_ai=i.py
+   2 argv
+   1 elif
+   2 len
+   1 randint
+   1 sep
+   3 sys
+binary_search_circular_array.py
+   2 argv
+   2 len
+   1 randint
+   1 randrange
+   3 sys
+binary_search_circular_array_with_duplicates.py
+   2 argv
+   1 elif
+   2 len
+   1 randint
+   2 randrange
+   3 sys
+binary_search_first_k.py
+   1 Pythonic
+   1 ValueError
+   2 argv
+   1 elif
+   3 len
+   2 pythonic
+   1 randint
+   2 randrange
+   3 sys
+binary_search_larger_k.py
+   2 argv
+   2 len
+   1 randint
+   2 randrange
+   3 sys
+binary_search_unknown_length.py
+   2 IndexError
+   5 argv
+   3 elif
+   8 idx
+   3 len
+   1 randint
+   3 randrange
+   6 sys
+binary_tree_level_order.py
+   9 BinaryTreeNode
+   9 curr
+   2 deque
+   1 popleft
+binary_tree_lock.py
+   6 BinaryTreeNode
+   2 ancestors's
+   1 init
+   4 num
+binary_tree_prototype.py
+   1 BinaryTreeNode
+   1 init
+   1 repr
+binary_tree_utils.py
+   3 BinaryTreeNode
+   1 del
+   1 elif
+   5 inorder
+   1 len
+   5 postorder
+   5 preorder
+   3 randrange
+  18 ret
+   1 setattr
+   1 sys
+binary_tree_with_parent_prototype.py
+   1 BinaryTreeNode
+   1 fe
+   1 init
+   1 repr
+bintrees_example.py
+   5 Alfa
+   1 RBTree
+   2 bintrees
+bonus-improved.py
+   2 argv
+   4 len
+   2 randint
+   3 sys
+bonus.py
+   3 EmployeeData
+   2 argv
+  12 dev
+   1 heapify
+   1 heappop
+   3 heapq
+   5 len
+   1 namedtuple
+   2 randint
+   3 sys
+bst_lowest_common_ancestor.py
+   7 BinaryTreeNode
+   6 LCA
+bst_prototype.py
+   1 BSTNode
+   1 init
+bst_sorted_order.py
+  11 BSTNode
+   5 bst
+bst_to_sorted_doubly_list.py
+   1 BST
+   7 BinaryTreeNode
+   4 HeadAndTail
+   6 bst
+   7 curr
+   1 namedtuple
+   3 pre
+   3 subtree
+   1 subtrees
+build_bst_from_sorted_array.py
+   2 BinaryTreeNode
+   2 argv
+   7 bst
+   2 len
+   1 randint
+   4 subarray
+   3 sys
+buy_and_sell_stock.py
+   2 argv
+   2 len
+   1 randint
+   3 sys
+buy_and_sell_stock_twice.py
+   2 argv
+   1 isclose
+   2 len
+   1 randint
+   3 sys
+can_string_be_palindrome.py
+   2 argv
+   1 len
+   1 pythonic
+   1 randint
+   3 sys
+can_string_be_palindrome_hash.py
+can_string_be_palindrome_sorting.py
+   5 curr
+   1 groupby
+   2 itertools
+   2 len
+   5 num
+   1 pythonic
+celebrity_finding.py
+   2 argv
+   1 cpp
+   1 fe
+   2 len
+   1 randint
+   1 randrange
+   3 sys
+checking_cycle.py
+   7 ListNode
+   7 iter
+   8 len
+checking_cycle_alternative.py
+   4 ListNode
+circular_queue.py
+   2 IndexError
+   1 Ok
+  16 dequeue
+  30 enqueue
+   1 init
+   4 len
+   7 num
+   2 resize
+   1 resized
+   2 ret
+clone-graph.py
+   4 GraphVertex
+   2 argv
+   2 deque
+   1 init
+   2 len
+   2 popleft
+   2 randint
+   2 randrange
+   1 repr
+   1 str
+   3 sys
+closest_int_same_bits.py
+   2 NUM
+   4 ValueError
+   2 argv
+   1 len
+   1 maxsize
+   1 randint
+   4 sys
+closest_pair_points.py
+   3 PairOfPoints
+   6 PairOfPointsWithDistance
+   2 argv
+   5 len
+   3 namedtuple
+   1 num
+   1 randint
+   2 randrange
+  11 ret
+   2 sep
+   4 subarray
+   3 sys
+closest_stars.py
+   1 Iteratively
+   3 StringIO
+   5 argv
+   5 csv
+   1 elif
+   1 eq
+   1 heappop
+   1 heappush
+   4 heapq
+   1 init
+   4 io
+   5 len
+   1 lt
+   1 nlargest
+   7 num
+   3 randint
+   4 rhs
+   3 ss
+   2 str
+   6 sys
+closest_to_median.py
+   4 Dres
+   5 argv
+   1 elif
+   3 heapq
+  10 len
+   2 nsmallest
+   4 randint
+   4 randrange
+   1 sep
+   6 sys
+closure-works.py
+closure.py
+coin_change.py
+   3 num
+collatz.py
+   2 NTHREADS
+   5 RANGESIZE
+   6 argv
+   7 collatz
+   1 elif
+   3 len
+   7 sys
+collatz_conjecture.py
+   1 Collatz
+   2 argv
+   2 collatz
+   1 len
+   1 randint
+   3 sys
+combinations.py
+   3 argv
+   3 len
+   3 num
+   2 pythonic
+   2 randint
+   1 sep
+   4 sys
+   2 vec
+compare_k-th_largest_in_heap.py
+   3 argv
+   1 elif
+   7 idx
+  15 kth
+   2 len
+   4 sys
+completion_search.py
+   5 argv
+   1 elif
+   3 len
+   1 randint
+   3 randrange
+   6 ret
+   6 sys
+   4 unadjusted
+compute_random_permutation.py
+   2 argv
+   2 len
+   1 randint
+   3 sys
+computing_binomial_coefficients.py
+   4 argv
+   2 len
+   2 randint
+   5 sys
+computing_x^n.py
+  12 SLP
+   5 SLPs
+   1 ValueError
+   1 af
+   2 argv
+   1 cpp
+   1 deque
+   2 len
+   1 popleft
+   1 randint
+   3 sys
+connect_leaves_binary_tree.py
+   7 BinaryTreeNode
+   1 len
+   2 subtree
+container-with-most-water.py
+   2 argv
+   2 itertools
+   3 len
+   2 randint
+   3 sys
+convert_base.py
+   8 argv
+   1 chr
+   2 functools
+   1 hexdigits
+   1 len
+  10 num
+   2 ord
+   4 randint
+   4 ret
+   9 str
+   9 sys
+copying_postings_list.py
+   3 ListNode
+   2 argv
+   4 curr
+   1 len
+   3 num
+   2 randint
+   3 sys
+count_bits.py
+   2 argv
+   1 len
+   1 maxsize
+   3 num
+   1 pythonic
+   1 randint
+   4 sys
+count_inversions.py
+   2 argv
+   4 len
+   2 randint
+   4 subarray
+   3 subarrays
+   3 sys
+count_occurrences_in_sentence.py
+   2 argv
+   1 groupby
+   2 itertools
+   2 len
+   2 pythonic
+   1 randint
+   3 sep
+   3 sys
+counter_example.py
+cyclic-right-shift.py
+   6 ListNode
+default-args.py
+default_values.py
+   2 filehandle
+   4 filename
+   4 txt
+delete_list.py
+   4 ListNode
+   2 vals
+deletion_list.py
+   4 ListNode
+descendant_and_ancestor.py
+   1 BST
+  26 BinaryTreeNode
+  22 anc
+  22 desc
+division.py
+   3 argv
+  14 bsearch
+   1 elif
+   1 len
+   2 maxsize
+   2 randint
+   6 sys
+   2 tmp
+   3 yshift
+doors.py
+   2 argv
+   1 len
+   1 randint
+   3 sys
+drawing_skylines.py
+   2 argv
+   3 elif
+  10 idx
+   1 init
+   5 len
+   2 randint
+   2 randrange
+   1 repr
+   3 sys
+drawing_skylines_alternative.py
+   2 argv
+   3 len
+   1 namedtuple
+   2 randint
+   2 randrange
+   3 sys
+dutch_national_flag.py
+   2 argv
+   1 elif
+   1 invariants
+   6 len
+   2 randint
+   1 randrange
+   3 sys
+dutch_national_flag_slow_inplace.py
+   2 argv
+   8 len
+   2 randint
+   1 randrange
+   3 sys
+dutch_national_flag_two_passes.py
+   2 argv
+   1 elif
+   8 len
+   2 randint
+   1 randrange
+   3 sys
+elias_coding.py
+   2 Pythonic
+   2 argv
+   1 chr
+   1 cpp
+   1 fe
+  13 idx
+   4 len
+   3 ord
+   1 prepend
+   2 pythonic
+   5 randint
+  16 ret
+   3 sys
+eliminate_duplicate.py
+   1 XYZ
+   2 argv
+   5 cand
+   2 del
+   1 eq
+   1 groupby
+   9 idx
+   1 init
+   2 itertools
+   2 len
+   1 lt
+   2 pythonic
+   1 randint
+   2 randrange
+   1 repr
+   2 str
+   3 sys
+even_odd_array.py
+   2 argv
+   4 len
+   2 randint
+   3 sys
+even_odd_merge_linked_list.py
+   7 ListNode
+   2 argv
+   3 curr
+  19 iter
+   1 len
+   1 randint
+   3 sys
+exception-handling.py
+   5 ColSumCsvParseException
+   1 IOError
+   1 IndexError
+   1 TestCase
+   1 TestCsv
+   1 ValueError
+   3 args
+   2 assertEquals
+  14 csv
+   1 datanone
+   2 filename
+   2 init
+   1 len
+   2 str
+   3 unittest
+exterior_binary_tree.py
+  10 BinaryTreeNode
+   3 preorder
+  16 subtree
+fibonacci.py
+   2 argv
+   1 elif
+   9 fibonacci
+   1 len
+   1 randint
+   3 sys
+fibonacci_iterative.py
+   2 argv
+   7 fibonacci
+   1 len
+   1 randint
+   3 sys
+find_element_appears_once.py
+   2 argv
+   1 len
+   1 randint
+   1 randrange
+   3 sys
+   8 th
+find_k_largest_bst.py
+  13 BinaryTreeNode
+   2 argv
+   8 bst
+   1 inorder
+   4 len
+   1 randint
+   1 sep
+   3 sys
+find_kth_element_in_two_sorted_arrays.py
+   7 argv
+   3 elif
+   7 kth
+  11 len
+   4 randint
+   2 randrange
+   5 ret
+   1 sep
+   8 sys
+   1 th
+find_missing_and_duplicate.py
+   2 argv
+   8 dup
+   8 idx
+   1 len
+   1 randint
+   3 randrange
+   3 sys
+find_missing_and_duplicate_xor.py
+   4 DuplicateAndMissing
+   2 argv
+  26 dup
+   2 functools
+   8 idx
+   1 len
+   1 namedtuple
+   1 randint
+   3 randrange
+   3 sys
+   1 th
+finding_min_max.py
+  11 MinMax
+   2 argv
+   4 len
+   1 namedtuple
+   1 randint
+   1 randrange
+   3 sys
+first-missing-positive.py
+   2 argv
+   1 elif
+   7 len
+   2 randint
+   3 sys
+function_timer.py
+   5 ackermann
+   1 elif
+   3 functools
+   1 str
+function_timer_sugar.py
+   5 ackermann
+   7 args
+   1 elif
+   5 kwargs
+   3 str
+gassing_up.py
+   4 CityAndRemainingGas
+   2 argv
+   3 len
+   1 namedtuple
+   2 num
+   3 randint
+   3 sys
+gcd.py
+   3 argv
+  20 gcd
+   1 len
+   6 maxsize
+   2 randint
+  10 sys
+gcd1.py
+   4 elif
+   6 gcd
+gcd2.py
+   2 gcd
+generate-parentheses.py
+   2 argv
+   1 len
+  28 num
+  10 parens
+   4 pythonic
+   1 randint
+   3 sys
+generating-a-b-sqrt2-improved.py
+   4 ABSqrt
+   2 argv
+   2 len
+   1 randint
+  10 sqrt
+   3 sys
+generating_a_b_sqrt2.py
+   7 ABSqrt
+   1 RBTree
+   2 argv
+   2 bintrees
+   2 deque
+   1 eq
+   1 init
+   2 len
+   1 lt
+   2 popleft
+   1 randint
+   1 repr
+   5 sqrt
+   3 sys
+gray-code.py
+   1 Pythonic
+   2 argv
+   3 len
+  16 num
+   4 prev
+   3 pythonic
+   1 randint
+   3 sys
+   5 vec
+gray_code_backtrack.py
+   2 argv
+   1 del
+   4 len
+   6 num
+   4 prev
+   1 randint
+   3 sys
+   3 vec
+hash_dictionary.py
+   2 MULT
+   2 argv
+   2 functools
+   1 len
+   1 ord
+   1 randint
+   3 sys
+height_determination.py
+   1 elif
+highest-affinity-pairs.py
+   2 argv
+   1 defaultdict
+   5 len
+   4 ofs
+   1 randint
+   2 ret
+   3 sys
+   4 txt
+house_majority.py
+   2 elif
+huffman_encoding.py
+   3 BinaryTreeNode
+   4 CharWithFrequency
+   5 argv
+   2 chr
+   1 del
+   1 heapify
+   2 heappop
+   1 heappush
+   5 heapq
+   9 huffman
+   1 init
+   4 len
+   1 lt
+   1 namedtuple
+   1 ord
+   2 randint
+   1 repr
+   6 sys
+   1 tbinary
+inorder_traversal_with_parent.py
+   7 BinaryTreeNode
+   1 elif
+   4 inorder
+   5 prev
+insert-interval.py
+   2 argv
+   3 len
+   1 namedtuple
+   3 pre
+   5 randint
+   3 sys
+insert_list.py
+   7 ListNode
+   2 vals
+insertion-sort-list.py
+   7 ListNode
+   1 iter
+   9 pre
+   1 sublist
+insertion_deletion_bst.py
+   2 BinarySearchTree
+   4 BinaryTreeNode
+  33 bst
+  20 curr
+   1 elif
+   1 init
+   1 subtree
+interconverting_string_integer.py
+   2 argv
+   2 chr
+   2 functools
+   1 len
+   1 maxsize
+   3 ord
+   3 randint
+   4 ret
+   4 sys
+interleaving-string.py
+   1 aabaac
+   2 aabcc
+   1 aadaaeaabaafaac
+   1 aadaaeaaf
+   1 aadbbbaccc
+   1 aadbbcbcac
+   1 abcbcaab
+   1 acaab
+   2 argv
+   1 bbc
+   2 dbbca
+  14 len
+   2 randint
+   3 sys
+intersect_rectangle.py
+   3 argv
+   1 len
+   1 namedtuple
+   2 randint
+   4 sys
+intersect_sorted_arrays.py
+   3 argv
+   1 len
+   2 randint
+   2 randrange
+   4 sys
+intersect_sorted_arrays1.py
+intersect_sorted_arrays2.py
+   1 len
+intersect_sorted_arrays3.py
+   1 elif
+   2 len
+is_binary_tree_a_bst.py
+   7 BinaryTreeNode
+   2 argv
+  12 bst
+   3 elif
+   4 inorder
+   1 len
+   4 prev
+   1 randint
+   3 sys
+   1 utils
+is_binary_tree_a_bst_bfs.py
+   7 BinaryTreeNode
+   3 QueueEntry
+   4 bfs
+   7 bst
+   1 deque
+   1 namedtuple
+   1 popleft
+is_binary_tree_a_bst_const_space.py
+   7 BinaryTreeNode
+   7 bst
+   9 pre
+   5 prev
+is_palindromic.py
+   2 len
+   1 randint
+jump-game.py
+   2 argv
+   2 len
+   2 randint
+   3 sys
+justify-text.py
+  12 curr
+   4 len
+   1 ljust
+k-balanced_binary_tree.py
+   7 BinaryTreeNode
+   1 af
+   1 cpp
+   3 num
+   2 subtree
+k-largest-elements-binary-heap.py
+   2 heappush
+   3 heapq
+  11 idx
+   2 len
+k-th_largest_element_large_n.py
+   1 Pythonic
+   1 Resize
+   5 argv
+   1 del
+   1 elif
+   2 heapq
+   4 iter
+   9 kth
+   4 len
+   1 nlargest
+   1 nlogk
+   5 pythonic
+   3 randint
+   3 randrange
+   6 sys
+   1 th
+k-th_node_binary_tree.py
+   7 BinaryTreeNode
+   1 elif
+   1 init
+   2 iter
+  15 kth
+   2 subtree
+   3 th
+kwargs.py
+   6 args
+   2 cfg
+   2 euler
+   4 kwargs
+   1 len
+   4 str
+largest_rectangle_under_skyline.py
+   2 argv
+   2 del
+   8 len
+   1 randint
+   1 randrange
+   3 sys
+levenshtein_distance.py
+   2 argv
+   1 elif
+  24 idx
+   9 len
+   6 levenshtein
+   6 pre
+   2 randint
+   1 sitt
+   3 sys
+line_most_points.py
+   2 argv
+   1 defaultdict
+   1 eq
+   4 gcd
+   1 init
+   2 itertools
+   8 len
+   2 namedtuple
+   3 randint
+   1 repr
+   1 str
+   3 sys
+linked_list_prototype.py
+   1 ListNode
+   1 init
+   1 repr
+list-pivoting.py
+  17 ListNode
+   1 elif
+  15 iter
+load_balancing.py
+   3 argv
+   1 i's
+   6 idx
+   1 len
+   4 num
+   3 randint
+   4 sys
+lock_ordering_bug.py
+   1 RLock
+  17 acc
+   1 args
+   1 init
+   1 staticmethod
+   2 th
+lock_ordering_works.py
+   1 RLock
+  27 acc
+   1 args
+   1 init
+   1 mutex
+   1 reentrant
+   1 staticmethod
+   2 th
+longest-contained-range.py
+   2 argv
+   4 del
+   1 elif
+   2 len
+   4 pre
+   2 randint
+   3 sys
+longest-subarray-with-distinct-entries.py
+   2 argv
+   9 dup
+   9 idx
+   5 len
+   2 randint
+  12 subarray
+   3 sys
+longest_increasing_subarray.py
+   4 Subarray
+   4 argv
+  13 len
+   1 namedtuple
+   2 randint
+   1 skippable
+   4 subarray
+   5 sys
+longest_nondecreasing_subsequence.py
+   4 LNS
+   2 argv
+   1 len
+   3 nlogn
+   4 nondecreasing
+   1 randint
+   1 randrange
+   2 ret
+   4 subsequence
+   3 sys
+longest_nondecreasing_subsequence_n2.py
+   2 len
+   2 nondecreasing
+   2 subsequence
+longest_nondecreasing_subsequence_nlogn.py
+   1 bbf
+   1 bc
+   1 bd
+   2 len
+   1 nlogn
+   2 nondecreasing
+   2 subsequence
+longest_subarray_k_improved.py
+   5 argv
+   6 curr
+   1 elif
+   2 functools
+   2 itertools
+   9 len
+   4 randint
+   4 subarray
+   6 sys
+longest_valid_parentheses.py
+   2 argv
+   1 elif
+   1 len
+   7 num
+   3 paren
+   7 parens
+   2 randint
+   3 sys
+longest_valid_parentheses_const_space.py
+   2 argv
+   1 len
+   7 num
+   3 paren
+   7 parens
+   2 randint
+   3 sys
+look-and-say.py
+   1 Pythonic
+   2 argv
+   2 groupby
+   3 itertools
+   4 len
+   2 pythonic
+   1 randint
+   2 str
+   3 sys
+lowest_common_ancestor.py
+   7 BinaryTreeNode
+   1 LCA
+   7 lca
+lowest_common_ancestor_hash.py
+   7 BinaryTreeNode
+   1 ValueError
+  16 iter
+   3 lca
+lowest_common_ancestor_no_parent.py
+   7 BinaryTreeNode
+   1 LCA
+  10 lca
+   1 namedtuple
+   8 num
+   2 subtree
+lrucache.py
+   6 LRUCache
+   1 OrderedDict
+   1 elif
+   1 init
+  13 isbn
+   1 len
+magic_maze_game.py
+   2 MagicMazeGame
+   2 MagicRoom
+   2 MazeGame
+matrix_rotation.py
+   2 argv
+   4 itertools
+   6 len
+   1 randint
+   2 submatrices
+   3 sys
+matrix_rotation_constant.py
+   2 RotatedMatrix
+   2 argv
+   2 deepcopy
+   1 init
+   3 itertools
+   6 len
+   2 rA
+   1 randint
+   3 sys
+matrix_rotation_naive.py
+   2 argv
+   4 itertools
+   7 len
+   1 randint
+   3 sys
+matrix_search.py
+   3 argv
+   1 elif
+   3 len
+   3 randint
+   2 randrange
+   4 sys
+max-sum_subarray.py
+   4 argv
+   1 elif
+   2 itertools
+   4 len
+   1 randint
+   1 randrange
+   9 subarray
+   5 sys
+max_difference_k_pairs.py
+   5 argv
+   2 elif
+   4 len
+   2 pre
+   5 randint
+   6 sys
+max_difference_unlimited_pairs.py
+   2 argv
+   1 cpp
+   1 fe
+   4 len
+   2 pythonic
+   3 randint
+   3 sys
+max_submatrix_rectangle.py
+   4 MaxHW
+   3 argv
+   1 bool
+   4 len
+   1 namedtuple
+   2 randint
+   1 randrange
+   6 rect
+   6 submatrix
+   4 sys
+max_submatrix_rectangle_brute_force.py
+   1 bbf
+   1 bc
+   1 bd
+   4 len
+   2 submatrix
+max_submatrix_rectangle_improved.py
+   3 argv
+   1 bool
+   2 len
+   2 randint
+   1 randrange
+   4 rect
+   7 submatrix
+   4 sys
+max_submatrix_square.py
+   4 MaxHW
+   3 argv
+   1 bool
+  12 len
+   1 namedtuple
+   4 pre
+   2 randint
+   1 randrange
+   5 submatrix
+   4 sys
+maximum_subarray_in_circular_array.py
+   4 argv
+   5 len
+   1 nmaximum
+   2 randint
+   9 subarray
+   5 sys
+maximum_subarray_in_circular_array_constant_space.py
+   4 argv
+   5 len
+   1 nmaximum
+   2 randint
+   5 subarray
+   5 sys
+maze_game.py
+   1 MazeGame
+   1 abc
+   3 abstractmethod
+   3 addRoom
+   1 init
+maze_game_main.py
+   1 MagicMazeGame
+   1 OrdinaryMazeGame
+median_sorted_circular_linked_list.py
+   3 ListNode
+   2 argv
+  16 curr
+   1 len
+   1 randint
+   3 sys
+merge-two-sorted-arrays-in-place.py
+   3 argv
+   7 idx
+   2 len
+   4 randint
+   4 sys
+merge_contacts.py
+   5 ContactList
+   1 eq
+   2 frozenset
+   1 init
+   1 len
+merge_sorted_arrays.py
+   1 Pythonic
+   2 argv
+   1 heappop
+   2 heappush
+   6 heapq
+   3 iter
+   3 iters
+   2 len
+   5 pythonic
+   3 randint
+   3 sys
+merge_sorted_lists.py
+   8 ListNode
+   6 argv
+   1 elif
+   2 len
+   3 pre
+   2 randint
+   7 sys
+merge_two_bsts.py
+   2 BST
+  12 BinaryTreeNode
+  17 bst
+   2 bsts
+   5 curr
+   1 elif
+   4 inorder
+   3 pre
+   3 subtree
+   1 subtrees
+   2 th
+minimum_distance_3_sorted_arrays.py
+   1 RBTree
+   2 argv
+   2 bintrees
+   4 idx
+   1 iter
+   6 iters
+   2 itertools
+   1 len
+   2 randint
+   1 randrange
+   3 sys
+minimum_subarray_difference.py
+   4 argv
+   1 elif
+   2 len
+   5 ok
+   1 randint
+   5 sys
+minimum_waiting_time.py
+   2 argv
+   2 len
+   2 num
+   2 pythonic
+   1 randint
+   1 randrange
+   3 sys
+missing_element.py
+   2 LSB
+   2 NUM
+   1 ValueError
+   2 argv
+   1 len
+   3 ofs
+   1 os
+   1 str
+   3 sys
+   2 txt
+   3 vec
+morris_traversal.py
+   7 BinaryTreeNode
+   2 inorder
+  10 pre
+multiply_shift_add.py
+   4 ak
+   3 argv
+   6 carryin
+   1 len
+   2 randint
+   4 sys
+n-queens.py
+   2 argv
+   5 len
+   1 randint
+   1 sep
+   3 sys
+   2 vec
+nearest_repetition.py
+   3 adnan
+   2 argv
+   1 len
+   2 randint
+   3 sys
+   1 xyz
+nearest_restaurant.py
+   1 BST
+   7 BinaryTreeNode
+   7 bst
+   1 elif
+   2 len
+   1 n's
+   3 subtree
+next_permutation.py
+   4 argv
+   1 dictinary
+   2 itertools
+   5 len
+   1 randint
+   1 randrange
+   5 sys
+no-exception-handling.py
+   1 IOError
+   9 csv
+   1 datanone
+   2 filename
+   1 str
+nonconstructible-change.py
+   2 argv
+   4 constructible
+   2 functools
+   1 len
+  19 nonconstructible
+   9 pythonic
+   2 randint
+   3 sys
+nonpythonic.py
+   3 len
+nonuniform_random_number_generation.py
+   2 argv
+   2 idx
+   2 itertools
+   1 len
+   1 randint
+   3 sys
+normalized_pathnames.py
+   5 ValueError
+   2 argv
+   1 awkscripts
+   1 cpp
+   1 gcc
+   1 len
+   3 sys
+   1 txt
+   1 usr
+number-steps.py
+   3 argv
+   1 len
+   2 randint
+   4 sys
+number_ways.py
+   1 Pythonic
+   4 argv
+   2 itertools
+   2 len
+   3 prev
+   2 pythonic
+   2 randint
+   5 sys
+   4 xy
+number_ways_obstacles.py
+   3 argv
+   1 cpp
+   1 fe
+   1 len
+   2 randint
+   4 sys
+odd_even.py
+   2 EvenThread
+   2 OddEvenMonitor
+   2 OddThread
+   6 init
+offline_sampling.py
+   1 Pythonic
+   5 argv
+   1 elif
+   4 len
+   2 pythonic
+   4 randint
+   6 sys
+online_median.py
+   2 argv
+   1 heappop
+   2 heappush
+   1 heappushpop
+   5 heapq
+   5 iter
+   7 len
+   2 num
+   2 randint
+   1 sep
+   3 sys
+online_sampling.py
+   1 Pythonic
+   5 argv
+   1 elif
+   6 idx
+   3 len
+   2 pythonic
+   3 randint
+   1 randrange
+   6 sys
+order_statistic.py
+   2 IndexError
+   5 argv
+   5 elif
+   2 heapq
+  48 idx
+  61 kth
+   7 len
+   1 lt
+   1 nlargest
+   9 randint
+   6 sys
+   2 th
+ordinary_maze_game.py
+   2 MazeGame
+   2 OrdinaryMazeGame
+   2 OrdinaryRoom
+overlapping_lists.py
+  14 ListNode
+   1 elif
+overlapping_lists_no_cycle.py
+   6 ListNode
+   6 len
+painting_iterative.py
+   2 argv
+   1 deque
+   2 filp
+   3 len
+   1 namedtuple
+   1 popleft
+   2 randint
+   2 randrange
+   3 sys
+painting_recursive.py
+   2 argv
+   3 len
+   2 randint
+   2 randrange
+   3 sys
+palindrome-number.py
+   2 argv
+   2 len
+   4 msd
+   3 num
+   1 randint
+   1 str
+   3 sys
+palindrome-partitioning-min-cuts.py
+   1 aab
+   2 argv
+   1 bb
+   1 cabababcbc
+   1 eegiicgaeadbcfacfhifdbiehbgejcaeggcgbahfcajfhjjdgj
+   5 len
+   1 randint
+   3 sys
+palindrome-partitioning.py
+   1 Pythonic
+   1 abbba
+   2 abbbac
+   2 argv
+   2 bb
+   1 bbb
+   4 len
+   5 pythonic
+   1 randint
+   3 sys
+   6 vec
+   2 vecs
+palindrome_linked_list.py
+  14 ListNode
+   2 argv
+   8 curr
+  10 iter
+   1 len
+   3 sys
+parity.py
+   2 argv
+   1 cpp
+   1 fe
+   1 len
+   1 maxsize
+   1 randint
+   4 sys
+parity1.py
+parity2.py
+parity3.py
+   5 PRECOMPUTED
+   1 fe
+   1 xFFFF
+parity4.py
+partition_array.py
+   4 argv
+   1 del
+   9 idx
+   1 iter
+   4 len
+   1 namedtuple
+   4 randint
+   5 sys
+pascal-triangle-1.py
+   2 argv
+   1 len
+   1 randint
+   3 sys
+path-sum-binary-tree.py
+   7 BinaryTreeNode
+permutation_array.py
+   2 argv
+   3 len
+   1 randint
+   3 sys
+permutation_array1.py
+   4 len
+   1 nonnegative
+permutation_array2.py
+   1 len
+permutations-alternative.py
+   2 argv
+   3 len
+   1 randint
+   3 sys
+   2 vec
+permutations.py
+   2 argv
+   1 itertools
+   1 len
+   1 randint
+   3 sys
+   2 vec
+phone_mnemonic.py
+   2 GHI
+   2 JKL
+   2 MNO
+   2 PQRS
+   1 Pythonic
+   2 TUV
+   2 WXYZ
+   2 argv
+   2 itertools
+   3 len
+   5 num
+   5 pythonic
+   3 sys
+picking_up_coins.py
+   2 argv
+   1 elif
+   2 itertools
+   6 len
+   1 randint
+   3 sys
+planning_fishing.py
+   3 argv
+   3 len
+   2 randint
+   1 randrange
+   4 sys
+plus-one.py
+   2 argv
+   2 len
+   3 randint
+   2 sep
+   3 sys
+points_covering_intervals.py
+   2 argv
+   1 bintrees
+   2 len
+   1 namedtuple
+   2 randint
+   1 randrange
+   3 sys
+points_covering_intervals_alternative.py
+   3 EndPoint
+   2 argv
+   1 e's
+   1 elif
+   1 eq
+   2 init
+   2 len
+   1 lt
+   2 ptr
+   2 randint
+   1 randrange
+   2 repr
+   3 sys
+points_covering_intervals_sorting.py
+   2 argv
+   2 len
+   1 namedtuple
+   2 randint
+   1 randrange
+   3 sys
+populating-next-right-pointers.py
+  11 BinaryTreeNode
+   1 init
+   1 iter
+   2 nxt
+postings_list_prototype.py
+   1 ListNode
+   1 fe
+   1 init
+power-x-y.py
+   3 argv
+   2 isclose
+   1 len
+   1 randint
+   4 sys
+power_set.py
+   2 argv
+   2 len
+   1 randint
+   3 sys
+power_set_alternative.py
+   1 Pythonic
+   2 argv
+   2 len
+   3 pythonic
+   1 randint
+   3 sys
+pretty_printing.py
+   1 aaa
+   5 argv
+   1 bbb
+   1 ee
+   1 elif
+   1 gggggg
+   7 len
+   7 num
+   4 randint
+   6 sys
+prime_sieve.py
+   2 argv
+   1 len
+   1 nonprimes
+   1 randint
+   1 sep
+   3 sys
+prime_sieve_basic.py
+   2 argv
+   1 len
+   1 nonprimes
+   1 p's
+   2 primesieve
+   1 randint
+   1 sep
+   3 sys
+   1 unix
+print_linked_list_reverse_order.py
+   4 ListNode
+pythonic.py
+   1 defaultdict
+   2 functools
+   2 heapq
+   1 len
+   1 nlargest
+queue_from_stacks.py
+   3 IndexError
+   5 deq
+  12 dequeue
+   3 enq
+  10 enqueue
+   1 init
+queue_with_max.py
+   5 IndexError
+   3 QueueWithMax
+  15 dequeue
+  14 enqueue
+   1 init
+   7 maxint
+   4 minint
+queue_with_max_alternative.py
+   5 IndexError
+   3 QueueWithMax
+   2 deque
+  14 dequeue
+  13 enqueue
+   1 init
+queue_with_max_intro.py
+   1 IndexError
+   2 ValueError
+  14 dequeue
+  13 enqueue
+   1 init
+rabin-karp.py
+   1 AAAA
+   1 ADSADA
+   1 BAAAA
+   1 BAAABAAAA
+   2 BAABBAABAAABS
+   1 CGC
+   1 FOOBARWIDGET
+   1 GACGCCA
+   1 GATACCCATCGAGTCGGATCGAGT
+   3 argv
+   3 functools
+  21 karp
+  17 len
+   4 ord
+  21 rabin
+   2 randint
+   4 ret
+   3 substring
+   1 substrings
+   4 sys
+range_lookup_bst.py
+  17 BSTNode
+  13 bst
+   1 elif
+   3 len
+   2 maxsize
+   1 namedtuple
+   3 sys
+rearrange.py
+   2 argv
+   5 len
+   2 randint
+   3 sys
+rebuild_bst_preorder.py
+   2 BinaryTreeNode
+   4 bst
+   1 len
+   3 pre
+  15 preorder
+rebuild_bst_preorder_better.py
+   2 BinaryTreeNode
+   7 bst
+   5 idx
+   1 len
+   3 pre
+  13 preorder
+   5 subtree
+reconstruct-almost-bst.py
+   7 BinaryTreeNode
+  21 bst
+   1 init
+   2 inorder
+   1 len
+  20 prev
+   1 utils
+reconstruct_binary_tree_post_in_orders.py
+   2 BinaryTreeNode
+   2 argv
+   1 ba
+   1 cdd
+   1 cpp
+   1 ec
+  10 idx
+   2 inorder
+   3 len
+   2 postorder
+   1 randint
+   2 subtree
+   3 sys
+   1 utils
+reconstruct_binary_tree_pre_in_orders.py
+   2 BinaryTreeNode
+   2 argv
+   6 idx
+  33 inorder
+   3 len
+   2 pre
+  31 preorder
+   1 randint
+   6 subtree
+   3 sys
+   1 utils
+reconstruct_preorder_with_null.py
+   2 BinaryTreeNode
+   2 argv
+   6 iter
+   1 len
+  27 preorder
+   1 randint
+   7 subtree
+   3 sys
+   1 utils
+regular_expression.py
+   3 aW
+   1 aa
+   1 ana
+   1 anaxxxxW
+   2 asdaaadnanaxxxxW
+   1 asdsdsa
+   4 axxxxW
+   2 ba
+   1 baW
+   4 len
+   1 xxxxW
+remove-duplicates-from-sorted-array.py
+   2 argv
+   3 len
+   2 randint
+   3 sys
+remove-duplicates-sorted-list.py
+  10 ListNode
+   1 algo
+   1 dups
+   4 pre
+remove-element.py
+   2 argv
+   4 idx
+   4 len
+   2 pythonic
+   3 randint
+   3 sys
+remove_kth_last_list.py
+   5 ListNode
+   4 kth
+   2 th
+rendering_calendar.py
+   2 argv
+   1 len
+   2 namedtuple
+   8 num
+   3 randint
+   3 sys
+replace_and_remove.py
+   2 a's
+   1 abcd
+   2 argv
+   1 b's
+   1 dd's
+   1 deepcopy
+   1 elif
+  16 idx
+   3 len
+   1 randint
+   3 sys
+reservoir_sampling.py
+   1 af
+   5 argv
+   1 cpp
+   1 elif
+   3 idx
+   1 islice
+   1 iter
+   2 itertools
+   3 len
+   4 num
+   3 randint
+   1 randrange
+   6 sys
+reverse-integer.py
+   2 argv
+   1 len
+   1 maxsize
+   1 str
+   4 sys
+reverse-list-in-k-group.py
+   7 ListNode
+   2 argv
+   1 len
+   4 num
+  24 sublist
+   3 sys
+reverse_bits.py
+   5 PRECOMPUTED
+   2 argv
+   1 len
+   1 maxsize
+   1 randint
+   4 sys
+   1 xFFFF
+reverse_linked_list_from_s_to_f.py
+  14 ListNode
+   3 iter
+  18 sublist
+reverse_linked_list_iterative.py
+   4 ListNode
+   1 ba
+   1 ce
+   1 cfff
+   1 cpp
+   6 curr
+   1 fe
+   2 nafter
+   7 newhead
+   2 nxt
+   4 prev
+   1 sep
+reverse_linked_list_recursive.py
+   4 ListNode
+   1 ba
+   1 ce
+   1 cfff
+   1 cpp
+   2 nafter
+   7 newhead
+   1 sep
+reverse_words.py
+   1 Pythonic
+   1 argv
+   1 ascii
+   3 bytearray
+   2 len
+   2 ord
+   2 ori
+   2 pythonic
+   2 randint
+   4 ret
+   3 str
+   2 sys
+   1 utf
+road_network.py
+  11 HighwaySection
+   5 argv
+   1 elif
+   3 floyd
+   3 itertools
+   3 len
+   1 namedtuple
+   6 randint
+   4 randrange
+   6 sys
+   1 undirected
+   3 warshall
+roman-to-integer.py
+   1 CLXXXIV
+   1 LX
+   1 MCM
+   1 MMMMMMMMMCMXIX
+   3 argv
+   2 functools
+   2 len
+   4 sys
+rook-attack.py
+   3 argv
+   1 deepcopy
+   9 len
+   3 randint
+   4 sys
+rotate_array.py
+   2 argv
+   3 idx
+   9 len
+   2 randint
+   1 randrange
+   1 sublists
+   3 sys
+rotate_array_permutation.py
+   1 gcd
+   3 idx
+   4 len
+   3 num
+rpn.py
+   2 RPN
+run_length_compression.py
+   1 aaaaaaaaaaffffee
+   2 aaaabcccaa
+   5 argv
+   1 eeeffffee
+   1 groupby
+   1 isdigit
+   2 itertools
+   4 len
+   3 pythonic
+   2 str
+   6 sys
+rw.py
+   3 LW
+  13 RW
+   4 init
+s1.py
+   2 ServiceRequest
+   2 ServiceResponse
+   4 ServiceThread
+   5 SpellCheckService
+   3 init
+   8 req
+   1 staticmethod
+s2.py
+   2 ServiceRequest
+   2 ServiceResponse
+   3 ServiceThread
+   7 SpellCheckService
+   3 init
+   8 req
+   1 staticmethod
+scoping.py
+   1 NameError
+   1 nonlocal
+score_combination.py
+   5 argv
+   1 elif
+   3 len
+  11 num
+   4 randint
+   1 randrange
+   6 sys
+score_permutation.py
+   5 argv
+   1 elif
+   2 len
+   4 randint
+   1 randrange
+   6 sys
+search_a_pair_sorted_array.py
+   7 IndexPair
+   2 argv
+   4 elif
+   6 enum
+   1 ge
+   1 init
+   3 itertools
+  10 len
+   1 lt
+   6 pos
+   2 pythonic
+   3 randint
+   1 repr
+   3 sys
+search_bst.py
+   9 BSTNode
+  10 bst
+search_bst_first_larger_k.py
+   7 BinaryTreeNode
+   9 subtree
+search_bst_for_first_occurrence_iterative.py
+  13 BinaryTreeNode
+  12 curr
+   1 elif
+   1 subtree
+search_bst_for_first_occurrence_recursive.py
+  13 BinaryTreeNode
+   1 elif
+   2 subtree
+search_frequent_items.py
+   5 argv
+   5 buf
+   1 elif
+   7 idx
+   8 len
+   3 randint
+   1 randrange
+   6 sys
+search_list.py
+   4 ListNode
+search_majority.py
+   2 argv
+   1 elif
+   1 iter
+   4 len
+   2 randint
+   3 ret
+   3 sys
+search_maze.py
+   1 DFS
+   3 argv
+   1 del
+   6 len
+   1 namedtuple
+   2 randint
+   3 randrange
+   4 sys
+search_min_first_bst.py
+   1 BST
+   7 BinaryTreeNode
+  14 bst
+   1 elif
+   2 subtree
+search_postings_list_iterative.py
+   2 ListNode
+  11 curr
+   1 itertools
+search_postings_list_recursive.py
+   2 ListNode
+   5 curr
+semaphore.py
+   1 cv
+   2 init
+   1 num
+   2 randint
+   4 rnd
+   1 str
+shortest_path_fewest_edges.py
+   1 DBH
+   5 DistanceWithFewestEdges
+   3 GraphVertex
+   1 RBTree
+   2 VertexWithDistance
+   2 argv
+   2 bintrees
+   3 dijkstra
+   1 init
+   1 len
+   1 lt
+   2 namedtuple
+   1 nmin
+   3 num
+   2 pred
+   4 randint
+   4 randrange
+   1 repr
+   1 str
+   3 sys
+shortest_unique_prefix.py
+   2 Trie
+   2 TrieNode
+   2 argv
+   2 init
+   4 len
+   3 randint
+   3 sys
+   3 trie
+simple_generator.py
+   1 StopIteration
+   2 ri
+simple_iterator.py
+   1 Iterable
+   2 RandomIncrement
+   1 StopIteration
+   1 init
+   2 iter
+   3 ri
+simple_web_server.py
+   2 SERVERPORT
+   1 addr
+   1 recv
+   2 req
+   1 sendall
+   4 serversock
+simple_web_server_pythonic.py
+   1 BaseRequestHandler
+   2 SERVERPORT
+   1 TCPServer
+   2 WebServerHandler
+   3 socketserver
+sliding_window.py
+   3 QueueWithMax
+  18 TrafficElement
+   1 dequeue
+   1 enqueue
+   1 eq
+   1 init
+   1 lt
+smallest_subarray_covering_set.py
+   2 argv
+   4 inp
+   2 iter
+   8 len
+   3 randint
+   2 sep
+   7 subarray
+   3 sys
+smallest_subarray_covering_set_stream.py
+   2 DoublyLinkedListNode
+   2 LinkedList
+   4 idx
+   2 init
+   3 len
+   6 loc
+   6 prev
+   1 subarray
+snake-string.py
+   2 argv
+   2 lHloWrdlo
+   4 len
+   3 pythonic
+   1 randint
+   3 sys
+sort-list.py
+   2 ListNode
+   2 argv
+   1 len
+   6 pre
+   2 randrange
+   3 sys
+sort_k-increasing-decreasing_array.py
+   1 Pythonic
+   2 argv
+   3 curr
+   1 groupby
+   4 idx
+   1 init
+   2 itertools
+   5 len
+   5 pythonic
+   2 randint
+   1 stateful
+   7 subarray
+   4 subarrays
+   3 sys
+sorted_list_to_bst.py
+   3 BST
+   2 ListNode
+   6 bst
+   4 curr
+   4 inorder
+   3 pre
+   4 prev
+   2 th
+spiral_matrix.py
+   2 argv
+   2 itertools
+   7 len
+   1 randint
+   3 sys
+   5 xy
+spiral_matrix_clockwise.py
+   2 argv
+   2 itertools
+   3 len
+   1 randint
+   3 sys
+spreadsheet_encoding.py
+   3 argv
+   1 functools
+   1 len
+   2 ord
+   1 randint
+   7 ss
+   4 sys
+square-root-int.py
+   2 argv
+   1 len
+   1 randint
+   1 sqrt
+   3 sys
+square_root.py
+   2 argv
+   2 isclose
+   1 len
+   1 sqrt
+   3 sys
+   1 x's
+stack_queue_using_heap.py
+   5 IndexError
+   4 dequeue
+   3 enqueue
+   1 heapq
+   2 init
+   6 timestamp
+stack_sorting.py
+   2 argv
+   1 cpp
+   1 fe
+   1 getrecursionlimit
+   1 len
+   3 pre
+   2 randint
+   4 sys
+stack_with_max.py
+   3 ElementWithCachedMax
+   3 IndexError
+   1 init
+   1 len
+   1 namedtuple
+stack_with_max_improved.py
+   3 IndexError
+   1 MaxWithCount
+   1 elif
+   2 init
+   2 len
+string_in_matrix.py
+   2 argv
+   6 len
+   2 randint
+   2 randrange
+   3 sys
+   3 xy
+student_search.py
+   9 gpa
+   1 len
+   1 namedtuple
+student_sort.py
+   1 init
+   2 lt
+subseq_cover.py
+   4 Subarray
+   2 argv
+   1 elif
+  12 idx
+   6 len
+   1 namedtuple
+   3 randint
+   3 rr
+   4 sep
+   9 subarray
+   2 subseq
+   3 sys
+substring-with-concatenation-of-all-words.py
+   1 barfoothefoobarman
+   1 cd
+   8 curr
+   1 dcacdabcd
+   4 len
+   3 substrings
+successor.py
+   7 BinaryTreeNode
+   2 subtree
+sudoku_check.py
+   1 Pythonic
+   5 len
+   4 pythonic
+   2 sqrt
+   3 str
+   1 subarray
+   7 sudoku
+sudoku_solve.py
+   2 itertools
+   5 len
+   1 sqrt
+   6 sudoku
+sum-root-to-leaf-binary-tree.py
+   7 BinaryTreeNode
+surrounded-regions.py
+   3 argv
+   1 deque
+   3 len
+   1 popleft
+   2 randint
+   2 sep
+   4 sys
+swap_bits.py
+   4 argv
+   1 len
+   1 maxsize
+   1 randint
+   6 sys
+   4 th
+symmetric_binary_tree.py
+  14 BinaryTreeNode
+   1 elif
+  13 subtree
+  20 symm
+tail.py
+   4 EPI
+   2 Hackathon
+   5 argv
+   1 cpp
+   1 elif
+   1 fe
+   2 len
+   1 nSince
+   2 ofs
+   4 os
+   4 ptr
+   1 rb
+   7 sys
+   2 txt
+   1 wb
+task_assignment.py
+   3 PairedTasks
+   2 argv
+   5 durations
+   2 len
+   1 namedtuple
+   2 optimium
+   1 randint
+   1 randrange
+   3 sys
+task_execution_web_server.py
+   1 NTHREADS
+   2 SERVERPORT
+   1 addr
+   1 recv
+   2 req
+   1 sendall
+   4 serversock
+task_execution_web_server_pythonic.py
+   1 BaseRequestHandler
+   2 NTHREADS
+   2 SERVERPORT
+   1 TCPServer
+   2 ThreadPoolMixIn
+   2 ThreadPoolSocketServer
+   2 WebServerHandler
+   2 args
+   2 init
+   2 kwargs
+   3 socketserver
+team_photo_1.py
+   1 init
+   1 namedtuple
+   1 staticmethod
+team_photo_2.py
+   2 GraphVertex
+   3 dfs
+   1 init
+   1 repr
+   1 str
+team_reachability.py
+   8 MatchResult
+   1 USC
+   2 bfs
+   9 curr
+   2 defaultdict
+   1 deque
+   5 dest
+   3 dfs
+   2 elif
+   1 namedtuple
+   1 popleft
+thread_per_task_webserver.py
+   2 SERVERPORT
+   1 addr
+   1 args
+   1 recv
+   2 req
+   1 sendall
+   4 serversock
+thread_per_task_webserver_pythonic.py
+   1 BaseRequestHandler
+   2 SERVERPORT
+   1 TCPServer
+   2 ThreadedSocketServer
+   1 ThreadingMixIn
+   2 WebServerHandler
+   4 socketserver
+three_jugs.py
+   4 VolumeRange
+   2 argv
+   1 len
+   2 namedtuple
+   5 randint
+   3 sys
+ties_election.py
+top_k.py
+   2 argv
+   1 heapify
+   1 heappushpop
+   4 heapq
+   1 islice
+   1 iter
+   2 itertools
+   6 len
+   1 nsmallest
+   3 num
+   3 randint
+   1 str
+   3 sys
+tournament_tree.py
+   2 TournamentTree
+   2 TreeNode
+   5 idx
+   2 init
+   1 len
+   1 repr
+   1 str
+   3 subtree
+   1 th
+tower_hanoi.py
+   2 NUM
+   2 argv
+  10 hanoi
+   1 len
+  19 num
+   1 randint
+   3 sys
+transform_string_to_other.py
+   1 BFS
+   4 StringWithDistance
+   2 argv
+   2 ascii
+   8 cand
+   1 deque
+   4 len
+   1 namedtuple
+   1 popleft
+   2 pythonic
+   2 randint
+   3 sys
+trapping-rain-water.py
+   3 HeightBound
+   2 argv
+   1 del
+   1 len
+   1 namedtuple
+   2 randint
+   3 sys
+tree_diameter.py
+   3 HeightAndDiameter
+   2 TreeNode
+   1 elif
+   1 init
+   2 namedtuple
+tree_traversal.py
+   7 BinaryTreeNode
+   2 Inorder
+   2 Postorder
+   2 Preorder
+triangle.py
+   6 curr
+   2 functools
+   2 len
+   2 pythonic
+   2 tri
+try_except.py
+   1 Gower
+   1 KeyError
+   1 TestCase
+   1 TestTryExcept
+   1 ValueError
+   1 Viv
+   1 assertEqual
+   1 assertRaises
+   2 filename
+   2 js
+   5 json
+   3 unittest
+try_except_finally.py
+   1 Gower
+   1 KeyError
+   1 TestCase
+   1 TestTryExceptFinally
+   1 ValueError
+   1 Viv
+   1 assertEqual
+   1 assertRaises
+   2 filename
+   2 js
+   6 json
+   3 unittest
+try_finally.py
+   1 TestCase
+   1 TestTryFinally
+   1 ValueError
+   1 assertEqual
+   1 assertRaises
+   2 filename
+   2 js
+   8 json
+   1 testcase
+   3 unittest
+two_sum.py
+   2 argv
+   1 elif
+   2 itertools
+   2 len
+   2 randint
+   1 randrange
+   3 sys
+two_thread_increment.py
+   1 sys
+uniform_random_number_generation.py
+   3 argv
+   1 len
+   2 randint
+   1 randrange
+   4 sys
+union_intervals.py
+   2 argv
+   2 bool
+   1 init
+   2 len
+   1 lt
+   1 namedtuple
+   1 randint
+   3 randrange
+   3 ret
+   3 sys
+unique-binary-trees-all.py
+   3 BinaryTreeNode
+   2 argv
+  13 len
+  15 num
+   7 pythonic
+   1 randint
+   6 subtrees
+   3 sys
+update_bst.py
+   2 BinarySearchTree
+   4 BinaryTreeNode
+  33 bst
+  20 curr
+   1 elif
+   1 init
+   1 staticmethod
+   1 subtree
+valid-ip-address.py
+   2 argv
+   6 ip
+   7 len
+   3 sys
+valid-palindrome.py
+   1 filered
+   3 isalnum
+   1 len
+   6 pythonic
+   3 ss
+valid-parentheses.py
+   2 argv
+   1 elif
+   1 len
+   3 sys
+view_from_above.py
+  33 LineSegment
+   1 RBTree
+   2 bintrees
+   1 del
+   1 init
+   1 lt
+   1 namedtuple
+  17 prev
+   6 xaxis
+view_sunset.py
+   3 BuildingWithHeight
+   2 argv
+   2 idx
+   1 iter
+   2 len
+   1 namedtuple
+   2 randint
+   3 sys
+wiring_circuit_board.py
+   2 GraphVertex
+   1 Unvisited
+   2 argv
+   2 bfs
+   2 colorable
+   1 del
+   1 deque
+   3 dfs
+   2 elif
+   1 init
+   1 len
+   2 randint
+   2 randrange
+   1 repr
+   1 str
+   3 sys
+word_breaking.py
+   3 aa
+   2 aabccc
+   6 argv
+   2 baabccc
+   5 bb
+   2 bbb
+   2 bbcccb
+   1 bbcccbabb
+   2 bedbathandbeyond
+   7 ccc
+   5 decompositions
+   1 elif
+   7 idx
+   6 len
+   5 randint
+   7 sys
+zipping_list.py
+   3 ListNode
+   5 argv
+  11 curr
+   3 idx
+  10 iter
+   3 len
+   2 pre
+   1 randint
+   6 sys
