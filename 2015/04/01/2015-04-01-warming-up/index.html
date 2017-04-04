@@ -1,0 +1,308 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Warming Up | Elements of Programming Interviews</title>
+  <meta name="author" content="The EPI Team">
+  
+  <meta name="description" content="The programming exercises in EPI are representative of what you will be askedin an interview. We do not provide textbook-style review questions.
+In th">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Warming Up"/>
+  <meta property="og:site_name" content="Elements of Programming Interviews"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/themes/cerulean.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+       <a class="navbar-brand" href="/">Elements of Programming Interviews</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/sample" title="PDF sampler">
+			  <i class="fa fa-book"></i>PDF
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/largeprint" title="Large Print">
+			  <i class="fa fa-font"></i>Large Print
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/archives" title="All Articles">
+			  <i class="fa fa-archive"></i>All Posts
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About us">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/contact" title="Contact Information">
+			  <i class="fa fa-mail-reply-all"></i>Contact
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/solutions" title="All Solutions">
+			  <i class="fa fa-list"></i>Solutions
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All Categories">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All Tags">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/bugs" title="Bug Reporting and Bug Log">
+			  <i class="fa fa-bug"></i>Bugs
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header page-header-inverse ">		
+			<h1 class="title title-inverse "> Warming Up</h1>
+		</div>		
+	
+
+
+
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>The programming exercises in EPI are representative of what you will be asked<br>in an interview. We do not provide textbook-style review questions.</p>
+<p>In this document, we present a small set of programming exercises suitable for<br>someone who needs to review basics. (You are unlikely to be<br>asked these questions - their purpose is to bootstrap reading EPI.) </p>
+<p>When you write your solutions to these exercises, please code to the following constraints:</p>
+<ol><br><li>Do not use library calls.<br></li><li>Do not try to design clever solutions. (This means it is fine to use brute-force approaches.)<br></li><li>Assume valid inputs, and ignore internal errors like overflow, IO exceptions, etc.<br></li><li>Write unit tests for your programs.<br></li><li>Analyze your programs for time and space complexity.<br></li></ol>
+
+
+<p></p><h3>Exercises, one for each EPI chapter</h3><p></p>
+<ol><br><li> Primitive types: write a program that takes as input an integer, N, and prints<br>all the integers from 1 to N, replacing numbers divisible by 3 with “fizz”, numbers divisible by<br>5 with “buzz”, and numbers divisible by both with “fizz buzz”.<br></li><li> Arrays: Write a program that tests if a 2D square array is symmetric about the diagonal<br>from (0,0) to (n-1,n-1).<br></li><li> Strings: Write a program to find the longest substring that consists of a single<br>character in an input string.<br></li><li> Linked Lists: Implement a doubly linked list of integers class. Write a reverse method for your list class<br>that reverses a list without changing the node contents.<br></li><li> Stacks and Queues: Write a programt to evaluate arithmetical expressions that use + and <em> applied<br>to nonnegative integer arguments. Expressions are in reverse-Polish notation, e.g., 3 4 + 5 </em>, 1 3 + 5 7 + *.<br></li><li> Binary Trees: Write inorder, preorder and postorder traversal methods for a binary tree. (You will need<br>to implement a class suitable for representing binary trees, but do not need to implement<br>add, lookup, delete, etc. methods.)<br></li><li> Heaps: Write a program that builds a max-heap from an integer array. (You will need to implement<br>a class suitable for representing heaps, but do not need to implement extract-max, insert key, etc.)<br></li><li> Searching: Write a nonrecursive program to perform binary search over a sorted array.<br></li><li> Hash tables: Write a program that finds the most common object in an array of objects. The<br>objects consists of pairs of strings. Treat strings as being the same if they are equal when converted to lower case.<br></li><li> BSTs: Write a program that searches a BST on integer keys for a given value. (You will need to<br>implement a class suitable for representing BSTs, but do not need to implement<br>add, lookup, delete, etc. methods.)<br></li><li> Write a recursive program that takes as input positive integers x and N, and returns x to the power N.<br>You should use O(log N) multiplications.<br></li><li> Dynamic Programming: Write a program that takes a positive integer N, and returns the number<br>of binary strings of length N such that there are no consecutive 1s. For example, if N = 3, the result<br>is 5, corresponding to the strings 000, 001, 010, 100, 101.<br></li><li> Greedy Algorithms and Invariants: Write a program that takes an input a positive integer<br>N, and returns the minimum number of coins in the US coinage system to create N cents. For example, if<br>N = 37, the answer is 4, corresponding to a quarter, a dime, and two pennies.<br></li><li> Graphs: Implement Depth First Search and Breadth First Search. (You will need to implement<br>classes suitable to representing graphs.)<br></li><li> Parallel Computing: Write a program which uses two threads to print the numbers from<br>1 to 100 in order. One thread can only print odd numbers, the other can only print even numbers.<br></li></ol>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2015/03/31/2015-03-31-debugging-and-testing/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/sample"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2015/04/03/2015-04-03-integrated-problems-and-solutions/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+
+    <!-- share -->
+    
+        
+    <div class="bdsharebuttonbox">
+        <a href="#" class="bds_more" data-cmd="more"></a>
+        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+        <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+        <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+        <a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+        <a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a>
+        <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+    </div>
+    <script>
+        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+
+
+        
+
+    
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2015-04-01 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/Warming-Up/">Warming Up<span>1</span></a></li> <li><a href="/categories/Warming-Up/Introduction/">Introduction<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/Exercises/">Exercises<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2017 The EPI Team
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Introducing the EPI online judge | Elements of Programming Interviews</title>
+  <meta name="author" content="The EPI Team">
+  
+  <meta name="description" content="July 7, 2016 
+We’re closing the judge service for the near future as we take the lessons learned and build out a more robust and full-featured service">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Introducing the EPI online judge"/>
+  <meta property="og:site_name" content="Elements of Programming Interviews"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/themes/cerulean.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+       <a class="navbar-brand" href="/">Elements of Programming Interviews</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/sample" title="PDF sampler">
+			  <i class="fa fa-book"></i>PDF
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/largeprint" title="Large Print">
+			  <i class="fa fa-font"></i>Large Print
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/archives" title="All Articles">
+			  <i class="fa fa-archive"></i>All Posts
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About us">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/contact" title="Contact Information">
+			  <i class="fa fa-mail-reply-all"></i>Contact
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/solutions" title="All Solutions">
+			  <i class="fa fa-list"></i>Solutions
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All Categories">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All Tags">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/bugs" title="Bug Reporting and Bug Log">
+			  <i class="fa fa-bug"></i>Bugs
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header page-header-inverse ">		
+			<h1 class="title title-inverse "> Introducing the EPI online judge</h1>
+		</div>		
+	
+
+
+
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p><b>July 7, 2016</b></p><p> </p>
+<p><b>We’re closing the judge service for the near future as we take the lessons learned and build out a more robust and full-featured service.</b></p>
+<p><b>Jan 14, 2016</b></p><p> </p>
+<p>We’ve put together a prototype <a href="http://judge.elementsofprogramminginterviews.com:8080" target="_blank" rel="external">online judge</a> service that you can use to practice for interviews. </p>
+<p>Take a look at the screenshot at the end to see the UI, or just click on the link.<br>No login is needed, just read the problem description and start hacking!</p>
+<p>The judge problems correspond to the problems in the <a href="/sample">PDF sample</a>. These problems are an ideal starting point for anyone who wants to get up to speed with interviewing. (Right now, all programs are in Java.)</p>
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p>We use <strong>directed tests</strong> for the judge problems, and try to give <strong>meaningful feedback</strong>. For example, if your program for testing if a binary tree is balanced fails, you will see a report like the following.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Incorrect result on balanced tree &#123;0,1,2,3,#,4,5&#125;</div></pre></td></tr></table></figure>
+<p>
+
+</p><p>If your program fails to compile, we return the <strong>compiler error</strong>, and the <strong>line numbers will correspond</strong> to the lines in your program.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Line 7: error: incompatible types</div><div class="line">    int y  = &quot;asd&quot;;</div><div class="line">             ^</div><div class="line">  required: int</div><div class="line">  found:    String</div><div class="line">1 error</div></pre></td></tr></table></figure>
+<p>
+
+</p><p>If your program throws an exception, we return the <strong>stacktrace</strong> - the <strong>line numbers will not correspond</strong> to the lines in your program.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Exception in thread &quot;main&quot; java.lang.RuntimeException</div><div class="line">    at BalancedBinaryTree.isBalanced(file.java:49)</div><div class="line">    at BalancedBinaryTree.main(file.java:86)</div></pre></td></tr></table></figure>
+<p>
+
+</p><p>Your program runs in  Docker container, so <strong>don’t worry about crashing or damaging</strong> our server. We run the program with a <strong>timeout of 20 seconds</strong>, so if your program has an infinite loop, or is very slow, you’ll get a timeout response.  If the server is under load, it may block requests that are too frequent.</p>
+<p>
+
+</p><p>A few programs require you to have an <strong>efficient solution to pass</strong>, e.g., if you brute-force compute the parity, you will see the judge informs you that your solution is too slow:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Execution Timed Out</div></pre></td></tr></table></figure>
+<p>
+
+</p><h3 id="Plans"><a href="#Plans" class="headerlink" title="Plans"></a>Plans</h3><p>We’re very excited about offering this service, and look forward to developing it - adding more problems, adding a login and persisting your code, classification of problens, drag-and-drop into the editor, executing from Github, etc.</p>
+<h3 id="Reader-Input"><a href="#Reader-Input" class="headerlink" title="Reader Input"></a>Reader Input</h3><p>As always, we treasure user input. Please <a href="contact">share</a> your thoughts with us about the judge. Some things we’re especially keen on learning about are:</p>
+<ol><br><li>  Bugs, e.g., program never returns, hint button doesn’t work, etc.<br></li><li>  Source of confusion, e.g., misleading stack traces, wording of error<br></li><li>  General UI issues: is editor font ok? do you prefer a light background?<br></li><li>  How important are features like login, timing, etc.?<br></li></ol>
+
+<p><img src="/img/epi-judge-ui.png" width="800px"></p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2015/09/23/2015-09-23-epi-java/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/sample"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2016/02/25/2016-02-25-reviewers-for-2.0/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+
+    <!-- share -->
+    
+        
+    <div class="bdsharebuttonbox">
+        <a href="#" class="bds_more" data-cmd="more"></a>
+        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+        <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+        <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+        <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+        <a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+        <a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a>
+        <a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a>
+        <a href="#" class="bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+    </div>
+    <script>
+        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+
+
+        
+
+    
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+  
+</section>
+
+	</div> <!-- col-md-9/col-md-12 -->
+		
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2015-12-04 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/Online-Judge/">Online Judge<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2017 The EPI Team
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
