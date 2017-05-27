@@ -11,7 +11,7 @@
 <p>These pictures are from Facebook (right by Adnan’s office), but are fairly representative.</p>
 <p><strong>Come early</strong>, so you don’t have to struggle with finding the building, parking, etc. It’s fine to wait in the lobby for an hour, decompress with a copy of EPI!<br><img src="/img/IMG_4500.JPG"></p>
 <p>The <strong>lobby</strong> - this is where the recruiter will come to pick you up.<br><img src="/img/IMG_4501.JPG"></p>
-<p>The <strong>interview room</strong>. It’s a fixed room for the duration of the interview, though you may step out for lunch with a host. The interviewers/host/recruiter are supposed to ensure you stay on schedule, but there’s no harm inbeing proactive, e.g., not letting lunch run late.<br><img src="/img/IMG_4502.JPG"></p>
+<p>The <strong>interview room</strong>. It’s a fixed room for the duration of the interview, though you may step out for lunch with a host. The interviewers/host/recruiter are supposed to ensure you stay on schedule, but there’s no harm in being proactive, e.g., not letting lunch run late.<br><img src="/img/IMG_4502.JPG"></p>
 <p>Here the entire wall is writable, but it’s more common to have a <strong>whiteboard</strong>.  Pro tip: consider taking your own markers, so that you can be sure they write well.<br><img src="/img/IMG_4503.JPG"></p>
 <p>Dining hall - <strong>free yummy food</strong>, but don’t overeat and get into a food coma, or lose focus.<br><img src="/img/IMG_4509.JPG"></p>
 <p>Nice <strong>campus</strong>, but it’s more important to focus on the interview. Do well and there will be plenty of time to appreciate these later.<br><img src="/img/IMG_4510.JPG"></p>
@@ -260,14 +260,34 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
     </entry>
     
     <entry>
-      <title><![CDATA[General Programming Questions]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-general-programming/</url>
-      <content type="html"><![CDATA[<p>Our book is focused on questions that entail writing programs. You may be asked<br>questions related to general programming practices, which are conceptual and/or<br>knowledge-based, and do not require writing a program. (The extent to which<br>you are asked such questions depends on the company, your experience, the job, etc.)</p>
-<p>Such questions tend to be narrow, and as such are not appropriate for our book.<br>We have begun the process of collecting representative questions, which you can see below. </p>
-<p><a href="!--￼0--">Languages</a>,<br><a href="!--￼1--">Debugging and Testing</a>,<br><a href="!--￼2--">Operating Systems</a>,<br><a href="!--￼3--">Tools</a>, </p>
-<p>We have also put together a small list of <a href="!--￼4--">warm up</a> exercises that are appropriate<br>for someone who is a little rusty.</p>
+      <title><![CDATA[General facts about Operating Systems]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-os/</url>
+      <content type="html"><![CDATA[<p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
+<ol><br><li> What is a system call?<br></li><li> How is a system call different from a library call?<br></li><li> What is a device driver?<br></li><li> What is livelock? What is deadlock? Give examples of each.<br></li><li> What is a race? What can you do to prevent races?<br></li><li> What is a mutex? What are semaphores? How are they implemented?<br></li><li> Give examples of system calls that are not related to input-output.<br></li><li> Give examples of library functions that call a system function all the time, none of the time, and some of the time.<br></li><li> What is the time lag between the system call on the client side and the receipt of the packet on the server on a LAN?<br></li><li> How fast can you write a gigabyte of data from RAM to disk?<br></li><li> How does TCP/IP work?<br></li><li> What is DNS?<br></li></ol>
 ]]></content>
       
+        <categories>
+            
+            <category> OS </category>
+            
+            <category> General Programming </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> OS </tag>
+            
+            <tag> General Programming </tag>
+            
+            <tag> System Call </tag>
+            
+            <tag> TCP/IP </tag>
+            
+            <tag> DNS </tag>
+            
+        </tags>
         
     </entry>
     
@@ -312,38 +332,6 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
     </entry>
     
     <entry>
-      <title><![CDATA[General facts about Operating Systems]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-os/</url>
-      <content type="html"><![CDATA[<p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
-<ol><br><li> What is a system call?<br></li><li> How is a system call different from a library call?<br></li><li> What is a device driver?<br></li><li> What is livelock? What is deadlock? Give examples of each.<br></li><li> What is a race? What can you do to prevent races?<br></li><li> What is a mutex? What are semaphores? How are they implemented?<br></li><li> Give examples of system calls that are not related to input-output.<br></li><li> Give examples of library functions that call a system function all the time, none of the time, and some of the time.<br></li><li> What is the time lag between the system call on the client side and the receipt of the packet on the server on a LAN?<br></li><li> How fast can you write a gigabyte of data from RAM to disk?<br></li><li> How does TCP/IP work?<br></li><li> What is DNS?<br></li></ol>
-]]></content>
-      
-        <categories>
-            
-            <category> OS </category>
-            
-            <category> General Programming </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> OS </tag>
-            
-            <tag> General Programming </tag>
-            
-            <tag> System Call </tag>
-            
-            <tag> TCP/IP </tag>
-            
-            <tag> DNS </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[General facts about C, C++, Java, Python]]></title>
       <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-programming-languages/</url>
       <content type="html"><![CDATA[<h3>Core language</h3>
@@ -376,6 +364,18 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
             <tag> Java </tag>
             
         </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[General Programming Questions]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-general-programming/</url>
+      <content type="html"><![CDATA[<p>Our book is focused on questions that entail writing programs. You may be asked<br>questions related to general programming practices, which are conceptual and/or<br>knowledge-based, and do not require writing a program. (The extent to which<br>you are asked such questions depends on the company, your experience, the job, etc.)</p>
+<p>Such questions tend to be narrow, and as such are not appropriate for our book.<br>We have begun the process of collecting representative questions, which you can see below. </p>
+<p><a href="!--￼0--">Languages</a>,<br><a href="!--￼1--">Debugging and Testing</a>,<br><a href="!--￼2--">Operating Systems</a>,<br><a href="!--￼3--">Tools</a>, </p>
+<p>We have also put together a small list of <a href="!--￼4--">warm up</a> exercises that are appropriate<br>for someone who is a little rusty.</p>
+]]></content>
+      
         
     </entry>
     
