@@ -131,8 +131,8 @@
 	
 	<!-- display as entry -->	
 		<h3 class="title">
-			<div class="date"> 2015-03-31 </div>
-			<div class="article-title"><a href="/2015/03/31/2015-03-31-tools/" >Tools</a></div>						
+			<div class="date"> 2015-04-01 </div>
+			<div class="article-title"><a href="/2015/04/01/2015-04-01-warming-up/" >Warming Up</a></div>						
 		</h3>
 	
 
@@ -141,18 +141,18 @@
   <div class="row">
 	
 	
-		<h3>Building and maintaining programs</h3>
+		<p>The programming exercises in EPI are representative of what you will be asked<br>in an interview. We do not provide textbook-style review questions.</p>
+<p>In this document, we present a small set of programming exercises suitable for<br>someone who needs to review basics. (You are unlikely to be<br>asked these questions - their purpose is to bootstrap reading EPI.) </p>
+<p>When you write your solutions to these exercises, please code to the following constraints:</p>
+<ol><br><li>Do not use library calls.<br></li><li>Do not try to design clever solutions. (This means it is fine to use brute-force approaches.)<br></li><li>Assume valid inputs, and ignore internal errors like overflow, IO exceptions, etc.<br></li><li>Write unit tests for your programs.<br></li><li>Analyze your programs for time and space complexity.<br></li></ol>
 
-<ol><br><li>  What version control system do you use?<br></li><li>  What coverage tool do you use?<br></li><li>  What build system do you use?<br></li><li>  What documentation system do you use?<br></li><li>  What bug tracking system do you use?<br></li><li>  How is branching implemented in a version control system?<br></li><li>  Are deltas in the branching for a revision tree stored out forwards<br>or backwards? What are the benefits of each approach?<br></li><li>  What are the advantages and disadvantages of a version control system that locks files?<br></li></ol>
 
-<h3>The Shell</h3>
-
-<p>There are scores, if not hundreds of books on the UNIX shell and related tools.<br>We have enjoyed LINUX 101 Hacks by Natarajan. It introduces<br>these tools through useful hacks, such as the use of find<br>to find all files that have not been modified in the past 100 days<br>and are larger than 100~megabytes in size, sorting the password file on the third field, etc.</p>
-<ol><br><li>  Write a regular expression for identifying social security numbers in a file.<br></li><li>  Write a command that prints out lines in a text file which contain the<br>strings foo and bar in any order.<br></li><li>  Write a command which replaces every occurrence of a foo followed by a bar (with<br>possibly some other characters in between) by widget.<br></li><li>  Given a text file with two columns of integers, i.e., two integers encoded in ASCII per line, write a filter which sorts lines in the file by the second integer.<br></li><li>  How would you take two documents in PDF and create a new document which consists of the pages of the two original documents interleaved in order?<br></li><li>  How would you write a program which checks every hour if a network connection is up?<br></li><li>  How would you write a program which checks the price of a Nikon D5300 DLSR each day on amazon.com?<br></li></ol>
+<p></p><h3>Exercises, one for each EPI chapter</h3><p></p>
+<ol><br><li> Primitive types: write a program that takes as input an integer, N, and prints<br>all the integers from 1 to N, replacing numbers divisible by 3 with “fizz”, numbers divisible by<br>5 with “buzz”, and numbers divisible by both with “fizz buzz”.<br></li><li> Arrays: Write a program that tests if a 2D square array is symmetric about the diagonal<br>from (0,0) to (n-1,n-1).<br></li><li> Strings: Write a program to find the longest substring that consists of a single<br>character in an input string.<br></li><li> Linked Lists: Implement a doubly linked list of integers class. Write a reverse method for your list class<br>that reverses a list without changing the node contents.<br></li><li> Stacks and Queues: Write a programt to evaluate arithmetical expressions that use + and <em> applied<br>to nonnegative integer arguments. Expressions are in reverse-Polish notation, e.g., 3 4 + 5 </em>, 1 3 + 5 7 + *.<br></li><li> Binary Trees: Write inorder, preorder and postorder traversal methods for a binary tree. (You will need<br>to implement a class suitable for representing binary trees, but do not need to implement<br>add, lookup, delete, etc. methods.)<br></li><li> Heaps: Write a program that builds a max-heap from an integer array. (You will need to implement<br>a class suitable for representing heaps, but do not need to implement extract-max, insert key, etc.)<br></li><li> Searching: Write a nonrecursive program to perform binary search over a sorted array.<br></li><li> Hash tables: Write a program that finds the most common object in an array of objects. The<br>objects consists of pairs of strings. Treat strings as being the same if they are equal when converted to lower case.<br></li><li> BSTs: Write a program that searches a BST on integer keys for a given value. (You will need to<br>implement a class suitable for representing BSTs, but do not need to implement<br>add, lookup, delete, etc. methods.)<br></li><li> Write a recursive program that takes as input positive integers x and N, and returns x to the power N.<br>You should use O(log N) multiplications.<br></li><li> Dynamic Programming: Write a program that takes a positive integer N, and returns the number<br>of binary strings of length N such that there are no consecutive 1s. For example, if N = 3, the result<br>is 5, corresponding to the strings 000, 001, 010, 100, 101.<br></li><li> Greedy Algorithms and Invariants: Write a program that takes an input a positive integer<br>N, and returns the minimum number of coins in the US coinage system to create N cents. For example, if<br>N = 37, the answer is 4, corresponding to a quarter, a dime, and two pennies.<br></li><li> Graphs: Implement Depth First Search and Breadth First Search. (You will need to implement<br>classes suitable to representing graphs.)<br></li><li> Parallel Computing: Write a program which uses two threads to print the numbers from<br>1 to 100 in order. One thread can only print odd numbers, the other can only print even numbers.<br></li></ol>
 
 	
 	</div>
-  <a type="button" href="/2015/03/31/2015-03-31-tools/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2015/04/01/2015-04-01-warming-up/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -194,29 +194,6 @@
 	<!-- display as entry -->	
 		<h3 class="title">
 			<div class="date"> 2015-03-31 </div>
-			<div class="article-title"><a href="/2015/03/31/2015-03-31-os/" >General facts about Operating Systems</a></div>						
-		</h3>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
-<ol><br><li> What is a system call?<br></li><li> How is a system call different from a library call?<br></li><li> What is a device driver?<br></li><li> What is livelock? What is deadlock? Give examples of each.<br></li><li> What is a race? What can you do to prevent races?<br></li><li> What is a mutex? What are semaphores? How are they implemented?<br></li><li> Give examples of system calls that are not related to input-output.<br></li><li> Give examples of library functions that call a system function all the time, none of the time, and some of the time.<br></li><li> What is the time lag between the system call on the client side and the receipt of the packet on the server on a LAN?<br></li><li> How fast can you write a gigabyte of data from RAM to disk?<br></li><li> How does TCP/IP work?<br></li><li> What is DNS?<br></li></ol>
-
-	
-	</div>
-  <a type="button" href="/2015/03/31/2015-03-31-os/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2015-03-31 </div>
 			<div class="article-title"><a href="/2015/03/31/2015-03-31-general-programming/" >General Programming Questions</a></div>						
 		</h3>
 	
@@ -234,6 +211,58 @@
 	
 	</div>
   <a type="button" href="/2015/03/31/2015-03-31-general-programming/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2015-03-31 </div>
+			<div class="article-title"><a href="/2015/03/31/2015-03-31-tools/" >Tools</a></div>						
+		</h3>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h3>Building and maintaining programs</h3>
+
+<ol><br><li>  What version control system do you use?<br></li><li>  What coverage tool do you use?<br></li><li>  What build system do you use?<br></li><li>  What documentation system do you use?<br></li><li>  What bug tracking system do you use?<br></li><li>  How is branching implemented in a version control system?<br></li><li>  Are deltas in the branching for a revision tree stored out forwards<br>or backwards? What are the benefits of each approach?<br></li><li>  What are the advantages and disadvantages of a version control system that locks files?<br></li></ol>
+
+<h3>The Shell</h3>
+
+<p>There are scores, if not hundreds of books on the UNIX shell and related tools.<br>We have enjoyed LINUX 101 Hacks by Natarajan. It introduces<br>these tools through useful hacks, such as the use of find<br>to find all files that have not been modified in the past 100 days<br>and are larger than 100~megabytes in size, sorting the password file on the third field, etc.</p>
+<ol><br><li>  Write a regular expression for identifying social security numbers in a file.<br></li><li>  Write a command that prints out lines in a text file which contain the<br>strings foo and bar in any order.<br></li><li>  Write a command which replaces every occurrence of a foo followed by a bar (with<br>possibly some other characters in between) by widget.<br></li><li>  Given a text file with two columns of integers, i.e., two integers encoded in ASCII per line, write a filter which sorts lines in the file by the second integer.<br></li><li>  How would you take two documents in PDF and create a new document which consists of the pages of the two original documents interleaved in order?<br></li><li>  How would you write a program which checks every hour if a network connection is up?<br></li><li>  How would you write a program which checks the price of a Nikon D5300 DLSR each day on amazon.com?<br></li></ol>
+
+	
+	</div>
+  <a type="button" href="/2015/03/31/2015-03-31-tools/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2015-03-31 </div>
+			<div class="article-title"><a href="/2015/03/31/2015-03-31-os/" >General facts about Operating Systems</a></div>						
+		</h3>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
+<ol><br><li> What is a system call?<br></li><li> How is a system call different from a library call?<br></li><li> What is a device driver?<br></li><li> What is livelock? What is deadlock? Give examples of each.<br></li><li> What is a race? What can you do to prevent races?<br></li><li> What is a mutex? What are semaphores? How are they implemented?<br></li><li> Give examples of system calls that are not related to input-output.<br></li><li> Give examples of library functions that call a system function all the time, none of the time, and some of the time.<br></li><li> What is the time lag between the system call on the client side and the receipt of the packet on the server on a LAN?<br></li><li> How fast can you write a gigabyte of data from RAM to disk?<br></li><li> How does TCP/IP work?<br></li><li> What is DNS?<br></li></ol>
+
+	
+	</div>
+  <a type="button" href="/2015/03/31/2015-03-31-os/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -382,51 +411,6 @@
 </div>
 
 		
-			
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2014-04-08 </div>
-			<div class="article-title"><a href="/2014/04/08/2014-04-08-epi-features/" >EPI in a nutshell</a></div>						
-		</h3>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2>Problem-driven approach</h2><br>EPI includes over 300 solved problems<br>representative of those asked at leading software companies.<br><p><br>With the exception of approximately 20 design problems, the<br>problems are designed to be codable in a 60 minute interview.<br></p><p><br>For many problems, at the end of its solution,<br>we describe a large number of variants.<br></p><p><br>We include a hints section, which consists of 1-2 sentence<br>suggestions, similar to what your interviewer will give you when you are stuck.<br></p><p><br><br><br></p><h2>The inside story</h2>
-
-<p>All three of us successfully made it through the Google interview process, and went on to<br>work at Google, where, among other things, we interviewed candidates for our teams.</p>
-<p></p><p><br>We have complementary backgrounds  (large company, startup, academia)<br>and have held multiple roles (individual contributor, tech lead, CTO, consultant, professor),<br>that gives us unparalleled insight into the job market.</p>
-<p></p><p><br>In addition to Google, some of the other places we have worked at include<br>Facebook, Microsoft, IBM, Qualcomm, and Synopsys, as well as a number of start-ups.<br>We have studied and taught at leading universities in the US (Berkeley, Texas) and<br>internationally (IIT Kanpur, National Tsing Hua University).</p>
-<p>
-
-</p><h2>Study guide</h2>
-
-<p>We specify subsets of problems to solve and to review on based on the amount of time you<br>can commit, ranging from a weekend hackathon (intense!), to an hour a day for a semester.</p>
-<p>
-
-</p><h2>Commitment to excellence</h2><br>We have used best-in-class practices in the development of EPI: LaTeX for document<br>preparation, GitHub for revision control, agile development, continuous integration, unit testing.<br><p><br></p><p><br>As a concrete example, we have close to 200 figures in our book. These<br>were prepared using the TikZ extensions to LaTeX, which allow us to programmatically<br>specify figures, leading to much clearer illustrations.<br></p><p><br><br></p><h2>Tested programs</h2><br>EPI solutions are mostly written in C++. (The programs illustrating concurrency<br>are in Java.)<br><p><br><br>We have developed Java equivalents to the C++ programs. Both<br>C++ and Java versions for all problems, including test cases,<br>available from Google Code and GitHub. See code link in the sidebar for details.<br><br></p><h2>Nontechnical aspects of interviewing</h2>
-
-<p>In a seperate chapter, we present a set of 14 data structure, algorithm, and design patterns -<br>useful general problem solving techniques that you can apply when you are stumped. We<br>have suggestions on when and where to apply them, as well as examples illustrating their use.</p>
-<p>
-
-</p><p>We describe how to prepare for an interview, how to conduct yourself<br>during the interview, and what to do afterwards. This review covers the<br>technical (selecting variable names, memory management)<br>as well as nontechnical (what to wear, what not to say).<br>We present insights into<br>the different company cultures, and how it impacts how you need to present yourself.</p>
-<p>
-
-</p><p>We give a brief account of interviewing from the interviewer’s  perspective.<br>In addition to being useful to anyone interviewing, this is useful for any<br>engineer conducting an interview.</p>
-<p>
-
-
-</p>
-	
-	</div>
-  <a type="button" href="/2014/04/08/2014-04-08-epi-features/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -443,7 +427,7 @@
         <li><a href="/"><i class="fa fa-home"></i>Home</a></li>
 
 		
-          <li class="next disabled"><a>Next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+		   <li class="next"> <a href="/page/3/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a> </li>          
         
 	
 </ul>
@@ -498,6 +482,11 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <!-- <a href="/2017/04/03/2017-05-25/" ><i class="fa fa-file-o"></i>EPI in Python</a>  -->
+        <a href="/2017/04/03/2017-05-25/" >EPI in Python</a>  
+      </li>
+    
+      <li>
         <!-- <a href="/2017/04/03/2017-04-03-python/" ><i class="fa fa-file-o"></i>EPI in Python</a>  -->
         <a href="/2017/04/03/2017-04-03-python/" >EPI in Python</a>  
       </li>
@@ -517,11 +506,6 @@
         <a href="/2016/02/25/2016-02-25-reviewers-for-2.0/" >Please help us review some ...</a>  
       </li>
     
-      <li>
-        <!-- <a href="/2015/12/04/2015-12-04-epi-judge/" ><i class="fa fa-file-o"></i>Introducing the EPI online ...</a>  -->
-        <a href="/2015/12/04/2015-12-04-epi-judge/" >Introducing the EPI online ...</a>  
-      </li>
-    
   </ul>
 </div>
 
@@ -536,9 +520,9 @@
 		
 			<li><a href="/categories/Ebook/">Ebook<span>1</span></a></li>
 		
-			<li><a href="/categories/General-Programming/">General Programming<span>2</span></a></li>
-		
 			<li><a href="/categories/OS/General-Programming/">General Programming<span>1</span></a></li>
+		
+			<li><a href="/categories/General-Programming/">General Programming<span>2</span></a></li>
 		
 			<li><a href="/categories/Warming-Up/Introduction/">Introduction<span>1</span></a></li>
 		
@@ -567,45 +551,45 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/Tools/">Tools<span>1</span></a></li>
-		
-			<li><a href="/tags/Introduction/">Introduction<span>1</span></a></li>
-		
-			<li><a href="/tags/PDF/">PDF<span>1</span></a></li>
-		
-			<li><a href="/tags/Testing/">Testing<span>1</span></a></li>
-		
-			<li><a href="/tags/C/">C++<span>1</span></a></li>
-		
-			<li><a href="/tags/Kindle/">Kindle<span>1</span></a></li>
-		
-			<li><a href="/tags/OS/">OS<span>1</span></a></li>
-		
-			<li><a href="/tags/Unit-testing/">Unit testing<span>1</span></a></li>
-		
-			<li><a href="/tags/General-Programming/">General Programming<span>1</span></a></li>
+			<li><a href="/tags/TCP-IP/">TCP/IP<span>1</span></a></li>
 		
 			<li><a href="/tags/Unix/">Unix<span>1</span></a></li>
 		
-			<li><a href="/tags/System-Call/">System Call<span>1</span></a></li>
+			<li><a href="/tags/Exercises/">Exercises<span>1</span></a></li>
 		
-			<li><a href="/tags/Build/">Build<span>1</span></a></li>
+			<li><a href="/tags/System-Call/">System Call<span>1</span></a></li>
 		
 			<li><a href="/tags/Register/">Register<span>1</span></a></li>
 		
+			<li><a href="/tags/Tools/">Tools<span>1</span></a></li>
+		
+			<li><a href="/tags/Regular-expressions/">Regular expressions<span>1</span></a></li>
+		
+			<li><a href="/tags/Overview/">Overview<span>1</span></a></li>
+		
+			<li><a href="/tags/Introduction/">Introduction<span>1</span></a></li>
+		
 			<li><a href="/tags/Ebook/">Ebook<span>1</span></a></li>
+		
+			<li><a href="/tags/OS/">OS<span>1</span></a></li>
+		
+			<li><a href="/tags/DNS/">DNS<span>1</span></a></li>
 		
 			<li><a href="/tags/VCS/">VCS<span>1</span></a></li>
 		
-			<li><a href="/tags/iBooks/">iBooks<span>1</span></a></li>
+			<li><a href="/tags/Debugging/">Debugging<span>1</span></a></li>
 		
-			<li><a href="/tags/Google-Play/">Google Play<span>1</span></a></li>
+			<li><a href="/tags/PDF/">PDF<span>1</span></a></li>
 		
 			<li><a href="/tags/Python/">Python<span>2</span></a></li>
 		
-			<li><a href="/tags/TCP-IP/">TCP/IP<span>1</span></a></li>
+			<li><a href="/tags/C/">C++<span>1</span></a></li>
 		
-			<li><a href="/tags/Debugging/">Debugging<span>1</span></a></li>
+			<li><a href="/tags/Why-we-wrote-EPI/">Why we wrote EPI<span>1</span></a></li>
+		
+			<li><a href="/tags/Kindle/">Kindle<span>1</span></a></li>
+		
+			<li><a href="/tags/Java/">Java<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>26</span></a></li>
