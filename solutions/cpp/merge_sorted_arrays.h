@@ -27,7 +27,7 @@ struct IteratorCurrentAndEnd {
 
 vector<int> MergeSortedArrays(const vector<vector<int>>& sorted_arrays) {
   priority_queue<IteratorCurrentAndEnd, vector<IteratorCurrentAndEnd>,
-                 greater<>>
+                 greater<IteratorCurrAndEnd> >
       min_heap;
 
   for (const vector<int>& sorted_array : sorted_arrays) {
