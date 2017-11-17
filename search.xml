@@ -4,6 +4,53 @@
   
     
     <entry>
+      <title><![CDATA[EPI Judge]]></title>
+      <url>http://elementsofprogramminginterviews.com/2017/11/14/2017-11-14-judge/</url>
+      <content type="html"><![CDATA[<p>Dear Readers,</p>
+<p>We’ve been working on a <strong>very exciting new feature</strong> - interactive feedback through the EPI Judge.</p>
+<p>EPI Judge consists of the following:</p>
+<ul>
+<li><strong>Stub programs</strong> for each problem in our book in Python, Java, and C++</li>
+<li><strong>Test-cases</strong> that cover common corner-case and performance bugs </li>
+<li>A <strong>framework</strong> for running these tests on your implementation on your machine</li>
+</ul>
+<p>The installation is super-simple - there’s no install! You just <strong>download the project, point your IDE/editor to it</strong>, and start the code-debug cycle, with instant feedback!</p>
+<p>The best interview preparation is a combination of hands-on practice over a representative set of problems with quality explanations. </p>
+<p>The best way to get this hands-on practice is by developing, running, and debugging programs in the <strong>environment you’re most comfortable with</strong>, i.e., your own computer and IDE/editor:</p>
+<ol>
+<li>It’s a very fast compile-debug cycle, </li>
+<li>you have complete control and visibility, both into the internal state and the test data, and </li>
+<li>you can use the features such as autocomplete, autoformat, linting, definiton lookups, etc.</li>
+</ol>
+<p>We’re looking for <strong>volunteers</strong> to help us shake out EPI Judge by trying out a few examples. Please fill out this <a href="https://goo.gl/forms/tvwMLPB9n2kPuecJ3" target="_blank" rel="external">Google form</a>, and we’ll be in touch!</p>
+<p>Basic system requirements: <strong>Python 3.6</strong> for Python developers, <strong>Java 1.8</strong> for Java developers, and <strong>C++17</strong> for C++ developers. (You will also need a copy of the book because the problem statements are not included in EPI Judge.) </p>
+<p>A big shout-out to <a href="https://github.com/metopa" target="_blank" rel="external">Viacheslav Kroilov</a>, for applying his exceptional software engineering skills to make EPI Judge a reality.</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[The onsite]]></title>
+      <url>http://elementsofprogramminginterviews.com/2017/05/26/2017-05-25-judge/</url>
+      <content type="html"><![CDATA[<p>Many people find interviews intimidating. One reason is the intrinsically challenging problems. However, the challenge goes beyond that - the offices and the work environment are often quite different from anything you’ve seen. </p>
+<p>As part of our goal to help readers succeed at interviews, we’ve compiled some pictures of what a typical campus looks like. The intention is to set you more at ease so that you can focus on the technical content.</p>
+<p>These pictures are from Facebook (right by Adnan’s office), but are fairly representative.</p>
+<p><strong>Come early</strong>, so you don’t have to struggle with finding the building, parking, etc. It’s fine to wait in the lobby for an hour, decompress with a copy of EPI!<br><img src="/img/IMG_4500.JPG"></p>
+<p>The <strong>lobby</strong> - this is where the recruiter will come to pick you up.<br><img src="/img/IMG_4501.JPG"></p>
+<p>The <strong>interview room</strong>. It’s a fixed room for the duration of the interview, though you may step out for lunch with a host. The interviewers/host/recruiter are supposed to ensure you stay on schedule, but there’s no harm in being proactive, e.g., not letting lunch run late.<br><img src="/img/IMG_4502.JPG"></p>
+<p>Here the entire wall is writable, but it’s more common to have a <strong>whiteboard</strong>.  Pro tip: consider taking your own markers, so that you can be sure they write well.<br><img src="/img/IMG_4503.JPG"></p>
+<p>Dining hall - <strong>free yummy food</strong>, but don’t overeat and get into a food coma, or lose focus.<br><img src="/img/IMG_4509.JPG"></p>
+<p>Nice <strong>campus</strong>, but it’s more important to focus on the interview. Do well and there will be plenty of time to appreciate these later.<br><img src="/img/IMG_4510.JPG"></p>
+<p>Microkitchens are common.<br><img src="/img/IMG_4504.JPG"></p>
+<p>Random office equipment.<br><img src="/img/IMG_4505.JPG"></p>
+<p>Bike storage.<br><img src="/img/IMG_4506.JPG"></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[The onsite]]></title>
       <url>http://elementsofprogramminginterviews.com/2017/05/26/2017-05-25/</url>
       <content type="html"><![CDATA[<p>Many people find interviews intimidating. One reason is the intrinsically challenging problems. However, the challenge goes beyond that - the offices and the work environment are often quite different from anything you’ve seen. </p>
@@ -260,34 +307,14 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
     </entry>
     
     <entry>
-      <title><![CDATA[General facts about Operating Systems]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-os/</url>
-      <content type="html"><![CDATA[<p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
-<ol><br><li> What is a system call?<br></li><li> How is a system call different from a library call?<br></li><li> What is a device driver?<br></li><li> What is livelock? What is deadlock? Give examples of each.<br></li><li> What is a race? What can you do to prevent races?<br></li><li> What is a mutex? What are semaphores? How are they implemented?<br></li><li> Give examples of system calls that are not related to input-output.<br></li><li> Give examples of library functions that call a system function all the time, none of the time, and some of the time.<br></li><li> What is the time lag between the system call on the client side and the receipt of the packet on the server on a LAN?<br></li><li> How fast can you write a gigabyte of data from RAM to disk?<br></li><li> How does TCP/IP work?<br></li><li> What is DNS?<br></li></ol>
+      <title><![CDATA[General Programming Questions]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-general-programming/</url>
+      <content type="html"><![CDATA[<p>Our book is focused on questions that entail writing programs. You may be asked<br>questions related to general programming practices, which are conceptual and/or<br>knowledge-based, and do not require writing a program. (The extent to which<br>you are asked such questions depends on the company, your experience, the job, etc.)</p>
+<p>Such questions tend to be narrow, and as such are not appropriate for our book.<br>We have begun the process of collecting representative questions, which you can see below. </p>
+<p><a href="!--￼0--">Languages</a>,<br><a href="!--￼1--">Debugging and Testing</a>,<br><a href="!--￼2--">Operating Systems</a>,<br><a href="!--￼3--">Tools</a>, </p>
+<p>We have also put together a small list of <a href="!--￼4--">warm up</a> exercises that are appropriate<br>for someone who is a little rusty.</p>
 ]]></content>
       
-        <categories>
-            
-            <category> OS </category>
-            
-            <category> General Programming </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> OS </tag>
-            
-            <tag> General Programming </tag>
-            
-            <tag> System Call </tag>
-            
-            <tag> TCP/IP </tag>
-            
-            <tag> DNS </tag>
-            
-        </tags>
         
     </entry>
     
@@ -368,14 +395,34 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
     </entry>
     
     <entry>
-      <title><![CDATA[General Programming Questions]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-general-programming/</url>
-      <content type="html"><![CDATA[<p>Our book is focused on questions that entail writing programs. You may be asked<br>questions related to general programming practices, which are conceptual and/or<br>knowledge-based, and do not require writing a program. (The extent to which<br>you are asked such questions depends on the company, your experience, the job, etc.)</p>
-<p>Such questions tend to be narrow, and as such are not appropriate for our book.<br>We have begun the process of collecting representative questions, which you can see below. </p>
-<p><a href="!--￼0--">Languages</a>,<br><a href="!--￼1--">Debugging and Testing</a>,<br><a href="!--￼2--">Operating Systems</a>,<br><a href="!--￼3--">Tools</a>, </p>
-<p>We have also put together a small list of <a href="!--￼4--">warm up</a> exercises that are appropriate<br>for someone who is a little rusty.</p>
+      <title><![CDATA[General facts about Operating Systems]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-os/</url>
+      <content type="html"><![CDATA[<p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
+<ol><br><li> What is a system call?<br></li><li> How is a system call different from a library call?<br></li><li> What is a device driver?<br></li><li> What is livelock? What is deadlock? Give examples of each.<br></li><li> What is a race? What can you do to prevent races?<br></li><li> What is a mutex? What are semaphores? How are they implemented?<br></li><li> Give examples of system calls that are not related to input-output.<br></li><li> Give examples of library functions that call a system function all the time, none of the time, and some of the time.<br></li><li> What is the time lag between the system call on the client side and the receipt of the packet on the server on a LAN?<br></li><li> How fast can you write a gigabyte of data from RAM to disk?<br></li><li> How does TCP/IP work?<br></li><li> What is DNS?<br></li></ol>
 ]]></content>
       
+        <categories>
+            
+            <category> OS </category>
+            
+            <category> General Programming </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> OS </tag>
+            
+            <tag> General Programming </tag>
+            
+            <tag> System Call </tag>
+            
+            <tag> TCP/IP </tag>
+            
+            <tag> DNS </tag>
+            
+        </tags>
         
     </entry>
     
