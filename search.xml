@@ -4,6 +4,34 @@
   
     
     <entry>
+      <title><![CDATA[EPI Judge]]></title>
+      <url>http://elementsofprogramminginterviews.com/2017/12/21/2017-12-21-judge-preview/</url>
+      <content type="html"><![CDATA[<p>The EPI Judge is ready! This screenshot should give you a good idea of what it’s about. </p>
+<p><img src="/img/judge-ide-example.png" width="650px"></p>
+<p>You can also view these one minute screencapture videos on YouTube to see how easy it is to get started with the judge:  <a href="https://youtu.be/ImD_iI-uGYo" target="_blank" rel="external">PyCharm</a>, <a href="https://youtu.be/1BzHUpluQHM" target="_blank" rel="external">IntelliJ</a>, <a href="https://youtu.be/aHPDApyyYEg" target="_blank" rel="external">CLion</a></p>
+<p>EPI Judge consists of the following:</p>
+<ul>
+<li><strong>Stub programs</strong> for each problem in our book in Python, Java, and C++</li>
+<li><strong>Test-cases</strong> that cover common corner-case and performance bugs </li>
+<li>A <strong>framework</strong> for running these tests on your implementation on your machine</li>
+</ul>
+<p>The installation is super-simple - there’s no install! You just <strong>download the project, point your IDE/editor to it</strong>, and start the code-debug cycle, with instant feedback!</p>
+<p>The best interview preparation is a combination of hands-on practice over a representative set of problems with quality explanations. </p>
+<p>The best way to get this hands-on practice is by developing, running, and debugging programs in the <strong>environment you’re most comfortable with</strong>, i.e., your own computer and IDE/editor:</p>
+<ol>
+<li>It’s a very fast compile-debug cycle, </li>
+<li>you have complete control and visibility, both into the internal state and the test data, </li>
+<li>you can use the features such as autocomplete, autoformat, linting, definiton lookups, etc., and</li>
+<li>you can choose to use version control, to track your own progress, as well as to pull updates.</li>
+</ol>
+<p>EPI Judge is available as a preview release. Please fill out this <a href="https://goo.gl/forms/tvwMLPB9n2kPuecJ3" target="_blank" rel="external">Google form</a>, and we’ll be in touch!</p>
+<p>A big shout-out to <a href="https://github.com/metopa" target="_blank" rel="external">Viacheslav Kroilov</a>, for applying his exceptional software engineering skills to make EPI Judge a reality.</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Buying EPI]]></title>
       <url>http://elementsofprogramminginterviews.com/2017/11/27/2017-11-27-buying-epi/</url>
       <content type="html"><![CDATA[<p>Please follow these instructions to make sure you get the most recent copy of EPI.</p>
@@ -348,24 +376,32 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
     </entry>
     
     <entry>
-      <title><![CDATA[Debugging and Testing]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-debugging-and-testing/</url>
-      <content type="html"><![CDATA[<p>Debugging and testing are topics which are not usually the focus of university teaching.<br>We highly recommend The Practice of Programming by Kernighan and<br>Pike, which teaches much more than just writing code. Specifically, it covers testing,<br>debugging, portability, performance, and design alternatives.</p>
-<ol><br><li> What was your last bug? What was your hardest bug?<br></li><li> How would you debug a distributed program?<br></li><li> A program works sometimes and fails other times - why?<br></li><li> A program works sometimes and fails other times on the exact same input - why?<br></li><li> How would you determine where a program spends most of its time?<br></li><li> How does JUnit make the process of testing easier?<br></li><li> List five ways in which C code can be non-portable. What can you do to make the code portable?<br></li><li> Write tests for implementation of an isupper() function.<br></li><li> Should you test private methods? Should you test one line methods?<br></li><li> If you find and fix an error by adding debug code, should you remove the debug code afterwards? Should you leave them in with a conditional compilation flag or with a run time flag?<br></li><li> What is a buffer overflow and how can hackers exploit it?<br></li><li> How can you use Valgrind to solve segfault problems?<br></li><li> How does Valgrind catch access uninitialized memory?<br></li></ol>
+      <title><![CDATA[General facts about Operating Systems]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-os/</url>
+      <content type="html"><![CDATA[<p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
+<ol><br><li> What is a system call?<br></li><li> How is a system call different from a library call?<br></li><li> What is a device driver?<br></li><li> What is livelock? What is deadlock? Give examples of each.<br></li><li> What is a race? What can you do to prevent races?<br></li><li> What is a mutex? What are semaphores? How are they implemented?<br></li><li> Give examples of system calls that are not related to input-output.<br></li><li> Give examples of library functions that call a system function all the time, none of the time, and some of the time.<br></li><li> What is the time lag between the system call on the client side and the receipt of the packet on the server on a LAN?<br></li><li> How fast can you write a gigabyte of data from RAM to disk?<br></li><li> How does TCP/IP work?<br></li><li> What is DNS?<br></li></ol>
 ]]></content>
       
         <categories>
             
-            <category> Programming Practice </category>
+            <category> OS </category>
+            
+            <category> General Programming </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> Debugging </tag>
+            <tag> OS </tag>
             
-            <tag> Testing </tag>
+            <tag> General Programming </tag>
+            
+            <tag> System Call </tag>
+            
+            <tag> TCP/IP </tag>
+            
+            <tag> DNS </tag>
             
         </tags>
         
@@ -412,32 +448,24 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
     </entry>
     
     <entry>
-      <title><![CDATA[General facts about Operating Systems]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-os/</url>
-      <content type="html"><![CDATA[<p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
-<ol><br><li> What is a system call?<br></li><li> How is a system call different from a library call?<br></li><li> What is a device driver?<br></li><li> What is livelock? What is deadlock? Give examples of each.<br></li><li> What is a race? What can you do to prevent races?<br></li><li> What is a mutex? What are semaphores? How are they implemented?<br></li><li> Give examples of system calls that are not related to input-output.<br></li><li> Give examples of library functions that call a system function all the time, none of the time, and some of the time.<br></li><li> What is the time lag between the system call on the client side and the receipt of the packet on the server on a LAN?<br></li><li> How fast can you write a gigabyte of data from RAM to disk?<br></li><li> How does TCP/IP work?<br></li><li> What is DNS?<br></li></ol>
+      <title><![CDATA[Debugging and Testing]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-debugging-and-testing/</url>
+      <content type="html"><![CDATA[<p>Debugging and testing are topics which are not usually the focus of university teaching.<br>We highly recommend The Practice of Programming by Kernighan and<br>Pike, which teaches much more than just writing code. Specifically, it covers testing,<br>debugging, portability, performance, and design alternatives.</p>
+<ol><br><li> What was your last bug? What was your hardest bug?<br></li><li> How would you debug a distributed program?<br></li><li> A program works sometimes and fails other times - why?<br></li><li> A program works sometimes and fails other times on the exact same input - why?<br></li><li> How would you determine where a program spends most of its time?<br></li><li> How does JUnit make the process of testing easier?<br></li><li> List five ways in which C code can be non-portable. What can you do to make the code portable?<br></li><li> Write tests for implementation of an isupper() function.<br></li><li> Should you test private methods? Should you test one line methods?<br></li><li> If you find and fix an error by adding debug code, should you remove the debug code afterwards? Should you leave them in with a conditional compilation flag or with a run time flag?<br></li><li> What is a buffer overflow and how can hackers exploit it?<br></li><li> How can you use Valgrind to solve segfault problems?<br></li><li> How does Valgrind catch access uninitialized memory?<br></li></ol>
 ]]></content>
       
         <categories>
             
-            <category> OS </category>
-            
-            <category> General Programming </category>
+            <category> Programming Practice </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> OS </tag>
+            <tag> Debugging </tag>
             
-            <tag> General Programming </tag>
-            
-            <tag> System Call </tag>
-            
-            <tag> TCP/IP </tag>
-            
-            <tag> DNS </tag>
+            <tag> Testing </tag>
             
         </tags>
         
