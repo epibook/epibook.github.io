@@ -8,7 +8,8 @@
       <url>http://elementsofprogramminginterviews.com/2017/12/21/2017-12-21-judge-preview/</url>
       <content type="html"><![CDATA[<p>The EPI Judge is ready! This screenshot should give you a good idea of what it’s about. </p>
 <p><img src="/img/judge-ide-example.png" width="650px"></p>
-<p>You can also view these one minute screencapture videos on YouTube to see how easy it is to get started with the judge:  <a href="https://youtu.be/ImD_iI-uGYo" target="_blank" rel="external">PyCharm</a>, <a href="https://youtu.be/1BzHUpluQHM" target="_blank" rel="external">IntelliJ</a>, <a href="https://youtu.be/aHPDApyyYEg" target="_blank" rel="external">CLion</a></p>
+<p>Check out these one minute videos to see how easy it is:  <a href="https://youtu.be/ImD_iI-uGYo" target="_blank" rel="external">PyCharm</a>, <a href="https://youtu.be/1BzHUpluQHM" target="_blank" rel="external">IntelliJ</a>, <a href="https://youtu.be/aHPDApyyYEg" target="_blank" rel="external">CLion</a></p>
+<p>Please fill out this <a href="https://goo.gl/forms/tvwMLPB9n2kPuecJ3" target="_blank" rel="external">Google form</a>, and we’ll send you a link to the GitHub project.</p>
 <p>EPI Judge consists of the following:</p>
 <ul>
 <li><strong>Stub programs</strong> for each problem in our book in Python, Java, and C++</li>
@@ -24,7 +25,6 @@
 <li>you can use the features such as autocomplete, autoformat, linting, definiton lookups, etc., and</li>
 <li>you can choose to use version control, to track your own progress, as well as to pull updates.</li>
 </ol>
-<p>EPI Judge is available as a preview release. Please fill out this <a href="https://goo.gl/forms/tvwMLPB9n2kPuecJ3" target="_blank" rel="external">Google form</a>, and we’ll be in touch!</p>
 <p>A big shout-out to <a href="https://github.com/metopa" target="_blank" rel="external">Viacheslav Kroilov</a>, for applying his exceptional software engineering skills to make EPI Judge a reality.</p>
 ]]></content>
       
@@ -39,33 +39,6 @@
 <p>First, <strong>do not</strong> click on add-to-cart from the landing page (since the default seller is not always Amazon). Instead click on the text highlighed in the figure below.<br><img src="/img/first_landing_page.png" width="600px"></p>
 <p></p><p><br>Next, find Amazon in the list of sellers, as in the example below. (Note how Amazon is not at the top of the list!)<br><img src="/img/second_landing_page.png" width="600px"></p>
 <p></p><p><br>Now add EPI to your cart, and you are good to checkout!</p>
-]]></content>
-      
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[EPI Judge]]></title>
-      <url>http://elementsofprogramminginterviews.com/2017/11/14/2017-11-14-judge/</url>
-      <content type="html"><![CDATA[<p>Dear Readers,</p>
-<p>We’ve been working on a <strong>very exciting new feature</strong> - interactive feedback through the EPI Judge.</p>
-<p>EPI Judge consists of the following:</p>
-<ul>
-<li><strong>Stub programs</strong> for each problem in our book in Python, Java, and C++</li>
-<li><strong>Test-cases</strong> that cover common corner-case and performance bugs </li>
-<li>A <strong>framework</strong> for running these tests on your implementation on your machine</li>
-</ul>
-<p>The installation is super-simple - there’s no install! You just <strong>download the project, point your IDE/editor to it</strong>, and start the code-debug cycle, with instant feedback!</p>
-<p>The best interview preparation is a combination of hands-on practice over a representative set of problems with quality explanations. </p>
-<p>The best way to get this hands-on practice is by developing, running, and debugging programs in the <strong>environment you’re most comfortable with</strong>, i.e., your own computer and IDE/editor:</p>
-<ol>
-<li>It’s a very fast compile-debug cycle, </li>
-<li>you have complete control and visibility, both into the internal state and the test data, and </li>
-<li>you can use the features such as autocomplete, autoformat, linting, definiton lookups, etc.</li>
-</ol>
-<p>We’re looking for <strong>volunteers</strong> to help us shake out EPI Judge by trying out a few examples. Please fill out this <a href="https://goo.gl/forms/tvwMLPB9n2kPuecJ3" target="_blank" rel="external">Google form</a>, and we’ll be in touch!</p>
-<p>Basic system requirements: <strong>Python 3.6</strong> for Python developers, <strong>Java 1.8</strong> for Java developers, and <strong>C++17</strong> for C++ developers. (You will also need a copy of the book because the problem statements are not included in EPI Judge.) </p>
-<p>A big shout-out to <a href="https://github.com/metopa" target="_blank" rel="external">Viacheslav Kroilov</a>, for applying his exceptional software engineering skills to make EPI Judge a reality.</p>
 ]]></content>
       
         
@@ -328,54 +301,6 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
     </entry>
     
     <entry>
-      <title><![CDATA[General Programming Questions]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-general-programming/</url>
-      <content type="html"><![CDATA[<p>Our book is focused on questions that entail writing programs. You may be asked<br>questions related to general programming practices, which are conceptual and/or<br>knowledge-based, and do not require writing a program. (The extent to which<br>you are asked such questions depends on the company, your experience, the job, etc.)</p>
-<p>Such questions tend to be narrow, and as such are not appropriate for our book.<br>We have begun the process of collecting representative questions, which you can see below. </p>
-<p><a href="!--￼0--">Languages</a>,<br><a href="!--￼1--">Debugging and Testing</a>,<br><a href="!--￼2--">Operating Systems</a>,<br><a href="!--￼3--">Tools</a>, </p>
-<p>We have also put together a small list of <a href="!--￼4--">warm up</a> exercises that are appropriate<br>for someone who is a little rusty.</p>
-]]></content>
-      
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[General facts about C, C++, Java, Python]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-programming-languages/</url>
-      <content type="html"><![CDATA[<h3>Core language</h3>
-
-<ol><br><li> What are the types in C, Java, C++, and Perl?  How many bits does it take<br>to represent the basic types?<br></li><li> What do floating point numbers look like in<br>memory? Specifically, how many bits are there in a double and<br>what sequence to the bits appear in?<br></li><li> What is twos-complement notation?<br></li><li> How would you implement a bit array class?<br></li><li> Does the check x == x + 1 always return false for integer x?<br></li><li> What does a C struct look like in memory?  What does a C++<br>object look like in memory? What does a Java object look like in<br>memory?<br></li><li> What is the difference between an interpreted and a compiled language?<br></li><li> What is garbage collection?<br></li><li> How would you determine if call stack grows up or down relative<br>to memory addresses?<br></li><li> Give an example of a memory leak in Java.<br></li><li> What is tail recursion? How can it be removed automatically?<br></li><li> Is the natural recursive program for computing <i>n!</i> tail recursive?<br></li><li> Your manager reads an online article that says it is 10X faster to code in Python than in C++. He wants you to code exclusively in Python from now on. What would you say to him?<br></li><li> What does an executable look like as a sequence of bytes?<br></li></ol>
-
-<h3>Libraries</h3>
-
-<p>A programmer who regularly implements complex algorithms such as KMP<br>string matching or the Dijkstra shortest path computation quickly<br>will not advance very far. Solutions to such problems are well-known and have<br>high quality, thoroughly tested, and debugged implementations, often<br>available as open source. Programmers should know and use these libraries.</p>
-<ol><br><li>Give an example of a function which is in the C standard library.<br></li><li>Give an example of a commonly used function which is not in the C standard library.<br></li><li>What library would you use to determine the current date in Java?<br></li><li>What library would you use in Java if you had to implement a tinyurl service?<br></li><li>How does STL implement sets?<br></li><li>How does the library code compute trigonometric functions?<br></li><li>The strtok(char <em>s1, char </em>s2) function in the C standard library successively returns occurrences of the characters in s2 in string s1; it returns null if there are no more occurrences.<br></li><li>What makes this a dangerous function to use in a multithreaded program?<br></li></ol>
-
-<h3>Programming language implementation</h3>
-
-<ol><br><li> Give an example of a language which cannot be parsed by any computer.<br></li><li> What problems does dynamic linkage solve? What problems does it introduce?<br></li><li> What is a functional language?<br></li><li> What is a virtual function?<br></li><li> How is method dispatch implemented in Java?<br></li><li> What is automatic garbage collection and how is it implemented?<br></li><li> What is a type-safe language?<br></li><li> What is the difference between a lexer and a parser?<br></li><li> Give an example of a language which cannot be recognized by a lexer.<br></li><li> Give an example of a language which cannot be parsed by a parser.<br></li></ol>
-]]></content>
-      
-        <categories>
-            
-            <category> General Programming </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Python </tag>
-            
-            <tag> C++ </tag>
-            
-            <tag> Java </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[General facts about Operating Systems]]></title>
       <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-os/</url>
       <content type="html"><![CDATA[<p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
@@ -404,6 +329,18 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
             <tag> DNS </tag>
             
         </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[General Programming Questions]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-general-programming/</url>
+      <content type="html"><![CDATA[<p>Our book is focused on questions that entail writing programs. You may be asked<br>questions related to general programming practices, which are conceptual and/or<br>knowledge-based, and do not require writing a program. (The extent to which<br>you are asked such questions depends on the company, your experience, the job, etc.)</p>
+<p>Such questions tend to be narrow, and as such are not appropriate for our book.<br>We have begun the process of collecting representative questions, which you can see below. </p>
+<p><a href="!--￼0--">Languages</a>,<br><a href="!--￼1--">Debugging and Testing</a>,<br><a href="!--￼2--">Operating Systems</a>,<br><a href="!--￼3--">Tools</a>, </p>
+<p>We have also put together a small list of <a href="!--￼4--">warm up</a> exercises that are appropriate<br>for someone who is a little rusty.</p>
+]]></content>
+      
         
     </entry>
     
@@ -442,6 +379,42 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
             <tag> Regular expressions </tag>
             
             <tag> Unix </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[General facts about C, C++, Java, Python]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-programming-languages/</url>
+      <content type="html"><![CDATA[<h3>Core language</h3>
+
+<ol><br><li> What are the types in C, Java, C++, and Perl?  How many bits does it take<br>to represent the basic types?<br></li><li> What do floating point numbers look like in<br>memory? Specifically, how many bits are there in a double and<br>what sequence to the bits appear in?<br></li><li> What is twos-complement notation?<br></li><li> How would you implement a bit array class?<br></li><li> Does the check x == x + 1 always return false for integer x?<br></li><li> What does a C struct look like in memory?  What does a C++<br>object look like in memory? What does a Java object look like in<br>memory?<br></li><li> What is the difference between an interpreted and a compiled language?<br></li><li> What is garbage collection?<br></li><li> How would you determine if call stack grows up or down relative<br>to memory addresses?<br></li><li> Give an example of a memory leak in Java.<br></li><li> What is tail recursion? How can it be removed automatically?<br></li><li> Is the natural recursive program for computing <i>n!</i> tail recursive?<br></li><li> Your manager reads an online article that says it is 10X faster to code in Python than in C++. He wants you to code exclusively in Python from now on. What would you say to him?<br></li><li> What does an executable look like as a sequence of bytes?<br></li></ol>
+
+<h3>Libraries</h3>
+
+<p>A programmer who regularly implements complex algorithms such as KMP<br>string matching or the Dijkstra shortest path computation quickly<br>will not advance very far. Solutions to such problems are well-known and have<br>high quality, thoroughly tested, and debugged implementations, often<br>available as open source. Programmers should know and use these libraries.</p>
+<ol><br><li>Give an example of a function which is in the C standard library.<br></li><li>Give an example of a commonly used function which is not in the C standard library.<br></li><li>What library would you use to determine the current date in Java?<br></li><li>What library would you use in Java if you had to implement a tinyurl service?<br></li><li>How does STL implement sets?<br></li><li>How does the library code compute trigonometric functions?<br></li><li>The strtok(char <em>s1, char </em>s2) function in the C standard library successively returns occurrences of the characters in s2 in string s1; it returns null if there are no more occurrences.<br></li><li>What makes this a dangerous function to use in a multithreaded program?<br></li></ol>
+
+<h3>Programming language implementation</h3>
+
+<ol><br><li> Give an example of a language which cannot be parsed by any computer.<br></li><li> What problems does dynamic linkage solve? What problems does it introduce?<br></li><li> What is a functional language?<br></li><li> What is a virtual function?<br></li><li> How is method dispatch implemented in Java?<br></li><li> What is automatic garbage collection and how is it implemented?<br></li><li> What is a type-safe language?<br></li><li> What is the difference between a lexer and a parser?<br></li><li> Give an example of a language which cannot be recognized by a lexer.<br></li><li> Give an example of a language which cannot be parsed by a parser.<br></li></ol>
+]]></content>
+      
+        <categories>
+            
+            <category> General Programming </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> C++ </tag>
+            
+            <tag> Java </tag>
             
         </tags>
         
