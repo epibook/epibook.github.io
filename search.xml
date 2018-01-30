@@ -301,14 +301,26 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
     </entry>
     
     <entry>
-      <title><![CDATA[General Programming Questions]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-general-programming/</url>
-      <content type="html"><![CDATA[<p>Our book is focused on questions that entail writing programs. You may be asked<br>questions related to general programming practices, which are conceptual and/or<br>knowledge-based, and do not require writing a program. (The extent to which<br>you are asked such questions depends on the company, your experience, the job, etc.)</p>
-<p>Such questions tend to be narrow, and as such are not appropriate for our book.<br>We have begun the process of collecting representative questions, which you can see below. </p>
-<p><a href="!--￼0--">Languages</a>,<br><a href="!--￼1--">Debugging and Testing</a>,<br><a href="!--￼2--">Operating Systems</a>,<br><a href="!--￼3--">Tools</a>, </p>
-<p>We have also put together a small list of <a href="!--￼4--">warm up</a> exercises that are appropriate<br>for someone who is a little rusty.</p>
+      <title><![CDATA[Debugging and Testing]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-debugging-and-testing/</url>
+      <content type="html"><![CDATA[<p>Debugging and testing are topics which are not usually the focus of university teaching.<br>We highly recommend The Practice of Programming by Kernighan and<br>Pike, which teaches much more than just writing code. Specifically, it covers testing,<br>debugging, portability, performance, and design alternatives.</p>
+<ol><br><li> What was your last bug? What was your hardest bug?<br></li><li> How would you debug a distributed program?<br></li><li> A program works sometimes and fails other times - why?<br></li><li> A program works sometimes and fails other times on the exact same input - why?<br></li><li> How would you determine where a program spends most of its time?<br></li><li> How does JUnit make the process of testing easier?<br></li><li> List five ways in which C code can be non-portable. What can you do to make the code portable?<br></li><li> Write tests for implementation of an isupper() function.<br></li><li> Should you test private methods? Should you test one line methods?<br></li><li> If you find and fix an error by adding debug code, should you remove the debug code afterwards? Should you leave them in with a conditional compilation flag or with a run time flag?<br></li><li> What is a buffer overflow and how can hackers exploit it?<br></li><li> How can you use Valgrind to solve segfault problems?<br></li><li> How does Valgrind catch access uninitialized memory?<br></li></ol>
 ]]></content>
       
+        <categories>
+            
+            <category> Programming Practice </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Debugging </tag>
+            
+            <tag> Testing </tag>
+            
+        </tags>
         
     </entry>
     
@@ -353,6 +365,38 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
     </entry>
     
     <entry>
+      <title><![CDATA[General facts about Operating Systems]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-os/</url>
+      <content type="html"><![CDATA[<p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
+<ol><br><li> What is a system call?<br></li><li> How is a system call different from a library call?<br></li><li> What is a device driver?<br></li><li> What is livelock? What is deadlock? Give examples of each.<br></li><li> What is a race? What can you do to prevent races?<br></li><li> What is a mutex? What are semaphores? How are they implemented?<br></li><li> Give examples of system calls that are not related to input-output.<br></li><li> Give examples of library functions that call a system function all the time, none of the time, and some of the time.<br></li><li> What is the time lag between the system call on the client side and the receipt of the packet on the server on a LAN?<br></li><li> How fast can you write a gigabyte of data from RAM to disk?<br></li><li> How does TCP/IP work?<br></li><li> What is DNS?<br></li></ol>
+]]></content>
+      
+        <categories>
+            
+            <category> OS </category>
+            
+            <category> General Programming </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> OS </tag>
+            
+            <tag> General Programming </tag>
+            
+            <tag> System Call </tag>
+            
+            <tag> TCP/IP </tag>
+            
+            <tag> DNS </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[General facts about C, C++, Java, Python]]></title>
       <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-programming-languages/</url>
       <content type="html"><![CDATA[<h3>Core language</h3>
@@ -389,58 +433,14 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
     </entry>
     
     <entry>
-      <title><![CDATA[General facts about Operating Systems]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-os/</url>
-      <content type="html"><![CDATA[<p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
-<ol><br><li> What is a system call?<br></li><li> How is a system call different from a library call?<br></li><li> What is a device driver?<br></li><li> What is livelock? What is deadlock? Give examples of each.<br></li><li> What is a race? What can you do to prevent races?<br></li><li> What is a mutex? What are semaphores? How are they implemented?<br></li><li> Give examples of system calls that are not related to input-output.<br></li><li> Give examples of library functions that call a system function all the time, none of the time, and some of the time.<br></li><li> What is the time lag between the system call on the client side and the receipt of the packet on the server on a LAN?<br></li><li> How fast can you write a gigabyte of data from RAM to disk?<br></li><li> How does TCP/IP work?<br></li><li> What is DNS?<br></li></ol>
+      <title><![CDATA[General Programming Questions]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-general-programming/</url>
+      <content type="html"><![CDATA[<p>Our book is focused on questions that entail writing programs. You may be asked<br>questions related to general programming practices, which are conceptual and/or<br>knowledge-based, and do not require writing a program. (The extent to which<br>you are asked such questions depends on the company, your experience, the job, etc.)</p>
+<p>Such questions tend to be narrow, and as such are not appropriate for our book.<br>We have begun the process of collecting representative questions, which you can see below. </p>
+<p><a href="!--￼0--">Languages</a>,<br><a href="!--￼1--">Debugging and Testing</a>,<br><a href="!--￼2--">Operating Systems</a>,<br><a href="!--￼3--">Tools</a>, </p>
+<p>We have also put together a small list of <a href="!--￼4--">warm up</a> exercises that are appropriate<br>for someone who is a little rusty.</p>
 ]]></content>
       
-        <categories>
-            
-            <category> OS </category>
-            
-            <category> General Programming </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> OS </tag>
-            
-            <tag> General Programming </tag>
-            
-            <tag> System Call </tag>
-            
-            <tag> TCP/IP </tag>
-            
-            <tag> DNS </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Debugging and Testing]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-debugging-and-testing/</url>
-      <content type="html"><![CDATA[<p>Debugging and testing are topics which are not usually the focus of university teaching.<br>We highly recommend The Practice of Programming by Kernighan and<br>Pike, which teaches much more than just writing code. Specifically, it covers testing,<br>debugging, portability, performance, and design alternatives.</p>
-<ol><br><li> What was your last bug? What was your hardest bug?<br></li><li> How would you debug a distributed program?<br></li><li> A program works sometimes and fails other times - why?<br></li><li> A program works sometimes and fails other times on the exact same input - why?<br></li><li> How would you determine where a program spends most of its time?<br></li><li> How does JUnit make the process of testing easier?<br></li><li> List five ways in which C code can be non-portable. What can you do to make the code portable?<br></li><li> Write tests for implementation of an isupper() function.<br></li><li> Should you test private methods? Should you test one line methods?<br></li><li> If you find and fix an error by adding debug code, should you remove the debug code afterwards? Should you leave them in with a conditional compilation flag or with a run time flag?<br></li><li> What is a buffer overflow and how can hackers exploit it?<br></li><li> How can you use Valgrind to solve segfault problems?<br></li><li> How does Valgrind catch access uninitialized memory?<br></li></ol>
-]]></content>
-      
-        <categories>
-            
-            <category> Programming Practice </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Debugging </tag>
-            
-            <tag> Testing </tag>
-            
-        </tags>
         
     </entry>
     
