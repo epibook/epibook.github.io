@@ -6,7 +6,7 @@
     <entry>
       <title><![CDATA[EPI Judge Beta]]></title>
       <url>http://elementsofprogramminginterviews.com/2018/01/30/2018-01-30-judge-beta/</url>
-      <content type="html"><![CDATA[<p>The EPI Judge is now in beta as a free public github project - get the link to the project at the end of this <a href="bit.ly/EPIJudgeSignup">form</a>.</p>
+      <content type="html"><![CDATA[<p>The EPI Judge is now in beta as a free public github project - get the link to the project at the end of this <a href="https://bit.ly/EPIJudgeSignup" target="_blank" rel="external">form</a>.</p>
 <p>This screenshot should give you a good idea of what it’s about. </p>
 <p><img src="/img/judge-ide-example.png" width="650px"></p>
 <p>EPI Judge consists of the following:</p>
@@ -300,6 +300,18 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
     </entry>
     
     <entry>
+      <title><![CDATA[General Programming Questions]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-general-programming/</url>
+      <content type="html"><![CDATA[<p>Our book is focused on questions that entail writing programs. You may be asked<br>questions related to general programming practices, which are conceptual and/or<br>knowledge-based, and do not require writing a program. (The extent to which<br>you are asked such questions depends on the company, your experience, the job, etc.)</p>
+<p>Such questions tend to be narrow, and as such are not appropriate for our book.<br>We have begun the process of collecting representative questions, which you can see below. </p>
+<p><a href="!--￼0--">Languages</a>,<br><a href="!--￼1--">Debugging and Testing</a>,<br><a href="!--￼2--">Operating Systems</a>,<br><a href="!--￼3--">Tools</a>, </p>
+<p>We have also put together a small list of <a href="!--￼4--">warm up</a> exercises that are appropriate<br>for someone who is a little rusty.</p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Tools]]></title>
       <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-tools/</url>
       <content type="html"><![CDATA[<h3>Building and maintaining programs</h3>
@@ -404,18 +416,6 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
             <tag> DNS </tag>
             
         </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[General Programming Questions]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-general-programming/</url>
-      <content type="html"><![CDATA[<p>Our book is focused on questions that entail writing programs. You may be asked<br>questions related to general programming practices, which are conceptual and/or<br>knowledge-based, and do not require writing a program. (The extent to which<br>you are asked such questions depends on the company, your experience, the job, etc.)</p>
-<p>Such questions tend to be narrow, and as such are not appropriate for our book.<br>We have begun the process of collecting representative questions, which you can see below. </p>
-<p><a href="!--￼0--">Languages</a>,<br><a href="!--￼1--">Debugging and Testing</a>,<br><a href="!--￼2--">Operating Systems</a>,<br><a href="!--￼3--">Tools</a>, </p>
-<p>We have also put together a small list of <a href="!--￼4--">warm up</a> exercises that are appropriate<br>for someone who is a little rusty.</p>
-]]></content>
-      
         
     </entry>
     
