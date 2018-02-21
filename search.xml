@@ -6,16 +6,14 @@
     <entry>
       <title><![CDATA[EPI Judge Beta]]></title>
       <url>http://elementsofprogramminginterviews.com/2018/01/30/2018-01-30-judge-beta/</url>
-      <content type="html"><![CDATA[<p>The EPI Judge is now in beta as a free public github project - get the link to the project at the end of this <a href="https://bit.ly/EPIJudgeSignup" target="_blank" rel="external">form</a>.</p>
-<p>This screenshot should give you a good idea of what it’s about. </p>
-<p><img src="/img/judge-ide-example.png" width="650px"></p>
+      <content type="html"><![CDATA[<p>The EPI Judge is now available at <a href="https://github.com/adnanaziz/EPIJudge" target="_blank" rel="external">GitHub</a>!</p>
+<p>The installation is super-simple - there’s no install! You just <strong>download the project, point your IDE/editor to it</strong>, and start the code-debug cycle, with instant feedback!</p>
 <p>EPI Judge consists of the following:</p>
 <ul>
 <li><strong>Stub programs</strong> for each problem in our book in Python, Java, and C++</li>
 <li><strong>Test-cases</strong> that cover common corner-case and performance bugs </li>
 <li>A <strong>framework</strong> for running these tests on your implementation on your machine</li>
 </ul>
-<p>The installation is super-simple - there’s no install! You just <strong>download the project, point your IDE/editor to it</strong>, and start the code-debug cycle, with instant feedback!</p>
 <p>The best interview preparation is a combination of hands-on practice over a representative set of problems with quality explanations. </p>
 <p>The best way to get this hands-on practice is by developing, running, and debugging programs in the <strong>environment you’re most comfortable with</strong>, i.e., your own computer and IDE/editor:</p>
 <ol>
@@ -24,6 +22,8 @@
 <li>you can use the features such as autocomplete, autoformat, linting, definiton lookups, etc., and</li>
 <li>you can choose to use version control, to track your own progress, as well as to pull updates.</li>
 </ol>
+<p>This screenshot should give you a good idea of what it’s about. </p>
+<p><img src="/img/judge-ide-example.png" width="650px"></p>
 <p>A big shout-out to <a href="https://github.com/metopa" target="_blank" rel="external">Viacheslav Kroilov</a>, for applying his exceptional software engineering skills to make EPI Judge a reality.</p>
 ]]></content>
       
@@ -300,6 +300,30 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
     </entry>
     
     <entry>
+      <title><![CDATA[Debugging and Testing]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-debugging-and-testing/</url>
+      <content type="html"><![CDATA[<p>Debugging and testing are topics which are not usually the focus of university teaching.<br>We highly recommend The Practice of Programming by Kernighan and<br>Pike, which teaches much more than just writing code. Specifically, it covers testing,<br>debugging, portability, performance, and design alternatives.</p>
+<ol><br><li> What was your last bug? What was your hardest bug?<br></li><li> How would you debug a distributed program?<br></li><li> A program works sometimes and fails other times - why?<br></li><li> A program works sometimes and fails other times on the exact same input - why?<br></li><li> How would you determine where a program spends most of its time?<br></li><li> How does JUnit make the process of testing easier?<br></li><li> List five ways in which C code can be non-portable. What can you do to make the code portable?<br></li><li> Write tests for implementation of an isupper() function.<br></li><li> Should you test private methods? Should you test one line methods?<br></li><li> If you find and fix an error by adding debug code, should you remove the debug code afterwards? Should you leave them in with a conditional compilation flag or with a run time flag?<br></li><li> What is a buffer overflow and how can hackers exploit it?<br></li><li> How can you use Valgrind to solve segfault problems?<br></li><li> How does Valgrind catch access uninitialized memory?<br></li></ol>
+]]></content>
+      
+        <categories>
+            
+            <category> Programming Practice </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Debugging </tag>
+            
+            <tag> Testing </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[General Programming Questions]]></title>
       <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-general-programming/</url>
       <content type="html"><![CDATA[<p>Our book is focused on questions that entail writing programs. You may be asked<br>questions related to general programming practices, which are conceptual and/or<br>knowledge-based, and do not require writing a program. (The extent to which<br>you are asked such questions depends on the company, your experience, the job, etc.)</p>
@@ -308,46 +332,6 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
 <p>We have also put together a small list of <a href="!--￼4--">warm up</a> exercises that are appropriate<br>for someone who is a little rusty.</p>
 ]]></content>
       
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Tools]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-tools/</url>
-      <content type="html"><![CDATA[<h3>Building and maintaining programs</h3>
-
-<ol><br><li>  What version control system do you use?<br></li><li>  What coverage tool do you use?<br></li><li>  What build system do you use?<br></li><li>  What documentation system do you use?<br></li><li>  What bug tracking system do you use?<br></li><li>  How is branching implemented in a version control system?<br></li><li>  Are deltas in the branching for a revision tree stored out forwards<br>or backwards? What are the benefits of each approach?<br></li><li>  What are the advantages and disadvantages of a version control system that locks files?<br></li></ol>
-
-<h3>The Shell</h3>
-
-<p>There are scores, if not hundreds of books on the UNIX shell and related tools.<br>We have enjoyed LINUX 101 Hacks by Natarajan. It introduces<br>these tools through useful hacks, such as the use of find<br>to find all files that have not been modified in the past 100 days<br>and are larger than 100~megabytes in size, sorting the password file on the third field, etc.</p>
-<ol><br><li>  Write a regular expression for identifying social security numbers in a file.<br></li><li>  Write a command that prints out lines in a text file which contain the<br>strings foo and bar in any order.<br></li><li>  Write a command which replaces every occurrence of a foo followed by a bar (with<br>possibly some other characters in between) by widget.<br></li><li>  Given a text file with two columns of integers, i.e., two integers encoded in ASCII per line, write a filter which sorts lines in the file by the second integer.<br></li><li>  How would you take two documents in PDF and create a new document which consists of the pages of the two original documents interleaved in order?<br></li><li>  How would you write a program which checks every hour if a network connection is up?<br></li><li>  How would you write a program which checks the price of a Nikon D5300 DLSR each day on amazon.com?<br></li></ol>
-]]></content>
-      
-        <categories>
-            
-            <category> General Programming </category>
-            
-            <category> Tools </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Tools </tag>
-            
-            <tag> VCS </tag>
-            
-            <tag> Build </tag>
-            
-            <tag> Unit testing </tag>
-            
-            <tag> Regular expressions </tag>
-            
-            <tag> Unix </tag>
-            
-        </tags>
         
     </entry>
     
@@ -377,9 +361,9 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
         
         <tags>
             
-            <tag> Python </tag>
-            
             <tag> C++ </tag>
+            
+            <tag> Python </tag>
             
             <tag> Java </tag>
             
@@ -420,24 +404,40 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
     </entry>
     
     <entry>
-      <title><![CDATA[Debugging and Testing]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-debugging-and-testing/</url>
-      <content type="html"><![CDATA[<p>Debugging and testing are topics which are not usually the focus of university teaching.<br>We highly recommend The Practice of Programming by Kernighan and<br>Pike, which teaches much more than just writing code. Specifically, it covers testing,<br>debugging, portability, performance, and design alternatives.</p>
-<ol><br><li> What was your last bug? What was your hardest bug?<br></li><li> How would you debug a distributed program?<br></li><li> A program works sometimes and fails other times - why?<br></li><li> A program works sometimes and fails other times on the exact same input - why?<br></li><li> How would you determine where a program spends most of its time?<br></li><li> How does JUnit make the process of testing easier?<br></li><li> List five ways in which C code can be non-portable. What can you do to make the code portable?<br></li><li> Write tests for implementation of an isupper() function.<br></li><li> Should you test private methods? Should you test one line methods?<br></li><li> If you find and fix an error by adding debug code, should you remove the debug code afterwards? Should you leave them in with a conditional compilation flag or with a run time flag?<br></li><li> What is a buffer overflow and how can hackers exploit it?<br></li><li> How can you use Valgrind to solve segfault problems?<br></li><li> How does Valgrind catch access uninitialized memory?<br></li></ol>
+      <title><![CDATA[Tools]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-tools/</url>
+      <content type="html"><![CDATA[<h3>Building and maintaining programs</h3>
+
+<ol><br><li>  What version control system do you use?<br></li><li>  What coverage tool do you use?<br></li><li>  What build system do you use?<br></li><li>  What documentation system do you use?<br></li><li>  What bug tracking system do you use?<br></li><li>  How is branching implemented in a version control system?<br></li><li>  Are deltas in the branching for a revision tree stored out forwards<br>or backwards? What are the benefits of each approach?<br></li><li>  What are the advantages and disadvantages of a version control system that locks files?<br></li></ol>
+
+<h3>The Shell</h3>
+
+<p>There are scores, if not hundreds of books on the UNIX shell and related tools.<br>We have enjoyed LINUX 101 Hacks by Natarajan. It introduces<br>these tools through useful hacks, such as the use of find<br>to find all files that have not been modified in the past 100 days<br>and are larger than 100~megabytes in size, sorting the password file on the third field, etc.</p>
+<ol><br><li>  Write a regular expression for identifying social security numbers in a file.<br></li><li>  Write a command that prints out lines in a text file which contain the<br>strings foo and bar in any order.<br></li><li>  Write a command which replaces every occurrence of a foo followed by a bar (with<br>possibly some other characters in between) by widget.<br></li><li>  Given a text file with two columns of integers, i.e., two integers encoded in ASCII per line, write a filter which sorts lines in the file by the second integer.<br></li><li>  How would you take two documents in PDF and create a new document which consists of the pages of the two original documents interleaved in order?<br></li><li>  How would you write a program which checks every hour if a network connection is up?<br></li><li>  How would you write a program which checks the price of a Nikon D5300 DLSR each day on amazon.com?<br></li></ol>
 ]]></content>
       
         <categories>
             
-            <category> Programming Practice </category>
+            <category> General Programming </category>
+            
+            <category> Tools </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> Debugging </tag>
+            <tag> Tools </tag>
             
-            <tag> Testing </tag>
+            <tag> VCS </tag>
+            
+            <tag> Build </tag>
+            
+            <tag> Unit testing </tag>
+            
+            <tag> Regular expressions </tag>
+            
+            <tag> Unix </tag>
             
         </tags>
         
