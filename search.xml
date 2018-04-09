@@ -352,38 +352,6 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
     </entry>
     
     <entry>
-      <title><![CDATA[General facts about Operating Systems]]></title>
-      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-os/</url>
-      <content type="html"><![CDATA[<p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
-<ol><br><li> What is a system call?<br></li><li> How is a system call different from a library call?<br></li><li> What is a device driver?<br></li><li> What is livelock? What is deadlock? Give examples of each.<br></li><li> What is a race? What can you do to prevent races?<br></li><li> What is a mutex? What are semaphores? How are they implemented?<br></li><li> Give examples of system calls that are not related to input-output.<br></li><li> Give examples of library functions that call a system function all the time, none of the time, and some of the time.<br></li><li> What is the time lag between the system call on the client side and the receipt of the packet on the server on a LAN?<br></li><li> How fast can you write a gigabyte of data from RAM to disk?<br></li><li> How does TCP/IP work?<br></li><li> What is DNS?<br></li></ol>
-]]></content>
-      
-        <categories>
-            
-            <category> OS </category>
-            
-            <category> General Programming </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> OS </tag>
-            
-            <tag> General Programming </tag>
-            
-            <tag> System Call </tag>
-            
-            <tag> TCP/IP </tag>
-            
-            <tag> DNS </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[General facts about C, C++, Java, Python]]></title>
       <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-programming-languages/</url>
       <content type="html"><![CDATA[<h3>Core language</h3>
@@ -414,6 +382,38 @@ We made numerous calls to Amazon and Createspace (the publisher), but were never
             <tag> C++ </tag>
             
             <tag> Java </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[General facts about Operating Systems]]></title>
+      <url>http://elementsofprogramminginterviews.com/2015/03/31/2015-03-31-os/</url>
+      <content type="html"><![CDATA[<p><i>Modern Operating Systems</i> by Tanenbaum is widely used;<br>one of its claims to fame is that Linux was developed from the Minix<br>OS developed in an earlier version of this book.</p>
+<ol><br><li> What is a system call?<br></li><li> How is a system call different from a library call?<br></li><li> What is a device driver?<br></li><li> What is livelock? What is deadlock? Give examples of each.<br></li><li> What is a race? What can you do to prevent races?<br></li><li> What is a mutex? What are semaphores? How are they implemented?<br></li><li> Give examples of system calls that are not related to input-output.<br></li><li> Give examples of library functions that call a system function all the time, none of the time, and some of the time.<br></li><li> What is the time lag between the system call on the client side and the receipt of the packet on the server on a LAN?<br></li><li> How fast can you write a gigabyte of data from RAM to disk?<br></li><li> How does TCP/IP work?<br></li><li> What is DNS?<br></li></ol>
+]]></content>
+      
+        <categories>
+            
+            <category> OS </category>
+            
+            <category> General Programming </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> OS </tag>
+            
+            <tag> General Programming </tag>
+            
+            <tag> System Call </tag>
+            
+            <tag> TCP/IP </tag>
+            
+            <tag> DNS </tag>
             
         </tags>
         
